@@ -1,9 +1,10 @@
 #!/usr/bin/python3
 
-import sys
+import os, sys
 
 import config
 from myMod import checkUsr
+from myMod import checkDir
 from dataConfigMod import removeDataTree
 
 def uninstall():
@@ -11,17 +12,28 @@ def uninstall():
         print("not super user")
         sys.exit()
 
+    checkDir()
     cmd=input("uninstall? [y/] ")
     if cmd == "y":
         removeDataTree()
 
+        temp = ""
         with open(config.SH, "r", encoding="utf-8") as f:
             for line in f:
                 if config.PATH and "RLSBIN" not in line:
-                    config.temp += line.rstrip() + config.n
+                    temp += line.rstrip() + config.n
 
             with open(config.SH, "w", encoding="utf-8") as f:
-                f.write(config.temp[:-1])
+                f.write(temp[:-1])
+
+        temp = ""
+        with open(os.path.join(config.home_dir, ".bashrc"), "r", encoding="utf-8") as f:
+            for line in f:
+                if config.PATH and "RLSBIN" not in line:
+                    temp += line.rstrip() + config.n
+
+            with open(os.path.join(config.home_dir, ".bashrc"), "w", encoding="utf-8") as f:
+                f.write(temp[:-1])
 
         try:
             import shutil

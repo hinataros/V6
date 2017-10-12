@@ -14,7 +14,7 @@ def checkDir():
     config.misc_dir = os.path.dirname(os.path.abspath(__file__))
     config.src_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     config.yaml_dir = os.path.join(config.src_dir, "yaml")
-
+    config.home_dir = os.environ['HOME']
 if __name__ == "__main__":
     print(checkUsr())
     checkDir()

@@ -14,19 +14,38 @@ def install():
     checkDir()
     os.makedirs(os.path.join(config.RLS_DIR, "bin"), exist_ok=True)
 
+    temp = ""
+    ctemp = ""
     with open(config.SH, "r", encoding="utf-8") as f:
         for line in f:
             if "#" not in line.strip():
-                config.temp += line.strip()
+                temp += line.strip()
             else:
-                config.ctemp += line.strip()
+                ctemp += line.strip()
 
-    if config.PATH in config.temp:
+    if config.PATH in temp:
         print("Already passing through")
-    elif config.PATH in config.ctemp:
+    elif config.PATH in ctemp:
         print("Please remove comment out of path")
     else:
         with open(config.SH, "a", encoding="utf-8") as f:
+            f.write(config.n+os.path.join(str("RLSBIN=")+config.RLS_DIR, "bin")+config.n+config.PATH)
+
+    temp = ""
+    ctemp = ""
+    with open(os.path.join(config.home_dir, ".bashrc"), "r", encoding="utf-8") as f:
+        for line in f:
+            if "#" not in line.strip():
+                temp += line.strip()
+            else:
+                ctemp += line.strip()
+
+    if config.PATH in temp:
+        print("Already passing through")
+    elif config.PATH in ctemp:
+        print("Please remove comment out of path")
+    else:
+        with open(os.path.join(config.home_dir, ".bashrc"), "a", encoding="utf-8") as f:
             f.write(config.n+os.path.join(str("RLSBIN=")+config.RLS_DIR, "bin")+config.n+config.PATH)
 
     try:
