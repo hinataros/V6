@@ -1,0 +1,54 @@
+# rls CMake config file
+#
+# This file sets the following variables:
+# rls_FOUND - Always TRUE.
+# rls_INCLUDE_DIRS - Directories containing the rls include files.
+# rls_IDL_DIRS - Directories containing the rls IDL files.
+# rls_LIBRARIES - Libraries needed to use rls.
+# rls_DEFINITIONS - Compiler flags for rls.
+# rls_VERSION - The version of rls found.
+# rls_VERSION_MAJOR - The major version of rls found.
+# rls_VERSION_MINOR - The minor version of rls found.
+# rls_VERSION_REVISION - The revision version of rls found.
+# rls_VERSION_CANDIDATE - The candidate version of rls found.
+
+message(STATUS "Found rls-@PROJECT_VERSION@")
+set(rls_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(rls_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(rls_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(rls_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(rls_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(rls_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(rls_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(rls_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(rls_VERSION @PROJECT_VERSION@)
+set(rls_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(rls_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(rls_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(rls_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+

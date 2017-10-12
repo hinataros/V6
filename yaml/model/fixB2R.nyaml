@@ -1,0 +1,56 @@
+Simulation model:
+ Initial time: 0.
+ Finish time: 10.
+ Hourly: 1.e-3
+
+World model:
+ gravity: [0., 0., -9.81]
+
+Body model:
+ Degree of freedom:
+  - 0
+  - 2
+
+ Joint type:
+  - [fix]
+  - [y, y, fix]
+ Mass:
+  - [10.]
+  - [1., 1., 0.]
+ Joint distance:
+  -
+   - [0., 0., 0.] # unused
+  -
+   - [0., 0., 0.5]
+   - [1., 0., 0.]
+   - [1., 0., 0.]
+ Inertia matrix:
+  -
+   - [1., 0., 0.,
+     0., 1., 0.,
+     0., 0., 1.]
+  -
+   - [1., 0., 0.,
+     0., 1., 0.,
+     0., 0., 1.]
+   - [1., 0., 0.,
+     0., 1., 0.,
+     0., 0., 1.]
+   - [1., 0., 0.,
+     0., 1., 0.,
+     0., 0., 1.]
+ CoM:
+  -
+   - [0., 0., 0.]
+  -
+   - [0.5, 0., 0.]
+   - [0.5, 0., 0.]
+   - [0., 0., 0.]
+
+Initial configuration:
+ Initial position:
+  - [0., 0., 0., 0., 0., 0.]
+  - [-30., 60.]
+ Initial velocity:
+  - [0., 0., 0., 0., 0., 0.]
+  - [0., 0.]
