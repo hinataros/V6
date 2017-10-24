@@ -56,15 +56,17 @@ set(INC_INSTALL_DIR
 set(SHARE_INSTALL_DIR
     "components/share/${PROJECT_NAME_LOWER}-${PROJECT_VERSION_MAJOR}")
 
-# Get necessary dependency information
-find_package(OpenRTM HINTS /usr/lib64/openrtm-1.1/cmake)
-if(${OpenRTM_FOUND})
-  MESSAGE(STATUS "OpenRTM configuration Found")
-else(${OpenRTM_FOUND})
-  message(STATUS "Use cmake/Modules/FindOpenRTM.cmake in the project")
-  list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/Modules)
-  find_package(OpenRTM REQUIRED)
-endif(${OpenRTM_FOUND})
+if(rls_rlsDynamicsRTC)
+  # Get necessary dependency information
+  find_package(OpenRTM HINTS /usr/lib64/openrtm-1.1/cmake)
+  if(${OpenRTM_FOUND})
+    MESSAGE(STATUS "OpenRTM configuration Found")
+  else(${OpenRTM_FOUND})
+    message(STATUS "Use cmake/Modules/FindOpenRTM.cmake in the project")
+    list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/Modules)
+    find_package(OpenRTM REQUIRED)
+  endif(${OpenRTM_FOUND})
+endif(rls_rlsDynamicsRTC)
 
 # Universal settings
 enable_testing()
