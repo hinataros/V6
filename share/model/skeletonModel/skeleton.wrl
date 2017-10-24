@@ -220,7 +220,7 @@ Viewpoint {
 DEF skeleton Humanoid{
   humanoidBody [
     DEF waist Joint {
-      jointType "free"
+      jointType "fixed"
       translation 0 0 0.292 
       ulimit [1.5533430325 ]
       llimit [0.0 ]
@@ -470,84 +470,6 @@ DEF skeleton Humanoid{
                                 }
                               ]
                             }
-                            DEF Rarm5 Joint {
-                              jointType "fixed"
-                              rotation 1 0 0 -1.5708 
-                              ulimit [0.0 0.0 ]
-                              llimit [0.0 0.0 ]
-                              uvlimit [0.0 0.0 ]
-                              lvlimit [0.0 0.0 ]
-                              rotorInertia 1.0
-                              rotorResistor 1.0
-                              children[
-                                DEF Rarm5 Segment{
-                                  centerOfMass -0.001 -8.5E-5 0.023215 
-                                  mass 0.053196 
-                                  momentsOfInertia [ 0.014739782 -1.79E-7 1.0234E-5 -1.79E-7 0.016212682 1.0638E-4 1.0234E-5 1.0638E-4 0.004280658 ]
-                                  children[
-                                  ]
-                                }
-                                DEF Rarm6 Joint {
-                                  jointType "rotate"
-                                  jointAxis 0.0 1.0 0.0 
-                                  ulimit [0.0 0.0 ]
-                                  llimit [0.0 0.0 ]
-                                  uvlimit [0.0 0.0 ]
-                                  lvlimit [0.0 0.0 ]
-                                  rotorInertia 1.0
-                                  rotorResistor 1.0
-                                  children[
-                                    DEF Rarm6 Segment{
-                                      centerOfMass 0.0 0.0 0.0 
-                                      mass 0.0 
-                                      momentsOfInertia [ 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 ]
-                                      children[
-                                      ]
-                                    }
-                                    DEF Rarm7 Joint {
-                                      jointType "rotate"
-                                      jointAxis 1.0 0.0 0.0 
-                                      translation 0 0 0.1098 
-                                      ulimit [0.0 0.0 ]
-                                      llimit [0.0 0.0 ]
-                                      uvlimit [0.0 0.0 ]
-                                      lvlimit [0.0 0.0 ]
-                                      rotorInertia 1.0
-                                      rotorResistor 1.0
-                                      children[
-                                        DEF RForceSensor ForceSensor {
-                                          sensorId 0
-                                          rotation 0 1 0 -1.5708 
-                                          children[
-                                            Transform {
-                                              children[
-                                                Shape{
-                                                  geometry Sphere{
-                                                    radius 0.00625
-                                                  }
-                                                  appearance Appearance{
-                                                    material Material{
-                                                      diffuseColor 0.5 0.5 0.5
-                                                    }
-                                                  }
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        }
-                                        DEF Rarm7 Segment{
-                                          centerOfMass 0.0 0.0 0.0 
-                                          mass 0.0 
-                                          momentsOfInertia [ 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 ]
-                                          children[
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
                           ]
                         }
                       ]
@@ -729,110 +651,6 @@ DEF skeleton Humanoid{
                                           diffuseColor 0.5 0.5 0.5
                                         }
                                       }
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                            DEF Larm5 Joint {
-                              jointType "rotate"
-                              jointAxis 0.0 0.0 -1.0 
-                              translation 0 0.1098 0 
-                              rotation 1 0 0 -1.5708 
-                              ulimit [0.0 0.0 ]
-                              llimit [0.0 0.0 ]
-                              uvlimit [0.0 0.0 ]
-                              lvlimit [0.0 0.0 ]
-                              rotorInertia 1.0
-                              rotorResistor 1.0
-                              children[
-                                DEF Larm5 Segment{
-                                  centerOfMass -0.001 -8.5E-5 0.023215 
-                                  mass 0.053196 
-                                  momentsOfInertia [ 0.014739782 -1.79E-7 1.0234E-5 -1.79E-7 0.016212682 1.0638E-4 1.0234E-5 1.0638E-4 0.004280658 ]
-                                  children[
-                                  ]
-                                }
-                                DEF Larm6 Joint {
-                                  jointType "rotate"
-                                  jointAxis 0.0 1.0 0.0 
-                                  ulimit [0.0 0.0 ]
-                                  llimit [0.0 0.0 ]
-                                  uvlimit [0.0 0.0 ]
-                                  lvlimit [0.0 0.0 ]
-                                  rotorInertia 1.0
-                                  rotorResistor 1.0
-                                  children[
-                                    DEF Larm6 Segment{
-                                      centerOfMass 0.0 0.0 0.0 
-                                      mass 0.0 
-                                      momentsOfInertia [ 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 ]
-                                      children[
-                                      ]
-                                    }
-                                    DEF Larm7 Joint {
-                                      jointType "rotate"
-                                      jointAxis 1.0 0.0 0.0 
-                                      rotation 0 1 0 -1.5708 
-                                      ulimit [0.0 0.0 ]
-                                      llimit [0.0 0.0 ]
-                                      uvlimit [0.0 0.0 ]
-                                      lvlimit [0.0 0.0 ]
-                                      rotorInertia 1.0
-                                      rotorResistor 1.0
-                                      children[
-                                        DEF LForceSensor ForceSensor {
-                                          sensorId 1
-                                          children[
-                                            Transform {
-                                              children[
-                                                Shape{
-                                                  geometry Sphere{
-                                                    radius 0.00625
-                                                  }
-                                                  appearance Appearance{
-                                                    material Material{
-                                                      diffuseColor 0.5 0.5 0.5
-                                                    }
-                                                  }
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        }
-                                        DEF Larm7 Segment{
-                                          centerOfMass 0.0 0.0 0.0 
-                                          mass 0.0 
-                                          momentsOfInertia [ 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 ]
-                                          children[
-                                          ]
-                                        }
-                                        DEF stick Joint {
-                                          jointType "rotate"
-                                          jointAxis 0.0 0.0 1.0 
-                                          ulimit [0.0 0.0 ]
-                                          llimit [0.0 0.0 ]
-                                          uvlimit [0.0 0.0 ]
-                                          lvlimit [0.0 0.0 ]
-                                          rotorInertia 1.0
-                                          rotorResistor 1.0
-                                          children[
-                                            Transform {
-                                              translation 0.0098 0.1986 0 
-                                              rotation 0 1 0 0 
-                                              children[
-                                                DEF stick Segment{
-                                                  centerOfMass 0.0 0.0 0.0 
-                                                  mass 0.0 
-                                                  momentsOfInertia [ 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 ]
-                                                  children[
-                                                  ]
-                                                }
-                                                  ]
-                                                }
-                                          ]
-                                        }
-                                      ]
                                     }
                                   ]
                                 }
@@ -1449,17 +1267,10 @@ DEF skeleton Humanoid{
     USE Rarm2,
     USE Rarm3,
     USE Rarm4,
-    USE Rarm5,
-    USE Rarm6,
-    USE Rarm7,
     USE Larm1,
     USE Larm2,
     USE Larm3,
     USE Larm4,
-    USE Larm5,
-    USE Larm6,
-    USE Larm7,
-    USE stick,
     USE head1,
     USE head2,
     USE Rleg1,
@@ -1482,17 +1293,10 @@ DEF skeleton Humanoid{
     USE Rarm2,
     USE Rarm3,
     USE Rarm4,
-    USE Rarm5,
-    USE Rarm6,
-    USE Rarm7,
     USE Larm1,
     USE Larm2,
     USE Larm3,
     USE Larm4,
-    USE Larm5,
-    USE Larm6,
-    USE Larm7,
-    USE stick,
     USE head1,
     USE head2,
     USE Rleg1,

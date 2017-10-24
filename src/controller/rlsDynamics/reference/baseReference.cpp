@@ -26,7 +26,7 @@ void RLS::RlsDynamics::baseReference(Config &config,Info &info, Model &model, do
     ddxiBDes(i) = des(2);
   }
 
-  // smiyahara: オイラー表現の姿勢は計算しといたほうがいい
+  // smiyahara: オイラー表現の姿勢は計算しといたほうがいいのでは
   RBDes = xi2R(xiBDes);
   wBDes = dxi2w(dxiBDes, R2xi(model.limb[0].node[0].R));
   dwBDes = ddxi2dw(ddxiBDes, R2xi(model.limb[0].node[0].R), w2dxi(model.limb[0].node[0].w, R2xi(model.limb[0].node[0].R)));
@@ -35,7 +35,7 @@ void RLS::RlsDynamics::baseReference(Config &config,Info &info, Model &model, do
   eoB = 0.5*(cross(model.limb[0].node[0].R.col(0))*RBDes.col(0)
 	     + cross(model.limb[0].node[0].R.col(1))*RBDes.col(1)
 	     + cross(model.limb[0].node[0].R.col(2))*RBDes.col(2));
-  ewB = wBDes - model.limb[0].node[0].v;
+  ewB = wBDes - model.limb[0].node[0].w;
 
   dwBRef = dwBDes + kdwB*ewB + kpwB*eoB;
 }

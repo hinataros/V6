@@ -19,7 +19,7 @@ items:
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "../model/skeletonModel/skeleton.wrl"
+            modelFile: "/home/smiyahara/Documents/software/choreonoid/workspace/rlsSimulator/master/share/model/skeletonModel_tani/skeleton.wrl"
             currentBaseLink: "waist"
             rootPosition: [ 0, 0, 0.2102051 ]
             rootAttitude: [ 
@@ -28,8 +28,7 @@ items:
               0, 0, 1 ]
             jointPositions: [ 
                0.000000,  0.000000, -0.523599,  1.047198, -0.523599,  0.000000,  0.000000,  0.000000, -0.523599,  1.047198, 
-              -0.523599,  0.000000,  1.745329,  0.000000,  0.000000, -0.523599,  1.745329,  0.000000,  0.000000, -0.523599, 
-               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000 ]
+              -0.523599,  0.000000,  1.745329,  0.000000,  0.000000, -0.523599,  1.745329,  0.000000,  0.000000, -0.523599 ]
             initialRootPosition: [ 0, 0, 0.292 ]
             initialRootAttitude: [ 
               1, 0, 0, 
@@ -37,8 +36,7 @@ items:
               0, 0, 1 ]
             initialJointPositions: [ 
                0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
-               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
-               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000 ]
+               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000 ]
             zmp: [ 0, 0, 0 ]
             collisionDetection: true
             selfCollisionDetection: false
@@ -50,7 +48,7 @@ items:
               plugin: Body
               class: BodyMotionItem
               data: 
-                filename: "../motion/skeletonMotion.yaml"
+                filename: "/home/smiyahara/Documents/software/choreonoid/workspace/rlsSimulator/master/share/motion/skeletonMotion.yaml"
                 format: BODY-MOTION-YAML
         - 
           id: 4
@@ -58,7 +56,7 @@ items:
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "../model/floor.wrl"
+            modelFile: "/home/smiyahara/Documents/software/choreonoid/workspace/rlsSimulator/master/share/model/object/floor.wrl"
             currentBaseLink: "WAIST"
             rootPosition: [ 0, 0, -0.025 ]
             rootAttitude: [ 
@@ -139,9 +137,9 @@ views:
           fieldOfView: 0.698132
           near: 0.01
           far: 100
-          eye: [ 0.709082184, 0.434848313, 0.408709931 ]
-          direction: [ -0.858135614, -0.472874078, -0.199983433 ]
-          up: [ -0.175151085, -0.0965166884, 0.979799279 ]
+          eye: [ 0.684743806, 0.47211104, 0.443156958 ]
+          direction: [ -0.797403194, -0.549813546, -0.248703059 ]
+          up: [ -0.2047499, -0.141176095, 0.968579779 ]
         - 
           camera: [ System, Orthographic ]
           orthoHeight: 20

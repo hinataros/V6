@@ -17,25 +17,32 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   cal_J = MatrixXd::Zero(6*info.value.joint, info.dof.joint);
   bb_Rk = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
-  bb_Tk2B = MatrixXd::Zero(6*info.value.joint, 6);
+  TB2k = MatrixXd::Zero(6*info.value.joint, 6);
+
+  TC2k = MatrixXd::Zero(6*info.value.joint, 6);
 
   // diff
   cal_dJ = MatrixXd::Zero(6*info.value.joint, info.dof.joint);
   bb_dRk = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
-  bb_dTk2B = MatrixXd::Zero(6*info.value.joint, 6);
+  dTB2k = MatrixXd::Zero(6*info.value.joint, 6);
 
   // rename
   dq = VectorXd::Zero(info.dof.all);
   IB = Matrix3d::Zero();
   HBth = MatrixXd::Zero(6, info.dof.joint);
   Mth = MatrixXd::Zero(info.dof.joint, info.dof.joint);
-  cal_AB = MatrixXd::Zero(6, info.dof.all);
-  cal_dAB = MatrixXd::Zero(6, info.dof.all);
-  cB = Vector6d::Zero();
+  cal_CB = Vector6d::Zero();
   cth = VectorXd::Zero(info.dof.joint);
-  gB = Vector6d::Zero();
+  cal_GB = Vector6d::Zero();
   gth = VectorXd::Zero(info.dof.joint);
 
+  BJC = MatrixXd::Zero(3, info.dof.joint);
+  MthC = MatrixXd::Zero(info.dof.joint, info.dof.joint);
+  cal_CM = Vector6d::Zero();
+  cthC = VectorXd::Zero(info.dof.joint);
+  cal_GC = Vector6d::Zero();
+
+  // ******************************
   rC0 = rCf = Vector3d::Zero();
 
   rB0 = rBf = Vector3d::Zero();
@@ -77,6 +84,7 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   // momentum
   cal_dLBRef = Vector6d::Zero();
+  cal_dLCRef = Vector6d::Zero();
 
   ddthcRef = VectorXd::Zero(info.dof.joint);
   ddthmRef = VectorXd::Zero(info.dof.joint);

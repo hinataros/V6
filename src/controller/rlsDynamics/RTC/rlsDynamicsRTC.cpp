@@ -38,6 +38,8 @@ RlsDynamicsRTC::~RlsDynamicsRTC()
 
 RTC::ReturnCode_t RlsDynamicsRTC::onInitialize()
 {
+  cout << "RTC::onInitialize()" << endl;
+
   // Set InPort buffers
   addInPort("th", m_angleIn);
   addInPort("dth", m_angVelIn);
@@ -47,13 +49,13 @@ RTC::ReturnCode_t RlsDynamicsRTC::onInitialize()
   // Set OutPort buffer
   addOutPort("tau", m_torqueOut);
 
-  cout << "RTC::onInitialize()" << endl;
-
   return RTC::RTC_OK;
 }
 
 RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
 {
+  cout << "RTC::onActivate()" << endl;
+
   t = 0.;
 
   config.readConfig();
@@ -65,6 +67,7 @@ RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
     m_angleIn.read();
   }
 
+  // initialize torque size
   m_torque.data.length(m_angle.data.length());
   for(size_t i=0; i<m_angle.data.length(); ++i){
     m_torque.data[i] = 0.;
@@ -81,14 +84,14 @@ RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
 
   writeInput(config);
 
-  cout << "RTC::onActivate()" << endl;
-
   return RTC::RTC_OK;
 }
 
 
 RTC::ReturnCode_t RlsDynamicsRTC::onDeactivated(RTC::UniqueId ec_id)
 {
+  cout << "RTC::onDeactivated()" << endl;
+
   // smiyahara: はい?
   info.sim.n = (t - info.sim.t0) / info.sim.dt;
 
@@ -97,8 +100,6 @@ RTC::ReturnCode_t RlsDynamicsRTC::onDeactivated(RTC::UniqueId ec_id)
 
   model.deleteModel(config, info);
   info.finalize(config);
-
-  cout << "RTC::onDeactivated()" << endl;
 
   return RTC::RTC_OK;
 }

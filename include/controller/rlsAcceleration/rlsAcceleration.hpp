@@ -24,7 +24,7 @@ namespace RLS{
     MatrixXd cal_J;
     // smiyahara: bbではないから要検討
     MatrixXd bb_Rk;
-    MatrixXd bb_Tk2B;
+    MatrixXd TB2k;
 
     MatrixXd Bc;
     MatrixXd Bm;
@@ -37,7 +37,7 @@ namespace RLS{
     MatrixXd cal_dJ;
     // smiyahara: bbではないから要検討
     MatrixXd bb_dRk;
-    MatrixXd bb_dTk2B;
+    MatrixXd dTB2k;
 
     MatrixXd dBc;
     MatrixXd dBm;
@@ -123,7 +123,9 @@ namespace RLS{
 
     void baseReference(Config&, Info&, Model&, double&);
     void endEffectorReference(Config&, Info&, Model&, double&);
+    void reference(Config&, Info&, Model&, double&);
 
+    void cl_Bcoord(Config&, Model&);
     void accelerationController(Config&, Model&);
 
     void outputConfig(Config&);

@@ -17,6 +17,7 @@ void RLS::RlsVelocity::outputConfig(Config &config)
   vc_list.cal_VDes = cal_VDes;
 
   // error value
+  vc_list.erC = erC;
   vc_list.erB = erB;
   vc_list.eoB = eoB;
 

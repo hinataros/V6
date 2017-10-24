@@ -12,7 +12,6 @@ VectorXd RLS::RlsDynamics::rlsDynamics(Config &config, Info &info, Model &model,
   if(t==0.)
     initialValue(config, info, model);
 
-  rename(config, info, model);
   resize(config, info, model);
 
   if(t>=info.sim.twf+info.sim.tw0 && t<info.sim.tf){
@@ -20,6 +19,7 @@ VectorXd RLS::RlsDynamics::rlsDynamics(Config &config, Info &info, Model &model,
     reconfigure(config, info);
   }
 
+  rename(config, info, model);
   decompose(config);
 
   reference(config, info, model, t);
@@ -28,8 +28,8 @@ VectorXd RLS::RlsDynamics::rlsDynamics(Config &config, Info &info, Model &model,
   outputConfig(config);
 
   // smiyahra: 時間超えたらそれ用のyaml読みたい
-  if(t>info.sim.tf)
-    tau *=0.;
+  // if(t>info.sim.tf)
+  //   tau *=0.;
 
   return tau;
 }

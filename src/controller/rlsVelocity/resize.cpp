@@ -20,8 +20,14 @@ void RLS::RlsVelocity::resize(Config &config, Info &info, Model &model)
       bb_Rk.block(6*(i-1)+3,6*(i-1)+3,3,3) = Matrix3d::Identity();
 
   for(int i=1; i<info.value.node; i++){
-    bb_Tk2B.block(6*(i-1),0,6,6) = Matrix6d::Identity();
-    bb_Tk2B.block(6*(i-1),3,3,3) =
+    TB2k.block(6*(i-1),0,6,6) = Matrix6d::Identity();
+    TB2k.block(6*(i-1),3,3,3) =
       -cross(model.limb[i].node[info.limb[i].dof].r - model.limb[0].node[0].r);
+  }
+
+  for(int i=1; i<info.value.node; i++){
+    TC2k.block(6*(i-1),0,6,6) = Matrix6d::Identity();
+    TC2k.block(6*(i-1),3,3,3) =
+      -cross(model.limb[i].node[info.limb[i].dof].r - model.all.rC);
   }
 }

@@ -1,13 +1,13 @@
 Default config:
  Simulation name: sim1
  Model name: skeleton
- Controller name: rlsAcceleration
+ Controller name: rlsVelocity
  Debug mode: false
 
 # smiyahara: controller の config の場所は要検討
 Simulation config:
  Solver:
-  Control input: acceleration
+  Control input: velocity
 
  Controller:
   Flag: false ## smiyahara: 未実装

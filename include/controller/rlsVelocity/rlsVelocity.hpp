@@ -18,9 +18,10 @@ namespace RLS{
     VectorXd cal_X;
 
     MatrixXd cal_J;
+
     // smiyahara: bbではないから要検討
     MatrixXd bb_Rk;
-    MatrixXd bb_Tk2B;
+    MatrixXd TB2k;
 
     MatrixXd Bc;
     MatrixXd Bm;
@@ -28,6 +29,23 @@ namespace RLS{
     MatrixXd cal_Pm;
     MatrixXd cal_Jc;
     MatrixXd cal_Jm;
+
+    MatrixXd TC2k;
+    MatrixXd cal_PcM;
+    MatrixXd cal_PmM;
+    MatrixXd cal_JcM;
+    MatrixXd cal_JmM;
+
+    // rename
+    MatrixXd IB;
+    MatrixXd HBth;
+    MatrixXd Mth;
+
+    MatrixXd BJC;
+
+    // ******************************
+    Vector3d rC0;
+    Vector3d rCf;
 
     Vector3d rB0;
     Vector3d rBf;
@@ -39,9 +57,13 @@ namespace RLS{
 
     Vector3d des;
 
+    Vector3d rCtemp;
     Vector3d rBtemp;
     Vector3d xiBtemp;
     VectorXd cal_Xtemp;
+
+    Vector3d rCDes;
+    Vector3d vCDes;
 
     Vector3d rBDes;
     Vector3d vBDes;
@@ -55,12 +77,18 @@ namespace RLS{
     VectorXd cal_VDes;
 
     // error
+    Vector3d erC;
+
     Vector3d erB;
     Vector3d eoB;
 
+    Vector3d vCRef;
+
     Vector3d vBRef;
     Vector3d wBRef;
+
     Vector6d cal_VBRef;
+    Vector6d cal_VMRef;
 
     VectorXd cal_VRef;
 
@@ -78,20 +106,27 @@ namespace RLS{
     VectorXd dqRef;
 
     // gain
+    double kpC;
+
     double kpvB;
     double kpwB;
 
     void initialValue(Config&, Info&, Model&);
+    void rename(Config&, Info&, Model&);
     void resize(Config&, Info&, Model&);
     void reset(Config&, Info&, double&);
     void readWork(Config&, Info&);
     void reconfigure(Config&, Info&);
 
-    void baseReference(Config&, Info&, Model&, double&);
-    void endEffectorReference(Config&, Info&, Model&, double&);
-
     void decompose(Config&);
 
+    void comReference(Config&, Info&, Model&, double&);
+    void baseReference(Config&, Info&, Model&, double&);
+    void endEffectorReference(Config&, Info&, Model&, double&);
+    void reference(Config&, Info&, Model&, double&);
+
+    void cl_Bcoord(Config&);
+    void cl_Mcoord(Config&);
     void velocityController(Config&);
 
     void outputConfig(Config&);

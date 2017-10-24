@@ -33,7 +33,7 @@ include_directories(${PROJECT_SOURCE_DIR}/include/interpolation)
 include_directories(${PROJECT_SOURCE_DIR}/include/controller)
 include_directories(${PROJECT_SOURCE_DIR}/include/controller/rlsVelocity)
 include_directories(${PROJECT_SOURCE_DIR}/include/controller/rlsAcceleration)
-include_directories(${PROJECT_SOURCE_DIR}/include/controller/rlsDynamicsRTC)
+include_directories(${PROJECT_SOURCE_DIR}/include/controller/rlsDynamics)
 
 include_directories(${OPENRTM_INCLUDE_DIRS})
 

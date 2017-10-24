@@ -14,8 +14,18 @@ void RLS::RlsVelocity::initialize(Config &config, Info &info)
   cal_J = MatrixXd::Zero(6*info.value.joint, info.dof.joint);
 
   bb_Rk = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
-  bb_Tk2B = MatrixXd::Zero(6*info.value.joint, 6);
+  TB2k = MatrixXd::Zero(6*info.value.joint, 6);
 
+  TC2k = MatrixXd::Zero(6*info.value.joint, 6);
+
+  // rename
+  IB = Matrix3d::Zero();
+  HBth = MatrixXd::Zero(6, info.dof.joint);
+  Mth = MatrixXd::Zero(info.dof.joint, info.dof.joint);
+
+  BJC = MatrixXd::Zero(3, info.dof.joint);
+
+  // ******************************
   rB0 = xiB0 = Vector3d::Zero();
   rBf = xiBf = Vector3d::Zero();
   cal_X0 = VectorXd::Zero(6*info.value.joint);
@@ -23,21 +33,28 @@ void RLS::RlsVelocity::initialize(Config &config, Info &info)
 
   des = Vector3d::Zero();
 
+  rCtemp = Vector3d::Zero();
   rBtemp = Vector3d::Zero();
   xiBtemp = Vector3d::Zero();
   cal_Xtemp = VectorXd::Zero(6*info.value.joint);
 
+  rCDes = vCDes = Vector3d::Zero();
   rBDes = vBDes = Vector3d::Zero();
   xiBDes = dxiBDes = Vector3d::Zero();
   RBDes = Matrix3d::Zero();
   wBDes = Vector3d::Zero();
   cal_XDes = cal_VDes = VectorXd::Zero(6*info.value.joint);
 
+  erC = Vector3d::Zero();
   erB = eoB = Vector3d::Zero();
+
+  vCRef = Vector3d::Zero();
 
   vBRef = Vector3d::Zero();
   wBRef = Vector3d::Zero();
+
   cal_VBRef = Vector6d::Zero();
+  cal_VMRef = Vector6d::Zero();
 
   cal_VRef = VectorXd::Zero(6*info.value.joint);
 
@@ -48,6 +65,8 @@ void RLS::RlsVelocity::initialize(Config &config, Info &info)
   dqRef = VectorXd::Zero(info.dof.all);
 
   // gain
+  kpC = 0.;
+
   kpvB = 0.;
   kpwB = 0.;
 }

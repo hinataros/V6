@@ -16,12 +16,12 @@ void RLS::RlsAcceleration::initialize(Config &config, Info &info)
 
   cal_J = MatrixXd::Zero(6*info.value.joint, info.dof.joint);
   bb_Rk = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
-  bb_Tk2B = MatrixXd::Zero(6*info.value.joint, 6);
+  TB2k = MatrixXd::Zero(6*info.value.joint, 6);
 
   // diff
   cal_dJ = MatrixXd::Zero(6*info.value.joint, info.dof.joint);
   bb_dRk = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
-  bb_dTk2B = MatrixXd::Zero(6*info.value.joint, 6);
+  dTB2k = MatrixXd::Zero(6*info.value.joint, 6);
 
   rB0 = xiB0 = Vector3d::Zero();
   rBf = xiBf = Vector3d::Zero();

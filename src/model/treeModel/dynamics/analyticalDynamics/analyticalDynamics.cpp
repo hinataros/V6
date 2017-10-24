@@ -128,9 +128,9 @@ void RLS::TreeModel::analyticalDynamics(Config &config, Info &info)
 
   VectorXd g = VectorXd::Zero(info.dof.all);
   g <<
-    gf,
-    gm,
-    gth;
+    -gf,
+    -gm,
+    -gth;
   // ********************************************
 
   all.dM=dM;

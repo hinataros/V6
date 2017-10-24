@@ -12,9 +12,13 @@ void RLS::RlsVelocity::reconfigure(Config &config, Info &info)
 
   cal_Pc = MatrixXd::Zero(6, c);
   cal_Pm = MatrixXd::Zero(6, m);
-
   cal_Jc = MatrixXd::Zero(c, info.dof.joint);
   cal_Jm = MatrixXd::Zero(m, info.dof.joint);
+
+  cal_PcM = MatrixXd::Zero(6, c);
+  cal_PmM = MatrixXd::Zero(6, m);
+  cal_JcM = MatrixXd::Zero(c, info.dof.joint);
+  cal_JmM = MatrixXd::Zero(m, info.dof.joint);
 
   cal_VcBarRef = VectorXd::Zero(c);
 

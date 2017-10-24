@@ -9,7 +9,6 @@ void RLS::RlsDynamics::reference(Config &config, Info &info, Model &model, doubl
 
   comReference(config, info, model, t);
   baseReference(config, info, model, t);
-  endEffectorReference(config, info, model, t);
 
   cal_dVBRef <<
     dvBRef,
@@ -18,4 +17,6 @@ void RLS::RlsDynamics::reference(Config &config, Info &info, Model &model, doubl
   cal_dVMRef <<
     dvCRef,
     dwBRef;
+
+  endEffectorReference(config, info, model, t);
 }

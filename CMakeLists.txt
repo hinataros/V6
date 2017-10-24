@@ -39,7 +39,7 @@ else(STATIC_LIBS)
 endif(STATIC_LIBS)
 
 option(rls_rlsDynamicsRTC "dynamics controller RTC" OFF)
-option(rls_rlsSimulator "RLS simulator" ON)
+option(rls_rlsSimulator "RLS simulator" OFF)
 option(rls_dTils "delete tilde file" ON)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")

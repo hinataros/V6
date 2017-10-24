@@ -13,6 +13,7 @@ namespace RLS{
     VectorXd cal_XDes;
     VectorXd cal_VDes;
 
+    Vector3d erC;
     Vector3d erB;
     Vector3d eoB;
 

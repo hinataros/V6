@@ -36,6 +36,7 @@ void RLS::RlsVelocity::readWork(Config &config, Info &info)
   }
 
   for(int i=0; i<3; i++){
+    rCf(i) = doc["Control"][info.sim.phase]["rCf"][i].as<double>();
     rBf(i) = doc["Control"][info.sim.phase]["rBf"][i].as<double>();
     xiBf(i) = doc["Control"][info.sim.phase]["xiBf"][i].as<double>()*DEG2RAD;
   }
@@ -55,6 +56,7 @@ void RLS::RlsVelocity::readWork(Config &config, Info &info)
   }
 
   // gain
+  kpC = doc["Control"][info.sim.phase]["kpC"].as<double>();
   kpvB = doc["Control"][info.sim.phase]["kpvB"].as<double>();
   kpwB = doc["Control"][info.sim.phase]["kpwB"].as<double>();
 }

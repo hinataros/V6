@@ -19,11 +19,10 @@ VectorXd RLS::RlsVelocity::rlsVelocity(Config &config, Info &info, Model &model,
     reconfigure(config, info);
   }
 
-  baseReference(config, info, model, t);
-  endEffectorReference(config, info, model, t);
-
+  rename(config, info, model);
   decompose(config);
 
+  reference(config, info, model, t);
   velocityController(config);
 
   outputConfig(config);

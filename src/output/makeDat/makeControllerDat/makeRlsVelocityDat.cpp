@@ -209,23 +209,23 @@ void RLS::Output::makeRlsVelocityDat(Config &config, Info &info)
     load += "load 'controller/"+name+".gp'\n";
   }
 
-  // // com position error
-  // name = "034_comPosErr";
-  // path_temp = path + name + ".dat";
-  // ofstream comPosErr(path_temp.c_str());
-  // if(!comPosErr)
-  //   cout << path_temp << ": " << endl << "file open error..." << endl;
-  // else{
-  //   for(int i=0; i<info.sim.n+1; i+=config.graph.st)
-  //     comPosErr << setprecision(9) << scientific <<
-  // 	data.t[i] << " " << data.vc[i].erC.transpose() << endl;
-  //   comPosErr.close();
-  // }
+  // com position error
+  name = "034_comPosErr";
+  path_temp = path + name + ".dat";
+  ofstream comPosErr(path_temp.c_str());
+  if(!comPosErr)
+    cout << path_temp << ": " << endl << "file open error..." << endl;
+  else{
+    for(int i=0; i<info.sim.n+1; i+=config.graph.st)
+      comPosErr << setprecision(9) << scientific <<
+  	data.t[i] << " " << data.vc[i].erC.transpose() << endl;
+    comPosErr.close();
+  }
 
-  // if(config.graph.gp){
-  //   makeGpTime3D(config, "controller", name, "CoM pos. err. [mm]","K",0);
-  //   load += "load 'controller/"+name+".gp'\n";
-  // }
+  if(config.graph.gp){
+    makeGpTime3D(config, "controller", name, "CoM pos. err. [mm]","K",0);
+    load += "load 'controller/"+name+".gp'\n";
+  }
 
   string pathGp = config.link + "data/gp/" + config.name + "/" + config.controller.name + ":" + config.model.name+"/controller.gp";
 

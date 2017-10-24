@@ -16,6 +16,9 @@ void RLS::RlsDynamics::reconfigure(Config &config, Info &info)
   cal_Jc = MatrixXd::Zero(c, info.dof.joint);
   cal_Jm = MatrixXd::Zero(m, info.dof.joint);
 
+  cal_PcM = MatrixXd::Zero(6, c);
+  cal_JcM = MatrixXd::Zero(c, info.dof.joint);
+
   // diff
   dBc = MatrixXd::Zero(6*info.value.joint, c);
   dBm = MatrixXd::Zero(6*info.value.joint, m);

@@ -12,7 +12,6 @@ VectorXd RLS::RlsAcceleration::rlsAcceleration(Config &config, Info &info, Model
   if(t==0.)
     initialValue(config, info, model);
 
-  rename(config, info, model);
   resize(config, info, model);
 
   if(t>=info.sim.twf+info.sim.tw0 && t<info.sim.tf){
@@ -20,10 +19,10 @@ VectorXd RLS::RlsAcceleration::rlsAcceleration(Config &config, Info &info, Model
     reconfigure(config, info);
   }
 
+  rename(config, info, model);
   decompose(config);
 
-  baseReference(config, info, model, t);
-  endEffectorReference(config, info, model, t);
+  reference(config, info, model, t);
 
   accelerationController(config, model);
 

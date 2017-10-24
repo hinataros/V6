@@ -8,7 +8,12 @@ void RLS::RlsDynamics::momentumController(Config &config, Info &info, Model &mod
   if(config.flag.debug) DEBUG;
 
   // cal_dLBRef = Vector6d::Zero();
+
   cal_dLBRef <<
+    model.all.m*dvCRef,
+    IB*dwBRef;
+
+  cal_dLCRef <<
     model.all.m*dvCRef,
     IB*dwBRef;
 }

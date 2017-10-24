@@ -7,6 +7,7 @@ void RLS::RlsVelocity::initialValue(Config &config, Info &info, Model &model)
 {
   if(config.flag.debug) DEBUG;
 
+  rC0 = model.all.rC;
   rB0 = model.limb[0].node[0].r;
   xiB0 = R2xi(model.limb[0].node[0].R);
 
