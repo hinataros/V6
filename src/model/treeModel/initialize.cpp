@@ -83,6 +83,11 @@ void RLS::TreeModel::initialize(Config &config, Info &info)
 
   all.dM = MatrixXd::Zero(info.dof.all, info.dof.all);
 
+  all.JB2C = MatrixXd::Zero(3, info.dof.joint);
+  all.dJB2C = MatrixXd::Zero(3, info.dof.joint);
+  all.MM = MatrixXd::Zero(info.dof.all, info.dof.all);
+  all.dMM = MatrixXd::Zero(info.dof.all, info.dof.all);
+
   // output list
   tm_list.eePosMatrix = MatrixXd::Zero(3, info.value.joint);
   tm_list.eeOrientMatrix = MatrixXd::Zero(3, info.value.joint);

@@ -47,4 +47,8 @@ void RLS::RlsDynamics::resize(Config &config, Info &info, Model &model)
   for(int i=1; i<info.value.node; i++)
     dTB2k.block(6*(i-1),3,3,3) =
       -cross(model.limb[i].node[info.limb[i].dof].v - model.limb[0].node[0].v);
+
+  for(int i=1; i<info.value.node; i++)
+    dTC2k.block(6*(i-1),3,3,3) =
+      -cross(model.limb[i].node[info.limb[i].dof].v - model.all.vC);
 }

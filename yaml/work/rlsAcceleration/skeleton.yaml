@@ -28,3 +28,6 @@ Control:
   kdvB: 0.
   kpwB: 0.
   kdwB: 0.
+ -
+  twf: 10.
+  xiBf: [0., 30., 0.]

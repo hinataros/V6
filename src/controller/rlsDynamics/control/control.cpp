@@ -7,7 +7,7 @@ void RLS::RlsDynamics::control(Config &config, Info &info, Model &model)
 {
   if(config.flag.debug) DEBUG;
 
-  accelerationController(config, model);
+  accelerationController(config, info, model);
   momentumController(config, info, model);
   forceController(config, info, model);
 

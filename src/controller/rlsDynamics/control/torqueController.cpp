@@ -9,5 +9,5 @@ void RLS::RlsDynamics::torqueController(Config &config, Info &info, Model &model
 
   // tau = HBth.transpose()*cal_dVBRef + Mth*ddthRef + cth + gth - cal_Jc.transpose()*cal_FcBarRef;
   // tau = Mth*ddthRef + cth + gth - cal_Jc.transpose()*cal_FcBarRef;
-  tau = MthC*ddthRef - cal_JcM.transpose()*cal_FcBarRef;
+  tau = HC.transpose()*dwBRef + MthC*ddthRef + cthC - cal_JcM.transpose()*cal_FcBarRef;
 }

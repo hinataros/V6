@@ -12,34 +12,57 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   cal_XB = Vector6d::Zero();
   cal_VB = Vector6d::Zero();
+  cal_VM = Vector6d::Zero();
   cal_X = VectorXd::Zero(6*info.value.joint);
   cal_V = VectorXd::Zero(6*info.value.joint);
 
+  // ******************************
   cal_J = MatrixXd::Zero(6*info.value.joint, info.dof.joint);
   bb_Rk = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
   TB2k = MatrixXd::Zero(6*info.value.joint, 6);
-
-  TC2k = MatrixXd::Zero(6*info.value.joint, 6);
 
   // diff
   cal_dJ = MatrixXd::Zero(6*info.value.joint, info.dof.joint);
   bb_dRk = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
   dTB2k = MatrixXd::Zero(6*info.value.joint, 6);
 
+  // ******************************
+  TC2k = MatrixXd::Zero(6*info.value.joint, 6);
+
+  // diff
+  dTC2k = MatrixXd::Zero(6*info.value.joint, 6);
+  // ******************************
+
   // rename
-  dq = VectorXd::Zero(info.dof.all);
+  // ******************************
+  // inertia
   IB = Matrix3d::Zero();
   HBth = MatrixXd::Zero(6, info.dof.joint);
   Mth = MatrixXd::Zero(info.dof.joint, info.dof.joint);
+
+  // nonlinear
   cal_CB = Vector6d::Zero();
   cth = VectorXd::Zero(info.dof.joint);
+
+  // gravity
   cal_GB = Vector6d::Zero();
   gth = VectorXd::Zero(info.dof.joint);
 
-  BJC = MatrixXd::Zero(3, info.dof.joint);
+  // ******************************
+  // inertia
+  IC = Matrix3d::Zero();
+  HC = MatrixXd::Zero(3, info.dof.joint);
   MthC = MatrixXd::Zero(info.dof.joint, info.dof.joint);
+
+  // diff inertia
+  dIC = Matrix3d::Zero();
+  dHC = MatrixXd::Zero(3, info.dof.joint);
+
+  // nonlinear
   cal_CM = Vector6d::Zero();
   cthC = VectorXd::Zero(info.dof.joint);
+
+  // gravity
   cal_GC = Vector6d::Zero();
 
   // ******************************
@@ -89,8 +112,6 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   ddthcRef = VectorXd::Zero(info.dof.joint);
   ddthmRef = VectorXd::Zero(info.dof.joint);
   ddthRef = VectorXd::Zero(info.dof.joint);
-
-  ddqRef = VectorXd::Zero(info.dof.all);
 
   tau = VectorXd::Zero(info.dof.joint);
 

@@ -1,5 +1,6 @@
+add_subdirectory(accelerationController)
+
 set(srcs
-  accelerationController.cpp
   momentumController.cpp
   forceController.cpp
   torqueController.cpp
@@ -7,4 +8,8 @@ set(srcs
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" control_srcs)
-set(control_srcs ${control_srcs} PARENT_SCOPE)
+set(control_srcs
+  ${accelerationController_srcs}
+  ${control_srcs}
+  PARENT_SCOPE
+  )

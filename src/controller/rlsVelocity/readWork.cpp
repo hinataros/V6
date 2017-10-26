@@ -15,48 +15,74 @@ void RLS::RlsVelocity::readWork(Config &config, Info &info)
 
   info.sim.twf = doc["Control"][info.sim.phase]["twf"].as<double>();
 
-  // smiyahara: このforは下のやつとあわせてもいい
-  int cur=0, temp;
-  c=0;m=0;
-  for(int i=0; i<info.value.joint; i++){
-    temp=0;
-    for(int j=0; j<6; j++){
-      Bc_kDiag(cur+j,cur+j) = doc["Control"][info.sim.phase]["Bc"][i][j].as<int>();
-      Bm_kDiag(cur+j,cur+j) = doc["Control"][info.sim.phase]["Bm"][i][j].as<int>();
+  try{
+    doc["Control"][info.sim.phase]["Bc"][0][0].as<int>();
 
-      if(Bc_kDiag(cur+j,cur+j))
-	c++;
-      if(Bm_kDiag(cur+j,cur+j))
-	m++;
+    c=0;
+    for(int i=0, temp=0; i<info.value.joint; temp+=6, i++)
+      for(int j=0; j<6; j++){
+	Bc_kDiag(temp+j,temp+j) = doc["Control"][info.sim.phase]["Bc"][i][j].as<int>();
 
-      temp++;
-    }
-
-    cur += temp;
+	if(Bc_kDiag(temp+j,temp+j))
+	  c++;
+      }
   }
+  catch(...){}
 
-  for(int i=0; i<3; i++){
-    rCf(i) = doc["Control"][info.sim.phase]["rCf"][i].as<double>();
-    rBf(i) = doc["Control"][info.sim.phase]["rBf"][i].as<double>();
-    xiBf(i) = doc["Control"][info.sim.phase]["xiBf"][i].as<double>()*DEG2RAD;
+  try{
+    doc["Control"][info.sim.phase]["Bm"][0][0].as<int>();
+
+    m=0;
+    for(int i=0, temp=0; i<info.value.joint; temp+=6, i++)
+      for(int j=0; j<6; j++){
+  	Bm_kDiag(temp+j,temp+j) = doc["Control"][info.sim.phase]["Bm"][i][j].as<int>();
+
+  	if(Bm_kDiag(temp+j,temp+j))
+  	  m++;
+      }
   }
+  catch(...){}
 
-  cur=0;
-  for(int i=0; i<info.value.joint; i++){
-    temp=0;
-    for(int j=0; j<6; j++){
-      cal_Xf(cur+j) = doc["Control"][info.sim.phase]["cal_Xf"][i][j].as<double>();
-      if(j>2)
-	cal_Xf(cur+j) *= DEG2RAD;
-
-      temp++;
-    }
-
-    cur += temp;
+  try{
+    for(int i=0; i<3; i++)
+      rCf(i) = doc["Control"][info.sim.phase]["rCf"][i].as<double>();
   }
+  catch(...){}
+  try{
+    for(int i=0; i<3; i++)
+      rBf(i) = doc["Control"][info.sim.phase]["rBf"][i].as<double>();
+  }
+  catch(...){}
+  try{
+    for(int i=0; i<3; i++)
+      xiBf(i) = doc["Control"][info.sim.phase]["xiBf"][i].as<double>()*DEG2RAD;
+  }
+  catch(...){}
+
+  try{
+    doc["Control"][info.sim.phase]["cal_Xf"][0][0].as<double>();
+
+    for(int i=0, temp=0; i<info.value.joint; temp+=6, i++)
+      for(int j=0; j<6; j++){
+  	cal_Xf(temp+j) = doc["Control"][info.sim.phase]["cal_Xf"][i][j].as<double>();
+
+  	if(j>2)
+  	  cal_Xf(temp+j) *= DEG2RAD;
+      }
+  }
+  catch(...){}
 
   // gain
-  kpC = doc["Control"][info.sim.phase]["kpC"].as<double>();
-  kpvB = doc["Control"][info.sim.phase]["kpvB"].as<double>();
-  kpwB = doc["Control"][info.sim.phase]["kpwB"].as<double>();
+  try{
+    kpC = doc["Control"][info.sim.phase]["kpC"].as<double>();
+  }
+  catch(...){}
+  try{
+    kpvB = doc["Control"][info.sim.phase]["kpvB"].as<double>();
+  }
+  catch(...){}
+  try{
+    kpwB = doc["Control"][info.sim.phase]["kpwB"].as<double>();
+  }
+  catch(...){}
 }

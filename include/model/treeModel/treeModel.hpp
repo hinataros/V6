@@ -45,6 +45,11 @@ namespace RLS{
       VectorXd b;
 
       MatrixXd dM;
+
+      MatrixXd JB2C;
+      MatrixXd dJB2C;
+      MatrixXd MM;
+      MatrixXd dMM;
     } all;
 
     struct Node{

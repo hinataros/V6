@@ -15,14 +15,18 @@ namespace RLS{
     void readWork(Config&, Info&);
     void reconfigure(Config&, Info&);
 
-    void decompose(Config&);
+    void decompose(Config&, Model&);
 
     void comReference(Config&, Info&, Model&, double&);
     void baseReference(Config&, Info&, Model&, double&);
     void endEffectorReference(Config&, Info&, Model&, double&);
     void reference(Config&, Info&, Model&, double&);
 
-    void accelerationController(Config&, Model&);
+    VectorXd ddthD(Config&, Model&);
+    void cl_Bcoord(Config&, Model&);
+    void noname(Config&, Info&, Model&);
+    void accelerationController(Config&, Info&, Model&);
+
     void momentumController(Config&, Info&, Model&);
     void forceController(Config&, Info&, Model&);
     void torqueController(Config&, Info&, Model&);
@@ -47,6 +51,7 @@ namespace RLS{
     // ******************************
     Vector6d cal_XB;
     Vector6d cal_VB;
+    Vector6d cal_VM;
     VectorXd cal_X;
     VectorXd cal_V;
 
@@ -63,10 +68,6 @@ namespace RLS{
     MatrixXd cal_Jc;
     MatrixXd cal_Jm;
 
-    MatrixXd TC2k;
-    MatrixXd cal_PcM;
-    MatrixXd cal_JcM;
-
     // diff
     MatrixXd cal_dJ;
     // smiyahara: bbではないから要検討
@@ -80,20 +81,50 @@ namespace RLS{
     MatrixXd cal_dJc;
     MatrixXd cal_dJm;
 
+    // ******************************
+    MatrixXd TC2k;
+    MatrixXd Pcf;
+    MatrixXd PcMm;
+    MatrixXd cal_PcM;
+    MatrixXd cal_JcM;
+
+    // diff
+    MatrixXd dTC2k;
+    MatrixXd dPcf;
+    MatrixXd dPcMm;
+    MatrixXd cal_dPcM;
+    MatrixXd cal_dJcM;
+
     // rename
-    VectorXd dq;
+    // ******************************
+    // inertia
     MatrixXd IB;
     MatrixXd HBth;
     MatrixXd Mth;
+
+    // nonlinear
     Vector6d cal_CB;
     VectorXd cth;
+
+    // gravity
     Vector6d cal_GB;
     VectorXd gth;
 
-    MatrixXd BJC;
+    // ******************************
+    // inertia
+    MatrixXd IC;
+    MatrixXd HC;
     MatrixXd MthC;
+
+    // diff inertia
+    Matrix3d dIC;
+    MatrixXd dHC;
+
+    // nonlinear
     Vector6d cal_CM;
     VectorXd cthC;
+
+    // gravity
     Vector6d cal_GC;
 
     // ******************************
@@ -177,7 +208,6 @@ namespace RLS{
     VectorXd ddthmRef;
 
     VectorXd ddthRef;
-    VectorXd ddqRef;
 
     VectorXd tau;
 

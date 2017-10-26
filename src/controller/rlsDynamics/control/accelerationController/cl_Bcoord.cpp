@@ -3,7 +3,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::accelerationController(Config &config, Model &model)
+void RLS::RlsDynamics::cl_Bcoord(Config &config, Model &model)
 {
   if(config.flag.debug) DEBUG;
 
@@ -19,12 +19,5 @@ void RLS::RlsDynamics::accelerationController(Config &config, Model &model)
   hm = -dBm.transpose()*cal_V + cal_dPm.transpose()*cal_VB + cal_dJm*model.all.dth;
   h = pInv(cal_Jc)*hc + pInv(cal_JmBar)*(hm - cal_Jm*pInv(cal_Jc)*hc);
 
-  // ddthRef = ddthcRef + ddthmRef - h;
-  ddthRef = -1000*model.all.dth;
-
-  // ddthRef = pInv(cal_J)*(cal_dVRef - cal_dJ*model.all.x.tail(model.all.joint_dof));
-
-  ddqRef <<
-    cal_dVBRef,
-    ddthRef;
+  ddthRef = ddthcRef + ddthmRef - h;
 }

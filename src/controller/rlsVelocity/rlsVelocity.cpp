@@ -16,6 +16,7 @@ VectorXd RLS::RlsVelocity::rlsVelocity(Config &config, Info &info, Model &model,
 
   if(t>=info.sim.twf+info.sim.tw0 && t<info.sim.tf){
     reset(config, info, t);
+
     reconfigure(config, info);
   }
 

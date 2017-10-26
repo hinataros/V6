@@ -15,25 +15,51 @@ void RLS::RlsDynamics::rename(Config &config, Info &info, Model &model)
     model.limb[0].node[0].v,
     model.limb[0].node[0].w;
 
-  dq <<
-    cal_VB,
-    model.all.dth;
+  cal_VM <<
+    model.all.vC,
+    model.limb[0].node[0].w;
 
+  // ******************************
+  // inertia
   IB = model.all.M.block(3,3,3,3);
   HBth = model.all.M.block(0,6,6,info.dof.joint);
   Mth = model.all.M.block(6,6,info.dof.joint,info.dof.joint);
 
+  // nonlinear
   cal_CB = model.all.c.head(6);
   cal_GB = model.all.g.head(6);
-
   cth = model.all.c.tail(info.dof.joint);
+
+  // gravity
   gth = model.all.g.tail(info.dof.joint);
 
-  // centroidal motion of eq
-  BJC = HBth.block(0,0,3,info.dof.joint) / model.all.m;
+  // centroidal
+  // ******************************
+  Pcf = cal_Pc.block(0,0,3,c);
+  PcMm = cal_Pc.block(3,0,3,c);
+  cal_JcM = cal_Jc - Pcf.transpose()*model.all.JB2C;
 
-  MthC = Mth - model.all.m*BJC.transpose()*BJC;
+  // diff
+  dPcf = cal_dPc.block(0,0,3,c);
+  dPcMm = cal_dPc.block(3,0,3,c);
+  cal_dJcM = cal_dJc - Pcf.transpose()*model.all.dJB2C;
+
+  // ******************************
+  // inertia
+  IC = model.all.MM.block(3,3,3,3);
+  HC = model.all.MM.block(3,6,3,info.dof.joint);
+  MthC = model.all.MM.block(6,6,info.dof.joint,info.dof.joint);
+
+  // diff inertia
+  dIC = model.all.dMM.block(3,3,3,3);
+  dHC = model.all.dMM.block(3,6,3,info.dof.joint);
+
+  // nonlinear
+  cal_CM.tail(3) = dIC*model.limb[0].node[0].w + dHC*model.all.dth;
+  cthC = cth - model.all.JB2C.transpose()*cal_CB.head(3);
+
+  // gravity
   cal_GC.head(3) = cal_GB.head(3);
-  // cal_CM.tail(3) = dIC*model.limb[0].node[0].w + dHC*model.all.dth;
-  cthC = cth - BJC.transpose()*cal_CB.head(3);
+
+  // ******************************
 }
