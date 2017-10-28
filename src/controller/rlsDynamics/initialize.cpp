@@ -59,10 +59,12 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   dHC = MatrixXd::Zero(3, info.dof.joint);
 
   // nonlinear
+  cmM = Vector3d::Zero();
   cal_CM = Vector6d::Zero();
   cthC = VectorXd::Zero(info.dof.joint);
 
   // gravity
+  gf = Vector3d::Zero();
   cal_GC = Vector6d::Zero();
 
   // ******************************
@@ -107,6 +109,8 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   // momentum
   cal_dLBRef = Vector6d::Zero();
+  dpCRef = Vector3d::Zero();
+  dlCRef = Vector3d::Zero();
   cal_dLCRef = Vector6d::Zero();
 
   ddthcRef = VectorXd::Zero(info.dof.joint);
@@ -124,4 +128,6 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   kpwB = 0.;
   kdwB = 0.;
+
+  kthD = 0.;
 }

@@ -4,6 +4,7 @@ import sys
 
 import config
 from myMod import checkUsr
+from myMod import readRegistry
 
 from dataConfigMod import makeData
 from dataConfigMod import removeData
@@ -13,6 +14,8 @@ def mkdata():
     if checkUsr():
         print("not nomal user")
         sys.exit()
+
+    readRegistry()
 
     if len(sys.argv) == 2 or len(sys.argv) == 3:
         if len(sys.argv) == 3:
@@ -39,7 +42,4 @@ def mkdata():
         print("argument invalid")
 
 if __name__ == "__main__":
-    from myMod import checkDir
-    checkDir()
-
     mkdata()

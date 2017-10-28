@@ -98,4 +98,9 @@ void RLS::RlsDynamics::readWork(Config &config, Info &info)
     kdwB = doc["Control"][info.sim.phase]["kdwB"].as<double>();
   }
   catch(...){}
+
+  try{
+    kthD = doc["Control"][info.sim.phase]["kthD"].as<double>();
+  }
+  catch(...){}
 }

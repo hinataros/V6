@@ -121,10 +121,12 @@ namespace RLS{
     MatrixXd dHC;
 
     // nonlinear
+    Vector3d cmM;
     Vector6d cal_CM;
     VectorXd cthC;
 
     // gravity
+    Vector3d gf;
     Vector6d cal_GC;
 
     // ******************************
@@ -199,6 +201,8 @@ namespace RLS{
 
     // momentum
     Vector6d cal_dLBRef;
+    Vector3d dpCRef;
+    Vector3d dlCRef;
     Vector6d cal_dLCRef;
 
     // force
@@ -220,6 +224,8 @@ namespace RLS{
 
     double kpwB;
     double kdwB;
+
+    double kthD;
 
     VectorXd rlsDynamics(Config&, Info&, Model&, double&);
 

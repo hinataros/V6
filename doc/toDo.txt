@@ -39,3 +39,6 @@ controller内ではxを使わずに計算したい
 それによってforward kinematicsが簡単にかけるかも...
 
 tauの別端末表示
+
+setupModuleの/usr/localへの移動
+ディレクトリ変えてもlnkで行けるようにする

@@ -1,7 +1,7 @@
 Default config:
  Simulation name: sim1
  Model name: skeleton
- Controller name: rlsDynamics
+ Controller name: rlsVelocity
  Debug mode: false
 
 # smiyahara: controller の config の場所は要検討

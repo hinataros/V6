@@ -9,7 +9,7 @@ void RLS::RlsDynamics::accelerationController(Config &config, Info &info, Model 
 
   // cl_Bcoord(config, model);
 
-  // noname(config, info, model);
+  noname(config, info, model);
 
-  ddthRef = ddthD(config, model);
+  // ddthRef = ddthD(config, model);
 }

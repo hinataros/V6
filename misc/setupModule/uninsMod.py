@@ -5,6 +5,7 @@ import os, sys
 import config
 from myMod import checkUsr
 from myMod import checkDir
+
 from dataConfigMod import removeDataTree
 
 def uninstall():
@@ -12,11 +13,8 @@ def uninstall():
         print("not super user")
         sys.exit()
 
-    checkDir()
     cmd=input("uninstall? [y/] ")
     if cmd == "y":
-        removeDataTree()
-
         temp = ""
         with open(config.SH, "r", encoding="utf-8") as f:
             for line in f:
@@ -34,12 +32,12 @@ def uninstall():
 
             with open(os.path.join(config.home_dir, ".bashrc"), "w", encoding="utf-8") as f:
                 f.write(temp[:-1])
-
         try:
             import shutil
             shutil.rmtree(config.RLS_DIR)
         except OSError:
             print("already uninstalled")
+            sys.exit()
 
         print("uninstalled...")
 
@@ -49,5 +47,7 @@ def uninstall():
 if __name__ == "__main__":
     from myMod import checkDir
     checkDir()
+
+    readRegistry()
 
     uninstall()

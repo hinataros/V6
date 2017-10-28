@@ -10,9 +10,15 @@ def setup():
         print("not super user")
         sys.exit()
 
+    setupModule.myMod.checkDir()
+
     if len(sys.argv) == 2:
         if sys.argv[1] == "install":
             setupModule.insMod.install()
+            setupModule.lnkMod.lnk()
+
+        elif sys.argv[1] == "register":
+            setupModule.registerMod.register()
             setupModule.lnkMod.lnk()
 
         elif sys.argv[1] == "uninstall":

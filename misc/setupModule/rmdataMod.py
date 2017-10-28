@@ -6,11 +6,14 @@ from myMod import checkUsr
 
 from dataConfigMod import removeData
 from dataConfigMod import removeDataTree
+from myMod import readRegistry
 
 def rmdata():
     if checkUsr():
         print("not nomal user")
         sys.exit()
+
+    readRegistry()
 
     if len(sys.argv) == 2:
         if not removeData(sys.argv[1]):

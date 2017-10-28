@@ -55,11 +55,13 @@ void RLS::RlsDynamics::rename(Config &config, Info &info, Model &model)
   dHC = model.all.dMM.block(3,6,3,info.dof.joint);
 
   // nonlinear
-  cal_CM.tail(3) = dIC*model.limb[0].node[0].w + dHC*model.all.dth;
+  cmM = dIC*model.limb[0].node[0].w + dHC*model.all.dth;
+  cal_CM.tail(3) = cmM;
   cthC = cth - model.all.JB2C.transpose()*cal_CB.head(3);
 
   // gravity
-  cal_GC.head(3) = cal_GB.head(3);
+  gf = cal_GB.head(3);
+  cal_GC.head(3) = gf;
 
   // ******************************
 }

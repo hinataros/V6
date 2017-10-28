@@ -13,7 +13,10 @@ void RLS::RlsDynamics::momentumController(Config &config, Info &info, Model &mod
     model.all.m*dvCRef,
     IB*dwBRef;
 
+  dpCRef = model.all.m*dvCRef;
+  dlCRef = IB*dwBRef + cmM;
+
   cal_dLCRef <<
-    model.all.m*dvCRef,
-    IB*dwBRef;
+    dpCRef,
+    dlCRef;
 }
