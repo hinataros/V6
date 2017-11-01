@@ -21,7 +21,7 @@ items:
           data: 
             modelFile: "/home/smiyahara/Documents/software/choreonoid/workspace/rlsSimulator/master/share/model/skeletonModel_tani/skeleton.wrl"
             currentBaseLink: "waist"
-            rootPosition: [ 0, 0, 0.2102 ]
+            rootPosition: [ 0, 0, 0.21019 ]
             rootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
@@ -29,7 +29,7 @@ items:
             jointPositions: [ 
                0.000000,  0.000000, -0.523599,  1.047198, -0.523599,  0.000000,  0.000000,  0.000000, -0.523599,  1.047198, 
               -0.523599, -0.000000,  1.745329,  0.000000,  0.000000, -0.523599,  1.745329,  0.000000,  0.000000, -0.523599 ]
-            initialRootPosition: [ 0, 0, 0.2102 ]
+            initialRootPosition: [ 0, 0, 0.21019 ]
             initialRootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 

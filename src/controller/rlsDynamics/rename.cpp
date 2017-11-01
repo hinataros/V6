@@ -33,16 +33,22 @@ void RLS::RlsDynamics::rename(Config &config, Info &info, Model &model)
   // gravity
   gth = model.all.g.tail(info.dof.joint);
 
+  // o(cal_Pm);
+  // pause;
   // centroidal
   // ******************************
   Pcf = cal_Pc.block(0,0,3,c);
+  Pmf = cal_Pm.block(0,0,3,m);
   PcMm = cal_Pc.block(3,0,3,c);
   cal_JcM = cal_Jc - Pcf.transpose()*model.all.JB2C;
+  cal_JmM = cal_Jm - Pmf.transpose()*model.all.JB2C;
 
   // diff
   dPcf = cal_dPc.block(0,0,3,c);
+  dPmf = cal_dPm.block(0,0,3,m);
   dPcMm = cal_dPc.block(3,0,3,c);
   cal_dJcM = cal_dJc - Pcf.transpose()*model.all.dJB2C;
+  cal_dJmM = cal_dJm - Pmf.transpose()*model.all.dJB2C;
 
   // ******************************
   // inertia

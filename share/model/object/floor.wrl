@@ -289,7 +289,7 @@ DEF floor Humanoid {
       rotation 0 0 1 0
       children [
         DEF BODY Segment {
-	  mass 0.5
+	  mass 1.0
 	  momentsOfInertia [1 0 0 0 1 0 0 0 1]
           children [
             Shape {

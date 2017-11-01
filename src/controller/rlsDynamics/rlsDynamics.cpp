@@ -9,7 +9,7 @@ VectorXd RLS::RlsDynamics::rlsDynamics(Config &config, Info &info, Model &model,
 
   model.update(config, info);
 
-  if(t==0.)
+  if(initialValueFlag)
     initialValue(config, info, model);
 
   resize(config, info, model);

@@ -7,5 +7,6 @@ void RLS::RlsVelocity::velocityController(Config &config)
 {
   if(config.flag.debug) DEBUG;
 
+  cl_Bcoord(config);
   cl_Mcoord(config);
 }

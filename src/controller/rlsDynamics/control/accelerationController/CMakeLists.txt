@@ -1,6 +1,7 @@
 set(srcs
   ddthD.cpp
   cl_Bcoord.cpp
+  cl_Mcoord.cpp
   noname.cpp
   accelerationController.cpp
   )

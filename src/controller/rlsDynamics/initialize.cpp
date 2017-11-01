@@ -7,6 +7,8 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 {
   if(config.flag.debug) DEBUG;
 
+  initialValueFlag = true;
+
   Bc_kDiag = MatrixXi::Zero(6*info.value.joint, 6*info.value.joint);
   Bm_kDiag = MatrixXi::Zero(6*info.value.joint, 6*info.value.joint);
 

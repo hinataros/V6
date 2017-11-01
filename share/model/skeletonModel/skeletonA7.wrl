@@ -476,10 +476,10 @@ DEF skeletonA7 Humanoid{
                               jointId 16
                               translation 0 0.1098 0 
                               rotation 0.5774 0.5774 0.5774 2.094 
-                              ulimit [0.0 0.0 ]
-                              llimit [0.0 0.0 ]
-                              uvlimit [0.0 0.0 ]
-                              lvlimit [0.0 0.0 ]
+                              # ulimit [0.0 0.0 ]
+                              # llimit [0.0 0.0 ]
+                              # uvlimit [0.0 0.0 ]
+                              # lvlimit [0.0 0.0 ]
                               rotorInertia 1.0
                               rotorResistor 1.0
                               children[
@@ -501,10 +501,10 @@ DEF skeletonA7 Humanoid{
                                   jointAxis 0.0 1.0 0.0 
                                   translation 0.0125 -0.0125 0 
                                   rotation 1 0 0 3.1415 
-                                  ulimit [0.0 0.0 ]
-                                  llimit [0.0 0.0 ]
-                                  uvlimit [0.0 0.0 ]
-                                  lvlimit [0.0 0.0 ]
+                                  # ulimit [0.0 0.0 ]
+                                  # llimit [0.0 0.0 ]
+                                  # uvlimit [0.0 0.0 ]
+                                  # lvlimit [0.0 0.0 ]
                                   rotorInertia 1.0
                                   rotorResistor 1.0
                                   children[
@@ -540,10 +540,10 @@ DEF skeletonA7 Humanoid{
                                       jointId 18
                                       jointAxis 1.0 0.0 0.0 
                                       translation 0.035 -0.0125 0.005 
-                                      ulimit [0.0 0.0 ]
-                                      llimit [0.0 0.0 ]
-                                      uvlimit [0.0 0.0 ]
-                                      lvlimit [0.0 0.0 ]
+                                      # ulimit [0.0 0.0 ]
+                                      # llimit [0.0 0.0 ]
+                                      # uvlimit [0.0 0.0 ]
+                                      # lvlimit [0.0 0.0 ]
                                       rotorInertia 1.0
                                       rotorResistor 1.0
                                       children[
@@ -787,10 +787,10 @@ DEF skeletonA7 Humanoid{
                               jointAxis 0.0 0.0 -1.0 
                               translation 0 0.1098 0 
                               rotation -0.5774 -0.5774 0.5774 2.094 
-                              ulimit [0.0 0.0 ]
-                              llimit [0.0 0.0 ]
-                              uvlimit [0.0 0.0 ]
-                              lvlimit [0.0 0.0 ]
+                              # ulimit [0.0 0.0 ]
+                              # llimit [0.0 0.0 ]
+                              # uvlimit [0.0 0.0 ]
+                              # lvlimit [0.0 0.0 ]
                               rotorInertia 1.0
                               rotorResistor 1.0
                               children[
@@ -812,10 +812,10 @@ DEF skeletonA7 Humanoid{
                                   jointAxis 0.0 1.0 0.0 
                                   translation 0.0125 -0.0125 0 
                                   rotation 1 0 0 3.1415 
-                                  ulimit [0.0 0.0 ]
-                                  llimit [0.0 0.0 ]
-                                  uvlimit [0.0 0.0 ]
-                                  lvlimit [0.0 0.0 ]
+                                  # ulimit [0.0 0.0 ]
+                                  # llimit [0.0 0.0 ]
+                                  # uvlimit [0.0 0.0 ]
+                                  # lvlimit [0.0 0.0 ]
                                   rotorInertia 1.0
                                   rotorResistor 1.0
                                   children[
@@ -851,10 +851,10 @@ DEF skeletonA7 Humanoid{
                                       jointId 25
                                       jointAxis 1.0 0.0 0.0 
                                       translation 0.035 -0.0125 -0.005 
-                                      ulimit [0.0 0.0 ]
-                                      llimit [0.0 0.0 ]
-                                      uvlimit [0.0 0.0 ]
-                                      lvlimit [0.0 0.0 ]
+                                      # ulimit [0.0 0.0 ]
+                                      # llimit [0.0 0.0 ]
+                                      # uvlimit [0.0 0.0 ]
+                                      # lvlimit [0.0 0.0 ]
                                       rotorInertia 1.0
                                       rotorResistor 1.0
                                       children[

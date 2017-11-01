@@ -42,3 +42,6 @@ tauの別端末表示
 
 setupModuleの/usr/localへの移動
 ディレクトリ変えてもlnkで行けるようにする
+
+outputのlistをyamlで変更したい
+if文で分岐とかでもいい

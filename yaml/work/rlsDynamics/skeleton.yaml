@@ -23,8 +23,8 @@ Control:
   kpC: 10000.
   kdC: 1000.
 
-  kpwB: 0.
-  kdwB: 0.
+  kpwB: 10000.
+  kdwB: 1000.
 
   kthD: 0.
 

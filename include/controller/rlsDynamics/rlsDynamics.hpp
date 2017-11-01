@@ -24,6 +24,7 @@ namespace RLS{
 
     VectorXd ddthD(Config&, Model&);
     void cl_Bcoord(Config&, Model&);
+    void cl_Mcoord(Config&, Info&, Model&);
     void noname(Config&, Info&, Model&);
     void accelerationController(Config&, Info&, Model&);
 
@@ -39,6 +40,8 @@ namespace RLS{
     void initialize(Config&, Info&);
 
     RlsDynamicsList dc_list;
+
+    bool initialValueFlag;
 
     int c;
     MatrixXi Bc_kDiag;
@@ -84,16 +87,22 @@ namespace RLS{
     // ******************************
     MatrixXd TC2k;
     MatrixXd Pcf;
+    MatrixXd Pmf;
     MatrixXd PcMm;
     MatrixXd cal_PcM;
+    MatrixXd cal_PmM;
     MatrixXd cal_JcM;
+    MatrixXd cal_JmM;
 
     // diff
     MatrixXd dTC2k;
     MatrixXd dPcf;
+    MatrixXd dPmf;
     MatrixXd dPcMm;
     MatrixXd cal_dPcM;
+    MatrixXd cal_dPmM;
     MatrixXd cal_dJcM;
+    MatrixXd cal_dJmM;
 
     // rename
     // ******************************

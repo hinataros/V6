@@ -30,9 +30,11 @@ void RLS::RlsDynamics::decompose(Config &config, Model &model)
 
   // ******************************
   cal_PcM = TC2k.transpose()*Bc;
+  cal_PmM = TC2k.transpose()*Bm;
 
   // diff
   cal_dPcM = dTC2k.transpose()*Bc + TC2k.transpose()*dBc;
+  cal_dPmM = dTC2k.transpose()*Bm + TC2k.transpose()*dBm;
 
   // ******************************
 }

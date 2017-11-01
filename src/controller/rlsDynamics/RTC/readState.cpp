@@ -29,8 +29,11 @@ void RlsDynamicsRTC::readState(RLS::Config &config, RLS::Model &model)
     model.limb[0].node[0].w(i) = m_baseVel.data[3+i];
   }
 
+  model.limb[0].node[0].vo = model.limb[0].node[0].v - cross(model.limb[0].node[0].w)*model.limb[0].node[0].r;
+
   for(unsigned i=0; i<m_angle.data.length(); i++)
     model.all.th(i) = m_angle.data[i];
   for(unsigned i=0; i<m_angVel.data.length(); i++)
     model.all.dth(i) = m_angVel.data[i];
+
 }

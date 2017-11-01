@@ -15,4 +15,6 @@ void RLS::RlsDynamics::initialValue(Config &config, Info &info, Model &model)
     cal_X0.segment(6*(i-1),6) <<
       model.limb[i].node[info.limb[i].dof].r,
       R2xi(model.limb[i].node[info.limb[i].dof].R);
+
+  initialValueFlag = false;
 }

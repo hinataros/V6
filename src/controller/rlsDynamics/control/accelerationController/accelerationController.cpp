@@ -8,6 +8,7 @@ void RLS::RlsDynamics::accelerationController(Config &config, Info &info, Model 
   if(config.flag.debug) DEBUG;
 
   // cl_Bcoord(config, model);
+  // cl_Mcoord(config, info, model);
 
   noname(config, info, model);
 
