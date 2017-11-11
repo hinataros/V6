@@ -1,10 +1,8 @@
-#include "rlsVelocity.hpp"
-#include "rlsAcceleration.hpp"
+#include "rlsDynamics.hpp"
 
 namespace RLS{
   class Controller:
-    public RlsVelocity,
-    public RlsAcceleration
+    public RlsDynamics
   {
   private:
     void initialize(Config&, Info&);

@@ -20,10 +20,11 @@ void RLS::RlsSimulator::linkEqs(Config &config, Info &info, Model &model, Contro
 
   output.tm_temp = model.tm_list;
 
-  if(config.controller.name=="rlsVelocity")
-    output.vc_temp = controller.RlsVelocity::vc_list;
-  else if(config.controller.name=="rlsAcceleration")
-    output.ac_temp = controller.RlsAcceleration::ac_list;
+  if(config.controller.name=="rlsDynamics")
+    if(config.solver.input=="velocity")
+      output.vc_temp = controller.RlsDynamics::vc_list;
+    else if(config.solver.input=="acceleration")
+      output.ac_temp = controller.RlsDynamics::ac_list;
 
   output.pushBack(config, t);
 }

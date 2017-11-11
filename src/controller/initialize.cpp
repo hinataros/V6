@@ -7,10 +7,8 @@ void RLS::Controller::initialize(Config &config, Info &info)
 {
   if(config.flag.debug) DEBUG;
 
-  if(config.controller.name=="rlsVelocity")
-    RlsVelocity::initialize(config, info);
-  else if(config.controller.name=="rlsAcceleration")
-    RlsAcceleration::initialize(config, info);
+  if(config.controller.name=="rlsDynamics")
+    RlsDynamics::initialize(config, info);
 
   else
     cout << "no controller..." << endl;

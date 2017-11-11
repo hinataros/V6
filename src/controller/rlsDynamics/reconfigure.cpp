@@ -42,15 +42,8 @@ void RLS::RlsDynamics::reconfigure(Config &config, Info &info)
   cal_dJcM = MatrixXd::Zero(c, info.dof.joint);
 
   // ******************************
-  cal_dVcBarRef = VectorXd::Zero(c);
-
-  cal_dVmBarRef = VectorXd::Zero(m);
-  cal_dVmTildeRef = VectorXd::Zero(m);
-  cal_JmBar = MatrixXd::Zero(m, info.dof.joint);;
-
-  hc = VectorXd::Zero(c);
-  hm = VectorXd::Zero(m);
 
   // force
   cal_FcBarRef = VectorXd::Zero(c);
+  cal_FcMBarRef = VectorXd::Zero(c);
 }

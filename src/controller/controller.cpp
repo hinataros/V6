@@ -7,10 +7,8 @@ VectorXd RLS::Controller::controller(Config &config, Info &info, Model &model, d
 {
   if(config.flag.debug) DEBUG;
 
-  if(config.controller.name=="rlsVelocity")
-    u = RlsVelocity::rlsVelocity(config, info, model, t);
-  else if(config.controller.name=="rlsAcceleration")
-    u = RlsAcceleration::rlsAcceleration(config, info, model, t);
+  if(config.controller.name=="rlsDynamics")
+    u = RlsDynamics::rlsDynamics(config, info, model, t);
 
   else
     cout << "no controller..." << endl;

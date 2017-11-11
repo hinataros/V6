@@ -17,6 +17,9 @@ void RLS::TreeModel::outputConfig(Config &config, Info &info)
   tm_list.rC = all.rC;
   tm_list.vC = all.vC;
 
+  tm_list.p = all.p;
+  tm_list.lC = all.lC;
+
   for(int i=1; i<info.value.node; i++){
     tm_list.eePosMatrix.col(i-1) = limb[i].node[info.limb[i].dof].r;
     tm_list.eeOrientMatrix.col(i-1) = R2xi(limb[i].node[info.limb[i].dof].R);

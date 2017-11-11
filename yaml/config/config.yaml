@@ -7,16 +7,20 @@ Default config:
 # smiyahara: controller の config の場所は要検討
 Simulation config:
  Solver:
-  Control input: velocity
+  # Control input: acceleration
+  Control input: torque
 
  Controller:
   Flag: false ## smiyahara: 未実装
   Dynamics: true
-  Work: skeleton
+  # Work: skeletonKinematics
+  Work: skeletonDynamics
 
  Graph:
   Flag: true
+  Check: false
   Make gp: true
+  Make tex: true
   Sampling time: 10
 
  Gif:

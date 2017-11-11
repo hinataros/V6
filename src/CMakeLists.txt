@@ -31,9 +31,8 @@ include_directories(${PROJECT_SOURCE_DIR}/include/model/treeModel)
 include_directories(${PROJECT_SOURCE_DIR}/include/interpolation)
 
 include_directories(${PROJECT_SOURCE_DIR}/include/controller)
-include_directories(${PROJECT_SOURCE_DIR}/include/controller/rlsVelocity)
-include_directories(${PROJECT_SOURCE_DIR}/include/controller/rlsAcceleration)
 include_directories(${PROJECT_SOURCE_DIR}/include/controller/rlsDynamics)
+include_directories(${PROJECT_SOURCE_DIR}/include/controller/rlsDynamics/outputList)
 
 include_directories(${OPENRTM_INCLUDE_DIRS})
 
@@ -70,9 +69,9 @@ if(rls_rlsDynamicsRTC)
   set(RTC_NAME "rlsDynamicsRTC")
   add_definitions(-DCHOREONOID)
 
-  set(comp_srcs ${comp_srcs} ${sources})
+  set(RTC_srcs ${sources} ${rlsDynamicsRTC_srcs})
 
-  add_library(${RTC_NAME} ${LIB_TYPE} ${comp_srcs})
+  add_library(${RTC_NAME} ${LIB_TYPE} ${RTC_srcs})
   target_link_libraries(${RTC_NAME} ${LDFLAGS})
   set_target_properties(${RTC_NAME} PROPERTIES PREFIX "")
 endif(rls_rlsDynamicsRTC)
@@ -82,7 +81,7 @@ if(rls_rlsSimulator)
 
   set(comp_srcs
     ${sources}
-    ${controllerComp_srcs}
+    ${controller_srcs}
     ${rlsSimulator_srcs}
     )
 

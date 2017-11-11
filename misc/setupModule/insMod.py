@@ -21,7 +21,7 @@ def install():
         try:
             shutil.copytree(config.mod_dir, os.path.join(config.RLS_DIR, "module", "setupModule"))
         except FileExistsError:
-            print("already installed module...")
+            print("already installed setup module...")
 
         try:
             os.symlink(os.path.join(config.RLS_DIR, "module", "setupModule", "lnkMod.py"), os.path.join(config.RLS_DIR, "bin", "lnk"))

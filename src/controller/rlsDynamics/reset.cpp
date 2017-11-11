@@ -6,6 +6,7 @@
 void RLS::RlsDynamics::reset(Config &config, Info &info, double &t)
 {
   if(config.flag.debug) DEBUG;
+
   // smiyahara: 1ステップ目は初期化と同義
   rCtemp = rCf;
 
@@ -30,7 +31,10 @@ void RLS::RlsDynamics::reset(Config &config, Info &info, double &t)
     }
   }
 
-  info.sim.tw0 = t;
+  // motion controller
+  vc_ptr = map_vc[vc_name];
+  ac_ptr = map_ac[ac_name];
 
+  info.sim.tw0 = t;
   info.sim.phase++;
 }

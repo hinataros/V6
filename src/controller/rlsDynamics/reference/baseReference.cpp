@@ -17,6 +17,9 @@ void RLS::RlsDynamics::baseReference(Config &config,Info &info, Model &model, do
   erB = rBDes - model.limb[0].node[0].r;
   evB = vBDes - model.limb[0].node[0].v;
 
+  // velocityController
+  vBRef = vBDes + kpvB*erB;
+
   dvBRef = dvBDes + kdvB*evB + kpvB*erB;
 
   for(int i=0; i<3; i++){
@@ -36,6 +39,9 @@ void RLS::RlsDynamics::baseReference(Config &config,Info &info, Model &model, do
 	     + cross(model.limb[0].node[0].R.col(1))*RBDes.col(1)
 	     + cross(model.limb[0].node[0].R.col(2))*RBDes.col(2));
   ewB = wBDes - model.limb[0].node[0].w;
+
+  // velocityController
+  wBRef = wBDes + kpwB*eoB;
 
   dwBRef = dwBDes + kdwB*ewB + kpwB*eoB;
 }

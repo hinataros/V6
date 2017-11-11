@@ -39,6 +39,7 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   // ******************************
   // inertia
   IB = Matrix3d::Zero();
+  MB = Matrix6d::Zero();
   HBth = MatrixXd::Zero(6, info.dof.joint);
   Mth = MatrixXd::Zero(info.dof.joint, info.dof.joint);
 
@@ -92,10 +93,12 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   xiBDes = dxiBDes = ddxiBDes = Vector3d::Zero();
   RBDes = Matrix3d::Zero();
   wBDes = dwBDes = Vector3d::Zero();
-  cal_XDes = cal_VDes = cal_dVDes = VectorXd::Zero(6*info.value.joint);
+  cal_XDes = cal_VxiDes = cal_dVxiDes = VectorXd::Zero(6*info.value.joint);
+  cal_VDes = cal_dVDes = VectorXd::Zero(6*info.value.joint);
 
   erC = evC = Vector3d::Zero();
   erB = evB = eoB = ewB = Vector3d::Zero();
+  cal_Ep = cal_Ev = VectorXd::Zero(6*info.value.joint);
 
   dvCRef = Vector3d::Zero();
 
@@ -107,17 +110,32 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   cal_dVRef = VectorXd::Zero(6*info.value.joint);
 
-  h = VectorXd::Zero(info.dof.joint);
-
   // momentum
-  cal_dLBRef = Vector6d::Zero();
-  dpCRef = Vector3d::Zero();
+  dpRef = Vector3d::Zero();
   dlCRef = Vector3d::Zero();
+  dlBRef = Vector3d::Zero();
+  cal_dLBRef = Vector6d::Zero();
   cal_dLCRef = Vector6d::Zero();
 
-  ddthcRef = VectorXd::Zero(info.dof.joint);
-  ddthmRef = VectorXd::Zero(info.dof.joint);
+  // velocityController
+  // **********************
+  vCRef = Vector3d::Zero();
+
+  vBRef = Vector3d::Zero();
+  wBRef = Vector3d::Zero();
+
+  cal_VBRef = Vector6d::Zero();
+  cal_VMRef = Vector6d::Zero();
+
+  cal_VRef = VectorXd::Zero(6*info.value.joint);
+  // **********************
+
+  dthRef = VectorXd::Zero(info.dof.joint);
+  dqRef = VectorXd::Zero(info.dof.all);
+
   ddthRef = VectorXd::Zero(info.dof.joint);
+
+  ddqRef = VectorXd::Zero(info.dof.all);
 
   tau = VectorXd::Zero(info.dof.joint);
 
@@ -131,5 +149,16 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   kpwB = 0.;
   kdwB = 0.;
 
+  kpv = 0.;
+  kdv = 0.;
+
   kthD = 0.;
+
+  // mapping
+  map_vc["cal_Bvel"] = &RLS::RlsDynamics::cl_Bvel;
+  map_vc["cal_Mvel"] = &RLS::RlsDynamics::cl_Mvel;
+
+  map_ac["cl_Bacc"] = &RLS::RlsDynamics::cl_Bacc;
+  map_ac["cl_Macc"] = &RLS::RlsDynamics::cl_Macc;
+  map_ac["noname"] = &RLS::RlsDynamics::noname;
 }

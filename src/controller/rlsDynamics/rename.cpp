@@ -22,6 +22,7 @@ void RLS::RlsDynamics::rename(Config &config, Info &info, Model &model)
   // ******************************
   // inertia
   IB = model.all.M.block(3,3,3,3);
+  MB = model.all.M.block(0,0,6,6);
   HBth = model.all.M.block(0,6,6,info.dof.joint);
   Mth = model.all.M.block(6,6,info.dof.joint,info.dof.joint);
 
@@ -61,7 +62,8 @@ void RLS::RlsDynamics::rename(Config &config, Info &info, Model &model)
   dHC = model.all.dMM.block(3,6,3,info.dof.joint);
 
   // nonlinear
-  cmM = dIC*model.limb[0].node[0].w + dHC*model.all.dth;
+  cmM = dIC*model.limb[0].node[0].w;
+  // cmM = dIC*model.limb[0].node[0].w + dHC*model.all.dth;
   cal_CM.tail(3) = cmM;
   cthC = cth - model.all.JB2C.transpose()*cal_CB.head(3);
 

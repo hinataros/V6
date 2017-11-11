@@ -26,7 +26,9 @@ void RLS::Config::readConfig()
   controller.work = doc["Simulation config"]["Controller"]["Work"].as<string>();
 
   graph.flag = doc["Simulation config"]["Graph"]["Flag"].as<bool>();
+  graph.check = doc["Simulation config"]["Graph"]["Check"].as<bool>();
   graph.gp = doc["Simulation config"]["Graph"]["Make gp"].as<bool>();
+  graph.tex = doc["Simulation config"]["Graph"]["Make tex"].as<bool>();
   graph.st = doc["Simulation config"]["Graph"]["Sampling time"].as<int>();
 
   gif.flag = doc["Simulation config"]["Gif"]["Flag"].as<bool>();

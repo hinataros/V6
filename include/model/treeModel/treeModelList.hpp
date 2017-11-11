@@ -16,6 +16,9 @@ namespace RLS{
     Vector3d rC;
     Vector3d vC;
 
+    Vector3d p;
+    Vector3d lC;
+
     MatrixXd eePosMatrix;
     MatrixXd eeOrientMatrix;
     MatrixXd eeVelMatrix;

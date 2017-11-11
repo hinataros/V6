@@ -1,4 +1,11 @@
 set(srcs
+  baseTrans.cpp
+  baseRot.cpp
+  joint.cpp
+  eeTrans.cpp
+  eeRot.cpp
+  com.cpp
+  mom.cpp
   makeTreeModelDat.cpp
   )
 
