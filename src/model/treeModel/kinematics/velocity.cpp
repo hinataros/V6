@@ -18,7 +18,7 @@ void RLS::TreeModel::velocity(Config &config, Info &info, Vector3d voB, Vector3d
   limb[0].node[0].I = limb[0].node[0].R*limb[0].node[0].Iw_C*limb[0].node[0].R.transpose();
   limb[0].node[0].ISvv = limb[0].node[0].m*Matrix3d::Identity();
   limb[0].node[0].ISvw = -limb[0].node[0].m*cross(limb[0].node[0].rC);
-  limb[0].node[0].ISww = -limb[0].node[0].m*cross(limb[0].node[0].rC)*cross(limb[0].node[0].rC).transpose()+limb[0].node[0].I;
+  limb[0].node[0].ISww = limb[0].node[0].m*cross(limb[0].node[0].rC)*cross(limb[0].node[0].rC).transpose()+limb[0].node[0].I;
 
   limb[0].node[0].p = limb[0].node[0].ISvv*voB + limb[0].node[0].ISvw*wB;
   limb[0].node[0].lC = limb[0].node[0].ISvw.transpose()*voB + limb[0].node[0].ISww*wB;
@@ -45,7 +45,7 @@ void RLS::TreeModel::velocity(Config &config, Info &info, Vector3d voB, Vector3d
 
     limb[i].node[0].ISvv = limb[i].node[0].m*Matrix3d::Identity();
     limb[i].node[0].ISvw = -limb[i].node[0].m*cross(limb[i].node[0].rC);
-    limb[i].node[0].ISww = -limb[i].node[0].m*cross(limb[i].node[0].rC)*cross(limb[i].node[0].rC).transpose()+limb[i].node[0].I;
+    limb[i].node[0].ISww = limb[i].node[0].m*cross(limb[i].node[0].rC)*cross(limb[i].node[0].rC).transpose()+limb[i].node[0].I;
 
     limb[i].node[0].p = limb[i].node[0].ISvv*limb[i].node[0].vo + limb[i].node[0].ISvw*limb[i].node[0].w;
     limb[i].node[0].lC = limb[i].node[0].ISvw.transpose()*limb[i].node[0].vo + limb[i].node[0].ISww*limb[i].node[0].w;
@@ -72,7 +72,7 @@ void RLS::TreeModel::velocity(Config &config, Info &info, Vector3d voB, Vector3d
 
       limb[i].node[j].ISvv = limb[i].node[j].m*Matrix3d::Identity();
       limb[i].node[j].ISvw = -limb[i].node[j].m*cross(limb[i].node[j].rC);
-      limb[i].node[j].ISww = -limb[i].node[j].m*cross(limb[i].node[j].rC)*cross(limb[i].node[j].rC).transpose()+limb[i].node[j].I;
+      limb[i].node[j].ISww = limb[i].node[j].m*cross(limb[i].node[j].rC)*cross(limb[i].node[j].rC).transpose()+limb[i].node[j].I;
 
       limb[i].node[j].p = limb[i].node[j].ISvv*limb[i].node[j].vo + limb[i].node[j].ISvw*limb[i].node[j].w;
       limb[i].node[j].lC = limb[i].node[j].ISvw.transpose()*limb[i].node[j].vo + limb[i].node[j].ISww*limb[i].node[j].w;

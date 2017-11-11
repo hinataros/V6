@@ -25,11 +25,11 @@ VectorXd RLS::RlsDynamics::rlsDynamics(Config &config, Info &info, Model &model,
   reference(config, info, model, t);
   control(config, info, model);
 
-  outputConfig(config);
+  outputConfig(config, model);
 
   // smiyahra: 時間超えたらそれ用のyaml読みたい
   // if(t>info.sim.tf)
   //   tau *=0.;
 
-  return tau;
+  return input;
 }

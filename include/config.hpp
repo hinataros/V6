@@ -61,7 +61,9 @@ namespace RLS{
 
     struct Graph{
       bool flag;
+      bool check;
       bool gp;
+      bool tex;
       int st;
     } graph;
 

@@ -8,7 +8,7 @@ void RLS::Output::makeGifDat(Config &config, Model &model)
 {
   if(config.flag.debug) DEBUG;
 
-  path = config.link + "data/dat/" + config.name + "/" + config.controller.name + ":" + config.model.name+"/gif/";
+  path = config.link + "data/dat/" + config.controller.name + ":" + config.model.name + "/" + config.name + "/gif/";
   string path_temp;
 
   int cur=0;

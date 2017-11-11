@@ -11,12 +11,28 @@ void RLS::RlsDynamics::endEffectorReference(Config &config, Info &info, Model &m
     des = makeSpline5(t-info.sim.tw0, info.sim.twf, cal_Xtemp(i), cal_Xf(i));
 
     cal_XDes(i) = des(0) + cal_X0(i);
-    cal_VDes(i) = des(1);
-    cal_dVDes(i) = des(2);
+    cal_VxiDes(i) = des(1);
+    cal_dVxiDes(i) = des(2);
   }
 
-  // cal_Er = cal_XDes - cal_X;
-  // cal_Ev = cal_VDes - cal_V;
+  for(int i=1; i<info.value.node; i++){
+    cal_VDes.segment(6*(i-1), 6) <<
+      cal_VxiDes.segment(6*(i-1), 3),
+      dxi2w(cal_VxiDes.segment(6*(i-1)+3, 3), cal_X.segment(6*(i-1)+3, 3));
+    cal_dVDes.segment(6*(i-1), 6) <<
+      cal_dVxiDes.segment(6*(i-1), 3),
+      ddxi2dw(cal_dVxiDes.segment(6*(i-1)+3, 3), cal_X.segment(6*(i-1)+3, 3), w2dxi(cal_V.segment(6*(i-1)+3, 3), cal_X.segment(6*(i-1)+3, 3)));
 
-  cal_dVRef = cal_dVDes;
+    cal_Ep.segment(6*(i-1), 6) <<
+      cal_XDes.segment(6*(i-1), 3) - cal_X.segment(6*(i-1), 3),
+      0.5*(cross(model.limb[i].node[info.limb[i].dof].R.col(0))*xi2R(cal_XDes.segment(6*(i-1)+3, 3)).col(0)
+	      + cross(model.limb[i].node[info.limb[i].dof].R.col(1))*xi2R(cal_XDes.segment(6*(i-1)+3, 3)).col(1)
+	      + cross(model.limb[i].node[info.limb[i].dof].R.col(2))*xi2R(cal_XDes.segment(6*(i-1)+3, 3)).col(2));
+  }
+  cal_Ev = cal_VDes - cal_V;
+
+  // velocityController
+  cal_VRef = cal_VDes + kpv*cal_Ep;
+
+  cal_dVRef = cal_dVDes + kdv*cal_Ev + kpv*cal_Ep;
 }

@@ -80,7 +80,6 @@ RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
 
   output.tm_temp = model.tm_list;
   output.dc_temp = rlsDynamics.dc_list;
-  output.pushBack(config, t);
 
   writeInput(config);
 
@@ -94,6 +93,14 @@ RTC::ReturnCode_t RlsDynamicsRTC::onDeactivated(RTC::UniqueId ec_id)
 
   // smiyahara: はい?
   info.sim.n = (t - info.sim.t0) / info.sim.dt;
+
+  readState(config, model);
+
+  tau = rlsDynamics.rlsDynamics(config, info, model, t);
+
+  output.dc_temp = rlsDynamics.dc_list;
+  output.tm_temp = model.tm_list;
+  output.pushBack(config, t);
 
   output.output(config, info);
   output.finalize(config);

@@ -6,7 +6,7 @@
 
 void RLS::Output::makeGpTime3D(Config &config, string category, string name, string yLabel, string unit, int terminal)
 {
-  if (config.flag.debug) DEBUG;
+  if(config.flag.debug) DEBUG;
 
   string xLabel = "Time [s]";
 
@@ -33,7 +33,7 @@ void RLS::Output::makeGpTime3D(Config &config, string category, string name, str
   string plot = "plot ";
   for(int i=2; i<5; i++){
     plot +=
-      MACRO+"_DAT.'"+name+".dat' u 1:($"+to_string(i)+"*"+unit+") t '' w l lw LINE_WIDTH";
+      MACRO+"_DAT.'"+name+".dat' every ::(T_OFFSET*SAMPLING) u ($1-T_OFFSET):($"+to_string(i)+"*"+unit+") t '' w l ls "+to_string(i-1);
 
     if(i<4)
       plot += ",\\\n";
@@ -43,10 +43,9 @@ void RLS::Output::makeGpTime3D(Config &config, string category, string name, str
     "set terminal TERMINAL "+to_string(terminal)+"\n"
     "if(VIEWMODE) replot\n";
 
-  string pathGp = config.link + "data/gp/" + config.name + "/" + config.controller.name + ":" + config.model.name + "/" + category + "/";
-  string pathGp_temp;
+  string pathGp = config.link + "data/gp/" + config.controller.name + ":" + config.model.name + "/" + config.name + "/" + category + "/";
 
-  pathGp_temp = pathGp+name+".gp";
+  string pathGp_temp = pathGp+name+".gp";
 
   ofstream gp(pathGp_temp.c_str());
   if(!gp)

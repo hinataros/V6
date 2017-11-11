@@ -15,6 +15,15 @@ void RLS::RlsDynamics::readWork(Config &config, Info &info)
   info.sim.twf = doc["Control"][info.sim.phase]["twf"].as<double>();
 
   try{
+    vc_name = doc["Control"][info.sim.phase]["Velocity controller"].as<string>();
+  }
+  catch(...){}
+  try{
+    ac_name = doc["Control"][info.sim.phase]["Acceleration controller"].as<string>();
+  }
+  catch(...){}
+
+  try{
     doc["Control"][info.sim.phase]["Bc"][0][0].as<int>();
 
     c=0;
@@ -96,6 +105,14 @@ void RLS::RlsDynamics::readWork(Config &config, Info &info)
   catch(...){}
   try{
     kdwB = doc["Control"][info.sim.phase]["kdwB"].as<double>();
+  }
+  catch(...){}
+  try{
+    kpv = doc["Control"][info.sim.phase]["kpv"].as<double>();
+  }
+  catch(...){}
+  try{
+    kdv = doc["Control"][info.sim.phase]["kdv"].as<double>();
   }
   catch(...){}
 

@@ -96,6 +96,7 @@ void RLS::TreeModel::analyticalDynamics(Config &config, Info &info)
 
 	temp++;
       }
+
       cur += temp;
     }
   }

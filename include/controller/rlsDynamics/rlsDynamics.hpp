@@ -1,6 +1,10 @@
+#include <map>
+
 #include "interpolation.hpp"
 #include "common.hpp"
 
+#include "rlsVelocityList.hpp"
+#include "rlsAccelerationList.hpp"
 #include "rlsDynamicsList.hpp"
 
 namespace RLS{
@@ -8,40 +12,10 @@ namespace RLS{
     public Interpolation, virtual public Common
   {
   private:
-    void initialValue(Config&, Info&, Model&);
-    void rename(Config&, Info&, Model&);
-    void resize(Config&, Info&, Model&);
-    void reset(Config&, Info&, double&);
-    void readWork(Config&, Info&);
-    void reconfigure(Config&, Info&);
-
-    void decompose(Config&, Model&);
-
-    void comReference(Config&, Info&, Model&, double&);
-    void baseReference(Config&, Info&, Model&, double&);
-    void endEffectorReference(Config&, Info&, Model&, double&);
-    void reference(Config&, Info&, Model&, double&);
-
-    VectorXd ddthD(Config&, Model&);
-    void cl_Bcoord(Config&, Model&);
-    void cl_Mcoord(Config&, Info&, Model&);
-    void noname(Config&, Info&, Model&);
-    void accelerationController(Config&, Info&, Model&);
-
-    void momentumController(Config&, Info&, Model&);
-    void forceController(Config&, Info&, Model&);
-    void torqueController(Config&, Info&, Model&);
-    void control(Config&, Info&, Model&);
-
-    void outputConfig(Config&);
-
-  public:
-    // smiyahara: 名前は変えたい
-    void initialize(Config&, Info&);
-
-    RlsDynamicsList dc_list;
-
     bool initialValueFlag;
+
+    string vc_name;
+    string ac_name;
 
     int c;
     MatrixXi Bc_kDiag;
@@ -107,7 +81,8 @@ namespace RLS{
     // rename
     // ******************************
     // inertia
-    MatrixXd IB;
+    Matrix3d IB;
+    Matrix6d MB;
     MatrixXd HBth;
     MatrixXd Mth;
 
@@ -121,7 +96,7 @@ namespace RLS{
 
     // ******************************
     // inertia
-    MatrixXd IC;
+    Matrix3d IC;
     MatrixXd HC;
     MatrixXd MthC;
 
@@ -173,6 +148,9 @@ namespace RLS{
     Vector3d dwBDes;
 
     VectorXd cal_XDes;
+    VectorXd cal_VxiDes;
+    VectorXd cal_dVxiDes;
+
     VectorXd cal_VDes;
     VectorXd cal_dVDes;
 
@@ -186,6 +164,9 @@ namespace RLS{
     Vector3d eoB;
     Vector3d ewB;
 
+    VectorXd cal_Ep;
+    VectorXd cal_Ev;
+
     Vector3d dvCRef;
 
     Vector3d dvBRef;
@@ -196,33 +177,38 @@ namespace RLS{
 
     VectorXd cal_dVRef;
 
-    // acceleration controller
-    VectorXd cal_dVcBarRef;
-
-    VectorXd cal_dVmBarRef;
-    VectorXd cal_dVmTildeRef;
-    MatrixXd cal_JmBar;
-
-    // nonlinear
-    VectorXd hc;
-    VectorXd hm;
-    VectorXd h;
-
     // momentum
-    Vector6d cal_dLBRef;
-    Vector3d dpCRef;
+    Vector3d dpRef;
+    Vector3d dlBRef;
     Vector3d dlCRef;
+    Vector6d cal_dLBRef;
     Vector6d cal_dLCRef;
 
     // force
     VectorXd cal_FcBarRef;
+    VectorXd cal_FcMBarRef;
 
-    VectorXd ddthcRef;
-    VectorXd ddthmRef;
+    // velocityController
+    // **********************
+    Vector3d vCRef;
+
+    Vector3d vBRef;
+    Vector3d wBRef;
+
+    Vector6d cal_VBRef;
+    Vector6d cal_VMRef;
+
+    VectorXd cal_VRef;
+    VectorXd dthRef;
+    VectorXd dqRef;
+    // **********************
 
     VectorXd ddthRef;
+    VectorXd ddqRef;
 
     VectorXd tau;
+
+    VectorXd input;
 
     // gain
     double kpC;
@@ -234,13 +220,59 @@ namespace RLS{
     double kpwB;
     double kdwB;
 
+    double kpv;
+    double kdv;
+
     double kthD;
 
+    void initialValue(Config&, Info&, Model&);
+    void rename(Config&, Info&, Model&);
+    void resize(Config&, Info&, Model&);
+    void reset(Config&, Info&, double&);
+    void readWork(Config&, Info&);
+    void reconfigure(Config&, Info&);
+
+    void decompose(Config&, Model&);
+
+    void comReference(Config&, Info&, Model&, double&);
+    void baseReference(Config&, Info&, Model&, double&);
+    void endEffectorReference(Config&, Info&, Model&, double&);
+    void reference(Config&, Info&, Model&, double&);
+
+    // velocity controller
+    VectorXd cl_Bvel(Config&, Info&, Model&);
+    VectorXd cl_Mvel(Config&, Info&, Model&);
+
+    // acceleration controller
+    VectorXd ddthD(Config&, Model&);
+    VectorXd cl_Bacc(Config&, Info&, Model&);
+    VectorXd cl_Macc(Config&, Info&, Model&);
+    VectorXd noname(Config&, Info&, Model&);
+
+    void momentumController(Config&, Info&, Model&);
+    void forceController(Config&, Info&, Model&);
+    VectorXd torqueController(Config&, Info&, Model&);
+
+    void control(Config&, Info&, Model&);
+
+    void velocityOutputConfig(Config&, Model&);
+    void accelerationOutputConfig(Config&, Model&);
+    void torqueOutputConfig(Config&, Model&);
+    void outputConfig(Config&, Model&);
+
+    VectorXd (RLS::RlsDynamics::*ac_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
+    VectorXd (RLS::RlsDynamics::*vc_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
+    VectorXd (RLS::RlsDynamics::*oc_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
+    map<string, VectorXd (RLS::RlsDynamics::*)(RLS::Config&, RLS::Info&, RLS::Model&)> map_ac, map_vc;
+
+  public:
+    // smiyahara: 名前は変えたい
+    void initialize(Config&, Info&);
     VectorXd rlsDynamics(Config&, Info&, Model&, double&);
 
-    // RlsDynamics(){}
-    // RlsDynamics(Config &config, Model &model){
-    //   activate(config, model);
-    // }
+    RlsVelocityList vc_list;
+    RlsAccelerationList ac_list;
+    RlsDynamicsList dc_list;
+
   };
 }

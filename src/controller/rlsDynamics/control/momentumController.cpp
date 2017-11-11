@@ -7,16 +7,20 @@ void RLS::RlsDynamics::momentumController(Config &config, Info &info, Model &mod
 {
   if(config.flag.debug) DEBUG;
 
-  // cal_dLBRef = Vector6d::Zero();
+  dpRef = model.all.m*dvCRef;
+
+  dlBRef =
+    model.all.m*cross(model.limb[0].node[0].r-model.all.rC).transpose()*dvCRef + IC*dwBRef
+    + model.all.m*cross(model.limb[0].node[0].v-model.all.vC).transpose()*cal_VM.head(3) + dIC*cal_VM.tail(3);
+
+  dlCRef = IC*dwBRef + cmM;
+  // dlCRef = IC*dwBRef + HC*ddthRef + cmM;
 
   cal_dLBRef <<
-    model.all.m*dvCRef,
-    IB*dwBRef;
-
-  dpCRef = model.all.m*dvCRef;
-  dlCRef = IB*dwBRef + HC*ddthRef + cmM;
+    dpRef,
+    dlBRef;
 
   cal_dLCRef <<
-    dpCRef,
+    dpRef,
     dlCRef;
 }

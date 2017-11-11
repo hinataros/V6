@@ -102,7 +102,7 @@ items:
             dynamicFriction: 1
             cullingThresh: 0.005
             contactCullingDepth: 0.05
-            errorCriterion: 0.001
+            errorCriterion: 0.00001
             maxNumIterations: 1000
             contactCorrectionDepth: 0.0001
             contactCorrectionVelocityRatio: 1

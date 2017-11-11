@@ -13,21 +13,23 @@ def makeData(arg):
         for temp_m in model_yaml:
             name, ext = os.path.splitext(temp_m)
             temp = os.path.basename(temp_c) + str(":") + os.path.basename(name)
-            os.makedirs(os.path.join(config.rgs_dir, "data", "dat", arg, temp, "model"), exist_ok=True)
-            os.makedirs(os.path.join(config.rgs_dir, "data", "dat", arg, temp, "controller"), exist_ok=True)
-            os.makedirs(os.path.join(config.rgs_dir, "data", "dat", arg, temp, "gif"), exist_ok=True)
+            os.makedirs(os.path.join(config.rgs_dir, "data", "dat", temp, arg, "model"), exist_ok=True)
+            os.makedirs(os.path.join(config.rgs_dir, "data", "dat", temp, arg, "controller"), exist_ok=True)
+            os.makedirs(os.path.join(config.rgs_dir, "data", "dat", temp, arg, "gif"), exist_ok=True)
 
-            os.makedirs(os.path.join(config.rgs_dir, "data", "eps", arg, temp, "model"), exist_ok=True)
-            os.makedirs(os.path.join(config.rgs_dir, "data", "eps", arg, temp, "controller"), exist_ok=True)
+            os.makedirs(os.path.join(config.rgs_dir, "data", "eps", temp, arg, "model"), exist_ok=True)
+            os.makedirs(os.path.join(config.rgs_dir, "data", "eps", temp, arg, "controller"), exist_ok=True)
+            f = open(os.path.join(config.rgs_dir, "data", "eps", "eps.flag"),'w')
+            f.close()
 
-            os.makedirs(os.path.join(config.rgs_dir, "data", "gif", arg, temp), exist_ok=True)
+            os.makedirs(os.path.join(config.rgs_dir, "data", "gif", temp, arg), exist_ok=True)
 
-            os.makedirs(os.path.join(config.rgs_dir, "data", "gp", arg, temp, "library"), exist_ok=True)
-            os.makedirs(os.path.join(config.rgs_dir, "data", "gp", arg, temp, "model"), exist_ok=True)
-            os.makedirs(os.path.join(config.rgs_dir, "data", "gp", arg, temp, "controller"), exist_ok=True)
+            os.makedirs(os.path.join(config.rgs_dir, "data", "gp", temp, arg, "library"), exist_ok=True)
+            os.makedirs(os.path.join(config.rgs_dir, "data", "gp", temp, arg, "model"), exist_ok=True)
+            os.makedirs(os.path.join(config.rgs_dir, "data", "gp", temp, arg, "controller"), exist_ok=True)
 
-            os.makedirs(os.path.join(config.rgs_dir, "data", "movie", arg, temp), exist_ok=True)
-            os.makedirs(os.path.join(config.rgs_dir, "data", "pdf", arg, temp), exist_ok=True)
+            os.makedirs(os.path.join(config.rgs_dir, "data", "pdf", temp, "src", arg), exist_ok=True)
+            os.makedirs(os.path.join(config.rgs_dir, "data", "movie", temp), exist_ok=True)
 
 def removeData(arg):
     cmd=input("delete {0} directory? [y/] ".format(arg))
