@@ -1,7 +1,7 @@
 add_subdirectory(environment)
 
 set(srcs
-  makeInterface.cpp
+  makeSimInfo.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" makeTex_srcs)

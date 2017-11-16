@@ -4,7 +4,7 @@
 #include "info.hpp"
 #include "output.hpp"
 
-string RLS::Output::eeRotDes(Config &config, Info &info, string &load)
+string RLS::Output::eeRotDes(Config &config, Info &info, string dir, string &load)
 {
   if(config.flag.debug) DEBUG;
 
@@ -14,9 +14,9 @@ string RLS::Output::eeRotDes(Config &config, Info &info, string &load)
   // desired end effector orientation
   for(int l=1; l<info.value.node; l++){
     name = "021_eeOrientDesLimb"+to_string(l);
-    ofstream eeOrientDes((path+name+".dat").c_str());
+    ofstream eeOrientDes((dir+name+".dat").c_str());
     if(!eeOrientDes)
-      cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+      cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
     else{
       for(int i=0; i<info.sim.n+1; i+=config.graph.st)
   	eeOrientDes << setprecision(9) << scientific <<
@@ -37,9 +37,9 @@ string RLS::Output::eeRotDes(Config &config, Info &info, string &load)
   // desired end effector angular velocity
   for(int l=1; l<info.value.node; l++){
     name = "023_eeAngVelDesLimb"+to_string(l);
-    ofstream eeAngVelDes((path+name+".dat").c_str());
+    ofstream eeAngVelDes((dir+name+".dat").c_str());
     if(!eeAngVelDes)
-      cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+      cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
     else{
       for(int i=0; i<info.sim.n+1; i+=config.graph.st)
   	eeAngVelDes << setprecision(9) << scientific <<
@@ -60,9 +60,9 @@ string RLS::Output::eeRotDes(Config &config, Info &info, string &load)
   // desired end effector angular acceleration
   for(int l=1; l<info.value.node; l++){
     name = "025_eeAngAccDesLimb"+to_string(l);
-    ofstream eeAngAccDes((path+name+".dat").c_str());
+    ofstream eeAngAccDes((dir+name+".dat").c_str());
     if(!eeAngAccDes)
-      cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+      cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
     else{
       for(int i=0; i<info.sim.n+1; i+=config.graph.st)
   	eeAngAccDes << setprecision(9) << scientific <<

@@ -4,7 +4,7 @@
 #include "info.hpp"
 #include "output.hpp"
 
-string RLS::Output::baseTransDes(Config &config, Info &info, string &load)
+string RLS::Output::baseTransDes(Config &config, Info &info, string dir, string &load)
 {
   if(config.flag.debug) DEBUG;
 
@@ -13,9 +13,9 @@ string RLS::Output::baseTransDes(Config &config, Info &info, string &load)
 
   // desired base position
   name = "000_basePosDes";
-  ofstream basePosDes((path+name+".dat").c_str());
+  ofstream basePosDes((dir+name+".dat").c_str());
   if(!basePosDes)
-    cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+    cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       basePosDes << setprecision(9) << scientific <<
@@ -33,9 +33,9 @@ string RLS::Output::baseTransDes(Config &config, Info &info, string &load)
 
   // desired base velocity
   name = "002_baseVelDes";
-  ofstream baseVelDes((path+name+".dat").c_str());
+  ofstream baseVelDes((dir+name+".dat").c_str());
   if(!baseVelDes)
-    cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+    cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       baseVelDes << setprecision(9) << scientific <<
@@ -53,9 +53,9 @@ string RLS::Output::baseTransDes(Config &config, Info &info, string &load)
 
   // desired base acceleration
   name = "004_baseAccDes";
-  ofstream baseAccDes((path+name+".dat").c_str());
+  ofstream baseAccDes((dir+name+".dat").c_str());
   if(!baseAccDes)
-    cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+    cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       baseAccDes << setprecision(9) << scientific <<

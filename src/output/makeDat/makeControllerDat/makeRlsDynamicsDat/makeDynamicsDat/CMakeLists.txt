@@ -8,6 +8,7 @@ set(srcs
   comErr.cpp
   rcMomRef.cpp
   eeWrenchRef.cpp
+  jointTorque.cpp
   formulatedMom.cpp
   makeDynamicsDat.cpp
   )

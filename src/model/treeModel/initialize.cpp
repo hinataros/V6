@@ -94,5 +94,8 @@ void RLS::TreeModel::initialize(Config &config, Info &info)
   tm_list.eeVelMatrix = MatrixXd::Zero(3, info.value.joint);
   tm_list.eeAngVelMatrix = MatrixXd::Zero(3, info.value.joint);
 
+  tm_list.eeForceMatrix = MatrixXd::Zero(3, info.value.joint);
+  tm_list.eeMomentMatrix = MatrixXd::Zero(3, info.value.joint);
+
   tm_list.posGifMatrix = MatrixXd::Zero(3, info.value.all);
 }

@@ -28,6 +28,9 @@ RlsDynamicsRTC::RlsDynamicsRTC(RTC::Manager* manager)
     m_angVelIn("dth", m_angVel),
     m_basePosIn("rB", m_basePos),
     m_baseVelIn("vB", m_baseVel),
+    m_rightFootForceIn("FFr", m_rightFootForce),
+    m_leftFootForceIn("FFl", m_leftFootForce),
+
     m_torqueOut("tau", m_torque)
 {
 }
@@ -46,6 +49,9 @@ RTC::ReturnCode_t RlsDynamicsRTC::onInitialize()
   addInPort("rB", m_basePosIn);
   addInPort("vB", m_baseVelIn);
 
+  addInPort("FFr", m_rightFootForceIn);
+  addInPort("FFl", m_leftFootForceIn);
+
   // Set OutPort buffer
   addOutPort("tau", m_torqueOut);
 
@@ -63,18 +69,14 @@ RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
   model.readModel(config, info);
   rlsDynamics.initialize(config, info);
 
-  if(m_angleIn.isNew()){
-    m_angleIn.read();
-  }
-
   // initialize torque size
+  m_angleIn.read();
   m_torque.data.length(m_angle.data.length());
-  for(size_t i=0; i<m_angle.data.length(); ++i){
+  for(size_t i=0; i<m_angle.data.length(); ++i)
     m_torque.data[i] = 0.;
-  }
 
   // smiyahara: 要検討
-  readState(config, model);
+  readState(config, info, model);
 
   tau = rlsDynamics.rlsDynamics(config, info, model, t);
 
@@ -94,7 +96,7 @@ RTC::ReturnCode_t RlsDynamicsRTC::onDeactivated(RTC::UniqueId ec_id)
   // smiyahara: はい?
   info.sim.n = (t - info.sim.t0) / info.sim.dt;
 
-  readState(config, model);
+  readState(config, info, model);
 
   tau = rlsDynamics.rlsDynamics(config, info, model, t);
 
@@ -114,7 +116,7 @@ RTC::ReturnCode_t RlsDynamicsRTC::onDeactivated(RTC::UniqueId ec_id)
 
 RTC::ReturnCode_t RlsDynamicsRTC::onExecute(RTC::UniqueId ec_id)
 {
-  readState(config, model);
+  readState(config, info, model);
 
   tau = rlsDynamics.rlsDynamics(config, info, model, t);
 

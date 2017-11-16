@@ -13,9 +13,9 @@ VectorXd RLS::RlsDynamics::cl_Bvel(Config &config, Info &info, Model &model)
   VectorXd dthcRef = pInv(cal_Jc)*cal_VcBarRef;
 
   // mobility
+  MatrixXd cal_JmBar = cal_Jm*N(cal_Jc);
   VectorXd cal_VmBarRef = Bm.transpose()*cal_VRef - cal_Pm.transpose()*cal_VBRef;
   VectorXd cal_VmTildeRef = cal_VmBarRef - cal_Jm*pInv(cal_Jc)*cal_VcBarRef;
-  VectorXd cal_JmBar = cal_Jm*N(cal_Jc);
 
   VectorXd dthmRef = pInv(cal_JmBar)*cal_VmTildeRef;
 

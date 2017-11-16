@@ -55,12 +55,7 @@ void RLS::Output::makeGpTimeLimb(Config &config, Info &info, string category, st
       setting + "\n" + label + "\n" + out + "\n" + plot + "\n\n" + replot +"\n\n";
   }
 
-  string pathGp = config.link + "data/gp/" + config.controller.name + ":" + config.model.name + "/" + config.name + "/" + category + "/";
-  string pathGp_temp;
-
-  pathGp_temp = pathGp+name+".gp";
-
-  ofstream gp(pathGp_temp.c_str());
+  ofstream gp((config.dir.gp.sub+category+"/"+name+".gp").c_str());
   if(!gp)
     cout << path << ": " << endl << "file open error..." << endl;
   else{

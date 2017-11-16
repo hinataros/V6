@@ -7,12 +7,12 @@ void RLS::RlsDynamics::outputConfig(Config &config, Model &model)
 {
   if(config.flag.debug) DEBUG;
 
-  if(config.solver.input=="velocity")
+  if(config.controller.input=="velocity")
     velocityOutputConfig(config, model);
 
-  else if(config.solver.input=="acceleration")
+  else if(config.controller.input=="acceleration")
     accelerationOutputConfig(config, model);
 
-  else if(config.solver.input=="torque")
+  else if(config.controller.input=="torque")
     torqueOutputConfig(config, model);
 }

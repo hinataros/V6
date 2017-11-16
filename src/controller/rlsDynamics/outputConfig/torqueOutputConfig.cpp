@@ -34,6 +34,8 @@ void RLS::RlsDynamics::torqueOutputConfig(Config &config, Model &model)
   dc_list.cal_FBarRef = Bc_k*cal_FcBarRef;
   // dc_list.cal_FBarRef = Bc_k*cal_FcMBarRef;
 
+  dc_list.tau = tau;
+
   dc_list.pCRB = model.all.m*cal_VM.head(3);
   dc_list.lCRB = IC*cal_VM.tail(3);
 

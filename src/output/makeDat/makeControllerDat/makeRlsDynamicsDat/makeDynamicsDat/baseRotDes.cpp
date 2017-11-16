@@ -4,7 +4,7 @@
 #include "info.hpp"
 #include "output.hpp"
 
-string RLS::Output::baseRotDes(Config &config, Info &info, string &load)
+string RLS::Output::baseRotDes(Config &config, Info &info, string dir, string &load)
 {
   if(config.flag.debug) DEBUG;
 
@@ -13,9 +13,9 @@ string RLS::Output::baseRotDes(Config &config, Info &info, string &load)
 
   // desired base orientation
   name = "001_baseOrientDes";
-  ofstream baseOrientDes((path+name+".dat").c_str());
+  ofstream baseOrientDes((dir+name+".dat").c_str());
   if(!baseOrientDes)
-    cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+    cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       baseOrientDes << setprecision(9) << scientific <<
@@ -33,9 +33,9 @@ string RLS::Output::baseRotDes(Config &config, Info &info, string &load)
 
   // desired base angular velocity
   name = "003_baseAngVelDes";
-  ofstream baseAngVelDes((path+name+".dat").c_str());
+  ofstream baseAngVelDes((dir+name+".dat").c_str());
   if(!baseAngVelDes)
-    cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+    cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       baseAngVelDes << setprecision(9) << scientific <<
@@ -53,9 +53,9 @@ string RLS::Output::baseRotDes(Config &config, Info &info, string &load)
 
   // desired base anguler acceleration
   name = "005_baseAngAccDes";
-  ofstream baseAngAccDes((path+name+".dat").c_str());
+  ofstream baseAngAccDes((dir+name+".dat").c_str());
   if(!baseAngAccDes)
-    cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+    cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       baseAngAccDes << setprecision(9) << scientific <<

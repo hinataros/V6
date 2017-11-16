@@ -1,8 +1,8 @@
 add_subdirectory(makeDynamicsDat)
 
 set(srcs
-  makeVelocityDat.cpp
-  makeAccelerationDat.cpp
+  # makeVelocityDat.cpp
+  # makeAccelerationDat.cpp
   makeRlsDynamicsDat.cpp
   )
 

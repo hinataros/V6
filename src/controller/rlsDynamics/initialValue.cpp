@@ -16,5 +16,7 @@ void RLS::RlsDynamics::initialValue(Config &config, Info &info, Model &model)
       model.limb[i].node[info.limb[i].dof].r,
       R2xi(model.limb[i].node[info.limb[i].dof].R);
 
+  thDes = model.all.th;
+
   initialValueFlag = false;
 }

@@ -7,22 +7,22 @@ void RLS::Config::readConfig()
 {
   if(flag.debug) DEBUG;
 
-  path = link + "yaml/config/" + def + ".yaml";
-
+  string path = dir.link + "yaml/config/" + def + ".yaml";
   YAML::Node doc = YAML::LoadFile(path.c_str());
 
-  // // default config
-  name = doc["Default config"]["Simulation name"].as<string>();
+  // default config
+  data.name.main = doc["Default config"]["Data name"].as<string>();
+  data.name.sub = doc["Default config"]["Subdata name"].as<string>();
   model.name = doc["Default config"]["Model name"].as<string>();
   controller.name = doc["Default config"]["Controller name"].as<string>();
+
   if(option!="-d")
     flag.debug = doc["Default config"]["Debug mode"].as<bool>();
 
   // simulation config
-  solver.input = doc["Simulation config"]["Solver"]["Control input"].as<string>();
-
   controller.flag = doc["Simulation config"]["Controller"]["Flag"].as<bool>();
   controller.dynamics = doc["Simulation config"]["Controller"]["Dynamics"].as<bool>();
+  controller.input = doc["Simulation config"]["Controller"]["Input"].as<string>();
   controller.work = doc["Simulation config"]["Controller"]["Work"].as<string>();
 
   graph.flag = doc["Simulation config"]["Graph"]["Flag"].as<bool>();
@@ -63,4 +63,6 @@ void RLS::Config::readConfig()
 
   cho.flag = doc["Simulation config"]["Choreonoid"]["Flag"].as<bool>();
   cho.st = doc["Simulation config"]["Choreonoid"]["Sampling time"].as<int>();
+
+  setDir();
 }

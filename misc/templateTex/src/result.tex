@@ -1,14 +1,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 % result.tex
-% 
+%
 % Tex file for research notation in English
-% 
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-% 
+%
 % Class file
 \documentclass{article}
 % -----------------------------------------------------------------------
-% 
+%
 % Packages
 \usepackage{../sty/result}
 \usepackage[dvipdfmx]{graphicx}
@@ -19,6 +19,8 @@
 % \usepackage{bm}
 % \usepackage{sty/arydshln}
 \special{papersize=210mm, 297mm}
+
+\def\result{/usr/local/etc/rls/sl/result}
 
 %-----------------------------------------------------------------------
 %
@@ -51,16 +53,15 @@
 %   tabsize=2,
 % }
 % -----------------------------------------------------------------------
-% 
+%
 % Setting
 \renewcommand{\ourgroup}{Humanoid}
 \renewcommand{\resulttitle}{Simulation results}
 \renewcommand{\resultauthor}{}
 % -----------------------------------------------------------------------
-% 
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\input{def/path}
-\input{\data/pdf/interface}
+\input{\result/interface/simInfo}
 
 \begin{document}
 \header
@@ -82,7 +83,7 @@
 % \end{table}
 %以下から本文を記述すること
 
-\input{\data/pdf/\controller:\model/src/\sim/\sim}
+\input{\result/\controller:\model/\data/pdf/src/\sub/\sub}
 
 % \begin{eqnarray}
 %   \dot{\bm{r}}^{ref}_X &=& \dot{\bm{r}}^{des}_X - \bm{K}_{p_{v}}(\bm{r}_X-\bm{r}_X^{des})\\
@@ -96,12 +97,12 @@
 % \begin{thebibliography}{99} \footnotesize
 % \end{thebibliography}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-% 
-% 
+%
+%
 \end{document}
-% 
-% 
-% 
+%
+%
+%
 Local Variables:
 mode: japanese-latex
 TeX-master: t

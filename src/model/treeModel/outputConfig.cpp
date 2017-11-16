@@ -25,6 +25,9 @@ void RLS::TreeModel::outputConfig(Config &config, Info &info)
     tm_list.eeOrientMatrix.col(i-1) = R2xi(limb[i].node[info.limb[i].dof].R);
     tm_list.eeVelMatrix.col(i-1) = limb[i].node[info.limb[i].dof].v;
     tm_list.eeAngVelMatrix.col(i-1) = limb[i].node[info.limb[i].dof].w;
+
+    tm_list.eeForceMatrix.col(i-1) = limb[i].node[info.limb[i].dof].f;
+    tm_list.eeMomentMatrix.col(i-1) = limb[i].node[info.limb[i].dof].n;
   }
 
   // smiyahara: サイズの初期化の変数がびみょ

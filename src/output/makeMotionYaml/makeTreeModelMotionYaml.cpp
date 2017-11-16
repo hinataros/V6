@@ -8,7 +8,7 @@ void RLS::Output::makeTreeModelMotionYaml(Config &config, Info &info)
 {
   if(config.flag.debug) DEBUG;
 
-  path = config.link + "share/motion/" + config.model.name + "Motion.yaml";
+  string path = config.dir.link + "share/motion/" + config.model.name + "Motion.yaml";
 
   ofstream motionYaml(path.c_str());
   if(!motionYaml)

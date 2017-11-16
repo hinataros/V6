@@ -4,7 +4,7 @@
 #include "info.hpp"
 #include "output.hpp"
 
-string RLS::Output::com(Config &config, Info &info, string &load)
+string RLS::Output::com(Config &config, Info &info, string dir, string &load)
 {
   if(config.flag.debug) DEBUG;
 
@@ -13,9 +13,9 @@ string RLS::Output::com(Config &config, Info &info, string &load)
 
   // CoM position
   name = "030_comPos";
-  ofstream comPos((path+name+".dat").c_str());
+  ofstream comPos((dir+name+".dat").c_str());
   if(!comPos)
-    cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+    cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       comPos << setprecision(9) << scientific <<
@@ -33,9 +33,9 @@ string RLS::Output::com(Config &config, Info &info, string &load)
 
   // com velocity
   name = "031_comVel";
-  ofstream comVel((path+name+".dat").c_str());
+  ofstream comVel((dir+name+".dat").c_str());
   if(!comVel)
-    cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+    cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       comVel << setprecision(9) << scientific <<

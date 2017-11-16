@@ -18,10 +18,7 @@ void RLS::Output::makeFigureTex(Config &config, string name, string minipage, st
   string end =
     "\\end{figure}";
 
-  string pathTex = config.link + "data/pdf/" + config.controller.name + ":" + config.model.name + "/src/" + config.name + "/" + "/";
-  string pathTex_temp = pathTex+name+".tex";
-
-  ofstream tex(pathTex_temp.c_str());
+  ofstream tex((config.dir.pdf.sub+name+".tex").c_str());
   if(!tex)
     cout << path << ": " << endl << "file open error..." << endl;
   else{

@@ -4,7 +4,7 @@
 #include "info.hpp"
 #include "output.hpp"
 
-string RLS::Output::joint(Config &config, Info &info, string &load)
+string RLS::Output::joint(Config &config, Info &info, string dir, string &load)
 {
   if(config.flag.debug) DEBUG;
 
@@ -13,9 +13,9 @@ string RLS::Output::joint(Config &config, Info &info, string &load)
 
   // joint angle
   name = "010_jointAng";
-  ofstream jointAng((path+name+".dat").c_str());
+  ofstream jointAng((dir+name+".dat").c_str());
   if(!jointAng)
-    cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+    cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       jointAng << setprecision(9) << scientific <<
@@ -33,9 +33,9 @@ string RLS::Output::joint(Config &config, Info &info, string &load)
 
   // joint velocity
   name = "011_jointVel";
-  ofstream jointVel((path+name+".dat").c_str());
+  ofstream jointVel((dir+name+".dat").c_str());
   if(!jointVel)
-    cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+    cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       jointVel << setprecision(9) << scientific <<

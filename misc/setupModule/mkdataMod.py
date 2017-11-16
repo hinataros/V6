@@ -7,7 +7,8 @@ from myMod import checkUsr
 from myMod import readRegistry
 
 from dataConfigMod import makeData
-from dataConfigMod import removeData
+from dataConfigMod import removeSubData
+from dataConfigMod import removeSubDataTree
 from dataConfigMod import removeDataTree
 
 def mkdata():
@@ -17,29 +18,32 @@ def mkdata():
 
     readRegistry()
 
-    if len(sys.argv) == 2 or len(sys.argv) == 3:
-        if len(sys.argv) == 3:
-            if sys.argv[1] == "-re":
-                if not removeData(sys.argv[2]):
-                    print("interrupted...")
-                    sys.exit()
+    from argparse import ArgumentParser
 
-            elif sys.argv[1] == "-re0":
-                if not removeDataTree():
-                    print("interrupted...")
-                    sys.exit()
-            else:
-                print("argument invalid")
+    usage = "Usage: DATA_NAME [-option] [-sub simulation name] [--help]"\
+            .format(__file__)
+    parser = ArgumentParser(usage=usage)
+    parser.add_argument("data", type=str,
+                           help="data name")
+    parser.add_argument("-re", "--re",
+                           action="store_true",
+                           help="remove")
+    parser.add_argument("-re0", "--re0",
+                           action="store_true",
+                           help="remove")
+    parser.add_argument("-sub", "--sub", required=True, nargs="*")
 
-            makeData(sys.argv[2])
-            print("created {0} data tree...".format(sys.argv[2]))
+    args = parser.parse_args()
 
-        else:
-            makeData(sys.argv[1])
-            print("created {0} data tree...".format(sys.argv[1]))
+    if args.re0:
+        if not removeDataTree():
+            print("interrupted...")
+            sys.exit()
 
-    else:
-        print("argument invalid")
+    if args.re:
+        removeSubData(args.data, args.sub)
+
+    makeData(args.data, args.sub)
 
 if __name__ == "__main__":
     mkdata()

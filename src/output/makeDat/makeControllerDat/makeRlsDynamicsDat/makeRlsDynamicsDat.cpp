@@ -6,10 +6,10 @@ void RLS::Output::makeRlsDynamicsDat(Config &config, Info &info)
 {
   if(config.flag.debug) DEBUG;
 
-  if(config.solver.input=="velocity")
+  if(config.controller.input=="velocity")
     makeVelocityDat(config, info);
-  else if(config.solver.input=="acceleration")
+  else if(config.controller.input=="acceleration")
     makeAccelerationDat(config, info);
-  else if(config.solver.input=="torque")
+  else if(config.controller.input=="torque")
     makeDynamicsDat(config, info);
 }

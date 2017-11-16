@@ -4,7 +4,7 @@
 #include "info.hpp"
 #include "output.hpp"
 
-string RLS::Output::eeTrans(Config &config, Info &info, string &load)
+string RLS::Output::eeTrans(Config &config, Info &info, string dir, string &load)
 {
   if(config.flag.debug) DEBUG;
 
@@ -14,9 +14,9 @@ string RLS::Output::eeTrans(Config &config, Info &info, string &load)
   // end effector position
   for(int l=1; l<info.value.node; l++){
     name = "020_eePosLimb"+to_string(l);
-    ofstream eePos((path+name+".dat").c_str());
+    ofstream eePos((dir+name+".dat").c_str());
     if(!eePos)
-      cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+      cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
     else{
       for(int i=0; i<info.sim.n; i+=config.graph.st)
   	eePos << setprecision(9) << scientific <<
@@ -37,9 +37,9 @@ string RLS::Output::eeTrans(Config &config, Info &info, string &load)
   // end effector velocity
   for(int l=1; l<info.value.node; l++){
     name = "022_eeVelLimb"+to_string(l);
-    ofstream eeVel((path+name+".dat").c_str());
+    ofstream eeVel((dir+name+".dat").c_str());
     if(!eeVel)
-      cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+      cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
     else{
       for(int i=0; i<info.sim.n; i+=config.graph.st)
   	eeVel << setprecision(9) << scientific <<

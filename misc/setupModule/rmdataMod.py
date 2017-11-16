@@ -4,7 +4,8 @@ import sys
 
 from myMod import checkUsr
 
-from dataConfigMod import removeData
+from dataConfigMod import removeSubData
+from dataConfigMod import removeSubDataTree
 from dataConfigMod import removeDataTree
 from myMod import readRegistry
 
@@ -15,17 +16,24 @@ def rmdata():
 
     readRegistry()
 
-    if len(sys.argv) == 2:
-        if not removeData(sys.argv[1]):
-            print("interrupted...")
-            sys.exit()
+    if len(sys.argv) != 1:
+        from argparse import ArgumentParser
 
-    elif len(sys.argv) == 1:
+        usage = "Usage: DATA_NAME [-option] [-sub simulation name] [--help]"\
+                .format(__file__)
+        parser = ArgumentParser(usage=usage)
+        parser.add_argument("data", type=str, help="data name")
+        parser.add_argument("-sub", "--sub", nargs="*")
+
+        args = parser.parse_args()
+
+        if args.sub:
+            removeSubData(args.data, args.sub)
+
+    else:
         if not removeDataTree():
             print("interrupted...")
             sys.exit()
-    else:
-        print("argument invalid")
 
 if __name__ == "__main__":
     from myMod import checkDir

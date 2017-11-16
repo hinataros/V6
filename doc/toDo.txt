@@ -54,3 +54,5 @@ simulation時間はworkのみで設定するようにする
 outputのdataへのpathを一箇所で定義したい
 
 model:controllerにしたい
+
+CMakeList.txtのinclude pathの設定をしやすく

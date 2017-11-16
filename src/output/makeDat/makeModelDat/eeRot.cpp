@@ -4,7 +4,7 @@
 #include "info.hpp"
 #include "output.hpp"
 
-string RLS::Output::eeRot(Config &config, Info &info, string &load)
+string RLS::Output::eeRot(Config &config, Info &info, string dir, string &load)
 {
   if(config.flag.debug) DEBUG;
 
@@ -14,9 +14,9 @@ string RLS::Output::eeRot(Config &config, Info &info, string &load)
   // end effector orientation
   for(int l=1; l<info.value.node; l++){
     name = "021_eeOrientLimb"+to_string(l);
-    ofstream eeOrient((path+name+".dat").c_str());
+    ofstream eeOrient((dir+name+".dat").c_str());
     if(!eeOrient)
-      cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+      cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
     else{
       for(int i=0; i<info.sim.n; i+=config.graph.st)
   	eeOrient << setprecision(9) << scientific <<
@@ -37,9 +37,9 @@ string RLS::Output::eeRot(Config &config, Info &info, string &load)
   // end effector angular velocity
   for(int l=1; l<info.value.node; l++){
     name = "023_eeAngVelLimb"+to_string(l);
-    ofstream eeAngVel((path+name+".dat").c_str());
+    ofstream eeAngVel((dir+name+".dat").c_str());
     if(!eeAngVel)
-      cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+      cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
     else{
       for(int i=0; i<info.sim.n; i+=config.graph.st)
   	eeAngVel << setprecision(9) << scientific <<

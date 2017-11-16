@@ -1,5 +1,6 @@
 set(srcs
   readConfig.cpp
+  setDir.cpp
   readArgument.cpp
   )
 

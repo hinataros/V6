@@ -27,7 +27,7 @@ def lnk():
     readRegistry()
 
     try:
-        os.symlink(os.path.join(config.rgs_dir, "data"), os.path.join(config.RLS_DIR, "sl", "data"))
+        os.symlink(os.path.join(config.rgs_dir, "result"), os.path.join(config.RLS_DIR, "sl", "result"))
     except FileExistsError:
         print("already exists")
     try:

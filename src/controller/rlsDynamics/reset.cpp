@@ -31,9 +31,8 @@ void RLS::RlsDynamics::reset(Config &config, Info &info, double &t)
     }
   }
 
-  // motion controller
-  vc_ptr = map_vc[vc_name];
-  ac_ptr = map_ac[ac_name];
+  mc_ptr = map_mc[mc_name];
+  tc_ptr = map_tc[tc_name];
 
   info.sim.tw0 = t;
   info.sim.phase++;

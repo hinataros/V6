@@ -11,7 +11,7 @@ void RLS::Output::makeGraph(Config &config)
   FILE *gp;
 
   gp = popen("gnuplot -persist ", "w");
-  fprintf(gp,"cd '%s'\n", (config.link + "data/gp/" + config.controller.name + ":" + config.model.name + "/" + config.name).c_str());
+  fprintf(gp,"cd '%s'\n", (config.dir.gp.sub).c_str());
   fprintf(gp,"load 'model.gp'\n");
   fprintf(gp,"load 'controller.gp'\n");
   pclose(gp);
@@ -28,7 +28,6 @@ void RLS::Output::makeGraph(Config &config)
     cout << "Graph closed successfully!" << endl;
 
   // eps handler target
-  string target = config.link + "data/eps/eps.flag";
-  ofstream flag(target.c_str());
+  ofstream flag((config.dir.interface+"handler.flag").c_str());
   flag.close();
 }

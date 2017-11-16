@@ -4,7 +4,7 @@
 #include "info.hpp"
 #include "output.hpp"
 
-string RLS::Output::formulatedMom(Config &config, Info &info, string &load)
+string RLS::Output::formulatedMom(Config &config, Info &info, string dir, string &load)
 {
   if(config.flag.debug) DEBUG;
 
@@ -13,9 +13,9 @@ string RLS::Output::formulatedMom(Config &config, Info &info, string &load)
 
   // CRB linear momentum
   name = "041_crbMom";
-  ofstream crbMom((path+name+".dat").c_str());
+  ofstream crbMom((dir+name+".dat").c_str());
   if(!crbMom)
-    cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+    cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       crbMom << setprecision(9) << scientific <<
@@ -33,9 +33,9 @@ string RLS::Output::formulatedMom(Config &config, Info &info, string &load)
 
   // CRB angular momentum
   name = "041_crbAngMom";
-  ofstream crbAngMom((path+name+".dat").c_str());
+  ofstream crbAngMom((dir+name+".dat").c_str());
   if(!crbAngMom)
-    cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+    cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       crbAngMom << setprecision(9) << scientific <<
@@ -53,9 +53,9 @@ string RLS::Output::formulatedMom(Config &config, Info &info, string &load)
 
   // coupling momentum
   name = "041_coupMom";
-  ofstream coupMom((path+name+".dat").c_str());
+  ofstream coupMom((dir+name+".dat").c_str());
   if(!coupMom)
-    cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+    cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       coupMom << setprecision(9) << scientific <<
@@ -73,9 +73,9 @@ string RLS::Output::formulatedMom(Config &config, Info &info, string &load)
 
   // coupling angular momentum
   name = "041_coupAngMom";
-  ofstream coupAngMom((path+name+".dat").c_str());
+  ofstream coupAngMom((dir+name+".dat").c_str());
   if(!coupAngMom)
-    cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+    cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       coupAngMom << setprecision(9) << scientific <<
@@ -93,9 +93,9 @@ string RLS::Output::formulatedMom(Config &config, Info &info, string &load)
 
   // linear momentum
   name = "041_formLinMom";
-  ofstream formLinMom((path+name+".dat").c_str());
+  ofstream formLinMom((dir+name+".dat").c_str());
   if(!formLinMom)
-    cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+    cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       formLinMom << setprecision(9) << scientific <<
@@ -113,9 +113,9 @@ string RLS::Output::formulatedMom(Config &config, Info &info, string &load)
 
   // angular momentum
   name = "041_formAngMom";
-  ofstream formAngMom((path+name+".dat").c_str());
+  ofstream formAngMom((dir+name+".dat").c_str());
   if(!formAngMom)
-    cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+    cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       formAngMom << setprecision(9) << scientific <<

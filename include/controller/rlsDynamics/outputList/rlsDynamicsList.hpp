@@ -28,6 +28,8 @@ namespace RLS{
 
     VectorXd cal_FBarRef;
 
+    VectorXd tau;
+
     Vector3d pCRB;
     Vector3d lCRB;
     Vector3d pCth;

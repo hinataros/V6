@@ -4,7 +4,7 @@
 #include "info.hpp"
 #include "output.hpp"
 
-string RLS::Output::eeWrenchRef(Config &config, Info &info, string &load)
+string RLS::Output::eeWrenchRef(Config &config, Info &info, string dir, string &load)
 {
   if(config.flag.debug) DEBUG;
 
@@ -14,9 +14,9 @@ string RLS::Output::eeWrenchRef(Config &config, Info &info, string &load)
   // end effector force reference
   for(int l=1; l<info.value.node; l++){
     name = "033_eeForceRefLimb"+to_string(l);
-    ofstream eeForceRef((path+name+".dat").c_str());
+    ofstream eeForceRef((dir+name+".dat").c_str());
     if(!eeForceRef)
-      cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+      cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
     else{
       for(int i=0; i<info.sim.n+1; i+=config.graph.st)
   	eeForceRef << setprecision(9) << scientific <<
@@ -37,9 +37,9 @@ string RLS::Output::eeWrenchRef(Config &config, Info &info, string &load)
   // end effector moment reference
   for(int l=1; l<info.value.node; l++){
     name = "034_eeMomentRefLimb"+to_string(l);
-    ofstream eeMomentRef((path+name+".dat").c_str());
+    ofstream eeMomentRef((dir+name+".dat").c_str());
     if(!eeMomentRef)
-      cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+      cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
     else{
       for(int i=0; i<info.sim.n+1; i+=config.graph.st)
   	eeMomentRef << setprecision(9) << scientific <<

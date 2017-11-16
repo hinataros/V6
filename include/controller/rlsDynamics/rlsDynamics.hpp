@@ -14,8 +14,8 @@ namespace RLS{
   private:
     bool initialValueFlag;
 
-    string vc_name;
-    string ac_name;
+    string mc_name;
+    string tc_name;
 
     int c;
     MatrixXi Bc_kDiag;
@@ -80,6 +80,9 @@ namespace RLS{
 
     // rename
     // ******************************
+    Vector3d rB2C;
+    Vector3d drB2C;
+
     // inertia
     Matrix3d IB;
     Matrix6d MB;
@@ -105,8 +108,6 @@ namespace RLS{
     MatrixXd dHC;
 
     // nonlinear
-    Vector3d cmM;
-    Vector6d cal_CM;
     VectorXd cthC;
 
     // gravity
@@ -153,6 +154,9 @@ namespace RLS{
 
     VectorXd cal_VDes;
     VectorXd cal_dVDes;
+
+    // high gain control
+    VectorXd thDes;
 
     // error
     Vector3d erC;
@@ -225,6 +229,10 @@ namespace RLS{
 
     double kthD;
 
+    // high gain control
+    double kpHG;
+    double kdHG;
+
     void initialValue(Config&, Info&, Model&);
     void rename(Config&, Info&, Model&);
     void resize(Config&, Info&, Model&);
@@ -251,7 +259,10 @@ namespace RLS{
 
     void momentumController(Config&, Info&, Model&);
     void forceController(Config&, Info&, Model&);
-    VectorXd torqueController(Config&, Info&, Model&);
+
+    // torque controller
+    VectorXd fullDynamicsController(Config&, Info&, Model&);
+    VectorXd highGainController(Config&, Info&, Model&);
 
     void control(Config&, Info&, Model&);
 
@@ -260,10 +271,9 @@ namespace RLS{
     void torqueOutputConfig(Config&, Model&);
     void outputConfig(Config&, Model&);
 
-    VectorXd (RLS::RlsDynamics::*ac_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
-    VectorXd (RLS::RlsDynamics::*vc_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
-    VectorXd (RLS::RlsDynamics::*oc_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
-    map<string, VectorXd (RLS::RlsDynamics::*)(RLS::Config&, RLS::Info&, RLS::Model&)> map_ac, map_vc;
+    VectorXd (RLS::RlsDynamics::*mc_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
+    VectorXd (RLS::RlsDynamics::*tc_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
+    map<string, VectorXd (RLS::RlsDynamics::*)(RLS::Config&, RLS::Info&, RLS::Model&)> map_mc, map_tc;
 
   public:
     // smiyahara: 名前は変えたい

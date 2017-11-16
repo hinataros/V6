@@ -51,12 +51,12 @@ VectorXd RLS::TreeModel::recursiveNewtonEuler(Config &config, Info &info, Vector
   for(int i=info.value.joint; i>0; i--){
     for(int j=info.limb[i].dof-1; j>-1; j--){
       if(j==info.limb[i].dof-1){
-	limb[i].node[j].f_rne = limb[i].node[j].fHat_rne
-	  // smiyahara: 先端部にかかる外力
-	  + limb[i].node[j+1].f;
-	limb[i].node[j].n_rne = limb[i].node[j].nHat_rne + cross(limb[i].node[j].R*limb[i].node[j].ri2C)*limb[i].node[j].fHat_rne
-	  // smiyahara: 先端部にかかる外力
-	  + limb[i].node[j+1].n + cross(limb[i].node[j].R*limb[i].node[j+1].d)*limb[i].node[j+1].f;
+	limb[i].node[j].f_rne = limb[i].node[j].fHat_rne;
+	  // // // smiyahara: 先端部にかかる外力
+	  // + limb[i].node[j+1].f;
+	limb[i].node[j].n_rne = limb[i].node[j].nHat_rne + cross(limb[i].node[j].R*limb[i].node[j].ri2C)*limb[i].node[j].fHat_rne;
+	  // // smiyahara: 先端部にかかる外力
+	  // + limb[i].node[j+1].n + cross(limb[i].node[j].R*limb[i].node[j+1].d)*limb[i].node[j+1].f;
 
       }else{
 	limb[i].node[j].f_rne = limb[i].node[j].fHat_rne + limb[i].node[j+1].f_rne;

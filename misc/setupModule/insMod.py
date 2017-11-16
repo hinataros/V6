@@ -42,6 +42,15 @@ def install():
             print("already exists")
 
         try:
+            os.symlink(os.path.join(config.RLS_DIR, "module", "setupModule", "auto_latexMod.py"), os.path.join(config.RLS_DIR, "bin", "atex"))
+        except FileExistsError:
+            print("already exists")
+        try:
+            os.symlink(os.path.join(config.RLS_DIR, "module", "setupModule", "mkmovMod.py"), os.path.join(config.RLS_DIR, "bin", "mkmov"))
+        except FileExistsError:
+            print("already exists")
+
+        try:
             os.symlink(os.path.join(config.RLS_DIR, "module", "setupModule", "prdMod.py"), os.path.join(config.RLS_DIR, "bin", "prd"))
         except FileExistsError:
             print("already exists")

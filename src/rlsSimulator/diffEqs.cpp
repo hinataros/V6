@@ -9,7 +9,7 @@ void RLS::RlsSimulator::diffEqs(Config &config, Info &info, Model &model, int ph
 {
   if(config.flag.debug) DEBUG;
 
-  if(config.solver.input=="velocity"){
+  if(config.controller.input=="velocity"){
     k.vo[phase] = u.head(3) - cross(u.segment(3,3))*model.limb[0].node[0].r;
     k.w[phase] = u.segment(3,3);
     k.dth[phase] = u.tail(info.dof.joint);
@@ -19,13 +19,13 @@ void RLS::RlsSimulator::diffEqs(Config &config, Info &info, Model &model, int ph
     k.ddth[phase] = VectorXd::Zero(info.dof.joint);
 
   }else{
-    if(config.solver.input=="acceleration"){
+    if(config.controller.input=="acceleration"){
       dvoB = u.head(3) - (cross(u.segment(3,3))*model.limb[0].node[0].r + cross(model.limb[0].node[0].w)*model.limb[0].node[0].v);
       dwB = u.segment(3,3);
       ddth = u.tail(info.dof.joint);
 
     }
-    if(config.solver.input=="torque"){
+    if(config.controller.input=="torque"){
       // lmp(config, model, u, controller.cal_Jc, controller.cal_dJc, controller.Bc);
       // forwardDynamics(config, model, u);
 

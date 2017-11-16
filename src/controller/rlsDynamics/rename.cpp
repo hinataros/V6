@@ -19,6 +19,9 @@ void RLS::RlsDynamics::rename(Config &config, Info &info, Model &model)
     model.all.vC,
     model.limb[0].node[0].w;
 
+  rB2C = model.all.rC - model.limb[0].node[0].r;
+  drB2C = model.all.vC - model.limb[0].node[0].v;
+
   // ******************************
   // inertia
   IB = model.all.M.block(3,3,3,3);
@@ -34,8 +37,6 @@ void RLS::RlsDynamics::rename(Config &config, Info &info, Model &model)
   // gravity
   gth = model.all.g.tail(info.dof.joint);
 
-  // o(cal_Pm);
-  // pause;
   // centroidal
   // ******************************
   Pcf = cal_Pc.block(0,0,3,c);
@@ -62,9 +63,6 @@ void RLS::RlsDynamics::rename(Config &config, Info &info, Model &model)
   dHC = model.all.dMM.block(3,6,3,info.dof.joint);
 
   // nonlinear
-  cmM = dIC*model.limb[0].node[0].w;
-  // cmM = dIC*model.limb[0].node[0].w + dHC*model.all.dth;
-  cal_CM.tail(3) = cmM;
   cthC = cth - model.all.JB2C.transpose()*cal_CB.head(3);
 
   // gravity

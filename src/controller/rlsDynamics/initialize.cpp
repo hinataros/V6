@@ -37,6 +37,9 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   // rename
   // ******************************
+  rB2C = Vector3d::Zero();
+  drB2C = Vector3d::Zero();
+
   // inertia
   IB = Matrix3d::Zero();
   MB = Matrix6d::Zero();
@@ -62,8 +65,6 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   dHC = MatrixXd::Zero(3, info.dof.joint);
 
   // nonlinear
-  cmM = Vector3d::Zero();
-  cal_CM = Vector6d::Zero();
   cthC = VectorXd::Zero(info.dof.joint);
 
   // gravity
@@ -95,6 +96,9 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   wBDes = dwBDes = Vector3d::Zero();
   cal_XDes = cal_VxiDes = cal_dVxiDes = VectorXd::Zero(6*info.value.joint);
   cal_VDes = cal_dVDes = VectorXd::Zero(6*info.value.joint);
+
+  // high gain control
+  thDes = VectorXd::Zero(info.dof.joint);
 
   erC = evC = Vector3d::Zero();
   erB = evB = eoB = ewB = Vector3d::Zero();
@@ -154,11 +158,18 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   kthD = 0.;
 
-  // mapping
-  map_vc["cal_Bvel"] = &RLS::RlsDynamics::cl_Bvel;
-  map_vc["cal_Mvel"] = &RLS::RlsDynamics::cl_Mvel;
+  // high gain control
+  kpHG = 0.;
+  kdHG = 0.;
 
-  map_ac["cl_Bacc"] = &RLS::RlsDynamics::cl_Bacc;
-  map_ac["cl_Macc"] = &RLS::RlsDynamics::cl_Macc;
-  map_ac["noname"] = &RLS::RlsDynamics::noname;
+  // mapping
+  map_mc["cl_Bvel"] = &RLS::RlsDynamics::cl_Bvel;
+  map_mc["cl_Mvel"] = &RLS::RlsDynamics::cl_Mvel;
+
+  map_mc["cl_Bacc"] = &RLS::RlsDynamics::cl_Bacc;
+  map_mc["cl_Macc"] = &RLS::RlsDynamics::cl_Macc;
+  map_mc["noname"] = &RLS::RlsDynamics::noname;
+
+  map_tc["fullDynamics"] = &RLS::RlsDynamics::fullDynamicsController;
+  map_tc["highGain"] = &RLS::RlsDynamics::highGainController;
 }

@@ -4,7 +4,7 @@
 #include "info.hpp"
 #include "output.hpp"
 
-string RLS::Output::baseRot(Config &config, Info &info, string &load)
+string RLS::Output::baseRot(Config &config, Info &info, string dir, string &load)
 {
   if(config.flag.debug) DEBUG;
 
@@ -13,7 +13,7 @@ string RLS::Output::baseRot(Config &config, Info &info, string &load)
 
   // base orientation
   name = "001_baseOrient";
-  ofstream baseOrient((path+name+".dat").c_str());
+  ofstream baseOrient((dir+name+".dat").c_str());
   if(!baseOrient)
     cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
   else{
@@ -33,7 +33,7 @@ string RLS::Output::baseRot(Config &config, Info &info, string &load)
 
   // base angular velocity
   name = "003_baseAngVel";
-  ofstream baseAngVel((path+name+".dat").c_str());
+  ofstream baseAngVel((dir+name+".dat").c_str());
   if(!baseAngVel)
     cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
   else{

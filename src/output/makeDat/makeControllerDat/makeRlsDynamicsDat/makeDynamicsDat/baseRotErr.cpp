@@ -4,7 +4,7 @@
 #include "info.hpp"
 #include "output.hpp"
 
-string RLS::Output::baseRotErr(Config &config, Info &info, string &load)
+string RLS::Output::baseRotErr(Config &config, Info &info, string dir, string &load)
 {
   if(config.flag.debug) DEBUG;
 
@@ -13,9 +13,9 @@ string RLS::Output::baseRotErr(Config &config, Info &info, string &load)
 
   // base orientation error
   name = "031_baseOrientErr";
-  ofstream baseOrientErr((path+name+".dat").c_str());
+  ofstream baseOrientErr((dir+name+".dat").c_str());
   if(!baseOrientErr)
-    cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+    cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       baseOrientErr << setprecision(9) << scientific <<
@@ -34,9 +34,9 @@ string RLS::Output::baseRotErr(Config &config, Info &info, string &load)
 
   // base angular velocity error
   name = "033_baseAngVelErr";
-  ofstream baseAngVelErr((path+name+".dat").c_str());
+  ofstream baseAngVelErr((dir+name+".dat").c_str());
   if(!baseAngVelErr)
-    cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+    cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       baseAngVelErr << setprecision(9) << scientific <<

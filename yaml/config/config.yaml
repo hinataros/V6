@@ -1,20 +1,21 @@
 Default config:
- Simulation name: sim1
+ Data name: data1
+ Subdata name: sim1
  Model name: skeleton
  Controller name: rlsDynamics
  Debug mode: false
 
 # smiyahara: controller の config の場所は要検討
 Simulation config:
- Solver:
-  # Control input: acceleration
-  Control input: torque
-
  Controller:
   Flag: false ## smiyahara: 未実装
   Dynamics: true
-  # Work: skeletonKinematics
+  Input: torque
+  # Input: acceleration
+
   Work: skeletonDynamics
+  # Work: skeletonHighGain
+  # Work: skeletonKinematics
 
  Graph:
   Flag: true

@@ -4,6 +4,7 @@ set(srcs
   joint.cpp
   eeTrans.cpp
   eeRot.cpp
+  eeWrench.cpp
   com.cpp
   mom.cpp
   makeTreeModelDat.cpp

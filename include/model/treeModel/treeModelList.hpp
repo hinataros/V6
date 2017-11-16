@@ -24,6 +24,9 @@ namespace RLS{
     MatrixXd eeVelMatrix;
     MatrixXd eeAngVelMatrix;
 
+    MatrixXd eeForceMatrix;
+    MatrixXd eeMomentMatrix;
+
     // smiyahara: 一つにまとめるのはびみょ
     MatrixXd posGifMatrix;
   };

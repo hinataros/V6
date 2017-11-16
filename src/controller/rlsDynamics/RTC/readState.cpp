@@ -1,6 +1,6 @@
 #include "rlsDynamicsRTC.h"
 
-void RlsDynamicsRTC::readState(RLS::Config &config, RLS::Model &model)
+void RlsDynamicsRTC::readState(RLS::Config &config, RLS::Info &info, RLS::Model &model)
 {
   if(config.flag.debug) DEBUG;
 
@@ -36,4 +36,31 @@ void RlsDynamicsRTC::readState(RLS::Config &config, RLS::Model &model)
   for(unsigned i=0; i<m_angVel.data.length(); i++)
     model.all.dth(i) = m_angVel.data[i];
 
+  // smiyahara: 他にいい方法があるかも
+  if(config.model.name=="skeleton"||
+     config.model.name=="skeletonA7"){
+    if(m_rightFootForceIn.isNew())
+      m_rightFootForceIn.read();
+    if(m_leftFootForceIn.isNew())
+      m_leftFootForceIn.read();
+
+    for(int i=0; i<3; i++){
+      model.limb[1].node[info.limb[1].dof].f(i) = m_rightFootForce.data[i];
+      model.limb[1].node[info.limb[1].dof].n(i) = m_rightFootForce.data[i+3];
+      model.limb[2].node[info.limb[2].dof].f(i) = m_leftFootForce.data[i];
+      model.limb[2].node[info.limb[2].dof].n(i) = m_leftFootForce.data[i+3];
+    }
+
+    // choreonoid: [z, -y, x]^T
+    Matrix3d Rf = Matrix3d::Identity();
+    Rf <<
+      0., 0.,1.,
+      0.,-1.,0.,
+      1., 0.,0.;
+
+    model.limb[1].node[info.limb[1].dof].f = Rf*model.limb[1].node[info.limb[1].dof].f;
+    model.limb[1].node[info.limb[1].dof].n = Rf*model.limb[1].node[info.limb[1].dof].n;
+    model.limb[2].node[info.limb[2].dof].f = Rf*model.limb[2].node[info.limb[2].dof].f;
+    model.limb[2].node[info.limb[2].dof].n = Rf*model.limb[2].node[info.limb[2].dof].n;
+  }
 }

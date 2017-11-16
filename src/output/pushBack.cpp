@@ -11,11 +11,11 @@ void RLS::Output::pushBack(Config &config, double &t)
   data.tm.push_back(tm_temp);
 
   if(config.controller.name=="rlsDynamics"){
-    if(config.solver.input=="velocity")
+    if(config.controller.input=="velocity")
       data.vc.push_back(vc_temp);
-    else if(config.solver.input=="acceleration")
+    else if(config.controller.input=="acceleration")
       data.ac.push_back(ac_temp);
-    else if(config.solver.input=="torque")
+    else if(config.controller.input=="torque")
       data.dc.push_back(dc_temp);
   }
 }

@@ -8,7 +8,7 @@ void RLS::TreeModel::readModel(Config &config, Info &info)
 {
   if (config.flag.debug) DEBUG;
 
-  string path = config.link + "yaml/model/" + config.model.name + ".yaml";
+  string path = config.dir.link + "yaml/model/" + config.model.name + ".yaml";
   YAML::Node doc = YAML::LoadFile(path.c_str());
 
   info.sim.t0 = doc["Simulation model"]["Initial time"].as<double>();

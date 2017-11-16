@@ -39,8 +39,15 @@ protected:
   InPort<RTC::TimedDoubleSeq> m_basePosIn;
   RTC::TimedDoubleSeq m_baseVel;
   InPort<RTC::TimedDoubleSeq> m_baseVelIn;
+
+  RTC::TimedDoubleSeq m_rightFootForce;
+  InPort<RTC::TimedDoubleSeq> m_rightFootForceIn;
+  RTC::TimedDoubleSeq m_leftFootForce;
+  InPort<RTC::TimedDoubleSeq> m_leftFootForceIn;
+
   RTC::TimedDoubleSeq m_torque;
   OutPort<RTC::TimedDoubleSeq> m_torqueOut;
+
 private:
   Matrix3d cross(Vector3d x)
   {
@@ -56,7 +63,7 @@ private:
   double t;
   VectorXd tau;
 
-  void readState(RLS::Config&, RLS::Model &model);
+  void readState(RLS::Config&, RLS::Info &info, RLS::Model &model);
   void writeInput(RLS::Config&);
 };
 

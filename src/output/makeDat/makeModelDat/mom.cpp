@@ -4,7 +4,7 @@
 #include "info.hpp"
 #include "output.hpp"
 
-string RLS::Output::mom(Config &config, Info &info, string &load)
+string RLS::Output::mom(Config &config, Info &info, string dir, string &load)
 {
   if(config.flag.debug) DEBUG;
 
@@ -13,9 +13,9 @@ string RLS::Output::mom(Config &config, Info &info, string &load)
 
   // linear momentum
   name = "041_linMom";
-  ofstream linMom((path+name+".dat").c_str());
+  ofstream linMom((dir+name+".dat").c_str());
   if(!linMom)
-    cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+    cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       linMom << setprecision(9) << scientific <<
@@ -33,9 +33,9 @@ string RLS::Output::mom(Config &config, Info &info, string &load)
 
   // angular momentum
   name = "041_angMom";
-  ofstream angMom((path+name+".dat").c_str());
+  ofstream angMom((dir+name+".dat").c_str());
   if(!angMom)
-    cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+    cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       angMom << setprecision(9) << scientific <<

@@ -28,17 +28,39 @@ namespace RLS{
   class Config{
   private:
     void readArgument(int, char**);
+    void setDir();
+
     string def;
 
-    string path;
+    // string path;
 
   public:
-    string name;
-    string link;
     string option;
 
     // smiyahara: この分け方びみょ Flagのcontrollerとdpとか
     // smiyahara: controllerの中のflagとかにしてflagは中に入れたい
+
+    struct Compos{
+      string main;
+      string sub;
+    };
+
+    struct Dir{
+      string link;
+      string result;
+      string set;
+      Compos data;
+      Compos dat;
+      Compos eps;
+      Compos gp;
+      Compos pdf;
+      string interface;
+    } dir;
+
+    struct Data{
+      Compos name;
+    } data;
+
     struct Flag{
       bool debug;
     } flag;
@@ -48,14 +70,11 @@ namespace RLS{
       string name;
     } model;
 
-    struct Solver{
-      string input;
-    } solver;
-
     struct Controller{
       bool flag;
       bool dynamics;
       string name;
+      string input;
       string work;
     } controller;
 
@@ -99,12 +118,12 @@ namespace RLS{
 
     Config(){
       def = CONFIG;
-      link = LINK;
+      dir.link = LINK;
       flag.debug = false; // smiyahara:ココ定義の仕方びみょー
     }
     Config(int argc, char *argv[]){
       def = CONFIG;
-      link = LINK;
+      dir.link = LINK;
       flag.debug = false; // smiyahara:ココ定義の仕方びみょー
 
       readArgument(argc, argv);

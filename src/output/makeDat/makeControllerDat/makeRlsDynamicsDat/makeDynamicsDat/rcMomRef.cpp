@@ -4,7 +4,7 @@
 #include "info.hpp"
 #include "output.hpp"
 
-string RLS::Output::rcMomRef(Config &config, Info &info, string &load)
+string RLS::Output::rcMomRef(Config &config, Info &info, string dir, string &load)
 {
   if(config.flag.debug) DEBUG;
 
@@ -13,9 +13,9 @@ string RLS::Output::rcMomRef(Config &config, Info &info, string &load)
 
   // rate of chage of linear momentum reference
   name = "030_rcLinMomRef";
-  ofstream rcLinMomRef((path+name+".dat").c_str());
+  ofstream rcLinMomRef((dir+name+".dat").c_str());
   if(!rcLinMomRef)
-    cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+    cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       rcLinMomRef << setprecision(9) << scientific <<
@@ -33,9 +33,9 @@ string RLS::Output::rcMomRef(Config &config, Info &info, string &load)
 
   // rate of chage of angular momentum reference
   name = "031_rcAngMomRef";
-  ofstream rcAngMomRef((path+name+".dat").c_str());
+  ofstream rcAngMomRef((dir+name+".dat").c_str());
   if(!rcAngMomRef)
-    cout << path+name+".dat" << ": " << endl << "file open error..." << endl;
+    cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       rcAngMomRef << setprecision(9) << scientific <<

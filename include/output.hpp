@@ -29,13 +29,14 @@ namespace RLS{
 
     // tree model output
     // ********************************************
-    string baseTrans(Config&, Info&, string&);
-    string baseRot(Config&, Info&, string&);
-    string joint(Config&, Info&, string&);
-    string eeTrans(Config&, Info&, string&);
-    string eeRot(Config&, Info&, string&);
-    string com(Config&, Info&, string&);
-    string mom(Config&, Info&, string&);
+    string baseTrans(Config&, Info&, string, string&);
+    string baseRot(Config&, Info&, string, string&);
+    string joint(Config&, Info&, string, string&);
+    string eeTrans(Config&, Info&, string, string&);
+    string eeRot(Config&, Info&, string, string&);
+    string eeWrench(Config&, Info&, string, string&);
+    string com(Config&, Info&, string, string&);
+    string mom(Config&, Info&, string, string&);
     void makeTreeModelDat(Config&, Info&);
     // ********************************************
 
@@ -47,16 +48,17 @@ namespace RLS{
 
     // dynamics output
     // ********************************************
-    string baseTransDes(Config&, Info&, string&);
-    string baseRotDes(Config&, Info&, string&);
-    string eeTransDes(Config&, Info&, string&);
-    string eeRotDes(Config&, Info&, string&);
-    string baseTransErr(Config&, Info&, string&);
-    string baseRotErr(Config&, Info&, string&);
-    string comErr(Config&, Info&, string&);
-    string rcMomRef(Config&, Info&, string&);
-    string eeWrenchRef(Config&, Info&, string&);
-    string formulatedMom(Config&, Info&, string&);
+    string baseTransDes(Config&, Info&, string, string&);
+    string baseRotDes(Config&, Info&, string, string&);
+    string eeTransDes(Config&, Info&, string, string&);
+    string eeRotDes(Config&, Info&, string, string&);
+    string baseTransErr(Config&, Info&, string, string&);
+    string baseRotErr(Config&, Info&, string, string&);
+    string comErr(Config&, Info&, string, string&);
+    string rcMomRef(Config&, Info&, string, string&);
+    string eeWrenchRef(Config&, Info&, string, string&);
+    string jointTorque(Config&, Info&, string, string&);
+    string formulatedMom(Config&, Info&, string, string&);
     void makeDynamicsDat(Config&, Info&);
     // ********************************************
 
@@ -69,7 +71,7 @@ namespace RLS{
     string makeMinipage(Config&, string, string, string);
     string makeMinipageLimb(Config&, Info&, string, string, string);
     void makeFigureTex(Config&, string, string, string);
-    void makeInterface(Config&);
+    void makeSimInfo(Config&);
 
     void makeMotionYaml(Config&, Info&);
     void makeTreeModelMotionYaml(Config&, Info&);
