@@ -31,7 +31,7 @@ def mkdata():
     parser.add_argument("-re0", "--re0",
                            action="store_true",
                            help="remove")
-    parser.add_argument("-sub", "--sub", required=True, nargs="*")
+    parser.add_argument("-s", "--s", required=True, nargs="*")
 
     args = parser.parse_args()
 
@@ -41,9 +41,9 @@ def mkdata():
             sys.exit()
 
     if args.re:
-        removeSubData(args.data, args.sub)
+        removeSubData(args.data, args.s)
 
-    makeData(args.data, args.sub)
+    makeData(args.data, args.s)
 
 if __name__ == "__main__":
     mkdata()

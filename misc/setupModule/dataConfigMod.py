@@ -14,7 +14,7 @@ def makeData(arg_data, arg_sub):
     for i in range(len(arg_sub)):
         controller_dir = glob.glob(os.path.join(config.rgs_dir, "yaml", "work", "*"))
         for temp_c in controller_dir:
-            model_yaml = glob.glob(os.path.join(config.rgs_dir, "yaml", "model", "*.yaml"))
+            model_yaml = glob.glob(os.path.join(config.rgs_dir, "yaml", "model", "*.model"))
             for temp_m in model_yaml:
                 name, ext = os.path.splitext(temp_m)
                 temp = os.path.basename(temp_c) + str(":") + os.path.basename(name)
