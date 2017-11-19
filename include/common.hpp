@@ -16,7 +16,11 @@ namespace RLS{
     MatrixXd B(int, ...);
 
     MatrixXd pInv(MatrixXd);
+    MatrixXd wPInv(MatrixXd, MatrixXd);
     MatrixXd N(MatrixXd);
+    MatrixXd N(MatrixXd, MatrixXd);
+    MatrixXd Nast(MatrixXd);
+    MatrixXd Nast(MatrixXd, MatrixXd);
 
     Vector3d R2xi(Matrix3d);
     Matrix3d xi2R(Vector3d);

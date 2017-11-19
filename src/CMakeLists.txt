@@ -32,7 +32,6 @@ include_directories(${PROJECT_SOURCE_DIR}/include/interpolation)
 
 include_directories(${PROJECT_SOURCE_DIR}/include/controller)
 include_directories(${PROJECT_SOURCE_DIR}/include/controller/rlsDynamics)
-include_directories(${PROJECT_SOURCE_DIR}/include/controller/rlsDynamics/outputList)
 
 include_directories(${OPENRTM_INCLUDE_DIRS})
 

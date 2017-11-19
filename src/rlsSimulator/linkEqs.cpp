@@ -22,10 +22,7 @@ void RLS::RlsSimulator::linkEqs(Config &config, Info &info, Model &model, Contro
 
   // smiyahara: 要検討
   if(config.controller.name=="rlsDynamics")
-    if(config.controller.input=="velocity")
-      output.vc_temp = controller.RlsDynamics::vc_list;
-    else if(config.controller.input=="acceleration")
-      output.ac_temp = controller.RlsDynamics::ac_list;
+    output.dc_temp = controller.RlsDynamics::dc_list;
 
   output.pushBack(config, t);
 }

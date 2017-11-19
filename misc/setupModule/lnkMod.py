@@ -36,7 +36,7 @@ def lnk():
         print("already exists")
 
     import glob
-    config_yaml = glob.glob(os.path.join(config.rgs_dir, "yaml", "config", "*.yaml"))
+    config_yaml = glob.glob(os.path.join(config.rgs_dir, "yaml", "config", "*.conf"))
     os.makedirs(os.path.join(config.RLS_DIR, "sl", "yaml", "config"), exist_ok=True)
     for temp in config_yaml:
         try:
@@ -44,7 +44,7 @@ def lnk():
         except FileExistsError:
             print("already exists")
 
-    model_yaml = glob.glob(os.path.join(config.rgs_dir, "yaml", "model", "*.yaml"))
+    model_yaml = glob.glob(os.path.join(config.rgs_dir, "yaml", "model", "*.model"))
     os.makedirs(os.path.join(config.RLS_DIR, "sl", "yaml", "model"), exist_ok=True)
     for temp in model_yaml:
         try:
@@ -56,7 +56,7 @@ def lnk():
     for temp_c in controller_dir:
         os.makedirs(os.path.join(config.RLS_DIR, "sl", "yaml", "work", os.path.basename(temp_c)), exist_ok=True)
 
-        work_yaml = glob.glob(os.path.join(temp_c, "*.yaml"))
+        work_yaml = glob.glob(os.path.join(temp_c, "*.work"))
         for temp_w in work_yaml:
             try:
                 os.symlink(temp_w, os.path.join(config.RLS_DIR, "sl", "yaml", "work", os.path.basename(temp_c), os.path.basename(temp_w)))

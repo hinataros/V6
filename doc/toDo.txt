@@ -56,3 +56,7 @@ outputのdataへのpathを一箇所で定義したい
 model:controllerにしたい
 
 CMakeList.txtのinclude pathの設定をしやすく
+
+atexはdog入れてなくても単発ならできるようにしとく
+
+cnoidの初期角度をDEGから計算およびBASEをその角度からの足の位置としたい

@@ -15,11 +15,11 @@ typedef Eigen::Matrix<double, 6, 6> Matrix6d;
 #define RAD2DEG 180. * M_1_PI
 
 // #define CONFIG "config"
-#define CONFIG "config"
+#define CONFIG "rlsDynamics"
 #define LINK "/usr/local/etc/rls/sl/"
 
 #define o(x) cout << #x << ":" << endl << setprecision(6) << scientific << x << endl
-#define pause cout << endl << "Please hit any key to continue !!" << endl; getchar()
+#define gc cout << endl << "Please hit any key to continue !!" << endl; getchar()
 #define DEBUG cout << "************************************************" << endl \
   << "file:  " << __FILE__ << endl << "function:  " << __func__ << endl \
   << "************************************************" << endl;
@@ -47,6 +47,8 @@ namespace RLS{
 
     struct Dir{
       string link;
+      string model;
+      string work;
       string result;
       string set;
       Compos data;

@@ -9,8 +9,7 @@ void RLS::RlsDynamics::readWork(Config &config, Info &info)
 {
   if(config.flag.debug) DEBUG;
 
-  string path = config.dir.link + "yaml/work/" + config.controller.name + "/" + config.controller.work +".yaml";
-  YAML::Node doc = YAML::LoadFile(path.c_str());
+  YAML::Node doc = YAML::LoadFile(config.dir.work.c_str());
 
   info.sim.twf = doc["Work"][info.sim.phase]["twf"].as<double>();
 

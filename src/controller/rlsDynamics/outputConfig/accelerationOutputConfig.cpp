@@ -8,25 +8,25 @@ void RLS::RlsDynamics::accelerationOutputConfig(Config &config, Model &model)
   if(config.flag.debug) DEBUG;
 
   // desired value
-  ac_list.rBDes = rBDes;
-  ac_list.vBDes = vBDes;
-  ac_list.dvBDes = dvBDes;
+  dc_list.rBDes = rBDes;
+  dc_list.vBDes = vBDes;
+  dc_list.dvBDes = dvBDes;
 
-  ac_list.xiBDes = xiBDes;
-  ac_list.wBDes = wBDes;
-  ac_list.dwBDes = dwBDes;
+  dc_list.xiBDes = xiBDes;
+  dc_list.wBDes = wBDes;
+  dc_list.dwBDes = dwBDes;
 
-  ac_list.cal_XDes = cal_XDes;
-  ac_list.cal_VDes = cal_VDes;
-  ac_list.cal_dVDes = cal_dVDes;
+  dc_list.cal_XDes = cal_XDes;
+  dc_list.cal_VDes = cal_VDes;
+  dc_list.cal_dVDes = cal_dVDes;
 
   // error value
-  ac_list.erB = erB;
-  ac_list.evB = evB;
-  ac_list.eoB = eoB;
-  ac_list.ewB = ewB;
+  dc_list.erB = erB;
+  dc_list.evB = evB;
+  dc_list.eoB = eoB;
+  dc_list.ewB = ewB;
 
-  ac_list.dvBRef = dvBRef;
-  ac_list.dwBRef = dwBRef;
-  ac_list.ddthRef = ddthRef;
+  dc_list.dvBRef = dvBRef;
+  dc_list.dwBRef = dwBRef;
+  dc_list.ddthRef = ddthRef;
 }

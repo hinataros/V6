@@ -4,7 +4,7 @@
 #include "info.hpp"
 #include "output.hpp"
 
-void RLS::Output::makeVelocityDat(Config &config, Info &info)
+void RLS::Output::makeDynamicsDat(Config &config, Info &info)
 {
   if(config.flag.debug) DEBUG;
 
@@ -18,7 +18,7 @@ void RLS::Output::makeVelocityDat(Config &config, Info &info)
   string input;
 
   name = "100_baseTransDes";
-  minipage = baseVelDes(config, info, dir, load);
+  minipage = baseAccDes(config, info, dir, load);
 
   if(config.graph.tex){
     makeFigureTex(config, name, minipage,
@@ -28,7 +28,7 @@ void RLS::Output::makeVelocityDat(Config &config, Info &info)
   }
 
   name = "101_baseRotDes";
-  minipage = baseAngVelDes(config, info, dir, load);
+  minipage = baseAngAccDes(config, info, dir, load);
   if(config.graph.tex){
     makeFigureTex(config, name, minipage,
   		  "Desired base rotation values."
@@ -37,7 +37,7 @@ void RLS::Output::makeVelocityDat(Config &config, Info &info)
   }
 
   name = "110_eeTransDes";
-  minipage = eeVelDes(config, info, dir, load);
+  minipage = eeAccDes(config, info, dir, load);
   if(config.graph.tex){
     makeFigureTex(config, name, minipage,
   		  "Desired End effector translation values."
@@ -45,8 +45,9 @@ void RLS::Output::makeVelocityDat(Config &config, Info &info)
     input += input_dir+name+"}\n";
   }
 
+
   name = "111_eeRotDes";
-  minipage = eeAngVelDes(config, info, dir, load);
+  minipage = eeAngAccDes(config, info, dir, load);
   if(config.graph.tex){
     makeFigureTex(config, name, minipage,
   		  "Desired End effector rotation values."
@@ -55,7 +56,7 @@ void RLS::Output::makeVelocityDat(Config &config, Info &info)
   }
 
   name = "120_baseTransErr";
-  minipage = basePosErr(config, info, dir, load);
+  minipage = baseVelErr(config, info, dir, load);
   if(config.graph.tex){
     makeFigureTex(config, name, minipage,
   		  "Base error translation values."
@@ -64,7 +65,7 @@ void RLS::Output::makeVelocityDat(Config &config, Info &info)
   }
 
   name = "121_baseRotErr";
-  minipage = baseOrientErr(config, info, dir, load);
+  minipage = baseAngVelErr(config, info, dir, load);
   if(config.graph.tex){
     makeFigureTex(config, name, minipage,
   		  "Base error rotation values."
@@ -73,10 +74,46 @@ void RLS::Output::makeVelocityDat(Config &config, Info &info)
   }
 
   name = "122_comErr";
-  minipage = comPosErr(config, info, dir, load);
+  minipage = comVelErr(config, info, dir, load);
   if(config.graph.tex){
     makeFigureTex(config, name, minipage,
   		  "CoM error values."
+  		  );
+    input += input_dir+name+"}\n";
+  }
+
+  name = "130_rcMomRef";
+  minipage = rcMomRef(config, info, dir, load);
+  if(config.graph.tex){
+    makeFigureTex(config, name, minipage,
+  		  "Rate of change of momentum reference values."
+  		  );
+    input += input_dir+name+"}\n";
+  }
+
+  name = "131_eeWrenchRef";
+  minipage = eeWrenchRef(config, info, dir, load);
+  if(config.graph.tex){
+    makeFigureTex(config, name, minipage,
+  		  "End effector wrench reference values."
+  		  );
+    input += input_dir+name+"}\n";
+  }
+
+  name = "132_jointTorque";
+  minipage = jointTorque(config, info, dir, load);
+  if(config.graph.tex){
+    makeFigureTex(config, name, minipage,
+  		  "Joint torque."
+  		  );
+    input += input_dir+name+"}\n";
+  }
+
+  name = "140_formulatedMom";
+  minipage = formulatedMom(config, info, dir, load);
+  if(config.graph.tex){
+    makeFigureTex(config, name, minipage,
+  		  "Formulated momentum values."
   		  );
     input += input_dir+name+"}\n";
   }

@@ -8,21 +8,21 @@ void RLS::RlsDynamics::velocityOutputConfig(Config &config, Model &model)
   if(config.flag.debug) DEBUG;
 
   // desired value
-  vc_list.rBDes = rBDes;
-  vc_list.vBDes = vBDes;
+  dc_list.rBDes = rBDes;
+  dc_list.vBDes = vBDes;
 
-  vc_list.xiBDes = xiBDes;
-  vc_list.wBDes = wBDes;
+  dc_list.xiBDes = xiBDes;
+  dc_list.wBDes = wBDes;
 
-  vc_list.cal_XDes = cal_XDes;
-  vc_list.cal_VDes = cal_VDes;
+  dc_list.cal_XDes = cal_XDes;
+  dc_list.cal_VDes = cal_VDes;
 
   // error value
-  vc_list.erC = erC;
-  vc_list.erB = erB;
-  vc_list.eoB = eoB;
+  dc_list.erC = erC;
+  dc_list.erB = erB;
+  dc_list.eoB = eoB;
 
-  vc_list.vBRef = vBRef;
-  vc_list.wBRef = wBRef;
-  vc_list.dthRef = dthRef;
+  dc_list.vBRef = vBRef;
+  dc_list.wBRef = wBRef;
+  dc_list.dthRef = dthRef;
 }

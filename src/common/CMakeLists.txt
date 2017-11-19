@@ -6,7 +6,9 @@ set(srcs
   bb_T.cpp
   B.cpp
   pInv.cpp
+  wPInv.cpp
   N.cpp
+  Nast.cpp
   R2xi.cpp
   xi2R.cpp
   dxi2w.cpp

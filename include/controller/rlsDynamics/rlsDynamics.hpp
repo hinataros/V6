@@ -3,8 +3,6 @@
 #include "interpolation.hpp"
 #include "common.hpp"
 
-#include "rlsVelocityList.hpp"
-#include "rlsAccelerationList.hpp"
 #include "rlsDynamicsList.hpp"
 
 namespace RLS{
@@ -280,9 +278,6 @@ namespace RLS{
     void initialize(Config&, Info&);
     VectorXd rlsDynamics(Config&, Info&, Model&, double&);
 
-    RlsVelocityList vc_list;
-    RlsAccelerationList ac_list;
     RlsDynamicsList dc_list;
-
   };
 }

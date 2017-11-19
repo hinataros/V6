@@ -1,7 +1,5 @@
 #include <vector>
 #include "treeModelList.hpp"
-#include "rlsVelocityList.hpp"
-#include "rlsAccelerationList.hpp"
 #include "rlsDynamicsList.hpp"
 #include "common.hpp"
 
@@ -15,8 +13,6 @@ namespace RLS{
     struct Data{
       vector<double> t;
       vector<TreeModelList> tm;
-      vector<RlsVelocityList> vc;
-      vector<RlsAccelerationList> ac;
       vector<RlsDynamicsList> dc;
     } data;
 
@@ -42,26 +38,55 @@ namespace RLS{
 
     void makeModelDat(Config&, Info&);
 
-    // make dat file of controller data
-    void makeVelocityDat(Config&, Info&);
-    void makeAccelerationDat(Config&, Info&);
-
     // dynamics output
     // ********************************************
-    string baseTransDes(Config&, Info&, string, string&);
-    string baseRotDes(Config&, Info&, string, string&);
-    string eeTransDes(Config&, Info&, string, string&);
-    string eeRotDes(Config&, Info&, string, string&);
-    string baseTransErr(Config&, Info&, string, string&);
-    string baseRotErr(Config&, Info&, string, string&);
-    string comErr(Config&, Info&, string, string&);
+    // desired base translation
+    string basePosDes(Config&, Info&, string, string&);
+    string baseVelDes(Config&, Info&, string, string&);
+    string baseAccDes(Config&, Info&, string, string&);
+    // desired base rotation
+    string baseOrientDes(Config&, Info&, string, string&);
+    string baseAngVelDes(Config&, Info&, string, string&);
+    string baseAngAccDes(Config&, Info&, string, string&);
+
+    // desired EE translation
+    string eePosDes(Config&, Info&, string, string&);
+    string eeVelDes(Config&, Info&, string, string&);
+    string eeAccDes(Config&, Info&, string, string&);
+    // desired EE translation
+    string eeOrientDes(Config&, Info&, string, string&);
+    string eeAngVelDes(Config&, Info&, string, string&);
+    string eeAngAccDes(Config&, Info&, string, string&);
+
+    // base translation error
+    string basePosErr(Config&, Info&, string, string&);
+    string baseVelErr(Config&, Info&, string, string&);
+    // base rotation error
+    string baseOrientErr(Config&, Info&, string, string&);
+    string baseAngVelErr(Config&, Info&, string, string&);
+
+    // com error
+    string comPosErr(Config&, Info&, string, string&);
+    string comVelErr(Config&, Info&, string, string&);
+
+    // rate of chage of spatial momentum reference
     string rcMomRef(Config&, Info&, string, string&);
+
+    // EE wrench reference
     string eeWrenchRef(Config&, Info&, string, string&);
+
+    // joint torque
     string jointTorque(Config&, Info&, string, string&);
+
+    // formulated spatial momentum
     string formulatedMom(Config&, Info&, string, string&);
+
     void makeDynamicsDat(Config&, Info&);
     // ********************************************
 
+   // make dat file of controller data
+    void makeVelocityDat(Config&, Info&);
+    void makeAccelerationDat(Config&, Info&);
     void makeRlsDynamicsDat(Config&, Info&);
 
     void makeControllerDat(Config&, Info&);
@@ -84,8 +109,6 @@ namespace RLS{
   public:
     // smiyahara: 要検討
     TreeModelList tm_temp;
-    RlsVelocityList vc_temp;
-    RlsAccelerationList ac_temp;
     RlsDynamicsList dc_temp;
 
     void finalize(Config&);

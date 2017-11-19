@@ -7,7 +7,7 @@ void RLS::Config::readConfig()
 {
   if(flag.debug) DEBUG;
 
-  string path = dir.link + "yaml/config/" + def + ".yaml";
+  string path = dir.link + "yaml/config/" + def+".conf";
   YAML::Node doc = YAML::LoadFile(path.c_str());
 
   // default config
@@ -25,12 +25,14 @@ void RLS::Config::readConfig()
   controller.input = doc["Simulation config"]["Controller"]["Input"].as<string>();
   controller.work = doc["Simulation config"]["Controller"]["Work"].as<string>();
 
+  // graph config
   graph.flag = doc["Simulation config"]["Graph"]["Flag"].as<bool>();
   graph.check = doc["Simulation config"]["Graph"]["Check"].as<bool>();
   graph.gp = doc["Simulation config"]["Graph"]["Make gp"].as<bool>();
   graph.tex = doc["Simulation config"]["Graph"]["Make tex"].as<bool>();
   graph.st = doc["Simulation config"]["Graph"]["Sampling time"].as<int>();
 
+  // gif config
   gif.flag = doc["Simulation config"]["Gif"]["Flag"].as<bool>();
   gif.st = doc["Simulation config"]["Gif"]["Sampling time"].as<int>();
   gif.linkColor = doc["Simulation config"]["Gif"]["Link color"].as<string>();
@@ -61,6 +63,7 @@ void RLS::Config::readConfig()
   gif.all.zMin = doc["Simulation config"]["Gif"]["Plane"]["3D"]["z min"].as<string>();
   gif.all.zMax = doc["Simulation config"]["Gif"]["Plane"]["3D"]["z max"].as<string>();
 
+  // choreonoid motion yaml config
   cho.flag = doc["Simulation config"]["Choreonoid"]["Flag"].as<bool>();
   cho.st = doc["Simulation config"]["Choreonoid"]["Sampling time"].as<int>();
 
