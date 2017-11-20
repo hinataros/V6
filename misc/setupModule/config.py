@@ -6,3 +6,6 @@ SH = "/etc/profile.d/apps-bin-path.sh"
 PATH = "PATH=$PATH:$RLSBIN"
 
 n = "\n"
+
+# latex output
+OUTPUT = "build"

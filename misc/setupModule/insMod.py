@@ -47,7 +47,7 @@ def install():
             print("already exists")
 
         try:
-            os.symlink(os.path.join(config.RLS_DIR, "module", "setupModule", "auto_latexMod.py"), os.path.join(config.RLS_DIR, "bin", "atex"))
+            os.symlink(os.path.join(config.RLS_DIR, "module", "setupModule", "actexMod.py"), os.path.join(config.RLS_DIR, "bin", "actex"))
         except FileExistsError:
             print("already exists")
         try:

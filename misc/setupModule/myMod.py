@@ -21,8 +21,25 @@ def readRegistry():
             temp = line.strip()
             config.rgs_dir = temp.replace("src dir: ", "")
 
+def readInterface():
+    with open(os.path.join(config.rgs_dir, "result", "interface", "simInfo.tex"), "r", encoding="utf-8") as f:
+        for line in f:
+            if "model" in line.strip():
+                temp = line.strip().replace("\def\model{", "")
+                config.sim_model = temp.replace("}", "")
+            elif "controller" in line.strip():
+                temp = line.strip().replace("\def\controller{", "")
+                config.sim_controller = temp.replace("}", "")
+            elif "data" in line.strip():
+                temp = line.strip().replace("\def\data{", "")
+                config.sim_data = temp.replace("}", "")
+            elif "sub" in line.strip():
+                temp = line.strip().replace("\def\sub{", "")
+                config.sim_sub = temp.replace("}", "")
+
 if __name__ == "__main__":
     print(checkUsr())
     checkDir()
     readRegistry()
+    readInterface()
 

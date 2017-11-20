@@ -45,5 +45,7 @@ def mkdata():
 
     makeData(args.data, args.s)
 
+    print("generated data tree...")
+
 if __name__ == "__main__":
     mkdata()
