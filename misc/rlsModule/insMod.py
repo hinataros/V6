@@ -19,44 +19,44 @@ def install():
         os.makedirs(os.path.join(config.RLS_DIR, "bin"), exist_ok=True)
 
         try:
-            shutil.copytree(config.mod_dir, os.path.join(config.RLS_DIR, "module", "setupModule"))
+            shutil.copytree(config.mod_dir, os.path.join(config.RLS_DIR, "module", "rlsModule"))
         except FileExistsError:
             print("already installed setup module...")
 
         try:
-            os.symlink(os.path.join(config.RLS_DIR, "module", "setupModule", "lnkMod.py"), os.path.join(config.RLS_DIR, "bin", "lnk"))
+            os.symlink(os.path.join(config.RLS_DIR, "module", "rlsModule", "lnkMod.py"), os.path.join(config.RLS_DIR, "bin", "lnk"))
         except FileExistsError:
             print("already exists")
         try:
-            os.symlink(os.path.join(config.RLS_DIR, "module", "setupModule", "unlnkMod.py"), os.path.join(config.RLS_DIR, "bin", "unlnk"))
-        except FileExistsError:
-            print("already exists")
-
-        try:
-            os.symlink(os.path.join(config.RLS_DIR, "module", "setupModule", "mkdataMod.py"), os.path.join(config.RLS_DIR, "bin", "mkdata"))
-        except FileExistsError:
-            print("already exists")
-        try:
-            os.symlink(os.path.join(config.RLS_DIR, "module", "setupModule", "rmdataMod.py"), os.path.join(config.RLS_DIR, "bin", "rmdata"))
+            os.symlink(os.path.join(config.RLS_DIR, "module", "rlsModule", "unlnkMod.py"), os.path.join(config.RLS_DIR, "bin", "unlnk"))
         except FileExistsError:
             print("already exists")
 
         try:
-            os.symlink(os.path.join(config.RLS_DIR, "module", "setupModule", "runCnoidMod.py"), os.path.join(config.RLS_DIR, "bin", "run-cnoid"))
+            os.symlink(os.path.join(config.RLS_DIR, "module", "rlsModule", "mkdataMod.py"), os.path.join(config.RLS_DIR, "bin", "mkdata"))
+        except FileExistsError:
+            print("already exists")
+        try:
+            os.symlink(os.path.join(config.RLS_DIR, "module", "rlsModule", "rmdataMod.py"), os.path.join(config.RLS_DIR, "bin", "rmdata"))
         except FileExistsError:
             print("already exists")
 
         try:
-            os.symlink(os.path.join(config.RLS_DIR, "module", "setupModule", "actexMod.py"), os.path.join(config.RLS_DIR, "bin", "actex"))
-        except FileExistsError:
-            print("already exists")
-        try:
-            os.symlink(os.path.join(config.RLS_DIR, "module", "setupModule", "mkmovMod.py"), os.path.join(config.RLS_DIR, "bin", "mkmov"))
+            os.symlink(os.path.join(config.RLS_DIR, "module", "rlsModule", "runCnoidMod.py"), os.path.join(config.RLS_DIR, "bin", "run-cnoid"))
         except FileExistsError:
             print("already exists")
 
         try:
-            os.symlink(os.path.join(config.RLS_DIR, "module", "setupModule", "prdMod.py"), os.path.join(config.RLS_DIR, "bin", "prd"))
+            os.symlink(os.path.join(config.RLS_DIR, "module", "rlsModule", "actexMod.py"), os.path.join(config.RLS_DIR, "bin", "actex"))
+        except FileExistsError:
+            print("already exists")
+        try:
+            os.symlink(os.path.join(config.RLS_DIR, "module", "rlsModule", "mkmovMod.py"), os.path.join(config.RLS_DIR, "bin", "mkmov"))
+        except FileExistsError:
+            print("already exists")
+
+        try:
+            os.symlink(os.path.join(config.RLS_DIR, "module", "rlsModule", "prdMod.py"), os.path.join(config.RLS_DIR, "bin", "prd"))
         except FileExistsError:
             print("already exists")
 

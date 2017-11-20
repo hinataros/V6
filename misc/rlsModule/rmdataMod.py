@@ -23,12 +23,15 @@ def rmdata():
                 .format(__file__)
         parser = ArgumentParser(usage=usage)
         parser.add_argument("data", type=str, help="data name")
-        parser.add_argument("-sub", "--sub", nargs="*")
+        parser.add_argument("-s", "--s", nargs="*")
 
         args = parser.parse_args()
 
-        if args.sub:
-            removeSubData(args.data, args.sub)
+        if args.s:
+            removeSubData(args.data, args.s)
+            sys.exit()
+
+        removeSubDataTree(args.data)
 
     else:
         if not removeDataTree():

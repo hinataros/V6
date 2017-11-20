@@ -1,28 +1,28 @@
 #!/usr/bin/python3
 
 import os, sys
-sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "setupModule"))
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "rlsModule"))
 
-import setupModule
+import rlsModule
 
 def setup():
-    if not setupModule.myMod.checkUsr():
+    if not rlsModule.myMod.checkUsr():
         print("not super user")
         sys.exit()
 
-    setupModule.myMod.checkDir()
+    rlsModule.myMod.checkDir()
 
     if len(sys.argv) == 2:
         if sys.argv[1] == "install":
-            setupModule.insMod.install()
-            setupModule.lnkMod.lnk()
+            rlsModule.insMod.install()
+            rlsModule.lnkMod.lnk()
 
         elif sys.argv[1] == "register":
-            setupModule.registerMod.register()
-            setupModule.lnkMod.lnk()
+            rlsModule.registerMod.register()
+            rlsModule.lnkMod.lnk()
 
         elif sys.argv[1] == "uninstall":
-            setupModule.uninsMod.uninstall()
+            rlsModule.uninsMod.uninstall()
 
         else:
             print("argument invalid")

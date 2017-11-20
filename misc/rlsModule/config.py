@@ -9,3 +9,7 @@ n = "\n"
 
 # latex output
 OUTPUT = "build"
+
+# run command of choreonoid
+run_cnoid = "choreonoid"
+
