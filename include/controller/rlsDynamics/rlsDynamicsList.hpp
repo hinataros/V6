@@ -26,11 +26,11 @@ namespace RLS{
     // velocity control
     Vector3d vBRef;
     Vector3d wBRef;
-    Vector3d dthRef;
+    VectorXd dthRef;
 
     Vector3d dvBRef;
     Vector3d dwBRef;
-    Vector3d ddthRef;
+    VectorXd ddthRef;
 
     Vector3d dpRef;
     Vector3d dlRef;

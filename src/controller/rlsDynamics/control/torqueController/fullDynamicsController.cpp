@@ -24,8 +24,8 @@ VectorXd RLS::RlsDynamics::fullDynamicsController(Config &config, Info &info, Mo
 
   // tau = HC.transpose()*dwBRef + MthC*ddthRef + cthC - cal_JcM.transpose()*cal_FcMBarRef;
 
-  // tau = - cal_JcM.transpose()*cal_FcMBarRef;
-  tau = - cal_JcM.transpose()*cal_FcMBarRef + Nast(cal_JcM, Mth)*Mth*ddthD(config,model);
+  tau = - cal_JcM.transpose()*cal_FcMBarRef;
+  // tau = - cal_JcM.transpose()*cal_FcMBarRef + Nast(cal_JcM, Mth)*Mth*ddthD(config,model);
   // tau = - cal_JcM.transpose()*cal_FcMBarRef + Mth*ddthD(config,model);
   // tau = - cal_JcM.transpose()*cal_FcMBarRef + Mth*N(cal_JcM)*ddthD(config,model);
 

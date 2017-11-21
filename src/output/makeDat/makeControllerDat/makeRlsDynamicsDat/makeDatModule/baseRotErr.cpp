@@ -39,7 +39,7 @@ string RLS::Output::baseAngVelErr(Config &config, Info &info, string dir, string
   string name;
   string minipage;
 
-  minipage = baseOrientDes(config, info, dir, load);
+  minipage = baseOrientErr(config, info, dir, load);
 
   // base angular velocity error
   name = "033_baseAngVelErr";
