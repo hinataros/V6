@@ -1,6 +1,9 @@
 Work:
  -
   twf: 10.
+
+  Motion controller: cl_Bvel
+
   Bc:
    - [1, 1, 1, 1, 1, 1]
    - [1, 1, 1, 1, 1, 1]
