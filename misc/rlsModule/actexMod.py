@@ -9,8 +9,6 @@ from myMod import readInterface
 
 from commandMod import setLatexCompile
 
-from auto_latexMod import auto_latex
-
 if __name__ in "__main__":
     readRegistry()
 
@@ -18,8 +16,9 @@ if __name__ in "__main__":
 
     if len(sys.argv) == 2:
         if sys.argv[1] == "start":
-            print("auto_latex start...")
+            from auto_latexMod import auto_latex
 
+            print("auto_latex start...")
             auto_latex()
 
         else:

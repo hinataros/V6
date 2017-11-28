@@ -35,7 +35,24 @@ VectorXd RLS::RlsDynamics::noname(Config &config, Info &info, Model &model)
 
   // ddthRef = pInv(cal_HCBar)*(MCBar*cal_dVMRef - cM + dlCBar) + N(cal_HCBar)*ddthD(config, model);
 
-  ddqRef = VectorXd::Zero(info.dof.all);
+  Matrix6d MC = Matrix6d::Zero();
+  MC <<
+    model.all.m*Matrix3d::Identity(), Matrix3d::Zero(),
+    Matrix3d::Zero(), IC;
+
+  MatrixXd HMth = MatrixXd::Zero(6, info.dof.joint);
+  HMth <<
+    MatrixXd::Zero(3, info.dof.joint),
+    HC;
+
+  MatrixXd AC = MatrixXd::Zero(6, info.dof.all);
+
+  AC <<
+    MC, HMth;
+
+  ddqRef = pInv(AC)*MC*cal_dVMRef;
+
+  // ddqRef = VectorXd::Zero(info.dof.all);
 
   return ddqRef;
 }

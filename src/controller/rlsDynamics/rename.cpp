@@ -70,4 +70,30 @@ void RLS::RlsDynamics::rename(Config &config, Info &info, Model &model)
   cal_GC.head(3) = gf;
 
   // ******************************
+
+  // o(cal_CB);
+  // Vector6d cal_CBtemp = Vector6d::Zero();
+  // Vector3d temp = model.all.m*cross(drB2C).transpose()*cal_VM.tail(3) + model.all.m*model.all.dJB2C*model.all.dth;
+  // cal_CBtemp.head(3) = temp;
+  // cal_CBtemp.tail(3) = (dIC + model.all.m*cross(rB2C)*(cross(drB2C).transpose()))*cal_VM.tail(3) + (dHC + model.all.m*cross(rB2C)*model.all.dJB2C)*model.all.dth;
+  // cal_CBtemp.tail(3) = dIC*cal_VM.tail(3) + dHC*model.all.dth + cross(rB2C)*temp;
+  // cal_CBtemp.tail(3) = -model.all.m*cross(rB2C).transpose()*cal_VB.head(3) + dIB*cal_VM.tail(3) + dHB*model.all.dth;
+
+  // o(cal_CBtemp);
+  // o(cal_CB - cal_CBtemp);
+  // gc;
+  // Vector6d cal_CMtemp = Vector6d::Zero();
+  // cal_CMtemp <<
+  //   cal_CB.head(3) + model.all.m*cross(drB2C)*cal_VM.tail(3) - model.all.m*model.all.dJB2C*model.all.dth,
+  //   -cross(rB2C)*cal_CB.head(3) + cal_CB.tail(3);
+
+  // Vector6d cal_CMtemptemp = Vector6d::Zero();
+  // cal_CMtemptemp <<
+  //   Vector3d::Zero(),
+  //   dIC*cal_VM.tail(3) + dHC*model.all.dth;
+
+
+  // o(cal_CMtemp);
+  // o(cal_CMtemptemp);
+  // o(cal_CMtemp - cal_CMtemptemp);
 }

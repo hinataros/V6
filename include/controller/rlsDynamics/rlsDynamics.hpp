@@ -30,6 +30,8 @@ namespace RLS{
     VectorXd cal_X;
     VectorXd cal_V;
 
+    VectorXd cal_F;
+
     // ******************************
     MatrixXd cal_J;
     // smiyahara: bbではないから要検討
@@ -111,6 +113,13 @@ namespace RLS{
     // gravity
     Vector3d gf;
     Vector6d cal_GC;
+
+    // index
+    // ******************************
+    VectorXd rpk;
+    Vector2d rp;
+
+    // ******************************
 
     // ******************************
     Vector3d rC0;
@@ -232,13 +241,16 @@ namespace RLS{
     double kdHG;
 
     void initialValue(Config&, Info&, Model&);
-    void rename(Config&, Info&, Model&);
     void resize(Config&, Info&, Model&);
     void reset(Config&, Info&, double&);
     void readWork(Config&, Info&);
     void reconfigure(Config&, Info&);
 
     void decompose(Config&, Model&);
+    void rename(Config&, Info&, Model&);
+
+    void cop(Config&, Info&, Model&);
+    void index(Config&, Info&, Model&);
 
     void comReference(Config&, Info&, Model&, double&);
     void baseReference(Config&, Info&, Model&, double&);

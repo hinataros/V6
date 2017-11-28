@@ -18,6 +18,8 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   cal_X = VectorXd::Zero(6*info.value.joint);
   cal_V = VectorXd::Zero(6*info.value.joint);
 
+  cal_F = VectorXd::Zero(6*info.value.joint);
+
   // ******************************
   cal_J = MatrixXd::Zero(6*info.value.joint, info.dof.joint);
   bb_Rk = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
@@ -70,6 +72,11 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   // gravity
   gf = Vector3d::Zero();
   cal_GC = Vector6d::Zero();
+
+  // index
+  // ******************************
+  rpk = VectorXd::Zero(2*info.value.joint);
+  rp = Vector2d::Zero();
 
   // ******************************
   rC0 = rCf = Vector3d::Zero();

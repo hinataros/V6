@@ -470,6 +470,23 @@ DEF Skeleton Humanoid{
                                 }
                               ]
                             }
+                            DEF RlegSensor Joint {
+                              jointType "fixed"
+                              translation 0 0 0
+                              ulimit [0.0 0.0 ]
+                              llimit [0.0 0.0 ]
+                              uvlimit [0.0 0.0 ]
+                              lvlimit [0.0 0.0 ]
+                              rotorInertia 1.0
+                              rotorResistor 1.0
+                              children[
+                                DEF RHForceSensor ForceSensor {
+                                  sensorId 3
+                                  children[
+                                  ]
+                                }
+                              ]
+                            }
                           ]
                         }
                       ]
@@ -656,6 +673,24 @@ DEF Skeleton Humanoid{
                                 }
                               ]
                             }
+			                                DEF RlegSensor Joint {
+                              jointType "fixed"
+                              translation 0 0 0
+                              ulimit [0.0 0.0 ]
+                              llimit [0.0 0.0 ]
+                              uvlimit [0.0 0.0 ]
+                              lvlimit [0.0 0.0 ]
+                              rotorInertia 1.0
+                              rotorResistor 1.0
+                              children[
+                                DEF RHForceSensor ForceSensor {
+                                  sensorId 3
+                                  children[
+                                  ]
+                                }
+                              ]
+                            }
+
                           ]
                         }
                       ]

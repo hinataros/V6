@@ -60,3 +60,7 @@ CMakeList.txtのinclude pathの設定をしやすく
 atexはdog入れてなくても単発ならできるようにしとく
 
 cnoidの初期角度をDEGから計算およびBASEをその角度からの足の位置としたい
+
+列挙型　x:1 y:2 z:3 phi:1 th:2 psi:3 cop計算のとことか
+
+controller内のmodelの参照について->できるだけなくすか、状態系統はmodelで統一するか

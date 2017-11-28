@@ -1,5 +1,6 @@
 add_subdirectory(reference)
 add_subdirectory(control)
+add_subdirectory(index)
 add_subdirectory(outputConfig)
 
 set(srcs
@@ -24,6 +25,7 @@ set(rlsDynamics_srcs
   ${rlsDynamics_srcs}
   ${reference_srcs}
   ${control_srcs}
+  ${index_srcs}
   ${outputConfig_srcs}
   PARENT_SCOPE
   )
