@@ -6,6 +6,9 @@ RLS::Model model;
 RLS::RlsDynamics rlsDynamics;
 RLS::Output output;
 
+RLS::SharedMemory sharedMemory;
+RLS::SharedData sharedData;
+
 static const char* rlsDynamicsRTC_spec[] =
   {
     "implementation_id", "rlsDynamicsRTC",
@@ -26,8 +29,8 @@ RlsDynamicsRTC::RlsDynamicsRTC(RTC::Manager* manager)
   : RTC::DataFlowComponentBase(manager),
     m_angleIn("th", m_angle),
     m_angVelIn("dth", m_angVel),
-    m_basePosIn("rB", m_basePos),
-    m_baseVelIn("vB", m_baseVel),
+    m_basePosIn("XB", m_basePos),
+    m_baseVelIn("VB", m_baseVel),
     m_rightFootForceIn("FFr", m_rightFootForce),
     m_leftFootForceIn("FFl", m_leftFootForce),
 
@@ -41,13 +44,13 @@ RlsDynamicsRTC::~RlsDynamicsRTC()
 
 RTC::ReturnCode_t RlsDynamicsRTC::onInitialize()
 {
-  cout << "RTC::onInitialize()" << endl;
+  cout << "RlsDynamicsRTC::onInitialize()" << endl;
 
   // Set InPort buffers
   addInPort("th", m_angleIn);
   addInPort("dth", m_angVelIn);
-  addInPort("rB", m_basePosIn);
-  addInPort("vB", m_baseVelIn);
+  addInPort("XB", m_basePosIn);
+  addInPort("VB", m_baseVelIn);
 
   addInPort("FFr", m_rightFootForceIn);
   addInPort("FFl", m_leftFootForceIn);
@@ -60,7 +63,7 @@ RTC::ReturnCode_t RlsDynamicsRTC::onInitialize()
 
 RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
 {
-  cout << "RTC::onActivate()" << endl;
+  cout << "RlsDynamicsRTC::onActivate()" << endl;
 
   t = 0.;
 
@@ -68,6 +71,8 @@ RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
   info.initialize(config);
   model.readModel(config, info);
   rlsDynamics.initialize(config, info);
+
+  sharedMemory.initialize();
 
   // initialize torque size
   m_angleIn.read();
@@ -77,6 +82,9 @@ RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
 
   // smiyahara: 要検討
   readState(config, info, model);
+
+  sharedMemory.getData(&sharedData);
+  readSharedData(config, info, model, sharedData);
 
   tau = rlsDynamics.rlsDynamics(config, info, model, t);
 
@@ -91,18 +99,23 @@ RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
 
 RTC::ReturnCode_t RlsDynamicsRTC::onDeactivated(RTC::UniqueId ec_id)
 {
-  cout << "RTC::onDeactivated()" << endl;
+  cout << "RlsDynamicsRTC::onDeactivated()" << endl;
 
   // smiyahara: はい?
   info.sim.n = (t - info.sim.t0) / info.sim.dt;
 
   readState(config, info, model);
 
+  sharedMemory.getData(&sharedData);
+  readSharedData(config, info, model, sharedData);
+
   tau = rlsDynamics.rlsDynamics(config, info, model, t);
 
   output.dc_temp = rlsDynamics.dc_list;
   output.tm_temp = model.tm_list;
   output.pushBack(config, t);
+
+  sharedMemory.finalize();
 
   output.output(config, info);
   output.finalize(config);
@@ -117,6 +130,9 @@ RTC::ReturnCode_t RlsDynamicsRTC::onDeactivated(RTC::UniqueId ec_id)
 RTC::ReturnCode_t RlsDynamicsRTC::onExecute(RTC::UniqueId ec_id)
 {
   readState(config, info, model);
+
+  sharedMemory.getData(&sharedData);
+  readSharedData(config, info, model, sharedData);
 
   tau = rlsDynamics.rlsDynamics(config, info, model, t);
 

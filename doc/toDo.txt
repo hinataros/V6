@@ -74,3 +74,10 @@ gain size読んで行列かスカラーか決定
 gain のtexを吐き出す
 
 texのxlabel ylabelを自動調節しないように
+
+modelが複数の都合上、t0とかがあるinfoが別のとこでreadModelしたほうがいいかも
+
+modelを一つにして継承、ではなくそれぞれインスタンス化したほうがいいかも
+modelの中でtreeとrigidをインスタンス化できたらいいけど
+
+たまたま、model間で同じ名前なかったけどcontrollerでスコープはつけたほうがいい

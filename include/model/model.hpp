@@ -1,8 +1,9 @@
 #include "treeModel.hpp"
+#include "rigidBodyModel.hpp"
 
 namespace RLS{
   class Model:
-    public TreeModel{
+    public TreeModel, public RigidBodyModel{
   private:
   public:
     void readModel(Config&, Info&);

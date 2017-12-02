@@ -31,4 +31,5 @@ namespace RLS{
   public:
   };
 }
+
 #endif // COMMON_HPP_

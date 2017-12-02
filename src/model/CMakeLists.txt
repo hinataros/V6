@@ -1,4 +1,5 @@
 add_subdirectory(treeModel)
+add_subdirectory(rigidBodyModel)
 
 set(srcs
   readModel.cpp
@@ -9,5 +10,6 @@ set(srcs
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" model_srcs)
 set(model_srcs ${model_srcs}
   ${treeModel_srcs}
+  ${rigidBodyModel_srcs}
   PARENT_SCOPE
   )

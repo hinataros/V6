@@ -17,6 +17,9 @@
 #include "rlsDynamics.hpp"
 #include "output.hpp"
 
+#include "sharedMemory.hpp"
+#include "sharedData.hpp"
+
 using namespace RTC;
 
 class RlsDynamicsRTC: public RTC::DataFlowComponentBase
@@ -63,7 +66,8 @@ private:
   double t;
   VectorXd tau;
 
-  void readState(RLS::Config&, RLS::Info &info, RLS::Model &model);
+  void readState(RLS::Config&, RLS::Info&, RLS::Model&);
+  void readSharedData(RLS::Config&, RLS::Info&, RLS::Model&, RLS::SharedData&);
   void writeInput(RLS::Config&);
 };
 

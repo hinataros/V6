@@ -40,6 +40,7 @@ endif(STATIC_LIBS)
 
 option(rls_OpenRTM "open RTM" OFF)
 option(rls_rlsDynamicsRTC "dynamics controller RTC" OFF)
+option(rls_objectRTC "object controller RTC" OFF)
 option(rls_rlsSimulator "RLS simulator" OFF)
 option(rls_dTils "delete tilde file" ON)
 

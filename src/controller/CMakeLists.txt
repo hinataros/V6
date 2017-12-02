@@ -1,14 +1,25 @@
+add_subdirectory(sharedMemory)
 add_subdirectory(interpolation)
 add_subdirectory(rlsDynamics)
+add_subdirectory(object)
 
 if(rls_rlsDynamicsRTC)
   set(rlsDynamicsRTC_srcs ${rlsDynamicsRTC_srcs}
+    ${sharedMemory_srcs}
     ${interpolation_srcs}
     ${rlsDynamics_srcs}
-    ${rtc_srcs}
+    ${rlsDynamicsRTCCore_srcs}
     PARENT_SCOPE
     )
 endif(rls_rlsDynamicsRTC)
+
+if(rls_objectRTC)
+  set(objectRTC_srcs ${objectRTC_srcs}
+    ${sharedMemory_srcs}
+    ${objectRTCCore_srcs}
+    PARENT_SCOPE
+    )
+endif(rls_objectRTC)
 
 if(rls_rlsSimulator)
   set(srcs

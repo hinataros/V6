@@ -283,22 +283,25 @@ Viewpoint {
 
 DEF box Humanoid {
   humanoidBody [
-    DEF WAIST Joint {
+    DEF ROOT Joint {
       jointType "free"
       translation 0 0 0
       rotation 0 0 1 0
       children [
-        DEF BODY Segment {
+        DEF RootForceSensor ForceSensor {
+      	  sensorId 0
+        }
+        DEF ROOT Segment {
          mass 1.0
 	  momentsOfInertia [1. 0 0 0 1. 0 0 0 1.]
           children [
             Shape {
               geometry Box {
-                  size 1e-4 1e-4 1e-4
+                  size 0.1 0.1 0.1
               }
               appearance Appearance {
                   material Material {
-                      diffuseColor  1.0 0.0 0.0
+                      diffuseColor  0.3 0.3 0.7
                   }
               }
             }
@@ -308,11 +311,10 @@ DEF box Humanoid {
     }
   ]
   joints [
-    USE WAIST
+    USE ROOT
   ]
-  name "box3"
   segments [
-    USE BODY
+    USE ROOT
   ]
 }
 

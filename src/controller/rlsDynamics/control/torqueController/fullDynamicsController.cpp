@@ -34,6 +34,7 @@ VectorXd RLS::RlsDynamics::fullDynamicsController(Config &config, Info &info, Mo
   // tau = MthHatBar*ddqRef + cthC - cal_JcM.transpose()*cal_FcMBarRef;
   tau = MthHatBar*ddqRef + cthC + gth - cal_Jc.transpose()*cal_FcBarRef;
 
+  tau *= 0.;
   // tau = HC.transpose()*dwBRef + MthC*ddthRef + cthC - cal_JcM.transpose()*cal_FcMBarRef;
 
   // tau = - cal_JcM.transpose()*cal_FcMBarRef;

@@ -28,10 +28,13 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 
 include_directories(${PROJECT_SOURCE_DIR}/include/model)
 include_directories(${PROJECT_SOURCE_DIR}/include/model/treeModel)
+include_directories(${PROJECT_SOURCE_DIR}/include/model/rigidBodyModel)
 include_directories(${PROJECT_SOURCE_DIR}/include/interpolation)
 
 include_directories(${PROJECT_SOURCE_DIR}/include/controller)
+include_directories(${PROJECT_SOURCE_DIR}/include/controller/sharedMemory)
 include_directories(${PROJECT_SOURCE_DIR}/include/controller/rlsDynamics)
+include_directories(${PROJECT_SOURCE_DIR}/include/controller/object)
 
 include_directories(${OPENRTM_INCLUDE_DIRS})
 
@@ -74,6 +77,17 @@ if(rls_rlsDynamicsRTC)
   target_link_libraries(${RTC_NAME} ${LDFLAGS})
   set_target_properties(${RTC_NAME} PROPERTIES PREFIX "")
 endif(rls_rlsDynamicsRTC)
+
+if(rls_objectRTC)
+  set(RTC_NAME "objectRTC")
+  add_definitions(-DCHOREONOID)
+
+  set(RTC_srcs ${objectRTC_srcs})
+
+  add_library(${RTC_NAME} ${LIB_TYPE} ${RTC_srcs})
+  target_link_libraries(${RTC_NAME})
+  set_target_properties(${RTC_NAME} PROPERTIES PREFIX "")
+endif(rls_objectRTC)
 
 if(rls_rlsSimulator)
   add_subdirectory(rlsSimulator)

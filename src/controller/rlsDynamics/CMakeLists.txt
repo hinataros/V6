@@ -17,7 +17,7 @@ set(srcs
 
 if(rls_rlsDynamicsRTC)
   add_subdirectory(RTC)
-  set(rtc_srcs ${rtc_srcs} PARENT_SCOPE)
+  set(rlsDynamicsRTCCore_srcs ${rlsDynamicsRTCCore_srcs} PARENT_SCOPE)
 endif(rls_rlsDynamicsRTC)
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" rlsDynamics_srcs)
