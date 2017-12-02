@@ -64,3 +64,13 @@ cnoidの初期角度をDEGから計算およびBASEをその角度からの足�
 列挙型　x:1 y:2 z:3 phi:1 th:2 psi:3 cop計算のとことか
 
 controller内のmodelの参照について->できるだけなくすか、状態系統はmodelで統一するか
+
+avconvのinstall shell
+
+mkepsの作成
+
+gain size読んで行列かスカラーか決定
+
+gain のtexを吐き出す
+
+texのxlabel ylabelを自動調節しないように

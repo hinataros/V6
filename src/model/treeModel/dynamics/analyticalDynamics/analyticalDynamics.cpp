@@ -115,12 +115,6 @@ void RLS::TreeModel::analyticalDynamics(Config &config, Info &info)
     Mvw.transpose(),IB,HB,
     Hv.transpose(),HB.transpose(),Mth;
 
-  VectorXd dq = VectorXd::Zero(info.dof.all);
-  dq <<
-    limb[0].node[0].v,
-    limb[0].node[0].w,
-    all.dth;
-
   MatrixXd dM = MatrixXd::Zero(info.dof.all,info.dof.all);
   dM <<
     dMv,dMvw,dHv,

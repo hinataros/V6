@@ -32,6 +32,8 @@ namespace RLS{
 
     VectorXd cal_F;
 
+    VectorXd dq;
+
     // ******************************
     MatrixXd cal_J;
     // smiyahara: bbではないから要検討
@@ -44,6 +46,9 @@ namespace RLS{
     MatrixXd cal_Pm;
     MatrixXd cal_Jc;
     MatrixXd cal_Jm;
+
+    MatrixXd Jc;
+    MatrixXd dJc;
 
     // diff
     MatrixXd cal_dJ;
@@ -263,9 +268,12 @@ namespace RLS{
 
     // acceleration controller
     VectorXd ddthD(Config&, Model&);
+    VectorXd ddqD(Config&, Info&, Model&);
     VectorXd cl_Bacc(Config&, Info&, Model&);
     VectorXd cl_Macc(Config&, Info&, Model&);
     VectorXd noname(Config&, Info&, Model&);
+    VectorXd MmomGen(Config&, Info&, Model&);
+    VectorXd BmomGen(Config&, Info&, Model&);
 
     void momentumController(Config&, Info&, Model&);
     void forceController(Config&, Info&, Model&);

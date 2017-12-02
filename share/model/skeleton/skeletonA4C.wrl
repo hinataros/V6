@@ -217,11 +217,10 @@ Viewpoint {
   orientation 0.5770 0.5775 0.5775 2.0935
 }
 
-DEF skeleton Humanoid{
+DEF skeletonA4C Humanoid{
   humanoidBody [
     DEF waist Joint {
-      jointType "fixed"
-      translation 0 0 0.292 
+      jointType "free"
       ulimit [1.5533430325 ]
       llimit [0.0 ]
       uvlimit [0.0 0.0 ]
@@ -230,7 +229,7 @@ DEF skeleton Humanoid{
       rotorResistor 1.0
       children[
         Transform {
-          translation 0.034 0 0.055
+          translation 0.034 0 0.055 
           rotation 1 0 0 1.5708 
           children[
             DEF waist Segment{
@@ -261,11 +260,11 @@ DEF skeleton Humanoid{
                 }
               ]
             }
-          ]
-        }
+              ]
+            }
         DEF body Joint {
           jointType "fixed"
-          translation 0 0 0.055
+          translation 0 0 0.055 
           rotation 1 0 0 -1.5708 
           ulimit [1.5533430325 ]
           llimit [0.0 ]
@@ -470,8 +469,9 @@ DEF skeleton Humanoid{
                                 }
                               ]
                             }
-                            DEF Rarm5 Joint {
+                            DEF RHsensor Joint {
                               jointType "fixed"
+                              translation 0 0.1098 0 
                               rotation 1 0 0 -1.5708 
                               ulimit [0.0 0.0 ]
                               llimit [0.0 0.0 ]
@@ -480,67 +480,20 @@ DEF skeleton Humanoid{
                               rotorInertia 1.0
                               rotorResistor 1.0
                               children[
-                                DEF Rarm5 Segment{
-                                  centerOfMass -0.001 -8.5E-5 0.023215 
-                                  mass 0.053196 
-                                  momentsOfInertia [ 0.014739782 -1.79E-7 1.0234E-5 -1.79E-7 0.016212682 1.0638E-4 1.0234E-5 1.0638E-4 0.004280658 ]
+                                DEF RHForceSensor ForceSensor {
+                                  sensorId 2
                                   children[
-                                  ]
-                                }
-                                DEF Rarm6 Joint {
-                                  jointType "rotate"
-                                  jointAxis 0.0 1.0 0.0 
-                                  ulimit [0.0 0.0 ]
-                                  llimit [0.0 0.0 ]
-                                  uvlimit [0.0 0.0 ]
-                                  lvlimit [0.0 0.0 ]
-                                  rotorInertia 1.0
-                                  rotorResistor 1.0
-                                  children[
-                                    DEF Rarm6 Segment{
-                                      centerOfMass 0.0 0.0 0.0 
-                                      mass 0.0 
-                                      momentsOfInertia [ 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 ]
+                                    Transform {
                                       children[
-                                      ]
-                                    }
-                                    DEF Rarm7 Joint {
-                                      jointType "rotate"
-                                      jointAxis 1.0 0.0 0.0 
-                                      translation 0 0 0.1098 
-                                      ulimit [0.0 0.0 ]
-                                      llimit [0.0 0.0 ]
-                                      uvlimit [0.0 0.0 ]
-                                      lvlimit [0.0 0.0 ]
-                                      rotorInertia 1.0
-                                      rotorResistor 1.0
-                                      children[
-                                        DEF RForceSensor ForceSensor {
-                                          sensorId 0
-                                          rotation 0 1 0 -1.5708 
-                                          children[
-                                            Transform {
-                                              children[
-                                                Shape{
-                                                  geometry Sphere{
-                                                    radius 0.00625
-                                                  }
-                                                  appearance Appearance{
-                                                    material Material{
-                                                      diffuseColor 0.5 0.5 0.5
-                                                    }
-                                                  }
-                                                }
-                                              ]
+                                        Shape{
+                                          geometry Sphere{
+                                            radius 0.00625
+                                          }
+                                          appearance Appearance{
+                                            material Material{
+                                              diffuseColor 0.5 0.5 0.5
                                             }
-                                          ]
-                                        }
-                                        DEF Rarm7 Segment{
-                                          centerOfMass 0.0 0.0 0.0 
-                                          mass 0.0 
-                                          momentsOfInertia [ 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 ]
-                                          children[
-                                          ]
+                                          }
                                         }
                                       ]
                                     }
@@ -734,8 +687,8 @@ DEF skeleton Humanoid{
                                 }
                               ]
                             }
-                            DEF Larm5 Joint {
-                              jointType "rotate"
+                            DEF LHsensor Joint {
+                              jointType "fixed"
                               jointAxis 0.0 0.0 -1.0 
                               translation 0 0.1098 0 
                               rotation 1 0 0 -1.5708 
@@ -746,91 +699,20 @@ DEF skeleton Humanoid{
                               rotorInertia 1.0
                               rotorResistor 1.0
                               children[
-                                DEF Larm5 Segment{
-                                  centerOfMass -0.001 -8.5E-5 0.023215 
-                                  mass 0.053196 
-                                  momentsOfInertia [ 0.014739782 -1.79E-7 1.0234E-5 -1.79E-7 0.016212682 1.0638E-4 1.0234E-5 1.0638E-4 0.004280658 ]
+                                DEF LHForceSensor ForceSensor {
+                                  sensorId 3
                                   children[
-                                  ]
-                                }
-                                DEF Larm6 Joint {
-                                  jointType "rotate"
-                                  jointAxis 0.0 1.0 0.0 
-                                  ulimit [0.0 0.0 ]
-                                  llimit [0.0 0.0 ]
-                                  uvlimit [0.0 0.0 ]
-                                  lvlimit [0.0 0.0 ]
-                                  rotorInertia 1.0
-                                  rotorResistor 1.0
-                                  children[
-                                    DEF Larm6 Segment{
-                                      centerOfMass 0.0 0.0 0.0 
-                                      mass 0.0 
-                                      momentsOfInertia [ 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 ]
+                                    Transform {
                                       children[
-                                      ]
-                                    }
-                                    DEF Larm7 Joint {
-                                      jointType "rotate"
-                                      jointAxis 1.0 0.0 0.0 
-                                      rotation 0 1 0 -1.5708 
-                                      ulimit [0.0 0.0 ]
-                                      llimit [0.0 0.0 ]
-                                      uvlimit [0.0 0.0 ]
-                                      lvlimit [0.0 0.0 ]
-                                      rotorInertia 1.0
-                                      rotorResistor 1.0
-                                      children[
-                                        DEF LForceSensor ForceSensor {
-                                          sensorId 1
-                                          children[
-                                            Transform {
-                                              children[
-                                                Shape{
-                                                  geometry Sphere{
-                                                    radius 0.00625
-                                                  }
-                                                  appearance Appearance{
-                                                    material Material{
-                                                      diffuseColor 0.5 0.5 0.5
-                                                    }
-                                                  }
-                                                }
-                                              ]
+                                        Shape{
+                                          geometry Sphere{
+                                            radius 0.00625
+                                          }
+                                          appearance Appearance{
+                                            material Material{
+                                              diffuseColor 0.5 0.5 0.5
                                             }
-                                          ]
-                                        }
-                                        DEF Larm7 Segment{
-                                          centerOfMass 0.0 0.0 0.0 
-                                          mass 0.0 
-                                          momentsOfInertia [ 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 ]
-                                          children[
-                                          ]
-                                        }
-                                        DEF stick Joint {
-                                          jointType "rotate"
-                                          jointAxis 0.0 0.0 1.0 
-                                          ulimit [0.0 0.0 ]
-                                          llimit [0.0 0.0 ]
-                                          uvlimit [0.0 0.0 ]
-                                          lvlimit [0.0 0.0 ]
-                                          rotorInertia 1.0
-                                          rotorResistor 1.0
-                                          children[
-                                            Transform {
-                                              translation 0.0098 0.1986 0 
-                                              rotation 0 1 0 0 
-                                              children[
-                                                DEF stick Segment{
-                                                  centerOfMass 0.0 0.0 0.0 
-                                                  mass 0.0 
-                                                  momentsOfInertia [ 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 ]
-                                                  children[
-                                                  ]
-                                                }
-                                                  ]
-                                                }
-                                          ]
+                                          }
                                         }
                                       ]
                                     }
@@ -902,7 +784,7 @@ DEF skeleton Humanoid{
           jointType "rotate"
           jointId 0
           jointAxis 0.0 0.0 1.0 
-          translation 0 -0.039 0
+          translation 0 -0.039 0 
           rotation 0 0 1 1.5708 
           ulimit [0.523598775 ]
           llimit [-1.5707963249999999 ]
@@ -958,7 +840,7 @@ DEF skeleton Humanoid{
                   momentsOfInertia [ 6.31338E-5 -6.18885E-7 1.01226E-6 -6.18885E-7 5.5582E-5 3.28855E-7 1.01226E-6 3.28855E-7 4.51904E-5 ]
                   children[
                     Transform {
-                      rotation -1 0 0 3.1416 
+                      rotation 1 0 0 3.1416 
                       children[
                     Inline { url "skeletonParts/Rleg2.wrl" }
                       ]
@@ -1107,7 +989,6 @@ DEF skeleton Humanoid{
                               jointType "rotate"
                               jointId 5
                               jointAxis 0.0 0.0 1.0 
-                              translation -0.037 0 0 
                               rotation 1 0 0 -1.5708 
                               ulimit [0.4188790200000003 ]
                               llimit [-0.4188790200000003 ]
@@ -1116,30 +997,12 @@ DEF skeleton Humanoid{
                               rotorInertia 1.0
                               rotorResistor 1.0
                               children[
-                                DEF RFForceSensor ForceSensor {
-                                  sensorId 2
-                                  children[
-                                    Transform {
-                                      translation 0.037 0 0 
-                                      children[
-                                    Inline { url "skeletonParts/leg6Integration.wrl" }
-                                      ]
-                                    }
-                                  ]
-                                }
                                 DEF Rleg6 Segment{
                                   centerOfMass -0.0248732 7.8596E-5 0.00382498 
                                   mass 0.136753 
                                   momentsOfInertia [ 1.55016E-4 -7.14057E-8 1.70683E-5 -7.14057E-8 1.39643E-4 3.80602E-7 1.70683E-5 3.80602E-7 5.97968E-5 ]
                                   children[
                                     Transform {
-                                      translation 0.037 0 0 
-                                      children[
-                                    Inline { url "skeletonParts/leg6Integration.wrl" }
-                                      ]
-                                    }
-                                    Transform {
-                                      translation 0.037 0 0 
                                       rotation 1 0 0 1.5708 
                                       children[
                                         Shape{
@@ -1152,6 +1015,29 @@ DEF skeleton Humanoid{
                                               diffuseColor 0.5 0.5 0.5
                                             }
                                           }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                                DEF RFSensor Joint {
+                                  jointType "fixed"
+                                  translation -0.037 0 0 
+                                  ulimit [0.0 0.0 ]
+                                  llimit [0.0 0.0 ]
+                                  uvlimit [0.0 0.0 ]
+                                  lvlimit [0.0 0.0 ]
+                                  rotorInertia 1.0
+                                  rotorResistor 1.0
+                                  children[
+                                    DEF RFForceSensor ForceSensor {
+                                      sensorId 0
+                                      children[
+                                        Transform {
+                                          translation 0.037 0 0 
+                                          children[
+                                        Inline { url "skeletonParts/leg6Integration.wrl" }
+                                          ]
                                         }
                                       ]
                                     }
@@ -1173,7 +1059,7 @@ DEF skeleton Humanoid{
           jointType "rotate"
           jointId 6
           jointAxis 0.0 0.0 1.0 
-          translation 0 0.039 0
+          translation 0 0.039 0 
           rotation 0 0 1 1.5708 
           ulimit [1.5707963249999999 ]
           llimit [-0.523598775 ]
@@ -1377,7 +1263,6 @@ DEF skeleton Humanoid{
                               jointType "rotate"
                               jointId 11
                               jointAxis 0.0 0.0 1.0 
-                              translation -0.037 0 0 
                               rotation 1 0 0 -1.5708 
                               ulimit [0.4188790200000003 ]
                               llimit [-0.4188790200000003 ]
@@ -1386,30 +1271,12 @@ DEF skeleton Humanoid{
                               rotorInertia 1.0
                               rotorResistor 1.0
                               children[
-                                DEF LFForceSensor ForceSensor {
-                                  sensorId 3
-                                  children[
-                                    Transform {
-                                      translation 0.037 0 0 
-                                      children[
-                                    Inline { url "skeletonParts/leg6Integration.wrl" }
-                                      ]
-                                    }
-                                  ]
-                                }
                                 DEF Lleg6 Segment{
                                   centerOfMass -0.0248732 7.8596E-5 0.00382498 
                                   mass 0.136753 
                                   momentsOfInertia [ 1.55016E-4 -7.14057E-8 1.70683E-5 -7.14057E-8 1.39643E-4 3.80602E-7 1.70683E-5 3.80602E-7 5.97968E-5 ]
                                   children[
                                     Transform {
-                                      translation 0.037 0 0 
-                                      children[
-                                    Inline { url "skeletonParts/leg6Integration.wrl" }
-                                      ]
-                                    }
-                                    Transform {
-                                      translation 0.037 0 0 
                                       rotation 1 0 0 1.5708 
                                       children[
                                         Shape{
@@ -1422,6 +1289,29 @@ DEF skeleton Humanoid{
                                               diffuseColor 0.5 0.5 0.5
                                             }
                                           }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                                DEF LFSensor Joint {
+                                  jointType "fixed"
+                                  ulimit [0.0 0.0 ]
+                                  llimit [0.0 0.0 ]
+                                  uvlimit [0.0 0.0 ]
+                                  lvlimit [0.0 0.0 ]
+                                  rotorInertia 1.0
+                                  rotorResistor 1.0
+                                  children[
+                                    DEF LFForceSensor ForceSensor {
+                                      sensorId 1
+                                      translation -0.037 0 0 
+                                      children[
+                                        Transform {
+                                          translation 0.037 0 0 
+                                          children[
+                                        Inline { url "skeletonParts/leg6Integration.wrl" }
+                                          ]
                                         }
                                       ]
                                     }
@@ -1449,17 +1339,12 @@ DEF skeleton Humanoid{
     USE Rarm2,
     USE Rarm3,
     USE Rarm4,
-    USE Rarm5,
-    USE Rarm6,
-    USE Rarm7,
+    USE RHsensor,
     USE Larm1,
     USE Larm2,
     USE Larm3,
     USE Larm4,
-    USE Larm5,
-    USE Larm6,
-    USE Larm7,
-    USE stick,
+    USE LHsensor,
     USE head1,
     USE head2,
     USE Rleg1,
@@ -1468,12 +1353,14 @@ DEF skeleton Humanoid{
     USE Rleg4,
     USE Rleg5,
     USE Rleg6,
+    USE RFSensor,
     USE Lleg1,
     USE Lleg2,
     USE Lleg3,
     USE Lleg4,
     USE Lleg5,
     USE Lleg6,
+    USE LFSensor,
   ]
   segments [
     USE waist,
@@ -1482,17 +1369,10 @@ DEF skeleton Humanoid{
     USE Rarm2,
     USE Rarm3,
     USE Rarm4,
-    USE Rarm5,
-    USE Rarm6,
-    USE Rarm7,
     USE Larm1,
     USE Larm2,
     USE Larm3,
     USE Larm4,
-    USE Larm5,
-    USE Larm6,
-    USE Larm7,
-    USE stick,
     USE head1,
     USE head2,
     USE Rleg1,

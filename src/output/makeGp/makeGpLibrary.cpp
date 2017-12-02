@@ -12,7 +12,7 @@ void RLS::Output::makeGpLibrary(Config &config, Info &info)
   string font_config =
     "FONT = 'Times New Roman'\n"
     "FONT_SIZE = 35\n"
-    "EPS_FONT_SIZE = 30\n";
+    "EPS_FONT_SIZE = 45\n";
 
   string line_config =
     "LINE_WIDTH = 5\n";

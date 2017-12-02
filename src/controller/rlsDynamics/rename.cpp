@@ -19,8 +19,17 @@ void RLS::RlsDynamics::rename(Config &config, Info &info, Model &model)
     model.all.vC,
     model.limb[0].node[0].w;
 
+  dq <<
+    cal_VB,
+    model.all.dth;
+
   rB2C = model.all.rC - model.limb[0].node[0].r;
   drB2C = model.all.vC - model.limb[0].node[0].v;
+
+  Jc <<
+    cal_Pc.transpose(), cal_Jc;
+  dJc <<
+    cal_dPc.transpose(), cal_dJc;
 
   // ******************************
   // inertia
@@ -70,6 +79,18 @@ void RLS::RlsDynamics::rename(Config &config, Info &info, Model &model)
   cal_GC.head(3) = gf;
 
   // ******************************
+
+  // o(cth);
+  // o(model.all.dM.block(6,6,info.dof.joint,info.dof.joint)*model.all.dth);
+
+  // o(cth- model.all.dM.block(6,6,info.dof.joint,info.dof.joint)*model.all.dth);
+
+  // // o(cthC);
+  // // o(cthC - );
+  // // o(dHC.transpose()*cal_VM.tail(3) + model.all.dMM.block(6,6,info.dof.joint,info.dof.joint)*model.all.dth);
+
+  // // o(cthC - (dHC.transpose()*cal_VM.tail(3) + model.all.dMM.block(6,6,info.dof.joint,info.dof.joint)*model.all.dth));
+  // gc;
 
   // o(cal_CB);
   // Vector6d cal_CBtemp = Vector6d::Zero();

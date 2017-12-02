@@ -1,9 +1,9 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % result.tex
 %
 % Tex file for research notation in English
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % Class file
 \documentclass{article}
@@ -21,84 +21,19 @@
 \special{papersize=210mm, 297mm}
 
 \def\result{/usr/local/etc/rls/sl/result}
-
-%-----------------------------------------------------------------------
-%
-% Listing
-%\usepackage{here}
-%\usepackage{float,multicol,epsfig}
-%\usepackage{graphics}
-%\usepackage{bm}
-% \usepackage{color}
-%\usepackage{type1cm}
-%\usepackage{tabularx}
-% \documentstyle[subfloat,12pt,epsbox]{jreportk}
-% \usepackage{sty/listings,sty/jlisting}
-% \lstset{
-%   language={c++},
-% %  backgroundcolor={ \color[rgb]{0.9,0.9,0.9}},
-%   basicstyle=\ttfamily\scriptsize,
-% %  commentstyle=\textit,
-% %  keywordstyle=\bfseries,
-%   commentstyle={\small\ttfamily \color[rgb]{0,0.5,0}},
-%   keywordstyle={\small\bfseries \color[rgb]{0,0,1}},
-%   classoffset=1,
-% %  frame=tRBl,
-%   frame = {TB},
-%   framesep=5pt,
-%   showstringspaces=false,
-%   numbers=left,
-%   stepnumber=1,
-% %  numberstyle=\tiny,
-%   tabsize=2,
-% }
-% -----------------------------------------------------------------------
 %
 % Setting
 \renewcommand{\ourgroup}{Humanoid}
 \renewcommand{\resulttitle}{Simulation results}
 \renewcommand{\resultauthor}{}
-% -----------------------------------------------------------------------
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \input{\result/interface/simInfo}
 
 \begin{document}
 \header
 
-% \def\lstlistingname{Source}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-% \begin{table}[b]
-%   \centering
-%   \caption{Simulation condition.}
-%   \begin{tabular}{|c|c|c|c|c|c|}\hline
-%     &Time [s] & $0$ to $5$ & $5$ to $10$ & $10$ to $15$ & $15$ to $20$\\ \hline \hline
-%     Right hand &Force ($x$) [N] & $0$ to $4$ & \multicolumn{3}{c|}{\textgt{$4$}}\\ \cline{2-6}
-%     &Position ($y$) [mm] & \multicolumn{4}{c|}{\textgt{Initial position}} \\ \cline{2-6}
-%     &Position ($z$) [mm] & $0$ & $0$ to $50$ & $50$ to $0$ & 0\\ \hline
-%     % Left hand &Force ($x$) [N] & $0$ to $2$ & \multicolumn{3}{c|}{\textgt{$2$}}\\ \cline{2-6}
-%     % &Position ($y$) [mm] & \multicolumn{4}{c|}{\textgt{Initial position}} \\\cline{2-6}
-%     % &Position ($z$) [mm] & \multicolumn{4}{c|}{\textgt{Initial position}}\\ \hline
-%   \end{tabular}
-% \end{table}
-%以下から本文を記述すること
-
 \input{\result/\controller:\model/\data/pdf/src/\sub/\sub}
 
-% \begin{eqnarray}
-%   \dot{\bm{r}}^{ref}_X &=& \dot{\bm{r}}^{des}_X - \bm{K}_{p_{v}}(\bm{r}_X-\bm{r}_X^{des})\\
-%  \dot{\bm{p}}_C &=& m\omega^{2}(\dot{\bm{r}}^{ref}_X - \dot{\bm{r}}_C) + mg\bm{e}_z\\
-%  % \dot{\bm{l}}_B &=& -wg(\bm{r}_P - \bm{r}_{ecmp})
-%  \dot{\bm{l}}_B &=& -\bm{K}_{p_{\omega}}(\bm{r}_P - \bm{r}_{ecmp})
-% \end{eqnarray}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-% \begin{thebibliography}{99} \footnotesize
-% \end{thebibliography}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%
-%
 \end{document}
 %
 %

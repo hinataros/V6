@@ -141,5 +141,3 @@ extern "C"
                              RTC::Delete<RlsDynamicsRTC>);
   }
 };
-
-

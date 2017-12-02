@@ -19,7 +19,7 @@ items:
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "/home/smiyahara/Documents/software/choreonoid/workspace/rlsSimulator/master/share/model/skeletonModel_tani/skeleton.wrl"
+            modelFile: "/home/smiyahara/Documents/software/choreonoid/workspace/rlsSimulator/master/share/model/skeleton/skeletonA4C.wrl"
             currentBaseLink: "waist"
             rootPosition: [ 0, 0, 0.21019 ]
             rootAttitude: [ 
@@ -348,7 +348,7 @@ viewAreas:
             - 
               type: pane
               views: [ 2, 9, 5 ]
-              current: 5
+              current: 2
 layoutOfToolBars: 
   rows: 
     - 

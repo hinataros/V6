@@ -2,7 +2,7 @@ Work:
   -
     twf: 10.
 
-    Motion controller: noname
+    Motion controller: MmomGen
     Torque controller: fullDynamics
 
     Bc:
