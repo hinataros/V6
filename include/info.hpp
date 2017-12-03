@@ -34,6 +34,7 @@ namespace RLS{
 
     void initialize(Config&);
     void finalize(Config&);
+    void readInfo(Config&);
 
     Info(){}
     Info(Config &config){

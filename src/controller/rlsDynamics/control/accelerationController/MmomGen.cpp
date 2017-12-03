@@ -9,7 +9,7 @@ VectorXd RLS::RlsDynamics::MmomGen(Config &config, Info &info, Model &model)
 
   MatrixXd AC = MatrixXd::Zero(6, info.dof.all);
   AC <<
-    model.all.MM.block(0,0,6,info.dof.all);
+    model.hoap2.all.MM.block(0,0,6,info.dof.all);
 
   MatrixXd JcM = MatrixXd::Zero(c, info.dof.all);
   JcM <<
@@ -25,7 +25,7 @@ VectorXd RLS::RlsDynamics::MmomGen(Config &config, Info &info, Model &model)
 
   MatrixXd dAC = MatrixXd::Zero(6, info.dof.all);
   dAC <<
-    model.all.dMM.block(0,0,6,info.dof.all);
+    model.hoap2.all.dMM.block(0,0,6,info.dof.all);
 
   MatrixXd dACBar = MatrixXd::Zero(6+c, info.dof.all);
   dACBar <<
@@ -35,7 +35,7 @@ VectorXd RLS::RlsDynamics::MmomGen(Config &config, Info &info, Model &model)
   VectorXd dqM = VectorXd::Zero(info.dof.all);
   dqM <<
     cal_VM,
-    model.all.dth;
+    model.hoap2.all.dth;
 
   VectorXd cal_dLCBarRef = VectorXd::Zero(6+c);
   cal_dLCBarRef.head(6) = cal_dLCRef;

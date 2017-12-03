@@ -19,7 +19,7 @@ VectorXd RLS::RlsDynamics::fullDynamicsController(Config &config, Info &info, Mo
   // torque control
   // MatrixXd MthBar = MatrixXd::Zero(info.dof.joint, info.dof.all);
   // MthBar <<
-  //   model.all.M.block(0,6,6,info.dof.joint).transpose(), Mth;
+  //   model.hoap2.all.M.block(0,6,6,info.dof.joint).transpose(), Mth;
 
   // tau = MthBar*ddqRef + cth + gth - cal_Jc.transpose()*cal_FcBarRef;
 
@@ -29,12 +29,11 @@ VectorXd RLS::RlsDynamics::fullDynamicsController(Config &config, Info &info, Mo
 
   MatrixXd MthHatBar = MatrixXd::Zero(info.dof.joint, info.dof.all);
   MthHatBar <<
-    model.all.MM.block(0,6,6,info.dof.joint).transpose(), MthC;
+    model.hoap2.all.MM.block(0,6,6,info.dof.joint).transpose(), MthC;
 
   // tau = MthHatBar*ddqRef + cthC - cal_JcM.transpose()*cal_FcMBarRef;
   tau = MthHatBar*ddqRef + cthC + gth - cal_Jc.transpose()*cal_FcBarRef;
 
-  tau *= 0.;
   // tau = HC.transpose()*dwBRef + MthC*ddthRef + cthC - cal_JcM.transpose()*cal_FcMBarRef;
 
   // tau = - cal_JcM.transpose()*cal_FcMBarRef;

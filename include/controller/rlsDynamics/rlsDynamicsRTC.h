@@ -66,8 +66,8 @@ private:
   double t;
   VectorXd tau;
 
-  void readState(RLS::Config&, RLS::Info&, RLS::Model&);
-  void readSharedData(RLS::Config&, RLS::Info&, RLS::Model&, RLS::SharedData&);
+  void readState(RLS::Config&, RLS::Info&, RLS::TreeModel&);
+  void readSharedData(RLS::Config&, RLS::Info&, RLS::RigidBodyModel&, RLS::SharedData&);
   void writeInput(RLS::Config&);
 };
 

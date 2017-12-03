@@ -254,7 +254,7 @@ namespace RLS{
     void decompose(Config&, Model&);
     void rename(Config&, Info&, Model&);
 
-    void cop(Config&, Info&, Model&);
+    void cop(Config&, Info&, TreeModel&);
     void index(Config&, Info&, Model&);
 
     void comReference(Config&, Info&, Model&, double&);

@@ -20,8 +20,8 @@ VectorXd RLS::RlsDynamics::cl_Bacc(Config &config, Info &info, Model &model)
   VectorXd ddthmRef = pInv(cal_JmBar)*cal_dVmTildeRef;
 
   // nonlinear
-  VectorXd hc = cal_dPc.transpose()*cal_VB + cal_dJc*model.all.dth;
-  VectorXd hm = -dBm.transpose()*cal_V + cal_dPm.transpose()*cal_VB + cal_dJm*model.all.dth;
+  VectorXd hc = cal_dPc.transpose()*cal_VB + cal_dJc*model.hoap2.all.dth;
+  VectorXd hm = -dBm.transpose()*cal_V + cal_dPm.transpose()*cal_VB + cal_dJm*model.hoap2.all.dth;
 
   VectorXd h = pInv(cal_Jc)*hc + pInv(cal_JmBar)*(hm - cal_Jm*pInv(cal_Jc)*hc);
 

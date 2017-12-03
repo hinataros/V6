@@ -4,7 +4,7 @@
 
 void RLS::RigidBodyModel::update(Config &config, Info &info)
 {
-  if (config.flag.debug) DEBUG;
+  if(config.flag.debug) DEBUG;
 
   // calculate this inertia and so on...
 }

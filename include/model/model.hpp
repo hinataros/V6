@@ -2,10 +2,12 @@
 #include "rigidBodyModel.hpp"
 
 namespace RLS{
-  class Model:
-    public TreeModel, public RigidBodyModel{
+  class Model{
   private:
   public:
+    TreeModel hoap2;
+    RigidBodyModel object;
+
     void readModel(Config&, Info&);
     void deleteModel(Config&, Info&);
     void update(Config&, Info&);

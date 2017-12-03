@@ -6,36 +6,9 @@
 
 void RLS::TreeModel::readModel(Config &config, Info &info)
 {
-  if (config.flag.debug) DEBUG;
+  if(config.flag.debug) DEBUG;
 
   YAML::Node doc = YAML::LoadFile(config.dir.model.c_str());
-
-  info.sim.t0 = doc["Simulation model"]["Initial time"].as<double>();
-  info.sim.tf = doc["Simulation model"]["Finish time"].as<double>();
-  info.sim.dt = doc["Simulation model"]["Hourly"].as<double>();
-
-  info.sim.n = (info.sim.tf - info.sim.t0) / info.sim.dt;
-
-  info.value.node = doc["Body model"]["Degree of freedom"].size();
-
-  info.limb = new Info::Limb[info.value.node];
-
-  for(int i=0; i<info.value.node; i++){
-    info.limb[i].dof = doc["Body model"]["Degree of freedom"][i].as<int>();
-
-    if(i==0)
-      // base
-      info.limb[i].value = 1;
-    else{
-      // link with EE
-      info.value.joint++;
-      info.limb[i].value = info.limb[i].dof+1;// smiyahara:ココの+1がびみょ
-      info.dof.joint += info.limb[i].dof;
-    }
-
-    info.value.all += info.limb[i].value;
-    info.dof.all += info.limb[i].dof;
-  }
 
   limb = new Limb[info.value.node];
   for(int i=0; i<info.value.node; i++)

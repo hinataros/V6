@@ -11,7 +11,7 @@ VectorXd RLS::RlsDynamics::highGainController(Config &config, Info &info, Model 
 
   thDes += dthRef*info.sim.dt;
 
-  tau = kdHG*(dthRef - model.all.dth) + kpHG*(thDes - model.all.th);
+  tau = kdHG*(dthRef - model.hoap2.all.dth) + kpHG*(thDes - model.hoap2.all.th);
 
   return tau;
 }

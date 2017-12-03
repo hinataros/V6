@@ -81,3 +81,11 @@ modelを一つにして継承、ではなくそれぞれインスタンス化し
 modelの中でtreeとrigidをインスタンス化できたらいいけど
 
 たまたま、model間で同じ名前なかったけどcontrollerでスコープはつけたほうがいい
+
+configのmodel.nameはtreeModel.name
+
+world modelは別にするかめっちゃ迷う
+
+controllerがtfを超えた場合の処理
+
+shared memoryのif分岐が醜い

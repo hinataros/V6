@@ -4,7 +4,7 @@
 
 void RLS::TreeModel::update(Config &config, Info &info)
 {
-  if (config.flag.debug) DEBUG;
+  if(config.flag.debug) DEBUG;
 
   position(config, info, limb[0].node[0].r, limb[0].node[0].R, all.th);
   velocity(config, info, limb[0].node[0].vo, limb[0].node[0].w, all.dth);

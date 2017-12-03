@@ -6,7 +6,7 @@
 
 void RLS::RigidBodyModel::readModel(Config &config, Info &info)
 {
-  if (config.flag.debug) DEBUG;
+  if(config.flag.debug) DEBUG;
 
   // YAML::Node doc = YAML::LoadFile(config.dir.model.c_str());
 

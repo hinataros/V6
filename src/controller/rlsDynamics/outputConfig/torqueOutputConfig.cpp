@@ -36,12 +36,12 @@ void RLS::RlsDynamics::torqueOutputConfig(Config &config, Model &model)
 
   dc_list.tau = tau;
 
-  dc_list.pCRB = model.all.m*cal_VM.head(3);
+  dc_list.pCRB = model.hoap2.all.m*cal_VM.head(3);
   dc_list.lCRB = IC*cal_VM.tail(3);
 
   dc_list.pCth = Vector3d::Zero();
-  dc_list.lCth = HC*model.all.dth;
+  dc_list.lCth = HC*model.hoap2.all.dth;
 
-  dc_list.p = model.all.m*cal_VM.head(3);
-  dc_list.lC = IC*cal_VM.tail(3) + HC*model.all.dth;
+  dc_list.p = model.hoap2.all.m*cal_VM.head(3);
+  dc_list.lC = IC*cal_VM.tail(3) + HC*model.hoap2.all.dth;
 }

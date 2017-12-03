@@ -69,10 +69,12 @@ RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
 
   config.readConfig();
   info.initialize(config);
+  info.readInfo(config);
   model.readModel(config, info);
   rlsDynamics.initialize(config, info);
 
-  sharedMemory.initialize();
+  if(config.flag.shm)
+    sharedMemory.initialize();
 
   // initialize torque size
   m_angleIn.read();
@@ -81,14 +83,16 @@ RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
     m_torque.data[i] = 0.;
 
   // smiyahara: 要検討
-  readState(config, info, model);
+  readState(config, info, model.hoap2);
 
-  sharedMemory.getData(&sharedData);
-  readSharedData(config, info, model, sharedData);
+  if(config.flag.shm){
+    sharedMemory.getData(&sharedData);
+    readSharedData(config, info, model.object, sharedData);
+  }
 
   tau = rlsDynamics.rlsDynamics(config, info, model, t);
 
-  output.tm_temp = model.tm_list;
+  output.tm_temp = model.hoap2.tm_list;
   output.dc_temp = rlsDynamics.dc_list;
 
   writeInput(config);
@@ -104,18 +108,21 @@ RTC::ReturnCode_t RlsDynamicsRTC::onDeactivated(RTC::UniqueId ec_id)
   // smiyahara: はい?
   info.sim.n = (t - info.sim.t0) / info.sim.dt;
 
-  readState(config, info, model);
+  readState(config, info, model.hoap2);
 
-  sharedMemory.getData(&sharedData);
-  readSharedData(config, info, model, sharedData);
+  if(config.flag.shm){
+    sharedMemory.getData(&sharedData);
+    readSharedData(config, info, model.object, sharedData);
+  }
 
   tau = rlsDynamics.rlsDynamics(config, info, model, t);
 
   output.dc_temp = rlsDynamics.dc_list;
-  output.tm_temp = model.tm_list;
+  output.tm_temp = model.hoap2.tm_list;
   output.pushBack(config, t);
 
-  sharedMemory.finalize();
+  if(config.flag.shm)
+    sharedMemory.finalize();
 
   output.output(config, info);
   output.finalize(config);
@@ -129,15 +136,17 @@ RTC::ReturnCode_t RlsDynamicsRTC::onDeactivated(RTC::UniqueId ec_id)
 
 RTC::ReturnCode_t RlsDynamicsRTC::onExecute(RTC::UniqueId ec_id)
 {
-  readState(config, info, model);
+  readState(config, info, model.hoap2);
 
-  sharedMemory.getData(&sharedData);
-  readSharedData(config, info, model, sharedData);
+  if(config.flag.shm){
+    sharedMemory.getData(&sharedData);
+    readSharedData(config, info, model.object, sharedData);
+  }
 
   tau = rlsDynamics.rlsDynamics(config, info, model, t);
 
   output.dc_temp = rlsDynamics.dc_list;
-  output.tm_temp = model.tm_list;
+  output.tm_temp = model.hoap2.tm_list;
   output.pushBack(config, t);
 
   writeInput(config);

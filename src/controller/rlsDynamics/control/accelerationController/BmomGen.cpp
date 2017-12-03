@@ -9,7 +9,7 @@ VectorXd RLS::RlsDynamics::BmomGen(Config &config, Info &info, Model &model)
 
   MatrixXd AB = MatrixXd::Zero(6, info.dof.all);
   AB <<
-    model.all.M.block(0,0,6,info.dof.all);
+    model.hoap2.all.M.block(0,0,6,info.dof.all);
 
   MatrixXd ABBar = MatrixXd::Zero(6+c, info.dof.all);
   ABBar <<
@@ -18,7 +18,7 @@ VectorXd RLS::RlsDynamics::BmomGen(Config &config, Info &info, Model &model)
 
   MatrixXd dAB = MatrixXd::Zero(6, info.dof.all);
   dAB <<
-    model.all.dM.block(0,0,6,info.dof.all);
+    model.hoap2.all.dM.block(0,0,6,info.dof.all);
 
   MatrixXd dABBar = MatrixXd::Zero(6+c, info.dof.all);
   dABBar <<
@@ -28,7 +28,7 @@ VectorXd RLS::RlsDynamics::BmomGen(Config &config, Info &info, Model &model)
   VectorXd dq = VectorXd::Zero(info.dof.all);
   dq <<
     cal_VB,
-    model.all.dth;
+    model.hoap2.all.dth;
 
   VectorXd cal_dLBBarRef = VectorXd::Zero(6+c);
   cal_dLBBarRef.head(6) = cal_dLBRef;

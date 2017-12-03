@@ -4,8 +4,8 @@
 
 void RLS::Model::deleteModel(Config &config, Info &info)
 {
-  if (config.flag.debug) DEBUG;
+  if(config.flag.debug) DEBUG;
 
   // smiyahara: 分岐希望
-  TreeModel::deleteModel(config, info);
+  hoap2.deleteModel(config, info);
 }

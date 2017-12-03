@@ -64,6 +64,7 @@ namespace RLS{
     } data;
 
     struct Flag{
+      bool shm;
       bool debug;
     } flag;
 

@@ -4,7 +4,7 @@
 
 void RLS::TreeModel::outputConfig(Config &config, Info &info)
 {
-  if (config.flag.debug) DEBUG;
+  if(config.flag.debug) DEBUG;
 
   tm_list.rB = limb[0].node[0].r;
   tm_list.RB = limb[0].node[0].R;

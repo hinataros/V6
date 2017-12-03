@@ -4,8 +4,8 @@
 
 void RLS::Model::readModel(Config &config, Info &info)
 {
-  if (config.flag.debug) DEBUG;
+  if(config.flag.debug) DEBUG;
 
-  TreeModel::readModel(config, info);
-  RigidBodyModel::readModel(config, info);
+  hoap2.readModel(config, info);
+  object.readModel(config, info);
 }

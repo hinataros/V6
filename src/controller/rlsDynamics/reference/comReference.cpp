@@ -14,8 +14,8 @@ void RLS::RlsDynamics::comReference(Config &config, Info &info, Model &model, do
     dvCDes(i) = des(2);
   }
 
-  erC = rCDes - model.all.rC;
-  evC = vCDes - model.all.vC;
+  erC = rCDes - model.hoap2.all.rC;
+  evC = vCDes - model.hoap2.all.vC;
 
   // velocityController
   vCRef = vCDes + kpC*erC;

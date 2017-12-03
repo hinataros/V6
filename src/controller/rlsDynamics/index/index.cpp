@@ -7,5 +7,5 @@ void RLS::RlsDynamics::index(Config &config, Info &info, Model &model)
 {
   if(config.flag.debug) DEBUG;
 
-  cop(config, info, model);
+  cop(config, info, model.hoap2);
 }

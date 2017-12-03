@@ -7,5 +7,5 @@ VectorXd RLS::RlsDynamics::ddthD(Config &config, Model &model)
 {
   if(config.flag.debug) DEBUG;
 
-  return -kthD*model.all.dth;
+  return -kthD*model.hoap2.all.dth;
 }

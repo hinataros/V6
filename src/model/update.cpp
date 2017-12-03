@@ -4,8 +4,8 @@
 
 void RLS::Model::update(Config &config, Info &info)
 {
-  if (config.flag.debug) DEBUG;
+  if(config.flag.debug) DEBUG;
 
-  TreeModel::update(config, info);
-  RigidBodyModel::update(config, info);
+  hoap2.update(config, info);
+  object.update(config, info);
 }

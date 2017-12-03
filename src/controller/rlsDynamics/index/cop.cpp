@@ -3,7 +3,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::cop(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::cop(Config &config, Info &info, TreeModel &hoap2)
 {
   if(config.flag.debug) DEBUG;
 
@@ -29,5 +29,5 @@ void RLS::RlsDynamics::cop(Config &config, Info &info, Model &model)
     rp = rpNumerator / rpDenominator;
 
   else
-    rp = model.all.rC.head(2);
+    rp = hoap2.all.rC.head(2);
 }

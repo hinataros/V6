@@ -16,6 +16,8 @@ void RLS::Config::readConfig()
   model.name = doc["Default config"]["Model name"].as<string>();
   controller.name = doc["Default config"]["Controller name"].as<string>();
 
+  flag.shm = doc["Default config"]["Shared memory"].as<bool>();
+
   if(option!="-d")
     flag.debug = doc["Default config"]["Debug mode"].as<bool>();
 

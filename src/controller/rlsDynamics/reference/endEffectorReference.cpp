@@ -25,9 +25,9 @@ void RLS::RlsDynamics::endEffectorReference(Config &config, Info &info, Model &m
 
     cal_Ep.segment(6*(i-1), 6) <<
       cal_XDes.segment(6*(i-1), 3) - cal_X.segment(6*(i-1), 3),
-      0.5*(cross(model.limb[i].node[info.limb[i].dof].R.col(0))*xi2R(cal_XDes.segment(6*(i-1)+3, 3)).col(0)
-	      + cross(model.limb[i].node[info.limb[i].dof].R.col(1))*xi2R(cal_XDes.segment(6*(i-1)+3, 3)).col(1)
-	      + cross(model.limb[i].node[info.limb[i].dof].R.col(2))*xi2R(cal_XDes.segment(6*(i-1)+3, 3)).col(2));
+      0.5*(cross(model.hoap2.limb[i].node[info.limb[i].dof].R.col(0))*xi2R(cal_XDes.segment(6*(i-1)+3, 3)).col(0)
+	      + cross(model.hoap2.limb[i].node[info.limb[i].dof].R.col(1))*xi2R(cal_XDes.segment(6*(i-1)+3, 3)).col(1)
+	      + cross(model.hoap2.limb[i].node[info.limb[i].dof].R.col(2))*xi2R(cal_XDes.segment(6*(i-1)+3, 3)).col(2));
   }
   cal_Ev = cal_VDes - cal_V;
 
