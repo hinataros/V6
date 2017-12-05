@@ -69,7 +69,6 @@ RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
 
   config.readConfig();
   info.initialize(config);
-  info.readInfo(config);
   model.readModel(config, info);
   rlsDynamics.initialize(config, info);
 
@@ -99,7 +98,6 @@ RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
 
   return RTC::RTC_OK;
 }
-
 
 RTC::ReturnCode_t RlsDynamicsRTC::onDeactivated(RTC::UniqueId ec_id)
 {

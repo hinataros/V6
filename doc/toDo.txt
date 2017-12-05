@@ -89,3 +89,5 @@ world modelは別にするかめっちゃ迷う
 controllerがtfを超えた場合の処理
 
 shared memoryのif分岐が醜い
+
+cnoidの時間変えるshellをつくる

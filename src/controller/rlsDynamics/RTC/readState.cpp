@@ -37,8 +37,8 @@ void RlsDynamicsRTC::readState(RLS::Config &config, RLS::Info &info, RLS::TreeMo
     hoap2.all.dth(i) = m_angVel.data[i];
 
   // smiyahara: 他にいい方法があるかも
-  if(config.model.name=="skeleton"||
-     config.model.name=="skeletonA7"){
+  if(config.body.name=="skeletonA4C"||
+     config.body.name=="skeletonA7C"){
     if(m_rightFootForceIn.isNew())
       m_rightFootForceIn.read();
     if(m_leftFootForceIn.isNew())

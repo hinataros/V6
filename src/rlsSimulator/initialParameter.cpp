@@ -15,7 +15,7 @@ void RLS::RlsSimulator::initialParameter(Config &config, Info &info, Model &mode
   rB = model.hoap2.limb[0].node[0].r0;
 
   // B部の初期姿勢
-  RB = xi2R(model.hoap2.limb[0].node[0].xi0);
+  RB = model.hoap2.limb[0].node[0].R0;
 
   // B部の初期速度
   voB = model.hoap2.limb[0].node[0].vo =
@@ -30,18 +30,5 @@ void RLS::RlsSimulator::initialParameter(Config &config, Info &info, Model &mode
     }
 
     temp += info.limb[i].dof;
-  }
-
-  // rB0=0としたとき慣性座標を足とする
-  if(config.model.name=="skeleton"||config.model.name=="skeletonA7"){
-    model.hoap2.limb[0].node[0].r = rB;
-    model.hoap2.limb[0].node[0].R = RB;
-    model.hoap2.limb[0].node[0].vo = voB;
-    model.hoap2.limb[0].node[0].w = wB;
-    model.hoap2.all.th = th;
-    model.hoap2.all.dth = dth;
-
-    model.hoap2.update(config, info);
-    rB(2) = -model.hoap2.limb[1].node[info.limb[1].dof].r(2);
   }
 }

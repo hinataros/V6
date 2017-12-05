@@ -56,10 +56,10 @@ namespace RLS{
       string jointType;
 
       // inital value
-      Vector3d xi0;
+      Matrix3d R0;
       Vector3d r0;
       Vector3d w0;
-      Vector3d v0;// 今のところyamlから読むとき、B部のみが必要
+      Vector3d v0;// 今のところcnoidから読むとき、B部のみが必要
       double th0;
       double dth0;
 
@@ -117,7 +117,8 @@ namespace RLS{
 
     TreeModelList tm_list;
 
-    void readModel(Config&, Info&);
+    void readBody(Config&, Info&);
+    void readCnoid(Config&, Info&);
     void deleteModel(Config&, Info&);
     void update(Config&, Info&);
   };

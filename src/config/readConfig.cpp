@@ -13,8 +13,9 @@ void RLS::Config::readConfig()
   // default config
   data.name.main = doc["Default config"]["Data name"].as<string>();
   data.name.sub = doc["Default config"]["Subdata name"].as<string>();
-  model.name = doc["Default config"]["Model name"].as<string>();
   controller.name = doc["Default config"]["Controller name"].as<string>();
+  body.name = doc["Default config"]["Body name"].as<string>();
+  cnoid.name = doc["Default config"]["cnoid name"].as<string>();
 
   flag.shm = doc["Default config"]["Shared memory"].as<bool>();
 

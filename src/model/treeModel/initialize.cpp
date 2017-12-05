@@ -13,7 +13,7 @@ void RLS::TreeModel::initialize(Config &config, Info &info)
       limb[i].node[j].th0 = 0.;
       limb[i].node[j].dth0 = 0.;
 
-      limb[i].node[j].xi0 = Vector3d::Zero();
+      limb[i].node[j].R0 = Matrix3d::Zero();
       limb[i].node[j].r0 = Vector3d::Zero();
       limb[i].node[j].w0 = Vector3d::Zero();
       limb[i].node[j].v0 = Vector3d::Zero();

@@ -47,7 +47,9 @@ namespace RLS{
 
     struct Dir{
       string link;
-      string model;
+      string share;
+      string cnoid;
+      string body;
       string work;
       string result;
       string set;
@@ -68,10 +70,14 @@ namespace RLS{
       bool debug;
     } flag;
 
-    // smiyahara: コマンドライン引数の処理は未実装
-    struct Model{
+    struct Cnoid{
       string name;
-    } model;
+    } cnoid;
+
+    // smiyahara: コマンドライン引数の処理は未実装
+    struct Body{
+      string name;
+    } body;
 
     struct Controller{
       bool flag;

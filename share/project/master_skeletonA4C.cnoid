@@ -15,7 +15,7 @@ items:
       children: 
         - 
           id: 2
-          name: "skeleton"
+          name: "skeletonA4C"
           plugin: Body
           class: BodyItem
           data: 
@@ -234,7 +234,7 @@ views:
 toolbars: 
   "TimeBar": 
     minTime: 0
-    maxTime: 30
+    maxTime: 20
     frameRate: 1000
     playbackFrameRate: 10
     idleLoopDrivenMode: false

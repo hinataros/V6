@@ -14,7 +14,7 @@ void RLS::Output::makeAccelerationDat(Config &config, Info &info)
   string load;
   string minipage;
 
-  string input_dir = "\\input{\\result/"+config.controller.name+":"+config.model.name+"/"+config.data.name.main+"/"+"pdf/src/"+config.data.name.sub+"/";
+  string input_dir = "\\input{\\result/"+config.controller.name+":"+config.body.name+"/"+config.data.name.main+"/"+"pdf/src/"+config.data.name.sub+"/";
   string input;
 
   name = "100_baseTransDes";

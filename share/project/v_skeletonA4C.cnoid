@@ -15,7 +15,7 @@ items:
       children: 
         - 
           id: 2
-          name: "skeleton"
+          name: "skeletonA4C"
           plugin: Body
           class: BodyItem
           data: 
@@ -29,14 +29,14 @@ items:
             jointPositions: [ 
                0.000000,  0.000000, -0.523599,  1.047198, -0.523599,  0.000000,  0.000000,  0.000000, -0.523599,  1.047198, 
               -0.523599,  0.000000,  1.745329,  0.000000,  0.000000, -0.523599,  1.745329,  0.000000,  0.000000, -0.523599 ]
-            initialRootPosition: [ 0, 0, 0.292 ]
+            initialRootPosition: [ 0, 0, 0.2102051 ]
             initialRootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
               0, 0, 1 ]
             initialJointPositions: [ 
-               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000, 
-               0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000,  0.000000 ]
+               0.000000,  0.000000, -0.523599,  1.047198, -0.523599,  0.000000,  0.000000,  0.000000, -0.523599,  1.047198, 
+              -0.523599,  0.000000,  1.745329,  0.000000,  0.000000, -0.523599,  1.745329,  0.000000,  0.000000, -0.523599 ]
             zmp: [ 0, 0, 0 ]
             collisionDetection: true
             selfCollisionDetection: false
@@ -48,7 +48,7 @@ items:
               plugin: Body
               class: BodyMotionItem
               data: 
-                filename: "../motion/skeletonMotion.yaml"
+                filename: "../motion/skeletonA4CMotion.yaml"
                 format: BODY-MOTION-YAML
         - 
           id: 4
@@ -186,8 +186,8 @@ views:
 toolbars: 
   "TimeBar": 
     minTime: 0
-    maxTime: 30
-    frameRate: 100
+    maxTime: 10
+    frameRate: 1000
     playbackFrameRate: 50
     idleLoopDrivenMode: false
     currentTime: 0

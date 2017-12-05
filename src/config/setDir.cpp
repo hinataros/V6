@@ -4,11 +4,13 @@ void RLS::Config::setDir()
 {
   if(flag.debug) DEBUG;
 
-  dir.model = dir.link + "yaml/model/" + model.name+".model";
+  dir.share = dir.link + "share/";
+  dir.cnoid = dir.share + "project/" + cnoid.name + ".cnoid";
+  dir.body = dir.link + "yaml/model/" + body.name+".model";
   dir.work = dir.link + "yaml/work/" + controller.name+"/" + controller.work+".work";
 
   dir.result = dir.link + "result/";
-  dir.set = dir.result + controller.name+":"+model.name+"/";
+  dir.set = dir.result + controller.name+":"+body.name+"/";
   dir.data.main = dir.set + data.name.main+"/";
 
   dir.dat.main = dir.data.main + "dat/";

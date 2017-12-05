@@ -2,7 +2,8 @@ add_subdirectory(kinematics)
 add_subdirectory(dynamics)
 
 set(srcs
-  readModel.cpp
+  readBody.cpp
+  readCnoid.cpp
   initialize.cpp
   outputConfig.cpp
   deleteModel.cpp
