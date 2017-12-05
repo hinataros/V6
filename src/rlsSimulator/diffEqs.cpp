@@ -10,7 +10,7 @@ void RLS::RlsSimulator::diffEqs(Config &config, Info &info, Model &model, int ph
   if(config.flag.debug) DEBUG;
 
   if(config.controller.input=="velocity"){
-    k.vo[phase] = u.head(3) - cross(u.segment(3,3))*model.limb[0].node[0].r;
+    k.vo[phase] = u.head(3) - cross(u.segment(3,3))*model.hoap2.limb[0].node[0].r;
     k.w[phase] = u.segment(3,3);
     k.dth[phase] = u.tail(info.dof.joint);
 
@@ -20,7 +20,7 @@ void RLS::RlsSimulator::diffEqs(Config &config, Info &info, Model &model, int ph
 
   }else{
     if(config.controller.input=="acceleration"){
-      dvoB = u.head(3) - (cross(u.segment(3,3))*model.limb[0].node[0].r + cross(model.limb[0].node[0].w)*model.limb[0].node[0].v);
+      dvoB = u.head(3) - (cross(u.segment(3,3))*model.hoap2.limb[0].node[0].r + cross(model.hoap2.limb[0].node[0].w)*model.hoap2.limb[0].node[0].v);
       dwB = u.segment(3,3);
       ddth = u.tail(info.dof.joint);
 
@@ -30,16 +30,16 @@ void RLS::RlsSimulator::diffEqs(Config &config, Info &info, Model &model, int ph
       // forwardDynamics(config, model, u);
 
       // VectorXd ddq;
-      // ddq = model.all.M.inverse()*( -model.all.c - model.all.g);
+      // ddq = model.hoap2.all.M.inverse()*( -model.hoap2.all.c - model.hoap2.all.g);
 
-      // dvoB = ddq.head(3) - (cross(ddq.segment(3,3))*model.limb[0].node[0].r + cross(model.limb[0].node[0].w)*model.limb[0].node[0].v);
+      // dvoB = ddq.head(3) - (cross(ddq.segment(3,3))*model.hoap2.limb[0].node[0].r + cross(model.hoap2.limb[0].node[0].w)*model.hoap2.limb[0].node[0].v);
       // dwB = ddq.segment(3,3);
       // ddth = ddq.tail(info.dof.joint);
     }
 
-    k.vo[phase] = model.limb[0].node[0].vo;
-    k.w[phase] = model.limb[0].node[0].w;
-    k.dth[phase] = model.all.dth;
+    k.vo[phase] = model.hoap2.limb[0].node[0].vo;
+    k.w[phase] = model.hoap2.limb[0].node[0].w;
+    k.dth[phase] = model.hoap2.all.dth;
 
     k.dvo[phase] = dvoB;
     k.dw[phase] = dwB;

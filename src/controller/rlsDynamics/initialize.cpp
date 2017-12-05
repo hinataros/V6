@@ -179,7 +179,7 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   map_mc["cl_Macc"] = &RLS::RlsDynamics::cl_Macc;
   map_mc["noname"] = &RLS::RlsDynamics::noname;
   map_mc["MmomGen"] = &RLS::RlsDynamics::MmomGen;
-  map_mc["BmomGen"] = &RLS::RlsDynamics::MmomGen;
+  map_mc["BmomGen"] = &RLS::RlsDynamics::BmomGen;
 
   map_tc["fullDynamics"] = &RLS::RlsDynamics::fullDynamicsController;
   map_tc["highGain"] = &RLS::RlsDynamics::highGainController;

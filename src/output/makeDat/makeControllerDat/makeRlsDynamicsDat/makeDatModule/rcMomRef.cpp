@@ -24,7 +24,7 @@ string RLS::Output::rcMomRef(Config &config, Info &info, string dir, string &loa
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "R. C. linear momentum reference. [N]","E",0);
+    makeGpTime3D(config, "controller", name, "R. C. linear momentum ref. [N]","E",0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
@@ -44,7 +44,7 @@ string RLS::Output::rcMomRef(Config &config, Info &info, string dir, string &loa
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "R. C. angular momentum reference. [Nm]","E",0);
+    makeGpTime3D(config, "controller", name, "R. C. angular momentum ref. [Nm]","E",0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){

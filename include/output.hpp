@@ -65,6 +65,14 @@ namespace RLS{
     string baseOrientErr(Config&, Info&, string, string&);
     string baseAngVelErr(Config&, Info&, string, string&);
 
+    // EE translation error
+    string eePosErr(Config&, Info&, string, string&);
+    string eeVelErr(Config&, Info&, string, string&);
+
+    // EE wrench error
+    string eeForceErr(Config&, Info&, string, string&);
+    string eeMomentErr(Config&, Info&, string, string&);
+
     // com error
     string comPosErr(Config&, Info&, string, string&);
     string comVelErr(Config&, Info&, string, string&);
@@ -73,6 +81,8 @@ namespace RLS{
     string rcMomRef(Config&, Info&, string, string&);
 
     // EE wrench reference
+    string eeForceRef(Config&, Info&, string, string&);
+    string eeMomentRef(Config&, Info&, string, string&);
     string eeWrenchRef(Config&, Info&, string, string&);
 
     // joint torque

@@ -6,6 +6,8 @@ set(srcs
   baseTransErr.cpp
   baseRotErr.cpp
   comErr.cpp
+  eeTransErr.cpp
+  eeWrenchErr.cpp
   rcMomRef.cpp
   eeWrenchRef.cpp
   jointTorque.cpp

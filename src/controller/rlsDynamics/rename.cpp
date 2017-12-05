@@ -28,8 +28,14 @@ void RLS::RlsDynamics::rename(Config &config, Info &info, Model &model)
 
   Jc <<
     cal_Pc.transpose(), cal_Jc;
+  Jm <<
+    cal_Pm.transpose(), cal_Jm;
+
+  // diff
   dJc <<
     cal_dPc.transpose(), cal_dJc;
+  dJm <<
+    cal_dPm.transpose(), cal_dJm;
 
   // ******************************
   // inertia
@@ -58,6 +64,7 @@ void RLS::RlsDynamics::rename(Config &config, Info &info, Model &model)
   dPcf = cal_dPc.block(0,0,3,c);
   dPmf = cal_dPm.block(0,0,3,m);
   dPcMm = cal_dPc.block(3,0,3,c);
+  // dPcf = 0と仮定
   cal_dJcM = cal_dJc - Pcf.transpose()*model.hoap2.all.dJB2C;
   cal_dJmM = cal_dJm - Pmf.transpose()*model.hoap2.all.dJB2C;
 
@@ -85,14 +92,17 @@ void RLS::RlsDynamics::rename(Config &config, Info &info, Model &model)
 
   // o(cth- model.hoap2.all.dM.block(6,6,info.dof.joint,info.dof.joint)*model.hoap2.all.dth);
 
-  // // o(cthC);
-  // // o(cthC - );
   // // o(dHC.transpose()*cal_VM.tail(3) + model.hoap2.all.dMM.block(6,6,info.dof.joint,info.dof.joint)*model.hoap2.all.dth);
 
   // // o(cthC - (dHC.transpose()*cal_VM.tail(3) + model.hoap2.all.dMM.block(6,6,info.dof.joint,info.dof.joint)*model.hoap2.all.dth));
   // gc;
 
   // o(cal_CB);
+  // Vector3d cBm = model.hoap2.all.dM.block(3,0,3,info.dof.all)*dq + model.hoap2.all.m*cross(drB2C).transpose()*cal_VM.head(3);
+  // o(cBm);
+  // o(cal_CB.tail(3) - cBm);
+  // gc;
+
   // Vector6d cal_CBtemp = Vector6d::Zero();
   // Vector3d temp = model.hoap2.all.m*cross(drB2C).transpose()*cal_VM.tail(3) + model.hoap2.all.m*model.hoap2.all.dJB2C*model.hoap2.all.dth;
   // cal_CBtemp.head(3) = temp;

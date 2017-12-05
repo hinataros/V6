@@ -27,6 +27,7 @@ VectorXd RLS::RlsDynamics::fullDynamicsController(Config &config, Info &info, Mo
   // tau = gth - cal_Jc.transpose()*cal_FcBarRef;
   // tau = gth - cal_Jc.transpose()*cal_FcBarRef + Nast(cal_Jc, Mth)*Mth*ddthD(config,model);
 
+  // ******************************************************************************
   MatrixXd MthHatBar = MatrixXd::Zero(info.dof.joint, info.dof.all);
   MthHatBar <<
     model.hoap2.all.MM.block(0,6,6,info.dof.joint).transpose(), MthC;
@@ -35,6 +36,7 @@ VectorXd RLS::RlsDynamics::fullDynamicsController(Config &config, Info &info, Mo
   tau = MthHatBar*ddqRef + cthC + gth - cal_Jc.transpose()*cal_FcBarRef;
 
   // tau = HC.transpose()*dwBRef + MthC*ddthRef + cthC - cal_JcM.transpose()*cal_FcMBarRef;
+  // ******************************************************************************
 
   // tau = - cal_JcM.transpose()*cal_FcMBarRef;
   // tau = - cal_JcM.transpose()*cal_FcMBarRef + Nast(cal_JcM, Mth)*Mth*ddthD(config,model);

@@ -4,7 +4,7 @@
 #include "info.hpp"
 #include "output.hpp"
 
-string RLS::Output::eeWrenchRef(Config &config, Info &info, string dir, string &load)
+string RLS::Output::eeForceRef(Config &config, Info &info, string dir, string &load)
 {
   if(config.flag.debug) DEBUG;
 
@@ -26,13 +26,23 @@ string RLS::Output::eeWrenchRef(Config &config, Info &info, string dir, string &
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "controller", name, "Limb"+to_string(l)+" "+"EE force reference. [N]","E",0);
+      makeGpTime3D(config, "controller", name, "Limb"+to_string(l)+" "+"EE force ref. [N]","E",0);
       load += "load 'controller/"+name+".gp'\n";
     }
     if(config.graph.tex){
       minipage += makeMinipage(config, "controller", "1.0", name);
     }
   }
+
+  return minipage;
+}
+
+string RLS::Output::eeMomentRef(Config &config, Info &info, string dir, string &load)
+{
+  if(config.flag.debug) DEBUG;
+
+  string name;
+  string minipage;
 
   // end effector moment reference
   for(int l=1; l<info.value.node; l++){
@@ -49,13 +59,26 @@ string RLS::Output::eeWrenchRef(Config &config, Info &info, string dir, string &
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "controller", name, "Limb"+to_string(l)+" "+"EE moment reference. [Nm]","E",0);
+      makeGpTime3D(config, "controller", name, "Limb"+to_string(l)+" "+"EE moment ref. [Nm]","E",0);
       load += "load 'controller/"+name+".gp'\n";
     }
     if(config.graph.tex){
       minipage += makeMinipage(config, "controller", "1.0", name);
     }
   }
+
+  return minipage;
+}
+
+string RLS::Output::eeWrenchRef(Config &config, Info &info, string dir, string &load)
+{
+  if(config.flag.debug) DEBUG;
+
+  string name;
+  string minipage;
+
+  minipage = eeForceRef(config, info, dir, load);
+  minipage += eeMomentRef(config, info, dir, load);
 
   return minipage;
 }

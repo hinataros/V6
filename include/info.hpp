@@ -39,6 +39,7 @@ namespace RLS{
     Info(){}
     Info(Config &config){
       initialize(config);
+      readInfo(config);
     }
   };
 }

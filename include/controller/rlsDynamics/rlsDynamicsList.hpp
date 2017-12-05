@@ -23,6 +23,11 @@ namespace RLS{
     Vector3d erC;
     Vector3d evC;
 
+    VectorXd cal_Ep;
+    VectorXd cal_Ev;
+
+    VectorXd cal_FErr;
+
     // velocity control
     Vector3d vBRef;
     Vector3d wBRef;

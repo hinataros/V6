@@ -59,7 +59,7 @@ void RLS::Output::makeDynamicsDat(Config &config, Info &info)
   minipage = baseVelErr(config, info, dir, load);
   if(config.graph.tex){
     makeFigureTex(config, name, minipage,
-  		  "Base error translation values."
+  		  "Base translation errorvalues."
   		  );
     input += input_dir+name+"}\n";
   }
@@ -68,7 +68,7 @@ void RLS::Output::makeDynamicsDat(Config &config, Info &info)
   minipage = baseAngVelErr(config, info, dir, load);
   if(config.graph.tex){
     makeFigureTex(config, name, minipage,
-  		  "Base error rotation values."
+  		  "Base rotation error values."
   		  );
     input += input_dir+name+"}\n";
   }
@@ -78,6 +78,24 @@ void RLS::Output::makeDynamicsDat(Config &config, Info &info)
   if(config.graph.tex){
     makeFigureTex(config, name, minipage,
   		  "CoM error values."
+  		  );
+    input += input_dir+name+"}\n";
+  }
+
+  name = "123_eeTransErr";
+  minipage = eeVelErr(config, info, dir, load);
+  if(config.graph.tex){
+    makeFigureTex(config, name, minipage,
+  		  "End effector translation error values."
+  		  );
+    input += input_dir+name+"}\n";
+  }
+
+  name = "123_eeForceErr";
+  minipage = eeForceErr(config, info, dir, load);
+  if(config.graph.tex){
+    makeFigureTex(config, name, minipage,
+  		  "End effector force error values."
   		  );
     input += input_dir+name+"}\n";
   }

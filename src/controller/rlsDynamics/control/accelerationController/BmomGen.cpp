@@ -33,7 +33,19 @@ VectorXd RLS::RlsDynamics::BmomGen(Config &config, Info &info, Model &model)
   VectorXd cal_dLBBarRef = VectorXd::Zero(6+c);
   cal_dLBBarRef.head(6) = cal_dLBRef;
 
-  ddqRef = pInv(ABBar)*(cal_dLBBarRef - dABBar*dq) + N(ABBar)*ddqD(config, info, model);
+  VectorXd ddqLBRef = pInv(ABBar)*(cal_dLBBarRef - dABBar*dq);
+
+  // **********************************************************
+  MatrixXd JmBar = Jm*N(ABBar);
+
+  VectorXd dVmBarRef = Bm.transpose()*cal_dVRef + dBm.transpose()*cal_V;
+  VectorXd dVmTildeRef = dVmBarRef - dJm*dq - Jm*ddqLBRef;
+
+  VectorXd ddqmRef = N(ABBar)*pInv(JmBar)*dVmTildeRef;
+
+  VectorXd ddqDRef = N(ABBar)*N(JmBar)*ddqD(config, info, model);
+
+  ddqRef = ddqLBRef + ddqmRef + ddqDRef;
 
   // ddqRef = VectorXd::Zero(info.dof.all);
 

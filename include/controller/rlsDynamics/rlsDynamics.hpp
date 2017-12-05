@@ -48,7 +48,9 @@ namespace RLS{
     MatrixXd cal_Jm;
 
     MatrixXd Jc;
+    MatrixXd Jm;
     MatrixXd dJc;
+    MatrixXd dJm;
 
     // diff
     MatrixXd cal_dJ;

@@ -7,6 +7,7 @@ void RLS::RlsDynamics::torqueOutputConfig(Config &config, Model &model)
 {
   if(config.flag.debug) DEBUG;
 
+  // desired values
   dc_list.rBDes = rBDes;
   dc_list.vBDes = vBDes;
   dc_list.dvBDes = dvBDes;
@@ -19,6 +20,7 @@ void RLS::RlsDynamics::torqueOutputConfig(Config &config, Model &model)
   dc_list.cal_VDes = cal_VDes;
   dc_list.cal_dVDes = cal_dVDes;
 
+  // error values
   dc_list.erB = erB;
   dc_list.evB = evB;
   dc_list.eoB = eoB;
@@ -27,12 +29,17 @@ void RLS::RlsDynamics::torqueOutputConfig(Config &config, Model &model)
   dc_list.erC = erC;
   dc_list.evC = evC;
 
-  dc_list.dpRef = dpRef;
-  // dc_list.dlRef = dlCRef;
-  dc_list.dlRef = dlBRef;
+  dc_list.cal_Ep = cal_Ep;
+  dc_list.cal_Ev = cal_Ev;
 
-  dc_list.cal_FBarRef = Bc_k*cal_FcBarRef;
-  // dc_list.cal_FBarRef = Bc_k*cal_FcMBarRef;
+  dc_list.cal_FErr = Bc_k*cal_FcMBarRef - cal_F;
+
+  dc_list.dpRef = dpRef;
+  dc_list.dlRef = dlCRef;
+  // dc_list.dlRef = dlBRef;
+
+  // dc_list.cal_FBarRef = Bc_k*cal_FcBarRef;
+  dc_list.cal_FBarRef = Bc_k*cal_FcMBarRef;
 
   dc_list.tau = tau;
 

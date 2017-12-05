@@ -17,6 +17,11 @@ void RLS::RlsDynamics::resize(Config &config, Info &info, Model &model)
       model.hoap2.limb[i].node[info.limb[i].dof].v,
       model.hoap2.limb[i].node[info.limb[i].dof].w;
 
+  for(int i=1; i<info.value.node; i++)
+    cal_F.segment(6*(i-1), 6) <<
+      model.hoap2.limb[i].node[info.limb[i].dof].f,
+      model.hoap2.limb[i].node[info.limb[i].dof].n;
+
   for(int i=1, temp=0; i<info.value.node; temp += info.limb[i].dof, i++)
     cal_J.block(6*(i-1),temp,6,info.limb[i].dof) = model.hoap2.limb[i].J;
 
@@ -51,9 +56,4 @@ void RLS::RlsDynamics::resize(Config &config, Info &info, Model &model)
   for(int i=1; i<info.value.node; i++)
     dTC2k.block(6*(i-1),3,3,3) =
       -cross(model.hoap2.limb[i].node[info.limb[i].dof].v - model.hoap2.all.vC);
-
-  for(int i=1; i<info.value.node; i++)
-    cal_F.segment(6*(i-1), 6) <<
-      model.hoap2.limb[i].node[info.limb[i].dof].f,
-      model.hoap2.limb[i].node[info.limb[i].dof].n;
 }
