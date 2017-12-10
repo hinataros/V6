@@ -7,6 +7,22 @@ void RLS::RlsDynamics::reconfigure(Config &config, Info &info)
 {
   if(config.flag.debug) DEBUG;
 
+  c = Bc_kDiag.diagonal().sum();
+  m = Bm_kDiag.diagonal().sum();
+
+  Bc_k = MatrixXd::Zero(6*info.value.joint, c);
+  Bm_k = MatrixXd::Zero(6*info.value.joint, m);
+  for(int i=0, ci=0, mi=0; i<6*info.value.joint; i++){
+    if(Bc_kDiag(i, i)){
+      Bc_k(i,ci) = 1.;
+      ci++;
+    }
+    if(Bm_kDiag(i, i)){
+      Bm_k(i,mi) = 1.;
+      mi++;
+    }
+  }
+
   // ******************************
   Bc = MatrixXd::Zero(6*info.value.joint, c);
   Bm = MatrixXd::Zero(6*info.value.joint, m);

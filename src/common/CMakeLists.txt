@@ -1,12 +1,12 @@
 set(srcs
   math.cpp
+  diag.cpp
   R.cpp
   cross.cpp
   bb_R.cpp
   bb_T.cpp
   B.cpp
   pInv.cpp
-  wPInv.cpp
   N.cpp
   Nast.cpp
   R2xi.cpp

@@ -16,8 +16,8 @@ void RLS::RlsDynamics::cop(Config &config, Info &info, TreeModel &hoap2)
 
     if(cal_Fk(2) != 0.){
       rpk.segment(2*(i-1), 2) <<
-	-cal_Fk(4) / cal_Fk(2),
-	cal_Fk(3) / cal_Fk(2);
+	-cal_Fk(4)/cal_Fk(2),
+	cal_Fk(3)/cal_Fk(2);
 
       rpNumerator(0) += (rpk(2*(i-1)) + cal_X(6*(i-1)))*cal_Fk(2);
       rpNumerator(1) += (rpk(2*(i-1)+1) + cal_X(6*(i-1))+1)*cal_Fk(2);
@@ -26,7 +26,7 @@ void RLS::RlsDynamics::cop(Config &config, Info &info, TreeModel &hoap2)
   }
 
   if(rpDenominator != 0.)
-    rp = rpNumerator / rpDenominator;
+    rp = rpNumerator/rpDenominator;
 
   else
     rp = hoap2.all.rC.head(2);

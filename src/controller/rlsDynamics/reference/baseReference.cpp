@@ -18,9 +18,9 @@ void RLS::RlsDynamics::baseReference(Config &config,Info &info, Model &model, do
   evB = vBDes - model.hoap2.limb[0].node[0].v;
 
   // velocityController
-  vBRef = vBDes + kpvB*erB;
+  vBRef = vBDes + KpvB*erB;
 
-  dvBRef = dvBDes + kdvB*evB + kpvB*erB;
+  dvBRef = dvBDes + KdvB*evB + KpvB*erB;
 
   for(int i=0; i<3; i++){
     des = makeSpline5(t-info.sim.tw0, info.sim.twf, xiBtemp(i), xiBf(i));
@@ -40,7 +40,7 @@ void RLS::RlsDynamics::baseReference(Config &config,Info &info, Model &model, do
   ewB = wBDes - model.hoap2.limb[0].node[0].w;
 
   // velocityController
-  wBRef = wBDes + kpwB*eoB;
+  wBRef = wBDes + KpwB*eoB;
 
-  dwBRef = dwBDes + kdwB*ewB + kpwB*eoB;
+  dwBRef = dwBDes + KdwB*ewB + KpwB*eoB;
 }

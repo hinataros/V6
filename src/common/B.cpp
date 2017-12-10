@@ -21,5 +21,7 @@ MatrixXd RLS::Common::B(int num, ...)
       j++;
     }
 
+  va_end(ptr);
+
   return B;
 }

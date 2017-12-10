@@ -1,5 +1,6 @@
 #include <map>
 
+#include "yaml-cpp/yaml.h"
 #include "interpolation.hpp"
 #include "common.hpp"
 
@@ -229,28 +230,31 @@ namespace RLS{
     VectorXd input;
 
     // gain
-    double kpC;
-    double kdC;
+    Matrix3d KpC;
+    Matrix3d KdC;
 
-    double kpvB;
-    double kdvB;
+    Matrix3d KpvB;
+    Matrix3d KdvB;
 
-    double kpwB;
-    double kdwB;
+    Matrix3d KpwB;
+    Matrix3d KdwB;
 
-    double kpv;
-    double kdv;
+    MatrixXd Kpv;
+    MatrixXd Kdv;
 
-    double kthD;
+    MatrixXd KDth;
+    MatrixXd KDq;
 
     // high gain control
-    double kpHG;
-    double kdHG;
+    MatrixXd KpHG;
+    MatrixXd KdHG;
 
     void initialValue(Config&, Info&, Model&);
     void resize(Config&, Info&, Model&);
     void reset(Config&, Info&, double&);
-    void readWork(Config&, Info&);
+
+    int readWork(Config&, Info&);
+
     void reconfigure(Config&, Info&);
 
     void decompose(Config&, Model&);
@@ -291,6 +295,24 @@ namespace RLS{
     void torqueOutputConfig(Config&, Model&);
     void outputConfig(Config&, Model&);
 
+    // readWork
+    void checkNode(Config&, Info&, YAML::Node&, string);
+    void checkNode(Config&, Info&, YAML::Node&, string, int);
+    void checkNode(Config&, Info&, YAML::Node&, string, int, int);
+    template <class T> T checkValue(Config&, Info&, YAML::Node&, string, T);
+    template <class T> T checkVector(Config&, Info&, YAML::Node&, string, T);
+    template <class T> T checkVector(Config&, Info&, YAML::Node&, string, int, T);
+    template <class T> T checkMatrix(Config&, Info&, YAML::Node&, string, T);
+    template <class T> T checkMatrix(Config&, Info&, YAML::Node&, string, int, T);
+
+    template <class T> T readValue(Config&, Info&, YAML::Node&, string);
+    template <class T> T readValue(Config&, Info&, YAML::Node&, string, string);
+    template <class T> T readValue(Config&, Info&, YAML::Node&, string, int);
+    template <class T> T readValue(Config&, Info&, YAML::Node&, string, int, int);
+    template <class T> T readVector(Config&, Info&, YAML::Node&, string, int);
+    template <class T> T readVector(Config&, Info&, YAML::Node&, string, int, int);
+
+    // select controller
     VectorXd (RLS::RlsDynamics::*mc_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
     VectorXd (RLS::RlsDynamics::*tc_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
     map<string, VectorXd (RLS::RlsDynamics::*)(RLS::Config&, RLS::Info&, RLS::Model&)> map_mc, map_tc;

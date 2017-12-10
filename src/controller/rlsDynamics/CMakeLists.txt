@@ -1,3 +1,4 @@
+add_subdirectory(readWork)
 add_subdirectory(reference)
 add_subdirectory(control)
 add_subdirectory(index)
@@ -9,7 +10,6 @@ set(srcs
   rename.cpp
   resize.cpp
   reset.cpp
-  readWork.cpp
   reconfigure.cpp
   decompose.cpp
   rlsDynamics.cpp
@@ -23,6 +23,7 @@ endif(rls_rlsDynamicsRTC)
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" rlsDynamics_srcs)
 set(rlsDynamics_srcs
   ${rlsDynamics_srcs}
+  ${readWork_srcs}
   ${reference_srcs}
   ${control_srcs}
   ${index_srcs}

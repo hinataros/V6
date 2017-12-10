@@ -9,6 +9,9 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   initialValueFlag = true;
 
+  c = 0;
+  m = 0;
+
   Bc_kDiag = MatrixXi::Zero(6*info.value.joint, 6*info.value.joint);
   Bm_kDiag = MatrixXi::Zero(6*info.value.joint, 6*info.value.joint);
 
@@ -153,23 +156,24 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   tau = VectorXd::Zero(info.dof.joint);
 
   // gain
-  kpC = 0.;
-  kdC = 0.;
+  KpC = Matrix3d::Zero();
+  KdC = Matrix3d::Zero();
 
-  kpvB = 0.;
-  kdvB = 0.;
+  KpvB = Matrix3d::Zero();
+  KdvB = Matrix3d::Zero();
 
-  kpwB = 0.;
-  kdwB = 0.;
+  KpwB = Matrix3d::Zero();
+  KdwB = Matrix3d::Zero();
 
-  kpv = 0.;
-  kdv = 0.;
+  Kpv = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
+  Kdv = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
 
-  kthD = 0.;
+  KDth = MatrixXd::Zero(info.dof.joint, info.dof.joint);
+  KDq = MatrixXd::Zero(info.dof.all, info.dof.all);
 
   // high gain control
-  kpHG = 0.;
-  kdHG = 0.;
+  KpHG = MatrixXd::Zero(info.dof.joint, info.dof.joint);
+  KdHG = MatrixXd::Zero(info.dof.joint, info.dof.joint);
 
   // mapping
   map_mc["cl_Bvel"] = &RLS::RlsDynamics::cl_Bvel;

@@ -10,5 +10,5 @@ VectorXd RLS::RlsDynamics::ddqD(Config &config, Info &info, Model &model)
   VectorXd dqth = VectorXd::Zero(info.dof.all);
   dqth.tail(info.dof.joint) = model.hoap2.all.dth;
 
-  return -kthD*dqth;
+  return -KDq*dqth;
 }

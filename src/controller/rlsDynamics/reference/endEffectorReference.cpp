@@ -32,7 +32,7 @@ void RLS::RlsDynamics::endEffectorReference(Config &config, Info &info, Model &m
   cal_Ev = cal_VDes - cal_V;
 
   // velocityController
-  cal_VRef = cal_VDes + kpv*cal_Ep;
+  cal_VRef = cal_VDes + Kpv*cal_Ep;
 
-  cal_dVRef = cal_dVDes + kdv*cal_Ev + kpv*cal_Ep;
+  cal_dVRef = cal_dVDes + Kdv*cal_Ev + Kpv*cal_Ep;
 }

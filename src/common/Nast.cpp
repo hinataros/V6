@@ -8,5 +8,5 @@ MatrixXd RLS::Common::Nast(MatrixXd A)
 
 MatrixXd RLS::Common::Nast(MatrixXd A, MatrixXd W)
 {
-  return MatrixXd::Identity(A.cols(),A.cols()) - A.transpose()*wPInv(A,W).transpose();
+  return MatrixXd::Identity(A.cols(),A.cols()) - A.transpose()*pInv(A,W).transpose();
 }

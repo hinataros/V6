@@ -91,3 +91,10 @@ controllerがtfを超えた場合の処理
 shared memoryのif分岐が醜い
 
 cnoidの時間変えるshellをつくる
+
+lnkなくしたほうがいいかも
+
+readWorkで書いてある要素だけ上書き？ー＞readするときに初期化するかしないか。
+（注）上から順にしか読まない。
+
+infoのvalueとかnode、dofの検討

@@ -8,5 +8,5 @@ MatrixXd RLS::Common::N(MatrixXd A)
 
 MatrixXd RLS::Common::N(MatrixXd A, MatrixXd W)
 {
-  return MatrixXd::Identity(A.cols(),A.cols()) - wPInv(A,W)*A;
+  return MatrixXd::Identity(A.cols(),A.cols()) - pInv(A,W)*A;
 }
