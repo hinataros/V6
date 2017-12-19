@@ -30,12 +30,12 @@ def readInterface():
             elif "controller" in line.strip():
                 temp = line.strip().replace("\def\controller{", "")
                 config.sim_controller = temp.replace("}", "")
-            elif "data" in line.strip():
-                temp = line.strip().replace("\def\data{", "")
-                config.sim_data = temp.replace("}", "")
-            elif "sub" in line.strip():
-                temp = line.strip().replace("\def\sub{", "")
-                config.sim_sub = temp.replace("}", "")
+            elif "cmp" in line.strip():
+                temp = line.strip().replace("\def\cmp{", "")
+                config.sim_cmp = temp.replace("}", "")
+            elif "ind" in line.strip():
+                temp = line.strip().replace("\def\ind{", "")
+                config.sim_ind = temp.replace("}", "")
 
 if __name__ == "__main__":
     print(checkUsr())

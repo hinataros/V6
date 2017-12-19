@@ -19,19 +19,19 @@ def rmdata():
     if len(sys.argv) != 1:
         from argparse import ArgumentParser
 
-        usage = "Usage: DATA_NAME [-option] [-sub simulation name] [--help]"\
+        usage = "Usage: COMPOSITE_DATA_NAME [-option] [-i individual data name] [--help]"\
                 .format(__file__)
         parser = ArgumentParser(usage=usage)
-        parser.add_argument("data", type=str, help="data name")
-        parser.add_argument("-s", "--s", nargs="*")
+        parser.add_argument("cmp", type=str, help="composite data name")
+        parser.add_argument("-i", "--i", nargs="*")
 
         args = parser.parse_args()
 
-        if args.s:
-            removeSubData(args.data, args.s)
+        if args.i:
+            removeSubData(args.cmp, args.i)
             sys.exit()
 
-        removeSubDataTree(args.data)
+        removeSubDataTree(args.cmp)
 
     else:
         if not removeDataTree():

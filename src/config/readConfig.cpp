@@ -10,65 +10,67 @@ void RLS::Config::readConfig()
   string path = dir.link + "yaml/config/" + def+".conf";
   YAML::Node doc = YAML::LoadFile(path.c_str());
 
-  // default config
-  data.name.main = doc["Default config"]["Data name"].as<string>();
-  data.name.sub = doc["Default config"]["Subdata name"].as<string>();
-  controller.name = doc["Default config"]["Controller name"].as<string>();
-  body.name = doc["Default config"]["Body name"].as<string>();
-  cnoid.name = doc["Default config"]["cnoid name"].as<string>();
-
-  flag.shm = doc["Default config"]["Shared memory"].as<bool>();
+  // execution config
+  result.name.cmp = doc["Execution"]["Composite data name"].as<string>();
+  result.name.ind = doc["Execution"]["Individual data name"].as<string>();
+  flag.shm = doc["Execution"]["Shared memory"].as<bool>();
 
   if(option!="-d")
-    flag.debug = doc["Default config"]["Debug mode"].as<bool>();
+    flag.debug = doc["Execution"]["Debug mode"].as<bool>();
 
-  // simulation config
-  controller.flag = doc["Simulation config"]["Controller"]["Flag"].as<bool>();
-  controller.dynamics = doc["Simulation config"]["Controller"]["Dynamics"].as<bool>();
-  controller.input = doc["Simulation config"]["Controller"]["Input"].as<string>();
-  controller.work = doc["Simulation config"]["Controller"]["Work"].as<string>();
+  // model config
+  body.name = doc["Model"]["Body name"].as<string>();
+  cnoid.name = doc["Model"]["cnoid name"].as<string>();
+
+
+  // controller config
+  controller.flag = doc["Controller"]["Flag"].as<bool>();
+  controller.name = doc["Controller"]["Name"].as<string>();
+  controller.input = doc["Controller"]["Input"].as<string>();
+  controller.work = doc["Controller"]["Work"].as<string>();
+  controller.dynamics = doc["Controller"]["Dynamics"].as<bool>();
 
   // graph config
-  graph.flag = doc["Simulation config"]["Graph"]["Flag"].as<bool>();
-  graph.check = doc["Simulation config"]["Graph"]["Check"].as<bool>();
-  graph.gp = doc["Simulation config"]["Graph"]["Make gp"].as<bool>();
-  graph.tex = doc["Simulation config"]["Graph"]["Make tex"].as<bool>();
-  graph.st = doc["Simulation config"]["Graph"]["Sampling time"].as<int>();
+  graph.flag = doc["Graph"]["Flag"].as<bool>();
+  graph.check = doc["Graph"]["Check"].as<bool>();
+  graph.gp = doc["Graph"]["Make gp"].as<bool>();
+  graph.tex = doc["Graph"]["Make tex"].as<bool>();
+  graph.st = doc["Graph"]["Sampling time"].as<int>();
 
   // gif config
-  gif.flag = doc["Simulation config"]["Gif"]["Flag"].as<bool>();
-  gif.st = doc["Simulation config"]["Gif"]["Sampling time"].as<int>();
-  gif.linkColor = doc["Simulation config"]["Gif"]["Link color"].as<string>();
-  gif.jointColor = doc["Simulation config"]["Gif"]["Joint color"].as<string>();
-  gif.terminal = doc["Simulation config"]["Gif"]["Out"]["Terminal"].as<bool>();
-  gif.dir = doc["Simulation config"]["Gif"]["Out"]["Dir"].as<bool>();
-  gif.yz.flag = doc["Simulation config"]["Gif"]["Plane"]["y-z"]["Flag"].as<bool>();
-  gif.yz.xMin = doc["Simulation config"]["Gif"]["Plane"]["y-z"]["x min"].as<string>();
-  gif.yz.xMax = doc["Simulation config"]["Gif"]["Plane"]["y-z"]["x max"].as<string>();
-  gif.yz.yMin = doc["Simulation config"]["Gif"]["Plane"]["y-z"]["y min"].as<string>();
-  gif.yz.yMax = doc["Simulation config"]["Gif"]["Plane"]["y-z"]["y max"].as<string>();
-  gif.xz.flag = doc["Simulation config"]["Gif"]["Plane"]["x-z"]["Flag"].as<bool>();
-  gif.xz.xMin = doc["Simulation config"]["Gif"]["Plane"]["x-z"]["x min"].as<string>();
-  gif.xz.xMax = doc["Simulation config"]["Gif"]["Plane"]["x-z"]["x max"].as<string>();
-  gif.xz.yMin = doc["Simulation config"]["Gif"]["Plane"]["x-z"]["y min"].as<string>();
-  gif.xz.yMax = doc["Simulation config"]["Gif"]["Plane"]["x-z"]["y max"].as<string>();
-  gif.xy.flag = doc["Simulation config"]["Gif"]["Plane"]["x-y"]["Flag"].as<bool>();
-  gif.xy.xMin = doc["Simulation config"]["Gif"]["Plane"]["x-y"]["x min"].as<string>();
-  gif.xy.xMax = doc["Simulation config"]["Gif"]["Plane"]["x-y"]["x max"].as<string>();
-  gif.xy.yMin = doc["Simulation config"]["Gif"]["Plane"]["x-y"]["y min"].as<string>();
-  gif.xy.yMax = doc["Simulation config"]["Gif"]["Plane"]["x-y"]["y max"].as<string>();
+  gif.flag = doc["Gif"]["Flag"].as<bool>();
+  gif.st = doc["Gif"]["Sampling time"].as<int>();
+  gif.linkColor = doc["Gif"]["Link color"].as<string>();
+  gif.jointColor = doc["Gif"]["Joint color"].as<string>();
+  gif.terminal = doc["Gif"]["Out"]["Terminal"].as<bool>();
+  gif.dir = doc["Gif"]["Out"]["Dir"].as<bool>();
+  gif.yz.flag = doc["Gif"]["Plane"]["y-z"]["Flag"].as<bool>();
+  gif.yz.xMin = doc["Gif"]["Plane"]["y-z"]["x min"].as<string>();
+  gif.yz.xMax = doc["Gif"]["Plane"]["y-z"]["x max"].as<string>();
+  gif.yz.yMin = doc["Gif"]["Plane"]["y-z"]["y min"].as<string>();
+  gif.yz.yMax = doc["Gif"]["Plane"]["y-z"]["y max"].as<string>();
+  gif.xz.flag = doc["Gif"]["Plane"]["x-z"]["Flag"].as<bool>();
+  gif.xz.xMin = doc["Gif"]["Plane"]["x-z"]["x min"].as<string>();
+  gif.xz.xMax = doc["Gif"]["Plane"]["x-z"]["x max"].as<string>();
+  gif.xz.yMin = doc["Gif"]["Plane"]["x-z"]["y min"].as<string>();
+  gif.xz.yMax = doc["Gif"]["Plane"]["x-z"]["y max"].as<string>();
+  gif.xy.flag = doc["Gif"]["Plane"]["x-y"]["Flag"].as<bool>();
+  gif.xy.xMin = doc["Gif"]["Plane"]["x-y"]["x min"].as<string>();
+  gif.xy.xMax = doc["Gif"]["Plane"]["x-y"]["x max"].as<string>();
+  gif.xy.yMin = doc["Gif"]["Plane"]["x-y"]["y min"].as<string>();
+  gif.xy.yMax = doc["Gif"]["Plane"]["x-y"]["y max"].as<string>();
 
-  gif.all.flag = doc["Simulation config"]["Gif"]["Plane"]["3D"]["Flag"].as<bool>();
-  gif.all.xMin = doc["Simulation config"]["Gif"]["Plane"]["3D"]["x min"].as<string>();
-  gif.all.xMax = doc["Simulation config"]["Gif"]["Plane"]["3D"]["x max"].as<string>();
-  gif.all.yMin = doc["Simulation config"]["Gif"]["Plane"]["3D"]["y min"].as<string>();
-  gif.all.yMax = doc["Simulation config"]["Gif"]["Plane"]["3D"]["y max"].as<string>();
-  gif.all.zMin = doc["Simulation config"]["Gif"]["Plane"]["3D"]["z min"].as<string>();
-  gif.all.zMax = doc["Simulation config"]["Gif"]["Plane"]["3D"]["z max"].as<string>();
+  gif.all.flag = doc["Gif"]["Plane"]["3D"]["Flag"].as<bool>();
+  gif.all.xMin = doc["Gif"]["Plane"]["3D"]["x min"].as<string>();
+  gif.all.xMax = doc["Gif"]["Plane"]["3D"]["x max"].as<string>();
+  gif.all.yMin = doc["Gif"]["Plane"]["3D"]["y min"].as<string>();
+  gif.all.yMax = doc["Gif"]["Plane"]["3D"]["y max"].as<string>();
+  gif.all.zMin = doc["Gif"]["Plane"]["3D"]["z min"].as<string>();
+  gif.all.zMax = doc["Gif"]["Plane"]["3D"]["z max"].as<string>();
 
   // choreonoid motion yaml config
-  cho.flag = doc["Simulation config"]["Choreonoid"]["Flag"].as<bool>();
-  cho.st = doc["Simulation config"]["Choreonoid"]["Sampling time"].as<int>();
+  cho.flag = doc["Choreonoid"]["Flag"].as<bool>();
+  cho.st = doc["Choreonoid"]["Sampling time"].as<int>();
 
   setDir();
 }

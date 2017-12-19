@@ -15,8 +15,8 @@ void RLS::Output::makeSimInfo(Config &config)
     simInfo <<
       "\\def\\model{" << config.body.name << "}" << endl <<
       "\\def\\controller{" << config.controller.name << "}" << endl <<
-      "\\def\\data{" << config.data.name.main << "}" << endl <<
-      "\\def\\sub{" << config.data.name.sub << "}" << endl;
+      "\\def\\cmp{" << config.result.name.cmp << "}" << endl <<
+      "\\def\\ind{" << config.result.name.ind << "}" << endl;
     simInfo.close();
   }
 }

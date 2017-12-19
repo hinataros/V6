@@ -41,8 +41,8 @@ namespace RLS{
     // smiyahara: controllerの中のflagとかにしてflagは中に入れたい
 
     struct Compos{
-      string main;
-      string sub;
+      string cmp;
+      string ind;
     };
 
     struct Dir{
@@ -53,7 +53,7 @@ namespace RLS{
       string work;
       string result;
       string set;
-      Compos data;
+      string cmp;
       Compos dat;
       Compos eps;
       Compos gp;
@@ -61,9 +61,9 @@ namespace RLS{
       string interface;
     } dir;
 
-    struct Data{
+    struct Result{
       Compos name;
-    } data;
+    } result;
 
     struct Flag{
       bool shm;

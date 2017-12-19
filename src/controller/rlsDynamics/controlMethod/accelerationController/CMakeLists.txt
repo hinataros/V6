@@ -1,11 +1,12 @@
 set(srcs
   ddthD.cpp
   ddqD.cpp
-  cl_Bacc.cpp
-  cl_Macc.cpp
+  baseAccelerationSynergy.cpp
+  mixedAccelerationSynergy.cpp
+  centroidalAccelerationSynergy.cpp
   noname.cpp
-  MmomGen.cpp
-  BmomGen.cpp
+  baseGeneralizedMomentum.cpp
+  mixedGeneralizedMomentum.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" accelerationController_srcs)

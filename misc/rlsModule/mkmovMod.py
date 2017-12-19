@@ -21,16 +21,16 @@ def mkmov():
             elif "controller" in line.strip():
                 temp = line.strip().replace("\def\controller{", "")
                 controller = temp.replace("}", "")
-            elif "data" in line.strip():
-                temp = line.strip().replace("\def\data{", "")
-                data = temp.replace("}", "")
-            elif "sub" in line.strip():
-                temp = line.strip().replace("\def\sub{", "")
-                sub = temp.replace("}", "")
+            elif "cmp" in line.strip():
+                temp = line.strip().replace("\def\cmp{", "")
+                cmp = temp.replace("}", "")
+            elif "ind" in line.strip():
+                temp = line.strip().replace("\def\ind{", "")
+                ind = temp.replace("}", "")
 
     if len(sys.argv) == 1:
-        scene = os.path.join(config.rgs_dir, "result", ":".join([controller, model]), data, "movie", "src", sub, "scene%08d.png")
-        output = os.path.join(config.rgs_dir, "result", ":".join([controller, model]), data, "movie", "".join([sub, ".mp4"]))
+        scene = os.path.join(config.rgs_dir, "result", ":".join([controller, model]), cmp, "movie", "src", ind, "scene%08d.png")
+        output = os.path.join(config.rgs_dir, "result", ":".join([controller, model]), cmp, "movie", "".join([ind, ".mp4"]))
 
         avconv = " ".join([AVCONV, "-i", scene, OPTION, output])
         subprocess.call(avconv, shell=True)
@@ -38,13 +38,13 @@ def mkmov():
     else:
         from argparse import ArgumentParser
 
-        usage = "Usage: [-data] [-model] [-controller] [-sub simulation name] [--help]"\
+        usage = "Usage: [-m model] [-c controller] [-cp composite data name] [-i individual data name] [--help]"\
                 .format(__file__)
         parser = ArgumentParser(usage=usage)
         parser.add_argument("-m", "--model", type=str)
         parser.add_argument("-c", "--controller", type=str)
-        parser.add_argument("-d", "--data", type=str,)
-        parser.add_argument("-s", "--s", type=str, nargs="*")
+        parser.add_argument("-cp", "--cmp", type=str,)
+        parser.add_argument("-i", "--i", type=str, nargs="*")
         parser.add_argument("-f", "--f",
                             action="store_true",
                             help="rescaling")
@@ -55,12 +55,12 @@ def mkmov():
             model = args.model
         if args.controller:
             controller = args.controller
-        if args.data:
-            data = args.data
-        if args.s:
-            for i in range(len(args.s)):
-                scene = os.path.join(config.rgs_dir, "result", ":".join([controller, model]), data, "movie", "src", args.s[i], "scene%08d.png")
-                output = os.path.join(config.rgs_dir, "result", ":".join([controller, model]), data, "movie", "".join([args.s[i], ".mp4"]))
+        if args.cmp:
+            cmp = args.cmp
+        if args.i:
+            for i in range(len(args.i)):
+                scene = os.path.join(config.rgs_dir, "result", ":".join([controller, model]), cmp, "movie", "src", args.i[i], "scene%08d.png")
+                output = os.path.join(config.rgs_dir, "result", ":".join([controller, model]), cmp, "movie", "".join([args.i[i], ".mp4"]))
 
                 if args.f:
                     avconv = " ".join([AVCONV, "-i", scene, OPTION, VF, output])
@@ -74,8 +74,8 @@ def mkmov():
 
             sys.exit()
 
-        scene = os.path.join(config.rgs_dir, "result", ":".join([controller, model]), data, "movie", "src", sub, "scene%08d.png")
-        output = os.path.join(config.rgs_dir, "result", ":".join([controller, model]), data, "movie", "".join([sub, ".mp4"]))
+        scene = os.path.join(config.rgs_dir, "result", ":".join([controller, model]), cmp, "movie", "src", ind, "scene%08d.png")
+        output = os.path.join(config.rgs_dir, "result", ":".join([controller, model]), cmp, "movie", "".join([ind, ".mp4"]))
 
         if args.f:
             avconv = " ".join([AVCONV, "-i", scene, OPTION, VF, output])

@@ -13,8 +13,11 @@ namespace RLS{
   private:
     bool initialValueFlag;
 
-    string mc_name;
-    string tc_name;
+    string motionControllerName;
+    string momentumControllerName;
+    string forceControllerName;
+    string torqueControllerName;
+    string inverseDynamicsControllerName;
 
     int c;
     MatrixXi Bc_kDiag;
@@ -28,6 +31,7 @@ namespace RLS{
     Vector6d cal_XB;
     Vector6d cal_VB;
     Vector6d cal_VM;
+    Vector6d cal_VC;
     VectorXd cal_X;
     VectorXd cal_V;
 
@@ -86,6 +90,14 @@ namespace RLS{
     MatrixXd cal_dJcM;
     MatrixXd cal_dJmM;
 
+    
+    MatrixXd Jth;
+    MatrixXd cal_JcHat;
+    MatrixXd cal_JmHat;    
+    MatrixXd dJth;
+    MatrixXd cal_dJcHat;
+    MatrixXd cal_dJmHat;    
+
     // rename
     // ******************************
     Vector3d rB2C;
@@ -121,6 +133,13 @@ namespace RLS{
     // gravity
     Vector3d gf;
     Vector6d cal_GC;
+
+    // ******************************
+    // inertia
+    MatrixXd MthHat;
+
+    // nonlinear
+    VectorXd cthHat;
 
     // index
     // ******************************
@@ -193,6 +212,7 @@ namespace RLS{
 
     Vector6d cal_dVBRef;
     Vector6d cal_dVMRef;
+    Vector6d cal_dVCRef;
 
     VectorXd cal_dVRef;
 
@@ -205,7 +225,6 @@ namespace RLS{
 
     // force
     VectorXd cal_FcBarRef;
-    VectorXd cal_FcMBarRef;
 
     // velocityController
     // **********************
@@ -242,6 +261,7 @@ namespace RLS{
     MatrixXd Kpv;
     MatrixXd Kdv;
 
+    Matrix3d KDlC;
     MatrixXd KDth;
     MatrixXd KDq;
 
@@ -269,26 +289,40 @@ namespace RLS{
     void reference(Config&, Info&, Model&, double&);
 
     // velocity controller
-    VectorXd cl_Bvel(Config&, Info&, Model&);
-    VectorXd cl_Mvel(Config&, Info&, Model&);
+    VectorXd baseVelocitySynergy(Config&, Info&, Model&);
+    VectorXd mixedVelocitySynergy(Config&, Info&, Model&);
 
     // acceleration controller
+    VectorXd baseAccelerationSynergy(Config&, Info&, Model&);
+    VectorXd mixedAccelerationSynergy(Config&, Info&, Model&);
+    VectorXd centroidalAccelerationSynergy(Config&, Info&, Model&);
+    VectorXd noname(Config&, Info&, Model&);
+    VectorXd baseGeneralizedMomentum(Config&, Info&, Model&);
+    VectorXd mixedGeneralizedMomentum(Config&, Info&, Model&);
+
+    // acceleration dumper
     VectorXd ddthD(Config&, Model&);
     VectorXd ddqD(Config&, Info&, Model&);
-    VectorXd cl_Bacc(Config&, Info&, Model&);
-    VectorXd cl_Macc(Config&, Info&, Model&);
-    VectorXd noname(Config&, Info&, Model&);
-    VectorXd MmomGen(Config&, Info&, Model&);
-    VectorXd BmomGen(Config&, Info&, Model&);
 
-    void momentumController(Config&, Info&, Model&);
-    void forceController(Config&, Info&, Model&);
+    // momentum controller
+    void baseMomentum(Config&, Info&, Model&);
+    void centroidalMomentum(Config&, Info&, Model&);
+
+    // force controller
+    void baseDistribution(Config&, Info&, Model&);
+    void centroidalDistribution(Config&, Info&, Model&);
 
     // torque controller
+    void base(Config&, Info&, Model&);
+    void mixed(Config&, Info&, Model&);
+    void mixedmixed(Config&, Info&, Model&);
+    void crb(Config&, Info&, Model&);
+
+    // inverse dynamics controller
     VectorXd fullDynamicsController(Config&, Info&, Model&);
     VectorXd highGainController(Config&, Info&, Model&);
 
-    void control(Config&, Info&, Model&);
+    void controlMethod(Config&, Info&, Model&);
 
     void velocityOutputConfig(Config&, Model&);
     void accelerationOutputConfig(Config&, Model&);
@@ -313,9 +347,16 @@ namespace RLS{
     template <class T> T readVector(Config&, Info&, YAML::Node&, string, int, int);
 
     // select controller
-    VectorXd (RLS::RlsDynamics::*mc_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
-    VectorXd (RLS::RlsDynamics::*tc_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
-    map<string, VectorXd (RLS::RlsDynamics::*)(RLS::Config&, RLS::Info&, RLS::Model&)> map_mc, map_tc;
+    VectorXd (RLS::RlsDynamics::*motionController_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
+    void (RLS::RlsDynamics::*momentumController_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
+    void (RLS::RlsDynamics::*forceController_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
+    void (RLS::RlsDynamics::*torqueController_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
+    VectorXd (RLS::RlsDynamics::*inverseDynamicsController_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
+
+    map<string, VectorXd (RLS::RlsDynamics::*)(RLS::Config&, RLS::Info&, RLS::Model&)>
+    map_motionController, map_inverseDynamicsController;
+    map<string, void (RLS::RlsDynamics::*)(RLS::Config&, RLS::Info&, RLS::Model&)>
+    map_momentumController, map_forceController, map_torqueController;
 
   public:
     // smiyahara: 名前は変えたい

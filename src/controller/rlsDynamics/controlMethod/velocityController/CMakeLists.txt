@@ -1,6 +1,6 @@
 set(srcs
-  cl_Bvel.cpp
-  cl_Mvel.cpp
+  baseVelocitySynergy.cpp
+  mixedVelocitySynergy.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" velocityController_srcs)

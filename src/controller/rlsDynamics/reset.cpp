@@ -17,8 +17,11 @@ void RLS::RlsDynamics::reset(Config &config, Info &info, double &t)
 
   readWork(config, info);
 
-  mc_ptr = map_mc[mc_name];
-  tc_ptr = map_tc[tc_name];
+  motionController_ptr = map_motionController[motionControllerName];
+  momentumController_ptr = map_momentumController[momentumControllerName];
+  forceController_ptr = map_forceController[forceControllerName];
+  torqueController_ptr = map_torqueController[torqueControllerName];
+  inverseDynamicsController_ptr = map_inverseDynamicsController[inverseDynamicsControllerName];
 
   info.sim.tw0 = t;
   info.sim.phase++;

@@ -43,7 +43,7 @@ void RLS::Output::makeGpTime3D(Config &config, string category, string name, str
     "set terminal TERMINAL "+to_string(terminal)+"\n"
     "if(VIEWMODE) replot\n";
 
-  ofstream gp((config.dir.gp.sub+category+"/"+name+".gp").c_str());
+  ofstream gp((config.dir.gp.ind+category+"/"+name+".gp").c_str());
   if(!gp)
     cout << path << ": " << endl << "file open error..." << endl;
   else{

@@ -25,7 +25,7 @@ VectorXd RLS::RlsDynamics::rlsDynamics(Config &config, Info &info, Model &model,
   index(config, info, model);
 
   reference(config, info, model, t);
-  control(config, info, model);
+  controlMethod(config, info, model);
 
   outputConfig(config, model);
 

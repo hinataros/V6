@@ -7,7 +7,7 @@ string RLS::Output::makeMinipageLimb(Config &config, Info &info, string category
   if(config.flag.debug) DEBUG;
 
   string ref;
-  string dir = config.controller.name + ":" + config.body.name+"/" + config.data.name.main+"/"+ "eps/" + config.data.name.sub+"/" + category+"/";
+  string dir = config.controller.name + ":" + config.body.name+"/" + config.result.name.cmp+"/"+ "eps/" + config.result.name.ind+"/" + category+"/";
 
   for(int l=1; l<info.value.node; l++)
     ref +=

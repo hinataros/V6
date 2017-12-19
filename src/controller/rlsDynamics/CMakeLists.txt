@@ -1,6 +1,6 @@
 add_subdirectory(readWork)
 add_subdirectory(reference)
-add_subdirectory(control)
+add_subdirectory(controlMethod)
 add_subdirectory(index)
 add_subdirectory(outputConfig)
 
@@ -25,7 +25,7 @@ set(rlsDynamics_srcs
   ${rlsDynamics_srcs}
   ${readWork_srcs}
   ${reference_srcs}
-  ${control_srcs}
+  ${controlMethod_srcs}
   ${index_srcs}
   ${outputConfig_srcs}
   PARENT_SCOPE

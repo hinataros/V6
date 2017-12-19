@@ -16,8 +16,11 @@ int RLS::RlsDynamics::readWork(Config &config, Info &info)
 
   info.sim.twf = checkValue<double>(config, info, doc, "twf", info.sim.twf);
 
-  mc_name = checkValue<string>(config, info, doc, "Motion controller", mc_name);
-  tc_name = checkValue<string>(config, info, doc, "Torque controller", tc_name);
+  motionControllerName = checkValue<string>(config, info, doc, "Motion controller", motionControllerName);
+  momentumControllerName = checkValue<string>(config, info, doc, "Momentum controller", momentumControllerName);
+  forceControllerName = checkValue<string>(config, info, doc, "Force controller", forceControllerName);
+  torqueControllerName = checkValue<string>(config, info, doc, "Torque controller", torqueControllerName);
+  inverseDynamicsControllerName = checkValue<string>(config, info, doc, "Inverse dynamics controller", inverseDynamicsControllerName);
 
   Bc_kDiag = checkMatrix<MatrixXi>(config, info, doc, "Bc", info.value.joint, Bc_kDiag);
   Bm_kDiag = checkMatrix<MatrixXi>(config, info, doc, "Bm", info.value.joint, Bm_kDiag);
@@ -40,6 +43,7 @@ int RLS::RlsDynamics::readWork(Config &config, Info &info)
   Kpv = checkMatrix<MatrixXd>(config, info, doc, "Kpv", info.value.joint, Kpv);
   Kdv = checkMatrix<MatrixXd>(config, info, doc, "Kdv", info.value.joint, Kdv);
 
+  KDlC = checkMatrix<MatrixXd>(config, info, doc, "KDlC", KDlC);
   KDth = checkMatrix<MatrixXd>(config, info, doc, "KDth", info.value.joint, KDth);
   KDq = checkMatrix<MatrixXd>(config, info, doc, "KDq", info.value.node, KDq);
 

@@ -18,6 +18,7 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   cal_XB = Vector6d::Zero();
   cal_VB = Vector6d::Zero();
   cal_VM = Vector6d::Zero();
+  cal_VC = Vector6d::Zero();
   cal_X = VectorXd::Zero(6*info.value.joint);
   cal_V = VectorXd::Zero(6*info.value.joint);
 
@@ -34,6 +35,9 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   cal_dJ = MatrixXd::Zero(6*info.value.joint, info.dof.joint);
   bb_dRk = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
   dTB2k = MatrixXd::Zero(6*info.value.joint, 6);
+
+  Jth = MatrixXd::Zero(6, info.dof.joint);
+  dJth = MatrixXd::Zero(6, info.dof.joint);
 
   // ******************************
   TC2k = MatrixXd::Zero(6*info.value.joint, 6);
@@ -77,6 +81,13 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   // gravity
   gf = Vector3d::Zero();
   cal_GC = Vector6d::Zero();
+
+  // ******************************
+  // inertia
+  MthHat = MatrixXd::Zero(info.dof.joint, info.dof.joint);
+
+  // nonlinear
+  cthHat = VectorXd::Zero(info.dof.joint);
 
   // index
   // ******************************
@@ -123,6 +134,7 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   cal_dVBRef = Vector6d::Zero();
   cal_dVMRef = Vector6d::Zero();
+  cal_dVCRef = Vector6d::Zero();
 
   cal_dVRef = VectorXd::Zero(6*info.value.joint);
 
@@ -168,6 +180,7 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   Kpv = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
   Kdv = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
 
+  KDlC = Matrix3d::Zero();
   KDth = MatrixXd::Zero(info.dof.joint, info.dof.joint);
   KDq = MatrixXd::Zero(info.dof.all, info.dof.all);
 
@@ -176,15 +189,28 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   KdHG = MatrixXd::Zero(info.dof.joint, info.dof.joint);
 
   // mapping
-  map_mc["cl_Bvel"] = &RLS::RlsDynamics::cl_Bvel;
-  map_mc["cl_Mvel"] = &RLS::RlsDynamics::cl_Mvel;
+  map_motionController["baseVelocitySynergy"] = &RLS::RlsDynamics::baseVelocitySynergy;
+  map_motionController["mixedVelocitySynergy"] = &RLS::RlsDynamics::mixedVelocitySynergy;
 
-  map_mc["cl_Bacc"] = &RLS::RlsDynamics::cl_Bacc;
-  map_mc["cl_Macc"] = &RLS::RlsDynamics::cl_Macc;
-  map_mc["noname"] = &RLS::RlsDynamics::noname;
-  map_mc["MmomGen"] = &RLS::RlsDynamics::MmomGen;
-  map_mc["BmomGen"] = &RLS::RlsDynamics::BmomGen;
+  map_motionController["baseAccelerationSynergy"] = &RLS::RlsDynamics::baseAccelerationSynergy;
+  map_motionController["mixedAccelerationSynergy"] = &RLS::RlsDynamics::mixedAccelerationSynergy;
+  map_motionController["centroidalAccelerationSynergy"] = &RLS::RlsDynamics::centroidalAccelerationSynergy;
 
-  map_tc["fullDynamics"] = &RLS::RlsDynamics::fullDynamicsController;
-  map_tc["highGain"] = &RLS::RlsDynamics::highGainController;
+  map_motionController["noname"] = &RLS::RlsDynamics::noname;
+  map_motionController["baseGeneralizedMomentum"] = &RLS::RlsDynamics::baseGeneralizedMomentum;
+  map_motionController["mixedGeneralizedMomentum"] = &RLS::RlsDynamics::mixedGeneralizedMomentum;
+
+  map_momentumController["baseMomentum"] = &RLS::RlsDynamics::baseMomentum;
+  map_momentumController["centroidalMomentum"] = &RLS::RlsDynamics::centroidalMomentum;
+
+  map_forceController["baseDistribution"] = &RLS::RlsDynamics::baseDistribution;
+  map_forceController["centroidalDistribution"] = &RLS::RlsDynamics::centroidalDistribution;
+  
+  map_torqueController["base"] = &RLS::RlsDynamics::base;
+  map_torqueController["mixed"] = &RLS::RlsDynamics::mixed;
+  map_torqueController["mixedmixed"] = &RLS::RlsDynamics::mixedmixed;
+  map_torqueController["crb"] = &RLS::RlsDynamics::crb;
+
+  map_inverseDynamicsController["fullDynamics"] = &RLS::RlsDynamics::fullDynamicsController;
+  map_inverseDynamicsController["highGain"] = &RLS::RlsDynamics::highGainController;
 }

@@ -7,7 +7,7 @@ VectorXd RLS::RlsDynamics::highGainController(Config &config, Info &info, Model 
 {
   if(config.flag.debug) DEBUG;
 
-  (this->*mc_ptr)(config, info, model);
+  (this->*motionController_ptr)(config, info, model);
 
   thDes += dthRef*info.sim.dt;
 

@@ -28,7 +28,7 @@ void RLS::Output::makeGpLibrary(Config &config, Info &info)
     "T_OFFSET = 10\n"
     "SAMPLING = "+to_string(static_cast<int>(1/(config.graph.st*info.sim.dt)))+"\n";
 
-  ofstream libConfig((config.dir.gp.sub+"library/config.gp").c_str());
+  ofstream libConfig((config.dir.gp.ind+"library/config.gp").c_str());
   if(!libConfig)
     cout << path << ": " << endl << "file open error..." << endl;
   else{
@@ -43,10 +43,10 @@ void RLS::Output::makeGpLibrary(Config &config, Info &info)
 
   // macro
   string path_macro =
-    "CONTROLLER_DAT = '" + config.dir.dat.sub+"controller/" +"'\n"
-    "MODEL_DAT = '" + config.dir.dat.sub+"model/" +"'\n"
-    "CONTROLLER_EPS = '" + config.dir.eps.sub+"controller/" +"'\n"
-    "MODEL_EPS = '" + config.dir.eps.sub+"model/" +"'\n";
+    "CONTROLLER_DAT = '" + config.dir.dat.ind+"controller/" +"'\n"
+    "MODEL_DAT = '" + config.dir.dat.ind+"model/" +"'\n"
+    "CONTROLLER_EPS = '" + config.dir.eps.ind+"controller/" +"'\n"
+    "MODEL_EPS = '" + config.dir.eps.ind+"model/" +"'\n";
 
   string unit_macro =
     "E = 1e+0\n"
@@ -57,7 +57,7 @@ void RLS::Output::makeGpLibrary(Config &config, Info &info)
     "PI = 3.14159265358979323846\n"
     "RAD2DEG = 180/PI\n";
 
-  ofstream libMacro((config.dir.gp.sub+"library/macro.gp").c_str());
+  ofstream libMacro((config.dir.gp.ind+"library/macro.gp").c_str());
   if(!libMacro)
     cout << path << ": " << endl << "file open error..." << endl;
   else{
@@ -87,7 +87,7 @@ void RLS::Output::makeGpLibrary(Config &config, Info &info)
     "set style line 5 lw LINE_WIDTH lc 5\n"
     "set style line 6 lw LINE_WIDTH lc 6\n";
 
-  ofstream libSet((config.dir.gp.sub+"library/set.gp").c_str());
+  ofstream libSet((config.dir.gp.ind+"library/set.gp").c_str());
   if(!libSet)
     cout << path << ": " << endl << "file open error..." << endl;
   else{

@@ -20,18 +20,18 @@ def mkdata():
 
     from argparse import ArgumentParser
 
-    usage = "Usage: DATA_NAME [-option] [-sub simulation name] [--help]"\
+    usage = "Usage: COMPOSITE_DATA_NAME [-option] [-i individual data name] [--help]"\
             .format(__file__)
     parser = ArgumentParser(usage=usage)
-    parser.add_argument("data", type=str,
-                           help="data name")
+    parser.add_argument("cmp", type=str,
+                           help="composite data name")
     parser.add_argument("-re", "--re",
                            action="store_true",
                            help="remove")
     parser.add_argument("-re0", "--re0",
                            action="store_true",
                            help="remove")
-    parser.add_argument("-s", "--s", required=True, nargs="*")
+    parser.add_argument("-i", "--i", required=True, nargs="*")
 
     args = parser.parse_args()
 
@@ -41,9 +41,9 @@ def mkdata():
             sys.exit()
 
     if args.re:
-        removeSubData(args.data, args.s)
+        removeSubData(args.cmp, args.i)
 
-    makeData(args.data, args.s)
+    makeData(args.cmp, args.i)
 
     print("generated data tree...")
 

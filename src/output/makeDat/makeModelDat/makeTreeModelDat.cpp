@@ -8,13 +8,13 @@ void RLS::Output::makeTreeModelDat(Config &config, Info &info)
 {
   if(config.flag.debug) DEBUG;
 
-  string dir = config.dir.dat.sub + "model/";
+  string dir = config.dir.dat.ind + "model/";
 
   string name;
   string load;
   string minipage;
 
-  string input_dir = "\\input{\\result/"+config.controller.name+":"+config.body.name+"/"+config.data.name.main+"/"+"pdf/src/"+config.data.name.sub+"/";
+  string input_dir = "\\input{\\result/"+config.controller.name+":"+config.body.name+"/"+config.result.name.cmp+"/"+"pdf/src/"+config.result.name.ind+"/";
   string input;
 
   name = "000_baseTrans";
@@ -89,14 +89,14 @@ void RLS::Output::makeTreeModelDat(Config &config, Info &info)
     input += input_dir+name+"}\n";
   }
 
-  ofstream modelGp((config.dir.gp.sub+"model.gp").c_str());
+  ofstream modelGp((config.dir.gp.ind+"model.gp").c_str());
   if(!modelGp)
     cout << path << ": " << endl << "file open error..." << endl;
   else{
     modelGp << load << endl;
     modelGp.close();
   }
-  ofstream tex((config.dir.pdf.sub+config.data.name.sub+".tex").c_str());
+  ofstream tex((config.dir.pdf.ind+config.result.name.ind+".tex").c_str());
   if(!tex)
     cout << path << ": " << endl << "file open error..." << endl;
   else{

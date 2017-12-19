@@ -32,14 +32,13 @@ void RLS::RlsDynamics::torqueOutputConfig(Config &config, Model &model)
   dc_list.cal_Ep = cal_Ep;
   dc_list.cal_Ev = cal_Ev;
 
-  dc_list.cal_FErr = Bc_k*cal_FcMBarRef - cal_F;
+  dc_list.cal_FErr = Bc_k*cal_FcBarRef - cal_F;
 
   dc_list.dpRef = dpRef;
   dc_list.dlRef = dlCRef;
   // dc_list.dlRef = dlBRef;
 
-  // dc_list.cal_FBarRef = Bc_k*cal_FcBarRef;
-  dc_list.cal_FBarRef = Bc_k*cal_FcMBarRef;
+  dc_list.cal_FBarRef = Bc_k*cal_FcBarRef;
 
   dc_list.tau = tau;
 

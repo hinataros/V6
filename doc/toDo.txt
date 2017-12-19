@@ -98,3 +98,5 @@ readWorkで書いてある要素だけ上書き？ー＞readするときに初�
 （注）上から順にしか読まない。
 
 infoのvalueとかnode、dofの検討
+
+workのnameのdefaultnameの設定

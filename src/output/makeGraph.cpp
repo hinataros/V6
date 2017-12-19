@@ -11,12 +11,12 @@ void RLS::Output::makeGraph(Config &config)
   FILE *gp;
 
   gp = popen("gnuplot -persist ", "w");
-  fprintf(gp,"cd '%s'\n", (config.dir.gp.sub).c_str());
+  fprintf(gp,"cd '%s'\n", (config.dir.gp.ind).c_str());
   fprintf(gp,"load 'model.gp'\n");
   fprintf(gp,"load 'controller.gp'\n");
   pclose(gp);
 
-  cout << "maked graphs..." << endl;
+  cout << "made graphs..." << endl;
 
   if(config.graph.check){
     cout << "Please hit any key...";

@@ -23,6 +23,9 @@ void RLS::RlsDynamics::reference(Config &config, Info &info, Model &model, doubl
   cal_dVMRef <<
     dvCRef,
     dwBRef;
+  cal_dVCRef <<
+    dvCRef,
+    IC.inverse()*(-KDlC*model.hoap2.all.lC - dIC*(cal_VM.tail(3) + IC.inverse()*HC*model.hoap2.all.dth));
 
   endEffectorReference(config, info, model, t);
 }

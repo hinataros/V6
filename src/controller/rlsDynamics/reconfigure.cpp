@@ -56,17 +56,28 @@ void RLS::RlsDynamics::reconfigure(Config &config, Info &info)
   Pcf = MatrixXd::Zero(3, c);
   PcMm = MatrixXd::Zero(3, c);
   cal_PcM = MatrixXd::Zero(6, c);
+  cal_PmM = MatrixXd::Zero(6, m);
   cal_JcM = MatrixXd::Zero(c, info.dof.joint);
+  cal_JmM = MatrixXd::Zero(m, info.dof.joint);
 
   // diff
   dPcf = MatrixXd::Zero(3, c);
   dPcMm = MatrixXd::Zero(3, c);
   cal_dPcM = MatrixXd::Zero(6, c);
+  cal_dPmM = MatrixXd::Zero(6, m);
   cal_dJcM = MatrixXd::Zero(c, info.dof.joint);
+  cal_dJmM = MatrixXd::Zero(m, info.dof.joint);
+
+  // ******************************
+  cal_JcHat = MatrixXd::Zero(c, info.dof.joint);
+  cal_JmHat = MatrixXd::Zero(m, info.dof.joint);
+
+  // diff
+  cal_dJcHat = MatrixXd::Zero(c, info.dof.joint);
+  cal_dJmHat = MatrixXd::Zero(m, info.dof.joint);
 
   // ******************************
 
   // force
   cal_FcBarRef = VectorXd::Zero(c);
-  cal_FcMBarRef = VectorXd::Zero(c);
 }

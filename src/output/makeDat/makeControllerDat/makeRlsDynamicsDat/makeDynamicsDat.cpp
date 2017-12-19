@@ -8,13 +8,13 @@ void RLS::Output::makeDynamicsDat(Config &config, Info &info)
 {
   if(config.flag.debug) DEBUG;
 
-  string dir = config.dir.dat.sub + "controller/";
+  string dir = config.dir.dat.ind + "controller/";
 
   string name;
   string load;
   string minipage;
 
-  string input_dir = "\\input{\\result/"+config.controller.name+":"+config.body.name+"/"+config.data.name.main+"/"+"pdf/src/"+config.data.name.sub+"/";
+  string input_dir = "\\input{\\result/"+config.controller.name+":"+config.body.name+"/"+config.result.name.cmp+"/"+"pdf/src/"+config.result.name.ind+"/";
   string input;
 
   name = "100_baseTransDes";
@@ -136,14 +136,14 @@ void RLS::Output::makeDynamicsDat(Config &config, Info &info)
     input += input_dir+name+"}\n";
   }
 
-  ofstream rlsDynamicsGp((config.dir.gp.sub+"controller.gp").c_str());
+  ofstream rlsDynamicsGp((config.dir.gp.ind+"controller.gp").c_str());
   if(!rlsDynamicsGp)
     cout << path << ": " << endl << "file open error..." << endl;
   else{
     rlsDynamicsGp << load << endl;
     rlsDynamicsGp.close();
   }
-  ofstream tex((config.dir.pdf.sub+config.data.name.sub+".tex").c_str(), ios::app);
+  ofstream tex((config.dir.pdf.ind+config.result.name.ind+".tex").c_str(), ios::app);
   if(!tex)
     cout << path << ": " << endl << "file open error..." << endl;
   else{

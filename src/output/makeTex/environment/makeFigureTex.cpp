@@ -18,7 +18,7 @@ void RLS::Output::makeFigureTex(Config &config, string name, string minipage, st
   string end =
     "\\end{figure}";
 
-  ofstream tex((config.dir.pdf.sub+name+".tex").c_str());
+  ofstream tex((config.dir.pdf.ind+name+".tex").c_str());
   if(!tex)
     cout << path << ": " << endl << "file open error..." << endl;
   else{

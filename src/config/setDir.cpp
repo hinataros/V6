@@ -11,17 +11,17 @@ void RLS::Config::setDir()
 
   dir.result = dir.link + "result/";
   dir.set = dir.result + controller.name+":"+body.name+"/";
-  dir.data.main = dir.set + data.name.main+"/";
+  dir.cmp = dir.set + result.name.cmp+"/";
 
-  dir.dat.main = dir.data.main + "dat/";
-  dir.eps.main = dir.data.main + "eps/";
-  dir.gp.main = dir.data.main + "gp/";
-  dir.pdf.main = dir.data.main + "pdf/";
+  dir.dat.cmp = dir.cmp + "dat/";
+  dir.eps.cmp = dir.cmp + "eps/";
+  dir.gp.cmp = dir.cmp + "gp/";
+  dir.pdf.cmp = dir.cmp + "pdf/";
 
-  dir.dat.sub = dir.dat.main + data.name.sub+"/";
-  dir.eps.sub = dir.eps.main + data.name.sub+"/";
-  dir.gp.sub = dir.gp.main + data.name.sub+"/";
-  dir.pdf.sub = dir.pdf.main + "src/" + data.name.sub+"/";
+  dir.dat.ind = dir.dat.cmp + result.name.ind+"/";
+  dir.eps.ind = dir.eps.cmp + result.name.ind+"/";
+  dir.gp.ind = dir.gp.cmp + result.name.ind+"/";
+  dir.pdf.ind = dir.pdf.cmp + "src/" + result.name.ind+"/";
 
   dir.interface = dir.result + "interface/";
 }

@@ -3,7 +3,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-VectorXd RLS::RlsDynamics::BmomGen(Config &config, Info &info, Model &model)
+VectorXd RLS::RlsDynamics::baseGeneralizedMomentum(Config &config, Info &info, Model &model)
 {
   if(config.flag.debug) DEBUG;
 

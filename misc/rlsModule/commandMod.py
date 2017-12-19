@@ -19,11 +19,10 @@ def setLatexCompile():
         os.path.join(config.rgs_dir, "misc", "templateTex", "src", TARGET) + ".tex",
     ])
 
-
     config.dvi2pdf = " ".join([
         DVIPDFMX,
         DVIPDFMX_OPTION,
-        "-o %s/%s.pdf" % (os.path.join(config.rgs_dir, "result", config.sim_controller+":"+config.sim_model, config.sim_data, "pdf"), config.sim_sub),
+        "-o %s/%s.pdf" % (os.path.join(config.rgs_dir, "result", config.sim_controller+":"+config.sim_model, config.sim_cmp, "pdf"), config.sim_ind),
         "%s/%s.dvi" % (os.path.join(config.rgs_dir, "misc", "templateTex", config.OUTPUT), TARGET),
     ])
 

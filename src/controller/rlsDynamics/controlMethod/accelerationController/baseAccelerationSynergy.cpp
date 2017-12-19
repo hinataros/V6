@@ -3,7 +3,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-VectorXd RLS::RlsDynamics::cl_Bacc(Config &config, Info &info, Model &model)
+VectorXd RLS::RlsDynamics::baseAccelerationSynergy(Config &config, Info &info, Model &model)
 {
   if(config.flag.debug) DEBUG;
 

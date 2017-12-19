@@ -55,7 +55,7 @@ void RLS::Output::makeGpTimeLimb(Config &config, Info &info, string category, st
       setting + "\n" + label + "\n" + out + "\n" + plot + "\n\n" + replot +"\n\n";
   }
 
-  ofstream gp((config.dir.gp.sub+category+"/"+name+".gp").c_str());
+  ofstream gp((config.dir.gp.ind+category+"/"+name+".gp").c_str());
   if(!gp)
     cout << path << ": " << endl << "file open error..." << endl;
   else{

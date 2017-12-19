@@ -3,16 +3,16 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::control(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::controlMethod(Config &config, Info &info, Model &model)
 {
   if(config.flag.debug) DEBUG;
 
   if(config.controller.input=="velocity"||
      config.controller.input=="acceleration")
-    input = (this->*mc_ptr)(config, info, model);
+    input = (this->*motionController_ptr)(config, info, model);
 
   else if(config.controller.input=="torque")
-    input = (this->*tc_ptr)(config, info, model);
+    input = (this->*inverseDynamicsController_ptr)(config, info, model);
 
   else
     cout << "no such control input..." << endl;
