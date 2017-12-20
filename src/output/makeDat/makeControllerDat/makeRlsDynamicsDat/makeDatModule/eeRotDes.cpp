@@ -24,7 +24,7 @@ string RLS::Output::eeOrientDes(Config &config, Info &info, string dir, string &
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "controller", name, "Limb"+to_string(l)+" desired EE orient. [deg]","RAD2DEG",20);
+      makeGpTime3D(config, "controller", name, l, "des. EE orient. [deg]","RAD2DEG",20);
       load += "load 'controller/"+name+".gp'\n";
     }
     if(config.graph.tex){
@@ -56,7 +56,7 @@ string RLS::Output::eeAngVelDes(Config &config, Info &info, string dir, string &
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "controller", name, "Limb"+to_string(l)+" desired EE ang. vel. [rad/s]","E",20);
+      makeGpTime3D(config, "controller", name, l, "des. EE ang. vel. [rad/s]","E",20);
       load += "load 'controller/"+name+".gp'\n";
     }
     if(config.graph.tex){
@@ -90,7 +90,7 @@ string RLS::Output::eeAngAccDes(Config &config, Info &info, string dir, string &
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "controller", name, "Limb"+to_string(l)+" desired EE ang. acc. [rad/s^2]","E",20);
+      makeGpTime3D(config, "controller", name, l, "des. EE ang. acc. [rad/s^2]","E",20);
       load += "load 'controller/"+name+".gp'\n";
     }
     if(config.graph.tex){

@@ -9,7 +9,7 @@ string RLS::Output::eePosDes(Config &config, Info &info, string dir, string &loa
   string name;
   string minipage;
 
-  // desired end effector position
+  // des. end effector position
   for(int l=1; l<info.value.node; l++){
     name = "020_eePosDesLimb"+to_string(l);
     ofstream eePosDes((dir+name+".dat").c_str());
@@ -24,7 +24,7 @@ string RLS::Output::eePosDes(Config &config, Info &info, string dir, string &loa
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "controller", name, "Limb"+to_string(l)+" desired EE pos. [mm]","K",20);
+      makeGpTime3D(config, "controller", name, l, "des. EE pos. [mm]","K",20);
       load += "load 'controller/"+name+".gp'\n";
     }
     if(config.graph.tex){
@@ -41,7 +41,7 @@ string RLS::Output::eeVelDes(Config &config, Info &info, string dir, string &loa
 
   minipage = eePosDes(config, info, dir, load);
 
-  // desired end effector velocity
+  // des. end effector velocity
   for(int l=1; l<info.value.node; l++){
     name = "022_eeVelDesLimb"+to_string(l);
     ofstream eeVelDes((dir+name+".dat").c_str());
@@ -56,7 +56,7 @@ string RLS::Output::eeVelDes(Config &config, Info &info, string dir, string &loa
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "controller", name, "Limb"+to_string(l)+" desired EE vel. [m/s]","E",20);
+      makeGpTime3D(config, "controller", name, l, "des. EE vel. [m/s]","E",20);
       load += "load 'controller/"+name+".gp'\n";
     }
     if(config.graph.tex){
@@ -75,7 +75,7 @@ string RLS::Output::eeAccDes(Config &config, Info &info, string dir, string &loa
 
   minipage = eeVelDes(config, info, dir, load);
 
-  // desired end effector acceleration
+  // des. end effector acceleration
   for(int l=1; l<info.value.node; l++){
     name = "024_eeAccDesLimb"+to_string(l);
     ofstream eeAccDes((dir+name+".dat").c_str());
@@ -90,7 +90,7 @@ string RLS::Output::eeAccDes(Config &config, Info &info, string dir, string &loa
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "controller", name, "Limb"+to_string(l)+" desired EE acc. [m/s^2]","E",20);
+      makeGpTime3D(config, "controller", name, l, "des. EE acc. [m/s^2]","E",20);
       load += "load 'controller/"+name+".gp'\n";
     }
     if(config.graph.tex){

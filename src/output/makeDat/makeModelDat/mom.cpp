@@ -24,7 +24,7 @@ string RLS::Output::mom(Config &config, Info &info, string dir, string &load)
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "model", name, "Linear momentum. [Ns]","E",0);
+    makeGpTime3D(config, "model", name, "Linear mom. [Ns]","E",0);
     load += "load 'model/"+name+".gp'\n";
   }
   if(config.graph.tex){
@@ -44,7 +44,7 @@ string RLS::Output::mom(Config &config, Info &info, string dir, string &load)
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "model", name, "Angular momentum. [Nms]","E",0);
+    makeGpTime3D(config, "model", name, "Angular mom. [Nms]","E",0);
     load += "load 'model/"+name+".gp'\n";
   }
   if(config.graph.tex){

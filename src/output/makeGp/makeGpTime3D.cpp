@@ -4,6 +4,13 @@
 #include "info.hpp"
 #include "output.hpp"
 
+void RLS::Output::makeGpTime3D(Config &config, string category, string name, int limb, string yCommonLabel, string unit, int terminal){
+  if(limb <= array_length(limbName) && limbName[0] != "default")
+    makeGpTime3D(config, category, name, limbName[limb-1] + " " + yCommonLabel, unit, terminal);
+  else
+    makeGpTime3D(config, category, name, "Limb"+to_string(limb) + " " + yCommonLabel, unit, terminal);
+}
+
 void RLS::Output::makeGpTime3D(Config &config, string category, string name, string yLabel, string unit, int terminal)
 {
   if(config.flag.debug) DEBUG;

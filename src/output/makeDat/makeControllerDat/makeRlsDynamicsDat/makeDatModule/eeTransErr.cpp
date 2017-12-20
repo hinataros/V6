@@ -24,7 +24,7 @@ string RLS::Output::eePosErr(Config &config, Info &info, string dir, string &loa
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "controller", name, "Limb"+to_string(l)+" "+"EE pos. err. [mm]","K",20);
+      makeGpTime3D(config, "controller", name, l, "EE pos. err. [mm]","K",20);
       load += "load 'controller/"+name+".gp'\n";
     }
     if(config.graph.tex){
@@ -57,7 +57,7 @@ string RLS::Output::eeVelErr(Config &config, Info &info, string dir, string &loa
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "controller", name, "Limb"+to_string(l)+" "+"EE vel. err. [m/s]","E",20);
+      makeGpTime3D(config, "controller", name, l, "EE vel. err. [m/s]","E",20);
       load += "load 'controller/"+name+".gp'\n";
     }
     if(config.graph.tex){

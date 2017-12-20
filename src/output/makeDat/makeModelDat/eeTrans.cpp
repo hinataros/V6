@@ -26,7 +26,7 @@ string RLS::Output::eeTrans(Config &config, Info &info, string dir, string &load
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "model", name, "Limb"+to_string(l)+" EE pos. [mm]","K",20);
+      makeGpTime3D(config, "model", name, l, "EE pos. [mm]","K",20);
       load += "load 'model/"+name+".gp'\n";
     }
     if(config.graph.tex){
@@ -49,7 +49,7 @@ string RLS::Output::eeTrans(Config &config, Info &info, string dir, string &load
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "model", name, "Limb"+to_string(l)+" EE vel. [m/s]","E",22);
+      makeGpTime3D(config, "model", name, l, "EE vel. [m/s]","E",22);
       load += "load 'model/"+name+".gp'\n";
     }
     if(config.graph.tex){

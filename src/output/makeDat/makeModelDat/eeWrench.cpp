@@ -26,7 +26,7 @@ string RLS::Output::eeWrench(Config &config, Info &info, string dir, string &loa
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "model", name, "Limb"+to_string(l)+" EE force. [N]","E",0);
+      makeGpTime3D(config, "model", name, l, "EE force. [N]","E",0);
       load += "load 'model/"+name+".gp'\n";
     }
     if(config.graph.tex){
@@ -49,7 +49,7 @@ string RLS::Output::eeWrench(Config &config, Info &info, string dir, string &loa
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "model", name, "Limb"+to_string(l)+" EE moment. [Nm]","E",0);
+      makeGpTime3D(config, "model", name, l, "EE moment. [Nm]","E",0);
       load += "load 'model/"+name+".gp'\n";
     }
     if(config.graph.tex){

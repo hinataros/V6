@@ -26,7 +26,7 @@ string RLS::Output::eeForceErr(Config &config, Info &info, string dir, string &l
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "controller", name, "Limb"+to_string(l)+" "+"EE force err. [N]","E",0);
+      makeGpTime3D(config, "controller", name, l, "EE force err. [N]","E",0);
       load += "load 'controller/"+name+".gp'\n";
     }
     if(config.graph.tex){
@@ -59,7 +59,7 @@ string RLS::Output::eeMomentErr(Config &config, Info &info, string dir, string &
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "controller", name, "Limb"+to_string(l)+" "+"EE moment err. [Nm]","E",0);
+      makeGpTime3D(config, "controller", name, l, "EE moment err. [Nm]","E",0);
       load += "load 'controller/"+name+".gp'\n";
     }
     if(config.graph.tex){

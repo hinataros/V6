@@ -17,6 +17,7 @@ namespace RLS{
     } data;
 
     void makeGpLibrary(Config&, Info&);
+    void makeGpTime3D(Config&, string, string, int, string, string, int);
     void makeGpTime3D(Config&, string, string, string, string, int);
     void makeGpTimeLimb(Config&, Info&, string, string, string, string, int);
 
@@ -115,6 +116,17 @@ namespace RLS{
     // void makeGif2D(Config&, Info&, string, string, string);
     // void makeGif3D(Config&, Info&, string);
     // void makeGif(Config&, Info&);
+
+    template<typename TYPE, std::size_t SIZE>
+    std::size_t array_length(const TYPE (&)[SIZE]){return SIZE;}
+
+    // string limbName[1] = {"default"};
+    string limbName[4] = {
+      "R. leg",
+      "L. leg",
+      "R. arm",
+      "L. arm"
+    };
 
   public:
     // smiyahara: 要検討

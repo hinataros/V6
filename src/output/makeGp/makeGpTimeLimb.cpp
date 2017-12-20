@@ -20,8 +20,12 @@ void RLS::Output::makeGpTimeLimb(Config &config, Info &info, string category, st
       "load 'library/set.gp'\n";
 
     string label =
-      "set xlabel '"+xLabel+"'\n"
-      "set ylabel 'Limb"+to_string(l)+" "+yLabel+"'";
+      "set xlabel '"+xLabel+"'\n";
+
+    if(l <= array_length(limbName) && limbName[0] != "default")
+      label += "set ylabel '"+limbName[l-1]+" "+yLabel+"'";
+    else
+      label += "set ylabel 'Limb"+to_string(l)+" "+yLabel+"'";
 
   // smiyahara: categoryが小文字だから
     string MACRO;

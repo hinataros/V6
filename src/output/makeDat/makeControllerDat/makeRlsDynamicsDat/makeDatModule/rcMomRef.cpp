@@ -11,7 +11,7 @@ string RLS::Output::rcMomRef(Config &config, Info &info, string dir, string &loa
   string name;
   string minipage;
 
-  // rate of chage of linear momentum reference
+  // rate of chage of linear mom. reference
   name = "030_rcLinMomRef";
   ofstream rcLinMomRef((dir+name+".dat").c_str());
   if(!rcLinMomRef)
@@ -24,14 +24,14 @@ string RLS::Output::rcMomRef(Config &config, Info &info, string dir, string &loa
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "R. C. linear momentum ref. [N]","E",0);
+    makeGpTime3D(config, "controller", name, "R. C. linear mom. ref. [N]","E",0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
     minipage += makeMinipage(config, "controller", "1.0", name);
   }
 
-  // rate of chage of angular momentum reference
+  // rate of chage of angular mom. reference
   name = "031_rcAngMomRef";
   ofstream rcAngMomRef((dir+name+".dat").c_str());
   if(!rcAngMomRef)
@@ -44,7 +44,7 @@ string RLS::Output::rcMomRef(Config &config, Info &info, string dir, string &loa
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "R. C. angular momentum ref. [Nm]","E",0);
+    makeGpTime3D(config, "controller", name, "R. C. angular mom. ref. [Nm]","E",0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){

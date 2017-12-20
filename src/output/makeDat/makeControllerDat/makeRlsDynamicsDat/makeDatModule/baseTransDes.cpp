@@ -22,7 +22,7 @@ string RLS::Output::basePosDes(Config &config, Info &info, string dir, string &l
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "Desired base pos. [mm]","K",0);
+    makeGpTime3D(config, "controller", name, "Des. base pos. [mm]","K",0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
@@ -52,7 +52,7 @@ string RLS::Output::baseVelDes(Config &config, Info &info, string dir, string &l
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "Desired base vel. [m/s]","E",0);
+    makeGpTime3D(config, "controller", name, "Des. base vel. [m/s]","E",0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
@@ -84,7 +84,7 @@ string RLS::Output::baseAccDes(Config &config, Info &info, string dir, string &l
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "Desired base acc. [m/s^2]","E",0);
+    makeGpTime3D(config, "controller", name, "Des. base acc. [m/s^2]","E",0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){

@@ -90,13 +90,12 @@ namespace RLS{
     MatrixXd cal_dJcM;
     MatrixXd cal_dJmM;
 
-    
     MatrixXd Jth;
     MatrixXd cal_JcHat;
-    MatrixXd cal_JmHat;    
+    MatrixXd cal_JmHat;
     MatrixXd dJth;
     MatrixXd cal_dJcHat;
-    MatrixXd cal_dJmHat;    
+    MatrixXd cal_dJmHat;
 
     // rename
     // ******************************

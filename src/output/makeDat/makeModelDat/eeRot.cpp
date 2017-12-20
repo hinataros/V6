@@ -26,7 +26,7 @@ string RLS::Output::eeRot(Config &config, Info &info, string dir, string &load)
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "model", name, "Limb"+to_string(l)+" EE orient. [deg]","RAD2DEG",21);
+      makeGpTime3D(config, "model", name, l, "EE orient. [deg]","RAD2DEG",21);
       load += "load 'model/"+name+".gp'\n";
     }
     if(config.graph.tex){
@@ -49,7 +49,7 @@ string RLS::Output::eeRot(Config &config, Info &info, string dir, string &load)
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "model", name, "Limb"+to_string(l)+" EE ang. vel. [rad/s]","E",23);
+      makeGpTime3D(config, "model", name, l, "EE ang. vel. [rad/s]","E",23);
       load += "load 'model/"+name+".gp'\n";
     }
     if(config.graph.tex){

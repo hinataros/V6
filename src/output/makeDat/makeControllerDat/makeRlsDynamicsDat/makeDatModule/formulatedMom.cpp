@@ -24,7 +24,7 @@ string RLS::Output::formulatedMom(Config &config, Info &info, string dir, string
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "CRB linear momentum [Ns]","E",0);
+    makeGpTime3D(config, "controller", name, "CRB linear mom. [Ns]","E",0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
@@ -44,7 +44,7 @@ string RLS::Output::formulatedMom(Config &config, Info &info, string dir, string
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "CRB angular momentum [Nms]","E",0);
+    makeGpTime3D(config, "controller", name, "CRB angular mom. [Nms]","E",0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
@@ -64,7 +64,7 @@ string RLS::Output::formulatedMom(Config &config, Info &info, string dir, string
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "Coupling momentum [Ns]","E",0);
+    makeGpTime3D(config, "controller", name, "Coupling mom. [Ns]","E",0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
@@ -84,7 +84,7 @@ string RLS::Output::formulatedMom(Config &config, Info &info, string dir, string
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "Coupling angular momentum [Nms]","E",0);
+    makeGpTime3D(config, "controller", name, "Coupling angular mom. [Nms]","E",0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
@@ -104,7 +104,7 @@ string RLS::Output::formulatedMom(Config &config, Info &info, string dir, string
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "linear mometum. [Ns]","E",0);
+    makeGpTime3D(config, "controller", name, "linear mom. [Ns]","E",0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
@@ -124,7 +124,7 @@ string RLS::Output::formulatedMom(Config &config, Info &info, string dir, string
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "angular mometum. [Nms]","E",0);
+    makeGpTime3D(config, "controller", name, "angular mom. [Nms]","E",0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
