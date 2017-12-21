@@ -50,4 +50,7 @@ void RLS::RlsDynamics::torqueOutputConfig(Config &config, Model &model)
 
   dc_list.p = model.hoap2.all.m*cal_VM.head(3);
   dc_list.lC = IC*cal_VM.tail(3) + HC*model.hoap2.all.dth;
+
+  // index
+  dc_list.rp = rp;
 }

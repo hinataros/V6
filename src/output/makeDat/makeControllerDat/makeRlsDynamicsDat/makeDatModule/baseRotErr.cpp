@@ -17,13 +17,13 @@ string RLS::Output::baseOrientErr(Config &config, Info &info, string dir, string
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       baseOrientErr << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.dc[i].eoB.transpose() << endl;
+        data.t[i] << " " << data.dc[i].eoB.transpose() << endl;
     baseOrientErr.close();
   }
 
   if(config.graph.gp){
     // smiyahara: eoの単位要検討
-    makeGpTime3D(config, "controller", name, "Base orient. err. [rad]","E",0);
+    makeGp(config, "controller", name, "Base orient. err. [rad]","E", 3, 0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
@@ -49,12 +49,12 @@ string RLS::Output::baseAngVelErr(Config &config, Info &info, string dir, string
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       baseAngVelErr << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.dc[i].ewB.transpose() << endl;
+        data.t[i] << " " << data.dc[i].ewB.transpose() << endl;
     baseAngVelErr.close();
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "Base ang. vel. err. [rad/s]","E",0);
+    makeGp(config, "controller", name, "Base ang. vel. err. [rad/s]","E", 3, 0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){

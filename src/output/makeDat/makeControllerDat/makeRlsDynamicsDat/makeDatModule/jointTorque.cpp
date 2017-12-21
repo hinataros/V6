@@ -19,7 +19,7 @@ string RLS::Output::jointTorque(Config &config, Info &info, string dir, string &
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       jointTorque << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.dc[i].tau.transpose() << endl;
+        data.t[i] << " " << data.dc[i].tau.transpose() << endl;
     jointTorque.close();
   }
 

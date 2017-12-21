@@ -19,12 +19,12 @@ string RLS::Output::formulatedMom(Config &config, Info &info, string dir, string
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       crbMom << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.dc[i].pCRB.transpose() << endl;
+        data.t[i] << " " << data.dc[i].pCRB.transpose() << endl;
     crbMom.close();
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "CRB linear mom. [Ns]","E",0);
+    makeGp(config, "controller", name, "CRB linear mom. [Ns]","E", 3, 0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
@@ -39,12 +39,12 @@ string RLS::Output::formulatedMom(Config &config, Info &info, string dir, string
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       crbAngMom << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.dc[i].lCRB.transpose() << endl;
+        data.t[i] << " " << data.dc[i].lCRB.transpose() << endl;
     crbAngMom.close();
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "CRB angular mom. [Nms]","E",0);
+    makeGp(config, "controller", name, "CRB angular mom. [Nms]","E", 3, 0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
@@ -59,12 +59,12 @@ string RLS::Output::formulatedMom(Config &config, Info &info, string dir, string
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       coupMom << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.dc[i].pCth.transpose() << endl;
+        data.t[i] << " " << data.dc[i].pCth.transpose() << endl;
     coupMom.close();
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "Coupling mom. [Ns]","E",0);
+    makeGp(config, "controller", name, "Coupling mom. [Ns]","E", 3, 0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
@@ -79,12 +79,12 @@ string RLS::Output::formulatedMom(Config &config, Info &info, string dir, string
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       coupAngMom << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.dc[i].lCth.transpose() << endl;
+        data.t[i] << " " << data.dc[i].lCth.transpose() << endl;
     coupAngMom.close();
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "Coupling angular mom. [Nms]","E",0);
+    makeGp(config, "controller", name, "Coupling angular mom. [Nms]","E", 3, 0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
@@ -99,12 +99,12 @@ string RLS::Output::formulatedMom(Config &config, Info &info, string dir, string
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       formLinMom << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.dc[i].p.transpose() << endl;
+        data.t[i] << " " << data.dc[i].p.transpose() << endl;
     formLinMom.close();
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "linear mom. [Ns]","E",0);
+    makeGp(config, "controller", name, "linear mom. [Ns]","E", 3, 0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
@@ -119,12 +119,12 @@ string RLS::Output::formulatedMom(Config &config, Info &info, string dir, string
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       formAngMom << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.dc[i].lC.transpose() << endl;
+        data.t[i] << " " << data.dc[i].lC.transpose() << endl;
     formAngMom.close();
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "angular mom. [Nms]","E",0);
+    makeGp(config, "controller", name, "angular mom. [Nms]","E", 3, 0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){

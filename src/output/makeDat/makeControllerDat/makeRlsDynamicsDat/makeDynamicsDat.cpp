@@ -136,6 +136,15 @@ void RLS::Output::makeDynamicsDat(Config &config, Info &info)
     input += input_dir+name+"}\n";
   }
 
+  name = "150_CoP";
+  minipage = cop(config, info, dir, load);
+  if(config.graph.tex){
+    makeFigureTex(config, name, minipage,
+  		  "CoP values."
+  		  );
+    input += input_dir+name+"}\n";
+  }
+
   ofstream rlsDynamicsGp((config.dir.gp.ind+"controller.gp").c_str());
   if(!rlsDynamicsGp)
     cout << path << ": " << endl << "file open error..." << endl;

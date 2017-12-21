@@ -17,14 +17,14 @@ string RLS::Output::eeOrientDes(Config &config, Info &info, string dir, string &
       cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
     else{
       for(int i=0; i<info.sim.n+1; i+=config.graph.st)
-  	eeOrientDes << setprecision(9) << scientific <<
-  	  data.t[i] << " " << data.dc[i].cal_XDes.segment(6*(l-1)+3, 3).transpose() << endl;
+        eeOrientDes << setprecision(9) << scientific <<
+          data.t[i] << " " << data.dc[i].cal_XDes.segment(6*(l-1)+3, 3).transpose() << endl;
 
       eeOrientDes.close();
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "controller", name, l, "des. EE orient. [deg]","RAD2DEG",20);
+      makeGp(config, "controller", name, l, "des. EE orient. [deg]","RAD2DEG", 3, 20);
       load += "load 'controller/"+name+".gp'\n";
     }
     if(config.graph.tex){
@@ -49,14 +49,14 @@ string RLS::Output::eeAngVelDes(Config &config, Info &info, string dir, string &
       cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
     else{
       for(int i=0; i<info.sim.n+1; i+=config.graph.st)
-  	eeAngVelDes << setprecision(9) << scientific <<
-  	  data.t[i] << " " << data.dc[i].cal_VDes.segment(6*(l-1)+3, 3).transpose() << endl;
+        eeAngVelDes << setprecision(9) << scientific <<
+          data.t[i] << " " << data.dc[i].cal_VDes.segment(6*(l-1)+3, 3).transpose() << endl;
 
       eeAngVelDes.close();
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "controller", name, l, "des. EE ang. vel. [rad/s]","E",20);
+      makeGp(config, "controller", name, l, "des. EE ang. vel. [rad/s]","E", 3, 20);
       load += "load 'controller/"+name+".gp'\n";
     }
     if(config.graph.tex){
@@ -83,14 +83,14 @@ string RLS::Output::eeAngAccDes(Config &config, Info &info, string dir, string &
       cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
     else{
       for(int i=0; i<info.sim.n+1; i+=config.graph.st)
-  	eeAngAccDes << setprecision(9) << scientific <<
-  	  data.t[i] << " " << data.dc[i].cal_dVDes.segment(6*(l-1)+3, 3).transpose() << endl;
+        eeAngAccDes << setprecision(9) << scientific <<
+          data.t[i] << " " << data.dc[i].cal_dVDes.segment(6*(l-1)+3, 3).transpose() << endl;
 
       eeAngAccDes.close();
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "controller", name, l, "des. EE ang. acc. [rad/s^2]","E",20);
+      makeGp(config, "controller", name, l, "des. EE ang. acc. [rad/s^2]","E", 3, 20);
       load += "load 'controller/"+name+".gp'\n";
     }
     if(config.graph.tex){

@@ -19,12 +19,12 @@ string RLS::Output::baseRot(Config &config, Info &info, string dir, string &load
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       baseOrient << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.tm[i].xiB.transpose() << endl;
+        data.t[i] << " " << data.tm[i].xiB.transpose() << endl;
     baseOrient.close();
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "model", name, "Base orient. [deg]","RAD2DEG",1);
+    makeGp(config, "model", name, "Base orient. [deg]","RAD2DEG", 3, 1);
     load += "load 'model/"+name+".gp'\n";
   }
   if(config.graph.tex){
@@ -39,12 +39,12 @@ string RLS::Output::baseRot(Config &config, Info &info, string dir, string &load
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       baseAngVel << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.tm[i].wB.transpose() << endl;
+        data.t[i] << " " << data.tm[i].wB.transpose() << endl;
     baseAngVel.close();
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "model", name, "Base ang. vel. [rad/s]","E",3);
+    makeGp(config, "model", name, "Base ang. vel. [rad/s]","E",3, 3);
     load += "load 'model/"+name+".gp'\n";
   }
   if(config.graph.tex){

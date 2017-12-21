@@ -19,14 +19,14 @@ string RLS::Output::eeForceRef(Config &config, Info &info, string dir, string &l
       cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
     else{
       for(int i=0; i<info.sim.n+1; i+=config.graph.st)
-  	eeForceRef << setprecision(9) << scientific <<
-  	  data.t[i] << " " << data.dc[i].cal_FBarRef.segment(6*(l-1), 3).transpose() << endl;
+        eeForceRef << setprecision(9) << scientific <<
+          data.t[i] << " " << data.dc[i].cal_FBarRef.segment(6*(l-1), 3).transpose() << endl;
 
       eeForceRef.close();
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "controller", name, l, "EE force ref. [N]","E",0);
+      makeGp(config, "controller", name, l, "EE force ref. [N]","E", 3, 0);
       load += "load 'controller/"+name+".gp'\n";
     }
     if(config.graph.tex){
@@ -52,14 +52,14 @@ string RLS::Output::eeMomentRef(Config &config, Info &info, string dir, string &
       cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
     else{
       for(int i=0; i<info.sim.n+1; i+=config.graph.st)
-  	eeMomentRef << setprecision(9) << scientific <<
-  	  data.t[i] << " " << data.dc[i].cal_FBarRef.segment(6*(l-1)+3, 3).transpose() << endl;
+        eeMomentRef << setprecision(9) << scientific <<
+          data.t[i] << " " << data.dc[i].cal_FBarRef.segment(6*(l-1)+3, 3).transpose() << endl;
 
       eeMomentRef.close();
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "controller", name, l, "EE moment ref. [Nm]","E",0);
+      makeGp(config, "controller", name, l, "EE moment ref. [Nm]","E", 3, 0);
       load += "load 'controller/"+name+".gp'\n";
     }
     if(config.graph.tex){

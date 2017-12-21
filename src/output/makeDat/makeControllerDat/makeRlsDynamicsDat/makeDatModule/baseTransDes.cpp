@@ -17,12 +17,12 @@ string RLS::Output::basePosDes(Config &config, Info &info, string dir, string &l
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       basePosDes << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.dc[i].rBDes.transpose() << endl;
+        data.t[i] << " " << data.dc[i].rBDes.transpose() << endl;
     basePosDes.close();
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "Des. base pos. [mm]","K",0);
+    makeGp(config, "controller", name, "Des. base pos. [mm]","K", 3, 0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
@@ -47,12 +47,12 @@ string RLS::Output::baseVelDes(Config &config, Info &info, string dir, string &l
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       baseVelDes << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.dc[i].vBDes.transpose() << endl;
+        data.t[i] << " " << data.dc[i].vBDes.transpose() << endl;
     baseVelDes.close();
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "Des. base vel. [m/s]","E",0);
+    makeGp(config, "controller", name, "Des. base vel. [m/s]","E", 3, 0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
@@ -79,12 +79,12 @@ string RLS::Output::baseAccDes(Config &config, Info &info, string dir, string &l
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       baseAccDes << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.dc[i].dvBDes.transpose() << endl;
+        data.t[i] << " " << data.dc[i].dvBDes.transpose() << endl;
     baseAccDes.close();
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "Des. base acc. [m/s^2]","E",0);
+    makeGp(config, "controller", name, "Des. base acc. [m/s^2]","E", 3, 0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){

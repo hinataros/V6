@@ -50,6 +50,8 @@ namespace RLS{
     Vector3d lCth;
     Vector3d p;
     Vector3d lC;
+
+    Vector2d rp;
   };
 }
 

@@ -19,12 +19,12 @@ string RLS::Output::rcMomRef(Config &config, Info &info, string dir, string &loa
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       rcLinMomRef << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.dc[i].dpRef.transpose() << endl;
+        data.t[i] << " " << data.dc[i].dpRef.transpose() << endl;
     rcLinMomRef.close();
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "R. C. linear mom. ref. [N]","E",0);
+    makeGp(config, "controller", name, "R. C. linear mom. ref. [N]","E", 3, 0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
@@ -39,12 +39,12 @@ string RLS::Output::rcMomRef(Config &config, Info &info, string dir, string &loa
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       rcAngMomRef << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.dc[i].dlRef.transpose() << endl;
+        data.t[i] << " " << data.dc[i].dlRef.transpose() << endl;
     rcAngMomRef.close();
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "R. C. angular mom. ref. [Nm]","E",0);
+    makeGp(config, "controller", name, "R. C. angular mom. ref. [Nm]","E", 3, 0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){

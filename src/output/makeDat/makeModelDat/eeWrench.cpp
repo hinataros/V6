@@ -19,14 +19,14 @@ string RLS::Output::eeWrench(Config &config, Info &info, string dir, string &loa
       cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
     else{
       for(int i=0; i<info.sim.n; i+=config.graph.st)
-  	eeForce << setprecision(9) << scientific <<
-  	  data.t[i] << " " << data.tm[i].eeForceMatrix.col(l-1).transpose() << endl;
+        eeForce << setprecision(9) << scientific <<
+          data.t[i] << " " << data.tm[i].eeForceMatrix.col(l-1).transpose() << endl;
 
       eeForce.close();
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "model", name, l, "EE force. [N]","E",0);
+      makeGp(config, "model", name, l, "EE force. [N]","E", 3, 0);
       load += "load 'model/"+name+".gp'\n";
     }
     if(config.graph.tex){
@@ -42,14 +42,14 @@ string RLS::Output::eeWrench(Config &config, Info &info, string dir, string &loa
       cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
     else{
       for(int i=0; i<info.sim.n; i+=config.graph.st)
-  	eeMoment << setprecision(9) << scientific <<
-  	  data.t[i] << " " << data.tm[i].eeMomentMatrix.col(l-1).transpose() << endl;
+        eeMoment << setprecision(9) << scientific <<
+          data.t[i] << " " << data.tm[i].eeMomentMatrix.col(l-1).transpose() << endl;
 
       eeMoment.close();
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "model", name, l, "EE moment. [Nm]","E",0);
+      makeGp(config, "model", name, l, "EE moment. [Nm]","E", 3, 0);
       load += "load 'model/"+name+".gp'\n";
     }
     if(config.graph.tex){

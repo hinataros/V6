@@ -17,12 +17,12 @@ string RLS::Output::comPosErr(Config &config, Info &info, string dir, string &lo
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       comPosErr << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.dc[i].erC.transpose() << endl;
+        data.t[i] << " " << data.dc[i].erC.transpose() << endl;
     comPosErr.close();
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "CoM pos. err. [mm]","K",0);
+    makeGp(config, "controller", name, "CoM pos. err. [mm]","K", 3, 0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
@@ -48,12 +48,12 @@ string RLS::Output::comVelErr(Config &config, Info &info, string dir, string &lo
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       comVelErr << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.dc[i].evC.transpose() << endl;
+        data.t[i] << " " << data.dc[i].evC.transpose() << endl;
     comVelErr.close();
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "CoM vel. err. [m/s]","E",0);
+    makeGp(config, "controller", name, "CoM vel. err. [m/s]","E", 3, 0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){

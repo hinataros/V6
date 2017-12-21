@@ -12,6 +12,7 @@ set(srcs
   eeWrenchRef.cpp
   jointTorque.cpp
   formulatedMom.cpp
+  cop.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" makeDatModule_srcs)

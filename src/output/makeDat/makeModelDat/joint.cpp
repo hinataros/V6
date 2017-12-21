@@ -19,7 +19,7 @@ string RLS::Output::joint(Config &config, Info &info, string dir, string &load)
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       jointAng << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.tm[i].th.transpose() << endl;
+        data.t[i] << " " << data.tm[i].th.transpose() << endl;
     jointAng.close();
   }
 
@@ -39,7 +39,7 @@ string RLS::Output::joint(Config &config, Info &info, string dir, string &load)
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       jointVel << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.tm[i].dth.transpose() << endl;
+        data.t[i] << " " << data.tm[i].dth.transpose() << endl;
     jointVel.close();
   }
 

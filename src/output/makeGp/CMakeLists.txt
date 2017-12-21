@@ -1,6 +1,6 @@
 set(srcs
+  makeGp.cpp
   makeGpLibrary.cpp
-  makeGpTime3D.cpp
   makeGpTimeLimb.cpp
   )
 

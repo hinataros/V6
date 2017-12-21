@@ -16,9 +16,14 @@ namespace RLS{
       vector<RlsDynamicsList> dc;
     } data;
 
+    // 要検討
+    string timeLabelStr = "Time [s]";
+
     void makeGpLibrary(Config&, Info&);
-    void makeGpTime3D(Config&, string, string, int, string, string, int);
-    void makeGpTime3D(Config&, string, string, string, string, int);
+    void makeGp(Config&, string, string, int, string, string, int, int);
+    void makeGp(Config&, string, string, int, string, string, string, int, int);
+    void makeGp(Config&, string, string, string, string, int, int);
+    void makeGp(Config&, string, string, string, string, string, int, int);
     void makeGpTimeLimb(Config&, Info&, string, string, string, string, int);
 
     // smiyahara: どうにかしたい
@@ -91,6 +96,9 @@ namespace RLS{
 
     // formulated spatial momentum
     string formulatedMom(Config&, Info&, string, string&);
+
+    // index
+    string cop(Config&, Info&, string, string&);
 
     void makeDynamicsDat(Config&, Info&);
     // ********************************************

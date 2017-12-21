@@ -19,14 +19,14 @@ string RLS::Output::eeTrans(Config &config, Info &info, string dir, string &load
       cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
     else{
       for(int i=0; i<info.sim.n; i+=config.graph.st)
-  	eePos << setprecision(9) << scientific <<
-  	  data.t[i] << " " << data.tm[i].eePosMatrix.col(l-1).transpose() << endl;
+        eePos << setprecision(9) << scientific <<
+          data.t[i] << " " << data.tm[i].eePosMatrix.col(l-1).transpose() << endl;
 
       eePos.close();
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "model", name, l, "EE pos. [mm]","K",20);
+      makeGp(config, "model", name, l, "EE pos. [mm]","K", 3, 20);
       load += "load 'model/"+name+".gp'\n";
     }
     if(config.graph.tex){
@@ -42,14 +42,14 @@ string RLS::Output::eeTrans(Config &config, Info &info, string dir, string &load
       cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
     else{
       for(int i=0; i<info.sim.n; i+=config.graph.st)
-  	eeVel << setprecision(9) << scientific <<
-  	  data.t[i] << " " << data.tm[i].eeVelMatrix.col(l-1).transpose() << endl;
+        eeVel << setprecision(9) << scientific <<
+          data.t[i] << " " << data.tm[i].eeVelMatrix.col(l-1).transpose() << endl;
 
       eeVel.close();
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "model", name, l, "EE vel. [m/s]","E",22);
+      makeGp(config, "model", name, l, "EE vel. [m/s]","E", 3, 22);
       load += "load 'model/"+name+".gp'\n";
     }
     if(config.graph.tex){

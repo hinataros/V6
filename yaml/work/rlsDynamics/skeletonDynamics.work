@@ -1,7 +1,7 @@
 Work:
   -
     twf: 10.
-    
+
     Inverse dynamics controller: fullDynamics
 
     Motion controller: mixedGeneralizedMomentum
@@ -10,7 +10,7 @@ Work:
     Momentum controller: centroidalMomentum
 
     Force controller: centroidalDistribution
-    
+
     Torque controller: mixedmixed
     # Torque controller: crb
 
@@ -35,12 +35,18 @@ Work:
 
     KpC: 3.e+4
     KdC: 5.e+3
+    # KpC: 3.e+2
+    # KdC: 1.e+2
 
     KpwB: 3.e+4
     KdwB: 5.e+3
+    # KpwB: 3.e+2
+    # KdwB: 1.e+2
 
     Kpv: 3.e+4
     Kdv: 5.e+3
+    # Kpv: 3.e+2
+    # Kdv: 1.e+2
 
     KDlC: 1.e+3
     KDth: 1.e+4
@@ -59,7 +65,7 @@ Work:
     cal_Xf:
       - 6
       - 6
-      - [.15, ., .15, ., ., .]
+      - [., ., ., ., ., .]
       - [., ., ., ., ., .]
 
   -

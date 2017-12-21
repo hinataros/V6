@@ -21,8 +21,8 @@ void RLS::Output::makeTreeModelDat(Config &config, Info &info)
   minipage = baseTrans(config, info, dir, load);
   if(config.graph.tex){
     makeFigureTex(config, name, minipage,
-		  "Base translation values."
-		  );
+                  "Base translation values."
+                  );
     input += input_dir+name+"}\n";
   }
 
@@ -30,8 +30,8 @@ void RLS::Output::makeTreeModelDat(Config &config, Info &info)
   minipage = baseRot(config, info, dir, load);
   if(config.graph.tex){
     makeFigureTex(config, name, minipage,
-  		  "Base rotation values."
-  		  );
+                  "Base rotation values."
+                  );
     input += input_dir+name+"}\n";
   }
 
@@ -39,8 +39,8 @@ void RLS::Output::makeTreeModelDat(Config &config, Info &info)
   minipage = joint(config, info, dir, load);
   if(config.graph.tex){
     makeFigureTex(config, name, minipage,
-  		  "Joint values."
-  		  );
+                  "Joint values."
+                  );
     input += input_dir+name+"}\n";
   }
 
@@ -48,8 +48,8 @@ void RLS::Output::makeTreeModelDat(Config &config, Info &info)
   minipage = eeTrans(config, info, dir, load);
   if(config.graph.tex){
     makeFigureTex(config, name, minipage,
-  		  "End effector translation values."
-  		  );
+                  "End effector translation values."
+                  );
     input += input_dir+name+"}\n";
   }
 
@@ -57,8 +57,8 @@ void RLS::Output::makeTreeModelDat(Config &config, Info &info)
   minipage = eeRot(config, info, dir, load);
   if(config.graph.tex){
     makeFigureTex(config, name, minipage,
-  		  "End effector rotation values."
-  		  );
+                  "End effector rotation values."
+                  );
     input += input_dir+name+"}\n";
   }
 
@@ -66,8 +66,8 @@ void RLS::Output::makeTreeModelDat(Config &config, Info &info)
   minipage = eeWrench(config, info, dir, load);
   if(config.graph.tex){
     makeFigureTex(config, name, minipage,
-  		  "End effector wrench values."
-  		  );
+                  "End effector wrench values."
+                  );
     input += input_dir+name+"}\n";
   }
 
@@ -75,8 +75,8 @@ void RLS::Output::makeTreeModelDat(Config &config, Info &info)
   minipage = com(config, info, dir, load);
   if(config.graph.tex){
     makeFigureTex(config, name, minipage,
-  		  "CoM values."
-  		  );
+                  "CoM values."
+                  );
     input += input_dir+name+"}\n";
   }
 
@@ -84,8 +84,8 @@ void RLS::Output::makeTreeModelDat(Config &config, Info &info)
   minipage = mom(config, info, dir, load);
   if(config.graph.tex){
     makeFigureTex(config, name, minipage,
-  		  "Linear and angular momentum."
-  		  );
+                  "Linear and angular momentum."
+                  );
     input += input_dir+name+"}\n";
   }
 

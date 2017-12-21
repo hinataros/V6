@@ -19,12 +19,12 @@ string RLS::Output::mom(Config &config, Info &info, string dir, string &load)
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       linMom << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.tm[i].p.transpose() << endl;
+        data.t[i] << " " << data.tm[i].p.transpose() << endl;
     linMom.close();
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "model", name, "Linear mom. [Ns]","E",0);
+    makeGp(config, "model", name, "Linear mom. [Ns]","E", 3, 0);
     load += "load 'model/"+name+".gp'\n";
   }
   if(config.graph.tex){
@@ -39,12 +39,12 @@ string RLS::Output::mom(Config &config, Info &info, string dir, string &load)
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       angMom << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.tm[i].lC.transpose() << endl;
+        data.t[i] << " " << data.tm[i].lC.transpose() << endl;
     angMom.close();
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "model", name, "Angular mom. [Nms]","E",0);
+    makeGp(config, "model", name, "Angular mom. [Nms]","E", 3, 0);
     load += "load 'model/"+name+".gp'\n";
   }
   if(config.graph.tex){

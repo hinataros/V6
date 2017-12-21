@@ -17,14 +17,14 @@ string RLS::Output::eePosErr(Config &config, Info &info, string dir, string &loa
       cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
     else{
       for(int i=0; i<info.sim.n; i+=config.graph.st)
-  	eePosErr << setprecision(9) << scientific <<
-  	  data.t[i] << " " << data.dc[i].cal_Ep.segment(6*(l-1), 3).transpose() << endl;
+        eePosErr << setprecision(9) << scientific <<
+          data.t[i] << " " << data.dc[i].cal_Ep.segment(6*(l-1), 3).transpose() << endl;
 
       eePosErr.close();
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "controller", name, l, "EE pos. err. [mm]","K",20);
+      makeGp(config, "controller", name, l, "EE pos. err. [mm]","K", 3, 20);
       load += "load 'controller/"+name+".gp'\n";
     }
     if(config.graph.tex){
@@ -50,14 +50,14 @@ string RLS::Output::eeVelErr(Config &config, Info &info, string dir, string &loa
       cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
     else{
       for(int i=0; i<info.sim.n; i+=config.graph.st)
-  	eeVelErr << setprecision(9) << scientific <<
-  	  data.t[i] << " " << data.dc[i].cal_Ev.segment(6*(l-1), 3).transpose() << endl;
+        eeVelErr << setprecision(9) << scientific <<
+          data.t[i] << " " << data.dc[i].cal_Ev.segment(6*(l-1), 3).transpose() << endl;
 
       eeVelErr.close();
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "controller", name, l, "EE vel. err. [m/s]","E",20);
+      makeGp(config, "controller", name, l, "EE vel. err. [m/s]","E", 3, 20);
       load += "load 'controller/"+name+".gp'\n";
     }
     if(config.graph.tex){

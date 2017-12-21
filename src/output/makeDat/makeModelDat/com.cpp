@@ -19,12 +19,12 @@ string RLS::Output::com(Config &config, Info &info, string dir, string &load)
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       comPos << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.tm[i].rC.transpose() << endl;
+        data.t[i] << " " << data.tm[i].rC.transpose() << endl;
     comPos.close();
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "model", name, "CoM pos. [mm]","K",0);
+    makeGp(config, "model", name, "CoM pos. [mm]","K", 3, 0);
     load += "load 'model/"+name+".gp'\n";
   }
   if(config.graph.tex){
@@ -39,12 +39,12 @@ string RLS::Output::com(Config &config, Info &info, string dir, string &load)
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       comVel << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.tm[i].vC.transpose() << endl;
+        data.t[i] << " " << data.tm[i].vC.transpose() << endl;
     comVel.close();
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "model", name, "CoM vel. [m/s]","E",2);
+    makeGp(config, "model", name, "CoM vel. [m/s]","E", 3, 2);
     load += "load 'model/"+name+".gp'\n";
   }
   if(config.graph.tex){

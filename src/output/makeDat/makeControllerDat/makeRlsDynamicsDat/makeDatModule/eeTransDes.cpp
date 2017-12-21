@@ -17,14 +17,14 @@ string RLS::Output::eePosDes(Config &config, Info &info, string dir, string &loa
       cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
     else{
       for(int i=0; i<info.sim.n; i+=config.graph.st)
-  	eePosDes << setprecision(9) << scientific <<
-  	  data.t[i] << " " << data.dc[i].cal_XDes.segment(6*(l-1), 3).transpose() << endl;
+        eePosDes << setprecision(9) << scientific <<
+          data.t[i] << " " << data.dc[i].cal_XDes.segment(6*(l-1), 3).transpose() << endl;
 
       eePosDes.close();
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "controller", name, l, "des. EE pos. [mm]","K",20);
+      makeGp(config, "controller", name, l, "des. EE pos. [mm]","K", 3, 20);
       load += "load 'controller/"+name+".gp'\n";
     }
     if(config.graph.tex){
@@ -49,14 +49,14 @@ string RLS::Output::eeVelDes(Config &config, Info &info, string dir, string &loa
       cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
     else{
       for(int i=0; i<info.sim.n; i+=config.graph.st)
-  	eeVelDes << setprecision(9) << scientific <<
-  	  data.t[i] << " " << data.dc[i].cal_VDes.segment(6*(l-1), 3).transpose() << endl;
+        eeVelDes << setprecision(9) << scientific <<
+          data.t[i] << " " << data.dc[i].cal_VDes.segment(6*(l-1), 3).transpose() << endl;
 
       eeVelDes.close();
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "controller", name, l, "des. EE vel. [m/s]","E",20);
+      makeGp(config, "controller", name, l, "des. EE vel. [m/s]","E", 3, 20);
       load += "load 'controller/"+name+".gp'\n";
     }
     if(config.graph.tex){
@@ -83,14 +83,14 @@ string RLS::Output::eeAccDes(Config &config, Info &info, string dir, string &loa
       cout << dir+name+".dat" << ": " << endl << "file open error..." << endl;
     else{
       for(int i=0; i<info.sim.n; i+=config.graph.st)
-  	eeAccDes << setprecision(9) << scientific <<
-  	  data.t[i] << " " << data.dc[i].cal_dVDes.segment(6*(l-1), 3).transpose() << endl;
+        eeAccDes << setprecision(9) << scientific <<
+          data.t[i] << " " << data.dc[i].cal_dVDes.segment(6*(l-1), 3).transpose() << endl;
 
       eeAccDes.close();
     }
 
     if(config.graph.gp){
-      makeGpTime3D(config, "controller", name, l, "des. EE acc. [m/s^2]","E",20);
+      makeGp(config, "controller", name, l, "des. EE acc. [m/s^2]","E", 3, 20);
       load += "load 'controller/"+name+".gp'\n";
     }
     if(config.graph.tex){

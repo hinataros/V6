@@ -17,12 +17,12 @@ string RLS::Output::baseOrientDes(Config &config, Info &info, string dir, string
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       baseOrientDes << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.dc[i].xiBDes.transpose() << endl;
+        data.t[i] << " " << data.dc[i].xiBDes.transpose() << endl;
     baseOrientDes.close();
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "Des. base orient. [deg]","RAD2DEG",0);
+    makeGp(config, "controller", name, "Des. base orient. [deg]","RAD2DEG", 3, 0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
@@ -47,12 +47,12 @@ string RLS::Output::baseAngVelDes(Config &config, Info &info, string dir, string
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       baseAngVelDes << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.dc[i].wBDes.transpose() << endl;
+        data.t[i] << " " << data.dc[i].wBDes.transpose() << endl;
     baseAngVelDes.close();
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "Des. base ang. vel. [rad/s]","E",0);
+    makeGp(config, "controller", name, "Des. base ang. vel. [rad/s]","E", 3, 0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
@@ -79,12 +79,12 @@ string RLS::Output::baseAngAccDes(Config &config, Info &info, string dir, string
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       baseAngAccDes << setprecision(9) << scientific <<
-  	data.t[i] << " " << data.dc[i].dwBDes.transpose() << endl;
+        data.t[i] << " " << data.dc[i].dwBDes.transpose() << endl;
     baseAngAccDes.close();
   }
 
   if(config.graph.gp){
-    makeGpTime3D(config, "controller", name, "Des. base ang. acc. [rad/s^2]","E",0);
+    makeGp(config, "controller", name, "Des. base ang. acc. [rad/s^2]","E", 3, 0);
     load += "load 'controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
