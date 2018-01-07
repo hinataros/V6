@@ -1,7 +1,10 @@
+# @author Sho Miyahara 2017
+
 set(srcs
   comReference.cpp
   baseReference.cpp
   endEffectorReference.cpp
+  externalWrenchReference.cpp
   reference.cpp
   )
 

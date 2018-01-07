@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include "config.hpp"
 #include "info.hpp"
 #include "model.hpp"
@@ -8,7 +12,7 @@ void RLS::RlsDynamics::baseReference(Config &config,Info &info, Model &model, do
   if(config.flag.debug) DEBUG;
 
   for(int i=0; i<3; i++){
-    des = makeSpline5(t-info.sim.tw0, info.sim.twf, rBtemp(i), rBf(i));
+    des = makeSpline5(t-info.sim.tw0, info.sim.twf, rBpreDes(i), rBf(i));
     rBDes(i) = des(0) + rB0(i);
     vBDes(i) = des(1);
     dvBDes(i) = des(2);
@@ -23,7 +27,7 @@ void RLS::RlsDynamics::baseReference(Config &config,Info &info, Model &model, do
   dvBRef = dvBDes + KdvB*evB + KpvB*erB;
 
   for(int i=0; i<3; i++){
-    des = makeSpline5(t-info.sim.tw0, info.sim.twf, xiBtemp(i), xiBf(i));
+    des = makeSpline5(t-info.sim.tw0, info.sim.twf, xiBpreDes(i), xiBf(i));
     xiBDes(i) = des(0) + xiB0(i);
     dxiBDes(i) = des(1);
     ddxiBDes(i) = des(2);

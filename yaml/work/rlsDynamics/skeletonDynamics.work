@@ -1,17 +1,22 @@
-Work:
-  -
-    twf: 10.
+# @author Sho Miyahara 2017
 
+State:
+  -
     Inverse dynamics controller: fullDynamics
 
-    Motion controller: mixedGeneralizedMomentum
+    Motion controller: baseGeneralizedMomentum
+    # Motion controller: mixedGeneralizedMomentum
     # Motion controller: centroidalAccelerationSynergy
 
+    # Momentum controller: baseMomentum
     Momentum controller: centroidalMomentum
 
+    # Force controller: baseDistribution
     Force controller: centroidalDistribution
 
-    Torque controller: mixedmixed
+    Torque controller: staticControl
+    # Torque controller: base
+    # Torque controller: mixedmixed
     # Torque controller: crb
 
     Bc:
@@ -25,48 +30,46 @@ Work:
       - [1, 1, 1, ., ., .]
       - [1, 1, 1, ., ., .]
 
-    rCf: [ ., ., .]
-    xiBf: [ ., ., .]
-    cal_Xf:
-      - 6
-      - 6
-      - [ ., ., ., ., ., .]
-      - [ ., ., ., ., ., .]
-
-    KpC: 3.e+4
-    KdC: 5.e+3
+    # KpC: 3.e+4
+    # KdC: 5.e+3
     # KpC: 3.e+2
-    # KdC: 1.e+2
+    KdC: 1.e+2
 
-    KpwB: 3.e+4
-    KdwB: 5.e+3
+    # # KpwB: 3.e+4
+    # # KdwB: 5.e+3
     # KpwB: 3.e+2
-    # KdwB: 1.e+2
+    KdwB: 1.e+2
 
-    Kpv: 3.e+4
-    Kdv: 5.e+3
+    # Kpv: 3.e+4
+    # Kdv: 5.e+3
     # Kpv: 3.e+2
     # Kdv: 1.e+2
 
-    KDlC: 1.e+3
-    KDth: 1.e+4
-    KDq:
-      - 6
-      - [1.e+4, 1.e+4, 1.e+4, 1.e+4, 1.e+4, 1.e+4]
-      - [1.e+4, 1.e+4, 1.e+4, 1.e+4, 1.e+4, 1.e+4]
-      - [1.e+4, 1.e+4, 1.e+4, 1.e+4]
-      - [1.e+4, 1.e+4, 1.e+4, 1.e+4]
+    # KDlC: 1.e+3
+    KDth: 1.e+1
+    # KDq:
+    #   - 6
+    #   - [1.e+4, 1.e+4, 1.e+4, 1.e+4, 1.e+4, 1.e+4]
+    #   - [1.e+4, 1.e+4, 1.e+4, 1.e+4, 1.e+4, 1.e+4]
+    #   - [1.e+4, 1.e+4, 1.e+4, 1.e+4]
+    #   - [1.e+4, 1.e+4, 1.e+4, 1.e+4]
 
   -
-    twf: 5.
-    # rCf: [.03, ., .]
-    xiBf: [., .52, .]
+    KpC: 0.
+    # KdC: 0.
 
-    cal_Xf:
-      - 6
-      - 6
-      - [., ., ., ., ., .]
-      - [., ., ., ., ., .]
+    KpwB: 0.
+    # KdwB: 0.
+
+Sequence:
+  -
+    twf: 7.
 
   -
-    twf: 5.
+    twf: 1.
+    cal_Fextf: [8., ., ., ., ., .]
+
+  -
+    twf: 1.
+
+    cal_Fextf: [0., 0., 0., 0., 0., 0.]

@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include <fstream>
 
 #include "config.hpp"
@@ -22,8 +26,10 @@ string RLS::Output::baseOrientDes(Config &config, Info &info, string dir, string
   }
 
   if(config.graph.gp){
-    makeGp(config, "controller", name, "Des. base orient. [deg]","RAD2DEG", 3, 0);
-    load += "load 'controller/"+name+".gp'\n";
+    makeGp(config, "controller", name,
+           "Des. base orient. [deg]","RAD2DEG", 3,
+           0);
+    load += "load '"+config.dir.gp.ind+"controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
     minipage += makeMinipage(config, "controller", "1.0", name);
@@ -52,8 +58,10 @@ string RLS::Output::baseAngVelDes(Config &config, Info &info, string dir, string
   }
 
   if(config.graph.gp){
-    makeGp(config, "controller", name, "Des. base ang. vel. [rad/s]","E", 3, 0);
-    load += "load 'controller/"+name+".gp'\n";
+    makeGp(config, "controller", name,
+           "Des. base ang. vel. [rad/s]","E", 3,
+           0);
+    load += "load '"+config.dir.gp.ind+"controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
     minipage += makeMinipage(config, "controller", "1.0", name);
@@ -84,8 +92,10 @@ string RLS::Output::baseAngAccDes(Config &config, Info &info, string dir, string
   }
 
   if(config.graph.gp){
-    makeGp(config, "controller", name, "Des. base ang. acc. [rad/s^2]","E", 3, 0);
-    load += "load 'controller/"+name+".gp'\n";
+    makeGp(config, "controller", name,
+           "Des. base ang. acc. [rad/s^2]","E", 3,
+           0);
+    load += "load '"+config.dir.gp.ind+"controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
     minipage += makeMinipage(config, "controller", "1.0", name);

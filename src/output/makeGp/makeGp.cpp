@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include <fstream>
 
 #include "config.hpp"
@@ -13,24 +17,32 @@ void RLS::Output::makeGp(Config &config, string category, string name, int limb,
 
 void RLS::Output::makeGp(Config &config, string category, string name, int limb, string xCommonLabel, string yCommonLabel, string unit, int dimention, int terminal){
   if(limb <= array_length(limbName) && limbName[0] != "default")
-    makeGp(config, category, name, limbName[limb-1] + " " + xCommonLabel, limbName[limb-1] + " " + yCommonLabel, unit, dimention, terminal);
+    makeGp(config, category, name, limbName[limb-1] + " " + xCommonLabel, limbName[limb-1] + " " + yCommonLabel, unit, dimention, "", terminal);
   else
-    makeGp(config, category, name, "Limb"+to_string(limb) + " " + xCommonLabel, "Limb"+to_string(limb) + " " + yCommonLabel, unit, dimention, terminal);
+    makeGp(config, category, name, "Limb"+to_string(limb) + " " + xCommonLabel, "Limb"+to_string(limb) + " " + yCommonLabel, unit, dimention, "", terminal);
 }
 
 void RLS::Output::makeGp(Config &config, string category, string name, string yLabel, string unit, int dimention, int terminal){
-  makeGp(config, category, name, timeLabelStr, yLabel, unit, dimention, terminal);
+  makeGp(config, category, name, timeLabelStr, yLabel, unit, dimention, "", terminal);
 }
 
-void RLS::Output::makeGp(Config &config, string category, string name, string xLabel, string yLabel, string unit, int dimention, int terminal)
+void RLS::Output::makeGp(Config &config, string category, string name, string yLabel, string unit, int dimention, string add, int terminal){
+  makeGp(config, category, name, timeLabelStr, yLabel, unit, dimention, add, terminal);
+}
+
+void RLS::Output::makeGp(Config &config, string category, string name, string xLabel, string yLabel, string unit, int dimention, int terminal){
+  makeGp(config, category, name, xLabel, yLabel, unit, dimention, "", terminal);
+}
+
+void RLS::Output::makeGp(Config &config, string category, string name, string xLabel, string yLabel, string unit, int dimention, string add, int terminal)
 {
   if(config.flag.debug) DEBUG;
 
   string setting =
     "reset\n"
-    "load 'library/config.gp'\n"
-    "load 'library/macro.gp'\n"
-    "load 'library/set.gp'\n";
+    "load '"+config.dir.gp.ind+"library/macro.gp'\n\n"
+    "load LIBRARY.'config.gp'\n"
+    "load LIBRARY.'set.gp'\n";
 
   string label =
     "set xlabel '"+xLabel+"'\n"
@@ -57,8 +69,13 @@ void RLS::Output::makeGp(Config &config, string category, string name, string xL
     }
 
   else
-    plot +=
-      MACRO+"_DAT.'"+name+".dat' every ::(T_OFFSET*SAMPLING) u ($1*"+unit+"):($2*"+unit+") t '' w l ls 1";
+    for(int i=1, j=1; j<dimention+1; i+=2, j++){
+      plot +=
+        MACRO+"_DAT.'"+name+".dat' every ::(T_OFFSET*SAMPLING) u ($"+to_string(i)+"*"+unit+"):($"+to_string(i+1)+"*"+unit+") t '' w l ls "+to_string(j);
+
+      if(j<dimention)
+        plot += ",\\\n";
+    }
 
   string replot =
     "set terminal TERMINAL "+to_string(terminal)+"\n"
@@ -72,6 +89,7 @@ void RLS::Output::makeGp(Config &config, string category, string name, string xL
       setting << endl <<
       label << endl <<
       out << endl <<
+      add << endl <<
       plot << endl << endl <<
       replot << endl;
     gp.close();

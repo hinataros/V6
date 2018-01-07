@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include <fstream>
 
 #include "config.hpp"
@@ -27,7 +31,7 @@ string RLS::Output::eeForceRef(Config &config, Info &info, string dir, string &l
 
     if(config.graph.gp){
       makeGp(config, "controller", name, l, "EE force ref. [N]","E", 3, 0);
-      load += "load 'controller/"+name+".gp'\n";
+      load += "load '"+config.dir.gp.ind+"controller/"+name+".gp'\n";
     }
     if(config.graph.tex){
       minipage += makeMinipage(config, "controller", "1.0", name);
@@ -60,7 +64,7 @@ string RLS::Output::eeMomentRef(Config &config, Info &info, string dir, string &
 
     if(config.graph.gp){
       makeGp(config, "controller", name, l, "EE moment ref. [Nm]","E", 3, 0);
-      load += "load 'controller/"+name+".gp'\n";
+      load += "load '"+config.dir.gp.ind+"controller/"+name+".gp'\n";
     }
     if(config.graph.tex){
       minipage += makeMinipage(config, "controller", "1.0", name);

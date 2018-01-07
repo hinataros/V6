@@ -1,25 +1,23 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include "config.hpp"
 #include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::checkNode(Config &config, Info &info, YAML::Node &doc, string name)
+void RLS::RlsDynamics::checkNode(YAML::Node &doc, string node, int seq, string name)
 {
-  if(config.flag.debug) DEBUG;
-
-  doc["Work"][info.sim.phase][name].as<string>();
+  doc[node][seq][name].as<string>();
 }
 
-void RLS::RlsDynamics::checkNode(Config &config, Info &info, YAML::Node &doc, string name, int i)
+void RLS::RlsDynamics::checkNode(YAML::Node &doc, string node, int seq, string name, int i)
 {
-  if(config.flag.debug) DEBUG;
-
-  doc["Work"][info.sim.phase][name][i].as<string>();
+  doc[node][seq][name][i].as<string>();
 }
 
-void RLS::RlsDynamics::checkNode(Config &config, Info &info, YAML::Node &doc, string name, int node, int i)
+void RLS::RlsDynamics::checkNode(YAML::Node &doc, string node, int seq, string name, int i, int j)
 {
-  if(config.flag.debug) DEBUG;
-
-  doc["Work"][info.sim.phase][name][node][i].as<string>();
+  doc[node][seq][name][i][j].as<string>();
 }

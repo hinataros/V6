@@ -1,4 +1,6 @@
-Work:
+# @author Sho Miyahara 2017
+
+Sequence:
   -
     twf: 10.
 
@@ -17,20 +19,20 @@ Work:
 
     rCf: [., ., .]
     rBf: [., ., -0.1]
-    xiBf: [., -30., .]
+    xiBf: [., -.52, .]
     cal_Xf:
       - [., ., ., ., ., .]
       - [., ., ., ., ., .]
       - [., ., ., ., ., .]
       - [., ., ., ., ., .]
 
-    kpC: .
-    kdC: .
+    KpC: .
+    KdC: .
 
-    kpwB: .
-    kdwB: .
+    KpwB: .
+    KdwB: .
 
-    kthD: .
+    KthD: .
 
   -
     twf: 10.

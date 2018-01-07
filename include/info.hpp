@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include "common.hpp"
 
 namespace RLS{
@@ -11,6 +15,11 @@ namespace RLS{
       double dt;
       double n;
 
+      // state
+      double trev;
+      int state;
+
+      // sequence
       double twf;
       double tw0;
       int phase;

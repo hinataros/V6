@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include "config.hpp"
 #include "info.hpp"
 #include "model.hpp"

@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #ifndef RLSDYNAMICSLIST_HPP_
 #define RLSDYNAMICSLIST_HPP_
 
@@ -42,6 +46,8 @@ namespace RLS{
 
     VectorXd cal_FBarRef;
 
+    Vector6d cal_FextRef;
+
     VectorXd tau;
 
     Vector3d pCRB;
@@ -52,6 +58,8 @@ namespace RLS{
     Vector3d lC;
 
     Vector2d rp;
+    VectorXd rpk;
+    Vector3d rX;
   };
 }
 

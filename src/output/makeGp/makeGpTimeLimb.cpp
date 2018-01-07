@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include <fstream>
 
 #include "config.hpp"
@@ -15,9 +19,9 @@ void RLS::Output::makeGpTimeLimb(Config &config, Info &info, string category, st
   for(int l=1; l<info.value.node; l++){
     string setting =
       "reset\n"
-      "load 'library/config.gp'\n"
-      "load 'library/macro.gp'\n"
-      "load 'library/set.gp'\n";
+      "load '"+config.dir.gp.ind+"library/macro.gp'\n\n"
+      "load LIBRARY.'config.gp'\n"
+      "load LIBRARY.'set.gp'\n";
 
     string label =
       "set xlabel '"+xLabel+"'\n";

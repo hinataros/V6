@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include <fstream>
 
 #include "config.hpp"
@@ -8,41 +12,10 @@ void RLS::Output::makeGpLibrary(Config &config, Info &info)
 {
   if(config.flag.debug) DEBUG;
 
-  // config
-  string font_config =
-    "FONT = 'Times New Roman'\n"
-    "FONT_SIZE = 35\n"
-    "EPS_FONT_SIZE = 45\n";
-
-  string line_config =
-    "LINE_WIDTH = 5\n";
-
-  string etc_config =
-    "VIEWMODE = 0# 1:on 0:off\n"
-    "KEY = 0\n";
-
-  string terminal_config =
-    "TERMINAL = 'x11'\n";
-
-  string time_config =
-    "T_OFFSET = 10\n"
-    "SAMPLING = "+to_string(static_cast<int>(1/(config.graph.st*info.sim.dt)))+"\n";
-
-  ofstream libConfig((config.dir.gp.ind+"library/config.gp").c_str());
-  if(!libConfig)
-    cout << path << ": " << endl << "file open error..." << endl;
-  else{
-    libConfig <<
-      font_config << endl <<
-      line_config << endl <<
-      etc_config << endl <<
-      terminal_config << endl <<
-      time_config << endl;
-    libConfig.close();
-  }
 
   // macro
   string path_macro =
+    "LIBRARY = '" + config.dir.gp.ind+"library/" +"'\n"
     "CONTROLLER_DAT = '" + config.dir.dat.ind+"controller/" +"'\n"
     "MODEL_DAT = '" + config.dir.dat.ind+"model/" +"'\n"
     "CONTROLLER_EPS = '" + config.dir.eps.ind+"controller/" +"'\n"
@@ -66,6 +39,39 @@ void RLS::Output::makeGpLibrary(Config &config, Info &info)
       unit_macro << endl <<
       rotation_macro << endl;
     libMacro.close();
+  }
+
+  // config
+  string font_config =
+    "FONT = 'Times New Roman'\n"
+    "FONT_SIZE = 35\n"
+    "EPS_FONT_SIZE = 45\n";
+
+  string line_config =
+    "LINE_WIDTH = 5\n";
+
+  string etc_config =
+    "VIEWMODE = 0# 1:on 0:off\n"
+    "KEY = 0\n";
+
+  string terminal_config =
+    "TERMINAL = 'x11'\n";
+
+  string time_config =
+    "T_OFFSET = 5\n"
+    "SAMPLING = "+to_string(static_cast<int>(1/(config.graph.st*info.sim.dt)))+"\n";
+
+  ofstream libConfig((config.dir.gp.ind+"library/config.gp").c_str());
+  if(!libConfig)
+    cout << path << ": " << endl << "file open error..." << endl;
+  else{
+    libConfig <<
+      font_config << endl <<
+      line_config << endl <<
+      etc_config << endl <<
+      terminal_config << endl <<
+      time_config << endl;
+    libConfig.close();
   }
 
   // set

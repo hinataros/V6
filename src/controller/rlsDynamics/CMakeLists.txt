@@ -1,3 +1,6 @@
+# @author Sho Miyahara 2017
+
+add_subdirectory(configurationManager)
 add_subdirectory(readWork)
 add_subdirectory(reference)
 add_subdirectory(controlMethod)
@@ -23,6 +26,7 @@ endif(rls_rlsDynamicsRTC)
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" rlsDynamics_srcs)
 set(rlsDynamics_srcs
   ${rlsDynamics_srcs}
+  ${configurationManager_srcs}
   ${readWork_srcs}
   ${reference_srcs}
   ${controlMethod_srcs}

@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include <fstream>
 
 #include "config.hpp"
@@ -24,8 +28,10 @@ string RLS::Output::mom(Config &config, Info &info, string dir, string &load)
   }
 
   if(config.graph.gp){
-    makeGp(config, "model", name, "Linear mom. [Ns]","E", 3, 0);
-    load += "load 'model/"+name+".gp'\n";
+    makeGp(config, "model", name,
+           "Linear mom. [Ns]","E", 3,
+           0);
+    load += "load '"+config.dir.gp.ind+"model/"+name+".gp'\n";
   }
   if(config.graph.tex){
     minipage = makeMinipage(config, "model", "1.0", name);
@@ -44,8 +50,10 @@ string RLS::Output::mom(Config &config, Info &info, string dir, string &load)
   }
 
   if(config.graph.gp){
-    makeGp(config, "model", name, "Angular mom. [Nms]","E", 3, 0);
-    load += "load 'model/"+name+".gp'\n";
+    makeGp(config, "model", name,
+           "Angular mom. [Nms]","E", 3,
+           0);
+    load += "load '"+config.dir.gp.ind+"model/"+name+".gp'\n";
   }
   if(config.graph.tex){
     minipage += makeMinipage(config, "model", "1.0", name);

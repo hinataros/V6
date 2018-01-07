@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #define SHAREDMEMORYSIZE 1000000
 
 #include <stdio.h>

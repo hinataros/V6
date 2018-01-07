@@ -1,16 +1,18 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include "config.hpp"
 #include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
 namespace RLS{
-  template<> VectorXd RlsDynamics::checkVector(Config &config, Info &info, YAML::Node &doc, string name, VectorXd vec)
+  template<> VectorXd RlsDynamics::checkVector(YAML::Node &doc, string node, int seq, string name, VectorXd vec)
   {
-    if(config.flag.debug) DEBUG;
-
-    if(doc["Work"][info.sim.phase][name].size())
+    if(doc[node][seq][name].size())
       for(int i=0; i<vec.size(); i++)
-	vec(i) = readValue<double>(config, info, doc, name, i);
+        vec(i) = readValue<double>(doc, node, seq, name, i);
 
     else
       return vec;
@@ -18,22 +20,20 @@ namespace RLS{
     return vec;
   }
 
-  template<> VectorXd RlsDynamics::checkVector(Config &config, Info &info, YAML::Node &doc, string name, int node, VectorXd vec)
+  template<> VectorXd RlsDynamics::checkVector(YAML::Node &doc, string node, int seq, string name, int limb, VectorXd vec)
   {
-    if(config.flag.debug) DEBUG;
+    if(doc[node][seq][name].size())
+      for(int i=0, temp=0, size=0; i<limb; i++){
+        if(size = doc[node][seq][name][i].size()){
+          vec.segment(temp, size) = readVector<VectorXd>(doc, node, seq, name, i, size);
+          temp += size;
 
-    if(doc["Work"][info.sim.phase][name].size())
-      for(int i=0, temp=0, size=0; i<node; i++){
-	if(size = doc["Work"][info.sim.phase][name][i].size()){
-	  vec.segment(temp, size) = readVector<VectorXd>(config, info, doc, name, i, size);
-	  temp += size;
-
-	}else{
-	  try{
-	    temp += doc["Work"][info.sim.phase][name][i].as<int>();
-	  }
-	  catch(...){cout << "checkVector() error..." << endl;return vec;}
-	}
+        }else{
+          try{
+            temp += doc[node][seq][name][i].as<int>();
+          }
+          catch(...){cout << "checkVector() error..." << endl;return vec;}
+        }
       }
 
     else

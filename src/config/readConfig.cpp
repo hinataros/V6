@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include <unistd.h>
 #include "yaml-cpp/yaml.h"
 
@@ -22,12 +26,12 @@ void RLS::Config::readConfig()
   body.name = doc["Model"]["Body name"].as<string>();
   cnoid.name = doc["Model"]["cnoid name"].as<string>();
 
-
   // controller config
   controller.flag = doc["Controller"]["Flag"].as<bool>();
   controller.name = doc["Controller"]["Name"].as<string>();
   controller.input = doc["Controller"]["Input"].as<string>();
   controller.work = doc["Controller"]["Work"].as<string>();
+  controller.driven = doc["Controller"]["Driven"].as<string>();
   controller.dynamics = doc["Controller"]["Dynamics"].as<bool>();
 
   // graph config

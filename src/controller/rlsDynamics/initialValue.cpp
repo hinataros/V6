@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include "config.hpp"
 #include "info.hpp"
 #include "model.hpp"
@@ -15,6 +19,10 @@ void RLS::RlsDynamics::initialValue(Config &config, Info &info, Model &model)
     cal_X0.segment(6*(i-1),6) <<
       model.hoap2.limb[i].node[info.limb[i].dof].r,
       R2xi(model.hoap2.limb[i].node[info.limb[i].dof].R);
+
+  cal_Fext0 <<
+    model.hoap2.limb[0].node[0].f,
+    model.hoap2.limb[0].node[0].n;
 
   // high gain control
   thDes = model.hoap2.all.th;

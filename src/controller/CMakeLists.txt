@@ -1,3 +1,5 @@
+# @author Sho Miyahara 2017
+
 add_subdirectory(sharedMemory)
 add_subdirectory(interpolation)
 add_subdirectory(rlsDynamics)

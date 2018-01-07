@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include "treeModel.hpp"
 #include "rigidBodyModel.hpp"
 

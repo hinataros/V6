@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+# @author Sho Miyahara 2017
+
 import os, sys
 
 import config

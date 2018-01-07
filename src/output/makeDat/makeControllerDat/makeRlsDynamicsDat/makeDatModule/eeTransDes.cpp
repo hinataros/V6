@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include <fstream>
 
 #include "config.hpp"
@@ -24,8 +28,10 @@ string RLS::Output::eePosDes(Config &config, Info &info, string dir, string &loa
     }
 
     if(config.graph.gp){
-      makeGp(config, "controller", name, l, "des. EE pos. [mm]","K", 3, 20);
-      load += "load 'controller/"+name+".gp'\n";
+      makeGp(config, "controller", name,
+             l, "des. EE pos. [mm]","K", 3,
+             20);
+      load += "load '"+config.dir.gp.ind+"controller/"+name+".gp'\n";
     }
     if(config.graph.tex){
       minipage += makeMinipage(config, "controller", "1.0", name);
@@ -56,8 +62,10 @@ string RLS::Output::eeVelDes(Config &config, Info &info, string dir, string &loa
     }
 
     if(config.graph.gp){
-      makeGp(config, "controller", name, l, "des. EE vel. [m/s]","E", 3, 20);
-      load += "load 'controller/"+name+".gp'\n";
+      makeGp(config, "controller", name,
+             l, "des. EE vel. [m/s]","E", 3,
+             20);
+      load += "load '"+config.dir.gp.ind+"controller/"+name+".gp'\n";
     }
     if(config.graph.tex){
       minipage += makeMinipage(config, "controller", "1.0", name);
@@ -90,8 +98,10 @@ string RLS::Output::eeAccDes(Config &config, Info &info, string dir, string &loa
     }
 
     if(config.graph.gp){
-      makeGp(config, "controller", name, l, "des. EE acc. [m/s^2]","E", 3, 20);
-      load += "load 'controller/"+name+".gp'\n";
+      makeGp(config, "controller", name,
+             l, "des. EE acc. [m/s^2]","E", 3,
+             20);
+      load += "load '"+config.dir.gp.ind+"controller/"+name+".gp'\n";
     }
     if(config.graph.tex){
       minipage += makeMinipage(config, "controller", "1.0", name);

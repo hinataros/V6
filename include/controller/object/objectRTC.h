@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #ifndef OBJECTRTC_H
 #define OBJECTRTC_H
 

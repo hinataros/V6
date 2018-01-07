@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include "rlsDynamicsRTC.h"
 
 RLS::Config config;
@@ -34,7 +38,8 @@ RlsDynamicsRTC::RlsDynamicsRTC(RTC::Manager* manager)
     m_rightFootForceIn("FFr", m_rightFootForce),
     m_leftFootForceIn("FFl", m_leftFootForce),
 
-    m_torqueOut("tau", m_torque)
+    m_torqueOut("tau", m_torque),
+    m_externalForceOut("Fext", m_externalForce)
 {
 }
 
@@ -57,6 +62,8 @@ RTC::ReturnCode_t RlsDynamicsRTC::onInitialize()
 
   // Set OutPort buffer
   addOutPort("tau", m_torqueOut);
+
+  addOutPort("Fext", m_externalForceOut);
 
   return RTC::RTC_OK;
 }
@@ -81,6 +88,10 @@ RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
   for(size_t i=0; i<m_angle.data.length(); ++i)
     m_torque.data[i] = 0.;
 
+  m_externalForce.data.length(6);
+  for(size_t i=0; i<6; ++i)
+    m_externalForce.data[i] = 0.;
+
   // smiyahara: 要検討
   readState(config, info, model.hoap2);
 
@@ -90,6 +101,7 @@ RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
   }
 
   tau = rlsDynamics.rlsDynamics(config, info, model, t);
+  Fext = rlsDynamics.virtualInput;
 
   output.tm_temp = model.hoap2.tm_list;
   output.dc_temp = rlsDynamics.dc_list;
@@ -114,6 +126,7 @@ RTC::ReturnCode_t RlsDynamicsRTC::onDeactivated(RTC::UniqueId ec_id)
   }
 
   tau = rlsDynamics.rlsDynamics(config, info, model, t);
+  Fext = rlsDynamics.virtualInput;
 
   output.dc_temp = rlsDynamics.dc_list;
   output.tm_temp = model.hoap2.tm_list;
@@ -142,6 +155,7 @@ RTC::ReturnCode_t RlsDynamicsRTC::onExecute(RTC::UniqueId ec_id)
   }
 
   tau = rlsDynamics.rlsDynamics(config, info, model, t);
+  Fext = rlsDynamics.virtualInput;
 
   output.dc_temp = rlsDynamics.dc_list;
   output.tm_temp = model.hoap2.tm_list;

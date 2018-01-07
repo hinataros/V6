@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# @author Sho Miyahara 2017
+
 sl="/usr/local/etc/rls_sl"
 
 if [ $# = 0 ]; then

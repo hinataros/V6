@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+# @author Sho Miyahara 2017
+
 import os, sys
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "rlsModule"))
 

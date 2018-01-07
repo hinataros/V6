@@ -1,5 +1,8 @@
+# @author Sho Miyahara 2017
+
 set(srcs
   cop.cpp
+  dcm.cpp
   index.cpp
   )
 

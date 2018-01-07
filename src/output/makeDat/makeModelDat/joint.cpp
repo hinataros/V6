@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include <fstream>
 
 #include "config.hpp"
@@ -24,8 +28,10 @@ string RLS::Output::joint(Config &config, Info &info, string dir, string &load)
   }
 
   if(config.graph.gp){
-    makeGpTimeLimb(config, info, "model", name, "joint ang. [deg]","RAD2DEG", 10);
-    load += "load 'model/"+name+".gp'\n";
+    makeGpTimeLimb(config, info, "model", name,
+                   "joint ang. [deg]","RAD2DEG",
+                   10);
+    load += "load '"+config.dir.gp.ind+"model/"+name+".gp'\n";
   }
   if(config.graph.tex){
     minipage += makeMinipageLimb(config, info, "model", "1.0", name);
@@ -44,8 +50,10 @@ string RLS::Output::joint(Config &config, Info &info, string dir, string &load)
   }
 
   if(config.graph.gp){
-    makeGpTimeLimb(config, info, "model", name, "joint vel. [rad/s]","E", 15);
-    load += "load 'model/"+name+".gp'\n";
+    makeGpTimeLimb(config, info, "model", name,
+                   "joint vel. [rad/s]","E",
+                   15);
+    load += "load '"+config.dir.gp.ind+"model/"+name+".gp'\n";
   }
   if(config.graph.tex){
     minipage += makeMinipageLimb(config, info, "model", "1.0", name);

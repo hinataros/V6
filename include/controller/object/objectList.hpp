@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #ifndef RLSDYNAMICSLIST_HPP_
 #define RLSDYNAMICSLIST_HPP_
 

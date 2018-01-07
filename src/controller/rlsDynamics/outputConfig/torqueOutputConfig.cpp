@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include "config.hpp"
 #include "info.hpp"
 #include "model.hpp"
@@ -40,6 +44,8 @@ void RLS::RlsDynamics::torqueOutputConfig(Config &config, Model &model)
 
   dc_list.cal_FBarRef = Bc_k*cal_FcBarRef;
 
+  dc_list.cal_FextRef = cal_FextRef;
+
   dc_list.tau = tau;
 
   dc_list.pCRB = model.hoap2.all.m*cal_VM.head(3);
@@ -52,5 +58,9 @@ void RLS::RlsDynamics::torqueOutputConfig(Config &config, Model &model)
   dc_list.lC = IC*cal_VM.tail(3) + HC*model.hoap2.all.dth;
 
   // index
+  // cop
   dc_list.rp = rp;
+  dc_list.rpk = rpk;
+  // dcm
+  dc_list.rX = rX;
 }

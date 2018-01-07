@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+# @author Sho Miyahara 2017
+
 import os, sys
 
 import config
@@ -46,6 +48,10 @@ def install():
         except FileExistsError:
             print("already exists")
 
+        try:
+            os.symlink(os.path.join(config.RLS_DIR, "module", "rlsModule", "mkgrhMod.py"), os.path.join(config.RLS_DIR, "bin", "mkgrh"))
+        except FileExistsError:
+            print("already exists")
         try:
             os.symlink(os.path.join(config.RLS_DIR, "module", "rlsModule", "actexMod.py"), os.path.join(config.RLS_DIR, "bin", "actex"))
         except FileExistsError:

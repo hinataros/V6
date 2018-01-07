@@ -1,9 +1,12 @@
-Work:
+# @author Sho Miyahara 2017
+
+Sequence:
   -
     twf: 10.
 
-    Motion controller: noname
-    Torque controller: highGain
+    Inverse dynamics controller: highGain
+
+    Motion controller: baseVelocitySynergy
 
     Bc:
       - [1, 1, 1, 1, 1, 1]
@@ -24,26 +27,26 @@ Work:
       - [., ., ., ., ., .]
       - [., ., ., ., ., .]
 
-    kpC: 100.
-    kdC: 100.
+    KpC: 100.
+    KdC: 100.
 
-    kpvB: 100.
-    kdvB: 10.
+    KpvB: 100.
+    KdvB: 10.
 
-    kpwB: 100.
-    kdwB: 10.
+    KpwB: 100.
+    KdwB: 10.
 
-    kpv: 100.
-    kdv: 10.
+    Kpv: 100.
+    Kdv: 10.
 
-    kthD: .
+    KthD: .
 
-    kpHG: 1.e+3
-    kdHG: 1.e+2
+    KpHG: 1.e+3
+    KdHG: 1.e+2
 
   -
     twf: 10.
-    rBf: [0.05, ., .]
+    # rBf: [0.05, ., .]
 
   -
     twf: 10.

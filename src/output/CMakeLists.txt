@@ -1,3 +1,5 @@
+# @author Sho Miyahara 2017
+
 add_subdirectory(makeDat)
 add_subdirectory(makeGp)
 add_subdirectory(makeTex)

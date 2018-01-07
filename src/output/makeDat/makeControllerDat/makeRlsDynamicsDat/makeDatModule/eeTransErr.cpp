@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include <fstream>
 
 #include "config.hpp"
@@ -24,8 +28,10 @@ string RLS::Output::eePosErr(Config &config, Info &info, string dir, string &loa
     }
 
     if(config.graph.gp){
-      makeGp(config, "controller", name, l, "EE pos. err. [mm]","K", 3, 20);
-      load += "load 'controller/"+name+".gp'\n";
+      makeGp(config, "controller", name,
+             l, "EE pos. err. [mm]","K", 3,
+             20);
+      load += "load '"+config.dir.gp.ind+"controller/"+name+".gp'\n";
     }
     if(config.graph.tex){
       minipage += makeMinipage(config, "controller", "1.0", name);
@@ -57,8 +63,10 @@ string RLS::Output::eeVelErr(Config &config, Info &info, string dir, string &loa
     }
 
     if(config.graph.gp){
-      makeGp(config, "controller", name, l, "EE vel. err. [m/s]","E", 3, 20);
-      load += "load 'controller/"+name+".gp'\n";
+      makeGp(config, "controller", name,
+             l, "EE vel. err. [m/s]","E", 3,
+             20);
+      load += "load '"+config.dir.gp.ind+"controller/"+name+".gp'\n";
     }
     if(config.graph.tex){
       minipage += makeMinipage(config, "controller", "1.0", name);

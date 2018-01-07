@@ -1,3 +1,5 @@
+# @author Sho Miyahara 2017
+
 set(srcs
   baseTransDes.cpp
   baseRotDes.cpp
@@ -10,9 +12,12 @@ set(srcs
   eeWrenchErr.cpp
   rcMomRef.cpp
   eeWrenchRef.cpp
+  extWrenchRef.cpp
   jointTorque.cpp
   formulatedMom.cpp
+  localCop.cpp
   cop.cpp
+  stabilityIndex.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" makeDatModule_srcs)

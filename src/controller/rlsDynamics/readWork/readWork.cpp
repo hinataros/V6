@@ -1,55 +1,62 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include "config.hpp"
 #include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-int RLS::RlsDynamics::readWork(Config &config, Info &info)
+int RLS::RlsDynamics::readWork(Config &config, Info &info, string node, int seq)
 {
   if(config.flag.debug) DEBUG;
 
   YAML::Node doc = YAML::LoadFile(config.dir.work.c_str());
 
-  try{
-    checkNode(config, info, doc, "twf");
-  }
-  catch(...){cout << "no work time..." << endl;return -1;}
+  if(node=="Sequence")
+    try{
+      checkNode(doc, node, seq, "twf");
+    }
+    catch(...){cout << "no work time..." << endl;return -1;}
 
-  info.sim.twf = checkValue<double>(config, info, doc, "twf", info.sim.twf);
+  info.sim.twf = checkValue<double>(doc, node, seq, "twf", info.sim.twf);
 
-  motionControllerName = checkValue<string>(config, info, doc, "Motion controller", motionControllerName);
-  momentumControllerName = checkValue<string>(config, info, doc, "Momentum controller", momentumControllerName);
-  forceControllerName = checkValue<string>(config, info, doc, "Force controller", forceControllerName);
-  torqueControllerName = checkValue<string>(config, info, doc, "Torque controller", torqueControllerName);
-  inverseDynamicsControllerName = checkValue<string>(config, info, doc, "Inverse dynamics controller", inverseDynamicsControllerName);
+  motionControllerName = checkValue<string>(doc, node, seq, "Motion controller", motionControllerName);
+  momentumControllerName = checkValue<string>(doc, node, seq, "Momentum controller", momentumControllerName);
+  forceControllerName = checkValue<string>(doc, node, seq, "Force controller", forceControllerName);
+  torqueControllerName = checkValue<string>(doc, node, seq, "Torque controller", torqueControllerName);
+  inverseDynamicsControllerName = checkValue<string>(doc, node, seq, "Inverse dynamics controller", inverseDynamicsControllerName);
 
-  Bc_kDiag = checkMatrix<MatrixXi>(config, info, doc, "Bc", info.value.joint, Bc_kDiag);
-  Bm_kDiag = checkMatrix<MatrixXi>(config, info, doc, "Bm", info.value.joint, Bm_kDiag);
+  Bc_kDiag = checkMatrix<MatrixXi>(doc, node, seq, "Bc", info.value.joint, Bc_kDiag);
+  Bm_kDiag = checkMatrix<MatrixXi>(doc, node, seq, "Bm", info.value.joint, Bm_kDiag);
 
-  rCf = checkVector<VectorXd>(config, info, doc, "rCf", rCf);
-  rBf = checkVector<VectorXd>(config, info, doc, "rBf", rBf);
-  xiBf = checkVector<VectorXd>(config, info, doc, "xiBf", xiBf);
+  rCf = checkVector<VectorXd>(doc, node, seq, "rCf", rCf);
+  rBf = checkVector<VectorXd>(doc, node, seq, "rBf", rBf);
+  xiBf = checkVector<VectorXd>(doc, node, seq, "xiBf", xiBf);
 
-  cal_Xf = checkVector<VectorXd>(config, info, doc, "cal_Xf", info.value.joint, cal_Xf);
+  cal_Fextf = checkVector<VectorXd>(doc, node, seq, "cal_Fextf", cal_Fextf);
 
-  KpC = checkMatrix<MatrixXd>(config, info, doc, "KpC", KpC);
-  KdC = checkMatrix<MatrixXd>(config, info, doc, "KdC", KdC);
+  cal_Xf = checkVector<VectorXd>(doc, node, seq, "cal_Xf", info.value.joint, cal_Xf);
 
-  KpvB = checkMatrix<MatrixXd>(config, info, doc, "KpvB", KpvB);
-  KdvB = checkMatrix<MatrixXd>(config, info, doc, "KdvB", KdvB);
+  KpC = checkMatrix<MatrixXd>(doc, node, seq, "KpC", KpC);
+  KdC = checkMatrix<MatrixXd>(doc, node, seq, "KdC", KdC);
 
-  KpwB = checkMatrix<MatrixXd>(config, info, doc, "KpwB", KpwB);
-  KdwB = checkMatrix<MatrixXd>(config, info, doc, "KdwB", KdwB);
+  KpvB = checkMatrix<MatrixXd>(doc, node, seq, "KpvB", KpvB);
+  KdvB = checkMatrix<MatrixXd>(doc, node, seq, "KdvB", KdvB);
 
-  Kpv = checkMatrix<MatrixXd>(config, info, doc, "Kpv", info.value.joint, Kpv);
-  Kdv = checkMatrix<MatrixXd>(config, info, doc, "Kdv", info.value.joint, Kdv);
+  KpwB = checkMatrix<MatrixXd>(doc, node, seq, "KpwB", KpwB);
+  KdwB = checkMatrix<MatrixXd>(doc, node, seq, "KdwB", KdwB);
 
-  KDlC = checkMatrix<MatrixXd>(config, info, doc, "KDlC", KDlC);
-  KDth = checkMatrix<MatrixXd>(config, info, doc, "KDth", info.value.joint, KDth);
-  KDq = checkMatrix<MatrixXd>(config, info, doc, "KDq", info.value.node, KDq);
+  Kpv = checkMatrix<MatrixXd>(doc, node, seq, "Kpv", info.value.joint, Kpv);
+  Kdv = checkMatrix<MatrixXd>(doc, node, seq, "Kdv", info.value.joint, Kdv);
+
+  KDlC = checkMatrix<MatrixXd>(doc, node, seq, "KDlC", KDlC);
+  KDth = checkMatrix<MatrixXd>(doc, node, seq, "KDth", info.value.joint, KDth);
+  KDq = checkMatrix<MatrixXd>(doc, node, seq, "KDq", info.value.node, KDq);
 
   // high gain control
-  KpHG = checkMatrix<MatrixXd>(config, info, doc, "KpHG", info.value.joint, KpHG);
-  KdHG = checkMatrix<MatrixXd>(config, info, doc, "KdHG", info.value.joint, KdHG);
+  KpHG = checkMatrix<MatrixXd>(doc, node, seq, "KpHG", info.value.joint, KpHG);
+  KdHG = checkMatrix<MatrixXd>(doc, node, seq, "KdHG", info.value.joint, KdHG);
 
   return 0;
 }

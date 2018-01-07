@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include <map>
 
 #include "yaml-cpp/yaml.h"
@@ -142,11 +146,17 @@ namespace RLS{
 
     // index
     // ******************************
+    // cop
     VectorXd rpk;
     Vector2d rp;
 
+    // dcm
+    double wX;
+    Vector3d rX;
+
     // ******************************
 
+    // boundary
     // ******************************
     Vector3d rC0;
     Vector3d rCf;
@@ -159,13 +169,33 @@ namespace RLS{
     VectorXd cal_X0;
     VectorXd cal_Xf;
 
+    Vector6d cal_Fext0;
+    Vector6d cal_Fextf;
+
     Vector3d des;
 
-    Vector3d rCtemp;
-    Vector3d rBtemp;
-    Vector3d xiBtemp;
-    VectorXd cal_Xtemp;
+    // previous state
+    // ******************************
+    Vector3d rCpreState;
+    Vector3d vCpreState;
+    Vector3d rBpreState;
+    Vector3d vBpreState;
+    Vector3d xiBpreState;
+    Vector3d dxiBpreState;
+    VectorXd cal_XpreState;
+    VectorXd cal_VpreState;
 
+    // previous desired value
+    // ******************************
+    Vector3d rCpreDes;
+    Vector3d rBpreDes;
+    Vector3d xiBpreDes;
+    VectorXd cal_XpreDes;
+
+    Vector6d cal_FextpreDes;
+
+    // desired value
+    // ******************************
     Vector3d rCDes;
     Vector3d vCDes;
     Vector3d dvCDes;
@@ -187,6 +217,8 @@ namespace RLS{
 
     VectorXd cal_VDes;
     VectorXd cal_dVDes;
+
+    Vector6d cal_FextDes;
 
     // high gain control
     VectorXd thDes;
@@ -224,6 +256,8 @@ namespace RLS{
 
     // force
     VectorXd cal_FcBarRef;
+
+    Vector6d cal_FextRef;
 
     // velocityController
     // **********************
@@ -270,21 +304,30 @@ namespace RLS{
 
     void initialValue(Config&, Info&, Model&);
     void resize(Config&, Info&, Model&);
-    void reset(Config&, Info&, double&);
 
-    int readWork(Config&, Info&);
+    void cop(Config&, Info&, TreeModel&);
+    void dcm(Config&, Info&, TreeModel&);
+    void index(Config&, Info&, Model&);
+
+    // state transition
+    bool resetState(Config&, Info&, Model&, double&);
+    bool resetSequence(Config&, Info&, double&);
+    void mapping(Config&);
+    int stateTriggerConfig(Config&, Info&, Model&, double&);
+    bool sequenceTriggerConfig(Config&, Info&, double&);
+    bool configurationManager(Config&, Info&, Model&, double&);
+
+    int readWork(Config&, Info&, string, int);
 
     void reconfigure(Config&, Info&);
 
     void decompose(Config&, Model&);
     void rename(Config&, Info&, Model&);
 
-    void cop(Config&, Info&, TreeModel&);
-    void index(Config&, Info&, Model&);
-
     void comReference(Config&, Info&, Model&, double&);
     void baseReference(Config&, Info&, Model&, double&);
     void endEffectorReference(Config&, Info&, Model&, double&);
+    void externalWrenchReference(Config&, Info&, Model&, double&);
     void reference(Config&, Info&, Model&, double&);
 
     // velocity controller
@@ -312,6 +355,7 @@ namespace RLS{
     void centroidalDistribution(Config&, Info&, Model&);
 
     // torque controller
+    void staticControl(Config&, Info&, Model&);
     void base(Config&, Info&, Model&);
     void mixed(Config&, Info&, Model&);
     void mixedmixed(Config&, Info&, Model&);
@@ -329,21 +373,21 @@ namespace RLS{
     void outputConfig(Config&, Model&);
 
     // readWork
-    void checkNode(Config&, Info&, YAML::Node&, string);
-    void checkNode(Config&, Info&, YAML::Node&, string, int);
-    void checkNode(Config&, Info&, YAML::Node&, string, int, int);
-    template <class T> T checkValue(Config&, Info&, YAML::Node&, string, T);
-    template <class T> T checkVector(Config&, Info&, YAML::Node&, string, T);
-    template <class T> T checkVector(Config&, Info&, YAML::Node&, string, int, T);
-    template <class T> T checkMatrix(Config&, Info&, YAML::Node&, string, T);
-    template <class T> T checkMatrix(Config&, Info&, YAML::Node&, string, int, T);
+    void checkNode(YAML::Node&, string, int, string);
+    void checkNode(YAML::Node&, string, int, string, int);
+    void checkNode(YAML::Node&, string, int, string, int, int);
+    template <class T> T checkValue(YAML::Node&, string, int, string, T);
+    template <class T> T checkVector(YAML::Node&, string, int, string, T);
+    template <class T> T checkVector(YAML::Node&, string, int, string, int, T);
+    template <class T> T checkMatrix(YAML::Node&, string, int, string, T);
+    template <class T> T checkMatrix(YAML::Node&, string, int, string, int, T);
 
-    template <class T> T readValue(Config&, Info&, YAML::Node&, string);
-    template <class T> T readValue(Config&, Info&, YAML::Node&, string, string);
-    template <class T> T readValue(Config&, Info&, YAML::Node&, string, int);
-    template <class T> T readValue(Config&, Info&, YAML::Node&, string, int, int);
-    template <class T> T readVector(Config&, Info&, YAML::Node&, string, int);
-    template <class T> T readVector(Config&, Info&, YAML::Node&, string, int, int);
+    template <class T> T readValue(YAML::Node&, string, int, string);
+    template <class T> T readValue(YAML::Node&, string, int, string, string);
+    template <class T> T readValue(YAML::Node&, string, int, string, int);
+    template <class T> T readValue(YAML::Node&, string, int, string, int, int);
+    template <class T> T readVector(YAML::Node&, string, int, string, int);
+    template <class T> T readVector(YAML::Node&, string, int, string, int, int);
 
     // select controller
     VectorXd (RLS::RlsDynamics::*motionController_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
@@ -358,6 +402,9 @@ namespace RLS{
     map_momentumController, map_forceController, map_torqueController;
 
   public:
+    // smiyahara: 要検討(とりあえず外乱のみを考慮し"6"にしといた)
+    Vector6d virtualInput;
+
     // smiyahara: 名前は変えたい
     void initialize(Config&, Info&);
     VectorXd rlsDynamics(Config&, Info&, Model&, double&);

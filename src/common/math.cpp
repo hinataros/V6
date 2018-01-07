@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include "config.hpp"
 #include "common.hpp"
 
@@ -8,15 +12,15 @@ double RLS::Common::math(string type, int num, ...)
 
   va_start(ptr, num);
 
-  for(int i = 0; i < num; i++)
+  for(int i=0; i<num; i++)
     sum += va_arg(ptr, double);
 
   va_end(ptr);
 
-  if(type == "s")
+  if(type=="s")
     return sin(sum);
 
-  else if(type == "c")
+  else if(type=="c")
     return cos(sum);
 
   else

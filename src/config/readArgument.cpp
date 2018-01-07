@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include "config.hpp"
 
 void RLS::Config::readArgument(int argc, char *argv[])

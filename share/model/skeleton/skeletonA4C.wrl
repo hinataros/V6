@@ -273,6 +273,11 @@ DEF skeletonA4C Humanoid{
           rotorInertia 1.0
           rotorResistor 1.0
           children[
+        DEF tempSensor ForceSensor {
+          sensorId 5
+          children[
+          ]
+        }
             Transform {
               translation 0 0 0 
               rotation 1 0 0 1.5708 

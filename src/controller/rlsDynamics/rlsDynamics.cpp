@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include "config.hpp"
 #include "info.hpp"
 #include "model.hpp"
@@ -13,16 +17,13 @@ VectorXd RLS::RlsDynamics::rlsDynamics(Config &config, Info &info, Model &model,
     initialValue(config, info, model);
 
   resize(config, info, model);
+  index(config, info, model);
 
-  if(t>=info.sim.twf+info.sim.tw0 && t<info.sim.tf){
-    reset(config, info, t);
+  if(configurationManager(config, info, model, t))
     reconfigure(config, info);
-  }
 
   decompose(config, model);
   rename(config, info, model);
-
-  index(config, info, model);
 
   reference(config, info, model, t);
   controlMethod(config, info, model);

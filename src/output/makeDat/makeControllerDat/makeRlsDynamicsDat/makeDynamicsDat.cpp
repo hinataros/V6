@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include <fstream>
 
 #include "config.hpp"
@@ -118,6 +122,15 @@ void RLS::Output::makeDynamicsDat(Config &config, Info &info)
     input += input_dir+name+"}\n";
   }
 
+  name = "131_externalWrenchRef";
+  minipage = extWrenchRef(config, info, dir, load);
+  if(config.graph.tex){
+    makeFigureTex(config, name, minipage,
+  		  "External wrench reference values."
+  		  );
+    input += input_dir+name+"}\n";
+  }
+
   name = "132_jointTorque";
   minipage = jointTorque(config, info, dir, load);
   if(config.graph.tex){
@@ -136,11 +149,29 @@ void RLS::Output::makeDynamicsDat(Config &config, Info &info)
     input += input_dir+name+"}\n";
   }
 
-  name = "150_CoP";
-  minipage = cop(config, info, dir, load);
+  name = "150_localCoP";
+  minipage = localCop(config, info, dir, load);
   if(config.graph.tex){
     makeFigureTex(config, name, minipage,
-  		  "CoP values."
+  		  "Local CoP values."
+  		  );
+    input += input_dir+name+"}\n";
+  }
+
+  // name = "150_CoP";
+  // minipage = cop(config, info, dir, load);
+  // if(config.graph.tex){
+  //   makeFigureTex(config, name, minipage,
+  // 		  "net CoP values."
+  // 		  );
+  //   input += input_dir+name+"}\n";
+  // }
+
+  name = "150_stabilityIndex";
+  minipage = stabilityIndex(config, info, dir, load);
+  if(config.graph.tex){
+    makeFigureTex(config, name, minipage,
+  		  "Stability index values."
   		  );
     input += input_dir+name+"}\n";
   }

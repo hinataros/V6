@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include <string>
 #include <iostream>
 #include <eigen3/Eigen/Dense>

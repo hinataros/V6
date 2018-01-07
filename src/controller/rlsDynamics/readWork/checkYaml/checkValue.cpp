@@ -1,30 +1,30 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include "config.hpp"
 #include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
 namespace RLS{
-  template<> string RlsDynamics::checkValue(Config &config, Info &info, YAML::Node &doc, string name, string value)
+  template<> string RlsDynamics::checkValue(YAML::Node &doc, string node, int seq, string name, string value)
   {
-    if(config.flag.debug) DEBUG;
-
     try{
-      checkNode(config, info, doc, name);
+      checkNode(doc, node, seq, name);
     }
     catch(...){return value;}
 
-    return readValue<string>(config, info, doc, name);;
+    return readValue<string>(doc, node, seq, name);
   }
 
-  template<> double RlsDynamics::checkValue(Config &config, Info &info, YAML::Node &doc, string name, double value)
+  template<> double RlsDynamics::checkValue(YAML::Node &doc, string node, int seq, string name, double value)
   {
-    if(config.flag.debug) DEBUG;
-
     try{
-      checkNode(config, info, doc, name);
+      checkNode(doc, node, seq, name);
     }
     catch(...){return value;}
 
-    return readValue<double>(config, info, doc, name);;
+    return readValue<double>(doc, node, seq, name);
   }
 }

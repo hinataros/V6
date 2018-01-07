@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include <fstream>
 
 #include "config.hpp"
@@ -24,8 +28,10 @@ string RLS::Output::jointTorque(Config &config, Info &info, string dir, string &
   }
 
   if(config.graph.gp){
-    makeGpTimeLimb(config, info, "controller", name, "Joint torque [Nm]","E",0);
-    load += "load 'controller/"+name+".gp'\n";
+    makeGpTimeLimb(config, info, "controller", name,
+                   "Joint torque [Nm]","E",
+                   0);
+    load += "load '"+config.dir.gp.ind+"controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
     minipage += makeMinipageLimb(config, info, "controller", "1.0", name);

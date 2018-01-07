@@ -1,28 +1,51 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include "config.hpp"
 #include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::reset(Config &config, Info &info, double &t)
+bool RLS::RlsDynamics::resetState(Config &config, Info &info, Model &model, double &t)
 {
   if(config.flag.debug) DEBUG;
 
-  // smiyahara: 1ステップ目は初期化と同義
-  rCtemp = rCf;
+  rCpreState = model.hoap2.all.rC - rC0;
+  vCpreState = model.hoap2.all.vC;
 
-  rBtemp = rBf;
-  xiBtemp = xiBf;
+  rBpreState = model.hoap2.limb[0].node[0].r - rB0;
+  vBpreState = model.hoap2.limb[0].node[0].v;
+  xiBpreState = R2xi(model.hoap2.limb[0].node[0].R) - xiB0;
+  dxiBpreState = w2dxi(model.hoap2.limb[0].node[0].w, R2xi(model.hoap2.limb[0].node[0].R));
 
-  cal_Xtemp = cal_Xf;
+  cal_XpreState = cal_X - cal_X0;
+  cal_VpreState = cal_V;
 
-  readWork(config, info);
+  readWork(config, info, "State", info.sim.state);
 
-  motionController_ptr = map_motionController[motionControllerName];
-  momentumController_ptr = map_momentumController[momentumControllerName];
-  forceController_ptr = map_forceController[forceControllerName];
-  torqueController_ptr = map_torqueController[torqueControllerName];
-  inverseDynamicsController_ptr = map_inverseDynamicsController[inverseDynamicsControllerName];
+  info.sim.trev = t;
+
+  return true;
+}
+
+bool RLS::RlsDynamics::resetSequence(Config &config, Info &info, double &t)
+{
+  if(config.flag.debug) DEBUG;
+
+  rCpreDes = rCf;
+
+  rBpreDes = rBf;
+  xiBpreDes = xiBf;
+
+  cal_XpreDes = cal_Xf;
+
+  cal_FextpreDes = cal_Fextf;
+
+  readWork(config, info, "Sequence", info.sim.phase);
 
   info.sim.tw0 = t;
   info.sim.phase++;
+
+  return true;
 }

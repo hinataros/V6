@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include <fstream>
 
 #include "config.hpp"
@@ -22,8 +26,10 @@ string RLS::Output::comPosErr(Config &config, Info &info, string dir, string &lo
   }
 
   if(config.graph.gp){
-    makeGp(config, "controller", name, "CoM pos. err. [mm]","K", 3, 0);
-    load += "load 'controller/"+name+".gp'\n";
+    makeGp(config, "controller", name,
+           "CoM pos. err. [mm]","K", 3,
+           0);
+    load += "load '"+config.dir.gp.ind+"controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
     minipage += makeMinipage(config, "controller", "1.0", name);
@@ -53,8 +59,10 @@ string RLS::Output::comVelErr(Config &config, Info &info, string dir, string &lo
   }
 
   if(config.graph.gp){
-    makeGp(config, "controller", name, "CoM vel. err. [m/s]","E", 3, 0);
-    load += "load 'controller/"+name+".gp'\n";
+    makeGp(config, "controller", name,
+           "CoM vel. err. [m/s]","E", 3,
+           0);
+    load += "load '"+config.dir.gp.ind+"controller/"+name+".gp'\n";
   }
   if(config.graph.tex){
     minipage += makeMinipage(config, "controller", "1.0", name);

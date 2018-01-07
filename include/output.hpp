@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include <vector>
 #include "treeModelList.hpp"
 #include "rlsDynamicsList.hpp"
@@ -23,7 +27,9 @@ namespace RLS{
     void makeGp(Config&, string, string, int, string, string, int, int);
     void makeGp(Config&, string, string, int, string, string, string, int, int);
     void makeGp(Config&, string, string, string, string, int, int);
+    void makeGp(Config&, string, string, string, string, int, string, int);
     void makeGp(Config&, string, string, string, string, string, int, int);
+    void makeGp(Config&, string, string, string, string, string, int, string, int);
     void makeGpTimeLimb(Config&, Info&, string, string, string, string, int);
 
     // smiyahara: どうにかしたい
@@ -91,6 +97,11 @@ namespace RLS{
     string eeMomentRef(Config&, Info&, string, string&);
     string eeWrenchRef(Config&, Info&, string, string&);
 
+    // external wrench reference
+    string extForceRef(Config&, Info&, string, string&);
+    string extMomentRef(Config&, Info&, string, string&);
+    string extWrenchRef(Config&, Info&, string, string&);
+
     // joint torque
     string jointTorque(Config&, Info&, string, string&);
 
@@ -98,7 +109,10 @@ namespace RLS{
     string formulatedMom(Config&, Info&, string, string&);
 
     // index
+    string localCop(Config&, Info&, string, string&);
     string cop(Config&, Info&, string, string&);
+
+    string stabilityIndex(Config&, Info&, string, string&);
 
     void makeDynamicsDat(Config&, Info&);
     // ********************************************

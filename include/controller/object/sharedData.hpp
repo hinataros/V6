@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #ifndef SHAREDDATA_HPP_
 #define SHAREDDATA_HPP_
 

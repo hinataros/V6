@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include "rlsDynamicsRTC.h"
 
 void RlsDynamicsRTC::readState(RLS::Config &config, RLS::Info &info, RLS::TreeModel &hoap2)

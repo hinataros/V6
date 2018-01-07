@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 // #include "yaml-cpp/yaml.h"
 
 #include "config.hpp"

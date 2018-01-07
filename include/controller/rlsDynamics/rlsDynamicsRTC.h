@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #ifndef RLSDYNAMICSRTC_H
 #define RLSDYNAMICSRTC_H
 
@@ -51,6 +55,9 @@ protected:
   RTC::TimedDoubleSeq m_torque;
   OutPort<RTC::TimedDoubleSeq> m_torqueOut;
 
+  RTC::TimedDoubleSeq m_externalForce;
+  OutPort<RTC::TimedDoubleSeq> m_externalForceOut;
+
 private:
   Matrix3d cross(Vector3d x)
   {
@@ -65,6 +72,7 @@ private:
   }
   double t;
   VectorXd tau;
+  Vector6d Fext;
 
   void readState(RLS::Config&, RLS::Info&, RLS::TreeModel&);
   void readSharedData(RLS::Config&, RLS::Info&, RLS::RigidBodyModel&, RLS::SharedData&);

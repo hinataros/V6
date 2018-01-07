@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include "config.hpp"
 #include "info.hpp"
 #include "model.hpp"
@@ -42,8 +46,6 @@ void RLS::RlsDynamics::rename(Config &config, Info &info, Model &model)
   IB = model.hoap2.all.M.block(3,3,3,3);
   MB = model.hoap2.all.M.block(0,0,6,6);
   HBth = model.hoap2.all.M.block(0,6,6,info.dof.joint);
-
-
 
   Mth = model.hoap2.all.M.block(6,6,info.dof.joint,info.dof.joint);
 

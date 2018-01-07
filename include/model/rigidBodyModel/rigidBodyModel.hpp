@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include "world.hpp"
 
 // #include "rigidBodyModelList.hpp"

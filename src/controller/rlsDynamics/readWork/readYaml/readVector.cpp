@@ -1,54 +1,50 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include "config.hpp"
 #include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
 namespace RLS{
-  template<> VectorXi RlsDynamics::readVector(Config &config, Info &info, YAML::Node &doc, string name, int size)
+  template<> VectorXi RlsDynamics::readVector(YAML::Node &doc, string node, int seq, string name, int size)
   {
-    if(config.flag.debug) DEBUG;
-
     VectorXi vec = VectorXi::Zero(size);
 
     for(int i=0; i<size; i++)
-      vec(i) = readValue<int>(config, info, doc, name, i);
+      vec(i) = readValue<int>(doc, node, seq, name, i);
 
     return vec;
   }
 
-  template<> VectorXd RlsDynamics::readVector(Config &config, Info &info, YAML::Node &doc, string name, int size)
+  template<> VectorXd RlsDynamics::readVector(YAML::Node &doc, string node, int seq, string name, int size)
   {
-    if(config.flag.debug) DEBUG;
-
     VectorXd vec = VectorXd::Zero(size);
 
     for(int i=0; i<size; i++)
-	vec(i) = readValue<double>(config, info, doc, name, i);
+      vec(i) = readValue<double>(doc, node, seq, name, i);
 
     return vec;
   }
 
-  template<> VectorXi RlsDynamics::readVector(Config &config, Info &info, YAML::Node &doc, string name, int node, int size)
+  template<> VectorXi RlsDynamics::readVector(YAML::Node &doc, string node, int seq, string name, int i, int size)
   {
-    if(config.flag.debug) DEBUG;
-
     VectorXi vec = VectorXi::Zero(size);
 
-    for(int i=0; i<size; i++)
-      vec(i) = readValue<int>(config, info, doc, name, node, i);
+    for(int j=0; j<size; j++)
+      vec(j) = readValue<int>(doc, node, seq, name, i, j);
 
     return vec;
   }
 
-  template<> VectorXd RlsDynamics::readVector(Config &config, Info &info, YAML::Node &doc, string name, int node, int size)
+  template<> VectorXd RlsDynamics::readVector(YAML::Node &doc, string node, int seq, string name, int i, int size)
   {
-    if(config.flag.debug) DEBUG;
-
     VectorXd vec = VectorXd::Zero(size);
 
-    for(int i=0; i<size; i++)
-      vec(i) = readValue<double>(config, info, doc, name, node, i);
+    for(int j=0; j<size; j++)
+      vec(j) = readValue<double>(doc, node, seq, name, i, j);
 
-      return vec;
+    return vec;
   }
 }

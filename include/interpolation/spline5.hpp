@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 namespace RLS{
   class Spline5{
   private:

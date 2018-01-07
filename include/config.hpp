@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include <iostream>
 #include <eigen3/Eigen/Dense>
 #include <iomanip>
@@ -85,6 +89,7 @@ namespace RLS{
       string name;
       string input;
       string work;
+      string driven;
     } controller;
 
     struct Graph{

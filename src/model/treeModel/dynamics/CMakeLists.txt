@@ -1,3 +1,5 @@
+# @author Sho Miyahara 2017
+
 add_subdirectory(identityVectorMethod)
 add_subdirectory(analyticalDynamics)
 

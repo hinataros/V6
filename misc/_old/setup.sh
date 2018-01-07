@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# @author Sho Miyahara 2017
+
 src_dir=$(cd $(dirname $0)/..; pwd)
 
 echo $0

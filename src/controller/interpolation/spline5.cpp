@@ -1,12 +1,20 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include "config.hpp"
 #include "spline5.hpp"
 
-Vector3d RLS::Spline5::makeSpline5(double t, double tf, double r0, double rf){
+Vector3d RLS::Spline5::makeSpline5(double t, double tf, double r0, double rf)
+{
   return makeSpline5(t, tf, r0, 0., 0., rf, 0., 0.);
 }
 
 Vector3d RLS::Spline5::makeSpline5(double t, double tf, double xi0, double dxi0, double ddxi0, double xif, double dxif, double ddxif)
 {
+  if(tf==0.)
+    return Vector3d::Zero();
+
   a <<
     xi0,
     dxi0,

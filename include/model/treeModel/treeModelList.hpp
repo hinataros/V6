@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #ifndef TREEMODELLIST_HPP_
 #define TREEMODELLIST_HPP_
 

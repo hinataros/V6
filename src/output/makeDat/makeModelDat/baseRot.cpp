@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include <fstream>
 
 #include "config.hpp"
@@ -24,8 +28,10 @@ string RLS::Output::baseRot(Config &config, Info &info, string dir, string &load
   }
 
   if(config.graph.gp){
-    makeGp(config, "model", name, "Base orient. [deg]","RAD2DEG", 3, 1);
-    load += "load 'model/"+name+".gp'\n";
+    makeGp(config, "model", name,
+           "Base orient. [deg]","RAD2DEG", 3,
+           1);
+    load += "load '"+config.dir.gp.ind+"model/"+name+".gp'\n";
   }
   if(config.graph.tex){
     minipage += makeMinipage(config, "model", "1.0", name);
@@ -44,8 +50,10 @@ string RLS::Output::baseRot(Config &config, Info &info, string dir, string &load
   }
 
   if(config.graph.gp){
-    makeGp(config, "model", name, "Base ang. vel. [rad/s]","E",3, 3);
-    load += "load 'model/"+name+".gp'\n";
+    makeGp(config, "model", name,
+           "Base ang. vel. [rad/s]", "E", 3,
+           3);
+    load += "load '"+config.dir.gp.ind+"model/"+name+".gp'\n";
   }
   if(config.graph.tex){
     minipage += makeMinipage(config, "model", "1.0", name);

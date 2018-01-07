@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #ifndef RIGIDBODYMODELLIST_HPP_
 #define RIGIDBODYMODELLIST_HPP_
 

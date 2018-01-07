@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include "objectRTC.h"
 
 void ObjectRTC::readState(RLS::SharedData &sharedData)

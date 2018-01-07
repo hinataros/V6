@@ -1,3 +1,5 @@
+# @author Sho Miyahara 2017
+
 set(srcs
   recursiveNewtonEuler.cpp
   gravity.cpp

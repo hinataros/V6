@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #ifndef INTERPOLATION_HPP_
 #define INTERPOLATION_HPP_
 

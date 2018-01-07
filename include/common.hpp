@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #ifndef COMMON_HPP_
 #define COMMON_HPP_
 

@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include "config.hpp"
 #include "info.hpp"
 #include "model.hpp"
@@ -8,7 +12,7 @@ void RLS::RlsDynamics::comReference(Config &config, Info &info, Model &model, do
   if(config.flag.debug) DEBUG;
 
   for(int i=0; i<3; i++){
-    des = makeSpline5(t-info.sim.tw0, info.sim.twf, rCtemp(i), rCf(i));
+    des = makeSpline5(t-info.sim.tw0, info.sim.twf, rCpreDes(i), rCf(i));
     rCDes(i) = des(0) + rC0(i);
     vCDes(i) = des(1);
     dvCDes(i) = des(2);

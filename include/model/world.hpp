@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #ifndef WORLD_HPP_
 #define WORLD_HPP_
 

@@ -1,4 +1,7 @@
+# @author Sho Miyahara 2017
+
 set(srcs
+  staticControl.cpp
   base.cpp
   mixed.cpp
   mixedmixed.cpp

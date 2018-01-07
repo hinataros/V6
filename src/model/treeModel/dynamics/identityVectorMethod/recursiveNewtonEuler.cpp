@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include "config.hpp"
 #include "info.hpp"
 #include "treeModel.hpp"
@@ -52,7 +56,7 @@ VectorXd RLS::TreeModel::recursiveNewtonEuler(Config &config, Info &info, Vector
     for(int j=info.limb[i].dof-1; j>-1; j--){
       if(j==info.limb[i].dof-1){
         limb[i].node[j].f_rne = limb[i].node[j].fHat_rne;
-        // // // smiyahara: 先端部にかかる外力
+        // // smiyahara: 先端部にかかる外力
         // + limb[i].node[j+1].f;
         limb[i].node[j].n_rne = limb[i].node[j].nHat_rne + cross(limb[i].node[j].R*limb[i].node[j].ri2C)*limb[i].node[j].fHat_rne;
         // // smiyahara: 先端部にかかる外力

@@ -1,3 +1,7 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
 #include "config.hpp"
 #include "info.hpp"
 #include "model.hpp"
@@ -91,9 +95,15 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   // index
   // ******************************
+  // cop
   rpk = VectorXd::Zero(2*info.value.joint);
   rp = Vector2d::Zero();
 
+  // cop
+  wX = 0.;
+  rX = Vector3d::Zero();
+
+  // boundary
   // ******************************
   rC0 = rCf = Vector3d::Zero();
 
@@ -103,12 +113,27 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   cal_X0 = VectorXd::Zero(6*info.value.joint);
   cal_Xf = VectorXd::Zero(6*info.value.joint);
 
-  des = Vector3d::Zero();
+  cal_Fext0 = Vector6d::Zero();
+  cal_Fextf = Vector6d::Zero();
 
-  rCtemp = Vector3d::Zero();
-  rBtemp = Vector3d::Zero();
-  xiBtemp = Vector3d::Zero();
-  cal_Xtemp = VectorXd::Zero(6*info.value.joint);
+  // previous state
+  // ******************************
+  rCpreState = vCpreState = Vector3d::Zero();
+  rBpreState = vBpreState = Vector3d::Zero();
+  xiBpreState = xiBpreState = Vector3d::Zero();
+  cal_XpreState = cal_VpreState = VectorXd::Zero(6*info.value.joint);
+
+  // previous desired value
+  // ******************************
+  rCpreDes = Vector3d::Zero();
+  rBpreDes = Vector3d::Zero();
+  xiBpreDes = Vector3d::Zero();
+  cal_XpreDes = VectorXd::Zero(6*info.value.joint);
+  cal_FextpreDes = Vector6d::Zero();
+
+  // desired value
+  // ******************************
+  des = Vector3d::Zero();
 
   rCDes = vCDes = dvCDes = Vector3d::Zero();
 
@@ -120,13 +145,19 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   cal_XDes = cal_VxiDes = cal_dVxiDes = VectorXd::Zero(6*info.value.joint);
   cal_VDes = cal_dVDes = VectorXd::Zero(6*info.value.joint);
 
+  cal_FextDes = Vector6d::Zero();
+
   // high gain control
   thDes = VectorXd::Zero(info.dof.joint);
 
+  // error
+  // ******************************
   erC = evC = Vector3d::Zero();
   erB = evB = eoB = ewB = Vector3d::Zero();
   cal_Ep = cal_Ev = VectorXd::Zero(6*info.value.joint);
 
+  // reference
+  // ******************************
   dvCRef = Vector3d::Zero();
 
   dvBRef = Vector3d::Zero();
@@ -144,6 +175,8 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   dlBRef = Vector3d::Zero();
   cal_dLBRef = Vector6d::Zero();
   cal_dLCRef = Vector6d::Zero();
+
+  cal_FextRef = Vector6d::Zero();
 
   // velocityController
   // **********************
@@ -166,6 +199,8 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   ddqRef = VectorXd::Zero(info.dof.all);
 
   tau = VectorXd::Zero(info.dof.joint);
+
+  virtualInput = Vector6d::Zero();
 
   // gain
   KpC = Matrix3d::Zero();
@@ -205,7 +240,8 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   map_forceController["baseDistribution"] = &RLS::RlsDynamics::baseDistribution;
   map_forceController["centroidalDistribution"] = &RLS::RlsDynamics::centroidalDistribution;
-  
+
+  map_torqueController["staticControl"] = &RLS::RlsDynamics::staticControl;
   map_torqueController["base"] = &RLS::RlsDynamics::base;
   map_torqueController["mixed"] = &RLS::RlsDynamics::mixed;
   map_torqueController["mixedmixed"] = &RLS::RlsDynamics::mixedmixed;
