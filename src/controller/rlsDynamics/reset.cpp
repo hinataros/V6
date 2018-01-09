@@ -19,6 +19,8 @@ bool RLS::RlsDynamics::resetState(Config &config, Info &info, Model &model, doub
   xiBpreState = R2xi(model.hoap2.limb[0].node[0].R) - xiB0;
   dxiBpreState = w2dxi(model.hoap2.limb[0].node[0].w, R2xi(model.hoap2.limb[0].node[0].R));
 
+  rXpreState = rX - rX0;
+
   cal_XpreState = cal_X - cal_X0;
   cal_VpreState = cal_V;
 
@@ -37,6 +39,8 @@ bool RLS::RlsDynamics::resetSequence(Config &config, Info &info, double &t)
 
   rBpreDes = rBf;
   xiBpreDes = xiBf;
+
+  rXpreDes = rXf;
 
   cal_XpreDes = cal_Xf;
 

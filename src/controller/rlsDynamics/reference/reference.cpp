@@ -14,6 +14,8 @@ void RLS::RlsDynamics::reference(Config &config, Info &info, Model &model, doubl
   comReference(config, info, model, t);
   baseReference(config, info, model, t);
 
+  dcmReference(config, info, model, t);
+
   cal_VBRef <<
     vBRef,
     wBRef;

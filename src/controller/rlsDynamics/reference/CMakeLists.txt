@@ -3,6 +3,7 @@
 set(srcs
   comReference.cpp
   baseReference.cpp
+  dcmReference.cpp
   endEffectorReference.cpp
   externalWrenchReference.cpp
   reference.cpp

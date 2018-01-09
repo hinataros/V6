@@ -7,11 +7,11 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::centroidalMomentum(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::centroidalDcmMomentum(Config &config, Info &info, Model &model)
 {
   if(config.flag.debug) DEBUG;
 
-  linearMomentum(config, info, model);
+  dcmMomentum(config, info, model);
   centroidalAngularMomentum(config, info, model);
 
   cal_dLCRef <<

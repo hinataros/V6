@@ -40,6 +40,15 @@ void RLS::Output::makeDynamicsDat(Config &config, Info &info)
     input += input_dir+name+"}\n";
   }
 
+  name = "101_dcmDes";
+  minipage = dcmVelDes(config, info, dir, load);
+  if(config.graph.tex){
+    makeFigureTex(config, name, minipage,
+  		  "Desired DCM values."
+  		  );
+    input += input_dir+name+"}\n";
+  }
+
   name = "110_eeTransDes";
   minipage = eeAccDes(config, info, dir, load);
   if(config.graph.tex){
@@ -82,6 +91,15 @@ void RLS::Output::makeDynamicsDat(Config &config, Info &info)
   if(config.graph.tex){
     makeFigureTex(config, name, minipage,
   		  "CoM error values."
+  		  );
+    input += input_dir+name+"}\n";
+  }
+
+  name = "122_dcmErr";
+  minipage = dcmErr(config, info, dir, load);
+  if(config.graph.tex){
+    makeFigureTex(config, name, minipage,
+  		  "DCM error values."
   		  );
     input += input_dir+name+"}\n";
   }

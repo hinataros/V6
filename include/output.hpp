@@ -61,6 +61,10 @@ namespace RLS{
     string baseAngVelDes(Config&, Info&, string, string&);
     string baseAngAccDes(Config&, Info&, string, string&);
 
+    // desired DCM
+    string dcmPosDes(Config&, Info&, string, string&);
+    string dcmVelDes(Config&, Info&, string, string&);
+
     // desired EE translation
     string eePosDes(Config&, Info&, string, string&);
     string eeVelDes(Config&, Info&, string, string&);
@@ -88,6 +92,9 @@ namespace RLS{
     // com error
     string comPosErr(Config&, Info&, string, string&);
     string comVelErr(Config&, Info&, string, string&);
+
+    // dcm error
+    string dcmErr(Config&, Info&, string, string&);
 
     // rate of chage of spatial momentum reference
     string rcMomRef(Config&, Info&, string, string&);

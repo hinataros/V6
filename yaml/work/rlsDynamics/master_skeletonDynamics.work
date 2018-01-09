@@ -1,0 +1,46 @@
+# @author Sho Miyahara 2017
+
+State:
+  -
+    Inverse dynamics controller: fullDynamics
+    Motion controller: baseGeneralizedMomentum
+    Momentum controller: centroidalDcmMomentum
+    Force controller: centroidalDistribution
+    Torque controller: staticControl
+
+    Bc:
+      - [1, 1, 1, 1, 1, 1]
+      - [1, 1, 1, 1, 1, 1]
+      - 6
+      - 6
+    Bm:
+      - 6
+      - 6
+      - [1, 1, 1, ., ., .]
+      - [1, 1, 1, ., ., .]
+
+    KX: 1.e+2
+    # KX: 1.e+3
+
+    # KdwB: 1.e+2
+
+    # KDth: 1.e+3
+    KDth: 3.e+2
+
+  - # reflecx
+  - # recovery
+    trecf: 5.
+
+Sequence:
+  -
+    twf: 7.
+
+  -
+    twf: 5.
+    cal_Fextf: [4., ., ., ., ., .]
+    # cal_Fextf: [8., ., ., ., ., .]
+
+  -
+    twf: 5.
+
+    cal_Fextf: [0., 0., 0., 0., 0., 0.]

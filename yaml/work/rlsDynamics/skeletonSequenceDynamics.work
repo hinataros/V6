@@ -1,7 +1,8 @@
 # @author Sho Miyahara 2017
 
-State:
+Sequence:
   -
+    twf: 7.
     Inverse dynamics controller: fullDynamics
 
     Motion controller: baseGeneralizedMomentum
@@ -30,23 +31,12 @@ State:
       - [1, 1, 1, ., ., .]
       - [1, 1, 1, ., ., .]
 
-    # KpC: 3.e+4
-    # KdC: 5.e+3
-    # KpC: 3.e+2
-    KdC: 1.e+2
+    KX: 3.e+3
 
-    # # KpwB: 3.e+4
-    # # KdwB: 5.e+3
-    # KpwB: 3.e+2
     KdwB: 1.e+2
 
-    # Kpv: 3.e+4
-    # Kdv: 5.e+3
-    # Kpv: 3.e+2
-    # Kdv: 1.e+2
-
     # KDlC: 1.e+3
-    KDth: 1.e+1
+    KDth: 1.e+3
     # KDq:
     #   - 6
     #   - [1.e+4, 1.e+4, 1.e+4, 1.e+4, 1.e+4, 1.e+4]
@@ -55,27 +45,11 @@ State:
     #   - [1.e+4, 1.e+4, 1.e+4, 1.e+4]
 
   -
-    KpC: 0.
-    # KdC: 0.
-
-    KpwB: 0.
-    # KdwB: 0.
-
-  -
-    KpC: 3.e+2
-
-    KpwB: 0.
-    KdwB: 0.
-
-Sequence:
-  -
-    twf: 7.
-
-  -
     twf: 5.
-    cal_Fextf: [6., ., ., ., ., .]
+    rXf: [.03, ., .]
+    # cal_Fextf: [6., ., ., ., ., .]
 
   -
     twf: 1.
 
-    cal_Fextf: [0., 0., 0., 0., 0., 0.]
+    # cal_Fextf: [0., 0., 0., 0., 0., 0.]

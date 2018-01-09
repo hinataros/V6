@@ -12,6 +12,8 @@ void RLS::Info::initialize(Config &config)
   sim.trev = 0.;
   sim.state = -1; //smiyahara: 初期化をconfigurationManagerでやるため
 
+  sim.trecf = 0.;
+
   sim.twf = 0.;
   sim.tw0 = 0.;
   sim.phase = 0;

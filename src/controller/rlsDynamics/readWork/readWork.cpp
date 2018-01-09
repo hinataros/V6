@@ -21,6 +21,8 @@ int RLS::RlsDynamics::readWork(Config &config, Info &info, string node, int seq)
 
   info.sim.twf = checkValue<double>(doc, node, seq, "twf", info.sim.twf);
 
+  info.sim.trecf = checkValue<double>(doc, node, seq, "trecf", info.sim.trecf);
+
   motionControllerName = checkValue<string>(doc, node, seq, "Motion controller", motionControllerName);
   momentumControllerName = checkValue<string>(doc, node, seq, "Momentum controller", momentumControllerName);
   forceControllerName = checkValue<string>(doc, node, seq, "Force controller", forceControllerName);
@@ -34,6 +36,8 @@ int RLS::RlsDynamics::readWork(Config &config, Info &info, string node, int seq)
   rBf = checkVector<VectorXd>(doc, node, seq, "rBf", rBf);
   xiBf = checkVector<VectorXd>(doc, node, seq, "xiBf", xiBf);
 
+  rXf = checkVector<VectorXd>(doc, node, seq, "rXf", rXf);
+
   cal_Fextf = checkVector<VectorXd>(doc, node, seq, "cal_Fextf", cal_Fextf);
 
   cal_Xf = checkVector<VectorXd>(doc, node, seq, "cal_Xf", info.value.joint, cal_Xf);
@@ -46,6 +50,8 @@ int RLS::RlsDynamics::readWork(Config &config, Info &info, string node, int seq)
 
   KpwB = checkMatrix<MatrixXd>(doc, node, seq, "KpwB", KpwB);
   KdwB = checkMatrix<MatrixXd>(doc, node, seq, "KdwB", KdwB);
+
+  KX = checkMatrix<MatrixXd>(doc, node, seq, "KX", KX);
 
   Kpv = checkMatrix<MatrixXd>(doc, node, seq, "Kpv", info.value.joint, Kpv);
   Kdv = checkMatrix<MatrixXd>(doc, node, seq, "Kdv", info.value.joint, Kdv);

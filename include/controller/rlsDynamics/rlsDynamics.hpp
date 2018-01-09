@@ -166,6 +166,9 @@ namespace RLS{
     Vector3d xiB0;
     Vector3d xiBf;
 
+    Vector3d rX0;
+    Vector3d rXf;
+
     VectorXd cal_X0;
     VectorXd cal_Xf;
 
@@ -182,6 +185,8 @@ namespace RLS{
     Vector3d vBpreState;
     Vector3d xiBpreState;
     Vector3d dxiBpreState;
+    Vector3d rXpreState;
+
     VectorXd cal_XpreState;
     VectorXd cal_VpreState;
 
@@ -191,6 +196,8 @@ namespace RLS{
     Vector3d rBpreDes;
     Vector3d xiBpreDes;
     VectorXd cal_XpreDes;
+
+    Vector3d rXpreDes;
 
     Vector6d cal_FextpreDes;
 
@@ -210,6 +217,9 @@ namespace RLS{
     Matrix3d RBDes;
     Vector3d wBDes;
     Vector3d dwBDes;
+
+    Vector3d rXDes;
+    Vector3d drXDes;
 
     VectorXd cal_XDes;
     VectorXd cal_VxiDes;
@@ -233,13 +243,18 @@ namespace RLS{
     Vector3d eoB;
     Vector3d ewB;
 
+    Vector3d eX;
+
     VectorXd cal_Ep;
     VectorXd cal_Ev;
 
+    // reference
     Vector3d dvCRef;
 
     Vector3d dvBRef;
     Vector3d dwBRef;
+
+    Vector3d drXRef;
 
     Vector6d cal_dVBRef;
     Vector6d cal_dVMRef;
@@ -291,6 +306,8 @@ namespace RLS{
     Matrix3d KpwB;
     Matrix3d KdwB;
 
+    Matrix3d KX;
+
     MatrixXd Kpv;
     MatrixXd Kdv;
 
@@ -301,6 +318,11 @@ namespace RLS{
     // high gain control
     MatrixXd KpHG;
     MatrixXd KdHG;
+
+    // trigger flag
+    bool flagInit;
+    bool flagHip;
+    bool flagStay;
 
     void initialValue(Config&, Info&, Model&);
     void resize(Config&, Info&, Model&);
@@ -313,8 +335,13 @@ namespace RLS{
     bool resetState(Config&, Info&, Model&, double&);
     bool resetSequence(Config&, Info&, double&);
     void mapping(Config&);
+
+    int ankleStratagy(Config&, Info&, Model&, double&);
+    int ankleHipStratagy(Config&, Info&, Model&, double&);
     int stateTriggerConfig(Config&, Info&, Model&, double&);
+
     bool sequenceTriggerConfig(Config&, Info&, double&);
+
     bool configurationManager(Config&, Info&, Model&, double&);
 
     int readWork(Config&, Info&, string, int);
@@ -326,6 +353,7 @@ namespace RLS{
 
     void comReference(Config&, Info&, Model&, double&);
     void baseReference(Config&, Info&, Model&, double&);
+    void dcmReference(Config&, Info&, Model&, double&);
     void endEffectorReference(Config&, Info&, Model&, double&);
     void externalWrenchReference(Config&, Info&, Model&, double&);
     void reference(Config&, Info&, Model&, double&);
@@ -347,8 +375,13 @@ namespace RLS{
     VectorXd ddqD(Config&, Info&, Model&);
 
     // momentum controller
+    void linearMomentum(Config&, Info&, Model&);
+    void dcmMomentum(Config&, Info&, Model&);
+    void centroidalAngularMomentum(Config&, Info&, Model&);
+    void baseAngularMomentum(Config&, Info&, Model&);
     void baseMomentum(Config&, Info&, Model&);
     void centroidalMomentum(Config&, Info&, Model&);
+    void centroidalDcmMomentum(Config&, Info&, Model&);
 
     // force controller
     void baseDistribution(Config&, Info&, Model&);

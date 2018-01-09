@@ -18,6 +18,8 @@ namespace RLS{
       // state
       double trev;
       int state;
+      // recovery phase
+      double trecf;
 
       // sequence
       double twf;

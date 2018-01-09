@@ -20,6 +20,9 @@ void RLS::RlsDynamics::torqueOutputConfig(Config &config, Model &model)
   dc_list.wBDes = wBDes;
   dc_list.dwBDes = dwBDes;
 
+  dc_list.rXDes = rXDes;
+  dc_list.drXDes = drXDes;
+
   dc_list.cal_XDes = cal_XDes;
   dc_list.cal_VDes = cal_VDes;
   dc_list.cal_dVDes = cal_dVDes;
@@ -29,6 +32,8 @@ void RLS::RlsDynamics::torqueOutputConfig(Config &config, Model &model)
   dc_list.evB = evB;
   dc_list.eoB = eoB;
   dc_list.ewB = ewB;
+
+  dc_list.eX = eX;
 
   dc_list.erC = erC;
   dc_list.evC = evC;

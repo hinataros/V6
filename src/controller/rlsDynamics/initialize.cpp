@@ -110,6 +110,8 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   rB0 = rBf = Vector3d::Zero();
   xiB0 = xiBf = Vector3d::Zero();
 
+  rX0 = rXf = Vector3d::Zero();
+
   cal_X0 = VectorXd::Zero(6*info.value.joint);
   cal_Xf = VectorXd::Zero(6*info.value.joint);
 
@@ -121,6 +123,8 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   rCpreState = vCpreState = Vector3d::Zero();
   rBpreState = vBpreState = Vector3d::Zero();
   xiBpreState = xiBpreState = Vector3d::Zero();
+
+  rXpreState = Vector3d::Zero();
   cal_XpreState = cal_VpreState = VectorXd::Zero(6*info.value.joint);
 
   // previous desired value
@@ -128,6 +132,7 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   rCpreDes = Vector3d::Zero();
   rBpreDes = Vector3d::Zero();
   xiBpreDes = Vector3d::Zero();
+  rXpreDes = Vector3d::Zero();
   cal_XpreDes = VectorXd::Zero(6*info.value.joint);
   cal_FextpreDes = Vector6d::Zero();
 
@@ -142,6 +147,9 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   xiBDes = dxiBDes = ddxiBDes = Vector3d::Zero();
   RBDes = Matrix3d::Zero();
   wBDes = dwBDes = Vector3d::Zero();
+
+  rXDes = drXDes = Vector3d::Zero();
+
   cal_XDes = cal_VxiDes = cal_dVxiDes = VectorXd::Zero(6*info.value.joint);
   cal_VDes = cal_dVDes = VectorXd::Zero(6*info.value.joint);
 
@@ -162,6 +170,8 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   dvBRef = Vector3d::Zero();
   dwBRef = Vector3d::Zero();
+
+  drXRef = Vector3d::Zero();
 
   cal_dVBRef = Vector6d::Zero();
   cal_dVMRef = Vector6d::Zero();
@@ -212,6 +222,8 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   KpwB = Matrix3d::Zero();
   KdwB = Matrix3d::Zero();
 
+  KX = Matrix3d::Zero();
+
   Kpv = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
   Kdv = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
 
@@ -222,6 +234,11 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   // high gain control
   KpHG = MatrixXd::Zero(info.dof.joint, info.dof.joint);
   KdHG = MatrixXd::Zero(info.dof.joint, info.dof.joint);
+
+  // trigger flag
+  flagInit = true;
+  flagHip = false;
+  flagStay = false;
 
   // mapping
   map_motionController["baseVelocitySynergy"] = &RLS::RlsDynamics::baseVelocitySynergy;
@@ -237,6 +254,7 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   map_momentumController["baseMomentum"] = &RLS::RlsDynamics::baseMomentum;
   map_momentumController["centroidalMomentum"] = &RLS::RlsDynamics::centroidalMomentum;
+  map_momentumController["centroidalDcmMomentum"] = &RLS::RlsDynamics::centroidalDcmMomentum;
 
   map_forceController["baseDistribution"] = &RLS::RlsDynamics::baseDistribution;
   map_forceController["centroidalDistribution"] = &RLS::RlsDynamics::centroidalDistribution;
