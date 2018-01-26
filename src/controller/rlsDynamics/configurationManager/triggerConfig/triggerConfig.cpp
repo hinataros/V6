@@ -11,7 +11,7 @@ int RLS::RlsDynamics::stateTriggerConfig(Config &config, Info &info, Model &mode
 {
   return 0;
   // return ankleStratagy(config, info, model, t);
-  // return externalBalance(config, info, model, t);
+  // return ankleHipStratagy(config, info, model, t);
 }
 
 bool RLS::RlsDynamics::sequenceTriggerConfig(Config &config, Info &info, double &t)

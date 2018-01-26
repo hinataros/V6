@@ -3,6 +3,7 @@
 set(srcs
   ddthD.cpp
   ddqD.cpp
+  workAcceleration.cpp
   baseAccelerationSynergy.cpp
   mixedAccelerationSynergy.cpp
   centroidalAccelerationSynergy.cpp

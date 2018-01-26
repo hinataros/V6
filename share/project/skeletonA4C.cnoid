@@ -12,27 +12,32 @@ items:
       data: 
         collisionDetection: false
         collisionDetector: AISTCollisionDetector
+        materialTableFile: "${SHARE}/default/materials.yaml"
       children: 
         - 
           id: 2
-          name: "1RMANIPULATOR"
+          name: "skeletonA4C"
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "/home/smiyahara/Documents/software/choreonoid/workspace/rlsSimulator/master/share/model/fixB1.body"
-            currentBaseLink: "BASE"
-            rootPosition: [ 0, 0, 0 ]
+            modelFile: "../model/skeleton/skeletonA4C.wrl"
+            currentBaseLink: "waist"
+            rootPosition: [ 0, 0, 0.21019 ]
             rootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
               0, 0, 1 ]
-            jointPositions: [  0.000000 ]
-            initialRootPosition: [ 0, 0, 0 ]
+            jointPositions: [ 
+               0.000000,  0.000000, -0.523599,  1.047198, -0.523599,  0.000000,  0.000000,  0.000000, -0.523599,  1.047198, 
+              -0.523599, -0.000000,  1.745329,  0.000000,  0.000000, -0.523599,  1.745329,  0.000000,  0.000000, -0.523599 ]
+            initialRootPosition: [ 0, 0, 0.21019 ]
             initialRootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
               0, 0, 1 ]
-            initialJointPositions: [  0.000000 ]
+            initialJointPositions: [ 
+               0.000000,  0.000000, -0.523599,  1.047198, -0.523599,  0.000000,  0.000000,  0.000000, -0.523599,  1.047198, 
+              -0.523599, -0.000000,  1.745329,  0.000000,  0.000000, -0.523599,  1.745329,  0.000000,  0.000000, -0.523599 ]
             zmp: [ 0, 0, 0 ]
             collisionDetection: true
             selfCollisionDetection: false
@@ -44,38 +49,61 @@ items:
               plugin: OpenRTM
               class: BodyRTCItem
               data: 
-                isImmediateMode: true
+                isNoDelayMode: true
                 controllerOptions: ""
-                moduleName: "/home/smiyahara/Documents/software/choreonoid/workspace/rlsSimulator/master/build/bin/rlsDynamicsRTC.so"
-                confFileName: "/home/smiyahara/Documents/software/choreonoid/workspace/rlsSimulator/master/src/controller/rlsDynamics/RTC/rtcConfig/testPort.conf"
+                moduleName: "/home/smiyahara/Documents/rlsSimulator/build/bin/rlsDynamicsRTC.so"
+                confFileName: "/home/smiyahara/Documents/rlsSimulator/src/controller/rlsDynamics/RTC/rtcConfig/skeletonPort.conf"
                 configurationMode: "Use Configuration File"
                 AutoConnect: false
-                InstanceName: "1RMANIPULATOR"
+                InstanceName: "skeleton"
                 bodyPeriodicRate: 0
-                RelativePathBase: "RTC directory"
+                baseDirectory: "RTC directory"
         - 
           id: 4
+          name: "floor"
+          plugin: Body
+          class: BodyItem
+          data: 
+            modelFile: "../model/object/floor.wrl"
+            currentBaseLink: "WAIST"
+            rootPosition: [ 0, 0, -0.025 ]
+            rootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            jointPositions: [  ]
+            initialRootPosition: [ 0, 0, -0.025 ]
+            initialRootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            zmp: [ 0, 0, 0 ]
+            collisionDetection: true
+            selfCollisionDetection: false
+            isEditable: false
+        - 
+          id: 5
           name: "AISTSimulator"
           plugin: Body
           class: AISTSimulatorItem
           data: 
             realtimeSync: true
             recording: "full"
-            timeRangeMode: "Unlimited"
+            timeRangeMode: "Time bar range"
             timeLength: 180
             allLinkPositionOutputMode: false
             deviceStateOutput: true
-            controllerThreads: true
+            controllerThreads: false
             recordCollisionData: false
             controllerOptions: ""
             dynamicsMode: "Forward dynamics"
             integrationMode: "Runge Kutta"
-            gravity: [ 0, 0, -9.80665 ]
+            gravity: [ 0, 0, -9.81 ]
             staticFriction: 1
             dynamicFriction: 1
             cullingThresh: 0.005
             contactCullingDepth: 0.05
-            errorCriterion: 0.001
+            errorCriterion: 0.00001
             maxNumIterations: 1000
             contactCorrectionDepth: 0.0001
             contactCorrectionVelocityRatio: 1
@@ -94,9 +122,9 @@ views:
     class: ItemTreeView
     mounted: true
     state: 
-      selected: [ 3 ]
-      checked: [ 1, 2, 3, 4 ]
-      expanded: [ 1, 2 ]
+      selected: [ 3, 5 ]
+      checked: [ 1, 2, 3, 5 ]
+      expanded: [ 1, 2, 3 ]
   - 
     id: 2
     plugin: Base
@@ -119,7 +147,6 @@ views:
       worldLightIntensity: 0.5
       worldLightAmbient: 0.3
       additionalLights: true
-      shadowLights: 
       fog: true
       floorGrid: true
       floorGridSpan: 10
@@ -139,23 +166,24 @@ views:
       showFPS: false
       enableNewDisplayListDoubleRendering: false
       useBufferForPicking: true
+      upsideDown: false
       cameras: 
         - 
           camera: [ System, Perspective ]
-          isCurrent: true
           fieldOfView: 0.698132
           near: 0.01
           far: 100
-          eye: [ 1.60360418, 1.97268076, 0.638400701 ]
-          direction: [ -0.503907824, -0.827178151, -0.248703059 ]
-          up: [ -0.129388843, -0.212395242, 0.968579779 ]
+          eye: [ -0.0393523051, 1.21936234, 0.238879064 ]
+          direction: [ -1.2246468e-16, -1, -6.123234e-17 ]
+          up: [ -7.49879891e-33, -6.123234e-17, 1 ]
         - 
           camera: [ System, Orthographic ]
-          orthoHeight: 20
+          isCurrent: true
+          orthoHeight: 0.560711
           near: 0.01
           far: 100
-      backgroundColor: [ 0.100000001, 0.100000001, 0.300000012 ]
-      gridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
+      backgroundColor: [ 0, 0.333333343, 0 ]
+      gridColor: [ 0, 0, 0, 1 ]
       xzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
       yzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
       dedicatedItemTreeViewChecks: false
@@ -168,6 +196,12 @@ views:
       showRotationMatrix: false
   - 
     id: 5
+    name: "Body State"
+    plugin: Body
+    class: BodyStateView
+    mounted: true
+  - 
+    id: 6
     plugin: Body
     class: JointSliderView
     mounted: true
@@ -181,7 +215,7 @@ views:
       labelOnLeft: true
       currentBodyItem: 2
   - 
-    id: 6
+    id: 7
     plugin: Body
     class: LinkSelectionView
     mounted: true
@@ -189,21 +223,21 @@ views:
       listingMode: "Link List"
       currentBodyItem: 2
   - 
-    id: 7
+    id: 8
     plugin: OpenRTM
     class: RTSNameServerView
     mounted: true
   - 
-    id: 8
+    id: 9
     plugin: Python
     class: PythonConsoleView
     mounted: true
 toolbars: 
   "TimeBar": 
     minTime: 0
-    maxTime: 30
-    frameRate: 100
-    playbackFrameRate: 50
+    maxTime: 25.073
+    frameRate: 1000
+    playbackFrameRate: 10
     idleLoopDrivenMode: false
     currentTime: 0
     speedScale: 1
@@ -264,6 +298,11 @@ Body:
         showCenterOfMass: false
         showPpcom: false
         showZmp: false
+      - 
+        bodyItem: 4
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
     staticModelEditing: true
   "KinematicFaultChecker": 
     checkJointPositions: true
@@ -288,7 +327,7 @@ viewAreas:
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 488, 488 ]
+          sizes: [ 470, 469 ]
           children: 
             - 
               type: pane
@@ -296,29 +335,20 @@ viewAreas:
               current: 1
             - 
               type: pane
-              views: [ 0, 6, 7 ]
+              views: [ 0, 7, 8, 4, 6 ]
               current: 0
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 697, 279 ]
+          sizes: [ 671, 268 ]
           children: 
             - 
-              type: splitter
-              orientation: horizontal
-              sizes: [ 266, 1261 ]
-              children: 
-                - 
-                  type: pane
-                  views: [ 4, 5 ]
-                  current: 5
-                - 
-                  type: pane
-                  views: [ 3 ]
-                  current: 3
+              type: pane
+              views: [ 3 ]
+              current: 3
             - 
               type: pane
-              views: [ 2, 8 ]
+              views: [ 2, 9, 5 ]
               current: 2
 layoutOfToolBars: 
   rows: 
@@ -326,10 +356,11 @@ layoutOfToolBars:
       - { name: "FileBar", x: 0, priority: 0 }
       - { name: "ScriptBar", x: 49, priority: 0 }
       - { name: "TimeBar", x: 98, priority: 0 }
-      - { name: "SceneBar", x: 1087, priority: 0 }
-      - { name: "GraphBar", x: 1397, priority: 0 }
-      - { name: "SimulationBar", x: 1510, priority: 0 }
-      - { name: "BodyMotionGenerationBar", x: 1719, priority: 0 }
     - 
-      - { name: "BodyBar", x: 0, priority: 0 }
-      - { name: "KinematicsBar", x: 276, priority: 0 }
+      - { name: "SceneBar", x: 0, priority: 0 }
+      - { name: "GraphBar", x: 310, priority: 0 }
+      - { name: "SimulationBar", x: 423, priority: 0 }
+      - { name: "BodyBar", x: 632, priority: 0 }
+    - 
+      - { name: "KinematicsBar", x: 0, priority: 0 }
+      - { name: "BodyMotionGenerationBar", x: 248, priority: 0 }

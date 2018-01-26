@@ -9,7 +9,8 @@
 
 int RLS::RlsDynamics::ankleHipStratagy(Config &config, Info &info, Model &model, double &t)
 {
-  double d = 0.02;
+  double d = 0.008;
+  // double d = 0.01;
   if(rp(0)>=0.058-d || rp(0)<=-0.040+d)
     flagHip = true;
 
@@ -26,7 +27,7 @@ int RLS::RlsDynamics::ankleHipStratagy(Config &config, Info &info, Model &model,
     // }
   }
 
-  if(flagHip){
+  if(flagHip==true && flagStay==false){
     if(info.sim.state==2 && t>info.sim.trev+info.sim.trecf){
       flagInit = true;
       flagHip = false;

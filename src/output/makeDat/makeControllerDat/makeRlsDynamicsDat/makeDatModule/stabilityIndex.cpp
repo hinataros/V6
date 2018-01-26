@@ -28,7 +28,11 @@ string RLS::Output::stabilityIndex(Config &config, Info &info, string dir, strin
     makeGp(config, "controller", name,
            "x stability index [mm]","K", 3,
            "set yrange[-60:80]\n"
-           "set object 1 rect from 0, -40 to 1e+3, 58 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder\n",
+           "set object 1 rect from 0, -40 to 1e+3, 58 behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder\n"
+           "set object 2 rect from 0, -32 to 1e+3, 50 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder\n"
+           "set arrow 1 from 2, -60 to 2, 80 nohead dt (10, 5)\n"
+           "set arrow 2 from 12, -60 to 12, 80 nohead dt (10, 5)\n",
+           // "set arrow 1 from 4.962, -60 to 4.962, 80 nohead dt (10, 5)\n",
            0);
     load += "load '"+config.dir.gp.ind+"controller/"+name+".gp'\n";
   }

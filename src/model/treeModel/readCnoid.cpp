@@ -55,7 +55,7 @@ void RLS::TreeModel::readCnoid(Config &config, Info &info)
       limb[i].node[j].th0 = doc["items"]["children"][worldItem]["children"][bodyItem]["data"]["initialJointPositions"][k].as<double>();
 
       try{
-	limb[i].node[j].dth0 = doc["items"]["children"][worldItem]["children"][bodyItem]["data"]["initialJointVelocities"][k].as<double>();
+        limb[i].node[j].dth0 = doc["items"]["children"][worldItem]["children"][bodyItem]["data"]["initialJointVelocities"][k].as<double>();
       }catch(...){limb[i].node[j].dth0=0.;}
     }
   }

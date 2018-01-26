@@ -12,60 +12,45 @@ items:
       data: 
         collisionDetection: false
         collisionDetector: AISTCollisionDetector
+        materialTableFile: "${SHARE}/default/materials.yaml"
       children: 
         - 
           id: 2
-          name: "planar2RManipulator"
+          name: "test"
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "/home/smiyahara/Documents/software/choreonoid/workspace/rlsSimulator/master/share/model/fixB1.wrl"
-            currentBaseLink: "BASE"
-            rootPosition: [ 0, 0, 0 ]
+            modelFile: "/home/smiyahara/Documents/software/choreonoid/workspace/rlsSimulator/master/share/model/fixed2RManipulator.body"
+            currentBaseLink: ""
+            rootPosition: [ 0, 0, 1.5 ]
             rootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
               0, 0, 1 ]
-            jointPositions: [  0.000000 ]
-            initialRootPosition: [ 0, 0, 0 ]
+            jointPositions: [  0.000000,  0.000000 ]
+            initialRootPosition: [ 0, 0, 1.5 ]
             initialRootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
               0, 0, 1 ]
-            initialJointPositions: [  0.000000 ]
             zmp: [ 0, 0, 0 ]
+            initialJointPositions: [  0.000000,  0.000000 ]
             collisionDetection: true
             selfCollisionDetection: false
             isEditable: true
-          children: 
-            - 
-              id: 3
-              name: "BodyRTC"
-              plugin: OpenRTM
-              class: BodyRTCItem
-              data: 
-                isImmediateMode: true
-                controllerOptions: ""
-                moduleName: "/home/smiyahara/Documents/software/choreonoid/workspace/rlsSimulator/master/build/bin/rlsDynamicsRTC.so"
-                confFileName: "/home/smiyahara/Documents/software/choreonoid/workspace/rlsSimulator/master/src/controller/rlsDynamics/RTC/rtcConfig/testPort.conf"
-                configurationMode: "Use Configuration File"
-                AutoConnect: false
-                InstanceName: "planar2RManipulator"
-                bodyPeriodicRate: 0
-                RelativePathBase: "RTC directory"
         - 
-          id: 4
+          id: 3
           name: "AISTSimulator"
           plugin: Body
           class: AISTSimulatorItem
           data: 
             realtimeSync: true
             recording: "full"
-            timeRangeMode: "Unlimited"
+            timeRangeMode: "Time bar range"
             timeLength: 180
             allLinkPositionOutputMode: false
             deviceStateOutput: true
-            controllerThreads: true
+            controllerThreads: false
             recordCollisionData: false
             controllerOptions: ""
             dynamicsMode: "Forward dynamics"
@@ -75,13 +60,36 @@ items:
             dynamicFriction: 1
             cullingThresh: 0.005
             contactCullingDepth: 0.05
-            errorCriterion: 0.001
+            errorCriterion: 0.00001
             maxNumIterations: 1000
             contactCorrectionDepth: 0.0001
             contactCorrectionVelocityRatio: 1
             kinematicWalking: false
             2Dmode: false
             oldAccelSensorMode: false
+        - 
+          id: 4
+          name: "Floor"
+          plugin: Body
+          class: BodyItem
+          data: 
+            modelFile: "/home/smiyahara/Documents/software/choreonoid/workspace/rlsSimulator/master/share/model/object/floor.body"
+            currentBaseLink: "Floor"
+            rootPosition: [ 0, 0, -0.05 ]
+            rootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            jointPositions: [  ]
+            initialRootPosition: [ 0, 0, -0.05 ]
+            initialRootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            zmp: [ 0, 0, 0 ]
+            collisionDetection: true
+            selfCollisionDetection: false
+            isEditable: false
 views: 
   - 
     id: 0
@@ -94,7 +102,7 @@ views:
     class: ItemTreeView
     mounted: true
     state: 
-      selected: [ 3 ]
+      selected: [ 1 ]
       checked: [ 1, 2, 3, 4 ]
       expanded: [ 1, 2 ]
   - 
@@ -119,9 +127,8 @@ views:
       worldLightIntensity: 0.5
       worldLightAmbient: 0.3
       additionalLights: true
-      shadowLights: 
       fog: true
-      floorGrid: true
+      floorGrid: false
       floorGridSpan: 10
       floorGridInterval: 0.5
       xzGridSpan: 10
@@ -139,24 +146,25 @@ views:
       showFPS: false
       enableNewDisplayListDoubleRendering: false
       useBufferForPicking: true
+      upsideDown: false
       cameras: 
         - 
           camera: [ System, Perspective ]
           fieldOfView: 0.698132
           near: 0.01
           far: 100
-          eye: [ 0.234731413, 1.5018135, -0.0254086112 ]
-          direction: [ -1.2246468e-16, -1, -6.123234e-17 ]
-          up: [ -7.49879891e-33, -6.123234e-17, 1 ]
+          eye: [ 0.564860581, 0.652472964, 1.33066893 ]
+          direction: [ -0.602921278, -0.715813385, -0.352274226 ]
+          up: [ -0.226941283, -0.269434193, 0.935896826 ]
         - 
           camera: [ System, Orthographic ]
           isCurrent: true
-          orthoHeight: 1.85223
+          orthoHeight: 4.14314
           near: 0.01
           far: 100
-      backgroundColor: [ 0.100000001, 0.100000001, 0.300000012 ]
-      gridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
-      xzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
+      backgroundColor: [ 1, 1, 1 ]
+      gridColor: [ 0, 0, 0, 1 ]
+      xzgridColor: [ 0, 0, 0, 1 ]
       yzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
       dedicatedItemTreeViewChecks: false
   - 
@@ -185,7 +193,6 @@ views:
       spinBox: true
       slider: true
       labelOnLeft: true
-      currentBodyItem: 2
   - 
     id: 7
     plugin: Body
@@ -193,7 +200,6 @@ views:
     mounted: true
     state: 
       listingMode: "Link List"
-      currentBodyItem: 2
   - 
     id: 8
     plugin: OpenRTM
@@ -207,9 +213,9 @@ views:
 toolbars: 
   "TimeBar": 
     minTime: 0
-    maxTime: 30
+    maxTime: 25.073
     frameRate: 1000
-    playbackFrameRate: 50
+    playbackFrameRate: 10
     idleLoopDrivenMode: false
     currentTime: 0
     speedScale: 1
@@ -223,8 +229,6 @@ toolbars:
     snapDistance: 0.025
     penetrationBlockDepth: 0.0005
     lazyCollisionDetectionMode: true
-  "BodyBar": 
-    current: 2
   "LeggedBodyBar": 
     stanceWidth: 0.15
   "BodyMotionGenerationBar": 
@@ -270,6 +274,11 @@ Body:
         showCenterOfMass: false
         showPpcom: false
         showZmp: false
+      - 
+        bodyItem: 4
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
     staticModelEditing: true
   "KinematicFaultChecker": 
     checkJointPositions: true
@@ -289,12 +298,12 @@ viewAreas:
     contents: 
       type: splitter
       orientation: horizontal
-      sizes: [ 324, 1533 ]
+      sizes: [ 520, 1337 ]
       children: 
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 488, 488 ]
+          sizes: [ 470, 469 ]
           children: 
             - 
               type: pane
@@ -302,40 +311,32 @@ viewAreas:
               current: 1
             - 
               type: pane
-              views: [ 0, 7, 8 ]
-              current: 0
+              views: [ 0, 7, 8, 4, 6 ]
+              current: 4
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 697, 279 ]
+          sizes: [ 671, 268 ]
           children: 
             - 
-              type: splitter
-              orientation: horizontal
-              sizes: [ 187, 1340 ]
-              children: 
-                - 
-                  type: pane
-                  views: [ 4, 6 ]
-                  current: 4
-                - 
-                  type: pane
-                  views: [ 3 ]
-                  current: 3
+              type: pane
+              views: [ 3 ]
+              current: 3
             - 
               type: pane
               views: [ 2, 9, 5 ]
-              current: 5
+              current: 2
 layoutOfToolBars: 
   rows: 
     - 
-      - { name: "SimulationBar", x: 0, priority: 1 }
       - { name: "FileBar", x: 0, priority: 0 }
       - { name: "ScriptBar", x: 49, priority: 0 }
       - { name: "TimeBar", x: 98, priority: 0 }
-      - { name: "SceneBar", x: 1087, priority: 0 }
-      - { name: "GraphBar", x: 1397, priority: 0 }
-      - { name: "BodyMotionGenerationBar", x: 1719, priority: 0 }
     - 
-      - { name: "BodyBar", x: 0, priority: 0 }
-      - { name: "KinematicsBar", x: 276, priority: 0 }
+      - { name: "SceneBar", x: 0, priority: 0 }
+      - { name: "GraphBar", x: 310, priority: 0 }
+      - { name: "SimulationBar", x: 423, priority: 0 }
+      - { name: "BodyBar", x: 632, priority: 0 }
+    - 
+      - { name: "KinematicsBar", x: 0, priority: 0 }
+      - { name: "BodyMotionGenerationBar", x: 248, priority: 0 }

@@ -16,28 +16,24 @@ items:
       children: 
         - 
           id: 2
-          name: "skeletonA4C"
+          name: "fixed2RManipulator"
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "../model/skeleton/skeletonA4C.wrl"
-            currentBaseLink: "waist"
-            rootPosition: [ 0, 0, 0.21019 ]
+            modelFile: "/home/smiyahara/Documents/software/choreonoid/workspace/rlsSimulator/master/share/model/fixed2RManipulator.body"
+            currentBaseLink: "Root"
+            rootPosition: [ 0, 0, 0.5 ]
             rootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
               0, 0, 1 ]
-            jointPositions: [ 
-               0.000000,  0.000000, -0.523599,  1.047198, -0.523599,  0.000000,  0.000000,  0.000000, -0.523599,  1.047198, 
-              -0.523599, -0.000000,  1.745329,  0.000000,  0.000000, -0.523599,  1.745329,  0.000000,  0.000000, -0.523599 ]
-            initialRootPosition: [ 0, 0, 0.21019 ]
+            jointPositions: [ -2.094300,  2.094300 ]
+            initialRootPosition: [ 0, 0, 0.5 ]
             initialRootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
               0, 0, 1 ]
-            initialJointPositions: [ 
-               0.000000,  0.000000, -0.523599,  1.047198, -0.523599,  0.000000,  0.000000,  0.000000, -0.523599,  1.047198, 
-              -0.523599, -0.000000,  1.745329,  0.000000,  0.000000, -0.523599,  1.745329,  0.000000,  0.000000, -0.523599 ]
+            initialJointPositions: [ -2.094300,  2.094300 ]
             zmp: [ 0, 0, 0 ]
             collisionDetection: true
             selfCollisionDetection: false
@@ -51,38 +47,15 @@ items:
               data: 
                 isNoDelayMode: true
                 controllerOptions: ""
-                moduleName: "/home/smiyahara/Documents/rlsSimulator/build/bin/rlsDynamicsRTC.so"
-                confFileName: "/home/smiyahara/Documents/rlsSimulator/src/controller/rlsDynamics/RTC/rtcConfig/skeletonPort.conf"
+                moduleName: "/home/smiyahara/Documents/software/choreonoid/workspace/rlsSimulator/master/build/bin/rlsDynamicsRTC.so"
+                confFileName: "/home/smiyahara/Documents/software/choreonoid/workspace/rlsSimulator/master/src/controller/rlsDynamics/RTC/rtcConfig/treeModelPort.conf"
                 configurationMode: "Use Configuration File"
                 AutoConnect: false
-                InstanceName: "skeleton"
+                InstanceName: "fixed2RManipulator"
                 bodyPeriodicRate: 0
                 baseDirectory: "RTC directory"
         - 
           id: 4
-          name: "floor"
-          plugin: Body
-          class: BodyItem
-          data: 
-            modelFile: "../model/object/floor.wrl"
-            currentBaseLink: "WAIST"
-            rootPosition: [ 0, 0, -0.025 ]
-            rootAttitude: [ 
-              1, 0, 0, 
-              0, 1, 0, 
-              0, 0, 1 ]
-            jointPositions: [  ]
-            initialRootPosition: [ 0, 0, -0.025 ]
-            initialRootAttitude: [ 
-              1, 0, 0, 
-              0, 1, 0, 
-              0, 0, 1 ]
-            zmp: [ 0, 0, 0 ]
-            collisionDetection: true
-            selfCollisionDetection: false
-            isEditable: false
-        - 
-          id: 5
           name: "AISTSimulator"
           plugin: Body
           class: AISTSimulatorItem
@@ -110,6 +83,29 @@ items:
             kinematicWalking: false
             2Dmode: false
             oldAccelSensorMode: false
+        - 
+          id: 5
+          name: "Floor"
+          plugin: Body
+          class: BodyItem
+          data: 
+            modelFile: "/home/smiyahara/Documents/software/choreonoid/workspace/rlsSimulator/master/share/model/object/floor.body"
+            currentBaseLink: "Floor"
+            rootPosition: [ 0, 0, -0.05 ]
+            rootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            jointPositions: [  ]
+            initialRootPosition: [ 0, 0, -0.05 ]
+            initialRootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            zmp: [ 0, 0, 0 ]
+            collisionDetection: true
+            selfCollisionDetection: false
+            isEditable: false
 views: 
   - 
     id: 0
@@ -122,9 +118,9 @@ views:
     class: ItemTreeView
     mounted: true
     state: 
-      selected: [ 3, 5 ]
-      checked: [ 1, 2, 3, 5 ]
-      expanded: [ 1, 2, 3 ]
+      selected: [ 3 ]
+      checked: [ 1, 2, 3, 4, 5 ]
+      expanded: [ 1, 2 ]
   - 
     id: 2
     plugin: Base
@@ -173,18 +169,18 @@ views:
           fieldOfView: 0.698132
           near: 0.01
           far: 100
-          eye: [ -0.0393523051, 1.21936234, 0.238879064 ]
+          eye: [ -0.314551561, 1.31628413, 0.911853874 ]
           direction: [ -1.2246468e-16, -1, -6.123234e-17 ]
-          up: [ -7.49879891e-33, -6.123234e-17, 1 ]
+          up: [ -7.49879892e-33, -6.123234e-17, 1 ]
         - 
           camera: [ System, Orthographic ]
           isCurrent: true
-          orthoHeight: 0.560711
+          orthoHeight: 2.51294
           near: 0.01
           far: 100
       backgroundColor: [ 0, 0.333333343, 0 ]
       gridColor: [ 0, 0, 0, 1 ]
-      xzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
+      xzgridColor: [ 0, 0, 0, 1 ]
       yzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
       dedicatedItemTreeViewChecks: false
   - 
@@ -299,7 +295,7 @@ Body:
         showPpcom: false
         showZmp: false
       - 
-        bodyItem: 4
+        bodyItem: 5
         showCenterOfMass: false
         showPpcom: false
         showZmp: false
@@ -322,7 +318,7 @@ viewAreas:
     contents: 
       type: splitter
       orientation: horizontal
-      sizes: [ 324, 1533 ]
+      sizes: [ 520, 1337 ]
       children: 
         - 
           type: splitter

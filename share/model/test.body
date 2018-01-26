@@ -1,0 +1,116 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+angleUnit: degree
+name: test
+
+links:
+  -
+   name: Root
+   jointType: fixed
+   elements:
+     -
+       type: RigidBody
+       mass: 1.0
+       centerOfMass: [ 0, 0, 0.5 ]
+       inertia: [ 1, 0, 0, 1, 0, 1 ]
+       elements: &RootBody
+         Shape:
+           translation: [ 0, 0, 0.5 ]
+           rotation: [ 1, 0, 0, 90]
+           geometry:
+             type: Cylinder
+             radius: 0.05
+             height: 1.0
+     -
+       type: Collision
+       elements: *RootBody
+  -
+    name: Joint1
+    parent: Root
+    jointId: 0
+    jointType: revolute
+    jointAxis: y
+    jointRange: unlimited
+    maxJointVelocity: 90
+    elements:
+      -
+        type: Visual
+        elements: &Joint1Visual
+          Shape:
+            geometry:
+              type: Cylinder
+              radius: 0.1
+              height: 0.1
+      -
+        type: Collision
+        elements: *Joint1Visual
+  -
+    name: Link1
+    parent: Joint1
+    jointType: fixed
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, -0.5 ]
+        inertia: [ 1, 0, 0, 1, 0, 1 ]
+        elements: &Link1Body
+          Shape:
+            translation: [ 0, 0, -0.5 ]
+            rotation: [ 1, 0, 0, 90]
+            geometry:
+              type: Cylinder
+              radius: 0.05
+              height: 1.0
+      -
+        type: Collision
+        elements: *Link1Body
+  -
+    name: Joint2
+    parent: Link1
+    jointId: 1
+    jointType: revolute
+    jointAxis: y
+    jointRange: unlimited
+    maxJointVelocity: 90
+    translation: [ 0, 0, -1 ]
+    elements:
+      -
+        type: Visual
+        elements: &Joint2Visual
+          Shape:
+            geometry:
+              type: Cylinder
+              radius: 0.1
+              height: 0.1
+      -
+        type: Collision
+        elements: *Joint2Visual
+  -
+    name: Link2
+    parent: Joint2
+    jointType: fixed
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, -0.25 ]
+        inertia: [ 1, 0, 0, 1, 0, 1 ]
+        elements: &Link2Body
+          -
+            type: Shape
+            translation: [ 0, 0, -0.25 ]
+            rotation: [ 1, 0, 0, 90]
+            geometry:
+              type: Cylinder
+              radius: 0.05
+              height: 0.5
+          -
+            type: Shape
+            translation: [ 0.1, 0, -0.45 ]
+            geometry:
+              type: Box
+              size: [ 1.0, 0.8, 0.1 ]
+      -
+        type: Collision
+        elements: *Link2Body

@@ -5,7 +5,7 @@ State:
     Inverse dynamics controller: fullDynamics
     Motion controller: baseGeneralizedMomentum
     Momentum controller: centroidalDcmMomentum
-    Force controller: centroidalDistribution
+    Force controller: centroidalDcmDistribution
     Torque controller: staticControl
 
     Bc:
@@ -22,25 +22,40 @@ State:
     KX: 1.e+2
     # KX: 1.e+3
 
-    # KdwB: 1.e+2
+    # KpwB: 1.e+2
+    KdwB: 1.e+2
 
-    # KDth: 1.e+3
-    KDth: 3.e+2
+    KDth: 1.e+3
+    # KDth: 2.e+2
 
   - # reflecx
   - # recovery
-    trecf: 5.
+    trecf: 3.
+    # trecf: 4.
+
 
 Sequence:
   -
     twf: 7.
 
   -
-    twf: 5.
-    cal_Fextf: [4., ., ., ., ., .]
-    # cal_Fextf: [8., ., ., ., ., .]
+    twf: 2.
+    # cal_Fextf: [4., ., ., ., ., .]
+    # cal_Fextf: [3., 3., ., ., ., .]
+    # cal_Fextf: [., 5., ., ., ., .]
+    # cal_Fextf: [8., 5., ., ., ., .]
+    cal_Fextf: [6., 4., ., ., ., .]
 
   -
-    twf: 5.
+    twf: 6.
+    # cal_Fextf: [3., 3., ., ., ., .]
+    cal_Fextf: [6., 4., ., ., ., .]
 
+  -
+    twf: 2.
     cal_Fextf: [0., 0., 0., 0., 0., 0.]
+
+  -
+    twf: 4.
+    # KX: 1.e+2
+    KpwB: 1.e+2

@@ -1,0 +1,28 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+name: Floor
+links:
+  -
+    name: Floor
+    jointType: fixed
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          Shape: &FloorBody
+            geometry:
+              type: Box
+              size: [ 2.0, 2.0, 0.1 ]
+            appearance:
+              material:
+                diffuseColor: [ 0.5, 0.5, 0.5 ]
+      -
+        type: Collision
+        elements:
+          Shape: *FloorBody

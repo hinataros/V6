@@ -5,7 +5,11 @@ add_subdirectory(readWork)
 add_subdirectory(reference)
 add_subdirectory(controlMethod)
 add_subdirectory(index)
+
+add_subdirectory(add)
+
 add_subdirectory(outputConfig)
+
 
 set(srcs
   initialize.cpp
@@ -31,6 +35,7 @@ set(rlsDynamics_srcs
   ${reference_srcs}
   ${controlMethod_srcs}
   ${index_srcs}
+  ${add_srcs}
   ${outputConfig_srcs}
   PARENT_SCOPE
   )

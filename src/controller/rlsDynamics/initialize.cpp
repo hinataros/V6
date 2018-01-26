@@ -124,7 +124,7 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   rBpreState = vBpreState = Vector3d::Zero();
   xiBpreState = xiBpreState = Vector3d::Zero();
 
-  rXpreState = Vector3d::Zero();
+  rXpreState = drXpreState = Vector3d::Zero();
   cal_XpreState = cal_VpreState = VectorXd::Zero(6*info.value.joint);
 
   // previous desired value
@@ -240,10 +240,18 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   flagHip = false;
   flagStay = false;
 
+  motionControllerName =
+    momentumControllerName =
+    forceControllerName =
+    torqueControllerName =
+    inverseDynamicsControllerName = "default";
+
   // mapping
+  map_motionController["default"] = &RLS::RlsDynamics::baseVelocitySynergy;
   map_motionController["baseVelocitySynergy"] = &RLS::RlsDynamics::baseVelocitySynergy;
   map_motionController["mixedVelocitySynergy"] = &RLS::RlsDynamics::mixedVelocitySynergy;
 
+  map_motionController["workAcceleration"] = &RLS::RlsDynamics::workAcceleration;
   map_motionController["baseAccelerationSynergy"] = &RLS::RlsDynamics::baseAccelerationSynergy;
   map_motionController["mixedAccelerationSynergy"] = &RLS::RlsDynamics::mixedAccelerationSynergy;
   map_motionController["centroidalAccelerationSynergy"] = &RLS::RlsDynamics::centroidalAccelerationSynergy;
@@ -252,13 +260,18 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   map_motionController["baseGeneralizedMomentum"] = &RLS::RlsDynamics::baseGeneralizedMomentum;
   map_motionController["mixedGeneralizedMomentum"] = &RLS::RlsDynamics::mixedGeneralizedMomentum;
 
+  map_momentumController["default"] = &RLS::RlsDynamics::zeroMomentum;
   map_momentumController["baseMomentum"] = &RLS::RlsDynamics::baseMomentum;
   map_momentumController["centroidalMomentum"] = &RLS::RlsDynamics::centroidalMomentum;
   map_momentumController["centroidalDcmMomentum"] = &RLS::RlsDynamics::centroidalDcmMomentum;
 
+  map_forceController["default"] = &RLS::RlsDynamics::zeroDistribution;
   map_forceController["baseDistribution"] = &RLS::RlsDynamics::baseDistribution;
   map_forceController["centroidalDistribution"] = &RLS::RlsDynamics::centroidalDistribution;
+  map_forceController["centroidalDcmDistribution"] = &RLS::RlsDynamics::centroidalDcmDistribution;
 
+  map_torqueController["default"] = &RLS::RlsDynamics::zeroTorque;
+  map_torqueController["jointSpace"] = &RLS::RlsDynamics::jointSpace;
   map_torqueController["staticControl"] = &RLS::RlsDynamics::staticControl;
   map_torqueController["base"] = &RLS::RlsDynamics::base;
   map_torqueController["mixed"] = &RLS::RlsDynamics::mixed;

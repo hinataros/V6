@@ -20,6 +20,8 @@ bool RLS::RlsDynamics::resetState(Config &config, Info &info, Model &model, doub
   dxiBpreState = w2dxi(model.hoap2.limb[0].node[0].w, R2xi(model.hoap2.limb[0].node[0].R));
 
   rXpreState = rX - rX0;
+  // smiyahara: いつか変える
+  drXpreState = drXDes;
 
   cal_XpreState = cal_X - cal_X0;
   cal_VpreState = cal_V;

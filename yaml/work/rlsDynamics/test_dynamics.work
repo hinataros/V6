@@ -1,0 +1,14 @@
+# @author Sho Miyahara 2017
+
+Sequence:
+  -
+    twf: 10.
+    Inverse dynamics controller: fullDynamics
+    Motion controller: workAcceleration
+    Torque controller: jointSpace
+
+    Bm:
+      - [1, ., 1, ., ., .]
+
+  -
+    twf: 2.

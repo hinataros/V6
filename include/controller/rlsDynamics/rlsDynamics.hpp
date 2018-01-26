@@ -186,6 +186,7 @@ namespace RLS{
     Vector3d xiBpreState;
     Vector3d dxiBpreState;
     Vector3d rXpreState;
+    Vector3d drXpreState;
 
     VectorXd cal_XpreState;
     VectorXd cal_VpreState;
@@ -358,11 +359,15 @@ namespace RLS{
     void externalWrenchReference(Config&, Info&, Model&, double&);
     void reference(Config&, Info&, Model&, double&);
 
+    // add function
+    MatrixXd weight(Config&, Info&, Model&, int, Vector3d);
+
     // velocity controller
     VectorXd baseVelocitySynergy(Config&, Info&, Model&);
     VectorXd mixedVelocitySynergy(Config&, Info&, Model&);
 
     // acceleration controller
+    VectorXd workAcceleration(Config&, Info&, Model&);
     VectorXd baseAccelerationSynergy(Config&, Info&, Model&);
     VectorXd mixedAccelerationSynergy(Config&, Info&, Model&);
     VectorXd centroidalAccelerationSynergy(Config&, Info&, Model&);
@@ -375,6 +380,7 @@ namespace RLS{
     VectorXd ddqD(Config&, Info&, Model&);
 
     // momentum controller
+    void zeroMomentum(Config&, Info&, Model&);
     void linearMomentum(Config&, Info&, Model&);
     void dcmMomentum(Config&, Info&, Model&);
     void centroidalAngularMomentum(Config&, Info&, Model&);
@@ -384,10 +390,14 @@ namespace RLS{
     void centroidalDcmMomentum(Config&, Info&, Model&);
 
     // force controller
+    void zeroDistribution(Config&, Info&, Model&);
     void baseDistribution(Config&, Info&, Model&);
     void centroidalDistribution(Config&, Info&, Model&);
+    void centroidalDcmDistribution(Config&, Info&, Model&);
 
     // torque controller
+    void zeroTorque(Config&, Info&, Model&);
+    void jointSpace(Config&, Info&, Model&);
     void staticControl(Config&, Info&, Model&);
     void base(Config&, Info&, Model&);
     void mixed(Config&, Info&, Model&);

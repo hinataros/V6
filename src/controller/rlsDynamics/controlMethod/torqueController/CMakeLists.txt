@@ -1,6 +1,8 @@
 # @author Sho Miyahara 2017
 
 set(srcs
+  zeroTorque.cpp
+  jointSpace.cpp
   staticControl.cpp
   base.cpp
   mixed.cpp

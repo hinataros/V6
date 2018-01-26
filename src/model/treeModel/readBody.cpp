@@ -48,7 +48,7 @@ void RLS::TreeModel::readBody(Config &config, Info &info)
 
       // joint distance
       for(unsigned k=0; k<doc["Body model"]["Joint distance"][i][j].size(); k++)
-  	limb[i].node[j].d(k) = doc["Body model"]["Joint distance"][i][j][k].as<double>();
+        limb[i].node[j].d(k) = doc["Body model"]["Joint distance"][i][j][k].as<double>();
 
       // mass
       limb[i].node[j].m = doc["Body model"]["Mass"][i][j].as<double>();
@@ -56,7 +56,7 @@ void RLS::TreeModel::readBody(Config &config, Info &info)
 
       // com
       for(unsigned k=0; k<doc["Body model"]["CoM"][i][j].size(); k++)
-  	limb[i].node[j].ri2C(k) = doc["Body model"]["CoM"][i][j][k].as<double>();
+        limb[i].node[j].ri2C(k) = doc["Body model"]["CoM"][i][j][k].as<double>();
 
       // inertia matrix
       limb[i].node[j].Iw_C(0,0) = doc["Body model"]["Inertia matrix"][i][j][0].as<double>();

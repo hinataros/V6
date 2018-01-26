@@ -11,8 +11,7 @@ void RLS::RlsDynamics::dcmReference(Config &config, Info &info, Model &model, do
 {
   if(config.flag.debug) DEBUG;
 
-  // o(info.sim.state);
-  if(info.sim.state==0)
+  if(info.sim.state==-1||info.sim.state==0)
     for(int i=0; i<3; i++){
       des = makeSpline5(t-info.sim.tw0, info.sim.twf, rXpreDes(i), rXf(i));
       rXDes(i) = des(0) + rX0(i);
@@ -26,6 +25,7 @@ void RLS::RlsDynamics::dcmReference(Config &config, Info &info, Model &model, do
 
   if(info.sim.state==2){
     for(int i=0; i<3; i++){
+      // des = makeSpline5(t-info.sim.trev, info.sim.trecf, rXpreState(i), drXpreState(i), 0., rXf(i), 0., 0.);
       des = makeSpline5(t-info.sim.trev, info.sim.trecf, rXpreState(i), rXf(i));
       rXDes(i) = des(0) + rX0(i);
       drXDes(i) = des(1);

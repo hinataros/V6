@@ -5,10 +5,10 @@ if(POLICY CMP0048)
   cmake_policy(SET CMP0048 OLD)
 endif()
 
-option(rls_yaml-cpp_compile "yaml-cpp library install" OFF)
-if(rls_yaml-cpp_compile)
-  add_subdirectory(thirdparty)
-endif()
+option(rls_thirdparty_yaml-cpp "yaml-cpp library install" OFF)
+option(rls_thirdparty_QuadProgpp "QuadProg++ library install" OFF)
+
+add_subdirectory(thirdparty)
 
 project(rls)
 string(TOLOWER ${PROJECT_NAME} PROJECT_NAME_LOWER)

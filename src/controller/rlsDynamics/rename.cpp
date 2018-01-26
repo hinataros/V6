@@ -30,16 +30,20 @@ void RLS::RlsDynamics::rename(Config &config, Info &info, Model &model)
   rB2C = model.hoap2.all.rC - model.hoap2.limb[0].node[0].r;
   drB2C = model.hoap2.all.vC - model.hoap2.limb[0].node[0].v;
 
-  Jc <<
-    cal_Pc.transpose(), cal_Jc;
-  Jm <<
-    cal_Pm.transpose(), cal_Jm;
+  if(c)
+    Jc <<
+      cal_Pc.transpose(), cal_Jc;
+  if(m)
+    Jm <<
+      cal_Pm.transpose(), cal_Jm;
 
   // diff
-  dJc <<
-    cal_dPc.transpose(), cal_dJc;
-  dJm <<
-    cal_dPm.transpose(), cal_dJm;
+  if(c)
+    dJc <<
+      cal_dPc.transpose(), cal_dJc;
+  if(m)
+    dJm <<
+      cal_dPm.transpose(), cal_dJm;
 
   // ******************************
   // inertia
