@@ -100,3 +100,9 @@ readWorkで書いてある要素だけ上書き？ー＞readするときに初�
 infoのvalueとかnode、dofの検討
 
 workのnameのdefaultnameの設定
+
+triggerConfigの設定の仕方
+ー＞常に0にしたい時とか
+
+拘束条件はfzが発生した時にcが増えるようにしたほうがよさそうCoPの計算的に
+接触しているlinkの個数とそのnode番号の変数ほしい

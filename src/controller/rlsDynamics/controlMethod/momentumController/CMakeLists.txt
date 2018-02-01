@@ -1,7 +1,6 @@
 # @author Sho Miyahara 2017
 
 set(srcs
-  zeroMomentum.cpp
   linearMomentum.cpp
   centroidalAngularMomentum.cpp
   dcmMomentum.cpp

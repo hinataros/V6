@@ -2,6 +2,7 @@
 
 add_subdirectory(sharedMemory)
 add_subdirectory(interpolation)
+add_subdirectory(solver)
 add_subdirectory(rlsDynamics)
 add_subdirectory(object)
 
@@ -9,6 +10,7 @@ if(rls_rlsDynamicsRTC)
   set(rlsDynamicsRTC_srcs ${rlsDynamicsRTC_srcs}
     ${sharedMemory_srcs}
     ${interpolation_srcs}
+    ${solver_srcs}
     ${rlsDynamics_srcs}
     ${rlsDynamicsRTCCore_srcs}
     PARENT_SCOPE
@@ -31,11 +33,12 @@ if(rls_rlsSimulator)
 
   MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" controller_srcs)
 
-set(controller_srcs ${controller_srcs}
-  ${interpolation_srcs}
-  ${rlsDynamics_srcs}
-  PARENT_SCOPE
-  )
+  set(controller_srcs ${controller_srcs}
+    ${interpolation_srcs}
+    ${solver_srcs}
+    ${rlsDynamics_srcs}
+    PARENT_SCOPE
+    )
 endif(rls_rlsSimulator)
 
 

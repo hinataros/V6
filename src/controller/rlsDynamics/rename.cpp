@@ -51,6 +51,9 @@ void RLS::RlsDynamics::rename(Config &config, Info &info, Model &model)
   MB = model.hoap2.all.M.block(0,0,6,6);
   HBth = model.hoap2.all.M.block(0,6,6,info.dof.joint);
 
+  cal_AB <<
+    MB, HBth;
+
   Mth = model.hoap2.all.M.block(6,6,info.dof.joint,info.dof.joint);
 
   // nonlinear

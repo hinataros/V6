@@ -59,6 +59,7 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   IB = Matrix3d::Zero();
   MB = Matrix6d::Zero();
   HBth = MatrixXd::Zero(6, info.dof.joint);
+  cal_AB = MatrixXd::Zero(6, info.dof.all);
   Mth = MatrixXd::Zero(info.dof.joint, info.dof.joint);
 
   // nonlinear
@@ -117,6 +118,8 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   cal_Fext0 = Vector6d::Zero();
   cal_Fextf = Vector6d::Zero();
+
+  rpk0 = VectorXd::Zero(2*info.value.joint);
 
   // previous state
   // ******************************
@@ -247,7 +250,7 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
     inverseDynamicsControllerName = "default";
 
   // mapping
-  map_motionController["default"] = &RLS::RlsDynamics::baseVelocitySynergy;
+  map_motionController["default"] = &RLS::RlsDynamics::zeroMotion;
   map_motionController["baseVelocitySynergy"] = &RLS::RlsDynamics::baseVelocitySynergy;
   map_motionController["mixedVelocitySynergy"] = &RLS::RlsDynamics::mixedVelocitySynergy;
 
@@ -269,6 +272,7 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   map_forceController["baseDistribution"] = &RLS::RlsDynamics::baseDistribution;
   map_forceController["centroidalDistribution"] = &RLS::RlsDynamics::centroidalDistribution;
   map_forceController["centroidalDcmDistribution"] = &RLS::RlsDynamics::centroidalDcmDistribution;
+  map_forceController["distributionSolver"] = &RLS::RlsDynamics::distributionSolver;
 
   map_torqueController["default"] = &RLS::RlsDynamics::zeroTorque;
   map_torqueController["jointSpace"] = &RLS::RlsDynamics::jointSpace;
@@ -280,4 +284,5 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   map_inverseDynamicsController["fullDynamics"] = &RLS::RlsDynamics::fullDynamicsController;
   map_inverseDynamicsController["highGain"] = &RLS::RlsDynamics::highGainController;
+  map_inverseDynamicsController["atlasSolver"] = &RLS::RlsDynamics::atlasSolver;
 }

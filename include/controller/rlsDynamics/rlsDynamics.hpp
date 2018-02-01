@@ -6,13 +6,16 @@
 
 #include "yaml-cpp/yaml.h"
 #include "interpolation.hpp"
+#include "solver.hpp"
 #include "common.hpp"
 
 #include "rlsDynamicsList.hpp"
 
 namespace RLS{
   class RlsDynamics:
-    public Interpolation, virtual public Common
+    public Interpolation,
+    public Solver,
+    virtual public Common
   {
   private:
     bool initialValueFlag;
@@ -110,6 +113,7 @@ namespace RLS{
     Matrix3d IB;
     Matrix6d MB;
     MatrixXd HBth;
+    MatrixXd cal_AB;
     MatrixXd Mth;
 
     // nonlinear
@@ -174,6 +178,8 @@ namespace RLS{
 
     Vector6d cal_Fext0;
     Vector6d cal_Fextf;
+
+    VectorXd rpk0;
 
     Vector3d des;
 
@@ -362,6 +368,12 @@ namespace RLS{
     // add function
     MatrixXd weight(Config&, Info&, Model&, int, Vector3d);
 
+    // zero controller
+    VectorXd zeroMotion(Config&, Info&, Model&);
+    void zeroMomentum(Config&, Info&, Model&);
+    void zeroDistribution(Config&, Info&, Model&);
+    void zeroTorque(Config&, Info&, Model&);
+
     // velocity controller
     VectorXd baseVelocitySynergy(Config&, Info&, Model&);
     VectorXd mixedVelocitySynergy(Config&, Info&, Model&);
@@ -380,7 +392,6 @@ namespace RLS{
     VectorXd ddqD(Config&, Info&, Model&);
 
     // momentum controller
-    void zeroMomentum(Config&, Info&, Model&);
     void linearMomentum(Config&, Info&, Model&);
     void dcmMomentum(Config&, Info&, Model&);
     void centroidalAngularMomentum(Config&, Info&, Model&);
@@ -390,13 +401,12 @@ namespace RLS{
     void centroidalDcmMomentum(Config&, Info&, Model&);
 
     // force controller
-    void zeroDistribution(Config&, Info&, Model&);
     void baseDistribution(Config&, Info&, Model&);
     void centroidalDistribution(Config&, Info&, Model&);
     void centroidalDcmDistribution(Config&, Info&, Model&);
+    void distributionSolver(Config&, Info&, Model&);
 
     // torque controller
-    void zeroTorque(Config&, Info&, Model&);
     void jointSpace(Config&, Info&, Model&);
     void staticControl(Config&, Info&, Model&);
     void base(Config&, Info&, Model&);
@@ -407,6 +417,7 @@ namespace RLS{
     // inverse dynamics controller
     VectorXd fullDynamicsController(Config&, Info&, Model&);
     VectorXd highGainController(Config&, Info&, Model&);
+    VectorXd atlasSolver(Config&, Info&, Model&);
 
     void controlMethod(Config&, Info&, Model&);
 

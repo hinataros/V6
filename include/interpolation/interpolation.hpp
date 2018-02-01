@@ -13,4 +13,5 @@ namespace RLS{
   public:
   };
 }
+
 #endif //INTERPOLATION_HPP_

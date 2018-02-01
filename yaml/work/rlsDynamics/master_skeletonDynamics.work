@@ -2,11 +2,8 @@
 
 State:
   -
-    Inverse dynamics controller: fullDynamics
-    Motion controller: baseGeneralizedMomentum
-    Momentum controller: centroidalDcmMomentum
-    Force controller: centroidalDcmDistribution
-    Torque controller: staticControl
+    Inverse dynamics controller: atlasSolver
+    Torque controller: base
 
     Bc:
       - [1, 1, 1, 1, 1, 1]
@@ -19,43 +16,17 @@ State:
       - [1, 1, 1, ., ., .]
       - [1, 1, 1, ., ., .]
 
-    KX: 1.e+2
-    # KX: 1.e+3
+    KpC: 3.e+4
+    KdC: 5.e+3
 
-    # KpwB: 1.e+2
-    KdwB: 1.e+2
-
-    KDth: 1.e+3
-    # KDth: 2.e+2
-
-  - # reflecx
-  - # recovery
-    trecf: 3.
-    # trecf: 4.
-
+    KpwB: 3.e+4
+    KdwB: 5.e+3
 
 Sequence:
   -
-    twf: 7.
+    twf: 5.
 
   -
-    twf: 2.
-    # cal_Fextf: [4., ., ., ., ., .]
-    # cal_Fextf: [3., 3., ., ., ., .]
-    # cal_Fextf: [., 5., ., ., ., .]
-    # cal_Fextf: [8., 5., ., ., ., .]
-    cal_Fextf: [6., 4., ., ., ., .]
+    twf: 5.
 
-  -
-    twf: 6.
-    # cal_Fextf: [3., 3., ., ., ., .]
-    cal_Fextf: [6., 4., ., ., ., .]
-
-  -
-    twf: 2.
-    cal_Fextf: [0., 0., 0., 0., 0., 0.]
-
-  -
-    twf: 4.
-    # KX: 1.e+2
-    KpwB: 1.e+2
+    # rCf: [0., 0.03, 0.]

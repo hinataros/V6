@@ -1,5 +1,6 @@
 #@author Sho Miyahara 2017
 
+add_subdirectory(zeroController)
 add_subdirectory(velocityController)
 add_subdirectory(accelerationController)
 add_subdirectory(momentumController)
@@ -14,6 +15,7 @@ set(srcs
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" controlMethod_srcs)
 set(controlMethod_srcs
   ${controlMethod_srcs}
+  ${zeroController_srcs}
   ${velocityController_srcs}
   ${accelerationController_srcs}
   ${momentumController_srcs}

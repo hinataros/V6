@@ -5,8 +5,11 @@ if(POLICY CMP0048)
   cmake_policy(SET CMP0048 OLD)
 endif()
 
-option(rls_thirdparty_yaml-cpp "yaml-cpp library install" OFF)
-option(rls_thirdparty_QuadProgpp "QuadProg++ library install" OFF)
+option(rls_thirdparty_yaml-cpp "link yaml-cpp library" OFF)
+option(rls_thirdparty_yaml-cpp_compile "compile yaml-cpp library" OFF)
+option(rls_thirdparty_QuadProgpp "link QuadProg++ library" OFF)
+option(rls_thirdparty_QuadProgpp_compile "compile QuadProg++ library" OFF)
+option(rls_thirdparty_QuadProgpp_sample "compile QuadProg++ sample program" OFF)
 
 add_subdirectory(thirdparty)
 
@@ -44,7 +47,7 @@ option(rls_OpenRTM "open RTM" OFF)
 option(rls_rlsDynamicsRTC "dynamics controller RTC" OFF)
 option(rls_objectRTC "object controller RTC" OFF)
 option(rls_rlsSimulator "RLS simulator" OFF)
-option(rls_dTils "delete tilde file" ON)
+option(rls_dTils "delete tilde file" OFF)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
    # Mac OS X specific code
