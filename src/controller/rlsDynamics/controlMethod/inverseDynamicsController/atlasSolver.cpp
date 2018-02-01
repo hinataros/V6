@@ -60,14 +60,14 @@ VectorXd RLS::RlsDynamics::atlasSolver(Config &config, Info &info, Model &model)
 
   VectorXd rpDes = VectorXd::Zero(2*contact);
   // VectorXd rpDes = rpk.head(4);
-  rpDes <<
-    1.849940e-3,
-    -3.892652e-2,
-    1.913260e-3,
-    3.895806e-2;
+  // rpDes <<
+  //   1.849940e-3,
+  //   -3.892652e-2,
+  //   1.913260e-3,
+  //   3.895806e-2;
 
   g.transpose() <<
-    -2*((cal_dLBRef - cal_CB).transpose()*cal_AB + cal_dVRef.transpose()*J), -2*rpDes.transpose()*Pc;
+    -((cal_dLBRef - cal_CB).transpose()*cal_AB + cal_dVRef.transpose()*J), -rpDes.transpose()*Pc;
 
   int ceNum = 6;
   MatrixXd CE = MatrixXd::Zero(ceNum,info.dof.all+c);

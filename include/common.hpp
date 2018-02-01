@@ -13,6 +13,7 @@ namespace RLS{
   protected:
     double math(string, int, ...);
     MatrixXd diag(int, ...);
+    MatrixXd antiDiag(int, ...);
     Matrix3d R(string, double);
     Matrix3d cross(Vector3d);
     Matrix6d bb_R(string, double);

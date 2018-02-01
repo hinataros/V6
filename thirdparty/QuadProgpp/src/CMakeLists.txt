@@ -7,6 +7,9 @@ file(GLOB sources *.cpp)
 file(GLOB headers *.hpp)
 set(library_sources ${sources})
 list(REMOVE_ITEM library_sources ${CMAKE_CURRENT_SOURCE_DIR}/qptest.cpp)
+
+add_definitions(-fPIC)
+
 add_library(quadprog STATIC ${library_sources} ${headers})
 
 if(rls_thirdparty_QuadProgpp_sample)

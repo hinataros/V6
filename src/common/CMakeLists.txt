@@ -3,6 +3,7 @@
 set(srcs
   math.cpp
   diag.cpp
+  antiDiag.cpp
   R.cpp
   cross.cpp
   bb_R.cpp

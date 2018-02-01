@@ -51,8 +51,8 @@ items:
               data: 
                 isNoDelayMode: true
                 controllerOptions: ""
-                moduleName: "/home/smiyahara/Documents/rlsSimulator/build/bin/rlsDynamicsRTC.so"
-                confFileName: "/home/smiyahara/Documents/rlsSimulator/src/controller/rlsDynamics/RTC/rtcConfig/skeletonPort.conf"
+                moduleName: ""
+                confFileName: ""
                 configurationMode: "Use Configuration File"
                 AutoConnect: false
                 InstanceName: "skeleton"
