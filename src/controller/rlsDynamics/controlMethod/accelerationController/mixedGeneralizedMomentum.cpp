@@ -15,14 +15,14 @@ VectorXd RLS::RlsDynamics::mixedGeneralizedMomentum(Config &config, Info &info, 
   AC <<
     model.hoap2.all.MM.block(0,0,6,info.dof.all);
 
-  MatrixXd JcM = MatrixXd::Zero(c, info.dof.all);
+  MatrixXd JcM = MatrixXd::Zero(info.contact.c.all, info.dof.all);
   JcM <<
     cal_PcM.transpose(), cal_JcM;
-  MatrixXd dJcM = MatrixXd::Zero(c, info.dof.all);
+  MatrixXd dJcM = MatrixXd::Zero(info.contact.c.all, info.dof.all);
   dJcM <<
     cal_dPcM.transpose(), cal_dJcM;
 
-  MatrixXd ACBar = MatrixXd::Zero(6+c, info.dof.all);
+  MatrixXd ACBar = MatrixXd::Zero(6+info.contact.c.all, info.dof.all);
   ACBar <<
     AC,
     JcM;
@@ -31,7 +31,7 @@ VectorXd RLS::RlsDynamics::mixedGeneralizedMomentum(Config &config, Info &info, 
   dAC <<
     model.hoap2.all.dMM.block(0,0,6,info.dof.all);
 
-  MatrixXd dACBar = MatrixXd::Zero(6+c, info.dof.all);
+  MatrixXd dACBar = MatrixXd::Zero(6+info.contact.c.all, info.dof.all);
   dACBar <<
     dAC,
     dJcM;
@@ -41,16 +41,16 @@ VectorXd RLS::RlsDynamics::mixedGeneralizedMomentum(Config &config, Info &info, 
     cal_VM,
     model.hoap2.all.dth;
 
-  VectorXd cal_dLCBarRef = VectorXd::Zero(6+c);
+  VectorXd cal_dLCBarRef = VectorXd::Zero(6+info.contact.c.all);
   cal_dLCBarRef.head(6) = cal_dLCRef;
 
   VectorXd ddqLCRef = pInv(ACBar)*(cal_dLCBarRef - dACBar*dqM);
 
   // **********************************************************
-  MatrixXd JmM = MatrixXd::Zero(m, info.dof.all);
+  MatrixXd JmM = MatrixXd::Zero(info.contact.m.all, info.dof.all);
   JmM <<
     cal_PmM.transpose(), cal_JmM;
-  MatrixXd dJmM = MatrixXd::Zero(m, info.dof.all);
+  MatrixXd dJmM = MatrixXd::Zero(info.contact.m.all, info.dof.all);
   dJmM <<
     cal_dPmM.transpose(), cal_dJmM;
 

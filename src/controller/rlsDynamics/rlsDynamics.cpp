@@ -22,8 +22,7 @@ VectorXd RLS::RlsDynamics::rlsDynamics(Config &config, Info &info, Model &model,
   if(configurationManager(config, info, model, t))
     reconfigure(config, info);
 
-  decompose(config, model);
-  rename(config, info, model);
+  update(config, info, model);
 
   reference(config, info, model, t);
   controlMethod(config, info, model);

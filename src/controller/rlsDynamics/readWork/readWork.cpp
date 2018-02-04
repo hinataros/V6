@@ -32,6 +32,8 @@ int RLS::RlsDynamics::readWork(Config &config, Info &info, string node, int seq)
   Bc_kDiag = checkMatrix<MatrixXi>(doc, node, seq, "Bc", info.value.joint, Bc_kDiag);
   Bm_kDiag = checkMatrix<MatrixXi>(doc, node, seq, "Bm", info.value.joint, Bm_kDiag);
 
+  BpDiag = checkMatrix<MatrixXi>(doc, node, seq, "Bp", info.value.joint, BpDiag);
+
   rCf = checkVector<VectorXd>(doc, node, seq, "rCf", rCf);
   rBf = checkVector<VectorXd>(doc, node, seq, "rBf", rBf);
   xiBf = checkVector<VectorXd>(doc, node, seq, "xiBf", xiBf);
@@ -63,6 +65,12 @@ int RLS::RlsDynamics::readWork(Config &config, Info &info, string node, int seq)
   // high gain control
   KpHG = checkMatrix<MatrixXd>(doc, node, seq, "KpHG", info.value.joint, KpHG);
   KdHG = checkMatrix<MatrixXd>(doc, node, seq, "KdHG", info.value.joint, KdHG);
+
+  // optimization weight
+  WFSD = checkMatrix<MatrixXd>(doc, node, seq, "WFSD", WFSD);
+  Wp = checkMatrix<MatrixXd>(doc, node, seq, "Wp", Wp);
+  WF = checkMatrix<MatrixXd>(doc, node, seq, "WF", WF);
+  Wth = checkMatrix<MatrixXd>(doc, node, seq, "Wth", info.value.joint, Wth);
 
   return 0;
 }

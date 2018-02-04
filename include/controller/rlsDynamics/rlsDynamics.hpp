@@ -26,13 +26,14 @@ namespace RLS{
     string torqueControllerName;
     string inverseDynamicsControllerName;
 
-    int c;
     MatrixXi Bc_kDiag;
     MatrixXd Bc_k;
 
-    int m;
     MatrixXi Bm_kDiag;
     MatrixXd Bm_k;
+
+    MatrixXi BpDiag;
+    MatrixXd Bp;
 
     // ******************************
     Vector6d cal_XB;
@@ -103,6 +104,10 @@ namespace RLS{
     MatrixXd dJth;
     MatrixXd cal_dJcHat;
     MatrixXd cal_dJmHat;
+
+    // objective
+    // ******************************
+    MatrixXd Pc;
 
     // rename
     // ******************************
@@ -326,10 +331,19 @@ namespace RLS{
     MatrixXd KpHG;
     MatrixXd KdHG;
 
+    // optimization weight
+    Matrix6d WFSD;
+    MatrixXd Wp;
+    MatrixXd WF;
+    MatrixXd Wth;
+
     // trigger flag
     bool flagInit;
     bool flagHip;
     bool flagStay;
+
+    // selective matrix for forward kinematics
+    Matrix6d bb_ScB;
 
     void initialValue(Config&, Info&, Model&);
     void resize(Config&, Info&, Model&);
@@ -343,6 +357,7 @@ namespace RLS{
     bool resetSequence(Config&, Info&, double&);
     void mapping(Config&);
 
+    int checkContact(Config&, Info&, Model&, double&);
     int ankleStratagy(Config&, Info&, Model&, double&);
     int ankleHipStratagy(Config&, Info&, Model&, double&);
     int stateTriggerConfig(Config&, Info&, Model&, double&);
@@ -356,7 +371,9 @@ namespace RLS{
     void reconfigure(Config&, Info&);
 
     void decompose(Config&, Model&);
+    int objective(Config&, Info&, Model&);
     void rename(Config&, Info&, Model&);
+    void update(Config&, Info&, Model&);
 
     void comReference(Config&, Info&, Model&, double&);
     void baseReference(Config&, Info&, Model&, double&);
@@ -417,6 +434,7 @@ namespace RLS{
     // inverse dynamics controller
     VectorXd fullDynamicsController(Config&, Info&, Model&);
     VectorXd highGainController(Config&, Info&, Model&);
+    VectorXd spatialDynamicsSolver(Config&, Info&, Model&);
     VectorXd atlasSolver(Config&, Info&, Model&);
 
     void controlMethod(Config&, Info&, Model&);

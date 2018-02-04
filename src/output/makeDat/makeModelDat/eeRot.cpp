@@ -24,7 +24,7 @@ string RLS::Output::eeRot(Config &config, Info &info, string dir, string &load)
     else{
       for(int i=0; i<info.sim.n; i+=config.graph.st)
         eeOrient << setprecision(9) << scientific <<
-          data.t[i] << " " << data.tm[i].eeOrientMatrix.col(l-1).transpose() << endl;
+          data.t[i] << " " << (antiDiag(3,1.,1.,1.)*data.tm[i].eeOrientMatrix.col(l-1)).transpose() << endl;
 
       eeOrient.close();
     }

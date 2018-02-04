@@ -13,11 +13,10 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   initialValueFlag = true;
 
-  c = 0;
-  m = 0;
-
   Bc_kDiag = MatrixXi::Zero(6*info.value.joint, 6*info.value.joint);
   Bm_kDiag = MatrixXi::Zero(6*info.value.joint, 6*info.value.joint);
+
+  BpDiag = MatrixXi::Zero(2*info.value.joint, 2*info.value.joint);
 
   cal_XB = Vector6d::Zero();
   cal_VB = Vector6d::Zero();
@@ -238,10 +237,20 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   KpHG = MatrixXd::Zero(info.dof.joint, info.dof.joint);
   KdHG = MatrixXd::Zero(info.dof.joint, info.dof.joint);
 
+  // optimization weight
+  WFSD = Matrix6d::Zero();
+  Wth = MatrixXd::Zero(info.dof.joint, info.dof.joint);
+  // smiyahara: 接触点の個数を数えたい
+  Wp = MatrixXd::Zero(2*info.value.joint, 2*info.value.joint);
+  WF = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
+
   // trigger flag
   flagInit = true;
   flagHip = false;
   flagStay = false;
+
+  // selective matrix for forward kinematics
+  bb_ScB = Matrix6d::Zero();
 
   motionControllerName =
     momentumControllerName =
@@ -284,5 +293,6 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   map_inverseDynamicsController["fullDynamics"] = &RLS::RlsDynamics::fullDynamicsController;
   map_inverseDynamicsController["highGain"] = &RLS::RlsDynamics::highGainController;
+  map_inverseDynamicsController["spatialDynamicsSolver"] = &RLS::RlsDynamics::spatialDynamicsSolver;
   map_inverseDynamicsController["atlasSolver"] = &RLS::RlsDynamics::atlasSolver;
 }

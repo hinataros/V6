@@ -23,7 +23,7 @@ string RLS::Output::baseRot(Config &config, Info &info, string dir, string &load
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       baseOrient << setprecision(9) << scientific <<
-        data.t[i] << " " << data.tm[i].xiB.transpose() << endl;
+        data.t[i] << " " << (antiDiag(3,1.,1.,1.)*data.tm[i].xiB).transpose() << endl;
     baseOrient.close();
   }
 

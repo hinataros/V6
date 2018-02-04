@@ -26,7 +26,7 @@ VectorXd RLS::RlsDynamics::mixedVelocitySynergy(Config &config, Info &info, Mode
   dthRef = dthcRef;
 
   dqRef <<
-    -cal_Pc.block(0,0,6,6).transpose().inverse()*(cal_Jc*dthRef).head(6),
+    cal_VBRef,
     dthRef;
 
   return dqRef;

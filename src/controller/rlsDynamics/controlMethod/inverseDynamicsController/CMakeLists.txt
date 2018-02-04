@@ -3,6 +3,7 @@
 set(srcs
   fullDynamicsController.cpp
   highGainController.cpp
+  spatialDynamicsSolver.cpp
   atlasSolver.cpp
   )
 

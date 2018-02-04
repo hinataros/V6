@@ -22,4 +22,11 @@ void RLS::Info::initialize(Config &config)
   value.joint = 0;
   dof.all = 0;
   dof.joint = 0;
+
+  // contact
+  contact.num = 0;
+  contact.c.all = contact.m.all = 0;
+
+  for(int i=0; i<6; i++)
+    contact.c.axis[i] = contact.m.axis[i] = 0;
 }

@@ -11,7 +11,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-VectorXd RLS::RlsDynamics::atlasSolver(Config &config, Info &info, Model &model)
+VectorXd RLS::RlsDynamics::spatialDynamicsSolver(Config &config, Info &info, Model &model)
 {
   if(config.flag.debug) DEBUG;
 
@@ -22,16 +22,10 @@ VectorXd RLS::RlsDynamics::atlasSolver(Config &config, Info &info, Model &model)
 
   MatrixXd Wq = MatrixXd::Zero(info.dof.all,info.dof.all);
   Wq.block(6,6,info.dof.joint,info.dof.joint) = Wth;
-  MatrixXd WJ = MatrixXd::Identity(6*info.value.joint, 6*info.value.joint);
-  // WJ *= 1.e-3;
-
-  MatrixXd J = MatrixXd::Zero(TB2k.rows(), TB2k.cols()+cal_J.cols());
-  J <<
-    TB2k, cal_J;
 
   MatrixXd G = MatrixXd::Identity(n, n);
   G <<
-    cal_AB.transpose()*WFSD*cal_AB + J.transpose()*WJ*J + Wq, MatrixXd::Zero(info.dof.all,info.contact.c.all),
+    cal_AB.transpose()*WFSD*cal_AB + Wq, MatrixXd::Zero(info.dof.all,info.contact.c.all),
     MatrixXd::Zero(info.contact.c.all,info.dof.all), Pc.transpose()*Bp.transpose()*Wp*Bp*Pc + Bc.transpose()*WF*Bc;
 
   // momentum control
@@ -41,7 +35,7 @@ VectorXd RLS::RlsDynamics::atlasSolver(Config &config, Info &info, Model &model)
 
   VectorXd g = VectorXd::Zero(n);
   g.transpose() <<
-    -(cal_dLBRef - cal_CB).transpose()*WFSD*cal_AB - cal_dVRef.transpose()*WJ*J,
+    -(cal_dLBRef - cal_CB).transpose()*WFSD*cal_AB,
     -rpkDes.transpose()*Bp.transpose()*Wp*Bp*Pc;
 
   int ceNum = 6;
@@ -50,6 +44,17 @@ VectorXd RLS::RlsDynamics::atlasSolver(Config &config, Info &info, Model &model)
     cal_AB, -cal_Pc;
 
   VectorXd ce = -(cal_CB + cal_GB);
+
+  // int ceNum = 6 + info.contact.c.all;
+  // MatrixXd CE = MatrixXd::Zero(ceNum,info.dof.all+info.contact.c.all);
+  // CE <<
+  //   cal_AB, -cal_Pc,
+  //   Jc, MatrixXd::Zero(info.contact.c.all, info.contact.c.all);
+
+  // VectorXd ce = VectorXd::Zero(ceNum);
+  // ce <<
+  //   -(cal_CB + cal_GB),
+  //   VectorXd::Zero(info.contact.c.all);
 
   VectorXd x = VectorXd::Zero(n);
   QuadProgpp::solver(G, g, "e", CE, ce, x);

@@ -26,8 +26,13 @@ VectorXd RLS::RlsDynamics::baseVelocitySynergy(Config &config, Info &info, Model
   dthRef = dthcRef + dthmRef;
 
   dqRef <<
-    -cal_Pc.block(0,0,6,6).transpose().inverse()*(cal_Jc*dthRef).head(6),
+    cal_VBRef,
     dthRef;
 
-  return dqRef;
+  VectorXd dqcRef = VectorXd::Zero(info.dof.all);
+  dqcRef <<
+    bb_ScB*cal_VBRef,
+    dthRef;
+
+  return dqcRef;
 }

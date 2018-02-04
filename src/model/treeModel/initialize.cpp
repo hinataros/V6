@@ -13,6 +13,9 @@ void RLS::TreeModel::initialize(Config &config, Info &info)
   ag = Vector3d::Zero();
 
   for(int i=0; i<info.value.node; i++){
+    // smiyahara: 初期化の場所考えたほうがいい
+    info.limb[i].c = info.limb[i].m = 0;
+
     for(int j=0; j<info.limb[i].value; j++){
       limb[i].node[j].th0 = 0.;
       limb[i].node[j].dth0 = 0.;

@@ -21,7 +21,7 @@ string RLS::Output::baseOrientDes(Config &config, Info &info, string dir, string
   else{
     for(int i=0; i<info.sim.n; i+=config.graph.st)
       baseOrientDes << setprecision(9) << scientific <<
-        data.t[i] << " " << data.dc[i].xiBDes.transpose() << endl;
+        data.t[i] << " " << (antiDiag(3,1.,1.,1.)*data.dc[i].xiBDes).transpose() << endl;
     baseOrientDes.close();
   }
 

@@ -2,6 +2,7 @@
 
 add_subdirectory(configurationManager)
 add_subdirectory(readWork)
+add_subdirectory(update)
 add_subdirectory(reference)
 add_subdirectory(controlMethod)
 add_subdirectory(index)
@@ -14,11 +15,9 @@ add_subdirectory(outputConfig)
 set(srcs
   initialize.cpp
   initialValue.cpp
-  rename.cpp
   resize.cpp
   reset.cpp
   reconfigure.cpp
-  decompose.cpp
   rlsDynamics.cpp
   )
 
@@ -32,6 +31,7 @@ set(rlsDynamics_srcs
   ${rlsDynamics_srcs}
   ${configurationManager_srcs}
   ${readWork_srcs}
+  ${update_srcs}
   ${reference_srcs}
   ${controlMethod_srcs}
   ${index_srcs}

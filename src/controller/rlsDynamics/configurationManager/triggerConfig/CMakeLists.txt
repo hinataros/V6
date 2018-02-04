@@ -1,6 +1,7 @@
 #@author Sho Miyahara 2017
 
 set(srcs
+  checkContact.cpp
   ankleStratagy.cpp
   ankleHipStratagy.cpp
   triggerConfig.cpp

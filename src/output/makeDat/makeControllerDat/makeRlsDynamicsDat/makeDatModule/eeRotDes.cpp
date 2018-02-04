@@ -22,7 +22,7 @@ string RLS::Output::eeOrientDes(Config &config, Info &info, string dir, string &
     else{
       for(int i=0; i<info.sim.n+1; i+=config.graph.st)
         eeOrientDes << setprecision(9) << scientific <<
-          data.t[i] << " " << data.dc[i].cal_XDes.segment(6*(l-1)+3, 3).transpose() << endl;
+          data.t[i] << " " << (antiDiag(3,1.,1.,1.)*data.dc[i].cal_XDes.segment(6*(l-1)+3, 3)).transpose() << endl;
 
       eeOrientDes.close();
     }

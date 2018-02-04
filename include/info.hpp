@@ -27,6 +27,19 @@ namespace RLS{
       int phase;
     } sim;
 
+    // smiyahara: 良い名前が浮かばなかった
+    struct Each{
+      int all;
+      int axis[6];
+    };
+
+    struct Contact{
+      string name;
+      int num;
+      Each c;
+      Each m;
+    } contact;
+
     struct Value{
       int node;
       int joint;
@@ -41,6 +54,9 @@ namespace RLS{
     struct Limb{
       int value;
       int dof;
+      // smiyahara: 初期化の位置めちゃびみょー
+      int c;
+      int m;
     } *limb;
 
     void initialize(Config&);

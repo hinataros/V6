@@ -2,7 +2,9 @@
 
 State:
   -
+    # Inverse dynamics controller: spatialDynamicsSolver
     Inverse dynamics controller: atlasSolver
+    Momentum controller: baseMomentum
     Torque controller: base
 
     Bc:
@@ -15,12 +17,25 @@ State:
       - 6
       - [1, 1, 1, ., ., .]
       - [1, 1, 1, ., ., .]
+    Bp:
+      - [1, 1]
+      - [1, 1]
+      - 2
+      - 2
 
     KpC: 3.e+4
     KdC: 5.e+3
 
     KpwB: 3.e+4
     KdwB: 5.e+3
+
+    Kpv: 1.e+4
+    Kdv: 1.e+3
+
+    WFSD: 1.e+0
+    Wp: 1.e+0
+    WF: 1.e-6
+    Wth: 1.e-3
 
 Sequence:
   -
@@ -29,4 +44,9 @@ Sequence:
   -
     twf: 5.
 
-    # rCf: [0., 0.03, 0.]
+    rCf: [0., 0.03, 0.]
+    cal_Xf:
+      - [., ., ., ., ., .]
+      - [., ., ., ., ., .]
+      - [.05, ., .1, ., ., .]
+      - [., ., ., ., ., .]

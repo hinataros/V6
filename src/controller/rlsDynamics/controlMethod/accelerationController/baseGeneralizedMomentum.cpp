@@ -15,7 +15,7 @@ VectorXd RLS::RlsDynamics::baseGeneralizedMomentum(Config &config, Info &info, M
   AB <<
     model.hoap2.all.M.block(0,0,6,info.dof.all);
 
-  MatrixXd ABBar = MatrixXd::Zero(6+c, info.dof.all);
+  MatrixXd ABBar = MatrixXd::Zero(6+info.contact.c.all, info.dof.all);
   ABBar <<
     AB,
     Jc;
@@ -24,7 +24,7 @@ VectorXd RLS::RlsDynamics::baseGeneralizedMomentum(Config &config, Info &info, M
   dAB <<
     model.hoap2.all.dM.block(0,0,6,info.dof.all);
 
-  MatrixXd dABBar = MatrixXd::Zero(6+c, info.dof.all);
+  MatrixXd dABBar = MatrixXd::Zero(6+info.contact.c.all, info.dof.all);
   dABBar <<
     dAB,
     dJc;
@@ -34,7 +34,7 @@ VectorXd RLS::RlsDynamics::baseGeneralizedMomentum(Config &config, Info &info, M
     cal_VB,
     model.hoap2.all.dth;
 
-  VectorXd cal_dLBBarRef = VectorXd::Zero(6+c);
+  VectorXd cal_dLBBarRef = VectorXd::Zero(6+info.contact.c.all);
   cal_dLBBarRef.head(6) = cal_dLBRef;
 
   VectorXd ddqLBRef = pInv(ABBar)*(cal_dLBBarRef - dABBar*dq);

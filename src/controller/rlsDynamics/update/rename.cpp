@@ -30,18 +30,18 @@ void RLS::RlsDynamics::rename(Config &config, Info &info, Model &model)
   rB2C = model.hoap2.all.rC - model.hoap2.limb[0].node[0].r;
   drB2C = model.hoap2.all.vC - model.hoap2.limb[0].node[0].v;
 
-  if(c)
+  if(info.contact.c.all)
     Jc <<
       cal_Pc.transpose(), cal_Jc;
-  if(m)
+  if(info.contact.m.all)
     Jm <<
       cal_Pm.transpose(), cal_Jm;
 
   // diff
-  if(c)
+  if(info.contact.c.all)
     dJc <<
       cal_dPc.transpose(), cal_dJc;
-  if(m)
+  if(info.contact.m.all)
     dJm <<
       cal_dPm.transpose(), cal_dJm;
 
@@ -95,16 +95,16 @@ void RLS::RlsDynamics::rename(Config &config, Info &info, Model &model)
 
   // centroidal
   // ******************************
-  Pcf = cal_Pc.block(0,0,3,c);
-  Pmf = cal_Pm.block(0,0,3,m);
-  PcMm = cal_PcM.block(3,0,3,c);
+  Pcf = cal_Pc.block(0,0,3,info.contact.c.all);
+  Pmf = cal_Pm.block(0,0,3,info.contact.m.all);
+  PcMm = cal_PcM.block(3,0,3,info.contact.c.all);
   cal_JcM = cal_Jc - Pcf.transpose()*model.hoap2.all.JB2C;
   cal_JmM = cal_Jm - Pmf.transpose()*model.hoap2.all.JB2C;
 
   // diff
-  dPcf = cal_dPc.block(0,0,3,c);
-  dPmf = cal_dPm.block(0,0,3,m);
-  dPcMm = cal_dPc.block(3,0,3,c);
+  dPcf = cal_dPc.block(0,0,3,info.contact.c.all);
+  dPmf = cal_dPm.block(0,0,3,info.contact.m.all);
+  dPcMm = cal_dPc.block(3,0,3,info.contact.c.all);
   // dPcf = 0と仮定
   cal_dJcM = cal_dJc - Pcf.transpose()*model.hoap2.all.dJB2C;
   cal_dJmM = cal_dJm - Pmf.transpose()*model.hoap2.all.dJB2C;
@@ -125,6 +125,11 @@ void RLS::RlsDynamics::rename(Config &config, Info &info, Model &model)
   cal_dJcHat = cal_dJc - cal_dPcM.transpose()*Jth - cal_PcM.transpose()*dJth;
   cal_dJmHat = cal_dJm - cal_dPmM.transpose()*Jth - cal_PmM.transpose()*dJth;
 
+  // ******************************
+  // forward kinematics for kinematics simulation
+  for(int i=0; i<6; i++)
+    if(!info.contact.c.axis[i]==0)
+      bb_ScB(i,i) = 1;
   // ******************************
 
   // o(cth);
