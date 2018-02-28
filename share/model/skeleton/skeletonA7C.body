@@ -52,6 +52,97 @@ links:
                 rotation: *X
                 geometry: { type: Cylinder, radius: 0.0025, height: 0.0075 }
                 appearance: *bodyColor
+
+              # Head1
+              # translation: [ -0.034, 0.0, 0.09 ]
+              -
+                type: Shape
+                translation: [ 0, 0.0, 0.19125 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+
+              # Head2
+              # translation: [ 0.008, 0.0, 0.081 ]
+              -
+                type: Shape
+                translation: [ 0.0, 0.0, 0.227 ]
+                geometry: { type: Sphere, radius: 0.027 }
+                appearance: *bodyColor
+
+              # waist1
+              # translation: [ 0.034, 0, 0.055 ]
+              -
+                type: Shape
+                translation: [ 0.034, 0, 0.0375]
+                rotation: *X
+                geometry: &jointShape
+                  {type: Cylinder, radius: 0.005, height: 0.01}
+                appearance: &jointColor
+                  material: {diffuseColor: [ 0, 0, 0 ]}
+              -
+                type: Shape
+                translation: [ 0.034, 0.0, 0.04125 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0075 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.034, -0.00875, 0.045 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.034, -0.0175, 0.05 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.034, -0.00875, 0.055 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+
+              # waist2
+              # translation: [ 0.034, 0, 0.055 ]
+              -
+                type: Shape
+                translation: [ 0.034, 0, 0.055 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0.02475, 0.0, 0.055 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0185 }
+                appearance: *bodyColor
+              # torso
+              # translation: [ 0.034, 0, 0.055 ]
+              -
+                type: Shape
+                rotation: *Z
+                translation: [ 0.0155, 0, 0.055 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0.00775, 0.0, 0.055 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0155 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.0, 0.0, 0.11825 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.1275 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.0, 0.0, 0.145 ]
+                rotation: [ 1, 0, 0, 0 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.159 }
+                appearance: *bodyColor
+
           -
             type: Collision
             elements: *ROOT
@@ -80,10 +171,8 @@ links:
                 type: Shape
                 rotation: *X
                 translation: [ 0, 0, 0.015 ]
-                geometry: &jointShape
-                  {type: Cylinder, radius: 0.005, height: 0.01}
-                appearance: &jointColor
-                  material: {diffuseColor: [ 0, 0, 0 ]}
+                geometry: *jointShape
+                appearance: *jointColor
               -
                 type: Shape
                 translation: [ 0.01375, 0.0, 0.015 ]
@@ -332,14 +421,15 @@ links:
   -
     name: RLEGEE
     parent: RLEG6
+    translation: [ 0.0, 0.0, -0.0370 ]
     elements:
       -
         type: Visual
         elements: &RLEGEE
           -
             type: Shape
-            translation: [ 0.009, 0.0, -0.032 ]
             rotation: &Y [ 0, 1, 0, 90 ]
+            translation: [ 0.009, 0.0, 0.005 ]
             geometry: { type: Box, size: [ 0.01, 0.063, 0.098 ] }
             appearance: *bodyColor
       -
@@ -499,8 +589,6 @@ links:
     name: LLEG4
     parent: LLEG3
     jointId: 9
-    translation: [ 0, 0, 0 ]
-    rotation: [ 1, 0, 0, 0 ]
     jointType: revolute
     jointAxis: Y
     jointRange: [ 0, 129 ]
@@ -632,13 +720,14 @@ links:
   -
     name: LLEGEE
     parent: LLEG6
+    translation: [ 0.0, 0.0, -0.0370 ]
     elements:
       -
         type: Visual
         elements: &LLEGEE
           -
             type: Shape
-            translation: [ 0.009, 0, -0.032 ]
+            translation: [ 0.009, 0, 0.005 ]
             rotation: *Y
             geometry: { type: Box, size: [ 0.01, 0.063, 0.098 ] }
             appearance: *bodyColor
@@ -650,114 +739,12 @@ links:
         name: LFForceSensor
         id: 1
   -
-    name: WAIST1
-    parent: ROOT
-    # jointId: 12
-    # jointType: revolute
-    # jointAxis: Z
-    translation: [ 0.034, 0, 0.055 ]
-    elements:
-      -
-        type: Visual
-        elements: &WAIST1
-          -
-            type: Shape
-            translation: [ 0, 0, -0.0175]
-            rotation: *X
-            geometry: *jointShape
-            appearance: *jointColor
-          -
-            type: Shape
-            translation: [ 0.0, 0.0, -0.01375 ]
-            rotation: *X
-            geometry: { type: Cylinder, radius: 0.0025, height: 0.0075 }
-            appearance: *bodyColor
-          -
-            type: Shape
-            translation: [ 0, -0.00875, -0.01 ]
-            geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
-            appearance: *bodyColor
-          -
-            type: Shape
-            translation: [ 0, -0.0175, -0.005 ]
-            rotation: *X
-            geometry: { type: Cylinder, radius: 0.0025, height: 0.01 }
-            appearance: *bodyColor
-          -
-            type: Shape
-            translation: [ 0, -0.00875, 0 ]
-            geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
-            appearance: *bodyColor
-      -
-        type: Collision
-        elements: *WAIST1
-  -
-    name: WAIST2
-    parent: WAIST1
-    # jointId: 13
-    # jointType: revolute
-    # jointAxis: Y
-    elements:
-      -
-        type: Visual
-        elements: &WAIST2
-          -
-            type: Shape
-            geometry: *jointShape
-            appearance: *jointColor
-          -
-            type: Shape
-            translation: [ -0.00925, 0.0, 0.0 ]
-            rotation: *Z
-            geometry: { type: Cylinder, radius: 0.0025, height: 0.0185 }
-            appearance: *bodyColor
-      -
-        type: Collision
-        elements: *WAIST2
-  -
-    name: BODY
-    parent: WAIST2
-    # jointId: 14
-    # jointType: revolute
-    # jointAxis: X
-    elements:
-      -
-        type: Visual
-        elements: &BODY
-          -
-            type: Shape
-            rotation: *Z
-            translation: [ -0.0185, 0, 0 ]
-            geometry: *jointShape
-            appearance: *jointColor
-          -
-            type: Shape
-            translation: [ -0.02625, 0.0, 0.0 ]
-            rotation: *Z
-            geometry: { type: Cylinder, radius: 0.0025, height: 0.0155 }
-            appearance: *bodyColor
-          -
-            type: Shape
-            translation: [ -0.034, 0.0, 0.06375 ]
-            rotation: *X
-            geometry: { type: Cylinder, radius: 0.0025, height: 0.1275 }
-            appearance: *bodyColor
-          -
-            type: Shape
-            translation: [ -0.034, 0.0, 0.09 ]
-            rotation: [ 1, 0, 0, 0 ]
-            geometry: { type: Cylinder, radius: 0.0025, height: 0.159 }
-            appearance: *bodyColor
-      -
-        type: Collision
-        elements: *BODY
-  -
     name: RARM1
-    parent: BODY
+    parent: ROOT
     jointId: 12
     jointType: revolute
     jointAxis: Y
-    translation: [ -0.034, -0.0995, 0.09 ]
+    translation: [ 0.0, -0.0995, 0.145 ]
     elements:
       -
         type: RigidBody
@@ -1046,13 +1033,13 @@ links:
   -
     name: RARMEE
     parent: RARM7
+    translation: [ 0.035, 0, 0 ]
     elements:
       -
         type: Visual
         elements: &RARMEE
           -
             type: Shape
-            translation: [ 0.035, 0.0, 0.0 ]
             geometry: { type: Box, size: [ 0.025, 0.025, 0.01 ] }
             appearance: *bodyColor
       -
@@ -1066,11 +1053,11 @@ links:
           Transform: { translation: [ 0.10975, 0, 0 ]}
   -
     name: LARM1
-    parent: BODY
+    parent: ROOT
     jointId: 19
     jointType: revolute
     jointAxis: Y
-    translation: [ -0.034, 0.0995, 0.09 ]
+    translation: [ 0.0, 0.0995, 0.145 ]
     elements:
       -
         type: RigidBody
@@ -1358,13 +1345,13 @@ links:
   -
     name: LARMEE
     parent: LARM7
+    translation: [ 0.035, 0, 0 ]
     elements:
       -
         type: Visual
         elements: &LARMEE
           -
             type: Shape
-            translation: [ 0.035, 0.0, 0.0 ]
             geometry: { type: Box, size: [ 0.025, 0.025, 0.01 ] }
             appearance: *bodyColor
       -
@@ -1376,37 +1363,3 @@ links:
         id: 3
         elements:
           Transform: { translation: [ 0.10975, 0, 0 ]}
-  -
-    name: HEAD1
-    parent: BODY
-    translation: [ -0.034, 0.0, 0.09 ]
-    elements:
-      -
-        type: Visual
-        elements: &HEAD1
-          -
-            type: Shape
-            translation: [ 0.0, 0.0, 0.04625 ]
-            rotation: *X
-            geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
-            appearance: *bodyColor
-      -
-        type: Collision
-        elements: *HEAD1
-  -
-    name: HEAD2
-    parent: HEAD1
-    translation: [ 0.008, 0.0, 0.081 ]
-    elements:
-      -
-        type: Visual
-        elements: &HEAD2
-          -
-            type: Shape
-            translation: [ -0.008, 0.0, 0.0 ]
-            geometry: { type: Sphere, radius: 0.027 }
-            appearance: *bodyColor
-      -
-        type: Collision
-        elements: *HEAD2
-

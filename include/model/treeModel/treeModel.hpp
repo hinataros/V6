@@ -121,8 +121,9 @@ namespace RLS{
 
     TreeModelList tm_list;
 
-    void readBody(Config&, Info&);
     void readCnoid(Config&, Info&);
+    void readBody(Config&, Info&);
+    void readModel(Config&, Info&);
     void deleteModel(Config&, Info&);
     void update(Config&, Info&);
   };

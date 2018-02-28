@@ -16,23 +16,23 @@ Matrix3d RLS::Common::R(string axis, double th)
     double s = math("s",1, th);
     double c = math("c",1, th);
 
-    if(axis=="x")
+    if(axis=="x" || axis=="X")
       R <<
-	1, 0, 0,
-	0, c,-s,
-	0, s, c;
+        1, 0, 0,
+        0, c,-s,
+        0, s, c;
 
-    else if(axis=="y")
+    else if(axis=="y" || axis=="Y")
       R <<
-	c, 0, s,
-	0, 1, 0,
-	-s,0, c;
+        c, 0, s,
+        0, 1, 0,
+        -s,0, c;
 
-    else if(axis=="z")
+    else if(axis=="z" || axis=="Z")
       R <<
-	c,-s, 0,
-	s, c, 0,
-	0, 0, 1;
+        c,-s, 0,
+        s, c, 0,
+        0, 0, 1;
 
     else
       cout << "axis error..." << endl;

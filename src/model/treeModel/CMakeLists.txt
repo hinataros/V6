@@ -5,6 +5,7 @@ add_subdirectory(dynamics)
 
 set(srcs
   readBody.cpp
+  readModel.cpp
   readCnoid.cpp
   initialize.cpp
   outputConfig.cpp

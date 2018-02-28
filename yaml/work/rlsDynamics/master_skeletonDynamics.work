@@ -24,20 +24,20 @@ State:
 
     # KX: 3.e+2
 
-    # # KpC: 3.e+2
-    # # KdC: 5.e+1
-    KpC: 10.
-    KdC: 5.
+    KpC: 3.e+2
+    KdC: 5.e+1
+    # KpC: 10.
+    # KdC: 5.
 
-    # # KpwB: 3.e+2
-    # # KdwB: 5.e+1
-    KpwB: 10.
-    KdwB: 5.
+    KpwB: 3.e+2
+    KdwB: 5.e+1
+    # KpwB: 10.
+    # KdwB: 5.
 
-    # # Kpv: 3.e+2
-    # # Kdv: 5.e+1
-    Kpv: 10.
-    Kdv: 5.
+    Kpv: 3.e+2
+    Kdv: 5.e+1
+    # Kpv: 10.
+    # Kdv: 5.
 
     KDq:
       - 6

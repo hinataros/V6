@@ -18,6 +18,7 @@ void RLS::Info::initialize(Config &config)
   sim.tw0 = 0.;
   sim.phase = 0;
 
+  value.node = 0;
   value.all = 0;
   value.joint = 0;
   dof.all = 0;

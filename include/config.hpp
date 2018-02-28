@@ -57,6 +57,7 @@ namespace RLS{
       string share;
       string cnoid;
       string body;
+      string model;
       string work;
       string result;
       string set;
