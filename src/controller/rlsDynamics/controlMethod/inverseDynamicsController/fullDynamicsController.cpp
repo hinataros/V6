@@ -11,11 +11,11 @@ VectorXd RLS::RlsDynamics::fullDynamicsController(Config &config, Info &info, Mo
 {
   if(config.flag.debug) DEBUG;
 
-  // acceleration control
-  (this->*motionController_ptr)(config, info, model);
-
   // momentum control
   (this->*momentumController_ptr)(config, info, model);
+
+  // acceleration control
+  (this->*motionController_ptr)(config, info, model);
 
   // force control
   (this->*forceController_ptr)(config, info, model);

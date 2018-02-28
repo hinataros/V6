@@ -55,6 +55,7 @@ namespace RLS{
       int value;
       int dof;
       // smiyahara: 初期化の位置めちゃびみょー
+      bool contact;
       int c;
       int m;
     } *limb;

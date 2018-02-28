@@ -106,3 +106,5 @@ triggerConfigの設定の仕方
 
 拘束条件はfzが発生した時にcが増えるようにしたほうがよさそうCoPの計算的に
 接触しているlinkの個数とそのnode番号の変数ほしい
+
+actexがinterfaceのinfoを元にしてるから指定できない

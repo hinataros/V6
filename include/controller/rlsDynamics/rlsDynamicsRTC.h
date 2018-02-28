@@ -46,15 +46,11 @@ protected:
   InPort<RTC::TimedDoubleSeq> m_basePosIn;
   RTC::TimedDoubleSeq m_baseVel;
   InPort<RTC::TimedDoubleSeq> m_baseVelIn;
-
-  RTC::TimedDoubleSeq m_rightFootForce;
-  InPort<RTC::TimedDoubleSeq> m_rightFootForceIn;
-  RTC::TimedDoubleSeq m_leftFootForce;
-  InPort<RTC::TimedDoubleSeq> m_leftFootForceIn;
+  RTC::TimedDoubleSeq m_eeForce;
+  InPort<RTC::TimedDoubleSeq> m_eeForceIn;
 
   RTC::TimedDoubleSeq m_torque;
   OutPort<RTC::TimedDoubleSeq> m_torqueOut;
-
   RTC::TimedDoubleSeq m_externalForce;
   OutPort<RTC::TimedDoubleSeq> m_externalForceOut;
 
@@ -62,7 +58,6 @@ private:
   Matrix3d cross(Vector3d x)
   {
     Matrix3d a = Matrix3d::Zero();
-
     a <<
       0    ,-x(2), x(1),
       x(2) ,    0,-x(0),
@@ -70,6 +65,7 @@ private:
 
     return a;
   }
+
   double t;
   VectorXd tau;
   Vector6d Fext;

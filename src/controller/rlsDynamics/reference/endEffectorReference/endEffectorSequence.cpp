@@ -7,7 +7,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::endEffectorReference(Config &config, Info &info, Model &model, double &t)
+void RLS::RlsDynamics::endEffectorSequence(Config &config, Info &info, Model &model, double &t)
 {
   if(config.flag.debug) DEBUG;
 

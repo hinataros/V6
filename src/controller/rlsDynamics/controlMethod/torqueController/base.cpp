@@ -13,7 +13,7 @@ void RLS::RlsDynamics::base(Config &config, Info &info, Model &model)
 
   MatrixXd MthBar = MatrixXd::Zero(info.dof.joint, info.dof.all);
   MthBar <<
-    model.hoap2.all.M.block(0,6,6,info.dof.joint).transpose(), Mth;
+    HBth.transpose(), Mth;
 
   tau = MthBar*ddqRef + cth + gth - cal_Jc.transpose()*cal_FcBarRef;
 

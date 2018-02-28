@@ -9,7 +9,7 @@
 
 int RLS::RlsDynamics::stateTriggerConfig(Config &config, Info &info, Model &model, double &t)
 {
-  return checkContact(config, info, model, t);
+  return staticCheckContact(config, info, model, t);
   // return ankleStratagy(config, info, model, t);
   // return ankleHipStratagy(config, info, model, t);
 }

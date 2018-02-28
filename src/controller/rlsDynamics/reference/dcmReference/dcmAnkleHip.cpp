@@ -1,4 +1,4 @@
-/**
+ /**
    @author Sho Miyahara 2017
 */
 
@@ -7,7 +7,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::dcmReference(Config &config, Info &info, Model &model, double &t)
+void RLS::RlsDynamics::dcmAnkleHip(Config &config, Info &info, Model &model, double &t)
 {
   if(config.flag.debug) DEBUG;
 

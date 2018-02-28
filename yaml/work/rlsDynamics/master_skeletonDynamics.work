@@ -3,50 +3,209 @@
 State:
   -
     # Inverse dynamics controller: spatialDynamicsSolver
-    Inverse dynamics controller: atlasSolver
+    # # Inverse dynamics controller: atlasSolver
+    # Momentum controller: centroidalMomentum
+    # # Momentum controller: baseMomentum
+
+    # Inverse dynamics controller: fullDynamics
+    # Momentum controller: centroidalMomentum
+    # # Motion controller: accelerationSolver
+    # Force controller: distributionSolver
+    # Motion controller: mixedGeneralizedMomentum
+    # # Force controller: centroidalDistribution
+
+    Inverse dynamics controller: fullDynamics
+    Motion controller: baseGeneralizedMomentum
     Momentum controller: baseMomentum
+    Force controller: baseDistribution
+
+    # Torque controller: mixedmixed
     Torque controller: base
 
+    # KX: 3.e+2
+
+    # # KpC: 3.e+2
+    # # KdC: 5.e+1
+    KpC: 10.
+    KdC: 5.
+
+    # # KpwB: 3.e+2
+    # # KdwB: 5.e+1
+    KpwB: 10.
+    KdwB: 5.
+
+    # # Kpv: 3.e+2
+    # # Kdv: 5.e+1
+    Kpv: 10.
+    Kdv: 5.
+
+    KDq:
+      - 6
+      - [1.e+1, 1.e+1, 1.e+1, 1.e+1, 1.e+1, 1.e+1]
+      - [1.e+1, 1.e+1, 1.e+1, 1.e+1, 1.e+1, 1.e+1]
+      - [1.e+1, 1.e+1, 1.e+1, 1.e+1, 1.e+1, 1.e+1]
+      - [1.e+1, 1.e+1, 1.e+1, 1.e+1, 1.e+1, 1.e+1]
+
+    WFSD: 1.e-0
+    Wp: 1.e-0
+    WF: 1.e-7
+    # WF: 1.e-8
+    # WF: 1.1e-7
+    # Wm: 1.e-3
+    # WJ: 1.e-0
+    Wth: 1.e-2
+  # # double stance
+  -
     Bc:
       - [1, 1, 1, 1, 1, 1]
       - [1, 1, 1, 1, 1, 1]
-      - 6
-      - 6
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
     Bm:
-      - 6
-      - 6
-      - [1, 1, 1, ., ., .]
-      - [1, 1, 1, ., ., .]
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+      - [1, 1, 1, 1, 1, 1]
+      - [1, 1, 1, 1, 1, 1]
     Bp:
       - [1, 1]
       - [1, 1]
       - 2
       - 2
-
-    KpC: 3.e+4
-    KdC: 5.e+3
-
-    KpwB: 3.e+4
-    KdwB: 5.e+3
-
-    Kpv: 1.e+4
-    Kdv: 1.e+3
-
-    WFSD: 1.e+0
-    Wp: 1.e+0
-    WF: 1.e-6
-    Wth: 1.e-3
+  # left leg support
+  -
+    Bc:
+      - [0, 0, 0, 0, 0, 0]
+      - [1, 1, 1, 1, 1, 1]
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+    Bm:
+      - [1, 1, 1, 1, 1, 1]
+      - [0, 0, 0, 0, 0, 0]
+      - [1, 1, 1, 1, 1, 1]
+      - [1, 1, 1, 1, 1, 1]
+    Bp:
+      - [0, 0]
+      - [1, 1]
+      - 2
+      - 2
+  # right leg support
+  -
+    Bc:
+      - [1, 1, 1, 1, 1, 1]
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+    Bm:
+      - [0, 0, 0, 0, 0, 0]
+      - [1, 1, 1, 1, 1, 1]
+      - [1, 1, 1, 1, 1, 1]
+      - [1, 1, 1, 1, 1, 1]
+    Bp:
+      - [1, 1]
+      - [0, 0]
+      - 2
+      - 2
 
 Sequence:
   -
-    twf: 5.
+    twf: 10.
 
   -
-    twf: 5.
-
-    rCf: [0., 0.03, 0.]
+    twf: 2.
+    # rXf: [., ., -.03]
+    # rCf: [., .039, .]
+    # rXf: [., .039, .]
+    # rXf: [.03, ., .]
+    # rCf: [.03, ., .]
     cal_Xf:
       - [., ., ., ., ., .]
       - [., ., ., ., ., .]
       - [.05, ., .1, ., ., .]
       - [., ., ., ., ., .]
+    # cal_Xf:
+    #   - [., ., ., ., ., .]
+    #   - [., ., ., ., ., .]
+    #   - [., .039, ., ., ., .]
+    #   - [., .039, ., ., ., .]
+
+  # -
+  #   twf: 1.
+  #   Bc:
+  #     - [0, 0, 0, 0, 0, 0]
+  #     - [1, 1, 1, 1, 1, 1]
+  #     - [0, 0, 0, 0, 0, 0]
+  #     - [0, 0, 0, 0, 0, 0]
+  #   Bm:
+  #     - [1, 1, 1, 1, 1, 1]
+  #     - [0, 0, 0, 0, 0, 0]
+  #     - [1, 1, 1, 1, 1, 1]
+  #     - [1, 1, 1, 1, 1, 1]
+  #   Bp:
+  #     - [0, 0]
+  #     - [1, 1]
+  #     - 2
+  #     - 2
+  #   rXf: [.03, 0.039, .]
+  #   rCf: [.03, 0.039, .]
+  #   cal_Xf:
+  #     - [.05, ., .01, ., ., .]
+  #     - [., ., ., ., ., .]
+  #     - [., .039, ., ., ., .]
+  #     - [.03, .039, ., ., ., .]
+  # -
+  #   twf: 1.
+  #   cal_Xf:
+  #     # - [.12, ., -.001, ., ., .]
+  #     - [.05, ., 1.e-5, ., ., .]
+  #     - [., ., ., ., ., .]
+  #     - [., .039, ., ., ., .]
+  #     - [.03, .039, ., ., ., .]
+  # -
+  #   twf: 3.
+  #   rXf: [0.05, -.039, .]
+  #   rCf: [0.05, -.039, .]
+  #   cal_Xf:
+  #     - [.05, ., ., ., ., .]
+  #     - [., ., ., ., ., .]
+  #     - [.05, -.039, ., ., ., .]
+  #     - [.05, -.039, ., ., ., .]
+  # -
+  #   twf: 1.
+  #   Bc:
+  #     - [1, 1, 1, 1, 1, 1]
+  #     - [0, 0, 0, 0, 0, 0]
+  #     - [0, 0, 0, 0, 0, 0]
+  #     - [0, 0, 0, 0, 0, 0]
+  #   Bm:
+  #     - [0, 0, 0, 0, 0, 0]
+  #     - [1, 1, 1, 1, 1, 1]
+  #     - [1, 1, 1, 1, 1, 1]
+  #     - [1, 1, 1, 1, 1, 1]
+  #   Bp:
+  #     - [1, 1]
+  #     - [0, 0]
+  #     - 2
+  #     - 2
+  #   rXf: [0.05, -.039, .]
+  #   rCf: [0.05, -.039, .]
+  #   cal_Xf:
+  #     - [.05, ., ., ., ., .]
+  #     - [.05, ., .01, ., ., .]
+  #     - [.05, -.039, ., ., ., .]
+  #     - [.05, -.039, ., ., ., .]
+  # -
+  #   twf: 1.
+  #   cal_Xf:
+  #     - [.05, ., ., ., ., .]
+  #     - [.05, ., 1.e-5, ., ., .]
+  #     - [.05, -.039, ., ., ., .]
+  #     - [.05, -.039, ., ., ., .]
+  # -
+  #   twf: 3.
+  #   rXf: [0.05, 0., .]
+  #   rCf: [0.05, 0., .]
+  #   cal_Xf:
+  #     - [.05, ., ., ., ., .]
+  #     - [.05, ., ., ., ., .]
+  #     - [.05, ., ., ., ., .]
+  #     - [.05, ., ., ., ., .]

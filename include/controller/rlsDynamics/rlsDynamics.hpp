@@ -26,6 +26,8 @@ namespace RLS{
     string torqueControllerName;
     string inverseDynamicsControllerName;
 
+    double g;
+
     MatrixXi Bc_kDiag;
     MatrixXd Bc_k;
 
@@ -46,6 +48,7 @@ namespace RLS{
     VectorXd cal_F;
 
     VectorXd dq;
+    VectorXd dqM;
 
     // ******************************
     MatrixXd cal_J;
@@ -87,6 +90,11 @@ namespace RLS{
     MatrixXd cal_PmM;
     MatrixXd cal_JcM;
     MatrixXd cal_JmM;
+
+    MatrixXd JcM;
+    MatrixXd JmM;
+    MatrixXd dJcM;
+    MatrixXd dJmM;
 
     // diff
     MatrixXd dTC2k;
@@ -132,7 +140,10 @@ namespace RLS{
     // ******************************
     // inertia
     Matrix3d IC;
+    Matrix6d MC;
+    MatrixXd HMth;
     MatrixXd HC;
+    MatrixXd cal_AM;
     MatrixXd MthC;
 
     // diff inertia
@@ -140,6 +151,7 @@ namespace RLS{
     MatrixXd dHC;
 
     // nonlinear
+    Vector6d cal_CM;
     VectorXd cthC;
 
     // gravity
@@ -155,6 +167,7 @@ namespace RLS{
 
     // index
     // ******************************
+    Matrix2d bbSx;
     // cop
     VectorXd rpk;
     Vector2d rp;
@@ -335,6 +348,8 @@ namespace RLS{
     Matrix6d WFSD;
     MatrixXd Wp;
     MatrixXd WF;
+    MatrixXd Wm;
+    MatrixXd WJ;
     MatrixXd Wth;
 
     // trigger flag
@@ -358,6 +373,7 @@ namespace RLS{
     void mapping(Config&);
 
     int checkContact(Config&, Info&, Model&, double&);
+    int staticCheckContact(Config&, Info&, Model&, double&);
     int ankleStratagy(Config&, Info&, Model&, double&);
     int ankleHipStratagy(Config&, Info&, Model&, double&);
     int stateTriggerConfig(Config&, Info&, Model&, double&);
@@ -375,11 +391,27 @@ namespace RLS{
     void rename(Config&, Info&, Model&);
     void update(Config&, Info&, Model&);
 
-    void comReference(Config&, Info&, Model&, double&);
-    void baseReference(Config&, Info&, Model&, double&);
-    void dcmReference(Config&, Info&, Model&, double&);
-    void endEffectorReference(Config&, Info&, Model&, double&);
-    void externalWrenchReference(Config&, Info&, Model&, double&);
+    // reference
+    //com
+    void comSequence(Config&, Info&, Model&, double&);
+
+    // base translation
+    void baseTranslationSequence(Config&, Info&, Model&, double&);
+
+    // base orientation
+    void baseOrientationSequence(Config&, Info&, Model&, double&);
+    void baseOrientationAnkleHip(Config&, Info&, Model&, double&);
+
+    // DCM
+    void dcmSequence(Config&, Info&, Model&, double&);
+    void dcmAnkleHip(Config&, Info&, Model&, double&);
+
+    // end effector
+    void endEffectorSequence(Config&, Info&, Model&, double&);
+
+    // external wrench
+    void externalWrenchSequence(Config&, Info&, Model&, double&);
+
     void reference(Config&, Info&, Model&, double&);
 
     // add function
@@ -403,6 +435,7 @@ namespace RLS{
     VectorXd noname(Config&, Info&, Model&);
     VectorXd baseGeneralizedMomentum(Config&, Info&, Model&);
     VectorXd mixedGeneralizedMomentum(Config&, Info&, Model&);
+    VectorXd accelerationSolver(Config&, Info&, Model&);
 
     // acceleration dumper
     VectorXd ddthD(Config&, Model&);
@@ -416,6 +449,7 @@ namespace RLS{
     void baseMomentum(Config&, Info&, Model&);
     void centroidalMomentum(Config&, Info&, Model&);
     void centroidalDcmMomentum(Config&, Info&, Model&);
+    void centroidalCmpMomentum(Config&, Info&, Model&);
 
     // force controller
     void baseDistribution(Config&, Info&, Model&);

@@ -1,0 +1,1391 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+angleUnit: degree
+name: skeletonA7C
+
+links:
+  -
+    name: ROOT
+    jointType: free
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [ 0.008263, 3.62639E-4, 0.06056017 ]
+        mass: 0.49768
+        inertia: [
+        0.000726374, 1.02147e-05, -2.81664e-05,
+        1.02147e-05, 0.000274925, 5.05608e-06,
+        -2.81664e-05, 5.05608e-06, 0.00078959 ]
+        elements:
+          -
+            type: Visual
+            elements: &waist
+              -
+                type: Shape
+                translation: [ 0, 0, 0.03 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.078 }
+                appearance: &bodyColor
+                  material:
+                    diffuseColor: [ 0.5, 0.5, 0.8 ]
+                    # diffuseColor: [ 0.7, 0.7, 0.7 ]
+                    # transparency: 0.5
+              -
+                type: Shape
+                translation: [ 0, 0.039, 0.0225 ]
+                rotation: &X [ 1, 0, 0, 90 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.015 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, -0.039, 0.0225 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.015 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.017, 0, 0.03 ]
+                rotation: &Z [ 0, 0, 1, 90 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.034 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.034, 0, 0.03375 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0075 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *waist
+  -
+    name: Rleg1
+    parent: ROOT
+    jointId: 0
+    jointType: revolute
+    jointAxis: Z
+    jointRange: [ -90, 30 ]
+    translation: [ 0, -0.039, 0 ]
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [0.00383869, 4.05183e-10, 0.0219162]
+        mass: 0.039388
+        inertia: [
+        9.5769e-6, -2.48926e-12, 1.29806e-6,
+        -2.48926e-12, 2.77458e-5, 1.0806e-12,
+        1.29806e-6, 1.0806e-12, 2.37104e-5]
+        elements:
+          -
+            type: Visual
+            elements: &Rleg1
+              -
+                type: Shape
+                rotation: *X
+                translation: [ 0, 0, 0.015 ]
+                geometry: &jointShape
+                  {type: Cylinder, radius: 0.005, height: 0.01}
+                appearance: &jointColor
+                  material: {diffuseColor: [ 0, 0, 0 ]}
+              -
+                type: Shape
+                translation: [ 0.01375, 0.0, 0.015 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0275 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.0275, 0.0, 0.0075 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.015 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Rleg1
+  -
+    name: Rleg2
+    parent: Rleg1
+    jointId: 1
+    jointType: revolute
+    jointAxis: X
+    jointRange: [ -30, 15 ]
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [0.0034717, -0.00050103, -0.00328966]
+        mass: 0.172696
+        inertia: [
+        4.51904e-05, -3.28855e-07, 1.01226e-06,
+        -3.28855e-07, 5.5582e-05, 6.18885e-07,
+        1.01226e-06, 6.18885e-07, 6.31338e-05]
+        elements:
+          -
+            type: Visual
+            elements: &Rleg2
+              -
+                type: Shape
+                translation: [ 0.0275, 0, 0 ]
+                rotation: *Z
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0.01875, 0, 0 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.01, -0.00875, 0 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.005, -0.0175, 0 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.0, -0.00875, 0 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Rleg2
+  -
+    name: Rleg3
+    parent: Rleg2
+    jointId: 2
+    jointType: revolute
+    jointAxis: Y
+    jointRange: [ -81, 70 ]
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [0.0075828, -0.00142801, -0.0718179]
+        mass: 0.438575
+        inertia: [
+        0.000472676, -9.52495e-06, 1.44579e-05,
+        -9.52495e-06, 0.000435755, 1.3233e-05,
+        1.44579e-05, 1.3233e-05, 0.000231713]
+        elements:
+          -
+            type: Visual
+            elements: &Rleg3
+              -
+                type: Shape
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, 0, -0.045 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.09 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, -0.00875, -0.09 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, -0.0175, -0.095 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, -0.00875, -0.1 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Rleg3
+  -
+    name: Rleg4
+    parent: Rleg3
+    jointId: 3
+    jointType: revolute
+    jointAxis: Y
+    jointRange: [ 0, 129 ]
+    translation: [ 0, 0, -0.1 ]
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [0.011724, -0.00282151, -0.0429165]
+        mass: 0.285982
+        inertia: [
+        0.000295317, -8.29468e-06, -3.29998e-06,
+        -8.29468e-06, 0.000225932, 4.55079e-06,
+        -3.29998e-06, 4.55079e-06, 0.000184076]
+        elements:
+          -
+            type: Visual
+            elements: &Rleg4
+              -
+                type: Shape
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, 0, -0.04125 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0825 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, -0.01375, -0.0825 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0275 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, -0.0275, -0.09125 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Rleg4
+  -
+    name: Rleg5
+    parent: Rleg4
+    jointId: 4
+    jointType: revolute
+    jointAxis: Y
+    jointRange: [ -60, 60 ]
+    translation: [ 0, 0, -0.1 ]
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [0.00465209, -0.000732177, 0.00324289]
+        mass: 0.171128
+        inertia: [
+        4.59388e-05, -5.54424e-07, -4.08202e-07,
+        -5.54424e-07, 5.11179e-05, -7.20727e-08,
+        -4.08202e-07, -7.20727e-08, 5.94587e-05]
+        elements:
+          -
+            type: Visual
+            elements: &Rleg5
+              -
+                type: Shape
+                translation: [ 0, -0.0275, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, -0.01875, 0 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ -0.00875, -0.01, 0 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ -0.0175, -0.005, 0 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ -0.00875, 0, 0 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Rleg5
+  -
+    name: Rleg6
+    parent: Rleg5
+    jointId: 5
+    jointType: revolute
+    jointAxis: X
+    jointRange: [ -24, 24 ]
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [0.00382498, -7.8596e-05, -0.0248732]
+        mass: 0.136753
+        inertia: [
+        5.97968e-05, -3.80602e-07, 1.70683e-05,
+        -3.80602e-07, 0.000139643, 7.14057e-08,
+        1.70683e-05, 7.14057e-08, 0.000155016]
+        elements:
+          -
+            type: Visual
+            elements: &Rleg6
+              -
+                type: Shape
+                rotation: *Z
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, 0, -0.0135 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.027 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.009, 0.0, -0.032 ]
+                rotation: &Y [ 0, 1, 0, 90 ]
+                geometry: { type: Box, size: [ 0.01, 0.063, 0.098 ] }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Rleg6
+          -
+            type: ForceSensor
+            name: RFForceSensor
+            id: 0
+            elements:
+              Transform: { translation: [ 0, 0, -0.037 ]}
+  -
+    name: Lleg1
+    parent: ROOT
+    jointId: 6
+    jointType: revolute
+    jointAxis: Z
+    jointRange: [ -90, 30 ]
+    translation: [ 0, 0.039, 0 ]
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [0.00383869, 4.05183e-10, 0.0219162]
+        mass: 0.039388
+        inertia: [
+        9.5769e-6, -2.48926e-12, 1.29805e-6,
+        -2.48926e-12, 2.77458e-5, 1.0806e-12,
+        1.29805e-6, 1.0806e-12, 2.37104e-5]
+        elements:
+          -
+            type: Visual
+            elements: &Lleg1
+              -
+                type: Shape
+                rotation: *X
+                translation: [ 0, 0, 0.015 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0.01375, 0, 0.015 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0275 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.0275, 0, 0.0075 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.015 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Lleg1
+  -
+    name: Lleg2
+    parent: Lleg1
+    jointId: 7
+    translation: [ 0, 0, 0 ]
+    rotation: [ 1, 0, 0, 0 ]
+    jointType: revolute
+    jointAxis: X
+    jointRange: [ -30, 15 ]
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [0.0034717, 0.000632384, -0.00328965]
+        mass: 0.172696
+        inertia: [
+        4.51248e-05, 3.50678e-07, 1.01227e-06,
+        3.50678e-07, 5.5582e-05, -2.93348e-07,
+        1.01227e-06, -2.93348e-07, 6.30681e-05]
+        elements:
+          -
+            type: Visual
+            elements: &Lleg2
+              -
+                type: Shape
+                rotation: *Z
+                translation: [ 0.0275, 0, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0.01875, 0, 0 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.01, 0.00875, 0 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.005, 0.0175, 0 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, 0.00875, 0 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Lleg2
+  -
+    name: Lleg3
+    parent: Lleg2
+    jointId: 8
+    translation: [ 0, 0, 0 ]
+    rotation: [ 1, 0, 0, 0 ]
+    jointType: revolute
+    jointAxis: Y
+    jointRange: [ -81, 70 ]
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [0.00757808, 0.00134158, -0.0719284]
+        mass: 0.438537
+        inertia: [
+        0.000473478, 1.0435e-05, 1.49663e-05,
+        1.0435e-05, 0.000436352, -1.45158e-05,
+        1.49663e-05, -1.45158e-05, 0.000231801]
+        elements:
+          -
+            type: Visual
+            elements: &Lleg3
+              -
+                type: Shape
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, 0, -0.045 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.09 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, 0.00875, -0.09 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.0, 0.0175, -0.095 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.0, 0.00875, -0.1 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Lleg3
+  -
+    name: Lleg4
+    parent: Lleg3
+    jointId: 9
+    translation: [ 0, 0, 0 ]
+    rotation: [ 1, 0, 0, 0 ]
+    jointType: revolute
+    jointAxis: Y
+    jointRange: [ 0, 129 ]
+    translation: [ 0, 0, -0.1 ]
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [0.0117224, 0.00297258, -0.0429459]
+        mass: 0.285827
+        inertia: [
+        0.000291216, 8.3792e-06, -2.84645e-06,
+        8.3792e-06, 0.00022281, -4.79234e-06,
+        -2.84645e-06, -4.79234e-06, 0.000182049]
+        elements:
+          -
+            type: Visual
+            elements: &Lleg4
+              -
+                type: Shape
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, 0, -0.04125 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0825 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.0, 0.01375, -0.0825 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0275 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.0, 0.0275, -0.09125 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Lleg4
+  -
+    name: Lleg5
+    parent: Lleg4
+    jointId: 10
+    jointType: revolute
+    jointAxis: Y
+    jointRange: [ -60, 60 ]
+    translation: [ 0, 0, -0.1 ]
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [0.0046521, 0.000781358, 0.00324289]
+        mass: 0.171128
+        inertia: [
+        4.59261e-05, 6.5051e-07, -4.08202e-07,
+        6.5051e-07, 5.11179e-05, 4.99529e-07,
+        -4.08202e-07, 4.99529e-07, 5.94459e-05]
+        elements:
+          -
+            type: Visual
+            elements: &Lleg5
+              -
+                type: Shape
+                translation: [ 0, 0.0275, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, 0.01875, 0 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ -0.00875, 0.01, 0 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ -0.0175, 0.005, 0 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ -0.00875, 0, 0 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Lleg5
+  -
+    name: Lleg6
+    parent: Lleg5
+    jointId: 11
+    translation: [ 0, 0, 0 ]
+    rotation: [ 1, 0, 0, 0 ]
+    jointType: revolute
+    jointAxis: X
+    jointRange: [ -24, 24 ]
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [0.00382498, -7.8596e-05, -0.0248732]
+        mass: 0.136753
+        inertia: [
+        5.97968e-05, -3.80602e-07, 1.70683e-05,
+        -3.80602e-07, 0.000139643, 7.14057e-08,
+        1.70683e-05, 7.14057e-08, 0.000155016]
+        elements:
+          -
+            type: Visual
+            elements: &Lleg6
+              -
+                type: Shape
+                rotation: *Z
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, 0, -0.0135 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.027 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.009, 0, -0.032 ]
+                rotation: *Y
+                geometry: { type: Box, size: [ 0.01, 0.063, 0.098 ] }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Lleg6
+          -
+            type: ForceSensor
+            name: LFForceSensor
+            id: 1
+            elements:
+              Transform: { translation: [ 0, 0, -0.037 ]}
+  -
+    name: waist1
+    parent: ROOT
+    # jointId: 12
+    # jointType: revolute
+    # jointAxis: Z
+    translation: [ 0.034, 0, 0.055 ]
+    elements:
+      -
+        type: Visual
+        elements: &waist1
+          -
+            type: Shape
+            translation: [ 0, 0, -0.0175]
+            rotation: *X
+            geometry: *jointShape
+            appearance: *jointColor
+          -
+            type: Shape
+            translation: [ 0.0, 0.0, -0.01375 ]
+            rotation: *X
+            geometry: { type: Cylinder, radius: 0.0025, height: 0.0075 }
+            appearance: *bodyColor
+          -
+            type: Shape
+            translation: [ 0, -0.00875, -0.01 ]
+            geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+            appearance: *bodyColor
+          -
+            type: Shape
+            translation: [ 0, -0.0175, -0.005 ]
+            rotation: *X
+            geometry: { type: Cylinder, radius: 0.0025, height: 0.01 }
+            appearance: *bodyColor
+          -
+            type: Shape
+            translation: [ 0, -0.00875, 0 ]
+            geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+            appearance: *bodyColor
+      -
+        type: Collision
+        elements: *waist1
+  -
+    name: waist2
+    parent: waist1
+    # jointId: 13
+    # jointType: revolute
+    # jointAxis: Y
+    elements:
+      -
+        type: Visual
+        elements: &waist2
+          -
+            type: Shape
+            geometry: *jointShape
+            appearance: *jointColor
+          -
+            type: Shape
+            translation: [ -0.00925, 0.0, 0.0 ]
+            rotation: *Z
+            geometry: { type: Cylinder, radius: 0.0025, height: 0.0185 }
+            appearance: *bodyColor
+      -
+        type: Collision
+        elements: *waist2
+  -
+    name: body
+    parent: waist2
+    # jointId: 14
+    # jointType: revolute
+    # jointAxis: X
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [ -0.0826368, 1.19112E-5, 0.0860519 ] # [ -0.034, 0, 0 ]
+        mass: 1.59374
+        inertia: [
+        0.00477151, -7.27252e-05, 0.000549937, 
+        -7.27252e-05, 0.0053364, 5.71186e-05, 
+        0.000549937, 5.71186e-05, 0.00551773 ]
+        elements:
+          -
+            type: Visual
+            elements: &body
+              -
+                type: Shape
+                rotation: *Z
+                translation: [ -0.0185, 0, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ -0.02625, 0.0, 0.0 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0155 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ -0.034, 0.0, 0.06375 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.1275 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ -0.034, 0.0, 0.09 ]
+                rotation: [ 1, 0, 0, 0 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.159 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *body
+  -
+    name: Rarm1
+    parent: body
+    jointId: 12
+    jointType: revolute
+    jointAxis: Y
+    translation: [ -0.034, -0.0995, 0.09 ]
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [5.69887e-5, 0.0110127, -0.0359362]
+        mass: 0.199031
+        inertia: [
+        0.000142087, -7.51591e-08, 5.7584e-08,
+        -7.51591e-08, 0.000117938, -3.3901e-05,
+        5.7584e-08, -3.3901e-05, 6.52462e-05]
+        elements:
+          -
+            type: Visual
+            elements: &Rarm1
+              -
+                type: Shape
+                translation: [ 0, 0.02, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, 0.02, -0.00875 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, 0.01, -0.0175 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.02 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, 0, -0.00875 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Rarm1
+  -
+    name: Rarm2
+    parent: Rarm1
+    jointId: 13
+    jointType: revolute
+    jointAxis: Z
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [0.00991178, -1.0018e-05, -0.00228432]
+        mass: 0.201439
+        inertia: [
+        0.000135628, -2.71682e-07, 1.53672e-05,
+        -2.71682e-07, 0.000153251, 2.07022e-07,
+        1.53672e-05, 2.07022e-07, 7.07822e-05]
+        translation: [ 0, 0, 0 ]
+        elements:
+          -
+            type: Shape
+            rotation: *X
+            geometry: *jointShape
+            appearance: *jointColor
+          -
+            type: Visual
+            elements: &Rarm2
+              -
+                type: Shape
+                translation: [ 0.01, 0, 0 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.02 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Rarm2
+  -
+    name: Rarm3
+    parent: Rarm2
+    jointId: 14
+    jointType: revolute
+    jointAxis: X
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [0.0686287, 0.00296507, 7.84674e-5]
+        mass: 0.220645
+        inertia: [
+        5.65823e-05, 8.27732e-07, -1.85832e-08,
+        8.27732e-07, 0.000109558, -9.41629e-08,
+        -1.85832e-08, -9.41629e-08, 0.000122386]
+        elements:
+          -
+            type: Visual
+            elements: &Rarm3
+              -
+                type: Shape
+                rotation: *Z
+                translation: [ 0.02, 0, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0.02, 0, -0.005 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.0275, 0, -0.01 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.015 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.035, 0, -0.005 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.068, 0, 0 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.066 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Rarm3
+  -
+    name: Rarm4
+    parent: Rarm3
+    jointId: 15
+    jointType: revolute
+    jointAxis: Y
+    translation: [ 0.101, 0, 0 ]
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [0.0462381,  0.00506259, -0.00529589]
+        mass: 0.167552
+        inertia: [
+        3.4078e-05, 1.85149e-05, -2.40293e-06,
+        1.85149e-05, 0.000270963, -1.29926e-06,
+        -2.40293e-06, -1.29926e-06, 0.000280658]
+        elements:
+          -
+            type: Visual
+            elements: &Rarm4
+              -
+                type: Shape
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, -0.0075, 0 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.015}
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.005, -0.015, 0 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.01}
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.01, -0.0075, 0 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.015}
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.053625, 0, 0 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.08725}
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Rarm4
+  -
+    name: Rarm5
+    parent: Rarm4
+    jointId: 16
+    jointType: revolute
+    jointAxis: X
+    translation: [ 0.1097, 0, 0 ]
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [-0.009469, -0.009469, 0.0]
+        mass: 0.001316
+        inertia: [
+        9.423E-8, 4.512E-8, 0,
+        4.512E-8, 9.423E-8, 0,
+        0, 0, 1.7313E-7 ]
+        elements:
+          -
+            type: Visual
+            elements: &Rarm5
+              -
+                type: Shape
+                rotation: *Z
+                translation: [ -0.0125, 0, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ -0.0125, -0.00625, 0 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0125}
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ -0.00625, -0.0125, 0 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0125}
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Rarm5
+  -
+    name: Rarm6
+    parent: Rarm5
+    jointId: 17
+    jointType: revolute
+    jointAxis: Y
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [0.003031, -0.003031, 0.0]
+        mass: 0.001316
+        inertia: [
+        9.423E-8, -4.512E-8, 0,
+        -4.512E-8, 9.423E-8, 0,
+        0, 0, 1.7313E-7]
+        elements:
+          -
+            type: Visual
+            elements: &Rarm6
+              -
+                type: Shape
+                translation: [ 0, -0.0125, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, -0.00625, 0 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0125}
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.00625, 0, 0 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0125}
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Rarm6
+  -
+    name: Rarm7
+    parent: Rarm6
+    jointId: 18
+    jointType: revolute
+    jointAxis: X
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [0.034467, 0.0, 0.0]
+        mass: 0.017276
+        inertia: [
+        3.78218E-6, 0, 0,
+        0, 4.37848E-6, 0,
+        0, 0, 7.11285E-6]
+        elements:
+          -
+            type: Visual
+            elements: &Rarm7
+              -
+                type: Shape
+                rotation: *Z
+                translation: [ 0.0125, 0, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0.0175, 0.0, 0.0 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.035, 0.0, 0.0 ]
+                geometry: { type: Box, size: [ 0.025, 0.025, 0.01 ] }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Rarm7
+          -
+            type: ForceSensor
+            name: RHForceSensor
+            id: 2
+            elements:
+              Transform: { translation: [ 0.10975, 0, 0 ]}
+  -
+    name: Larm1
+    parent: body
+    jointId: 19
+    jointType: revolute
+    jointAxis: Y
+    translation: [ -0.034, 0.0995, 0.09 ]
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [-5.69861e-5, -0.0110127, -0.0359362]
+        mass: 0.199031
+        inertia: [
+        0.000142087, -7.51502e-08, -5.75829e-08,
+        -7.51502e-08, 0.000117938, 3.3901e-05,
+        -5.75829e-08, 3.3901e-05, 6.52462e-05]
+        elements:
+          -
+            type: Visual
+            elements: &Larm1
+              -
+                type: Shape
+                translation: [ 0, -0.02, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, -0.02, -0.00875 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, -0.01, -0.0175 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.02 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, 0, -0.00875 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Larm1
+  -
+    name: Larm2
+    parent: Larm1
+    jointId: 20
+    jointType: revolute
+    jointAxis: Z
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [0.00991178, -0.00010261, -0.00228305]
+        mass: 0.201439
+        inertia: [
+        0.000135627, 1.60475e-07, 1.53617e-05,
+        1.60475e-07, 0.000153253, 2.49619e-07,
+        1.53617e-05, 2.49619e-07, 7.07801e-05]
+        elements:
+          -
+            type: Visual
+            elements: &Larm2
+              -
+                type: Shape
+                rotation: *X
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0.01, 0, 0 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.02 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Larm2
+  -
+    name: Larm3
+    parent: Larm2
+    jointId: 21
+    jointType: revolute
+    jointAxis: X
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [0.0683622, -0.00294852, -2.62502e-5]
+        mass: 0.218287
+        inertia: [
+        5.56209e-05, -8.96281e-07, -2.30691e-07,
+        -8.96281e-07, 0.000107647, -2.35113e-07,
+        -2.30691e-07, -2.35113e-07, 0.000120095]
+        elements:
+          -
+            type: Visual
+            elements: &Larm3
+              -
+                type: Shape
+                rotation: *Z
+                translation: [ 0.02, 0, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0.02, 0, -0.005 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.0275, 0, -0.01 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.015 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.035, 0, -0.005 ]
+                rotation: *X
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.068, 0, 0 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.066 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Larm3
+  -
+    name: Larm4
+    parent: Larm3
+    jointId: 22
+    jointType: revolute
+    jointAxis: Y
+    translation: [ 0.101, 0, 0 ]
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [0.0462509, -0.00506689, -0.00529948]
+        mass: 0.167592
+        inertia: [
+        3.4073e-05, -1.84659e-05, -2.39305e-06,
+        -1.84659e-05, 0.000271298, 1.29841e-06,
+        -2.39305e-06, 1.29841e-06, 0.000281004]
+        elements:
+          -
+            type: Visual
+            elements: &Larm4
+              -
+                type: Shape
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, 0.0075, 0 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.015}
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.005, 0.015, 0 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.01}
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.01, 0.0075, 0 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.015}
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.053625, 0, 0 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.08725}
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Larm4
+  -
+    name: Larm5
+    parent: Larm4
+    jointId: 23
+    jointType: revolute
+    jointAxis: X
+    translation: [ 0.1097, 0, 0 ]
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [-0.009469, 0.009469, 0.0]
+        mass: 0.001316
+        inertia: [
+        9.423E-8, -4.512E-8, 0,
+        -4.512E-8, 9.423E-8, 0,
+        0, 0, 1.7313E-7]
+        elements:
+          -
+            type: Visual
+            elements: &Larm5
+              -
+                type: Shape
+                rotation: *Z
+                translation: [ -0.0125, 0, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ -0.0125, 0.00625, 0 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0125}
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ -0.00625, 0.0125, 0 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0125}
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Larm5
+  -
+    name: Larm6
+    parent: Larm5
+    jointId: 24
+    jointType: revolute
+    jointAxis: Y
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [0.003031, 0.003031, 0.0]
+        mass: 0.001316
+        inertia: [
+        9.423E-8, 4.512E-8, 0,
+        4.512E-8, 9.423E-8, 0,
+        0, 0, 1.7313E-7]
+        elements:
+          -
+            type: Visual
+            elements: &Larm6
+              -
+                type: Shape
+                translation: [ 0, 0.0125, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, 0.00625, 0 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0125 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.00625, 0, 0 ]
+                rotation: *Z
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.0125 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Larm6
+  -
+    name: Larm7
+    parent: Larm6
+    jointId: 25
+    jointType: revolute
+    jointAxis: X
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [0.034467, 0.0, 0.0]
+        mass: 0.017276
+        inertia: [
+        3.78218E-6, 0, 0,
+        0, 4.37848E-6, 0,
+        0, 0, 7.11285E-6]
+        elements:
+          -
+            type: Visual
+            elements: &Larm7
+              -
+                type: Shape
+                rotation: *Z
+                translation: [ 0.0125, 0, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0.0175, 0.0, 0.0 ]
+                rotation: [ 0, 0, 1, 90 ]
+                geometry: { type: Cylinder, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.035, 0.0, 0.0 ]
+                geometry: { type: Box, size: [ 0.025, 0.025, 0.01 ] }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *Larm7
+          -
+            type: ForceSensor
+            name: LHForceSensor
+            id: 3
+            elements:
+              Transform: { translation: [ 0.10975, 0, 0 ]}
+  -
+    name: head1
+    parent: body
+    translation: [ -0.034, 0.0, 0.09 ]
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [ 0.0020678, 5.98154E-4, 0.0568043  ]
+        mass: 0.0208892
+        inertia: [
+        9.51077E-6, -7.41228E-8, -1.0525599999999998E-6,
+        -7.41228E-8, 6.404899999999999E-6, -3.02325E-7,
+        -1.0525599999999998E-6, -3.02325E-7, 4.97111E-6 ]
+        elements:
+          -
+            type: Shape
+            translation: [ 0.0, 0.0, 0.04625 ]
+            rotation: *X
+            geometry: { type: Cylinder, radius: 0.0025, height: 0.0175 }
+            appearance: *bodyColor
+  -
+    name: head2
+    parent: head1
+    translation: [ 0.008, 0.0, 0.081 ]
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [ 5.29518E-4, -2.35576E-4, 0.00394438 ]
+        mass: 0.0669886
+        inertia: [
+        3.20353e-05, 6.55641e-08, -5.0488e-06, 
+        6.55641e-08, 2.59511e-05, -4.54066e-08, 
+        -5.0488e-06, -4.54066e-08, 3.51472e-05 ]
+        elements:
+          -
+            type: Shape
+            translation: [ -0.008, 0.0, 0.0 ]
+            geometry: { type: Sphere, radius: 0.027 }
+            appearance: *bodyColor

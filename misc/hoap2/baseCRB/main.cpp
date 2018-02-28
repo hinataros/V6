@@ -91,17 +91,42 @@ void comBaseCRB(Mass &m, CoM &com)
   mtemp = m.body2;
   rCtemp = m.body2*(posNode("BODY2") + com.body2);
 
+  // cout << "com.body2: " << endl <<
+  //   setprecision(std::numeric_limits<double>::max_digits10) <<
+  //   com.body2*MM<< endl;
+  // cout << "rCtemp: " << endl <<
+  //   setprecision(std::numeric_limits<double>::max_digits10) <<
+  //   (posNode("BODY2") + com.body2)*MM << endl;
+
   com.body1 = RNode("BODY1").transpose()*localCoM("BODY1");
   mtemp += m.body1;
   rCtemp += m.body1*(posNode("BODY1") + com.body1);
+
+  // cout << "com.body1: " << endl <<
+  //   setprecision(std::numeric_limits<double>::max_digits10) <<
+  //   com.body1*MM<< endl;// xに-0.034
+  // cout << "rCtemp: " << endl <<
+  //   setprecision(std::numeric_limits<double>::max_digits10) <<
+  //   (rCtemp/mtemp)*MM << endl;
 
   com.head1 = RNode("HEAD1").transpose()*localCoM("HEAD1");
   mtemp += m.head1;
   rCtemp += m.head1*(posNode("HEAD1") + com.head1);
 
+  // cout << "com.head1: " << endl <<
+  //   setprecision(std::numeric_limits<double>::max_digits10) <<
+  //   com.head1*MM<< endl;
+  // cout << "rCtemp: " << endl <<
+  //   setprecision(std::numeric_limits<double>::max_digits10) <<
+  //   (rCtemp/mtemp)*MM << endl;
+
   com.head2 = RNode("HEAD2").transpose()*localCoM("HEAD2");
   mtemp += m.head2;
   rCtemp += m.head2*(posNode("HEAD2") + com.head2);
+
+  // cout << "com.head2: " << endl <<
+  //   setprecision(std::numeric_limits<double>::max_digits10) <<
+  //   com.head2*MM<< endl;
 
   m.baseCRB = mtemp;
 

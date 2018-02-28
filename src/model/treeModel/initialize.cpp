@@ -14,6 +14,7 @@ void RLS::TreeModel::initialize(Config &config, Info &info)
 
   for(int i=0; i<info.value.node; i++){
     // smiyahara: 初期化の場所考えたほうがいい
+    info.limb[i].contact = false;
     info.limb[i].c = info.limb[i].m = 0;
 
     for(int j=0; j<info.limb[i].value; j++){

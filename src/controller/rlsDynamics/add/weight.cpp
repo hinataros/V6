@@ -21,6 +21,7 @@ MatrixXd RLS::RlsDynamics::weight(Config &config, Info &info, Model &model, int 
   double wz = 0.;
   double wzTilde;
 
+
   for(int i=0; i<contact; i++){
     Drk = rIndex - model.hoap2.limb[i+1].node[info.limb[i+1].dof].r;
     wkz = abs(Dr.head(2).transpose()*Drk.head(2));

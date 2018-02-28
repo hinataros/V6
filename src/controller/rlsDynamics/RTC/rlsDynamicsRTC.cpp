@@ -35,8 +35,7 @@ RlsDynamicsRTC::RlsDynamicsRTC(RTC::Manager* manager)
     m_angVelIn("dth", m_angVel),
     m_basePosIn("XB", m_basePos),
     m_baseVelIn("VB", m_baseVel),
-    m_rightFootForceIn("FFr", m_rightFootForce),
-    m_leftFootForceIn("FFl", m_leftFootForce),
+    m_eeForceIn("F", m_eeForce),
 
     m_torqueOut("tau", m_torque),
     m_externalForceOut("Fext", m_externalForce)
@@ -56,13 +55,10 @@ RTC::ReturnCode_t RlsDynamicsRTC::onInitialize()
   addInPort("dth", m_angVelIn);
   addInPort("XB", m_basePosIn);
   addInPort("VB", m_baseVelIn);
-
-  addInPort("FFr", m_rightFootForceIn);
-  addInPort("FFl", m_leftFootForceIn);
+  addInPort("F", m_eeForceIn);
 
   // Set OutPort buffer
   addOutPort("tau", m_torqueOut);
-
   addOutPort("Fext", m_externalForceOut);
 
   return RTC::RTC_OK;

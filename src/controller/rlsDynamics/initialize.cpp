@@ -13,6 +13,9 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   initialValueFlag = true;
 
+  // smiyahara: model.worldとかに持ってきたい
+  g = 9.81;
+
   Bc_kDiag = MatrixXi::Zero(6*info.value.joint, 6*info.value.joint);
   Bm_kDiag = MatrixXi::Zero(6*info.value.joint, 6*info.value.joint);
 
@@ -28,6 +31,7 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   cal_F = VectorXd::Zero(6*info.value.joint);
 
   dq = VectorXd::Zero(info.dof.all);
+  dqM = VectorXd::Zero(info.dof.all);
 
   // ******************************
   cal_J = MatrixXd::Zero(6*info.value.joint, info.dof.joint);
@@ -72,7 +76,10 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   // ******************************
   // inertia
   IC = Matrix3d::Zero();
+  MC = Matrix6d::Zero();
+  HMth = MatrixXd::Zero(6, info.dof.joint);
   HC = MatrixXd::Zero(3, info.dof.joint);
+  cal_AM = MatrixXd::Zero(6, info.dof.all);
   MthC = MatrixXd::Zero(info.dof.joint, info.dof.joint);
 
   // diff inertia
@@ -80,6 +87,7 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   dHC = MatrixXd::Zero(3, info.dof.joint);
 
   // nonlinear
+  cal_CM = Vector6d::Zero();
   cthC = VectorXd::Zero(info.dof.joint);
 
   // gravity
@@ -95,11 +103,14 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   // index
   // ******************************
-  // cop
+
+  bbSx = antiDiag(2, -1., 1.);
+
+  // CoP
   rpk = VectorXd::Zero(2*info.value.joint);
   rp = Vector2d::Zero();
 
-  // cop
+  // DCM
   wX = 0.;
   rX = Vector3d::Zero();
 
@@ -239,6 +250,9 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   // optimization weight
   WFSD = Matrix6d::Zero();
+  Wm = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
+  WJ = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
+
   Wth = MatrixXd::Zero(info.dof.joint, info.dof.joint);
   // smiyahara: 接触点の個数を数えたい
   Wp = MatrixXd::Zero(2*info.value.joint, 2*info.value.joint);
@@ -259,6 +273,12 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
     inverseDynamicsControllerName = "default";
 
   // mapping
+  map_momentumController["default"] = &RLS::RlsDynamics::zeroMomentum;
+  map_momentumController["baseMomentum"] = &RLS::RlsDynamics::baseMomentum;
+  map_momentumController["centroidalMomentum"] = &RLS::RlsDynamics::centroidalMomentum;
+  map_momentumController["centroidalDcmMomentum"] = &RLS::RlsDynamics::centroidalDcmMomentum;
+  map_momentumController["centroidalCmpMomentum"] = &RLS::RlsDynamics::centroidalCmpMomentum;
+
   map_motionController["default"] = &RLS::RlsDynamics::zeroMotion;
   map_motionController["baseVelocitySynergy"] = &RLS::RlsDynamics::baseVelocitySynergy;
   map_motionController["mixedVelocitySynergy"] = &RLS::RlsDynamics::mixedVelocitySynergy;
@@ -271,11 +291,7 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   map_motionController["noname"] = &RLS::RlsDynamics::noname;
   map_motionController["baseGeneralizedMomentum"] = &RLS::RlsDynamics::baseGeneralizedMomentum;
   map_motionController["mixedGeneralizedMomentum"] = &RLS::RlsDynamics::mixedGeneralizedMomentum;
-
-  map_momentumController["default"] = &RLS::RlsDynamics::zeroMomentum;
-  map_momentumController["baseMomentum"] = &RLS::RlsDynamics::baseMomentum;
-  map_momentumController["centroidalMomentum"] = &RLS::RlsDynamics::centroidalMomentum;
-  map_momentumController["centroidalDcmMomentum"] = &RLS::RlsDynamics::centroidalDcmMomentum;
+  map_motionController["accelerationSolver"] = &RLS::RlsDynamics::accelerationSolver;
 
   map_forceController["default"] = &RLS::RlsDynamics::zeroDistribution;
   map_forceController["baseDistribution"] = &RLS::RlsDynamics::baseDistribution;

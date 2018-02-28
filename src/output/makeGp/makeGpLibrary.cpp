@@ -58,7 +58,7 @@ void RLS::Output::makeGpLibrary(Config &config, Info &info)
     "TERMINAL = 'x11'\n";
 
   string time_config =
-    "T_OFFSET = 5\n"
+    "T_OFFSET = 0\n"
     "SAMPLING = "+to_string(static_cast<int>(1/(config.graph.st*info.sim.dt)))+"\n";
 
   ofstream libConfig((config.dir.gp.ind+"library/config.gp").c_str());

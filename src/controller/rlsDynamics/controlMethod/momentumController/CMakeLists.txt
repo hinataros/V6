@@ -8,6 +8,7 @@ set(srcs
   baseMomentum.cpp
   centroidalMomentum.cpp
   centroidalDcmMomentum.cpp
+  centroidalCmpMomentum.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" momentumController_srcs)

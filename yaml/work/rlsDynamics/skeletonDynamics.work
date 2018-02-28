@@ -4,8 +4,8 @@ Sequence:
   -
     twf: 5.
     Inverse dynamics controller: fullDynamics
-    Motion controller: baseGeneralizedMomentum
     Momentum controller: baseMomentum
+    Motion controller: baseGeneralizedMomentum
     Force controller: baseDistribution
     Torque controller: base
 

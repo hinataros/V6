@@ -45,6 +45,8 @@ void RLS::RlsDynamics::centroidalDcmDistribution(Config &config, Info &info, Mod
   // o(TW*cal_FF - cal_FcBarRef);
 
   // DCM-GI **************************************************************
+  // cal_FcBarRef = pInv(cal_Pc, weight(config, info, model, 2, rX))*(cal_dLBRef + cal_GB);
+
   cal_FcBarRef = pInv(cal_PcM, weight(config, info, model, 2, rX))*(cal_dLCRef + cal_GC);
   // o(weight(config, info, model, 2, rX)(0,0));
   // o(weight(config, info, model, 2, rX)(6,6));

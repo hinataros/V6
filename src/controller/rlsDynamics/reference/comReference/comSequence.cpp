@@ -7,7 +7,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::comReference(Config &config, Info &info, Model &model, double &t)
+void RLS::RlsDynamics::comSequence(Config &config, Info &info, Model &model, double &t)
 {
   if(config.flag.debug) DEBUG;
 

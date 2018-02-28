@@ -22,8 +22,6 @@ VectorXd RLS::RlsDynamics::atlasSolver(Config &config, Info &info, Model &model)
 
   MatrixXd Wq = MatrixXd::Zero(info.dof.all,info.dof.all);
   Wq.block(6,6,info.dof.joint,info.dof.joint) = Wth;
-  MatrixXd WJ = MatrixXd::Identity(6*info.value.joint, 6*info.value.joint);
-  // WJ *= 1.e-3;
 
   MatrixXd J = MatrixXd::Zero(TB2k.rows(), TB2k.cols()+cal_J.cols());
   J <<
@@ -37,7 +35,8 @@ VectorXd RLS::RlsDynamics::atlasSolver(Config &config, Info &info, Model &model)
   // momentum control
   (this->*momentumController_ptr)(config, info, model);
 
-  VectorXd rpkDes = VectorXd::Zero(2*info.contact.num);
+  // VectorXd rpkDes = VectorXd::Zero(2*info.contact.num);
+  VectorXd rpkDes = VectorXd::Zero(2*BpDiag.diagonal().sum()/2);
 
   VectorXd g = VectorXd::Zero(n);
   g.transpose() <<

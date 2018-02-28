@@ -1,0 +1,33 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+name: Box
+links:
+  -
+    name: BOX
+    jointType: fixed
+    translation: [
+    -4.883660e-03,
+    -6.463382e-06,
+    2.393695e-01
+    ]
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          Shape: &FloorBody
+            geometry:
+              type: Box
+              size: [ 0.001, 0.001, 0.001 ]
+            appearance:
+              material:
+                diffuseColor: [ 1, 0, 0 ]
+      -
+        type: Collision
+        elements:
+          Shape: *FloorBody

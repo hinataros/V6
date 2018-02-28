@@ -13,7 +13,7 @@ void RLS::RlsDynamics::mixedmixed(Config &config, Info &info, Model &model)
 
   MatrixXd MthHatBar = MatrixXd::Zero(info.dof.joint, info.dof.all);
   MthHatBar <<
-    model.hoap2.all.MM.block(0,6,6,info.dof.joint).transpose(), MthC;
+    HMth.transpose(), MthC;
 
   tau = MthHatBar*ddqRef + cthC + gth - cal_Jc.transpose()*cal_FcBarRef;
 }

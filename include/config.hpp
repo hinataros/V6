@@ -7,6 +7,7 @@
 #include <iomanip>
 
 #include <limits>
+// setprecision(numeric_limits<double>::max_digits10)
 
 using namespace std;
 
@@ -21,6 +22,7 @@ typedef Eigen::Matrix<double, 6, 6> Matrix6d;
 // #define CONFIG "config"
 #define CONFIG "rlsDynamics"
 // #define CONFIG "master_rlsDynamics"
+// #define CONFIG "temp"
 #define LINK "/usr/local/etc/rls/sl/"
 
 #define o(x) cout << #x << ":" << endl << setprecision(6) << scientific << x << endl

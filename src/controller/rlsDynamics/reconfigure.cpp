@@ -88,6 +88,14 @@ void RLS::RlsDynamics::reconfigure(Config &config, Info &info)
   cal_dJcM = MatrixXd::Zero(info.contact.c.all, info.dof.joint);
   cal_dJmM = MatrixXd::Zero(info.contact.m.all, info.dof.joint);
 
+  // generalized
+  JcM = MatrixXd::Zero(info.contact.c.all, info.dof.all);
+  JmM = MatrixXd::Zero(info.contact.m.all, info.dof.all);
+
+  // diff
+  dJcM = MatrixXd::Zero(info.contact.c.all, info.dof.all);
+  dJmM = MatrixXd::Zero(info.contact.m.all, info.dof.all);
+
   // ******************************
   cal_JcHat = MatrixXd::Zero(info.contact.c.all, info.dof.joint);
   cal_JmHat = MatrixXd::Zero(info.contact.m.all, info.dof.joint);
@@ -103,5 +111,6 @@ void RLS::RlsDynamics::reconfigure(Config &config, Info &info)
 
   // objective
   // ******************************
-  Pc = MatrixXd::Zero(2*2,6*2);
+  // Pc = MatrixXd::Zero(2*info.contact.num,6*info.contact.num);
+  Pc = MatrixXd::Zero(2*BpDiag.diagonal().sum()/2,6*(BpDiag.diagonal().sum()/2));
 }

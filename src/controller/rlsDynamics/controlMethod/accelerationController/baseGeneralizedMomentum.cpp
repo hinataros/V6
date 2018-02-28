@@ -11,13 +11,9 @@ VectorXd RLS::RlsDynamics::baseGeneralizedMomentum(Config &config, Info &info, M
 {
   if(config.flag.debug) DEBUG;
 
-  MatrixXd AB = MatrixXd::Zero(6, info.dof.all);
-  AB <<
-    model.hoap2.all.M.block(0,0,6,info.dof.all);
-
   MatrixXd ABBar = MatrixXd::Zero(6+info.contact.c.all, info.dof.all);
   ABBar <<
-    AB,
+    cal_AB,
     Jc;
 
   MatrixXd dAB = MatrixXd::Zero(6, info.dof.all);
@@ -50,8 +46,6 @@ VectorXd RLS::RlsDynamics::baseGeneralizedMomentum(Config &config, Info &info, M
   VectorXd ddqDRef = N(ABBar)*N(JmBar)*ddqD(config, info, model);
 
   ddqRef = ddqLBRef + ddqmRef + ddqDRef;
-
-  // ddqRef = VectorXd::Zero(info.dof.all);
 
   return ddqRef;
 }

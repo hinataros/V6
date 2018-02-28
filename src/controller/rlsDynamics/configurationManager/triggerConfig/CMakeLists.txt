@@ -2,6 +2,7 @@
 
 set(srcs
   checkContact.cpp
+  staticCheckContact.cpp
   ankleStratagy.cpp
   ankleHipStratagy.cpp
   triggerConfig.cpp

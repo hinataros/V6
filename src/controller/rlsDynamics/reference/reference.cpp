@@ -11,10 +11,12 @@ void RLS::RlsDynamics::reference(Config &config, Info &info, Model &model, doubl
 {
   if(config.flag.debug) DEBUG;
 
-  comReference(config, info, model, t);
-  baseReference(config, info, model, t);
-
-  dcmReference(config, info, model, t);
+  comSequence(config, info, model, t);
+  baseOrientationSequence(config, info, model, t);
+  baseTranslationSequence(config, info, model, t);
+  dcmSequence(config, info, model, t);
+  endEffectorSequence(config, info, model, t);
+  externalWrenchSequence(config, info, model, t);
 
   cal_VBRef <<
     vBRef,
@@ -32,8 +34,4 @@ void RLS::RlsDynamics::reference(Config &config, Info &info, Model &model, doubl
   cal_dVCRef <<
     dvCRef,
     IC.inverse()*(-KDlC*model.hoap2.all.lC - dIC*(cal_VM.tail(3) + IC.inverse()*HC*model.hoap2.all.dth));
-
-  endEffectorReference(config, info, model, t);
-
-  externalWrenchReference(config, info, model, t);
 }

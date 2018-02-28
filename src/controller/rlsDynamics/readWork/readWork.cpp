@@ -23,11 +23,11 @@ int RLS::RlsDynamics::readWork(Config &config, Info &info, string node, int seq)
 
   info.sim.trecf = checkValue<double>(doc, node, seq, "trecf", info.sim.trecf);
 
+  inverseDynamicsControllerName = checkValue<string>(doc, node, seq, "Inverse dynamics controller", inverseDynamicsControllerName);
   motionControllerName = checkValue<string>(doc, node, seq, "Motion controller", motionControllerName);
   momentumControllerName = checkValue<string>(doc, node, seq, "Momentum controller", momentumControllerName);
   forceControllerName = checkValue<string>(doc, node, seq, "Force controller", forceControllerName);
   torqueControllerName = checkValue<string>(doc, node, seq, "Torque controller", torqueControllerName);
-  inverseDynamicsControllerName = checkValue<string>(doc, node, seq, "Inverse dynamics controller", inverseDynamicsControllerName);
 
   Bc_kDiag = checkMatrix<MatrixXi>(doc, node, seq, "Bc", info.value.joint, Bc_kDiag);
   Bm_kDiag = checkMatrix<MatrixXi>(doc, node, seq, "Bm", info.value.joint, Bm_kDiag);
@@ -70,6 +70,8 @@ int RLS::RlsDynamics::readWork(Config &config, Info &info, string node, int seq)
   WFSD = checkMatrix<MatrixXd>(doc, node, seq, "WFSD", WFSD);
   Wp = checkMatrix<MatrixXd>(doc, node, seq, "Wp", Wp);
   WF = checkMatrix<MatrixXd>(doc, node, seq, "WF", WF);
+  Wm = checkMatrix<MatrixXd>(doc, node, seq, "Wm", info.value.joint, Wm);
+  WJ = checkMatrix<MatrixXd>(doc, node, seq, "WJ", info.value.joint, WJ);
   Wth = checkMatrix<MatrixXd>(doc, node, seq, "Wth", info.value.joint, Wth);
 
   return 0;
