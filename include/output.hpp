@@ -121,6 +121,8 @@ namespace RLS{
 
     string stabilityIndex(Config&, Info&, string, string&);
 
+    string footPrint(Config&, Info&, string, string&);
+
     void makeDynamicsDat(Config&, Info&);
     // ********************************************
 

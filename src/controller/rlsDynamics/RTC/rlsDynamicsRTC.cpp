@@ -66,11 +66,18 @@ RTC::ReturnCode_t RlsDynamicsRTC::onInitialize()
 
 RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
 {
-  cout << "RlsDynamicsRTC::onActivate()" << endl;
+  cout << "RlsDynamicsRTC::onActivate()" << endl << endl;
 
   t = 0.;
 
   config.readConfig();
+
+  cout << "=========================================" << endl;
+  cout << "Body : "<< config.body.name << ".body" << endl;
+  cout << "cnoid: "<< config.cnoid.name << ".cnoid" << endl;
+  cout << "Work : "<< config.controller.work << ".work" << endl;
+  cout << "=========================================" << endl << endl;
+
   info.initialize(config);
   model.readModel(config, info);
   rlsDynamics.initialize(config, info);
@@ -101,8 +108,11 @@ RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
 
   output.tm_temp = model.hoap2.tm_list;
   output.dc_temp = rlsDynamics.dc_list;
+  output.pushBack(config, t);
 
   writeInput(config);
+
+  t += info.sim.dt;
 
   return RTC::RTC_OK;
 }

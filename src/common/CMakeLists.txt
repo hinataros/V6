@@ -17,6 +17,7 @@ set(srcs
   dxi2w.cpp
   w2dxi.cpp
   ddxi2dw.cpp
+  round_cast.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" common_srcs)

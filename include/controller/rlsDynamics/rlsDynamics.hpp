@@ -258,6 +258,14 @@ namespace RLS{
     // high gain control
     VectorXd thDes;
 
+    // dcmWalkiing
+    // ******************************
+    VectorXd dt;
+    MatrixXd rf;
+    MatrixXd rvrpd;
+
+    MatrixXd rXeos;
+
     // error
     Vector3d erC;
     Vector3d evC;
@@ -405,6 +413,7 @@ namespace RLS{
     // DCM
     void dcmSequence(Config&, Info&, Model&, double&);
     void dcmAnkleHip(Config&, Info&, Model&, double&);
+    void dcmWalking(Config&, Info&, Model&, double&);
 
     // end effector
     void endEffectorSequence(Config&, Info&, Model&, double&);

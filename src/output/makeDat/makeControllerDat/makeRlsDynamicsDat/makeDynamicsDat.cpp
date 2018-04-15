@@ -194,6 +194,15 @@ void RLS::Output::makeDynamicsDat(Config &config, Info &info)
     input += input_dir+name+"}\n";
   }
 
+  // name = "160_footPrint";
+  // minipage = footPrint(config, info, dir, load);
+  // if(config.graph.tex){
+  //   makeFigureTex(config, name, minipage,
+  // 		  "Foot print."
+  // 		  );
+  //   input += input_dir+name+"}\n";
+  // }
+
   ofstream rlsDynamicsGp((config.dir.gp.ind+"controller.gp").c_str());
   if(!rlsDynamicsGp)
     cout << path << ": " << endl << "file open error..." << endl;

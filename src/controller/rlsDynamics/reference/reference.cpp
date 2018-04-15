@@ -15,6 +15,7 @@ void RLS::RlsDynamics::reference(Config &config, Info &info, Model &model, doubl
   baseOrientationSequence(config, info, model, t);
   baseTranslationSequence(config, info, model, t);
   dcmSequence(config, info, model, t);
+  // dcmWalking(config, info, model, t);
   endEffectorSequence(config, info, model, t);
   externalWrenchSequence(config, info, model, t);
 

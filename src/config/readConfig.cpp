@@ -11,6 +11,8 @@ void RLS::Config::readConfig()
 {
   if(flag.debug) DEBUG;
 
+  cout << "config: " << def << ".conf"<< endl;
+
   string path = dir.link + "yaml/config/" + def+".conf";
   YAML::Node doc = YAML::LoadFile(path.c_str());
 

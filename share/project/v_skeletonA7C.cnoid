@@ -20,7 +20,7 @@ items:
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "/home/smiyahara/Documents/rlsSimulator/share/model/skeleton/skeletonA7C.body"
+            modelFile: "../model/skeleton/skeletonA7C.body"
             currentBaseLink: ""
             rootPosition: [ 0, 0, 0.21019 ]
             rootAttitude: [ 
@@ -51,7 +51,7 @@ items:
               plugin: Body
               class: BodyMotionItem
               data: 
-                filename: "/home/smiyahara/Documents/rlsSimulator/share/motion/skeletonA7CMotion.yaml"
+                filename: "../motion/skeletonA7CMotion.yaml"
                 format: BODY-MOTION-YAML
         - 
           id: 4
@@ -59,7 +59,7 @@ items:
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "/home/smiyahara/Documents/rlsSimulator/share/model/object/floor.wrl"
+            modelFile: "../model/object/floor.body"
             currentBaseLink: "WAIST"
             rootPosition: [ 0, 0, -0.025 ]
             rootAttitude: [ 

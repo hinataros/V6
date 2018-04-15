@@ -34,6 +34,8 @@ namespace RLS{
     Vector3d w2dxi(Vector3d, Vector3d);
     Vector3d ddxi2dw(Vector3d, Vector3d, Vector3d);
 
+    int round_cast(double, int);
+
   public:
   };
 }

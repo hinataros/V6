@@ -16,6 +16,12 @@ int RLS::RlsDynamics::stateTriggerConfig(Config &config, Info &info, Model &mode
 
 bool RLS::RlsDynamics::sequenceTriggerConfig(Config &config, Info &info, double &t)
 {
-  if(t>=info.sim.twf+info.sim.tw0 && t<info.sim.tf)
+  int tint = round_cast(t, 3);
+  int tfint = round_cast(info.sim.tf, 3);
+  int tsumint = round_cast(info.sim.twf, 3) + round_cast(info.sim.tw0, 3);
+
+  if(tint==tsumint&&tint<=tfint)
     return true;
+
+  return false;
 }

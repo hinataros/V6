@@ -20,8 +20,8 @@ typedef Eigen::Matrix<double, 6, 6> Matrix6d;
 #define RAD2DEG 180. * M_1_PI
 
 // #define CONFIG "config"
-// #define CONFIG "rlsDynamics"
-#define CONFIG "master_rlsDynamics"
+#define CONFIG "rlsDynamics"
+// #define CONFIG "master_rlsDynamics"
 // #define CONFIG "temp"
 #define LINK "/usr/local/etc/rls/sl/"
 

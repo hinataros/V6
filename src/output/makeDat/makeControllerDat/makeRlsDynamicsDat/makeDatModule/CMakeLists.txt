@@ -20,6 +20,7 @@ set(srcs
   localCop.cpp
   cop.cpp
   stabilityIndex.cpp
+  footPrint.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" makeDatModule_srcs)

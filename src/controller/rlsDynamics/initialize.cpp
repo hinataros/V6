@@ -171,6 +171,14 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   // high gain control
   thDes = VectorXd::Zero(info.dof.joint);
 
+  // dcmWalkiing
+  // ******************************
+  dt = VectorXd::Zero(3);
+  rf = MatrixXd::Zero(3,3);
+  rvrpd = MatrixXd::Zero(3,3);
+
+  rXeos = MatrixXd::Zero(3,4);
+
   // error
   // ******************************
   erC = evC = Vector3d::Zero();

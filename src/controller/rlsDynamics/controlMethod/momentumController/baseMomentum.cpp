@@ -11,8 +11,8 @@ void RLS::RlsDynamics::baseMomentum(Config &config, Info &info, Model &model)
 {
   if(config.flag.debug) DEBUG;
 
-  // dcmMomentum(config, info, model);
-  linearMomentum(config, info, model);
+  dcmMomentum(config, info, model);
+  // linearMomentum(config, info, model);
   baseAngularMomentum(config, info, model);
 
   cal_dLBRef <<
