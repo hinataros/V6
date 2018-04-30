@@ -19,10 +19,6 @@ typedef Eigen::Matrix<double, 6, 6> Matrix6d;
 #define DEG2RAD M_PI / 180.
 #define RAD2DEG 180. * M_1_PI
 
-// #define CONFIG "config"
-#define CONFIG "rlsDynamics"
-// #define CONFIG "master_rlsDynamics"
-// #define CONFIG "temp"
 #define LINK "/usr/local/etc/rls/sl/"
 
 #define o(x) cout << #x << ":" << endl << setprecision(6) << scientific << x << endl
@@ -134,19 +130,8 @@ namespace RLS{
 
     void readConfig();
 
-    Config(){
-      def = CONFIG;
-      dir.link = LINK;
-      flag.debug = false; // smiyahara:ココ定義の仕方びみょー
-    }
-    Config(int argc, char *argv[]){
-      def = CONFIG;
-      dir.link = LINK;
-      flag.debug = false; // smiyahara:ココ定義の仕方びみょー
-
-      readArgument(argc, argv);
-
-      readConfig();
-    }
+    // smiyahara: コンストラクタをここでだけ分けるのはビミョー
+    Config();
+    Config(int, char *[]);
   };
 }

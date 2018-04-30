@@ -1,6 +1,7 @@
 # @author Sho Miyahara 2017
 
 set(srcs
+  spline3.cpp
   spline5.cpp
   )
 

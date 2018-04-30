@@ -5,11 +5,12 @@
 #ifndef INTERPOLATION_HPP_
 #define INTERPOLATION_HPP_
 
+#include "spline3.hpp"
 #include "spline5.hpp"
 
 namespace RLS{
   class Interpolation:
-    public Spline5{
+    public Spline3, public Spline5{
   public:
   };
 }

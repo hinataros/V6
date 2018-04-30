@@ -20,7 +20,7 @@ items:
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "../model/skeleton/skeletonA7C.body"
+            modelFile: "${HOME}/Documents/rlsSimulator/share/model/skeleton/skeletonA7C.body"
             currentBaseLink: "ROOT"
             rootPosition: [ 0, 0, 0.21019 ]
             rootAttitude: [ 
@@ -53,8 +53,8 @@ items:
               data: 
                 isNoDelayMode: true
                 controllerOptions: ""
-                moduleName: "/home/smiyahara/Documents/rlsSimulator/build/bin/rlsDynamicsRTC.so"
-                confFileName: "/home/smiyahara/Documents/rlsSimulator/src/controller/rlsDynamics/RTC/rtcConfig/skeletonPort.conf"
+                moduleName: "${HOME}/Documents/rlsSimulator/build/bin/rlsDynamicsRTC.so"
+                confFileName: "${HOME}/Documents/rlsSimulator/src/controller/rlsDynamics/RTC/rtcConfig/skeletonPort.conf"
                 configurationMode: "Use Configuration File"
                 AutoConnect: false
                 InstanceName: "skeleton"
@@ -66,8 +66,8 @@ items:
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "/home/smiyahara/Documents/rlsSimulator/share/model/object/floor.body"
-            currentBaseLink: "WAIST"
+            modelFile: "${HOME}/Documents/rlsSimulator/share/model/object/floor.body"
+            currentBaseLink: ""
             rootPosition: [ 0, 0, -0.025 ]
             rootAttitude: [ 
               1, 0, 0, 
@@ -324,7 +324,7 @@ viewAreas:
     contents: 
       type: splitter
       orientation: horizontal
-      sizes: [ 206, 1651 ]
+      sizes: [ 206, 1643 ]
       children: 
         - 
           type: splitter
@@ -342,7 +342,7 @@ viewAreas:
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 830, 109 ]
+          sizes: [ 818, 121 ]
           children: 
             - 
               type: pane

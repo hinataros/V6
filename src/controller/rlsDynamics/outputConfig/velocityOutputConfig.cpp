@@ -7,7 +7,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::velocityOutputConfig(Config &config, Model &model)
+void RLS::RlsDynamics::velocityOutputConfig(Config &config, Info &info, Model &model)
 {
   if(config.flag.debug) DEBUG;
 
@@ -17,9 +17,6 @@ void RLS::RlsDynamics::velocityOutputConfig(Config &config, Model &model)
 
   dc_list.xiBDes = xiBDes;
   dc_list.wBDes = wBDes;
-
-  dc_list.cal_XDes = cal_XDes;
-  dc_list.cal_VDes = cal_VDes;
 
   // error value
   dc_list.erC = erC;

@@ -6,6 +6,7 @@ set(srcs
   dcmMomentum.cpp
   baseAngularMomentum.cpp
   baseMomentum.cpp
+  baseDcmMomentum.cpp
   centroidalMomentum.cpp
   centroidalDcmMomentum.cpp
   centroidalCmpMomentum.cpp

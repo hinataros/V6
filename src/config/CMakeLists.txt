@@ -1,6 +1,7 @@
 # @author Sho Miyahara 2017
 
 set(srcs
+  config.cpp
   readConfig.cpp
   setDir.cpp
   readArgument.cpp

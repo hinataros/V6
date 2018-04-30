@@ -9,9 +9,9 @@ void RLS::Info::initialize(Config &config)
 {
   if(config.flag.debug) DEBUG;
 
-  sim.trev = 0.;
   sim.state = -1; //smiyahara: 初期化をconfigurationManagerでやるため
 
+  sim.trev = 0.;
   sim.trecf = 0.;
 
   sim.twf = 0.;

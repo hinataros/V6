@@ -20,16 +20,17 @@ namespace RLS{
     Vector3d rC;
     Vector3d vC;
 
+    VectorXd r;
+    VectorXd xi;
+
+    VectorXd v;
+    VectorXd w;
+
+    VectorXd f;
+    VectorXd n;
+
     Vector3d p;
     Vector3d lC;
-
-    MatrixXd eePosMatrix;
-    MatrixXd eeOrientMatrix;
-    MatrixXd eeVelMatrix;
-    MatrixXd eeAngVelMatrix;
-
-    MatrixXd eeForceMatrix;
-    MatrixXd eeMomentMatrix;
 
     // smiyahara: 一つにまとめるのはびみょ
     MatrixXd posGifMatrix;

@@ -7,7 +7,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::torqueOutputConfig(Config &config, Model &model)
+void RLS::RlsDynamics::torqueOutputConfig(Config &config, Info &info, Model &model)
 {
   if(config.flag.debug) DEBUG;
 
@@ -16,16 +16,27 @@ void RLS::RlsDynamics::torqueOutputConfig(Config &config, Model &model)
   dc_list.vBDes = vBDes;
   dc_list.dvBDes = dvBDes;
 
-  dc_list.xiBDes = xiBDes;
+  dc_list.xiBDes = antiDiag(3,1.,1.,1.)*xiBDes;
   dc_list.wBDes = wBDes;
   dc_list.dwBDes = dwBDes;
 
   dc_list.rXDes = rXDes;
   dc_list.drXDes = drXDes;
 
-  dc_list.cal_XDes = cal_XDes;
-  dc_list.cal_VDes = cal_VDes;
-  dc_list.cal_dVDes = cal_dVDes;
+  dc_list.rDes = dc_list.vDes = dc_list.dvDes
+    = dc_list.xiDes = dc_list.wDes = dc_list.dwDes
+    = VectorXd::Zero(3*info.value.joint);
+
+  for(int i=0; i<info.value.joint; i++){
+    dc_list.rDes.segment(3*i, 3) = cal_XDes.segment(6*i, 3);
+    dc_list.xiDes.segment(3*i, 3) = antiDiag(3,1.,1.,1.)*cal_XDes.segment(6*i+3, 3);
+
+    dc_list.vDes.segment(3*i, 3) = cal_VDes.segment(6*i, 3);
+    dc_list.wDes.segment(3*i, 3) = cal_VDes.segment(6*i+3, 3);
+
+    dc_list.dvDes.segment(3*i, 3) = cal_dVDes.segment(6*i, 3);
+    dc_list.dwDes.segment(3*i, 3) = cal_dVDes.segment(6*i+3, 3);
+  }
 
   // error values
   dc_list.erB = erB;
@@ -38,16 +49,31 @@ void RLS::RlsDynamics::torqueOutputConfig(Config &config, Model &model)
   dc_list.erC = erC;
   dc_list.evC = evC;
 
-  dc_list.cal_Ep = cal_Ep;
-  dc_list.cal_Ev = cal_Ev;
+  dc_list.er = dc_list.ev
+    = dc_list.eo = dc_list.ew
+    = dc_list.ef = dc_list.en
+    = VectorXd::Zero(3*info.value.joint);
+  for(int i=0; i<info.value.joint; i++){
+    dc_list.er.segment(3*i, 3) = cal_Ep.segment(6*i, 3);
+    dc_list.eo.segment(3*i, 3) = antiDiag(3,1.,1.,1.)*cal_Ep.segment(6*i+3, 3);
 
-  dc_list.cal_FErr = Bc_k*cal_FcBarRef - cal_F;
+    dc_list.ev.segment(3*i, 3) = cal_Ev.segment(6*i, 3);
+    dc_list.ew.segment(3*i, 3) = cal_Ev.segment(6*i+3, 3);
+
+    dc_list.ef.segment(3*i, 3) = (Bc_k*cal_FcBarRef - cal_F).segment(6*i, 3);
+    dc_list.en.segment(3*i, 3) = (Bc_k*cal_FcBarRef - cal_F).segment(6*i+3, 3);
+  }
 
   dc_list.dpRef = dpRef;
   dc_list.dlRef = dlCRef;
   // dc_list.dlRef = dlBRef;
 
-  dc_list.cal_FBarRef = Bc_k*cal_FcBarRef;
+  dc_list.fRef = dc_list.nRef
+    = VectorXd::Zero(3*info.value.joint);
+  for(int i=0; i<info.value.joint; i++){
+    dc_list.fRef.segment(3*i, 3) = (Bc_k*cal_FcBarRef).segment(6*i, 3);
+    dc_list.nRef.segment(3*i, 3) = (Bc_k*cal_FcBarRef).segment(6*i+3, 3);
+  }
 
   dc_list.cal_FextRef = cal_FextRef;
 
@@ -65,7 +91,19 @@ void RLS::RlsDynamics::torqueOutputConfig(Config &config, Model &model)
   // index
   // cop
   dc_list.rp = rp;
-  dc_list.rpk = rpk;
+
+  // replace x <==> y
+  dc_list.rpk = VectorXd::Zero(2*info.value.joint);
+  for(int i=0; i<info.value.joint; i++)
+    dc_list.rpk.segment(2*i, 2) = antiDiag(2,1.,1.)*rpk.segment(2*i, 2);
+
+  dc_list.rpkx = dc_list.rpky
+    = VectorXd::Zero(1*info.value.joint);
+  for(int i=0; i<info.value.joint; i++){
+    dc_list.rpkx(i) = rpk(2*i);
+    dc_list.rpky(i) = rpk(2*i+1);
+  }
+
   // dcm
   dc_list.rX = rX;
 }

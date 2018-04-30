@@ -7,16 +7,16 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::outputConfig(Config &config, Model &model)
+void RLS::RlsDynamics::outputConfig(Config &config, Info &info, Model &model)
 {
   if(config.flag.debug) DEBUG;
 
   if(config.controller.input=="velocity")
-    velocityOutputConfig(config, model);
+    velocityOutputConfig(config, info, model);
 
   else if(config.controller.input=="acceleration")
-    accelerationOutputConfig(config, model);
+    accelerationOutputConfig(config, info, model);
 
   else if(config.controller.input=="torque")
-    torqueOutputConfig(config, model);
+    torqueOutputConfig(config, info, model);
 }

@@ -108,3 +108,5 @@ triggerConfigの設定の仕方
 接触しているlinkの個数とそのnode番号の変数ほしい
 
 actexがinterfaceのinfoを元にしてるから指定できない
+
+round_castをcommonクラスとは別のクラスで定義したい

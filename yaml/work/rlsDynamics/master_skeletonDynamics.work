@@ -2,26 +2,27 @@
 
 State:
   -
-    # Inverse dynamics controller: spatialDynamicsSolver
-    # # Inverse dynamics controller: atlasSolver
-    # Momentum controller: centroidalMomentum
-    # # Momentum controller: baseMomentum
-
     Inverse dynamics controller: fullDynamics
-    Momentum controller: centroidalDcmMomentum
-    # Momentum controller: centroidalMomentum
-    # Motion controller: accelerationSolver
-    # Force controller: distributionSolver
+    # Momentum controller: centroidalDcmMomentum
+    Momentum controller: centroidalMomentum
     Motion controller: mixedGeneralizedMomentum
-    Force controller: centroidalDistribution
+    Force controller: centroidalDcmDistribution
 
-    # Inverse dynamics controller: fullDynamics
-    # Motion controller: baseGeneralizedMomentum
-    # Momentum controller: baseMomentum
-    # Force controller: baseDistribution
-
+    # Torque controller: staticControl
     Torque controller: mixedmixed
-    # Torque controller: base
+
+    Bc:
+      - [1, 1, 1, 1, 1, 1]
+      - [1, 1, 1, 1, 1, 1]
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+    Bm:
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+      # - [0, 0, 0, 0, 0, 0]
+      # - [0, 0, 0, 0, 0, 0]
+      - [1, 1, 1, 1, 1, 1]
+      - [1, 1, 1, 1, 1, 1]
 
     KX: 3.e+2
 
@@ -30,8 +31,8 @@ State:
     # KpC: 10.
     # KdC: 5.
 
-    # KpwB: 3.e+2
-    # KdwB: 5.e+1
+    KpwB: 3.e+2
+    KdwB: 5.e+1
     # KpwB: 10.
     # KdwB: 5.
 
@@ -40,69 +41,28 @@ State:
     # Kpv: 10.
     # Kdv: 5.
 
+    KDth: 1.e+2
     KDq:
       - 6
-      - [1.e+1, 1.e+1, 1.e+1, 1.e+1, 1.e+1, 1.e+1]
-      - [1.e+1, 1.e+1, 1.e+1, 1.e+1, 1.e+1, 1.e+1]
-      - [1.e+1, 1.e+1, 1.e+1, 1.e+1, 1.e+1, 1.e+1]
-      - [1.e+1, 1.e+1, 1.e+1, 1.e+1, 1.e+1, 1.e+1]
+      - [1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2]
+      - [1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2]
+      - [1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2]
+      - [1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2]
 
   -
-    Bc:
-      - [1, 1, 1, 1, 1, 1]
-      - [1, 1, 1, 1, 1, 1]
-      - [0, 0, 0, 0, 0, 0]
-      - [0, 0, 0, 0, 0, 0]
-    Bm:
-      - [0, 0, 0, 0, 0, 0]
-      - [0, 0, 0, 0, 0, 0]
-      - [1, 1, 1, 1, 1, 1]
-      - [1, 1, 1, 1, 1, 1]
-    Bp:
-      - [1, 1]
-      - [1, 1]
-      - 2
-      - 2
-  # left leg support
-  -
-    Bc:
-      - [0, 0, 0, 0, 0, 0]
-      - [1, 1, 1, 1, 1, 1]
-      - [0, 0, 0, 0, 0, 0]
-      - [0, 0, 0, 0, 0, 0]
-    Bm:
-      - [1, 1, 1, 1, 1, 1]
-      - [0, 0, 0, 0, 0, 0]
-      - [1, 1, 1, 1, 1, 1]
-      - [1, 1, 1, 1, 1, 1]
-    Bp:
-      - [0, 0]
-      - [1, 1]
-      - 2
-      - 2
-  # right leg support
-  -
-    Bc:
-      - [1, 1, 1, 1, 1, 1]
-      - [0, 0, 0, 0, 0, 0]
-      - [0, 0, 0, 0, 0, 0]
-      - [0, 0, 0, 0, 0, 0]
-    Bm:
-      - [0, 0, 0, 0, 0, 0]
-      - [1, 1, 1, 1, 1, 1]
-      - [1, 1, 1, 1, 1, 1]
-      - [1, 1, 1, 1, 1, 1]
-    Bp:
-      - [1, 1]
-      - [0, 0]
-      - 2
-      - 2
 
 Sequence:
   -
     twf: 1.
+    # cal_Xf:
+    #   - [., ., ., ., ., .]
+    #   - [., ., ., ., ., .]
+    #   - [.05, ., .1, ., ., .]
+    #   - [., ., ., ., ., .]
   -
     twf: 1.
+    rCf: [.01, ., .]
+    # rCf: [., .035, .]
   -
     twf: 1.
     # rXf: [.03, ., .]

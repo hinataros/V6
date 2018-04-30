@@ -12,8 +12,14 @@ Vector3d RLS::Spline5::makeSpline5(double t, double tf, double r0, double rf)
 
 Vector3d RLS::Spline5::makeSpline5(double t, double tf, double xi0, double dxi0, double ddxi0, double xif, double dxif, double ddxif)
 {
-  if(tf==0.)
-    return Vector3d::Zero();
+  if(!round_cast(tf, 3)){
+    par <<
+      xi0,
+      dxi0,
+      ddxi0;
+
+    return par;
+  }
 
   a <<
     xi0,

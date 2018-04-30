@@ -40,6 +40,8 @@ include_directories(${PROJECT_SOURCE_DIR}/include/controller/sharedMemory)
 include_directories(${PROJECT_SOURCE_DIR}/include/controller/rlsDynamics)
 include_directories(${PROJECT_SOURCE_DIR}/include/controller/object)
 
+include_directories(${PROJECT_SOURCE_DIR}/include/output)
+
 include_directories(${OPENRTM_INCLUDE_DIRS})
 
 add_definitions(${OPENRTM_CFLAGS})

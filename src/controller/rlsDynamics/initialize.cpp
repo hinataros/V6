@@ -13,6 +13,8 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   initialValueFlag = true;
 
+  tDS0 = 0.;
+
   // smiyahara: model.worldとかに持ってきたい
   g = 9.81;
 
@@ -175,9 +177,22 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   // ******************************
   dt = VectorXd::Zero(3);
   rf = MatrixXd::Zero(3,3);
-  rvrpd = MatrixXd::Zero(3,3);
+  rvrpd = MatrixXd::Zero(3,4);
 
   rXeos = MatrixXd::Zero(3,4);
+
+  // double sopport
+  dtDS = VectorXd::Zero(4);
+  alphDS = VectorXd::Zero(4);
+  dtDSini = VectorXd::Zero(4);
+  dtDSend = VectorXd::Zero(4);
+
+  rXiniDS = MatrixXd::Zero(3,4);
+  rXeoDS = MatrixXd::Zero(3,4);
+  drXiniDS = MatrixXd::Zero(3,4);
+  drXeoDS = MatrixXd::Zero(3,4);
+
+  // ******************************
 
   // error
   // ******************************
@@ -273,6 +288,10 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   // selective matrix for forward kinematics
   bb_ScB = Matrix6d::Zero();
+
+  // walking
+  phaseDS = 0;
+  flagDS = true;
 
   motionControllerName =
     momentumControllerName =

@@ -18,9 +18,12 @@ namespace RLS{
     Vector3d rXDes;
     Vector3d drXDes;
 
-    VectorXd cal_XDes;
-    VectorXd cal_VDes;
-    VectorXd cal_dVDes;
+    VectorXd rDes;
+    VectorXd vDes;
+    VectorXd dvDes;
+    VectorXd xiDes;
+    VectorXd wDes;
+    VectorXd dwDes;
 
     Vector3d erB;
     Vector3d evB;
@@ -32,10 +35,13 @@ namespace RLS{
     Vector3d erC;
     Vector3d evC;
 
-    VectorXd cal_Ep;
-    VectorXd cal_Ev;
+    VectorXd er;
+    VectorXd ev;
+    VectorXd eo;
+    VectorXd ew;
 
-    VectorXd cal_FErr;
+    VectorXd ef;
+    VectorXd en;
 
     // velocity control
     Vector3d vBRef;
@@ -49,7 +55,8 @@ namespace RLS{
     Vector3d dpRef;
     Vector3d dlRef;
 
-    VectorXd cal_FBarRef;
+    VectorXd fRef;
+    VectorXd nRef;
 
     Vector6d cal_FextRef;
 
@@ -64,6 +71,8 @@ namespace RLS{
 
     Vector2d rp;
     VectorXd rpk;
+    VectorXd rpkx;
+    VectorXd rpky;
     Vector3d rX;
   };
 }

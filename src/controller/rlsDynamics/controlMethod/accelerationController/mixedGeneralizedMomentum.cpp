@@ -43,24 +43,27 @@ VectorXd RLS::RlsDynamics::mixedGeneralizedMomentum(Config &config, Info &info, 
 
     VectorXd ddqLCRef = pInv(ACBar)*(cal_dLCBarRef - dACBar*dqM);
 
-    // **********************************************************
-    MatrixXd JmM = MatrixXd::Zero(info.contact.m.all, info.dof.all);
-    JmM <<
-      cal_PmM.transpose(), cal_JmM;
-    MatrixXd dJmM = MatrixXd::Zero(info.contact.m.all, info.dof.all);
-    dJmM <<
-      cal_dPmM.transpose(), cal_dJmM;
+    if(info.contact.m.all){
+      // **********************************************************
+      MatrixXd JmM = MatrixXd::Zero(info.contact.m.all, info.dof.all);
+      JmM <<
+        cal_PmM.transpose(), cal_JmM;
+      MatrixXd dJmM = MatrixXd::Zero(info.contact.m.all, info.dof.all);
+      dJmM <<
+        cal_dPmM.transpose(), cal_dJmM;
 
-    MatrixXd JmMBar = JmM*N(ACBar);
+      MatrixXd JmMBar = JmM*N(ACBar);
 
-    VectorXd dVmBarRef = Bm.transpose()*cal_dVRef + dBm.transpose()*cal_V;
-    VectorXd dVmTildeRef = dVmBarRef - dJmM*dqM - JmM*ddqLCRef;
+      VectorXd dVmBarRef = Bm.transpose()*cal_dVRef + dBm.transpose()*cal_V;
+      VectorXd dVmTildeRef = dVmBarRef - dJmM*dqM - JmM*ddqLCRef;
 
-    VectorXd ddqmRef = N(ACBar)*pInv(JmMBar)*dVmTildeRef;
+      VectorXd ddqmRef = N(ACBar)*pInv(JmMBar)*dVmTildeRef;
 
-    VectorXd ddqDRef = N(ACBar)*N(JmMBar)*ddqD(config, info, model);
-
-    ddqRef = ddqLCRef + ddqmRef + ddqDRef;
+      ddqRef = ddqLCRef + ddqmRef + N(ACBar)*N(JmMBar)*ddqD(config, info, model);
+    }
+    else{
+      ddqRef = ddqLCRef + N(ACBar)*ddqD(config, info, model);
+    }
   }
   // ddqRef = VectorXd::Zero(info.dof.all);
 

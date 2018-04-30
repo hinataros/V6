@@ -3,7 +3,8 @@
 set(srcs
   dcmSequence.cpp
   dcmAnkleHip.cpp
-  dcmWalking.cpp
+  dcmSSWalking.cpp
+  dcmDSWalking.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" dcmReference_srcs)

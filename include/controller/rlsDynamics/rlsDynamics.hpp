@@ -26,6 +26,8 @@ namespace RLS{
     string torqueControllerName;
     string inverseDynamicsControllerName;
 
+    double tDS0;
+
     double g;
 
     MatrixXi Bc_kDiag;
@@ -266,6 +268,19 @@ namespace RLS{
 
     MatrixXd rXeos;
 
+    // double sopport
+    VectorXd dtDS;
+    VectorXd alphDS;
+    VectorXd dtDSini;
+    VectorXd dtDSend;
+
+    MatrixXd rXiniDS;
+    MatrixXd rXeoDS;
+    MatrixXd drXiniDS;
+    MatrixXd drXeoDS;
+
+    // ******************************
+
     // error
     Vector3d erC;
     Vector3d evC;
@@ -368,6 +383,10 @@ namespace RLS{
     // selective matrix for forward kinematics
     Matrix6d bb_ScB;
 
+  // walking
+    int phaseDS;
+    bool flagDS;
+
     void initialValue(Config&, Info&, Model&);
     void resize(Config&, Info&, Model&);
 
@@ -413,10 +432,12 @@ namespace RLS{
     // DCM
     void dcmSequence(Config&, Info&, Model&, double&);
     void dcmAnkleHip(Config&, Info&, Model&, double&);
-    void dcmWalking(Config&, Info&, Model&, double&);
+    void dcmSSWalking(Config&, Info&, Model&, double&);
+    void dcmDSWalking(Config&, Info&, Model&, double&);
 
     // end effector
     void endEffectorSequence(Config&, Info&, Model&, double&);
+    void endEffectorDSWalking(Config&, Info&, Model&, double&);
 
     // external wrench
     void externalWrenchSequence(Config&, Info&, Model&, double&);
@@ -456,6 +477,7 @@ namespace RLS{
     void centroidalAngularMomentum(Config&, Info&, Model&);
     void baseAngularMomentum(Config&, Info&, Model&);
     void baseMomentum(Config&, Info&, Model&);
+    void baseDcmMomentum(Config&, Info&, Model&);
     void centroidalMomentum(Config&, Info&, Model&);
     void centroidalDcmMomentum(Config&, Info&, Model&);
     void centroidalCmpMomentum(Config&, Info&, Model&);
@@ -482,10 +504,10 @@ namespace RLS{
 
     void controlMethod(Config&, Info&, Model&);
 
-    void velocityOutputConfig(Config&, Model&);
-    void accelerationOutputConfig(Config&, Model&);
-    void torqueOutputConfig(Config&, Model&);
-    void outputConfig(Config&, Model&);
+    void velocityOutputConfig(Config&, Info&, Model&);
+    void accelerationOutputConfig(Config&, Info&, Model&);
+    void torqueOutputConfig(Config&, Info&, Model&);
+    void outputConfig(Config&, Info&, Model&);
 
     // readWork
     void checkNode(YAML::Node&, string, int, string);
