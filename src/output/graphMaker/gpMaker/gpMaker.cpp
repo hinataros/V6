@@ -27,6 +27,8 @@ RLS::GpMaker::~GpMaker()
 {
   vector<int>().swap(dimention);
   vector<string>().swap(addStr);
+  vector<string>().swap(scale);
+  vector<int>().swap(exponent);
 }
 
 void RLS::GpMaker::reset()
@@ -38,8 +40,6 @@ void RLS::GpMaker::reset()
   xLabel = timeLabelStr;
   yLabel = "default";
   unit = "E";
-  scale = "1e+0";
-  exponent = 0;
   terminal = 0;
 
   vector<int>().swap(dimention);
@@ -47,6 +47,11 @@ void RLS::GpMaker::reset()
 
   vector<string>().swap(addStr);
   addStr.push_back("");
+
+  vector<string>().swap(scale);
+  scale.push_back("1e+0");
+  vector<int>().swap(exponent);
+  exponent.push_back(0);
 
   point = 0;
 }
@@ -69,6 +74,8 @@ void RLS::GpMaker::setLimb(int arg)
 
   dimention.resize(arg, 1);
   addStr.resize(arg, "");
+  scale.resize(arg, "1e+0");
+  exponent.resize(arg, 0);
 }
 
 void RLS::GpMaker::setXLabel(string arg)
@@ -98,14 +105,21 @@ void RLS::GpMaker::setDimention(int arg0, int arg1)
   dimention[arg0-1] = arg1;
 }
 
+
 void RLS::GpMaker::setScale(int arg)
 {
-  if(arg>=0)
-    scale = "1e+"+to_string(arg);
-  else
-    scale = "1e"+to_string(arg);
+  for(int i=1; i<numLimb+1; i++)
+    setScale(i, arg);
+}
 
-  exponent = -arg;
+void RLS::GpMaker::setScale(int arg0, int arg1)
+{
+  if(arg1>=0)
+    scale[arg0-1] = "1e+"+to_string(arg1);
+  else
+    scale[arg0-1] = "1e"+to_string(arg1);
+
+  exponent[arg0-1] = -arg1;
 }
 
 void RLS::GpMaker::add(string arg)
@@ -211,8 +225,8 @@ string RLS::GpMaker::makeCode(int limb)
       "set label 1 at graph YLABEL_OFFSET_X, YLABEL_OFFSET_Y center '"+ytemp+"' rotate by 90\n";
 
   string label = "";
-  if(exponent)
-    label += "set label 2 'x10^{"+to_string(exponent)+"}' at screen DECIMAL_COORD_X, DECIMAL_COORD_Y\n";
+  if(exponent[limb-1])
+    label += "set label 2 'x10^{"+to_string(exponent[limb-1])+"}' at screen DECIMAL_COORD_X, DECIMAL_COORD_Y\n";
 
   string out =
     "set output "+CATEGORY+"_EPS.'"+name+suffix+".eps'\n";
@@ -221,7 +235,7 @@ string RLS::GpMaker::makeCode(int limb)
   if(xLabel == timeLabelStr){
     for(int i=2; i<dimention[limb-1]+2; i++){
       plot +=
-        CATEGORY+"_DAT.'"+name+".dat' every ::(T_OFFSET*SAMPLING) u ($1-T_OFFSET):($"+to_string(point+i)+"*"+unit+"*"+scale+") t '' w l ls "+to_string(i-1);
+        CATEGORY+"_DAT.'"+name+".dat' every ::(T_OFFSET*SAMPLING) u ($1-T_OFFSET):($"+to_string(point+i)+"*"+unit+"*"+scale[limb-1]+") t '' w l ls "+to_string(i-1);
 
       if(i<dimention[limb-1]+1)
         plot += ",\\\n";
@@ -230,7 +244,7 @@ string RLS::GpMaker::makeCode(int limb)
   else{
     for(int i=1, j=1; j<dimention[limb-1]+1; i+=2, j++){
       plot +=
-        CATEGORY+"_DAT.'"+name+".dat' every ::(T_OFFSET*SAMPLING) u ($"+to_string(point+i)+"*"+unit+"*"+scale+"):($"+to_string(point+i+1)+"*"+unit+"*"+scale+") t '' w l ls "+to_string(j);
+        CATEGORY+"_DAT.'"+name+".dat' every ::(T_OFFSET*SAMPLING) u ($"+to_string(point+i)+"*"+unit+"*"+scale[limb-1]+"):($"+to_string(point+i+1)+"*"+unit+"*"+scale[limb-1]+") t '' w l ls "+to_string(j);
 
       if(j<dimention[limb-1])
         plot += ",\\\n";

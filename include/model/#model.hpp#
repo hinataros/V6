@@ -1,0 +1,29 @@
+/**
+   @author Sho Miyahara 2017
+*/
+
+#include "treeModel.hpp"
+#include "rigidBodyModel.hpp"
+
+namespace RLS{
+  class Model{
+  private:
+  public:
+    TreeModel hoap2;
+
+#ifndef OBJECT
+    RigidBodyModel object;
+#fidef
+    void readModel(Config&, Info&);
+    void deleteModel(Config&, Info&);
+    void update(Config&, Info&);
+
+    Model(){}
+    Model(Config& config, Info &info){
+      readModel(config, info);
+    }
+    // ~Model(){
+    //   deleteNode(config);
+    // }
+  };
+}

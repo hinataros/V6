@@ -50,8 +50,8 @@ namespace RLS{
     string yLabel;
     string unit;
     vector<int> dimention;
-    string scale;
-    int exponent;
+    vector<string> scale;
+    vector<int> exponent;
     vector<string> addStr;
     int terminal;
 
@@ -76,6 +76,7 @@ namespace RLS{
     void setDimention(int);
     void setDimention(int, int);
     void setScale(int);
+    void setScale(int, int);
     void add(string);
     void add(int, string);
     void setTerminal(int);

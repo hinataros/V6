@@ -3,5 +3,5 @@
 build/
 result/
 misc/rlsModule/__pycache__/
-share/motion/*
+share/motion/*.yaml
 *~

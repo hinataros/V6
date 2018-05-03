@@ -110,3 +110,9 @@ triggerConfigの設定の仕方
 actexがinterfaceのinfoを元にしてるから指定できない
 
 round_castをcommonクラスとは別のクラスで定義したい
+
+shareのmotionディレクトリがgitから消えたーーー
+
+cnoidのRTCのpathをコマンドモジュールで変更
+
+dcとtmはdynamicsControllerに変える
