@@ -28,6 +28,9 @@ namespace RLS{
     MatrixXd Nast(MatrixXd);
     MatrixXd Nast(MatrixXd, MatrixXd);
 
+    MatrixXd dpInv(MatrixXd, MatrixXd);
+    MatrixXd dN(MatrixXd, MatrixXd);
+
     Vector3d R2xi(Matrix3d);
     Matrix3d xi2R(Vector3d);
     Vector3d dxi2w(Vector3d, Vector3d);

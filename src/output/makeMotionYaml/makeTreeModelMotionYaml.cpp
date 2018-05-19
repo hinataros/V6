@@ -32,9 +32,9 @@ void RLS::Output::makeTreeModelMotionYaml(Config &config, Info &info)
       motionYaml << "  - [";
 
       for (int j=0; j<info.dof.joint-1; j++)
-	motionYaml <<
-	  setprecision(6) << scientific <<
-	  data.tm[i].th(j) << ", ";
+        motionYaml <<
+          setprecision(6) << scientific <<
+          data.tm[i].th(j) << ", ";
 
       motionYaml << data.tm[i].th(info.dof.joint-1) << "]" << endl;
     }
@@ -57,28 +57,33 @@ void RLS::Output::makeTreeModelMotionYaml(Config &config, Info &info)
       motionYaml << "  - [ [";
 
       for(int j=0; j<3; j++)
-	motionYaml <<
-	  setprecision(6) << scientific <<
-	  data.tm[i].rB(j) << ", ";
+        motionYaml <<
+          setprecision(6) << scientific <<
+          data.tm[i].rB(j) << ", ";
 
       // **** calc Quaternion ****
       R = data.tm[i].RB;
-      alpha = acos((R(0,0)+R(1,1)+R(2,2)-1)/2);
+      double ang = (R(0,0)+R(1,1)+R(2,2)-1)/2;
+
+      if(ang>1.)
+        ang = 1;
+
+      alpha = acos(ang);
 
       if(alpha!=0.){
-	k <<
-	  R(2,1)-R(1,2),
-	  R(0,2)-R(2,0),
-	  R(1,0)-R(0,1);
-	k = k/(2*sin(alpha));
+        k <<
+          R(2,1)-R(1,2),
+          R(0,2)-R(2,0),
+          R(1,0)-R(0,1);
+        k = k/(2*sin(alpha));
       }
 
       quat = AngleAxisd(alpha, k);
       // **** *************** ****
 
       motionYaml <<
-	setprecision(6) << scientific <<
-	quat.w() << ", " << quat.x() << ", " << quat.y() << ", " << quat.z() << "] ]" << endl;
+        setprecision(6) << scientific <<
+        quat.w() << ", " << quat.x() << ", " << quat.y() << ", " << quat.z() << "] ]" << endl;
     }
 
     motionYaml.close();

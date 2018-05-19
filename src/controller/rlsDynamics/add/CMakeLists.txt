@@ -1,4 +1,5 @@
 set(srcs
+  F2rp.cpp
   weight.cpp
   )
 

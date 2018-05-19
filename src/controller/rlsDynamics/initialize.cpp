@@ -13,8 +13,6 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   initialValueFlag = true;
 
-  tDS0 = 0.;
-
   // smiyahara: model.worldとかに持ってきたい
   g = 9.81;
 
@@ -106,9 +104,15 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   // index
   // ******************************
 
-  bbSx = antiDiag(2, -1., 1.);
+  // smiyahara: 場所がビミョー
+  bb_Spx = antiDiag(2, -1., 1.);
+
+  // smiyahara: 場所がビミョー
+  cal_Sp = MatrixXd::Zero(2, 6);
+  cal_Sp.block(0,3,2,2) = bb_Spx;
 
   // CoP
+  rk2p = VectorXd::Zero(2*info.value.joint);
   rpk = VectorXd::Zero(2*info.value.joint);
   rp = Vector2d::Zero();
 
@@ -175,24 +179,56 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   // dcmWalkiing
   // ******************************
-  dt = VectorXd::Zero(3);
-  rf = MatrixXd::Zero(3,3);
-  rvrpd = MatrixXd::Zero(3,4);
+  stepNum = 10;
+  stepPhase = 0;
+  tstep0 = 0.;
+  tstep = 0.;
+  tDS0 = 0.;
 
-  rXeos = MatrixXd::Zero(3,4);
+  dt = VectorXd::Zero(stepNum);
+  rf = MatrixXd::Zero(3,stepNum);
+  rvrpd = MatrixXd::Zero(3,stepNum+1);
+
+  rXeos = MatrixXd::Zero(3,stepNum+1);
 
   // double sopport
-  dtDS = VectorXd::Zero(4);
-  alphDS = VectorXd::Zero(4);
-  dtDSini = VectorXd::Zero(4);
-  dtDSend = VectorXd::Zero(4);
+  dtDS = VectorXd::Zero(stepNum+1);
+  alphDS = VectorXd::Zero(stepNum+1);
+  dtDSini = VectorXd::Zero(stepNum+1);
+  dtDSend = VectorXd::Zero(stepNum+1);
 
-  rXiniDS = MatrixXd::Zero(3,4);
-  rXeoDS = MatrixXd::Zero(3,4);
-  drXiniDS = MatrixXd::Zero(3,4);
-  drXeoDS = MatrixXd::Zero(3,4);
+  rXiniDS = MatrixXd::Zero(3,stepNum+1);
+  rXeoDS = MatrixXd::Zero(3,stepNum+1);
+  drXiniDS = MatrixXd::Zero(3,stepNum+1);
+  drXeoDS = MatrixXd::Zero(3,stepNum+1);
+  ddrXiniDS = MatrixXd::Zero(3,stepNum+1);
+  ddrXeoDS = MatrixXd::Zero(3,stepNum+1);
 
   // ******************************
+
+  // dcmWalkiing
+  // // 3step
+  // // ******************************
+  // dt = VectorXd::Zero(3);
+  // rf = MatrixXd::Zero(3,3);
+  // rvrpd = MatrixXd::Zero(3,4);
+
+  // rXeos = MatrixXd::Zero(3,4);
+
+  // // double sopport
+  // dtDS = VectorXd::Zero(4);
+  // alphDS = VectorXd::Zero(4);
+  // dtDSini = VectorXd::Zero(4);
+  // dtDSend = VectorXd::Zero(4);
+
+  // rXiniDS = MatrixXd::Zero(3,4);
+  // rXeoDS = MatrixXd::Zero(3,4);
+  // drXiniDS = MatrixXd::Zero(3,4);
+  // drXeoDS = MatrixXd::Zero(3,4);
+  // ddrXiniDS = MatrixXd::Zero(3,4);
+  // ddrXeoDS = MatrixXd::Zero(3,4);
+
+  // // ******************************
 
   // error
   // ******************************
@@ -263,6 +299,8 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   Kpv = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
   Kdv = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
 
+  Kpp = Matrix2d::Zero();
+
   KDlC = Matrix3d::Zero();
   KDth = MatrixXd::Zero(info.dof.joint, info.dof.joint);
   KDq = MatrixXd::Zero(info.dof.all, info.dof.all);
@@ -314,6 +352,7 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   map_motionController["baseAccelerationSynergy"] = &RLS::RlsDynamics::baseAccelerationSynergy;
   map_motionController["mixedAccelerationSynergy"] = &RLS::RlsDynamics::mixedAccelerationSynergy;
   map_motionController["centroidalAccelerationSynergy"] = &RLS::RlsDynamics::centroidalAccelerationSynergy;
+  map_motionController["hinata"] = &RLS::RlsDynamics::hinata;
 
   map_motionController["noname"] = &RLS::RlsDynamics::noname;
   map_motionController["baseGeneralizedMomentum"] = &RLS::RlsDynamics::baseGeneralizedMomentum;
@@ -335,6 +374,7 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   map_torqueController["crb"] = &RLS::RlsDynamics::crb;
 
   map_inverseDynamicsController["fullDynamics"] = &RLS::RlsDynamics::fullDynamicsController;
+  map_inverseDynamicsController["momentumInverseDynamics"] = &RLS::RlsDynamics::momentumInverseDynamicsController;
   map_inverseDynamicsController["highGain"] = &RLS::RlsDynamics::highGainController;
   map_inverseDynamicsController["spatialDynamicsSolver"] = &RLS::RlsDynamics::spatialDynamicsSolver;
   map_inverseDynamicsController["atlasSolver"] = &RLS::RlsDynamics::atlasSolver;

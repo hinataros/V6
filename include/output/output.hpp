@@ -51,13 +51,14 @@ namespace RLS{
 
     // // tree model output
     // // ********************************************
+    void joint(Config&, Info&, GpMaker&, TexMaker&);
     void baseTrans(Config&, Info&, GpMaker&, TexMaker&);
     void baseRot(Config&, Info&, GpMaker&, TexMaker&);
-    void joint(Config&, Info&, GpMaker&, TexMaker&);
     void eeTrans(Config&, Info&, GpMaker&, TexMaker&);
     void eeRot(Config&, Info&, GpMaker&, TexMaker&);
     void eeWrench(Config&, Info&, GpMaker&, TexMaker&);
     void com(Config&, Info&, GpMaker&, TexMaker&);
+    void mix(Config&, Info&, GpMaker&, TexMaker&);
     void spatialMom(Config&, Info&, GpMaker&, TexMaker&);
     // // ********************************************
 
@@ -103,6 +104,10 @@ namespace RLS{
     void netCop(Config&, Info&, GpMaker&, TexMaker&);
     void stabilityIndex(Config&, Info&, GpMaker&, TexMaker&);
 
+    // walking
+    void localCop4walking(Config&, Info&, GpMaker&, TexMaker&);
+    void netCop4walking(Config&, Info&, GpMaker&, TexMaker&);
+    void stabilityIndex4walking(Config&, Info&, GpMaker&, TexMaker&);
     void footPrint(Config&, Info&, GpMaker&, TexMaker&);
 
     // ********************************************

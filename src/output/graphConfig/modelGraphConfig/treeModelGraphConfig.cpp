@@ -31,15 +31,28 @@ void RLS::Output::treeModelGraphConfig(Config &config, Info &info)
 
   // config
   // ************************************************
-  baseTrans(config, info, gpMaker, texMaker);
-  baseRot(config, info, gpMaker, texMaker);
+  mix(config, info, gpMaker, texMaker);
   joint(config, info, gpMaker, texMaker);
+  // baseTrans(config, info, gpMaker, texMaker);
+  // baseRot(config, info, gpMaker, texMaker);
   eeTrans(config, info, gpMaker, texMaker);
   eeRot(config, info, gpMaker, texMaker);
   eeWrench(config, info, gpMaker, texMaker);
-  com(config, info, gpMaker, texMaker);
+  // com(config, info, gpMaker, texMaker);
   spatialMom(config, info, gpMaker, texMaker);
   // ************************************************
+
+  // // config
+  // // ************************************************
+  // // baseTrans(config, info, gpMaker, texMaker);
+  // // baseRot(config, info, gpMaker, texMaker);
+  // // joint(config, info, gpMaker, texMaker);
+  // // eeTrans(config, info, gpMaker, texMaker);
+  // // eeRot(config, info, gpMaker, texMaker);
+  // eeWrench(config, info, gpMaker, texMaker);
+  // com(config, info, gpMaker, texMaker);
+  // spatialMom(config, info, gpMaker, texMaker);
+  // // ************************************************
 
   // main
   gpMaker.makeMainGp();

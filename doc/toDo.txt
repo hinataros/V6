@@ -116,3 +116,7 @@ shareのmotionディレクトリがgitから消えたーーー
 cnoidのRTCのpathをコマンドモジュールで変更
 
 dcとtmはdynamicsControllerに変える
+
+outputの設定をyamlに
+
+mkdataのディレクトリ名の指定を.modelから.cnoidにする

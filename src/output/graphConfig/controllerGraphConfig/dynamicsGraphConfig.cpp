@@ -31,15 +31,15 @@ void RLS::Output::dynamicsGraphConfig(Config &config, Info &info)
 
   // config
   // ************************************************
-  baseTransDes(config, info, gpMaker, texMaker);
-  baseRotDes(config, info, gpMaker, texMaker);
+  // baseTransDes(config, info, gpMaker, texMaker);
   dcmDes(config, info, gpMaker, texMaker);
+  baseRotDes(config, info, gpMaker, texMaker);
   eeTransDes(config, info, gpMaker, texMaker);
   eeRotDes(config, info, gpMaker, texMaker);
-  baseTransErr(config, info, gpMaker, texMaker);
-  baseRotErr(config, info, gpMaker, texMaker);
-  comErr(config, info, gpMaker, texMaker);
+  // baseTransErr(config, info, gpMaker, texMaker);
   dcmErr(config, info, gpMaker, texMaker);
+  baseRotErr(config, info, gpMaker, texMaker);
+  // comErr(config, info, gpMaker, texMaker);
   eeTransErr(config, info, gpMaker, texMaker);
   eeRotErr(config, info, gpMaker, texMaker);
   eeWrenchErr(config, info, gpMaker, texMaker);
@@ -47,10 +47,41 @@ void RLS::Output::dynamicsGraphConfig(Config &config, Info &info)
   eeWrenchRef(config, info, gpMaker, texMaker);
   extWrenchRef(config, info, gpMaker, texMaker);
   jointTorque(config, info, gpMaker, texMaker);
-  localCop(config, info, gpMaker, texMaker);
-  netCop(config, info, gpMaker, texMaker);
-  stabilityIndex(config, info, gpMaker, texMaker);
+  // localCop(config, info, gpMaker, texMaker);
+  // netCop(config, info, gpMaker, texMaker);
+  // stabilityIndex(config, info, gpMaker, texMaker);
+  localCop4walking(config, info, gpMaker, texMaker);
+  netCop4walking(config, info, gpMaker, texMaker);
+  stabilityIndex4walking(config, info, gpMaker, texMaker);
+  // footPrint(config, info, gpMaker, texMaker);
   // ************************************************
+
+  // // config
+  // // ************************************************
+  // // baseTransDes(config, info, gpMaker, texMaker);
+  // // baseRotDes(config, info, gpMaker, texMaker);
+  // dcmDes(config, info, gpMaker, texMaker);
+  // eeTransDes(config, info, gpMaker, texMaker);
+  // eeRotDes(config, info, gpMaker, texMaker);
+  // // baseTransErr(config, info, gpMaker, texMaker);
+  // // baseRotErr(config, info, gpMaker, texMaker);
+  // // comErr(config, info, gpMaker, texMaker);
+  // // dcmErr(config, info, gpMaker, texMaker);
+  // // eeTransErr(config, info, gpMaker, texMaker);
+  // // eeRotErr(config, info, gpMaker, texMaker);
+  // // eeWrenchErr(config, info, gpMaker, texMaker);
+  // // rcMomRef(config, info, gpMaker, texMaker);
+  // // eeWrenchRef(config, info, gpMaker, texMaker);
+  // // extWrenchRef(config, info, gpMaker, texMaker);
+  // // jointTorque(config, info, gpMaker, texMaker);
+  // // localCop(config, info, gpMaker, texMaker);
+  // // netCop(config, info, gpMaker, texMaker);
+  // // stabilityIndex(config, info, gpMaker, texMaker);
+  // localCop4walking(config, info, gpMaker, texMaker);
+  // netCop4walking(config, info, gpMaker, texMaker);
+  // stabilityIndex4walking(config, info, gpMaker, texMaker);
+  // footPrint(config, info, gpMaker, texMaker);
+  // // ************************************************
 
   // main
   gpMaker.makeMainGp();

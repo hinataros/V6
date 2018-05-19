@@ -2,6 +2,7 @@
 
 set(srcs
   fullDynamicsController.cpp
+  momentumInverseDynamicsController.cpp
   highGainController.cpp
   spatialDynamicsSolver.cpp
   atlasSolver.cpp

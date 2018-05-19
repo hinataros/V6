@@ -15,7 +15,7 @@ int RLS::RlsDynamics::objective(Config &config, Info &info, Model &model)
 
   MatrixXd cal_S = MatrixXd::Zero(2*info.value.joint,6*info.value.joint);
   for(int i=0; i<info.value.joint; i++)
-    cal_S.block(2*i,6*i+3,2,2) = bbSx;
+    cal_S.block(2*i,6*i+3,2,2) = bb_Spx;
 
   for(int i=0; i<info.value.joint; i++){
     Fz.block(2*i,2*i,2,2) *= cal_F(6*i+2);

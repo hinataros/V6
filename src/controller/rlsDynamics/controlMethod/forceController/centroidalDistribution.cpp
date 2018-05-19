@@ -12,4 +12,5 @@ void RLS::RlsDynamics::centroidalDistribution(Config &config, Info &info, Model 
   if(config.flag.debug) DEBUG;
 
   cal_FcBarRef = pInv(cal_PcM)*(cal_dLCRef + cal_GC);
+  // cal_FcBarRef = cal_PcM.inverse()*(cal_dLCRef + cal_GC);
 }

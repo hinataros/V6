@@ -3,9 +3,11 @@
 State:
   -
     Inverse dynamics controller: fullDynamics
-    # Momentum controller: centroidalDcmMomentum
-    Momentum controller: centroidalMomentum
+    # Inverse dynamics controller: momentumInverseDynamics
+    Momentum controller: centroidalDcmMomentum
+    # Momentum controller: centroidalMomentum
     Motion controller: mixedGeneralizedMomentum
+    # Motion controller: noname
     Force controller: centroidalDcmDistribution
 
     # Torque controller: staticControl
@@ -19,8 +21,6 @@ State:
     Bm:
       - [0, 0, 0, 0, 0, 0]
       - [0, 0, 0, 0, 0, 0]
-      # - [0, 0, 0, 0, 0, 0]
-      # - [0, 0, 0, 0, 0, 0]
       - [1, 1, 1, 1, 1, 1]
       - [1, 1, 1, 1, 1, 1]
 
@@ -41,37 +41,23 @@ State:
     # Kpv: 10.
     # Kdv: 5.
 
+    # Kpp: 1.e+1
+
+    KDlC: 1.e+2
     KDth: 1.e+2
     KDq:
-      - 6
+      - [0., 0., 0., 0., 0., 0.]
       - [1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2]
       - [1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2]
-      - [1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2]
-      - [1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2]
+      - [1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2]
+      - [1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2]
 
   -
 
 Sequence:
+  # -
+  #   twf: 2.0
   -
-    twf: 1.
-    # cal_Xf:
-    #   - [., ., ., ., ., .]
-    #   - [., ., ., ., ., .]
-    #   - [.05, ., .1, ., ., .]
-    #   - [., ., ., ., ., .]
-  -
-    twf: 1.
-    rCf: [.01, ., .]
-    # rCf: [., .035, .]
-  -
-    twf: 1.
-    # rXf: [.03, ., .]
-  -
-    twf: 1.
-    # rXf: [.03, ., .]
-    # rCf: [.03, ., .]
-    # cal_Xf:
-    #   - [., ., ., ., ., .]
-    #   - [., ., ., ., ., .]
-    #   - [.05, ., .1, ., ., .]
-    #   - [., ., ., ., ., .]
+    twf: 1.25
+  #   # rCf: [0., 0.039, 0.]
+

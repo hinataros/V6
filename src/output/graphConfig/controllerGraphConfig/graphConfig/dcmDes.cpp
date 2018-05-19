@@ -18,7 +18,7 @@ void RLS::Output::dcmDes(Config &config, Info &info, GpMaker &gpMaker, TexMaker 
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setYLabel("Des. DCM. [mm]");
+  gpMaker.setYLabel("Des. DCM [mm]");
   gpMaker.chUnit("m");
   gpMaker.setDimention(3);
   gpMaker.makeGp();

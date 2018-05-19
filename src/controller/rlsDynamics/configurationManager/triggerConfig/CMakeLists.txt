@@ -5,6 +5,7 @@ set(srcs
   staticCheckContact.cpp
   ankleStratagy.cpp
   ankleHipStratagy.cpp
+  walking.cpp
   triggerConfig.cpp
   )
 

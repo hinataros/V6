@@ -58,6 +58,8 @@ int RLS::RlsDynamics::readWork(Config &config, Info &info, string node, int seq)
   Kpv = checkMatrix<MatrixXd>(doc, node, seq, "Kpv", info.value.joint, Kpv);
   Kdv = checkMatrix<MatrixXd>(doc, node, seq, "Kdv", info.value.joint, Kdv);
 
+  Kpp = checkMatrix<MatrixXd>(doc, node, seq, "Kpp", Kpp);
+
   KDlC = checkMatrix<MatrixXd>(doc, node, seq, "KDlC", KDlC);
   KDth = checkMatrix<MatrixXd>(doc, node, seq, "KDth", info.value.joint, KDth);
   KDq = checkMatrix<MatrixXd>(doc, node, seq, "KDq", info.value.node, KDq);

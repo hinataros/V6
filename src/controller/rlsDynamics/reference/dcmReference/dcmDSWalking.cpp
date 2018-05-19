@@ -12,100 +12,136 @@ void RLS::RlsDynamics::dcmDSWalking(Config &config, Info &info, Model &model, do
   if(config.flag.debug) DEBUG;
 
   if(t==0.){
-    dt << 1., 1., 1.;
+    for(int i=0; i<stepNum; i++){
+      dt(i) = 1.;
+    }
+    for(int i=0; i<stepNum+1; i++){
+      dtDS(i) = 0.5;
+      alphDS(i) = 0.5;
+    }
 
-    // double sopport
+    for(int i=0; i<stepNum+1; i++){
+      // dtDSini(0) = 0 define
+      if(i!=0)
+        dtDSini(i) = alphDS(i)*dtDS(i);
+
+      // dtDSend(stepNum) = 0 define
+      if(i!=stepNum)
+        dtDSend(i) = (1 - alphDS(i))*dtDS(i);
+    }
+
+    // double offset = 0.;
+    // double offset = 1.e-3;
+    double offset = 1.e-2;
+    // double offset = 0.023;
+
+    rXeos.col(10) = rC0;
+    rXeos.col(10)(0) = cal_X.segment(0, 3)(0);
+    rXeos.col(10)(0) += 0.4;
+
     // ******************************
-    dtDS << 0.5, .5, .5, .5;
-    alphDS << 0.5, .5, .5, .5;
+    rf.col(9).head(2) = cal_X.segment(0, 3).head(2);
+    rf.col(9)(0) += 0.4;
+    rf.col(9)(1) += offset;
 
-    // dtDSini << alphDS(0)*dtDS(0), alphDS(1)*dtDS(1), alphDS(2)*dtDS(2), alphDS(3)*dtDS(3);
-    // dtDSend << (1 - alphDS(0))*dtDS(0), (1 - alphDS(1))*dtDS(1), (1 - alphDS(2))*dtDS(2), (1 - alphDS(3))*dtDS(3);
-    dtDSini <<
-      0.,// dtDSini(0)=0 define
-      alphDS(1)*dtDS(1),
-      alphDS(2)*dtDS(2),
-      alphDS(3)*dtDS(3);
+    rf.col(8).head(2) = cal_X.segment(6, 3).head(2);
+    rf.col(8)(0) += 0.35;
+    rf.col(8)(1) -= offset;
 
-    dtDSend <<
-      (1 - alphDS(0))*dtDS(0),// dtDSend(0)=0 define
-      (1 - alphDS(1))*dtDS(1),
-      (1 - alphDS(2))*dtDS(2),
-      0.;
+    rf.col(7).head(2) = cal_X.segment(0, 3).head(2);
+    rf.col(7)(0) += 0.3;
+    rf.col(7)(1) += offset;
+
+    rf.col(6).head(2) = cal_X.segment(6, 3).head(2);
+    rf.col(6)(0) += 0.25;
+    rf.col(6)(1) -= offset;
+
+    rf.col(5).head(2) = cal_X.segment(0, 3).head(2);
+    rf.col(5)(0) += 0.2;
+    rf.col(5)(1) += offset;
+
+    rf.col(4).head(2) = cal_X.segment(6, 3).head(2);
+    rf.col(4)(0) += 0.15;
+    rf.col(4)(1) -= offset;
+
+    rf.col(3).head(2) = cal_X.segment(0, 3).head(2);
+    rf.col(3)(0) += 0.1;
+    rf.col(3)(1) += offset;
+
+    rf.col(2).head(2) = cal_X.segment(6, 3).head(2);
+    rf.col(2)(0) += 0.05;
+    rf.col(2)(1) -= offset;
+
+    rf.col(1).head(2) = cal_X.segment(0, 3).head(2);
+    rf.col(1)(1) += offset;
     // ******************************
 
-    rXeos.col(3) = rC0;
-    rXeos.col(3)(0) += 0.04;
-    // rXeos.col(3)(0) += 0.1;
+    rvrpd.col(stepNum) = rXeos.col(stepNum);
 
-    rf.col(2) = cal_X.segment(6, 3);
-    rf.col(1) = cal_X.segment(0, 3);
-
-    rf.col(2)(0) += .04;
-    // rf.col(2)(0) += .1;
-
-    rvrpd.col(3) = rXeos.col(3);
-
-    for(int i=2; i>0; i--)
+    for(int i=stepNum-1; i>0; i--){
       rvrpd.col(i) = rf.col(i) - model.hoap2.ag/(wX*wX);
+      rXeos.col(i) = rvrpd.col(i) + exp(-wX*dt(i))*(rXeos.col(i+1) - rvrpd.col(i));
+    }
 
-    rXeos.col(2) = rvrpd.col(2) + exp(-wX*dt(2))*(rXeos.col(3) - rvrpd.col(2));
-    rXeos.col(1) = rvrpd.col(1) + exp(-wX*dt(1))*(rXeos.col(2) - rvrpd.col(1));
     rXeos.col(0) = rC0;
-
     rvrpd.col(0) = -rXeos.col(1)/(exp(wX*dt(0)) - 1) + rC0/(1 - exp(-wX*dt(0)));
 
     // double sopport
     // ******************************
-    // pos
-    rXeoDS.col(3) = rvrpd.col(3);
-    rXiniDS.col(3) = rvrpd.col(2) + exp(-wX*dtDSini(3))*(rXeos.col(3) - rvrpd.col(2));
-
-    // vel
-    drXeoDS.col(2) = wX*(rXeoDS.col(3) - rvrpd.col(3));
-    drXiniDS.col(3) = wX*(rXiniDS.col(3) - rvrpd.col(2));
-
-    // pos
-    rXeoDS.col(2) = rvrpd.col(2) + exp(wX*dtDSend(2))*(rXeos.col(2) - rvrpd.col(2));
-    rXiniDS.col(2) = rvrpd.col(1) + exp(-wX*dtDSini(2))*(rXeos.col(2) - rvrpd.col(1));
-
-    // vel
-    drXeoDS.col(2) = wX*(rXeoDS.col(2) - rvrpd.col(2));
-    drXiniDS.col(2) = wX*(rXiniDS.col(2) - rvrpd.col(1));
-
-    // pos
-    rXeoDS.col(1) = rvrpd.col(1) + exp(wX*dtDSend(1))*(rXeos.col(1) - rvrpd.col(1));
-    rXiniDS.col(1) = rvrpd.col(0) + exp(-wX*dtDSini(1))*(rXeos.col(1) - rvrpd.col(0));
-
-    // vel
-    drXeoDS.col(1) = wX*(rXeoDS.col(1) - rvrpd.col(1));
-    drXiniDS.col(1) = wX*(rXiniDS.col(1) - rvrpd.col(0));
-
-    // pos
-    rXeoDS.col(0) = rvrpd.col(0) + exp(wX*dtDSend(0))*(rXeos.col(0) - rvrpd.col(0));
-    rXiniDS.col(0) = rXeos.col(0);// assumption
-
-    // vel
-    drXeoDS.col(0) = wX*(rXeoDS.col(0) - rvrpd.col(0));
-    drXiniDS.col(0) = Vector3d::Zero();// assumption
+    // final
+    rXeoDS.col(stepNum) = rvrpd.col(stepNum);
+    rXiniDS.col(stepNum) = rvrpd.col(stepNum-1) + exp(-wX*dtDSini(stepNum))*(rXeos.col(stepNum) - rvrpd.col(stepNum-1));
+    // ******************************
+    drXeoDS.col(stepNum) = wX*(rXeoDS.col(stepNum) - rvrpd.col(stepNum));
+    drXiniDS.col(stepNum) = wX*(rXiniDS.col(stepNum) - rvrpd.col(stepNum-1));
 
     // ******************************
+    ddrXeoDS.col(stepNum) = Vector3d::Zero();
+    ddrXiniDS.col(stepNum) = wX*wX*exp(-wX*dtDSini(stepNum))*(rXeos.col(stepNum) - rvrpd.col(stepNum-1));
+
+    for(int i=stepNum-1; i>0; i--){
+      rXeoDS.col(i) = rvrpd.col(i) + exp(wX*dtDSend(i))*(rXeos.col(i) - rvrpd.col(i));
+      rXiniDS.col(i) = rvrpd.col(i-1) + exp(-wX*dtDSini(i))*(rXeos.col(i) - rvrpd.col(i-1));
+
+      drXeoDS.col(i) = wX*(rXeoDS.col(i) - rvrpd.col(i));
+      drXiniDS.col(i) = wX*(rXiniDS.col(i) - rvrpd.col(i-1));
+
+      ddrXeoDS.col(i) = wX*wX*exp(wX*dtDSend(i))*(rXeos.col(i) - rvrpd.col(i));
+      ddrXiniDS.col(i) = wX*wX*exp(-wX*dtDSini(i))*(rXeos.col(i) - rvrpd.col(i-1));
+    }
+
+    // start
+    // ******************************
+    rXeoDS.col(0) = rvrpd.col(0) + exp(wX*dtDSend(0))*(rXeos.col(0) - rvrpd.col(0));
+    rXiniDS.col(0) = rXeos.col(0);// assumption
+    // ******************************
+    drXeoDS.col(0) = wX*(rXeoDS.col(0) - rvrpd.col(0));
+    drXiniDS.col(0) = Vector3d::Zero();// assumption
+    // ******************************
+    ddrXeoDS.col(0) = wX*wX*exp(wX*dtDSend(0))*(rXeos.col(0) - rvrpd.col(0));
+    ddrXiniDS.col(0) = Vector3d::Zero();// assumption
   }
 
 
-  double tw = t-info.sim.tw0;
-  if(round_cast(t, 3)<3000){
+  if(round_cast(t, 3)<10000){
+    tstep = t - tstep0;
+    if(round_cast(tstep, 3)>=round_cast(dt(stepPhase), 3)){
+      tstep = 0.;
+      tstep0 += dt(stepPhase);
+      stepPhase++;
+    }
+
     // single sopport
     // ******************************
-    rXDes = rvrpd.col(info.sim.phase-1) +
-      exp(wX*(tw-dt(info.sim.phase-1)))*(rXeos.col(info.sim.phase) - rvrpd.col(info.sim.phase-1));
+    rXDes = rvrpd.col(stepPhase) +
+      exp(wX*(tstep-dt(stepPhase)))*(rXeos.col(stepPhase+1) - rvrpd.col(stepPhase));
 
-    drXDes = wX*(rXDes - rvrpd.col(info.sim.phase-1));
+    drXDes = wX*(rXDes - rvrpd.col(stepPhase));
 
     // double sopport
     // ******************************
-    if(flagDS==false&&round_cast(tw, 3) ==
-       (round_cast(dt(info.sim.phase-1), 3) - round_cast(dtDSini(info.sim.phase), 3))){
+    if(flagDS==false&&round_cast(tstep, 3) ==
+       (round_cast(dt(stepPhase), 3) - round_cast(dtDSini(stepPhase+1), 3))){
       flagDS = true;
       tDS0 = t;
 
@@ -114,7 +150,6 @@ void RLS::RlsDynamics::dcmDSWalking(Config &config, Info &info, Model &model, do
 
     if(flagDS){
       double twDS = t-tDS0;
-
 
       if(round_cast(twDS,3)==round_cast(dtDSini(phaseDS),3)+round_cast(dtDSend(phaseDS),3))
         flagDS = false;
@@ -125,6 +160,13 @@ void RLS::RlsDynamics::dcmDSWalking(Config &config, Info &info, Model &model, do
                           drXiniDS.col(phaseDS)(i),
                           rXeoDS.col(phaseDS)(i),
                           drXeoDS.col(phaseDS)(i));
+        // des = makeSpline5(twDS, dtDSini(phaseDS)+dtDSend(phaseDS),
+        //                   rXiniDS.col(phaseDS)(i),
+        //                   drXiniDS.col(phaseDS)(i),
+        //                   ddrXiniDS.col(phaseDS)(i),
+        //                   rXeoDS.col(phaseDS)(i),
+        //                   drXeoDS.col(phaseDS)(i),
+        //                   ddrXeoDS.col(phaseDS)(i));
 
         rXDes(i) = des(0);
         drXDes(i) = des(1);
@@ -132,25 +174,26 @@ void RLS::RlsDynamics::dcmDSWalking(Config &config, Info &info, Model &model, do
     }
   }
   else{
-    rXDes = rXeos.col(3);
-    drXDes = wX*(rXDes - rXeos.col(3));
+    rXDes = rXeos.col(stepNum);
+    drXDes = wX*(rXDes - rXeos.col(stepNum));
   }
 
   // if(
-  //    // round_cast(t, 3)==0||
-  //    // round_cast(t, 3)==250||
-  //    // round_cast(t, 3)==750||
-  //    // round_cast(t, 3)==1000||
-  //    // round_cast(t, 3)==1250||
-  //    // round_cast(t, 3)==1750||
-  //    // round_cast(t, 3)==2000||
-  //    // round_cast(t, 3)==2250||
+  //    round_cast(t, 3)==0||
+  //    round_cast(t, 3)==250||
+  //    round_cast(t, 3)==750||
+  //    round_cast(t, 3)==1000||
+  //    round_cast(t, 3)==1250||
+  //    round_cast(t, 3)==1750||
+  //    round_cast(t, 3)==2000||
+  //    round_cast(t, 3)==2250||
   //    // round_cast(t, 3)==2750||
-  //    // round_cast(t, 3)==3000
+  //    round_cast(t, 3)==2500||
+  //    round_cast(t, 3)==3000
   //    ){
   //   o(round_cast(t, 3));
-  //   // o(phaseDS);
-  //   // o(flagDS);
+  //   o(phaseDS);
+  //   o(flagDS);
   //   o(rXDes);
   //   o(drXDes);
   //   o(rvrpd);
@@ -159,6 +202,9 @@ void RLS::RlsDynamics::dcmDSWalking(Config &config, Info &info, Model &model, do
   //   o(rXeoDS);
   //   o(drXiniDS);
   //   o(drXeoDS);
+  //   o(ddrXiniDS);
+  //   o(ddrXeoDS);
+  //   // o(dtDSini(phaseDS)+dtDSend(phaseDS));
   //   gc;
   // }
 

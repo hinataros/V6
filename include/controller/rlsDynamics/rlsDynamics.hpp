@@ -26,8 +26,6 @@ namespace RLS{
     string torqueControllerName;
     string inverseDynamicsControllerName;
 
-    double tDS0;
-
     double g;
 
     MatrixXi Bc_kDiag;
@@ -169,8 +167,11 @@ namespace RLS{
 
     // index
     // ******************************
-    Matrix2d bbSx;
+    Matrix2d bb_Spx;
+    MatrixXd cal_Sp;
+
     // cop
+    VectorXd rk2p;
     VectorXd rpk;
     Vector2d rp;
 
@@ -262,6 +263,12 @@ namespace RLS{
 
     // dcmWalkiing
     // ******************************
+    int stepNum;
+    int stepPhase;
+    double tstep0;
+    double tstep;
+    double tDS0;
+
     VectorXd dt;
     MatrixXd rf;
     MatrixXd rvrpd;
@@ -278,6 +285,8 @@ namespace RLS{
     MatrixXd rXeoDS;
     MatrixXd drXiniDS;
     MatrixXd drXeoDS;
+    MatrixXd ddrXiniDS;
+    MatrixXd ddrXeoDS;
 
     // ******************************
 
@@ -359,6 +368,8 @@ namespace RLS{
     MatrixXd Kpv;
     MatrixXd Kdv;
 
+    Matrix2d Kpp;
+
     Matrix3d KDlC;
     MatrixXd KDth;
     MatrixXd KDq;
@@ -403,6 +414,7 @@ namespace RLS{
     int staticCheckContact(Config&, Info&, Model&, double&);
     int ankleStratagy(Config&, Info&, Model&, double&);
     int ankleHipStratagy(Config&, Info&, Model&, double&);
+    int walking(Config&, Info&, Model&, double&);
     int stateTriggerConfig(Config&, Info&, Model&, double&);
 
     bool sequenceTriggerConfig(Config&, Info&, double&);
@@ -445,6 +457,7 @@ namespace RLS{
     void reference(Config&, Info&, Model&, double&);
 
     // add function
+    Vector2d F2rp(Vector6d);
     MatrixXd weight(Config&, Info&, Model&, int, Vector3d);
 
     // zero controller
@@ -466,6 +479,7 @@ namespace RLS{
     VectorXd baseGeneralizedMomentum(Config&, Info&, Model&);
     VectorXd mixedGeneralizedMomentum(Config&, Info&, Model&);
     VectorXd accelerationSolver(Config&, Info&, Model&);
+    VectorXd hinata(Config&, Info&, Model&);
 
     // acceleration dumper
     VectorXd ddthD(Config&, Model&);
@@ -498,6 +512,7 @@ namespace RLS{
 
     // inverse dynamics controller
     VectorXd fullDynamicsController(Config&, Info&, Model&);
+    VectorXd momentumInverseDynamicsController(Config&, Info&, Model&);
     VectorXd highGainController(Config&, Info&, Model&);
     VectorXd spatialDynamicsSolver(Config&, Info&, Model&);
     VectorXd atlasSolver(Config&, Info&, Model&);

@@ -159,6 +159,9 @@ void RLS::Output::setDat(ofstream& stream, string dataName, int i)
       data.dc[i].rp(1) << " " << data.dc[i].rp(0) << " " <<
       data.dc[i].rX(1) << " " << data.dc[i].rX(0) << endl;
 
+  // foot print
+  else if(dataName=="rXDesy-rXDesx")
+    stream << data.dc[i].rXDes(1) << " " << data.dc[i].rXDes(0) << endl;
 
   else
     cout << "not found: " << "'" << dataName << "'" << endl;
