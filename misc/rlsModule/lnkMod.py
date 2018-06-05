@@ -4,47 +4,31 @@
 
 import os, sys
 
-import config
-from myMod import checkUsr
-from myMod import readRegistry
+from read_confMod import read_conf
 
 def lnk():
-    if not checkUsr():
-        print("not super user")
-        sys.exit()
+    sl = os.path.join(os.environ['HOME'], ".config", "rlsSimulator", "sl")
 
-    if os.path.exists(os.path.join(config.RLS_DIR, "sl")):
+    if os.path.exists(sl):
         print("already linked...")
 
-        cmd=input("rewrite? [y/] ")
-        if cmd == "y":
-            import shutil
-            shutil.rmtree(os.path.join(config.RLS_DIR, "sl"))
-        else:
+        cmd=input("relink? [y/] ")
+        if cmd != "y" and cmd != "":
             print("interrupted...")
-            sys.exit()
+            return -1
 
-    os.makedirs(os.path.join(config.RLS_DIR, "sl"), exist_ok=True)
+        os.unlink(sl)
 
-    readRegistry()
+    os.symlink(read_conf(), os.path.join(sl))
 
-    try:
-        os.symlink(os.path.join(config.rgs_dir, "result"), os.path.join(config.RLS_DIR, "sl", "result"))
-    except FileExistsError:
-        print("already exists")
-    try:
-        os.symlink(os.path.join(config.rgs_dir, "share"), os.path.join(config.RLS_DIR, "sl", "share"))
-    except FileExistsError:
-        print("already exists")
-    try:
-        os.symlink(os.path.join(config.rgs_dir, "yaml"), os.path.join(config.RLS_DIR, "sl", "yaml"))
-    except FileExistsError:
-        print("already exists")
+    from check_superuserMod import check_superuser
+    if check_superuser():
+        import config
+        from check_userMod import check_user
+        check_user()
+        os.chown(sl, int(config.uid), int(config.gid), follow_symlinks=False)
 
     print("linked...")
 
 if __name__ == "__main__":
-    from myMod import checkDir
-    checkDir()
-
     lnk()

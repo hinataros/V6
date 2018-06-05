@@ -6,17 +6,20 @@ import os, sys
 import subprocess
 
 import config
-from myMod import readRegistry
 
-def runCnoid():
-    readRegistry()
+from read_confMod import read_conf
 
+def runcnoid():
     if len(sys.argv) == 1:
         print("argument invalid...")
-        sys.exit()
+        return -1
 
     elif len(sys.argv) == 2:
-        path_cnoid = os.path.join(config.rgs_dir, "share", "project", "".join([sys.argv[1], ".cnoid"]))
+        path_cnoid = os.path.join(read_conf(), "share", "project", "".join([sys.argv[1], ".cnoid"]))
+        if not os.path.exists(path_cnoid):
+            print("not found {}.cnoid".format(sys.argv[1]))
+            return -1
+
         run = " ".join([config.run_cnoid, path_cnoid])
 
     else:
@@ -31,7 +34,11 @@ def runCnoid():
         parser.add_argument("-g", "--g", type=str)
 
         args = parser.parse_args()
-        path_cnoid = os.path.join(config.rgs_dir, "share", "project", "".join([args.cnoid, ".cnoid"]))
+        path_cnoid = os.path.join(read_conf(), "share", "project", "".join([args.cnoid, ".cnoid"]))
+        if not os.path.exists(path_cnoid):
+            print("not found {}.cnoid".format(sys.argv[1]))
+            return -1
+
         run = " ".join([config.run_cnoid, path_cnoid])
 
         if not os.path.exists(os.path.join(path_cnoid)):
@@ -39,10 +46,11 @@ def runCnoid():
             sys.exit()
 
         if args.t or args.g:
-            cmd=input("rewrite? [y/] ")
-            if cmd != "y":
-                print("interrupted...")
-                sys.exit()
+            print("Rewrite {}.cnoid".format(args.cnoid))
+            # cmd=input("rewrite? [y/] ")
+            # if cmd != "y":
+            #     print("interrupted...")
+            #     sys.exit()
 
             temp=""
             with open(path_cnoid, "r", encoding="utf-8") as f:
@@ -79,4 +87,4 @@ def runCnoid():
         # traceback.print_exc()
 
 if __name__ == "__main__":
-    runCnoid()
+    runcnoid()

@@ -5,12 +5,11 @@
 import os
 
 import config
-from myMod import readRegistry
+
+from read_confMod import read_conf
 
 def prd():
-    print("registered dir: " + config.rgs_dir)
+    print(read_conf())
 
 if __name__ == "__main__":
-    readRegistry()
-
     prd()

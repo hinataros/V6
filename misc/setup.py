@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# @author Sho Miyahara 2017
+# @author Sho Miyahara 2018
 
 import os, sys
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "rlsModule"))
@@ -8,23 +8,48 @@ sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "rlsMod
 import rlsModule
 
 def setup():
-    if not rlsModule.myMod.checkUsr():
-        print("not super user")
-        sys.exit()
-
-    rlsModule.myMod.checkDir()
-
     if len(sys.argv) == 2:
         if sys.argv[1] == "install":
-            rlsModule.insMod.install()
-            rlsModule.lnkMod.lnk()
+            if not rlsModule.check_superuserMod.check_superuser():
+                print("not super user")
+                return -1
 
-        elif sys.argv[1] == "register":
-            rlsModule.registerMod.register()
-            rlsModule.lnkMod.lnk()
+            rlsModule.check_src_dirMod.check_src_dir()
+            rlsModule.glob_insMod.global_installer()
+
+            rlsModule.check_userMod.check_user()
+            rlsModule.loc_insMod.local_installer()
+
+        elif sys.argv[1] == "useradd":
+            if not rlsModule.check_superuserMod.check_superuser():
+                print("not super user")
+                return -1
+
+            rlsModule.check_userMod.check_user()
+            rlsModule.check_src_dirMod.check_src_dir()
+            rlsModule.loc_insMod.local_installer()
+
+        elif sys.argv[1] == "chdir":
+            rlsModule.check_userMod.check_user()
+            rlsModule.check_src_dirMod.check_src_dir()
+            rlsModule.chdirMod.chdir()
+
+        elif sys.argv[1] == "userdel":
+            if not rlsModule.check_superuserMod.check_superuser():
+                print("not super user")
+                return -1
+
+            rlsModule.check_userMod.check_user()
+            from rlsModule.loc_uninsMod import local_uninstaller
+            local_uninstaller()
 
         elif sys.argv[1] == "uninstall":
-            rlsModule.uninsMod.uninstall()
+            if not rlsModule.check_superuserMod.check_superuser():
+                print("not super user")
+                return -1
+
+            rlsModule.loc_rec_uninsMod.local_recursive_uninstaller()
+            rlsModule.glob_uninsMod.global_uninstaller()
 
         else:
             print("argument invalid")

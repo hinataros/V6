@@ -5,26 +5,22 @@
 import os, sys
 
 import config
-from myMod import checkUsr
 
 def unlnk():
-    if not checkUsr():
-        print("not super user")
-        sys.exit()
+    sl = os.path.join(os.environ['HOME'], ".config", "rlsSimulator", "sl")
 
-    cmd=input("unlink? [y/] ")
-    if cmd == "y":
-        try:
-            import shutil
-            shutil.rmtree(os.path.join(config.RLS_DIR, "sl"))
-            sys.exit()
-        except OSError:
-            print("already unlinked")
+    if not os.path.exists(sl):
+        print("already unlinked")
+        return -1
 
-        print("unlinked...")
+    os.unlink(sl)
 
-    else:
-        print("interrupted...")
+    print("unlinked...")
 
 if __name__ == "__main__":
+    cmd=input("unlink? [y/] ")
+    if cmd != "y" and cmd != "":
+        print("interrupted...")
+        sys.exit()
+
     unlnk()

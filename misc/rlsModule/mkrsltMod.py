@@ -5,28 +5,21 @@
 import sys
 
 import config
-from myMod import checkUsr
-from myMod import readRegistry
 
-from dataConfigMod import makeData
-from dataConfigMod import removeSubData
-from dataConfigMod import removeSubDataTree
-from dataConfigMod import removeDataTree
+from check_superuserMod import check_superuser
 
-def mkdata():
-    if checkUsr():
-        print("not nomal user")
-        sys.exit()
+from resultMod import make_result
+from resultMod import remove_sub_result
+from resultMod import remove_result_tree
 
-    readRegistry()
-
+def mkrslt():
     from argparse import ArgumentParser
 
-    usage = "Usage: COMPOSITE_DATA_NAME [-option] [-i individual data name] [--help]"\
+    usage = "Usage: COMPOSITE_RESULT_NAME [-option] [-i individual result name] [--help]"\
             .format(__file__)
     parser = ArgumentParser(usage=usage)
     parser.add_argument("cmp", type=str,
-                           help="composite data name")
+                           help="composite result name")
     parser.add_argument("-re", "--re",
                            action="store_true",
                            help="remove")
@@ -38,16 +31,20 @@ def mkdata():
     args = parser.parse_args()
 
     if args.re0:
-        if not removeDataTree():
+        if not remove_result_tree():
             print("interrupted...")
-            sys.exit()
+            return -1
 
     if args.re:
-        removeSubData(args.cmp, args.i)
+        remove_sub_result(args.cmp, args.i)
 
-    makeData(args.cmp, args.i)
+    make_result(args.cmp, args.i)
 
-    print("generated data tree...")
+    print("generated result tree...")
 
 if __name__ == "__main__":
-    mkdata()
+    if check_superuser():
+        print("not nomal user")
+        sys.exit()
+
+    mkrslt()
