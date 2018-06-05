@@ -66,6 +66,13 @@ void RLS::Output::setDat(ofstream& stream, string dataName, int i)
   else if(dataName=="t-dwBDes")
     stream << data.t[i] << " " << data.dc[i].dwBDes.transpose() << endl;
 
+  else if(dataName=="t-rCDes")
+    stream << data.t[i] << " " << data.dc[i].rCDes.transpose() << endl;
+  else if(dataName=="t-vCDes")
+    stream << data.t[i] << " " << data.dc[i].vCDes.transpose() << endl;
+  else if(dataName=="t-dvCDes")
+    stream << data.t[i] << " " << data.dc[i].dvCDes.transpose() << endl;
+
   else if(dataName=="t-rXDes")
     stream << data.t[i] << " " << data.dc[i].rXDes.transpose() << endl;
   else if(dataName=="t-drXDes")
@@ -93,10 +100,12 @@ void RLS::Output::setDat(ofstream& stream, string dataName, int i)
     stream << data.t[i] << " " << data.dc[i].eoB.transpose() << endl;
   else if(dataName=="t-ewB")
     stream << data.t[i] << " " << data.dc[i].ewB.transpose() << endl;
+
   else if(dataName=="t-erC")
     stream << data.t[i] << " " << data.dc[i].erC.transpose() << endl;
   else if(dataName=="t-evC")
     stream << data.t[i] << " " << data.dc[i].evC.transpose() << endl;
+
   else if(dataName=="t-eX")
     stream << data.t[i] << " " << data.dc[i].eX.transpose() << endl;
 
@@ -115,10 +124,33 @@ void RLS::Output::setDat(ofstream& stream, string dataName, int i)
   else if(dataName=="t-en")
     stream << data.t[i] << " " << data.dc[i].en.transpose() << endl;
 
+  else if(dataName=="t-dvBRef")
+    stream << data.t[i] << " " << data.dc[i].dvBRef.transpose() << endl;
+  else if(dataName=="t-dwBRef")
+    stream << data.t[i] << " " << data.dc[i].dwBRef.transpose() << endl;
+  else if(dataName=="t-ddthRef")
+    stream << data.t[i] << " " << data.dc[i].dthRef.transpose() << endl;
+
+  else if(dataName=="t-dvCRef")
+    stream << data.t[i] << " " << data.dc[i].dvCRef.transpose() << endl;
+
+  else if(dataName=="t-dvBoptRef")
+    stream << data.t[i] << " " << data.dc[i].dvBoptRef.transpose() << endl;
+  else if(dataName=="t-dwBoptRef")
+    stream << data.t[i] << " " << data.dc[i].dwBoptRef.transpose() << endl;
+  else if(dataName=="t-ddthoptRef")
+    stream << data.t[i] << " " << data.dc[i].ddthoptRef.transpose() << endl;
+
+  else if(dataName=="t-dvCoptRef")
+    stream << data.t[i] << " " << data.dc[i].dvCoptRef.transpose() << endl;
+
   else if(dataName=="t-dpRef")
     stream << data.t[i] << " " << data.dc[i].dpRef.transpose() << endl;
-  else if(dataName=="t-dlRef")
-    stream << data.t[i] << " " << data.dc[i].dlRef.transpose() << endl;
+  else if(dataName=="t-dlCRef")
+    stream << data.t[i] << " " << data.dc[i].dlCRef.transpose() << endl;
+
+  else if(dataName=="t-dlBRef")
+    stream << data.t[i] << " " << data.dc[i].dlBRef.transpose() << endl;
 
   else if(dataName=="t-fRef")
     stream << data.t[i] << " " << data.dc[i].fRef.transpose() << endl;

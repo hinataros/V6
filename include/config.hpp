@@ -56,7 +56,6 @@ namespace RLS{
       string model;
       string work;
       string result;
-      string set;
       string cmp;
       Compos dat;
       Compos eps;

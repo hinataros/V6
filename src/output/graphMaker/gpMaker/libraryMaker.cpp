@@ -41,11 +41,9 @@ void RLS::GpMaker::makeLibrary()
 void RLS::GpMaker::makeMacro()
 {
   string path_macro =
-    "LIBRARY = '" + path_gp_ind+"library/" +"'\n"
-    "CONTROLLER_DAT = '" + path_dat_ind+"controller/" +"'\n"
-    "MODEL_DAT = '" + path_dat_ind+"model/" +"'\n"
-    "CONTROLLER_EPS = '" + path_eps_ind+"controller/" +"'\n"
-    "MODEL_EPS = '" + path_eps_ind+"model/" +"'\n";
+    "DIR_LIB = '" + path_gp_ind+"library/" +"'\n"
+    "DIR_DAT = '" + path_dat_ind+"'\n"
+    "DIR_EPS = '" + path_eps_ind+"'\n";
 
   string unit_macro =
     "E = 1e+0\n"

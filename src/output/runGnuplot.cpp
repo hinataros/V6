@@ -16,8 +16,7 @@ void RLS::Output::runGnuplot(Config &config)
 
   gp = popen("gnuplot -persist ", "w");
   fprintf(gp,"cd '%s'\n", (config.dir.gp.ind).c_str());
-  fprintf(gp,"load 'model.gp'\n");
-  fprintf(gp,"load 'controller.gp'\n");
+  fprintf(gp,"load 'main.gp'\n");
   pclose(gp);
 
   cout << "made graphs..." << endl;

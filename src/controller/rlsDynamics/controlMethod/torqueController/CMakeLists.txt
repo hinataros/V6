@@ -6,6 +6,9 @@ set(srcs
   base.cpp
   mixed.cpp
   mixedmixed.cpp
+  baseOpt.cpp
+  mixedOpt.cpp
+  mixedmixedOpt.cpp
   crb.cpp
   )
 

@@ -25,9 +25,9 @@ VectorXd RLS::RlsDynamics::mixedVelocitySynergy(Config &config, Info &info, Mode
 
   dthRef = dthcRef;
 
-  dqRef <<
-    cal_VBRef,
+  dqMRef <<
+    cal_VMRef,
     dthRef;
 
-  return dqRef;
+  return dqMRef;
 }

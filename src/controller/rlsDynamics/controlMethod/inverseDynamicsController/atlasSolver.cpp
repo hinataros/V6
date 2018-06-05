@@ -53,7 +53,7 @@ VectorXd RLS::RlsDynamics::atlasSolver(Config &config, Info &info, Model &model)
   VectorXd x = VectorXd::Zero(n);
   QuadProgpp::solver(G, g, "e", CE, ce, x);
 
-  ddqRef = x.head(info.dof.all);
+  ddqBRef = x.head(info.dof.all);
   cal_FcBarRef = x.tail(info.contact.c.all);
 
   // torque control

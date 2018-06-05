@@ -16,9 +16,9 @@ VectorXd RLS::RlsDynamics::workAcceleration(Config &config, Info &info, Model &m
 
   ddthRef = pInv(cal_Jm)*(cal_dVmRef - cal_dJm*model.hoap2.all.dth);
 
-  ddqRef <<
+  ddqBRef <<
     cal_dVBRef,
     ddthRef;
 
-  return ddqRef;
+  return ddqBRef;
 }

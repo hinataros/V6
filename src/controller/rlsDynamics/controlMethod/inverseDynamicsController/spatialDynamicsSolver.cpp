@@ -154,7 +154,8 @@ VectorXd RLS::RlsDynamics::spatialDynamicsSolver(Config &config, Info &info, Mod
   VectorXd x = VectorXd::Zero(n);
   QuadProgpp::solver(G, g, "e", CE, ce, x);
 
-  ddqRef = x.head(info.dof.all);
+  // ddqBRef = x.head(info.dof.all);
+  ddqMRef = x.head(info.dof.all);
   cal_FcBarRef = x.tail(info.contact.c.all);
   // cal_FcBarRef = pInv(cal_Pc)*(cal_dLBRef + cal_GB);
 

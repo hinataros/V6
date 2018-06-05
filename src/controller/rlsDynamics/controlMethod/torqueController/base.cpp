@@ -15,7 +15,7 @@ void RLS::RlsDynamics::base(Config &config, Info &info, Model &model)
   MthBar <<
     HBth.transpose(), Mth;
 
-  tau = MthBar*ddqRef + cth + gth - cal_Jc.transpose()*cal_FcBarRef;
+  tau = MthBar*ddqBRef + cth + gth - cal_Jc.transpose()*cal_FcBarRef;
 
   // tau = gth - cal_Jc.transpose()*cal_FcBarRef;
   // tau = gth - cal_Jc.transpose()*cal_FcBarRef

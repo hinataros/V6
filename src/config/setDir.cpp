@@ -15,8 +15,7 @@ void RLS::Config::setDir()
   dir.work = dir.link + "yaml/work/" + controller.name+"/" + controller.work+".work";
 
   dir.result = dir.link + "result/";
-  dir.set = dir.result + controller.name+":"+body.name+"/";
-  dir.cmp = dir.set + result.name.cmp+"/";
+  dir.cmp = dir.result + result.name.cmp+"/";
 
   dir.dat.cmp = dir.cmp + "dat/";
   dir.eps.cmp = dir.cmp + "eps/";

@@ -49,8 +49,8 @@ namespace RLS{
     // smiyahara: どうにかしたい
     void makeGifDat(Config&, Info&);
 
-    // // tree model output
-    // // ********************************************
+    // tree model output
+    // ********************************************
     void joint(Config&, Info&, GpMaker&, TexMaker&);
     void baseTrans(Config&, Info&, GpMaker&, TexMaker&);
     void baseRot(Config&, Info&, GpMaker&, TexMaker&);
@@ -60,45 +60,35 @@ namespace RLS{
     void com(Config&, Info&, GpMaker&, TexMaker&);
     void mix(Config&, Info&, GpMaker&, TexMaker&);
     void spatialMom(Config&, Info&, GpMaker&, TexMaker&);
-    // // ********************************************
+    // ********************************************
 
-    void treeModelGraphConfig(Config&, Info&);
-
-    // // ********************************************
-    // desired base translation
+    // ********************************************
+    // des
     void baseTransDes(Config&, Info&, GpMaker&, TexMaker&);
-    // desired base rotation
     void baseRotDes(Config&, Info&, GpMaker&, TexMaker&);
-    // desired DCM
+    void comDes(Config&, Info&, GpMaker&, TexMaker&);
     void dcmDes(Config&, Info&, GpMaker&, TexMaker&);
-    // desired EE translation
     void eeTransDes(Config&, Info&, GpMaker&, TexMaker&);
-    // desired EE rotation
     void eeRotDes(Config&, Info&, GpMaker&, TexMaker&);
-    // base translation error
+
+    // err
     void baseTransErr(Config&, Info&, GpMaker&, TexMaker&);
-    // base rotation error
     void baseRotErr(Config&, Info&, GpMaker&, TexMaker&);
-    // com error
     void comErr(Config&, Info&, GpMaker&, TexMaker&);
-    // dcm error
     void dcmErr(Config&, Info&, GpMaker&, TexMaker&);
-    // EE translation error
     void eeTransErr(Config&, Info&, GpMaker&, TexMaker&);
-    // EE rotation error
     void eeRotErr(Config&, Info&, GpMaker&, TexMaker&);
-    // EE wrench error
     void eeWrenchErr(Config&, Info&, GpMaker&, TexMaker&);
-    // rate of chage of spatial momentum reference
+
+    // ref
+    void mixedQuasiAccRef(Config&, Info&, GpMaker&, TexMaker&);
+    void mixedQuasiAccOptRef(Config&, Info&, GpMaker&, TexMaker&);
     void rcMomRef(Config&, Info&, GpMaker&, TexMaker&);
-    // EE wrench reference
     void eeWrenchRef(Config&, Info&, GpMaker&, TexMaker&);
-    // external wrench reference
     void extWrenchRef(Config&, Info&, GpMaker&, TexMaker&);
-    // joint torque
     void jointTorque(Config&, Info&, GpMaker&, TexMaker&);
-    // // formulated spatial momentum
     // void formulatedMom(Config&, Info&, GpMaker&, TexMaker&);
+
     // cop
     void localCop(Config&, Info&, GpMaker&, TexMaker&);
     void netCop(Config&, Info&, GpMaker&, TexMaker&);
@@ -109,12 +99,11 @@ namespace RLS{
     void netCop4walking(Config&, Info&, GpMaker&, TexMaker&);
     void stabilityIndex4walking(Config&, Info&, GpMaker&, TexMaker&);
     void footPrint(Config&, Info&, GpMaker&, TexMaker&);
-
     // ********************************************
 
     void velocityGraphConfig(Config&, Info&);
     void accelerationGraphConfig(Config&, Info&);
-    void dynamicsGraphConfig(Config&, Info&);
+    void torqueGraphConfig(Config&, Info&);
 
     void runGnuplot(Config&);
 

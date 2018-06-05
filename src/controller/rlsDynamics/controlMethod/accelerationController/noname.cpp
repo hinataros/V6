@@ -62,5 +62,5 @@ VectorXd RLS::RlsDynamics::noname(Config &config, Info &info, Model &model)
 
   // ddthRef = ddthcRef + ddthnRef;
 
-  return ddqRef;
+  return ddqMRef;
 }

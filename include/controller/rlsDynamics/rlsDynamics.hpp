@@ -171,7 +171,7 @@ namespace RLS{
     MatrixXd cal_Sp;
 
     // cop
-    VectorXd rk2p;
+    VectorXd rpw2k;
     VectorXd rpk;
     Vector2d rp;
 
@@ -263,6 +263,9 @@ namespace RLS{
 
     // dcmWalkiing
     // ******************************
+    int phaseDS;
+    bool flagDS;
+
     int stepNum;
     int stepPhase;
     double tstep0;
@@ -306,10 +309,35 @@ namespace RLS{
     VectorXd cal_Ev;
 
     // reference
-    Vector3d dvCRef;
+    // **********************
+    // velocityController
+    // **********************
+    Vector3d vBRef;
+    Vector3d wBRef;
+    VectorXd dthRef;
+    VectorXd dqBRef;
+
+    Vector3d vCRef;
+
+    VectorXd dqMRef;
+
+    Vector6d cal_VBRef;
+    Vector6d cal_VMRef;
+
+    VectorXd cal_VRef;
+    // **********************
 
     Vector3d dvBRef;
     Vector3d dwBRef;
+    VectorXd ddthRef;
+
+    VectorXd ddqBRef;
+    VectorXd ddqBoptRef;
+
+    Vector3d dvCRef;
+
+    VectorXd ddqMRef;
+    VectorXd ddqMoptRef;
 
     Vector3d drXRef;
 
@@ -330,24 +358,6 @@ namespace RLS{
     VectorXd cal_FcBarRef;
 
     Vector6d cal_FextRef;
-
-    // velocityController
-    // **********************
-    Vector3d vCRef;
-
-    Vector3d vBRef;
-    Vector3d wBRef;
-
-    Vector6d cal_VBRef;
-    Vector6d cal_VMRef;
-
-    VectorXd cal_VRef;
-    VectorXd dthRef;
-    VectorXd dqRef;
-    // **********************
-
-    VectorXd ddthRef;
-    VectorXd ddqRef;
 
     VectorXd tau;
 
@@ -393,10 +403,6 @@ namespace RLS{
 
     // selective matrix for forward kinematics
     Matrix6d bb_ScB;
-
-  // walking
-    int phaseDS;
-    bool flagDS;
 
     void initialValue(Config&, Info&, Model&);
     void resize(Config&, Info&, Model&);
@@ -461,6 +467,7 @@ namespace RLS{
     MatrixXd weight(Config&, Info&, Model&, int, Vector3d);
 
     // zero controller
+    VectorXd zeroDynamics(Config&, Info&, Model&);
     VectorXd zeroMotion(Config&, Info&, Model&);
     void zeroMomentum(Config&, Info&, Model&);
     void zeroDistribution(Config&, Info&, Model&);
@@ -509,6 +516,9 @@ namespace RLS{
     void mixed(Config&, Info&, Model&);
     void mixedmixed(Config&, Info&, Model&);
     void crb(Config&, Info&, Model&);
+    void baseOpt(Config&, Info&, Model&);
+    void mixedOpt(Config&, Info&, Model&);
+    void mixedmixedOpt(Config&, Info&, Model&);
 
     // inverse dynamics controller
     VectorXd fullDynamicsController(Config&, Info&, Model&);

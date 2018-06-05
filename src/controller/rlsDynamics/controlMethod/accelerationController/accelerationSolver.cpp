@@ -52,8 +52,13 @@ VectorXd RLS::RlsDynamics::accelerationSolver(Config &config, Info &info, Model 
     -dJcM*dqM,
     dVmBarRef;
   // *********************************************************************************
-  if(info.sim.state)
-    QuadProgpp::solver(G, g, "e", CE, ce, ddqRef);
+  // if(info.sim.state)
+  //   QuadProgpp::solver(G, g, "e", CE, ce, ddqBoptRef);
 
-  return ddqRef;
+  // return ddqBoptRef;
+
+  if(info.sim.state)
+    QuadProgpp::solver(G, g, "e", CE, ce, ddqMoptRef);
+
+  return ddqMoptRef;
 }

@@ -15,7 +15,7 @@ void RLS::RlsDynamics::mixed(Config &config, Info &info, Model &model)
   MthHatBar <<
     model.hoap2.all.MM.block(0,6,6,info.dof.joint).transpose(), MthC;
 
-  tau = MthHatBar*ddqRef + cthC - cal_JcM.transpose()*cal_FcBarRef;
+  tau = MthHatBar*ddqMRef + cthC - cal_JcM.transpose()*cal_FcBarRef;
 
   // ******************************************************************************
   // tau = - cal_JcM.transpose()*cal_FcBarRef;

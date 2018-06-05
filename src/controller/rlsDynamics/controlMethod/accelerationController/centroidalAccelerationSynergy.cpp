@@ -33,9 +33,9 @@ VectorXd RLS::RlsDynamics::centroidalAccelerationSynergy(Config &config, Info &i
 
   ddthRef = ddthcRef + ddthmRef + ddthnRef- h;
 
-  // ddqRef <<
-  //   cal_dVBRef,
+  // ddqMRef <<
+  //   cal_dVMRef,
   //   ddthRef;
 
-  return ddqRef;
+  return ddqMRef;
 }

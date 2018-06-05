@@ -59,13 +59,13 @@ VectorXd RLS::RlsDynamics::mixedGeneralizedMomentum(Config &config, Info &info, 
 
       VectorXd ddqmRef = N(ACBar)*pInv(JmMBar)*dVmTildeRef;
 
-      ddqRef = ddqLCRef + ddqmRef + N(ACBar)*N(JmMBar)*ddqD(config, info, model);
+      ddqMoptRef = ddqLCRef + ddqmRef + N(ACBar)*N(JmMBar)*ddqD(config, info, model);
     }
     else{
-      ddqRef = ddqLCRef + N(ACBar)*ddqD(config, info, model);
+      ddqMoptRef = ddqLCRef + N(ACBar)*ddqD(config, info, model);
     }
   }
-  // ddqRef = VectorXd::Zero(info.dof.all);
+  // ddqMoptRef = VectorXd::Zero(info.dof.all);
 
-  return ddqRef;
+  return ddqMoptRef;
 }

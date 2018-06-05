@@ -25,7 +25,7 @@ VectorXd RLS::RlsDynamics::baseVelocitySynergy(Config &config, Info &info, Model
 
   dthRef = dthcRef + dthmRef;
 
-  dqRef <<
+  dqBRef <<
     cal_VBRef,
     dthRef;
 

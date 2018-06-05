@@ -43,9 +43,9 @@ VectorXd RLS::RlsDynamics::hinata(Config &config, Info &info, Model &model)
   // o(Jw*ddthRef + dJw*model.hoap2.all.dth);
   // gc;
 
-  ddqRef <<
+  ddqMRef <<
     cal_dVMRef,
     ddthRef;
 
-  return ddqRef;
+  return ddqMRef;
 }

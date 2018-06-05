@@ -112,7 +112,7 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   cal_Sp.block(0,3,2,2) = bb_Spx;
 
   // CoP
-  rk2p = VectorXd::Zero(2*info.value.joint);
+  rpw2k = VectorXd::Zero(2*info.value.joint);
   rpk = VectorXd::Zero(2*info.value.joint);
   rp = Vector2d::Zero();
 
@@ -179,6 +179,9 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   // dcmWalkiing
   // ******************************
+  phaseDS = 0;
+  flagDS = true;
+
   stepNum = 10;
   stepPhase = 0;
   tstep0 = 0.;
@@ -238,10 +241,35 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   // reference
   // ******************************
-  dvCRef = Vector3d::Zero();
+  // velocityController
+  // **********************
+  vBRef = Vector3d::Zero();
+  wBRef = Vector3d::Zero();
+  dthRef = VectorXd::Zero(info.dof.joint);
+
+  dqBRef = VectorXd::Zero(info.dof.all);
+
+  vCRef = Vector3d::Zero();
+
+  dqMRef = VectorXd::Zero(info.dof.all);
+
+  cal_VBRef = Vector6d::Zero();
+  cal_VMRef = Vector6d::Zero();
+
+  cal_VRef = VectorXd::Zero(6*info.value.joint);
+  // **********************
 
   dvBRef = Vector3d::Zero();
   dwBRef = Vector3d::Zero();
+  ddthRef = VectorXd::Zero(info.dof.joint);
+
+  ddqBRef = VectorXd::Zero(info.dof.all);
+  ddqBoptRef = VectorXd::Zero(info.dof.all);
+
+  dvCRef = Vector3d::Zero();
+
+  ddqMRef = VectorXd::Zero(info.dof.all);
+  ddqMoptRef = VectorXd::Zero(info.dof.all);
 
   drXRef = Vector3d::Zero();
 
@@ -259,26 +287,6 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   cal_dLCRef = Vector6d::Zero();
 
   cal_FextRef = Vector6d::Zero();
-
-  // velocityController
-  // **********************
-  vCRef = Vector3d::Zero();
-
-  vBRef = Vector3d::Zero();
-  wBRef = Vector3d::Zero();
-
-  cal_VBRef = Vector6d::Zero();
-  cal_VMRef = Vector6d::Zero();
-
-  cal_VRef = VectorXd::Zero(6*info.value.joint);
-  // **********************
-
-  dthRef = VectorXd::Zero(info.dof.joint);
-  dqRef = VectorXd::Zero(info.dof.all);
-
-  ddthRef = VectorXd::Zero(info.dof.joint);
-
-  ddqRef = VectorXd::Zero(info.dof.all);
 
   tau = VectorXd::Zero(info.dof.joint);
 
@@ -327,10 +335,6 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   // selective matrix for forward kinematics
   bb_ScB = Matrix6d::Zero();
 
-  // walking
-  phaseDS = 0;
-  flagDS = true;
-
   motionControllerName =
     momentumControllerName =
     forceControllerName =
@@ -372,7 +376,11 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   map_torqueController["mixed"] = &RLS::RlsDynamics::mixed;
   map_torqueController["mixedmixed"] = &RLS::RlsDynamics::mixedmixed;
   map_torqueController["crb"] = &RLS::RlsDynamics::crb;
+  map_torqueController["baseOpt"] = &RLS::RlsDynamics::baseOpt;
+  map_torqueController["mixedOpt"] = &RLS::RlsDynamics::mixedOpt;
+  map_torqueController["mixedmixedOpt"] = &RLS::RlsDynamics::mixedmixedOpt;
 
+  map_inverseDynamicsController["default"] = &RLS::RlsDynamics::zeroDynamics;
   map_inverseDynamicsController["fullDynamics"] = &RLS::RlsDynamics::fullDynamicsController;
   map_inverseDynamicsController["momentumInverseDynamics"] = &RLS::RlsDynamics::momentumInverseDynamicsController;
   map_inverseDynamicsController["highGain"] = &RLS::RlsDynamics::highGainController;

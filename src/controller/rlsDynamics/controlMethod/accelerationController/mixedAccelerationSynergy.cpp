@@ -31,9 +31,9 @@ VectorXd RLS::RlsDynamics::mixedAccelerationSynergy(Config &config, Info &info, 
 
   ddthRef = ddthcRef + ddthmRef - h;
 
-  ddqRef <<
-    cal_dVBRef,
+  ddqMRef <<
+    cal_dVMRef,
     ddthRef;
 
-  return ddqRef;
+  return ddqMRef;
 }

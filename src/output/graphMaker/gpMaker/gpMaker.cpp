@@ -8,27 +8,24 @@
 
 RLS::GpMaker::GpMaker()
 {
-  load = "";
-  category = "";
-
-  reset();
-}
-
-RLS::GpMaker::GpMaker(string arg)
-{
-  load = "";
-  category = "";
-
-  reset();
-  setCategory(arg);
+  initialize();
 }
 
 RLS::GpMaker::~GpMaker()
 {
+  vector<bool>().swap(flag);
   vector<int>().swap(dimention);
-  vector<string>().swap(addStr);
+  vector<string>().swap(redef_str);
+  vector<string>().swap(add_str);
   vector<string>().swap(scale);
   vector<int>().swap(exponent);
+}
+
+void RLS::GpMaker::initialize()
+{
+  load = "";
+
+  reset();
 }
 
 void RLS::GpMaker::reset()
@@ -42,11 +39,16 @@ void RLS::GpMaker::reset()
   unit = "E";
   terminal = 0;
 
+  vector<bool>().swap(flag);
+  flag.push_back(true);
+
   vector<int>().swap(dimention);
   dimention.push_back(1);
 
-  vector<string>().swap(addStr);
-  addStr.push_back("");
+  vector<string>().swap(redef_str);
+  redef_str.push_back("");
+  vector<string>().swap(add_str);
+  add_str.push_back("");
 
   vector<string>().swap(scale);
   scale.push_back("1e+0");
@@ -54,13 +56,6 @@ void RLS::GpMaker::reset()
   exponent.push_back(0);
 
   point = 0;
-}
-
-void RLS::GpMaker::setCategory(string arg)
-{
-  category = arg;
-  transform(arg.begin(), arg.end(), arg.begin(), ::toupper);
-  CATEGORY = arg;
 }
 
 void RLS::GpMaker::setName(string arg)
@@ -72,10 +67,17 @@ void RLS::GpMaker::setLimb(int arg)
 {
   numLimb = arg;
 
+  flag.resize(arg, true);
   dimention.resize(arg, 1);
-  addStr.resize(arg, "");
+  redef_str.resize(arg, "");
+  add_str.resize(arg, "");
   scale.resize(arg, "1e+0");
   exponent.resize(arg, 0);
+}
+
+void RLS::GpMaker::setLimbNum(int arg0, bool arg1)
+{
+  flag[arg0-1] = arg1;
 }
 
 void RLS::GpMaker::setXLabel(string arg)
@@ -88,7 +90,7 @@ void RLS::GpMaker::setYLabel(string arg)
   yLabel = arg;
 }
 
-void RLS::GpMaker::chUnit(string arg)
+void RLS::GpMaker::setUnit(string arg)
 {
   transform(arg.begin(), arg.end(), arg.begin(), ::toupper);
   unit = arg;
@@ -104,7 +106,6 @@ void RLS::GpMaker::setDimention(int arg0, int arg1)
 {
   dimention[arg0-1] = arg1;
 }
-
 
 void RLS::GpMaker::setScale(int arg)
 {
@@ -122,6 +123,21 @@ void RLS::GpMaker::setScale(int arg0, int arg1)
   exponent[arg0-1] = -arg1;
 }
 
+void RLS::GpMaker::redef(string arg)
+{
+  for(int i=1; i<numLimb+1; i++){
+    redef(i, arg);
+  }
+}
+
+void RLS::GpMaker::redef(int limb, string arg)
+{
+  if(redef_str[limb-1]=="")
+    redef_str[limb-1] = arg + "\n";
+  else
+    redef_str[limb-1] += arg + "\n";
+}
+
 void RLS::GpMaker::add(string arg)
 {
   for(int i=1; i<numLimb+1; i++){
@@ -131,10 +147,10 @@ void RLS::GpMaker::add(string arg)
 
 void RLS::GpMaker::add(int limb, string arg)
 {
-  if(addStr[limb-1]=="")
-    addStr[limb-1] = arg + "\n";
+  if(add_str[limb-1]=="")
+    add_str[limb-1] = arg + "\n";
   else
-    addStr[limb-1] += arg + "\n";
+    add_str[limb-1] += arg + "\n";
 }
 
 void RLS::GpMaker::setTerminal(int arg)
@@ -161,10 +177,17 @@ void RLS::GpMaker::setLimbLabel(int arg)
 void RLS::GpMaker::makeGp()
 {
   string code;
-  for(int l=1; l<numLimb+1; l++)
-    code += makeCode(l);
+  for(int l=1; l<numLimb+1; l++){
+    if(flag[l-1])
+      code += makeCode(l);
 
-  ofstream gpMaker((path_gp_ind+category+"/"+name+".gp").c_str());
+    if(xLabel == timeLabelStr)
+      point += dimention[l-1];
+    else
+      point += 2*dimention[l-1];        
+  }
+
+  ofstream gpMaker((path_gp_ind+"src/"+name+".gp").c_str());
   if(!gpMaker)
     cout << path_gp_ind << ": " << endl << "file open error..." << endl;
   else{
@@ -183,8 +206,8 @@ string RLS::GpMaker::makeCode(int limb)
   string setting =
     "reset\n"
     "load '"+path_gp_ind+"library/macro.gp'\n\n"
-    "load LIBRARY.'config.gp'\n"
-    "load LIBRARY.'set.gp'\n";
+    "load DIR_LIB.'config.gp'\n"
+    "load DIR_LIB.'set.gp'\n";
 
   // smiyahara: とりあえず ***********************
   string xtemp;
@@ -229,26 +252,26 @@ string RLS::GpMaker::makeCode(int limb)
     label += "set label 2 'x10^{"+to_string(exponent[limb-1])+"}' at screen DECIMAL_COORD_X, DECIMAL_COORD_Y\n";
 
   string out =
-    "set output "+CATEGORY+"_EPS.'"+name+suffix+".eps'\n";
+    "set output DIR_EPS.'"+name+suffix+".eps'\n";
 
   string plot = "plot \\\n";
   if(xLabel == timeLabelStr){
     for(int i=2; i<dimention[limb-1]+2; i++){
       plot +=
-        CATEGORY+"_DAT.'"+name+".dat' every ::(T_OFFSET*SAMPLING) u ($1-T_OFFSET):($"+to_string(point+i)+"*"+unit+"*"+scale[limb-1]+") t '' w l ls "+to_string(i-1);
+        "DIR_DAT.'"+name+".dat' every ::(T_OFFSET*SAMPLING) u ($1-T_OFFSET):($"+to_string(point+i)+"*"+unit+"*"+scale[limb-1]+") t '' w l ls "+to_string(i-1);
 
       if(i<dimention[limb-1]+1)
         plot += ",\\\n";
-    }point += dimention[limb-1];
+    }
   }
   else{
     for(int i=1, j=1; j<dimention[limb-1]+1; i+=2, j++){
       plot +=
-        CATEGORY+"_DAT.'"+name+".dat' every ::(T_OFFSET*SAMPLING) u ($"+to_string(point+i)+"*"+unit+"*"+scale[limb-1]+"):($"+to_string(point+i+1)+"*"+unit+"*"+scale[limb-1]+") t '' w l ls "+to_string(j);
+        "DIR_DAT.'"+name+".dat' every ::(T_OFFSET*SAMPLING) u ($"+to_string(point+i)+"*"+unit+"*"+scale[limb-1]+"):($"+to_string(point+i+1)+"*"+unit+"*"+scale[limb-1]+") t '' w l ls "+to_string(j);
 
       if(j<dimention[limb-1])
         plot += ",\\\n";
-    }point += 2*dimention[limb-1];
+    }
   }
 
   string replot =
@@ -257,10 +280,11 @@ string RLS::GpMaker::makeCode(int limb)
 
   string code =
     setting+"\n"+
-    addStr[limb-1]+"\n"+
+    redef_str[limb-1]+"\n"+
     xylabel+"\n"+
     label+"\n"+
     out+"\n"+
+    add_str[limb-1]+"\n"+
     plot+"\n\n"+
     replot+"\n";
 
@@ -269,12 +293,12 @@ string RLS::GpMaker::makeCode(int limb)
 
 void RLS::GpMaker::addLoad()
 {
-  load += "load '" + path_gp_ind + category + "/" + name+".gp'\n";
+  load += "load '" + path_gp_ind + "src/" + name+".gp'\n";
 }
 
-void RLS::GpMaker::setMainGpName(string arg)
+void RLS::GpMaker::setMainGpName()
 {
-  main_gp_name = arg + ".gp";
+  main_gp_name = "main.gp";
 }
 
 void RLS::GpMaker::makeMainGp()

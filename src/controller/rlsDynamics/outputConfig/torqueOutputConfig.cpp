@@ -20,6 +20,10 @@ void RLS::RlsDynamics::torqueOutputConfig(Config &config, Info &info, Model &mod
   dc_list.wBDes = wBDes;
   dc_list.dwBDes = dwBDes;
 
+  dc_list.rCDes = rCDes;
+  dc_list.vCDes = vCDes;
+  dc_list.dvCDes = dvCDes;
+
   dc_list.rXDes = rXDes;
   dc_list.drXDes = drXDes;
 
@@ -64,9 +68,26 @@ void RLS::RlsDynamics::torqueOutputConfig(Config &config, Info &info, Model &mod
     dc_list.en.segment(3*i, 3) = (Bc_k*cal_FcBarRef - cal_F).segment(6*i+3, 3);
   }
 
+  // dc_list.dvBRef = dvBRef;
+  // dc_list.dwBRef = dwBRef;
+  // dc_list.ddthRef = ddthRef;
+
+  dc_list.dvCRef = dvCRef;
+  dc_list.dwBRef = dwBRef;
+  dc_list.ddthRef = ddthRef;
+
+  // dc_list.dvBoptRef = ddqBoptRef.head(3);
+  // dc_list.dwBoptRef = ddqBoptRef.segment(3,3);
+  // dc_list.ddthoptRef = ddqBoptRef.tail(info.dof.joint);
+
+  dc_list.dvCoptRef = ddqMoptRef.head(3);
+  dc_list.dwBoptRef = ddqMoptRef.segment(3,3);
+  dc_list.ddthoptRef = ddqMoptRef.tail(info.dof.joint);
+
   dc_list.dpRef = dpRef;
-  dc_list.dlRef = dlCRef;
-  // dc_list.dlRef = dlBRef;
+  dc_list.dlCRef = dlCRef;
+
+  // dc_list.dlBRef = dlBRef;
 
   dc_list.fRef = dc_list.nRef
     = VectorXd::Zero(3*info.value.joint);

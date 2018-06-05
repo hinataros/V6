@@ -1,6 +1,7 @@
 #@author Sho Miyahara 2017
 
 set(srcs
+  zeroDynamics.cpp
   zeroMotion.cpp
   zeroMomentum.cpp
   zeroDistribution.cpp

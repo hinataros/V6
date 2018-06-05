@@ -11,21 +11,9 @@ RLS::TexMaker::TexMaker()
   initialize();
 }
 
-RLS::TexMaker::TexMaker(string arg)
-{
-  initialize(arg);
-}
-
 RLS::TexMaker::~TexMaker()
 {
-}
-
-void RLS::TexMaker::reset()
-{
-  minipage = "";
-  name = "";
-  texName = "";
-  width = 1.0;
+  vector<bool>().swap(flag);
 }
 
 void RLS::TexMaker::initialize()
@@ -36,15 +24,16 @@ void RLS::TexMaker::initialize()
   reset();
 }
 
-void RLS::TexMaker::initialize(string arg)
+void RLS::TexMaker::reset()
 {
-  initialize();
-  setCategory(arg);
-}
+  minipage = "";
+  name = "";
+  numLimb = 1;
+  texName = "";
+  width = 1.0;
 
-void RLS::TexMaker::setCategory(string arg)
-{
-  category = arg;
+  vector<bool>().swap(flag);
+  flag.push_back(true);
 }
 
 void RLS::TexMaker::setResultPath(string arg)
@@ -67,6 +56,18 @@ void RLS::TexMaker::setName(string arg)
   name = arg;
 }
 
+void RLS::TexMaker::setLimb(int arg)
+{
+  numLimb = arg;
+
+  flag.resize(arg, true);
+}
+
+void RLS::TexMaker::setLimbNum(int arg0, bool arg1)
+{
+  flag[arg0-1] = arg1;
+}
+
 void RLS::TexMaker::setWidth(double arg)
 {
   width = arg;
@@ -77,15 +78,21 @@ void RLS::TexMaker::setCaption(string arg)
   capRef = arg;
 }
 
-void RLS::TexMaker::addMinipage()
+void RLS::TexMaker::setNewline()
 {
-  addMinipage("");
+  minipage += "\\par";
 }
 
-void RLS::TexMaker::addMinipage(int arg)
+void RLS::TexMaker::addMinipage()
 {
-  for(int l=1; l<arg+1; l++)
-    addMinipage("Limb"+to_string(l));
+  for(int l=1; l<numLimb+1; l++){
+    if(flag[l-1]){
+      if(numLimb==1)
+        addMinipage("");
+      else
+        addMinipage("Limb"+to_string(l));
+    }
+  }
 }
 
 void RLS::TexMaker::addMinipage(string suffix)
@@ -96,7 +103,7 @@ void RLS::TexMaker::addMinipage(string suffix)
   minipage +=
     "\\begin{minipage}{0.24\\linewidth}\n"
     "\\centering\n"
-    "\\includegraphics[width="+to_string(width)+"\\hsize]{\\result/"+temp+category+"/"+name+suffix+".eps}\n"
+    "\\includegraphics[width="+to_string(width)+"\\hsize]{\\result/"+temp+name+suffix+".eps}\n"
     "\\par\\footnotesize{}\n"
     "\\end{minipage}\n";
 }

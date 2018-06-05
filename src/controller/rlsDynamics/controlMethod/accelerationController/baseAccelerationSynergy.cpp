@@ -31,9 +31,9 @@ VectorXd RLS::RlsDynamics::baseAccelerationSynergy(Config &config, Info &info, M
 
   ddthRef = ddthcRef + ddthmRef - h;
 
-  ddqRef <<
+  ddqBRef <<
     cal_dVBRef,
     ddthRef;
 
-  return ddqRef;
+  return ddqBRef;
 }

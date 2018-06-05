@@ -38,9 +38,6 @@ void RLS::Output::output(Config &config, Info &info)
       libraryMaker.makeLibrary();
     }
 
-    // model graph config
-    treeModelGraphConfig(config, info);
-
     // controller graph config
     if(config.controller.name=="rlsDynamics"){
       if(config.controller.input=="velocity")
@@ -48,7 +45,7 @@ void RLS::Output::output(Config &config, Info &info)
       else if(config.controller.input=="acceleration")
         accelerationGraphConfig(config, info);
       else if(config.controller.input=="torque")
-        dynamicsGraphConfig(config, info);
+        torqueGraphConfig(config, info);
     }
 
     runGnuplot(config);

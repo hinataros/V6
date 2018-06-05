@@ -12,6 +12,8 @@ using namespace std;
 namespace RLS{
   class GpMaker{
   private:
+    void initialize();
+
     // 要検討
     string timeLabelStr = "Time [s]";
 
@@ -42,17 +44,17 @@ namespace RLS{
     string main_gp_name;
     string name;
     string suffix;
-    string category;
-    string CATEGORY;
     int numLimb;
     string limbLabel;
     string xLabel;
     string yLabel;
     string unit;
+    vector<bool> flag;
     vector<int> dimention;
     vector<string> scale;
     vector<int> exponent;
-    vector<string> addStr;
+    vector<string> redef_str;
+    vector<string> add_str;
     int terminal;
 
     int point;
@@ -66,17 +68,19 @@ namespace RLS{
     void makeLibrary();
 
     void reset();
-    void setCategory(string);
     void setGpPath(string);
     void setName(string);
     void setLimb(int);
+    void setLimbNum(int, bool);
     void setXLabel(string);
     void setYLabel(string);
-    void chUnit(string);
+    void setUnit(string);
     void setDimention(int);
     void setDimention(int, int);
     void setScale(int);
     void setScale(int, int);
+    void redef(string);
+    void redef(int, string);
     void add(string);
     void add(int, string);
     void setTerminal(int);
@@ -88,11 +92,10 @@ namespace RLS{
     string makeCode(int);
     void addLoad();
 
-    void setMainGpName(string);
+    void setMainGpName();
     void makeMainGp();
 
     GpMaker();
-    GpMaker(string);
     ~GpMaker();
   };
 }

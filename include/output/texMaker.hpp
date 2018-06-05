@@ -15,7 +15,6 @@ namespace RLS{
   class TexMaker{
   private:
     void initialize();
-    void initialize(string);
 
     string lzero3format(int i){
       ostringstream ss;
@@ -41,8 +40,9 @@ namespace RLS{
     string path_eps;
     string path_pdf;
     string input_dir;
-    string category;
     string name;
+    int numLimb;
+    vector<bool> flag;
     double width;
 
     string capRef;
@@ -62,12 +62,13 @@ namespace RLS{
     void setResultPath(string);
     void setEpsPath(string);
     void setPdfPath(string);
-    void setCategory(string);
     void setName(string);
+    void setLimb(int);
+    void setLimbNum(int, bool);
     void setWidth(double);
     void setCaption(string);
+    void setNewline();
     void addMinipage();
-    void addMinipage(int);
     void addMinipage(string);
 
     void setTexName(string);
@@ -79,7 +80,6 @@ namespace RLS{
     void makeMainTex();
 
     TexMaker();
-    TexMaker(string);
     ~TexMaker();
   };
 }
