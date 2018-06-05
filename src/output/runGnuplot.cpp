@@ -21,7 +21,7 @@ void RLS::Output::runGnuplot(Config &config)
 
   cout << "made graphs..." << endl;
 
-  if(config.graph.check){
+  if(config.gp.check){
     cout << "Please hit any key...";
     getchar();
   }

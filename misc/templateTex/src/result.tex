@@ -22,19 +22,22 @@
 % \usepackage{sty/arydshln}
 \special{papersize=210mm, 297mm}
 
-\def\result{/usr/local/etc/rls/sl/result}
+\def\user{1000}
+\def\rlsSimulator{/usr/local/etc/rls/user/\user/rlsSimulator}
+\input{\rlsSimulator/name}
+
+\def\result{\rlsSimulator/sl/result}
 %
 % Setting
-\renewcommand{\ourgroup}{Humanoid}
-\renewcommand{\resulttitle}{Simulation results}
-\renewcommand{\resultauthor}{}
+\renewcommand{\resultauthor}{\name}
+\renewcommand{\resulttitle}{\title}
 %
 \input{\result/interface/simInfo}
 
 \begin{document}
 \header
 
-\input{\result/\controller:\model/\cmp/pdf/src/\ind/\ind}
+\input{\result/\cmp/pdf/src/\ind/\ind}
 
 \end{document}
 %

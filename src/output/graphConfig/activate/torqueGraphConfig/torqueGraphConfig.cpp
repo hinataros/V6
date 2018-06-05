@@ -15,7 +15,7 @@ void RLS::Output::torqueGraphConfig(Config &config, Info &info)
   nameNum = 1;
   setDatPath(config.dir.dat.ind);
   setDataNum(info.sim.n);
-  setST(config.graph.st);
+  setST(config.gp.st);
 
   GpMaker gpMaker;
 

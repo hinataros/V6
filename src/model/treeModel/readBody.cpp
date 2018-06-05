@@ -14,7 +14,7 @@ void RLS::TreeModel::readBody(Config &config, Info &info)
 
   vector<int> node, dof;
 
-  YAML::Node doc = YAML::LoadFile((config.dir.body+"skeleton/"+config.body.name+".body").c_str());
+  YAML::Node doc = YAML::LoadFile((config.dir.body+config.body.name+".body").c_str());
 
   // try{
   //   if(doc["links"][0]["name"].as<string>()=="free")

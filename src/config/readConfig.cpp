@@ -36,12 +36,14 @@ void RLS::Config::readConfig()
   controller.driven = doc["Controller"]["Driven"].as<string>();
   controller.dynamics = doc["Controller"]["Dynamics"].as<bool>();
 
-  // graph config
-  graph.flag = doc["Graph"]["Flag"].as<bool>();
-  graph.check = doc["Graph"]["Check"].as<bool>();
-  graph.gp = doc["Graph"]["Make gp"].as<bool>();
-  graph.tex = doc["Graph"]["Make tex"].as<bool>();
-  graph.st = doc["Graph"]["Sampling time"].as<int>();
+  // gp config
+  gp.flag = doc["Gp"]["Flag"].as<bool>();
+  gp.check = doc["Gp"]["Check"].as<bool>();
+  gp.st = doc["Gp"]["Sampling time"].as<int>();
+
+  // tex config
+  tex.flag = doc["Tex"]["Flag"].as<bool>();
+  tex.title = doc["Tex"]["Title"].as<string>();
 
   // gif config
   gif.flag = doc["Gif"]["Flag"].as<bool>();

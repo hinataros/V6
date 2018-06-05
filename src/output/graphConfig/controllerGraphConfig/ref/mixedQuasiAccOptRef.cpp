@@ -10,6 +10,8 @@ void RLS::Output::mixedQuasiAccOptRef(Config &config, Info &info, GpMaker &gpMak
 {
   if(config.flag.debug) DEBUG;
 
+  texMaker.reset();
+
   reset();
   setFileName("comAccOptRef");
   makeDat("t-dvCoptRef");

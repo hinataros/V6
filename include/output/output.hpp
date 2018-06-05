@@ -101,8 +101,14 @@ namespace RLS{
     void footPrint(Config&, Info&, GpMaker&, TexMaker&);
     // ********************************************
 
+    // velocity
     void velocityGraphConfig(Config&, Info&);
+
+    // acceleration
     void accelerationGraphConfig(Config&, Info&);
+
+    //torque
+    void masterGraphConfig(Config&, Info&);
     void torqueGraphConfig(Config&, Info&);
 
     void runGnuplot(Config&);

@@ -21,6 +21,11 @@ void RLS::TexMaker::setControllerName(string arg)
   name_controller = arg;
 }
 
+void RLS::TexMaker::setTitle(string arg)
+{
+  title = arg;
+}
+
 void RLS::TexMaker::setCmpName(string arg)
 {
   name_cmp = arg;
@@ -38,8 +43,7 @@ void RLS::TexMaker::makeSimInfo()
     cout << path_interface+"simInfo.tex" << ": " << endl << "file open error..." << endl;
   else{
     simInfo <<
-      "\\def\\model{" << name_model << "}" << endl <<
-      "\\def\\controller{" << name_controller << "}" << endl <<
+      "\\def\\title{" << title << "}" << endl <<
       "\\def\\cmp{" << name_cmp << "}" << endl <<
       "\\def\\ind{" << name_ind << "}" << endl;
     simInfo.close();

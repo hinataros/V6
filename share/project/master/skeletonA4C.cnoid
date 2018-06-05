@@ -16,11 +16,11 @@ items:
       children: 
         - 
           id: 2
-          name: "skeletonA4C"
+          name: "skeleton/skeletonA4C"
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "../model/skeleton/skeletonA4C.wrl"
+            modelFile: "../model/skeleton/skeletonA4C.body"
             currentBaseLink: "waist"
             rootPosition: [ 0, 0, 0.21019 ]
             rootAttitude: [ 

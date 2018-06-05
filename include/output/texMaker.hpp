@@ -27,6 +27,7 @@ namespace RLS{
     string path_interface;
     string name_model;
     string name_controller;
+    string title;
     string name_cmp;
     string name_ind;
 
@@ -53,6 +54,7 @@ namespace RLS{
     void setInterfacePath(string);
     void setModelName(string);
     void setControllerName(string);
+    void setTitle(string);
     void setCmpName(string);
     void setIndName(string);
     void makeSimInfo();

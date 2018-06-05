@@ -16,7 +16,7 @@ items:
       children: 
         - 
           id: 2
-          name: "skeletonA7C"
+          name: "skeleton/skeletonA7C"
           plugin: Body
           class: BodyItem
           data: 

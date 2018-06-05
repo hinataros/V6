@@ -19,8 +19,6 @@ typedef Eigen::Matrix<double, 6, 6> Matrix6d;
 #define DEG2RAD M_PI / 180.
 #define RAD2DEG 180. * M_1_PI
 
-#define LINK "/usr/local/etc/rls/sl/"
-
 #define o(x) cout << #x << ":" << endl << setprecision(6) << scientific << x << endl
 #define gc cout << endl << "Please hit any key to continue !!" << endl; getchar()
 #define DEBUG cout << "************************************************" << endl \
@@ -31,6 +29,7 @@ namespace RLS{
   class Config{
   private:
     void readArgument(int, char**);
+    void setLink();
     void setDir();
 
     string def;
@@ -91,13 +90,16 @@ namespace RLS{
       string driven;
     } controller;
 
-    struct Graph{
+    struct Gp{
       bool flag;
       bool check;
-      bool gp;
-      bool tex;
       int st;
-    } graph;
+    } gp;
+
+    struct Tex{
+      bool flag;
+      string title;
+    } tex;
 
     struct Plane{
       bool flag;
