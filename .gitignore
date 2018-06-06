@@ -4,5 +4,5 @@ build/
 result/
 misc/rlsModule/__pycache__/
 share/motion/*.yaml
-!share/motion/.gitkeep
+!share/motion/skeleton/.gitkeep
 *~
