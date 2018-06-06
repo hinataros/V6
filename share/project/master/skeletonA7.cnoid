@@ -16,11 +16,11 @@ items:
       children: 
         - 
           id: 2
-          name: "skeleton/skeletonA7C"
+          name: "skeleton/skeletonA7prim"
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "${HOME}/Documents/rlsSimulator/share/model/skeleton/skeletonA7CDev.body"
+            modelFile: "${HOME}/Documents/rlsSimulator/share/model/skeleton/skeletonA7prim.body"
             currentBaseLink: "ROOT"
             rootPosition: [ 0, 0, 0.21019 ]
             rootAttitude: [ 

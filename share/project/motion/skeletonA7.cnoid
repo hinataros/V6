@@ -12,31 +12,34 @@ items:
       data: 
         collisionDetection: false
         collisionDetector: AISTCollisionDetector
+        materialTableFile: "${SHARE}/default/materials.yaml"
       children: 
         - 
           id: 2
-          name: "skeletonA4C"
+          name: "skeleton/skeletonA4prim"
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "../model/skeleton/skeletonA4C.wrl"
-            currentBaseLink: "waist"
-            rootPosition: [ 0, 0, 0.2102051 ]
+            modelFile: "../model/skeleton/skeletonA7prim.body"
+            currentBaseLink: "ROOT"
+            rootPosition: [ 0, 0, 0.21019 ]
             rootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
               0, 0, 1 ]
             jointPositions: [ 
                0.000000,  0.000000, -0.523599,  1.047198, -0.523599,  0.000000,  0.000000,  0.000000, -0.523599,  1.047198, 
-              -0.523599,  0.000000,  1.745329,  0.000000,  0.000000, -0.523599,  1.745329,  0.000000,  0.000000, -0.523599 ]
-            initialRootPosition: [ 0, 0, 0.2102051 ]
+              -0.523599, -0.000000,  1.745329,  0.000000,  0.000000, -0.523599,  0.000000, -0.523599,  1.572542,  1.745329, 
+               0.000000,  0.000000, -0.523599,  0.000000, -0.523599, -1.570796 ]
+            initialRootPosition: [ 0, 0, 0.21019 ]
             initialRootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
               0, 0, 1 ]
             initialJointPositions: [ 
                0.000000,  0.000000, -0.523599,  1.047198, -0.523599,  0.000000,  0.000000,  0.000000, -0.523599,  1.047198, 
-              -0.523599,  0.000000,  1.745329,  0.000000,  0.000000, -0.523599,  1.745329,  0.000000,  0.000000, -0.523599 ]
+              -0.523599, -0.000000,  1.745329,  0.000000,  0.000000, -0.523599,  0.000000, -0.523599,  1.572542,  1.745329, 
+               0.000000,  0.000000, -0.523599,  0.000000, -0.523599, -1.570796 ]
             zmp: [ 0, 0, 0 ]
             collisionDetection: true
             selfCollisionDetection: false
@@ -48,7 +51,7 @@ items:
               plugin: Body
               class: BodyMotionItem
               data: 
-                filename: "../motion/skeletonA4CMotion.yaml"
+                filename: "../motion/skeleton/skeletonA7primMotion.yaml"
                 format: BODY-MOTION-YAML
         - 
           id: 4
@@ -110,7 +113,6 @@ views:
       worldLightIntensity: 0.5
       worldLightAmbient: 0.3
       additionalLights: true
-      shadowLights: 
       fog: true
       floorGrid: true
       floorGridSpan: 10
@@ -130,19 +132,20 @@ views:
       showFPS: false
       enableNewDisplayListDoubleRendering: false
       useBufferForPicking: true
+      upsideDown: false
       cameras: 
         - 
           camera: [ System, Perspective ]
-          isCurrent: true
           fieldOfView: 0.698132
           near: 0.01
           far: 100
-          eye: [ 0.684743806, 0.47211104, 0.443156958 ]
-          direction: [ -0.797403194, -0.549813546, -0.248703059 ]
-          up: [ -0.2047499, -0.141176095, 0.968579779 ]
+          eye: [ 0.014890156, 1.39962911, 0.222313879 ]
+          direction: [ 1.2246468e-16, -1, -6.123234e-17 ]
+          up: [ 7.49879891e-33, -6.123234e-17, 1 ]
         - 
           camera: [ System, Orthographic ]
-          orthoHeight: 20
+          isCurrent: true
+          orthoHeight: 0.603948
           near: 0.01
           far: 100
       backgroundColor: [ 0.100000001, 0.100000001, 0.300000012 ]
@@ -181,6 +184,10 @@ views:
       currentBodyItem: 2
   - 
     id: 7
+    plugin: OpenRTM
+    class: RTSNameServerView
+  - 
+    id: 8
     plugin: Python
     class: PythonConsoleView
 toolbars: 
@@ -264,6 +271,8 @@ Body:
     targetJoints: all
     checkSelfCollisions: true
     onlyTimeBarRange: false
+OpenRTM: 
+  "deleteUnmanagedRTCsOnStartingSimulation": false
 viewAreas: 
   - 
     type: embedded

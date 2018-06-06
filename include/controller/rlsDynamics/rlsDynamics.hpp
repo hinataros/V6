@@ -439,6 +439,7 @@ namespace RLS{
     // reference
     //com
     void comSequence(Config&, Info&, Model&, double&);
+    void dcm2com(Config&, Info&, Model&, double&);
 
     // base translation
     void baseTranslationSequence(Config&, Info&, Model&, double&);

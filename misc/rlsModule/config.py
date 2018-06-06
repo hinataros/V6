@@ -13,4 +13,4 @@ n = "\n"
 OUTPUT = "build"
 
 # run command of choreonoid
-run_cnoid = "bin/choreonoid"
+run_cnoid = "choreonoid"

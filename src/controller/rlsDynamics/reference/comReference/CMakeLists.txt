@@ -2,6 +2,7 @@
 
 set(srcs
   comSequence.cpp
+  dcm2com.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" comReference_srcs)

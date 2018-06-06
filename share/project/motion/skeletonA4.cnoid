@@ -12,32 +12,31 @@ items:
       data: 
         collisionDetection: false
         collisionDetector: AISTCollisionDetector
-        materialTableFile: "${SHARE}/default/materials.yaml"
       children: 
         - 
           id: 2
-          name: "skeletonA4C"
+          name: "skeleton/skeletonA4prim"
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "../model/skeleton/skeletonA4C.wrl"
-            currentBaseLink: "waist"
-            rootPosition: [ 0, 0, 0.21019 ]
+            modelFile: "../model/skeleton/skeletonA4prim.body"
+            currentBaseLink: "ROOT"
+            rootPosition: [ 0, 0, 0.2102051 ]
             rootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
               0, 0, 1 ]
             jointPositions: [ 
                0.000000,  0.000000, -0.523599,  1.047198, -0.523599,  0.000000,  0.000000,  0.000000, -0.523599,  1.047198, 
-              -0.523599, -0.000000,  1.745329,  0.000000,  0.000000, -0.523599,  1.745329,  0.000000,  0.000000, -0.523599 ]
-            initialRootPosition: [ 0, 0, 0.21019 ]
+              -0.523599,  0.000000,  1.745329,  0.000000,  0.000000, -0.523599,  1.745329,  0.000000,  0.000000, -0.523599 ]
+            initialRootPosition: [ 0, 0, 0.2102051 ]
             initialRootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
               0, 0, 1 ]
             initialJointPositions: [ 
                0.000000,  0.000000, -0.523599,  1.047198, -0.523599,  0.000000,  0.000000,  0.000000, -0.523599,  1.047198, 
-              -0.523599, -0.000000,  1.745329,  0.000000,  0.000000, -0.523599,  1.745329,  0.000000,  0.000000, -0.523599 ]
+              -0.523599,  0.000000,  1.745329,  0.000000,  0.000000, -0.523599,  1.745329,  0.000000,  0.000000, -0.523599 ]
             zmp: [ 0, 0, 0 ]
             collisionDetection: true
             selfCollisionDetection: false
@@ -45,19 +44,12 @@ items:
           children: 
             - 
               id: 3
-              name: "BodyRTC"
-              plugin: OpenRTM
-              class: BodyRTCItem
+              name: "skeletonMotion"
+              plugin: Body
+              class: BodyMotionItem
               data: 
-                isNoDelayMode: true
-                controllerOptions: ""
-                moduleName: ""
-                confFileName: ""
-                configurationMode: "Use Configuration File"
-                AutoConnect: false
-                InstanceName: "skeleton"
-                bodyPeriodicRate: 0
-                baseDirectory: "RTC directory"
+                filename: "../motion/skeleton/skeletonA4primMotion.yaml"
+                format: BODY-MOTION-YAML
         - 
           id: 4
           name: "floor"
@@ -81,35 +73,6 @@ items:
             collisionDetection: true
             selfCollisionDetection: false
             isEditable: false
-        - 
-          id: 5
-          name: "AISTSimulator"
-          plugin: Body
-          class: AISTSimulatorItem
-          data: 
-            realtimeSync: true
-            recording: "full"
-            timeRangeMode: "Time bar range"
-            timeLength: 180
-            allLinkPositionOutputMode: false
-            deviceStateOutput: true
-            controllerThreads: false
-            recordCollisionData: false
-            controllerOptions: ""
-            dynamicsMode: "Forward dynamics"
-            integrationMode: "Runge Kutta"
-            gravity: [ 0, 0, -9.81 ]
-            staticFriction: 1
-            dynamicFriction: 1
-            cullingThresh: 0.005
-            contactCullingDepth: 0.05
-            errorCriterion: 0.00001
-            maxNumIterations: 1000
-            contactCorrectionDepth: 0.0001
-            contactCorrectionVelocityRatio: 1
-            kinematicWalking: false
-            2Dmode: false
-            oldAccelSensorMode: false
 views: 
   - 
     id: 0
@@ -122,9 +85,9 @@ views:
     class: ItemTreeView
     mounted: true
     state: 
-      selected: [ 3, 5 ]
-      checked: [ 1, 2, 3, 5 ]
-      expanded: [ 1, 2, 3 ]
+      selected: [ 3 ]
+      checked: [ 1, 2, 3, 4 ]
+      expanded: [ 1, 2 ]
   - 
     id: 2
     plugin: Base
@@ -147,6 +110,7 @@ views:
       worldLightIntensity: 0.5
       worldLightAmbient: 0.3
       additionalLights: true
+      shadowLights: 
       fog: true
       floorGrid: true
       floorGridSpan: 10
@@ -166,24 +130,23 @@ views:
       showFPS: false
       enableNewDisplayListDoubleRendering: false
       useBufferForPicking: true
-      upsideDown: false
       cameras: 
         - 
           camera: [ System, Perspective ]
+          isCurrent: true
           fieldOfView: 0.698132
           near: 0.01
           far: 100
-          eye: [ -0.0393523051, 1.21936234, 0.238879064 ]
-          direction: [ -1.2246468e-16, -1, -6.123234e-17 ]
-          up: [ -7.49879891e-33, -6.123234e-17, 1 ]
+          eye: [ 0.684743806, 0.47211104, 0.443156958 ]
+          direction: [ -0.797403194, -0.549813546, -0.248703059 ]
+          up: [ -0.2047499, -0.141176095, 0.968579779 ]
         - 
           camera: [ System, Orthographic ]
-          isCurrent: true
-          orthoHeight: 0.560711
+          orthoHeight: 20
           near: 0.01
           far: 100
-      backgroundColor: [ 0, 0.333333343, 0 ]
-      gridColor: [ 0, 0, 0, 1 ]
+      backgroundColor: [ 0.100000001, 0.100000001, 0.300000012 ]
+      gridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
       xzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
       yzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
       dedicatedItemTreeViewChecks: false
@@ -196,12 +159,6 @@ views:
       showRotationMatrix: false
   - 
     id: 5
-    name: "Body State"
-    plugin: Body
-    class: BodyStateView
-    mounted: true
-  - 
-    id: 6
     plugin: Body
     class: JointSliderView
     mounted: true
@@ -215,7 +172,7 @@ views:
       labelOnLeft: true
       currentBodyItem: 2
   - 
-    id: 7
+    id: 6
     plugin: Body
     class: LinkSelectionView
     mounted: true
@@ -223,21 +180,15 @@ views:
       listingMode: "Link List"
       currentBodyItem: 2
   - 
-    id: 8
-    plugin: OpenRTM
-    class: RTSNameServerView
-    mounted: true
-  - 
-    id: 9
+    id: 7
     plugin: Python
     class: PythonConsoleView
-    mounted: true
 toolbars: 
   "TimeBar": 
     minTime: 0
-    maxTime: 25.073
+    maxTime: 10
     frameRate: 1000
-    playbackFrameRate: 10
+    playbackFrameRate: 50
     idleLoopDrivenMode: false
     currentTime: 0
     speedScale: 1
@@ -313,8 +264,6 @@ Body:
     targetJoints: all
     checkSelfCollisions: true
     onlyTimeBarRange: false
-OpenRTM: 
-  "deleteUnmanagedRTCsOnStartingSimulation": false
 viewAreas: 
   - 
     type: embedded
@@ -322,34 +271,34 @@ viewAreas:
     contents: 
       type: splitter
       orientation: horizontal
-      sizes: [ 324, 1533 ]
+      sizes: [ 483, 1374 ]
       children: 
         - 
           type: splitter
-          orientation: vertical
-          sizes: [ 470, 469 ]
+          orientation: horizontal
+          sizes: [ 158, 319 ]
           children: 
             - 
-              type: pane
-              views: [ 1 ]
-              current: 1
+              type: splitter
+              orientation: vertical
+              sizes: [ 470, 469 ]
+              children: 
+                - 
+                  type: pane
+                  views: [ 1 ]
+                  current: 1
+                - 
+                  type: pane
+                  views: [ 0, 6 ]
+                  current: 0
             - 
               type: pane
-              views: [ 0, 7, 8, 4, 6 ]
-              current: 0
-        - 
-          type: splitter
-          orientation: vertical
-          sizes: [ 671, 268 ]
-          children: 
-            - 
-              type: pane
-              views: [ 3 ]
-              current: 3
-            - 
-              type: pane
-              views: [ 2, 9, 5 ]
+              views: [ 2, 4, 5 ]
               current: 2
+        - 
+          type: pane
+          views: [ 3 ]
+          current: 3
 layoutOfToolBars: 
   rows: 
     - 
