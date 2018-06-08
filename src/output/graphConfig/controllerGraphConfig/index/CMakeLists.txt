@@ -5,7 +5,6 @@ set(srcs
   localCop.cpp
   netCop.cpp
   stabilityIndex.cpp
-  footPrint.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" index_srcs)

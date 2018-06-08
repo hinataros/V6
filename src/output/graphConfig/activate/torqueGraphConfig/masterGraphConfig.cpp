@@ -60,13 +60,13 @@ void RLS::Output::masterGraphConfig(Config &config, Info &info)
   extWrenchRef(config, info, gpMaker, texMaker);
 
   // index
-  localCop(config, info, gpMaker, texMaker);
-  netCop(config, info, gpMaker, texMaker);
-  stabilityIndex(config, info, gpMaker, texMaker);
-  // localCop4walking(config, info, gpMaker, texMaker);
+  // localCop(config, info, gpMaker, texMaker);
+  // netCop(config, info, gpMaker, texMaker);
+  // stabilityIndex(config, info, gpMaker, texMaker);
+  localCop4walking(config, info, gpMaker, texMaker);
   // netCop4walking(config, info, gpMaker, texMaker);
-  // stabilityIndex4walking(config, info, gpMaker, texMaker);
-  // footPrint(config, info, gpMaker, texMaker);
+  stabilityIndex4walking(config, info, gpMaker, texMaker);
+  footPrint(config, info, gpMaker, texMaker);
 
   // main
   gpMaker.makeMainGp();

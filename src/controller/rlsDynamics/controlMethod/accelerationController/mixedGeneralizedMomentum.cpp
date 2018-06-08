@@ -39,7 +39,7 @@ VectorXd RLS::RlsDynamics::mixedGeneralizedMomentum(Config &config, Info &info, 
       model.hoap2.all.dth;
 
     VectorXd cal_dLCBarRef = VectorXd::Zero(6+info.contact.c.all);
-    cal_dLCBarRef.head(6) = cal_dLCRef;
+    cal_dLCBarRef.head(6) = -cal_dLCRef;
 
     VectorXd ddqLCRef = pInv(ACBar)*(cal_dLCBarRef - dACBar*dqM);
 

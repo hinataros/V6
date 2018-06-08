@@ -1,0 +1,1367 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+angleUnit: degree
+name: skeletonA7Cprim
+
+links:
+  -
+    name: ROOT
+    jointType: free
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ -0.033399523752442269, 9.0017796333846672e-05, 0.12598499525362158 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &ROOT
+              -
+                type: Shape
+                translation: [ 0, 0, 0.03 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.078 }
+                appearance: &bodyColor
+                  material:
+                    diffuseColor: [ 0.7, 0.7, 0.7 ]
+                    # transparency: 0.5
+              -
+                type: Shape
+                rotation: &X [ 1, 0, 0, 90 ]
+                translation: [ 0, 0.039, 0.0225 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.015 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, -0.039, 0.0225 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.015 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.017, 0, 0.03 ]
+                rotation: &Z [ 0, 0, 1, 90 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.034 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.034, 0, 0.03375 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0075 }
+                appearance: *bodyColor
+
+              # Head1
+              # translation: [ -0.034, 0.0, 0.09 ]
+              -
+                type: Shape
+                translation: [ 0, 0.0, 0.19125 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+
+              # Head2
+              # translation: [ 0.008, 0.0, 0.081 ]
+              -
+                type: Shape
+                translation: [ 0.0, 0.0, 0.227 ]
+                geometry: { type: Sphere, radius: 0.027 }
+                appearance: *bodyColor
+
+              # waist1
+              # translation: [ 0.034, 0, 0.055 ]
+              -
+                type: Shape
+                translation: [ 0.034, 0, 0.0375]
+                rotation: *X
+                geometry: &jointShape
+                  {type: Cylinder, radius: 0.005, height: 0.01}
+                appearance: &jointColor
+                  material: {diffuseColor: [ 0, 0, 0 ]}
+              -
+                type: Shape
+                translation: [ 0.034, 0.0, 0.04125 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0075 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.034, -0.00875, 0.045 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.034, -0.0175, 0.05 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.034, -0.00875, 0.055 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+
+              # waist2
+              # translation: [ 0.034, 0, 0.055 ]
+              -
+                type: Shape
+                translation: [ 0.034, 0, 0.055 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0.02475, 0.0, 0.055 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0185 }
+                appearance: *bodyColor
+              # torso
+              # translation: [ 0.034, 0, 0.055 ]
+              -
+                type: Shape
+                rotation: *Z
+                translation: [ 0.0155, 0, 0.055 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0.00775, 0.0, 0.055 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0155 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.0, 0.0, 0.11875 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.1275 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.0, 0.0, 0.145 ]
+                rotation: [ 1, 0, 0, 0 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.159 }
+                appearance: *bodyColor
+
+          -
+            type: Collision
+            elements: *ROOT
+  -
+    name: RLEG1
+    parent: ROOT
+    jointId: 0
+    jointType: revolute
+    jointAxis: Z
+    jointRange: [ -90, 30 ]
+    translation: [ 0, -0.039, 0 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 0.039388
+        centerOfMass: [0.00383869, 4.05183e-10, 0.0219162]
+        inertia: [
+        9.5769e-6, -2.48926e-12, 1.29806e-6,
+        -2.48926e-12, 2.77458e-5, 1.0806e-12,
+        1.29806e-6, 1.0806e-12, 2.37104e-5]
+        elements:
+          -
+            type: Visual
+            elements: &RLEG1
+              -
+                type: Shape
+                rotation: *X
+                translation: [ 0, 0, 0.015 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0.01375, 0.0, 0.015 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0275 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.0275, 0.0, 0.0075 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.015 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *RLEG1
+  -
+    name: RLEG2
+    parent: RLEG1
+    jointId: 1
+    jointType: revolute
+    jointAxis: X
+    jointRange: [ -30, 15 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 0.172696
+        centerOfMass: [0.0034717, -0.00050103, -0.00328966]
+        inertia: [
+        4.51904e-05, -3.28855e-07, 1.01226e-06,
+        -3.28855e-07, 5.5582e-05, 6.18885e-07,
+        1.01226e-06, 6.18885e-07, 6.31338e-05]
+        elements:
+          -
+            type: Visual
+            elements: &RLEG2
+              -
+                type: Shape
+                translation: [ 0.0275, 0, 0 ]
+                rotation: *Z
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0.01875, 0, 0 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.01, -0.00875, 0 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.005, -0.0175, 0 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.0, -0.00875, 0 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *RLEG2
+  -
+    name: RLEG3
+    parent: RLEG2
+    jointId: 2
+    jointType: revolute
+    jointAxis: Y
+    jointRange: [ -81, 70 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 0.438575
+        centerOfMass: [0.0075828, -0.00142801, -0.0718179]
+        inertia: [
+        0.000472676, -9.52495e-06, 1.44579e-05,
+        -9.52495e-06, 0.000435755, 1.3233e-05,
+        1.44579e-05, 1.3233e-05, 0.000231713]
+        elements:
+          -
+            type: Visual
+            elements: &RLEG3
+              -
+                type: Shape
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, 0, -0.045 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.09 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, -0.00875, -0.09 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, -0.0175, -0.095 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, -0.00875, -0.1 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *RLEG3
+  -
+    name: RLEG4
+    parent: RLEG3
+    jointId: 3
+    jointType: revolute
+    jointAxis: Y
+    jointRange: [ 0, 129 ]
+    translation: [ 0, 0, -0.1 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 0.285982
+        centerOfMass: [0.011724, -0.00282151, -0.0429165]
+        inertia: [
+        0.000295317, -8.29468e-06, -3.29998e-06,
+        -8.29468e-06, 0.000225932, 4.55079e-06,
+        -3.29998e-06, 4.55079e-06, 0.000184076]
+        elements:
+          -
+            type: Visual
+            elements: &RLEG4
+              -
+                type: Shape
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, 0, -0.04125 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0825 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, -0.01375, -0.0825 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0275 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, -0.0275, -0.09125 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *RLEG4
+  -
+    name: RLEG5
+    parent: RLEG4
+    jointId: 4
+    jointType: revolute
+    jointAxis: Y
+    jointRange: [ -60, 60 ]
+    translation: [ 0, 0, -0.1 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 0.171128
+        centerOfMass: [0.00465209, -0.000732177, 0.00324289]
+        inertia: [
+        4.59388e-05, -5.54424e-07, -4.08202e-07,
+        -5.54424e-07, 5.11179e-05, -7.20727e-08,
+        -4.08202e-07, -7.20727e-08, 5.94587e-05]
+        elements:
+          -
+            type: Visual
+            elements: &RLEG5
+              -
+                type: Shape
+                translation: [ 0, -0.0275, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, -0.01875, 0 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ -0.00875, -0.01, 0 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ -0.0175, -0.005, 0 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ -0.00875, 0, 0 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *RLEG5
+  -
+    name: RLEG6
+    parent: RLEG5
+    jointId: 5
+    jointType: revolute
+    jointAxis: X
+    jointRange: [ -24, 24 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 0.136753
+        centerOfMass: [0.00382498, -7.8596e-05, -0.0248732]
+        inertia: [
+        5.97968e-05, -3.80602e-07, 1.70683e-05,
+        -3.80602e-07, 0.000139643, 7.14057e-08,
+        1.70683e-05, 7.14057e-08, 0.000155016]
+        elements:
+          -
+            type: Visual
+            elements: &RLEG6
+              -
+                type: Shape
+                rotation: *Z
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, 0, -0.0135 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.027 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *RLEG6
+  -
+    name: RLEGEE
+    parent: RLEG6
+    translation: [ 0.0, 0.0, -0.0370 ]
+    elements:
+      -
+        type: Visual
+        elements: &RLEGEE
+          -
+            type: Shape
+            rotation: &Y [ 0, 1, 0, 90 ]
+            translation: [ 0.009, 0.0, 0.005 ]
+            # geometry: &FOOT { type: Box, size: [ 0.01, 0.063, 0.098 ] }
+            geometry: &FOOT { type: Box, size: [ 0.01, 0.042, 0.0653 ] }
+            # geometry: &FOOT { type: Box, size: [ 0.01, 0.2, 0.3 ] }
+            appearance: *bodyColor
+      -
+        type: Collision
+        elements: *RLEGEE
+      -
+        type: ForceSensor
+        name: RFForceSensor
+        id: 0
+  -
+    name: LLEG1
+    parent: ROOT
+    jointId: 6
+    jointType: revolute
+    jointAxis: Z
+    jointRange: [ -90, 30 ]
+    translation: [ 0, 0.039, 0 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 0.039388
+        centerOfMass: [0.00383869, 4.05183e-10, 0.0219162]
+        inertia: [
+        9.5769e-6, -2.48926e-12, 1.29805e-6,
+        -2.48926e-12, 2.77458e-5, 1.0806e-12,
+        1.29805e-6, 1.0806e-12, 2.37104e-5]
+        elements:
+          -
+            type: Visual
+            elements: &LLEG1
+              -
+                type: Shape
+                rotation: *X
+                translation: [ 0, 0, 0.015 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0.01375, 0, 0.015 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0275 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.0275, 0, 0.0075 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.015 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *LLEG1
+  -
+    name: LLEG2
+    parent: LLEG1
+    jointId: 7
+    translation: [ 0, 0, 0 ]
+    rotation: [ 1, 0, 0, 0 ]
+    jointType: revolute
+    jointAxis: X
+    jointRange: [ -30, 15 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 0.172696
+        centerOfMass: [0.0034717, 0.000632384, -0.00328965]
+        inertia: [
+        4.51248e-05, 3.50678e-07, 1.01227e-06,
+        3.50678e-07, 5.5582e-05, -2.93348e-07,
+        1.01227e-06, -2.93348e-07, 6.30681e-05]
+        elements:
+          -
+            type: Visual
+            elements: &LLEG2
+              -
+                type: Shape
+                rotation: *Z
+                translation: [ 0.0275, 0, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0.01875, 0, 0 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.01, 0.00875, 0 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.005, 0.0175, 0 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, 0.00875, 0 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *LLEG2
+  -
+    name: LLEG3
+    parent: LLEG2
+    jointId: 8
+    translation: [ 0, 0, 0 ]
+    rotation: [ 1, 0, 0, 0 ]
+    jointType: revolute
+    jointAxis: Y
+    jointRange: [ -81, 70 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 0.438537
+        centerOfMass: [0.00757808, 0.00134158, -0.0719284]
+        inertia: [
+        0.000473478, 1.0435e-05, 1.49663e-05,
+        1.0435e-05, 0.000436352, -1.45158e-05,
+        1.49663e-05, -1.45158e-05, 0.000231801]
+        elements:
+          -
+            type: Visual
+            elements: &LLEG3
+              -
+                type: Shape
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, 0, -0.045 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.09 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, 0.00875, -0.09 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.0, 0.0175, -0.095 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.0, 0.00875, -0.1 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *LLEG3
+  -
+    name: LLEG4
+    parent: LLEG3
+    jointId: 9
+    jointType: revolute
+    jointAxis: Y
+    jointRange: [ 0, 129 ]
+    translation: [ 0, 0, -0.1 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 0.285827
+        centerOfMass: [0.0117224, 0.00297258, -0.0429459]
+        inertia: [
+        0.000291216, 8.3792e-06, -2.84645e-06,
+        8.3792e-06, 0.00022281, -4.79234e-06,
+        -2.84645e-06, -4.79234e-06, 0.000182049]
+        elements:
+          -
+            type: Visual
+            elements: &LLEG4
+              -
+                type: Shape
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, 0, -0.04125 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0825 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.0, 0.01375, -0.0825 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0275 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.0, 0.0275, -0.09125 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *LLEG4
+  -
+    name: LLEG5
+    parent: LLEG4
+    jointId: 10
+    jointType: revolute
+    jointAxis: Y
+    jointRange: [ -60, 60 ]
+    translation: [ 0, 0, -0.1 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 0.171128
+        centerOfMass: [0.0046521, 0.000781358, 0.00324289]
+        inertia: [
+        4.59261e-05, 6.5051e-07, -4.08202e-07,
+        6.5051e-07, 5.11179e-05, 4.99529e-07,
+        -4.08202e-07, 4.99529e-07, 5.94459e-05]
+        elements:
+          -
+            type: Visual
+            elements: &LLEG5
+              -
+                type: Shape
+                translation: [ 0, 0.0275, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, 0.01875, 0 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ -0.00875, 0.01, 0 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ -0.0175, 0.005, 0 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ -0.00875, 0, 0 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *LLEG5
+  -
+    name: LLEG6
+    parent: LLEG5
+    jointId: 11
+    translation: [ 0, 0, 0 ]
+    rotation: [ 1, 0, 0, 0 ]
+    jointType: revolute
+    jointAxis: X
+    jointRange: [ -24, 24 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 0.136753
+        centerOfMass: [0.00382498, -7.8596e-05, -0.0248732]
+        inertia: [
+        5.97968e-05, -3.80602e-07, 1.70683e-05,
+        -3.80602e-07, 0.000139643, 7.14057e-08,
+        1.70683e-05, 7.14057e-08, 0.000155016]
+        elements:
+          -
+            type: Visual
+            elements: &LLEG6
+              -
+                type: Shape
+                rotation: *Z
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, 0, -0.0135 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.027 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *LLEG6
+  -
+    name: LLEGEE
+    parent: LLEG6
+    translation: [ 0.0, 0.0, -0.0370 ]
+    elements:
+      -
+        type: Visual
+        elements: &LLEGEE
+          -
+            type: Shape
+            translation: [ 0.009, 0, 0.005 ]
+            rotation: *Y
+            geometry: *FOOT
+            appearance: *bodyColor
+      -
+        type: Collision
+        elements: *RLEGEE
+      -
+        type: ForceSensor
+        name: LFForceSensor
+        id: 1
+  -
+    name: RARM1
+    parent: ROOT
+    jointId: 12
+    jointType: revolute
+    jointAxis: Y
+    translation: [ 0.0, -0.0995, 0.145 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 0.199031
+        centerOfMass: [5.69887e-5, 0.0110127, -0.0359362]
+        inertia: [
+        0.000142087, -7.51591e-08, 5.7584e-08,
+        -7.51591e-08, 0.000117938, -3.3901e-05,
+        5.7584e-08, -3.3901e-05, 6.52462e-05]
+        elements:
+          -
+            type: Visual
+            elements: &RARM1
+              -
+                type: Shape
+                translation: [ 0, 0.02, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, 0.02, -0.00875 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, 0.01, -0.0175 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.02 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, 0, -0.00875 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *RARM1
+  -
+    name: RARM2
+    parent: RARM1
+    jointId: 13
+    jointType: revolute
+    jointAxis: Z
+    elements:
+      -
+        type: RigidBody
+        mass: 0.201439
+        centerOfMass: [0.00991178, -1.0018e-05, -0.00228432]
+        inertia: [
+        0.000135628, -2.71682e-07, 1.53672e-05,
+        -2.71682e-07, 0.000153251, 2.07022e-07,
+        1.53672e-05, 2.07022e-07, 7.07822e-05]
+        translation: [ 0, 0, 0 ]
+        elements:
+          -
+            type: Visual
+            elements: &RARM2
+              -
+                type: Shape
+                rotation: *X
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0.01, 0, 0 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.02 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *RARM2
+  -
+    name: RARM3
+    parent: RARM2
+    jointId: 14
+    jointType: revolute
+    jointAxis: X
+    elements:
+      -
+        type: RigidBody
+        mass: 0.220645
+        centerOfMass: [0.0686287, 0.00296507, 7.84674e-5]
+        inertia: [
+        5.65823e-05, 8.27732e-07, -1.85832e-08,
+        8.27732e-07, 0.000109558, -9.41629e-08,
+        -1.85832e-08, -9.41629e-08, 0.000122386]
+        elements:
+          -
+            type: Visual
+            elements: &RARM3
+              -
+                type: Shape
+                rotation: *Z
+                translation: [ 0.02, 0, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0.02, 0, -0.005 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.0275, 0, -0.01 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.015 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.035, 0, -0.005 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.068, 0, 0 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.066 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *RARM3
+  -
+    name: RARM4
+    parent: RARM3
+    jointId: 15
+    jointType: revolute
+    jointAxis: Y
+    translation: [ 0.101, 0, 0 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 0.167552
+        centerOfMass: [0.0462381,  0.00506259, -0.00529589]
+        inertia: [
+        3.4078e-05, 1.85149e-05, -2.40293e-06,
+        1.85149e-05, 0.000270963, -1.29926e-06,
+        -2.40293e-06, -1.29926e-06, 0.000280658]
+        elements:
+          -
+            type: Visual
+            elements: &RARM4
+              -
+                type: Shape
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, -0.0075, 0 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.015}
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.005, -0.015, 0 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.01}
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.01, -0.0075, 0 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.015}
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.053625, 0, 0 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.08725}
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *RARM4
+  -
+    name: RARM5
+    parent: RARM4
+    jointId: 16
+    jointType: revolute
+    jointAxis: X
+    translation: [ 0.1097, 0, 0 ]
+    elements:
+      -
+        type: RigidBody
+        centerOfMass: [-0.009469, -0.009469, 0.0]
+        mass: 0.001316
+        inertia: [
+        9.423E-8, 4.512E-8, 0,
+        4.512E-8, 9.423E-8, 0,
+        0, 0, 1.7313E-7 ]
+        elements:
+          -
+            type: Visual
+            elements: &RARM5
+              -
+                type: Shape
+                rotation: *Z
+                translation: [ -0.0125, 0, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ -0.0125, -0.00625, 0 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0125}
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ -0.00625, -0.0125, 0 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0125}
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *RARM5
+  -
+    name: RARM6
+    parent: RARM5
+    jointId: 17
+    jointType: revolute
+    jointAxis: Y
+    elements:
+      -
+        type: RigidBody
+        mass: 0.001316
+        centerOfMass: [0.003031, -0.003031, 0.0]
+        inertia: [
+        9.423E-8, -4.512E-8, 0,
+        -4.512E-8, 9.423E-8, 0,
+        0, 0, 1.7313E-7]
+        elements:
+          -
+            type: Visual
+            elements: &RARM6
+              -
+                type: Shape
+                translation: [ 0, -0.0125, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, -0.00625, 0 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0125}
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.00625, 0, 0 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0125}
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *RARM6
+  -
+    name: RARM7
+    parent: RARM6
+    jointId: 18
+    jointType: revolute
+    jointAxis: X
+    elements:
+      -
+        type: RigidBody
+        mass: 0.017276
+        centerOfMass: [0.034467, 0.0, 0.0]
+        inertia: [
+        3.78218E-6, 0, 0,
+        0, 4.37848E-6, 0,
+        0, 0, 7.11285E-6]
+        elements:
+          -
+            type: Visual
+            elements: &RARM7
+              -
+                type: Shape
+                rotation: *Z
+                translation: [ 0.0125, 0, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0.0175, 0.0, 0.0 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *RARM7
+  -
+    name: RARMEE
+    parent: RARM7
+    translation: [ 0.035, 0, 0 ]
+    elements:
+      -
+        type: Visual
+        elements: &RARMEE
+          -
+            type: Shape
+            geometry: { type: Box, size: [ 0.025, 0.025, 0.01 ] }
+            appearance: *bodyColor
+      -
+        type: Collision
+        elements: *RARMEE
+      -
+        type: ForceSensor
+        name: RHForceSensor
+        id: 2
+        elements:
+          Transform: { translation: [ 0.10975, 0, 0 ]}
+  -
+    name: LARM1
+    parent: ROOT
+    jointId: 19
+    jointType: revolute
+    jointAxis: Y
+    translation: [ 0.0, 0.0995, 0.145 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 0.199031
+        centerOfMass: [-5.69861e-5, -0.0110127, -0.0359362]
+        inertia: [
+        0.000142087, -7.51502e-08, -5.75829e-08,
+        -7.51502e-08, 0.000117938, 3.3901e-05,
+        -5.75829e-08, 3.3901e-05, 6.52462e-05]
+        elements:
+          -
+            type: Visual
+            elements: &LARM1
+              -
+                type: Shape
+                translation: [ 0, -0.02, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, -0.02, -0.00875 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, -0.01, -0.0175 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.02 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, 0, -0.00875 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *LARM1
+  -
+    name: LARM2
+    parent: LARM1
+    jointId: 20
+    jointType: revolute
+    jointAxis: Z
+    elements:
+      -
+        type: RigidBody
+        mass: 0.201439
+        centerOfMass: [0.00991178, -0.00010261, -0.00228305]
+        inertia: [
+        0.000135627, 1.60475e-07, 1.53617e-05,
+        1.60475e-07, 0.000153253, 2.49619e-07,
+        1.53617e-05, 2.49619e-07, 7.07801e-05]
+        elements:
+          -
+            type: Visual
+            elements: &LARM2
+              -
+                type: Shape
+                rotation: *X
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0.01, 0, 0 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.02 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *LARM2
+  -
+    name: LARM3
+    parent: LARM2
+    jointId: 21
+    jointType: revolute
+    jointAxis: X
+    elements:
+      -
+        type: RigidBody
+        mass: 0.218287
+        centerOfMass: [0.0683622, -0.00294852, -2.62502e-5]
+        inertia: [
+        5.56209e-05, -8.96281e-07, -2.30691e-07,
+        -8.96281e-07, 0.000107647, -2.35113e-07,
+        -2.30691e-07, -2.35113e-07, 0.000120095]
+        elements:
+          -
+            type: Visual
+            elements: &LARM3
+              -
+                type: Shape
+                rotation: *Z
+                translation: [ 0.02, 0, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0.02, 0, -0.005 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.0275, 0, -0.01 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.015 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.035, 0, -0.005 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.068, 0, 0 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.066 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *LARM3
+  -
+    name: LARM4
+    parent: LARM3
+    jointId: 22
+    jointType: revolute
+    jointAxis: Y
+    translation: [ 0.101, 0, 0 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 0.167592
+        centerOfMass: [0.0462509, -0.00506689, -0.00529948]
+        inertia: [
+        3.4073e-05, -1.84659e-05, -2.39305e-06,
+        -1.84659e-05, 0.000271298, 1.29841e-06,
+        -2.39305e-06, 1.29841e-06, 0.000281004]
+        elements:
+          -
+            type: Visual
+            elements: &LARM4
+              -
+                type: Shape
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, 0.0075, 0 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.015}
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.005, 0.015, 0 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.01}
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.01, 0.0075, 0 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.015}
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.053625, 0, 0 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.08725}
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *LARM4
+  -
+    name: LARM5
+    parent: LARM4
+    jointId: 23
+    jointType: revolute
+    jointAxis: X
+    translation: [ 0.1097, 0, 0 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 0.001316
+        centerOfMass: [-0.009469, 0.009469, 0.0]
+        inertia: [
+        9.423E-8, -4.512E-8, 0,
+        -4.512E-8, 9.423E-8, 0,
+        0, 0, 1.7313E-7]
+        elements:
+          -
+            type: Visual
+            elements: &LARM5
+              -
+                type: Shape
+                rotation: *Z
+                translation: [ -0.0125, 0, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ -0.0125, 0.00625, 0 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0125}
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ -0.00625, 0.0125, 0 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0125}
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *LARM5
+  -
+    name: LARM6
+    parent: LARM5
+    jointId: 24
+    jointType: revolute
+    jointAxis: Y
+    elements:
+      -
+        type: RigidBody
+        mass: 0.001316
+        centerOfMass: [0.003031, 0.003031, 0.0]
+        inertia: [
+        9.423E-8, 4.512E-8, 0,
+        4.512E-8, 9.423E-8, 0,
+        0, 0, 1.7313E-7]
+        elements:
+          -
+            type: Visual
+            elements: &LARM6
+              -
+                type: Shape
+                translation: [ 0, 0.0125, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0, 0.00625, 0 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0125 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0.00625, 0, 0 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0125 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *LARM6
+  -
+    name: LARM7
+    parent: LARM6
+    jointId: 25
+    jointType: revolute
+    jointAxis: X
+    elements:
+      -
+        type: RigidBody
+        mass: 0.017276
+        centerOfMass: [0.034467, 0.0, 0.0]
+        inertia: [
+        3.78218E-6, 0, 0,
+        0, 4.37848E-6, 0,
+        0, 0, 7.11285E-6]
+        elements:
+          -
+            type: Visual
+            elements: &LARM7
+              -
+                type: Shape
+                rotation: *Z
+                translation: [ 0.0125, 0, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0.0175, 0.0, 0.0 ]
+                rotation: [ 0, 0, 1, 90 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *LARM7
+  -
+    name: LARMEE
+    parent: LARM7
+    translation: [ 0.035, 0, 0 ]
+    elements:
+      -
+        type: Visual
+        elements: &LARMEE
+          -
+            type: Shape
+            geometry: { type: Box, size: [ 0.025, 0.025, 0.01 ] }
+            appearance: *bodyColor
+      -
+        type: Collision
+        elements: *LARMEE
+      -
+        type: ForceSensor
+        name: LHForceSensor
+        id: 3
+        elements:
+          Transform: { translation: [ 0.10975, 0, 0 ]}

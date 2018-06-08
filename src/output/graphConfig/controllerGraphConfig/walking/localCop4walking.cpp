@@ -12,13 +12,15 @@ void RLS::Output::localCop4walking(Config &config, Info &info, GpMaker &gpMaker,
 
   texMaker.reset();
   texMaker.setLimb(info.value.joint);
+  texMaker.setLimbNum(3, false);
+  texMaker.setLimbNum(4, false);
 
-  double y_length = 31.5;
-  double x_length_top = 58;
-  double x_length_bottom = -40;
-  // double y_length = 21;
-  // double x_length_top = 116/3;
-  // double x_length_bottom = -80/3;
+  // double y_length = 31.5;
+  // double x_length_top = 58;
+  // double x_length_bottom = -40;
+  double y_length = 21;
+  double x_length_top = 116/3;
+  double x_length_bottom = -80/3;
 
   reset();
   setFileName("localCoPx");
@@ -27,42 +29,49 @@ void RLS::Output::localCop4walking(Config &config, Info &info, GpMaker &gpMaker,
   gpMaker.reset();
   gpMaker.setName(file_name);
   gpMaker.setLimb(info.value.joint);
+  gpMaker.setLimbNum(3, false);
+  gpMaker.setLimbNum(4, false);
   gpMaker.setYLabel("EE CoP x [mm]");
   gpMaker.setUnit("m");
-  // walking
-  int ob = 1;
-  gpMaker.add(1,"set yrange[-60:480]");
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from 0, -40 to 2.25, 58 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from 2.75, -40+100 to 4.25, 58+100 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from 4.75, -40+100+100 to 6.25, 58+100+100 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from 6.75, -40+100+100+100 to 8.25, 58+100+100+100 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from 8.75, -40+100+100+100+100 to 1e+3, 58+100+100+100+100 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
 
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from 1.25, -40 to 1.75, 58 behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from 3.25, -40+100 to 3.75, 58+100 behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from 5.25, -40+100+100 to 5.75, 58+100+100 behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from 7.25, -40+100+100+100 to 7.75, 58+100+100+100 behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from 9.25, -40+100+100+100+100 to 9.75, 58+100+100+100+100 behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+  int ob = 1;
+  gpMaker.add(1,"set yrange[-30:40]");
+  // *********************************
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 0, "+to_string(x_length_bottom)+" to 0.6, "+to_string(x_length_top)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 0.9, "+to_string(x_length_bottom)+" to 1.1, "+to_string(x_length_top)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 1.4, "+to_string(x_length_bottom)+" to 1.6, "+to_string(x_length_top)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 1.9, "+to_string(x_length_bottom)+" to 2.1, "+to_string(x_length_top)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 2.4, "+to_string(x_length_bottom)+" to 2.6, "+to_string(x_length_top)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 2.9, "+to_string(x_length_bottom)+" to 3.1, "+to_string(x_length_top)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 3.4, "+to_string(x_length_bottom)+" to 3.6, "+to_string(x_length_top)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 3.9, "+to_string(x_length_bottom)+" to 4.1, "+to_string(x_length_top)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 4.4, "+to_string(x_length_bottom)+" to 1e+3, "+to_string(x_length_top)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 0.6, "+to_string(x_length_bottom)+" to 0.9, "+to_string(x_length_top)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 1.6, "+to_string(x_length_bottom)+" to 1.9, "+to_string(x_length_top)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 2.6, "+to_string(x_length_bottom)+" to 2.9, "+to_string(x_length_top)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 3.6, "+to_string(x_length_bottom)+" to 3.9, "+to_string(x_length_top)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+  // *********************************
 
   ob=1;
-  gpMaker.add(2,"set yrange[-60:480]");
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from 0, -40 to 1.25, 58 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from 1.75, -40+50 to 3.25, 58+50 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from 3.75, -40+50+100 to 5.25, 58+50+100 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from 5.75, -40+50+100+100 to 7.25, 58+50+100+100 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from 7.75, -40+50+100+100+100 to 9.25, 58+50+100+100+100 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from 9.75, -40+50+100+100+100+50 to 1e+3, 58+50+100+100+100+50 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set yrange[-30:40]");
+  // *********************************
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 0, "+to_string(x_length_bottom)+" to 0.6, "+to_string(x_length_top)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 0.9, "+to_string(x_length_bottom)+" to 1.1, "+to_string(x_length_top)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 1.4, "+to_string(x_length_bottom)+" to 1.6, "+to_string(x_length_top)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 1.9, "+to_string(x_length_bottom)+" to 2.1, "+to_string(x_length_top)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 2.4, "+to_string(x_length_bottom)+" to 2.6, "+to_string(x_length_top)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 2.9, "+to_string(x_length_bottom)+" to 3.1, "+to_string(x_length_top)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 3.4, "+to_string(x_length_bottom)+" to 3.6, "+to_string(x_length_top)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 3.9, "+to_string(x_length_bottom)+" to 4.1, "+to_string(x_length_top)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 4.4, "+to_string(x_length_bottom)+" to 1e+3, "+to_string(x_length_top)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
 
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from 2.25, -40+50 to 2.75, 58+50 behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from 4.25, -40+50+100 to 4.75, 58+50+100 behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from 6.25, -40+50+100+100 to 6.75, 58+50+100+100 behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from 8.25, -40+50+100+100+100 to 8.75, 58+50+100+100+100 behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 1.1, "+to_string(x_length_bottom)+" to 1.4, "+to_string(x_length_top)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 2.1, "+to_string(x_length_bottom)+" to 2.4, "+to_string(x_length_top)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 3.1, "+to_string(x_length_bottom)+" to 3.4, "+to_string(x_length_top)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 4.1, "+to_string(x_length_bottom)+" to 4.4, "+to_string(x_length_top)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+  // *********************************
 
-  // gpMaker.add(1,"set object 1 rect from 0, -40 to 1e+3, 58 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");
-  // gpMaker.add(1,"set object 3 rect from 2.25, -40 to 2.75, 58 behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");
-  // gpMaker.add(2,"set yrange[-60:80]");
-  // gpMaker.add(2,"set object 1 rect from 0, -40 to 1e+3, 58 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");
-  // gpMaker.add(2,"set object 2 rect from 1.25, -40 to 1.75, 58 behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");
   gpMaker.setDimention(1);
   gpMaker.makeGp();
 
@@ -76,44 +85,49 @@ void RLS::Output::localCop4walking(Config &config, Info &info, GpMaker &gpMaker,
   gpMaker.reset();
   gpMaker.setName(file_name);
   gpMaker.setLimb(info.value.joint);
+  gpMaker.setLimbNum(3, false);
+  gpMaker.setLimbNum(4, false);
   gpMaker.setYLabel("EE CoP y [mm]");
   gpMaker.setUnit("m");
 
-  // walking
-  gpMaker.add(1,"set yrange[-80:0]");
   ob=1;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from 0, (-39-"+to_string(y_length)+") to 2.25, (-39+"+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from 2.75, (-39-"+to_string(y_length)+") to 4.25, (-39+"+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from 4.75, (-39-"+to_string(y_length)+") to 6.25, (-39+"+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from 6.75, (-39-"+to_string(y_length)+") to 8.25, (-39+"+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from 8.75, (-39-"+to_string(y_length)+") to 1e+3, (-39+"+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(1,"set yrange[-30:30]");
+  // *********************************
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 0, -"+to_string(y_length)+" to 0.6, "+to_string(y_length)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 0.9, -"+to_string(y_length)+" to 1.1, "+to_string(y_length)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 1.4, -"+to_string(y_length)+" to 1.6, "+to_string(y_length)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 1.9, -"+to_string(y_length)+" to 2.1, "+to_string(y_length)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 2.4, -"+to_string(y_length)+" to 2.6, "+to_string(y_length)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 2.9, -"+to_string(y_length)+" to 3.1, "+to_string(y_length)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 3.4, -"+to_string(y_length)+" to 3.6, "+to_string(y_length)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 3.9, -"+to_string(y_length)+" to 4.1, "+to_string(y_length)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 4.4, -"+to_string(y_length)+" to 1e+3, "+to_string(y_length)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
 
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from 1.25, (-39-"+to_string(y_length)+") to 1.75, (-39+"+to_string(y_length)+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from 3.25, (-39-"+to_string(y_length)+") to 3.75, (-39+"+to_string(y_length)+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from 5.25, (-39-"+to_string(y_length)+") to 5.75, (-39+"+to_string(y_length)+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from 7.25, (-39-"+to_string(y_length)+") to 7.75, (-39+"+to_string(y_length)+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from 9.25, (-39-"+to_string(y_length)+") to 9.75, (-39+"+to_string(y_length)+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 0.6, -"+to_string(y_length)+" to 0.9, +"+to_string(y_length)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 1.6, -"+to_string(y_length)+" to 1.9, +"+to_string(y_length)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 2.6, -"+to_string(y_length)+" to 2.9, +"+to_string(y_length)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+  gpMaker.add(1,"set object "+to_string(ob)+" rect from 3.6, -"+to_string(y_length)+" to 3.9, +"+to_string(y_length)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+  // *********************************
 
-  gpMaker.add(2,"set yrange[0:80]");
   ob=1;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from 0, (39-"+to_string(y_length)+") to 1.25, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from 1.75, (39-"+to_string(y_length)+") to 3.25, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from 3.75, (39-"+to_string(y_length)+") to 5.25, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from 5.75, (39-"+to_string(y_length)+") to 7.25, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from 7.75, (39-"+to_string(y_length)+") to 9.25, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from 9.75, (39-"+to_string(y_length)+") to 1e+3, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set yrange[-30:30]");
+  // *********************************
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 0, -"+to_string(y_length)+" to 0.6, "+to_string(y_length)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 0.9, -"+to_string(y_length)+" to 1.1, "+to_string(y_length)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 1.4, -"+to_string(y_length)+" to 1.6, "+to_string(y_length)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 1.9, -"+to_string(y_length)+" to 2.1, "+to_string(y_length)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 2.4, -"+to_string(y_length)+" to 2.6, "+to_string(y_length)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 2.9, -"+to_string(y_length)+" to 3.1, "+to_string(y_length)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 3.4, -"+to_string(y_length)+" to 3.6, "+to_string(y_length)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 3.9, -"+to_string(y_length)+" to 4.1, "+to_string(y_length)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 4.4, -"+to_string(y_length)+" to 1e+3, "+to_string(y_length)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
 
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from 2.25, (39-"+to_string(y_length)+") to 2.75, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from 4.25, (39-"+to_string(y_length)+") to 4.75, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from 6.25, (39-"+to_string(y_length)+") to 6.75, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from 8.25, (39-"+to_string(y_length)+") to 8.75, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 1.1, -"+to_string(y_length)+" to 1.4, "+to_string(y_length)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 2.1, -"+to_string(y_length)+" to 2.4, "+to_string(y_length)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 3.1, -"+to_string(y_length)+" to 3.4, "+to_string(y_length)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+  gpMaker.add(2,"set object "+to_string(ob)+" rect from 4.1, -"+to_string(y_length)+" to 4.4, "+to_string(y_length)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+  // *********************************
 
-  // // gpMaker.add(1,"set object 1 rect from 0, (-39-31.5) to 1e+3, (-39+31.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");
-  // // gpMaker.add(1,"set object 2 rect from 1.25, (-39-31.5) to 1.75, (-39+31.5) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");
-  // gpMaker.add(1,"set object 3 rect from 2.25, (-39-31.5) to 2.75, (-39+31.5) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");
-  // gpMaker.add(2,"set object 1 rect from 0, (39-31.5) to 1e+3, (39+31.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");
-  // gpMaker.add(2,"set object 2 rect from 1.25, (39-31.5) to 1.75, (39+31.5) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");
-  // // gpMaker.add(2,"set object 3 rect from 2.25, (39-31.5) to 2.75, (39+31.5) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");
   gpMaker.setDimention(1);
   gpMaker.makeGp();
 

@@ -44,7 +44,8 @@ void RLS::Output::output(Config &config, Info &info)
       else if(config.controller.input=="acceleration")
         accelerationGraphConfig(config, info);
       else if(config.controller.input=="torque")
-        torqueGraphConfig(config, info);
+        masterGraphConfig(config, info);
+        // torqueGraphConfig(config, info);
     }
     runGnuplot(config);
   }

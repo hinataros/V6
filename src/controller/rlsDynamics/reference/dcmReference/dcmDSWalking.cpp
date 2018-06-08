@@ -11,13 +11,21 @@ void RLS::RlsDynamics::dcmDSWalking(Config &config, Info &info, Model &model, do
 {
   if(config.flag.debug) DEBUG;
 
+  double tstab = 2.;
+
+  double dtstep = .5;
+  double dtDSstep = .2;
+  double alphDSstep = .5;
+
+  double tf = tstab + dtstep*stepNum;
+
   if(t==0.){
     for(int i=0; i<stepNum; i++){
-      dt(i) = 1.;
+      dt(i) = dtstep;
     }
     for(int i=0; i<stepNum+1; i++){
-      dtDS(i) = 0.5;
-      alphDS(i) = 0.5;
+      dtDS(i) = dtDSstep;
+      alphDS(i) = alphDSstep;
     }
 
     for(int i=0; i<stepNum+1; i++){
@@ -32,48 +40,74 @@ void RLS::RlsDynamics::dcmDSWalking(Config &config, Info &info, Model &model, do
 
     // double offset = 0.;
     // double offset = 1.e-3;
-    double offset = 1.e-2;
-    // double offset = 0.023;
+    // double offset = 1.e-2;
+    // double offset = 0.01;
+    // double roffset = 0.01;
+    // double loffset = 0.01;
+    double roffset = 0.015;
+    double loffset = 0.015;
 
     rXeos.col(10) = rC0;
     rXeos.col(10)(0) = cal_X.segment(0, 3)(0);
-    rXeos.col(10)(0) += 0.4;
 
     // ******************************
-    rf.col(9).head(2) = cal_X.segment(0, 3).head(2);
-    rf.col(9)(0) += 0.4;
-    rf.col(9)(1) += offset;
+    rf.col(9).head(2) = rC0.head(2);
+    rf.col(9)(0) = cal_X.segment(0, 3)(0);
 
     rf.col(8).head(2) = cal_X.segment(6, 3).head(2);
-    rf.col(8)(0) += 0.35;
-    rf.col(8)(1) -= offset;
+    rf.col(8)(1) -= loffset;
 
     rf.col(7).head(2) = cal_X.segment(0, 3).head(2);
-    rf.col(7)(0) += 0.3;
-    rf.col(7)(1) += offset;
+    rf.col(7)(1) += roffset;
 
     rf.col(6).head(2) = cal_X.segment(6, 3).head(2);
-    rf.col(6)(0) += 0.25;
-    rf.col(6)(1) -= offset;
+    rf.col(6)(1) -= loffset;
 
     rf.col(5).head(2) = cal_X.segment(0, 3).head(2);
-    rf.col(5)(0) += 0.2;
-    rf.col(5)(1) += offset;
+    rf.col(5)(1) += roffset;
 
     rf.col(4).head(2) = cal_X.segment(6, 3).head(2);
-    rf.col(4)(0) += 0.15;
-    rf.col(4)(1) -= offset;
+    rf.col(4)(1) -= loffset;
 
     rf.col(3).head(2) = cal_X.segment(0, 3).head(2);
-    rf.col(3)(0) += 0.1;
-    rf.col(3)(1) += offset;
+    rf.col(3)(1) += roffset;
 
     rf.col(2).head(2) = cal_X.segment(6, 3).head(2);
-    rf.col(2)(0) += 0.05;
-    rf.col(2)(1) -= offset;
+    rf.col(2)(1) -= loffset;
 
     rf.col(1).head(2) = cal_X.segment(0, 3).head(2);
-    rf.col(1)(1) += offset;
+    rf.col(1)(1) += roffset;
+
+    // rXeos.col(10)(0) += 0.35;
+    // rf.col(9)(0) += 0.35;
+    // rf.col(8)(0) += 0.35;
+    // rf.col(7)(0) += 0.3;
+    // rf.col(6)(0) += 0.25;
+    // rf.col(5)(0) += 0.2;
+    // rf.col(4)(0) += 0.15;
+    // rf.col(3)(0) += 0.1;
+    // rf.col(2)(0) += 0.05;
+
+    rXeos.col(10)(0) += 0.07;
+    rf.col(9)(0) += 0.07;
+    rf.col(8)(0) += 0.07;
+    rf.col(7)(0) += 0.06;
+    rf.col(6)(0) += 0.05;
+    rf.col(5)(0) += 0.04;
+    rf.col(4)(0) += 0.03;
+    rf.col(3)(0) += 0.02;
+    rf.col(2)(0) += 0.01;
+
+    // rXeos.col(10)(0) += 0.035;
+    // rf.col(9)(0) += 0.035;
+    // rf.col(8)(0) += 0.035;
+    // rf.col(7)(0) += 0.03;
+    // rf.col(6)(0) += 0.025;
+    // rf.col(5)(0) += 0.02;
+    // rf.col(4)(0) += 0.015;
+    // rf.col(3)(0) += 0.01;
+    // rf.col(2)(0) += 0.005;
+
     // ******************************
 
     rvrpd.col(stepNum) = rXeos.col(stepNum);
@@ -123,8 +157,16 @@ void RLS::RlsDynamics::dcmDSWalking(Config &config, Info &info, Model &model, do
   }
 
 
-  if(round_cast(t, 3)<10000){
-    tstep = t - tstep0;
+  double ts = t - tstab;
+  if(round_cast(t, 3)<round_cast(tstab, 3)){
+    for(int i=0; i<3; i++){
+      des = makeSpline5(t-info.sim.tw0, info.sim.twf, rXpreDes(i), rXf(i));
+      rXDes(i) = des(0) + rX0(i);
+      drXDes(i) = des(1);
+    }
+  }
+  else if(round_cast(t, 3)<round_cast(tf, 3)){
+    tstep = ts - tstep0;
     if(round_cast(tstep, 3)>=round_cast(dt(stepPhase), 3)){
       tstep = 0.;
       tstep0 += dt(stepPhase);
@@ -143,30 +185,30 @@ void RLS::RlsDynamics::dcmDSWalking(Config &config, Info &info, Model &model, do
     if(flagDS==false&&round_cast(tstep, 3) ==
        (round_cast(dt(stepPhase), 3) - round_cast(dtDSini(stepPhase+1), 3))){
       flagDS = true;
-      tDS0 = t;
+      tDS0 = ts;
 
       phaseDS++;
     }
 
     if(flagDS){
-      double twDS = t-tDS0;
+      double twDS = ts-tDS0;
 
       if(round_cast(twDS,3)==round_cast(dtDSini(phaseDS),3)+round_cast(dtDSend(phaseDS),3))
         flagDS = false;
 
       for(int i=0; i<3; i++){
-        des = makeSpline3(twDS, dtDSini(phaseDS)+dtDSend(phaseDS),
-                          rXiniDS.col(phaseDS)(i),
-                          drXiniDS.col(phaseDS)(i),
-                          rXeoDS.col(phaseDS)(i),
-                          drXeoDS.col(phaseDS)(i));
-        // des = makeSpline5(twDS, dtDSini(phaseDS)+dtDSend(phaseDS),
+        // des = makeSpline3(twDS, dtDSini(phaseDS)+dtDSend(phaseDS),
         //                   rXiniDS.col(phaseDS)(i),
         //                   drXiniDS.col(phaseDS)(i),
-        //                   ddrXiniDS.col(phaseDS)(i),
         //                   rXeoDS.col(phaseDS)(i),
-        //                   drXeoDS.col(phaseDS)(i),
-        //                   ddrXeoDS.col(phaseDS)(i));
+        //                   drXeoDS.col(phaseDS)(i));
+        des = makeSpline5(twDS, dtDSini(phaseDS)+dtDSend(phaseDS),
+                          rXiniDS.col(phaseDS)(i),
+                          drXiniDS.col(phaseDS)(i),
+                          ddrXiniDS.col(phaseDS)(i),
+                          rXeoDS.col(phaseDS)(i),
+                          drXeoDS.col(phaseDS)(i),
+                          ddrXeoDS.col(phaseDS)(i));
 
         rXDes(i) = des(0);
         drXDes(i) = des(1);

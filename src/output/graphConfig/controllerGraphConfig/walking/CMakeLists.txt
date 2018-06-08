@@ -4,6 +4,7 @@ set(srcs
   localCop4walking.cpp
   netCop4walking.cpp
   stabilityIndex4walking.cpp
+  footPrint.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" walking_srcs)

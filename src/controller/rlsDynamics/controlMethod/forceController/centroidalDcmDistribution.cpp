@@ -53,7 +53,8 @@ void RLS::RlsDynamics::centroidalDcmDistribution(Config &config, Info &info, Mod
 
   VectorXd cal_FaBar = N(cal_PcM)*pInv(N(cal_PcM).block(0,0,6,12))*cal_FRRef;
 
-  cal_FcBarRef = pInv(cal_PcM, weight(config, info, model, 2, rX))*(cal_dLCRef + cal_GC) + cal_FaBar;
+  // cal_FcBarRef = pInv(cal_PcM, weight(config, info, model, 2, rX))*(cal_dLCRef + cal_GC) + cal_FaBar;
+  cal_FcBarRef = pInv(cal_PcM, weight(config, info, model, 2, rX - drXDes/wX))*(cal_dLCRef + cal_GC) + cal_FaBar;
   // cal_FcBarRef = pInv(cal_PcM, weight(config, info, model, 2, model.hoap2.all.rC))*(cal_dLCRef + cal_GC) + cal_FaBar;
 
   // o(weight(config, info, model, 2, rX)(0,0));

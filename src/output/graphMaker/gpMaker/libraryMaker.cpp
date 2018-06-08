@@ -93,7 +93,7 @@ void RLS::GpMaker::makeConfig()
     "TERMINAL = 'x11'\n";
 
   string time_config =
-    "T_OFFSET = 0\n"
+    "T_OFFSET = 2\n"
     "SAMPLING = "+to_string(static_cast<int>(1/(st*dt)))+"\n";
 
   ofstream libConfig((path_gp_ind+"library/config.gp").c_str());
