@@ -3,6 +3,7 @@
 set(srcs
   localCop4walking.cpp
   netCop4walking.cpp
+  cmp4walking.cpp
   stabilityIndex4walking.cpp
   footPrint.cpp
   )

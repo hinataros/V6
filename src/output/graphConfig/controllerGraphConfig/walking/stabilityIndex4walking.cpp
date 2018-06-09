@@ -54,7 +54,7 @@ void RLS::Output::stabilityIndex4walking(Config &config, Info &info, GpMaker &gp
   gpMaker.add("set object "+to_string(ob)+" rect from 4.1, "+to_string(x_length_bottom+7*step)+" to 4.4, "+to_string(x_length_top+7*step)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
   // *********************************
 
-  gpMaker.setDimention(3);
+  gpMaker.setDimention(4);
   gpMaker.makeGp();
 
   texMaker.setName(file_name);
@@ -138,7 +138,7 @@ void RLS::Output::stabilityIndex4walking(Config &config, Info &info, GpMaker &gp
   // gpMaker.add("set object "+to_string(ob)+" rect from 8.75, (-39+31.5) to 9.25, (39-31.5) behind lw 0 fc rgb 'royalblue' fill solid 0.2 noborder");ob++;
   // gpMaker.add("set object "+to_string(ob)+" rect from 9.75, (-39+31.5) to 1e+3, (39-31.5) behind lw 0 fc rgb 'royalblue' fill solid 0.2 noborder");ob++;
 
-  gpMaker.setDimention(3);
+  gpMaker.setDimention(4);
   gpMaker.makeGp();
 
   texMaker.setName(file_name);
@@ -183,7 +183,7 @@ void RLS::Output::stabilityIndex4walking(Config &config, Info &info, GpMaker &gp
   gpMaker.add("set arrow 8 from INIT_LY+PMIN_Y, INIT_LX+PMAX_X to INIT_LY+PMIN_Y, INIT_LX+PMIN_X nohead lw 1");
   gpMaker.add("set arrow 9  from INIT_LY+PMAX_Y, INIT_LX+PMAX_X to INIT_RY+PMAX_Y, INIT_RX+PMAX_X nohead lw 2");
   gpMaker.add("set arrow 10 from INIT_LY+PMIN_Y, INIT_LX+PMIN_X to INIT_RY+PMIN_Y, INIT_RX+PMIN_X nohead lw 2");
-  gpMaker.setDimention(3);
+  gpMaker.setDimention(4);
   gpMaker.makeGp();
 
   texMaker.setName(file_name);

@@ -65,6 +65,7 @@ void RLS::Output::masterGraphConfig(Config &config, Info &info)
   // stabilityIndex(config, info, gpMaker, texMaker);
   localCop4walking(config, info, gpMaker, texMaker);
   // netCop4walking(config, info, gpMaker, texMaker);
+  // cmp4walking(config, info, gpMaker, texMaker);
   stabilityIndex4walking(config, info, gpMaker, texMaker);
   footPrint(config, info, gpMaker, texMaker);
 

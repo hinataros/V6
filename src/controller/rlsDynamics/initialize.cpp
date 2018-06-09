@@ -103,9 +103,8 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   // index
   // ******************************
-
   // smiyahara: 場所がビミョー
-  bb_Spx = antiDiag(2, -1., 1.);
+  bb_Spx = antiDiag(2, 1., -1.);
 
   // smiyahara: 場所がビミョー
   cal_Sp = MatrixXd::Zero(2, 6);
@@ -115,6 +114,9 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   rpw2k = VectorXd::Zero(2*info.value.joint);
   rpk = VectorXd::Zero(2*info.value.joint);
   rp = Vector2d::Zero();
+
+  // CMP
+  rcmp = Vector2d::Zero();
 
   // DCM
   wX = 0.;

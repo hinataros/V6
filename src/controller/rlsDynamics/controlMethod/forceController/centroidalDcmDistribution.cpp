@@ -47,9 +47,8 @@ void RLS::RlsDynamics::centroidalDcmDistribution(Config &config, Info &info, Mod
   // DCM-GI **************************************************************
   // cal_FcBarRef = pInv(cal_Pc, weight(config, info, model, 2, rX))*(cal_dLBRef + cal_GB);
 
-  Vector2d nRtRef = bb_Spx*Kpp*(F2rp(cal_F.segment(6,6)) - F2rp(cal_F.head(6)));
-  Vector6d cal_FRRef = Vector6d::Zero();
-  cal_FRRef.segment(3,2) = nRtRef;
+  Vector2d nRtRef = -bb_Spx*Kpp*(F2rp(cal_F.segment(6,6)) - F2rp(cal_F.head(6)));
+  Vector6d cal_FRRef = (Vector6d()<<Vector3d::Zero(), nRtRef, 0.).finished();
 
   VectorXd cal_FaBar = N(cal_PcM)*pInv(N(cal_PcM).block(0,0,6,12))*cal_FRRef;
 

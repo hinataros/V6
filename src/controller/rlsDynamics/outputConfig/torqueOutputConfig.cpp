@@ -125,6 +125,9 @@ void RLS::RlsDynamics::torqueOutputConfig(Config &config, Info &info, Model &mod
     dc_list.rpky(i) = rpk(2*i+1);
   }
 
+  // cmp
+  dc_list.rcmp = rcmp;
+
   // dcm
   dc_list.rX = rX;
 }

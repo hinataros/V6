@@ -175,6 +175,9 @@ namespace RLS{
     VectorXd rpk;
     Vector2d rp;
 
+    // cmp
+    Vector2d rcmp;
+
     // dcm
     double wX;
     Vector3d rX;
@@ -408,6 +411,7 @@ namespace RLS{
     void resize(Config&, Info&, Model&);
 
     void cop(Config&, Info&, TreeModel&);
+    void cmp(Config&, Info&, TreeModel&);
     void dcm(Config&, Info&, TreeModel&);
     void index(Config&, Info&, Model&);
 

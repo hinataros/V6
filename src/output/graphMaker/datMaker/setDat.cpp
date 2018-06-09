@@ -178,17 +178,23 @@ void RLS::Output::setDat(ofstream& stream, string dataName, int i)
   else if(dataName=="t-rpy")
     stream << data.t[i] << " " << data.dc[i].rp(1) << endl;
 
+  else if(dataName=="t-rcmpx")
+    stream << data.t[i] << " " << data.dc[i].rcmp(0) << endl;
+  else if(dataName=="t-rcmpy")
+    stream << data.t[i] << " " << data.dc[i].rcmp(1) << endl;
+
   else if(dataName=="t-xStabilityIndex")
     stream << data.t[i] << " " <<
-      data.tm[i].rC(0) << " " << data.dc[i].rp(0) << " " << data.dc[i].rX(0) << endl;
+      data.tm[i].rC(0) << " " << data.dc[i].rp(0) << " " << data.dc[i].rcmp(0) << " " << data.dc[i].rX(0) << endl;
   else if(dataName=="t-yStabilityIndex")
     stream << data.t[i] << " " <<
-      data.tm[i].rC(1) << " " << data.dc[i].rp(1) << " " << data.dc[i].rX(1) << endl;
+      data.tm[i].rC(1) << " " << data.dc[i].rp(1) << " " << data.dc[i].rcmp(1) << " " << data.dc[i].rX(1) << endl;
 
   else if(dataName=="yStabilityIndex-xStabilityIndex")
     stream <<
       data.tm[i].rC(1) << " " << data.tm[i].rC(0) << " " <<
       data.dc[i].rp(1) << " " << data.dc[i].rp(0) << " " <<
+      data.dc[i].rcmp(1) << " " << data.dc[i].rcmp(0) << " " <<
       data.dc[i].rX(1) << " " << data.dc[i].rX(0) << endl;
 
   // foot print

@@ -97,6 +97,7 @@ namespace RLS{
     // walking
     void localCop4walking(Config&, Info&, GpMaker&, TexMaker&);
     void netCop4walking(Config&, Info&, GpMaker&, TexMaker&);
+    void cmp4walking(Config&, Info&, GpMaker&, TexMaker&);
     void stabilityIndex4walking(Config&, Info&, GpMaker&, TexMaker&);
     void footPrint(Config&, Info&, GpMaker&, TexMaker&);
     // ********************************************

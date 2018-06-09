@@ -2,6 +2,7 @@
 
 set(srcs
   cop.cpp
+  cmp.cpp
   dcm.cpp
   index.cpp
   )

@@ -13,6 +13,7 @@ void RLS::RlsDynamics::centroidalAngularMomentum(Config &config, Info &info, Mod
 
   dlCRef = cross((Vector3d() << rp, 0.).finished() - model.hoap2.all.rC)*dpRef;
   dlCRef += IC*dwBRef + dIC*model.hoap2.limb[0].node[0].w;
+
   // dlCRef = IC*dwBRef + dIC*model.hoap2.limb[0].node[0].w;
   // dlCRef = -KDlC*model.hoap2.all.lC;
 }

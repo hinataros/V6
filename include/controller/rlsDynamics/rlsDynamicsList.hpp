@@ -93,6 +93,9 @@ namespace RLS{
     VectorXd rpk;
     VectorXd rpkx;
     VectorXd rpky;
+
+    Vector2d rcmp;
+
     Vector3d rX;
   };
 }

@@ -12,5 +12,5 @@ Vector2d RLS::RlsDynamics::F2rp(Vector6d cal_F)
   if(cal_F(2)==0.)
     return Vector2d::Zero();
 
-  return (1/cal_F(2))*cal_Sp*cal_F;
+  return (1/cal_F(2))*(-cal_Sp)*cal_F;
 }
