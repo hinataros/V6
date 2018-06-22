@@ -1,0 +1,15 @@
+materials:
+  -
+    name: Default
+    roughness: 1.0
+    viscosity: 0.0
+  -
+    name: Ground
+    roughness: 0.5
+    viscosity: 0.0
+
+contactMaterials:
+  -
+    materials: [ Default, Default ]
+    friction: 10.0
+    restitution: 0.0

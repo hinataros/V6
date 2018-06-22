@@ -12,7 +12,7 @@ items:
       data: 
         collisionDetection: false
         collisionDetector: AISTCollisionDetector
-        materialTableFile: "${SHARE}/default/materials.yaml"
+        materialTableFile: "/home/smiyahara/Documents/rlsSimulator/share/material/default.yaml"
       children: 
         - 
           id: 2
@@ -20,7 +20,7 @@ items:
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "${HOME}/Documents/rlsSimulator/share/model/master/skeletonA7prim.body"
+            modelFile: "/home/smiyahara/Documents/rlsSimulator/share/model/master/skeletonA7prim.body"
             currentBaseLink: "ROOT"
             rootPosition: [ 0, 0, 0.21019 ]
             rootAttitude: [ 
@@ -53,8 +53,8 @@ items:
               data: 
                 isNoDelayMode: true
                 controllerOptions: ""
-                moduleName: "${HOME}/Documents/rlsSimulator/build/bin/rlsDynamicsRTC.so"
-                confFileName: "${HOME}/Documents/rlsSimulator/src/controller/rlsDynamics/RTC/rtcConfig/skeletonPort.conf"
+                moduleName: "/home/smiyahara/Documents/rlsSimulator/build/bin/rlsDynamicsRTC.so"
+                confFileName: "/home/smiyahara/Documents/rlsSimulator/src/controller/rlsDynamics/RTC/rtcConfig/skeletonPort.conf"
                 configurationMode: "Use Configuration File"
                 AutoConnect: false
                 InstanceName: "skeleton"
@@ -66,7 +66,7 @@ items:
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "${HOME}/Documents/rlsSimulator/share/model/object/floor.body"
+            modelFile: "/home/smiyahara/Documents/rlsSimulator/share/model/object/floor.body"
             currentBaseLink: ""
             rootPosition: [ 0, 0, -0.025 ]
             rootAttitude: [ 
@@ -124,7 +124,7 @@ views:
     class: ItemTreeView
     mounted: true
     state: 
-      selected: [ 2 ]
+      selected: [ 1 ]
       checked: [ 1, 2, 5 ]
       expanded: [ 1, 2 ]
   - 
@@ -324,12 +324,12 @@ viewAreas:
     contents: 
       type: splitter
       orientation: horizontal
-      sizes: [ 206, 1643 ]
+      sizes: [ 198, 1716 ]
       children: 
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 470, 469 ]
+          sizes: [ 462, 461 ]
           children: 
             - 
               type: pane
@@ -342,7 +342,7 @@ viewAreas:
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 818, 121 ]
+          sizes: [ 804, 119 ]
           children: 
             - 
               type: pane

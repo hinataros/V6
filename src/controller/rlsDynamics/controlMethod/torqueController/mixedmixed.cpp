@@ -16,6 +16,4 @@ void RLS::RlsDynamics::mixedmixed(Config &config, Info &info, Model &model)
     HMth.transpose(), MthC;
 
   tau = MthHatBar*ddqMRef + cthC + gth - cal_Jc.transpose()*cal_FcBarRef;
-
-  // tau = HMth.transpose()*cal_dVMRef + MthC*ddthRef + cthC + gth - cal_Jc.transpose()*cal_FcBarRef;
 }

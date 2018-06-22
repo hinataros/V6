@@ -12,16 +12,16 @@ items:
       data: 
         collisionDetection: false
         collisionDetector: AISTCollisionDetector
-        materialTableFile: "${SHARE}/default/materials.yaml"
+        materialTableFile: "/home/smiyahara/Documents/rlsSimulator/share/material/default.yaml"
       children: 
         - 
           id: 2
-          name: "skeleton/skeletonA4C"
+          name: "skeleton/skeletonA4prim"
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "../model/skeleton/skeletonA4C.body"
-            currentBaseLink: "waist"
+            modelFile: "/home/smiyahara/Documents/rlsSimulator/share/model/master/skeletonA4prim.body"
+            currentBaseLink: "ROOT"
             rootPosition: [ 0, 0, 0.21019 ]
             rootAttitude: [ 
               1, 0, 0, 
@@ -64,8 +64,8 @@ items:
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "../model/object/floor.body"
-            currentBaseLink: "WAIST"
+            modelFile: "/home/smiyahara/Documents/rlsSimulator/share/model/object/floor.body"
+            currentBaseLink: ""
             rootPosition: [ 0, 0, -0.025 ]
             rootAttitude: [ 
               1, 0, 0, 
@@ -173,9 +173,9 @@ views:
           fieldOfView: 0.698132
           near: 0.01
           far: 100
-          eye: [ -0.0393523051, 1.21936234, 0.238879064 ]
-          direction: [ -1.2246468e-16, -1, -6.123234e-17 ]
-          up: [ -7.49879891e-33, -6.123234e-17, 1 ]
+          eye: [ 1.21936234, 0.0393523051, 0.238879064 ]
+          direction: [ -1, 6.123234e-17, -6.123234e-17 ]
+          up: [ -6.123234e-17, 3.74939946e-33, 1 ]
         - 
           camera: [ System, Orthographic ]
           isCurrent: true
@@ -235,7 +235,7 @@ views:
 toolbars: 
   "TimeBar": 
     minTime: 0
-    maxTime: 32
+    maxTime: 10
     frameRate: 1000
     playbackFrameRate: 10
     idleLoopDrivenMode: false
@@ -295,7 +295,7 @@ Body:
     editableSceneBodies: 
       - 
         bodyItem: 2
-        showCenterOfMass: false
+        showCenterOfMass: true
         showPpcom: false
         showZmp: false
       - 
@@ -322,12 +322,12 @@ viewAreas:
     contents: 
       type: splitter
       orientation: horizontal
-      sizes: [ 324, 1533 ]
+      sizes: [ 198, 1716 ]
       children: 
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 470, 469 ]
+          sizes: [ 462, 461 ]
           children: 
             - 
               type: pane
@@ -340,7 +340,7 @@ viewAreas:
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 671, 268 ]
+          sizes: [ 804, 119 ]
           children: 
             - 
               type: pane
@@ -349,7 +349,7 @@ viewAreas:
             - 
               type: pane
               views: [ 2, 9, 5 ]
-              current: 2
+              current: 5
 layoutOfToolBars: 
   rows: 
     - 

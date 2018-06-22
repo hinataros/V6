@@ -27,6 +27,8 @@ void RLS::RlsDynamics::torqueOutputConfig(Config &config, Info &info, Model &mod
   dc_list.rXDes = rXDes;
   dc_list.drXDes = drXDes;
 
+  dc_list.rvrpDes = rX - drXDes/wX;
+
   dc_list.rDes = dc_list.vDes = dc_list.dvDes
     = dc_list.xiDes = dc_list.wDes = dc_list.dwDes
     = VectorXd::Zero(3*info.value.joint);

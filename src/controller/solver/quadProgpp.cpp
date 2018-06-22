@@ -1,5 +1,9 @@
 /**
    @author Sho Miyahara 2017
+
+   1/2 x^T G x + g^T x
+   CE x = ce
+   CI x >= ci
 */
 
 #include "config.hpp"
@@ -30,7 +34,10 @@ VectorXd RLS::QuadProgpp::solver(MatrixXd& G, VectorXd& g0, MatrixXd& CE, Vector
 {
 #ifdef QUADPROGPP
   quadprogpp::solve_quadprog(G, g0, CE.transpose(), -ce0, CI.transpose(), -ci0, x);
+
+  return x;
 #endif
 
+  cout << "not linked solver..." << endl;
   return x;
 }

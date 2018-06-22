@@ -21,7 +21,9 @@ VectorXd RLS::RlsDynamics::hinata(Config &config, Info &info, Model &model)
   MatrixXd cal_JmMBar = cal_JmM*N(cal_JcM);
   MatrixXd cal_dJmMBar = cal_dJmM*N(cal_JcM) + cal_JmM*dN(cal_JcM, cal_dJcM);
   VectorXd cal_VmMTilde = Bm.transpose()*cal_V - cal_PmM.transpose()*cal_VM - cal_JmM*pInv(cal_JcM)*cal_VcMTilde;
-  VectorXd cal_dVmMTildeRef = Bm.transpose()*cal_dVRef + dBm.transpose()*cal_V - cal_PmM.transpose()*cal_dVMRef - cal_dPmM.transpose()*cal_VM - cal_JmM*(pInv(cal_JcM)*cal_dVcMTildeRef + dpInv(cal_JcM, cal_dJcM)*cal_VcMTilde) - cal_dJmM*pInv(cal_JcM)*cal_VcMTilde;
+  VectorXd cal_dVmMTildeRef =
+    Bm.transpose()*cal_dVRef + dBm.transpose()*cal_V - cal_PmM.transpose()*cal_dVMRef - cal_dPmM.transpose()*cal_VM
+    - cal_JmM*(pInv(cal_JcM)*cal_dVcMTildeRef + dpInv(cal_JcM, cal_dJcM)*cal_VcMTilde) - cal_dJmM*pInv(cal_JcM)*cal_VcMTilde;
 
   VectorXd ddthmRef = pInv(cal_JmMBar)*cal_dVmMTildeRef + dpInv(cal_JmMBar, cal_dJmMBar)*cal_VmMTilde;
 
@@ -32,10 +34,12 @@ VectorXd RLS::RlsDynamics::hinata(Config &config, Info &info, Model &model)
   MatrixXd JwBar = Jw * NN;
   MatrixXd dJwBar = dJw*NN + Jw*(dN(cal_JcM, cal_dJcM)*N(cal_JmMBar) + N(cal_JcM)*dN(cal_JmMBar, cal_dJmMBar));
   VectorXd wTilde = - Jw*pInv(cal_JcM)*cal_VcMTilde - Jw*pInv(cal_JmMBar)*cal_VmMTilde;
-  VectorXd dwTildeRef = - Jw*(pInv(cal_JcM)*cal_dVcMTildeRef + dpInv(cal_JcM, cal_dJcM)*cal_VcMTilde + pInv(cal_JmMBar)*cal_dVmMTildeRef + dpInv(cal_JmMBar, cal_dJmMBar)*cal_VmMTilde) - dJw*(pInv(cal_JcM)*cal_VcMTilde + pInv(cal_JmMBar)*cal_VmMTilde);
+  VectorXd dwTildeRef =
+    - Jw*(pInv(cal_JcM)*cal_dVcMTildeRef + dpInv(cal_JcM, cal_dJcM)*cal_VcMTilde
+          + pInv(cal_JmMBar)*cal_dVmMTildeRef + dpInv(cal_JmMBar, cal_dJmMBar)*cal_VmMTilde)
+    - dJw*(pInv(cal_JcM)*cal_VcMTilde + pInv(cal_JmMBar)*cal_VmMTilde);
 
-
-  VectorXd ddthwRef = pInv(JwBar)*( dwTildeRef  - KDlC*Jw*model.hoap2.all.dth) + dpInv(JwBar, dJwBar)*(wTilde);
+  VectorXd ddthwRef = pInv(JwBar)*( dwTildeRef - (dJw + KDlC*Jw)*model.hoap2.all.dth) + dpInv(JwBar, dJwBar)*(wTilde);
 
   ddthRef = ddthcRef + ddthmRef + ddthwRef + NN*N(JwBar)*ddthD(config,model);
 
@@ -46,6 +50,9 @@ VectorXd RLS::RlsDynamics::hinata(Config &config, Info &info, Model &model)
   ddqMRef <<
     cal_dVMRef,
     ddthRef;
+
+  // // momentum control
+  // (this->*momentumController_ptr)(config, info, model);
 
   return ddqMRef;
 }

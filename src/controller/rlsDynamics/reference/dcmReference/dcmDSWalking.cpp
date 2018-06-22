@@ -13,11 +13,22 @@ void RLS::RlsDynamics::dcmDSWalking(Config &config, Info &info, Model &model, do
 
   double tstab = 2.;
 
-  double dtstep = .5;
-  double dtDSstep = .2;
+  // double dtstep = .3;
+  // double dtDSstep = .1;
+  // double alphDSstep = .5;
+  // double dtstep = .5;
+  // double dtDSstep = .2;
+  // double alphDSstep = .5;
+  double dtstep = .8;
+  double dtDSstep = .3;
   double alphDSstep = .5;
+  // double dtstep = .6;
+  // double dtDSstep = .4;
+  // double alphDSstep = .5;
 
   double tf = tstab + dtstep*stepNum;
+
+  double steplength = 0.045;
 
   if(t==0.){
     for(int i=0; i<stepNum; i++){
@@ -38,14 +49,11 @@ void RLS::RlsDynamics::dcmDSWalking(Config &config, Info &info, Model &model, do
         dtDSend(i) = (1 - alphDS(i))*dtDS(i);
     }
 
-    // double offset = 0.;
-    // double offset = 1.e-3;
-    // double offset = 1.e-2;
-    // double offset = 0.01;
-    // double roffset = 0.01;
-    // double loffset = 0.01;
-    double roffset = 0.015;
-    double loffset = 0.015;
+    double offset = 0.;
+
+    // offset = 1.e-3;
+    // offset = 1.e-2;
+    offset = 0.015;
 
     rXeos.col(10) = rC0;
     rXeos.col(10)(0) = cal_X.segment(0, 3)(0);
@@ -55,60 +63,41 @@ void RLS::RlsDynamics::dcmDSWalking(Config &config, Info &info, Model &model, do
     rf.col(9)(0) = cal_X.segment(0, 3)(0);
 
     rf.col(8).head(2) = cal_X.segment(6, 3).head(2);
-    rf.col(8)(1) -= loffset;
+    rf.col(8)(1) -= offset;
 
     rf.col(7).head(2) = cal_X.segment(0, 3).head(2);
-    rf.col(7)(1) += roffset;
+    rf.col(7)(1) += offset;
 
     rf.col(6).head(2) = cal_X.segment(6, 3).head(2);
-    rf.col(6)(1) -= loffset;
+    rf.col(6)(1) -= offset;
 
     rf.col(5).head(2) = cal_X.segment(0, 3).head(2);
-    rf.col(5)(1) += roffset;
+    rf.col(5)(1) += offset;
 
     rf.col(4).head(2) = cal_X.segment(6, 3).head(2);
-    rf.col(4)(1) -= loffset;
+    rf.col(4)(1) -= offset;
 
     rf.col(3).head(2) = cal_X.segment(0, 3).head(2);
-    rf.col(3)(1) += roffset;
+    rf.col(3)(1) += offset;
 
     rf.col(2).head(2) = cal_X.segment(6, 3).head(2);
-    rf.col(2)(1) -= loffset;
+    rf.col(2)(1) -= offset;
 
     rf.col(1).head(2) = cal_X.segment(0, 3).head(2);
-    rf.col(1)(1) += roffset;
+    // rf.col(1)(1) += 1.5e-2;
+    // rf.col(1)(1) += 1.e-3;
+    // rf.col(1)(1) += 1.e-2;
+    rf.col(1)(1) += offset;
 
-    // rXeos.col(10)(0) += 0.35;
-    // rf.col(9)(0) += 0.35;
-    // rf.col(8)(0) += 0.35;
-    // rf.col(7)(0) += 0.3;
-    // rf.col(6)(0) += 0.25;
-    // rf.col(5)(0) += 0.2;
-    // rf.col(4)(0) += 0.15;
-    // rf.col(3)(0) += 0.1;
-    // rf.col(2)(0) += 0.05;
+    double temp = 0.;
+    for(int i=2; i<stepNum-1; i++){
+      temp += steplength;
 
-    rXeos.col(10)(0) += 0.07;
-    rf.col(9)(0) += 0.07;
-    rf.col(8)(0) += 0.07;
-    rf.col(7)(0) += 0.06;
-    rf.col(6)(0) += 0.05;
-    rf.col(5)(0) += 0.04;
-    rf.col(4)(0) += 0.03;
-    rf.col(3)(0) += 0.02;
-    rf.col(2)(0) += 0.01;
+      rf.col(i)(0) += temp;
+    }
 
-    // rXeos.col(10)(0) += 0.035;
-    // rf.col(9)(0) += 0.035;
-    // rf.col(8)(0) += 0.035;
-    // rf.col(7)(0) += 0.03;
-    // rf.col(6)(0) += 0.025;
-    // rf.col(5)(0) += 0.02;
-    // rf.col(4)(0) += 0.015;
-    // rf.col(3)(0) += 0.01;
-    // rf.col(2)(0) += 0.005;
-
-    // ******************************
+    rf.col(stepNum-1)(0) += temp;
+    rXeos.col(stepNum)(0) += temp;
 
     rvrpd.col(stepNum) = rXeos.col(stepNum);
 

@@ -60,6 +60,7 @@ void RLS::Output::masterGraphConfig(Config &config, Info &info)
   extWrenchRef(config, info, gpMaker, texMaker);
 
   // index
+  sysMom(config, info, gpMaker, texMaker);
   // localCop(config, info, gpMaker, texMaker);
   // netCop(config, info, gpMaker, texMaker);
   // stabilityIndex(config, info, gpMaker, texMaker);
@@ -67,6 +68,7 @@ void RLS::Output::masterGraphConfig(Config &config, Info &info)
   // netCop4walking(config, info, gpMaker, texMaker);
   // cmp4walking(config, info, gpMaker, texMaker);
   stabilityIndex4walking(config, info, gpMaker, texMaker);
+  vrpDes4walking(config, info, gpMaker, texMaker);
   footPrint(config, info, gpMaker, texMaker);
 
   // main

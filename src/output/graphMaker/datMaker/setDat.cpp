@@ -50,7 +50,6 @@ void RLS::Output::setDat(ofstream& stream, string dataName, int i)
   else if(dataName=="t-lC")
     stream << data.t[i] << " " << data.tm[i].lC.transpose() << endl;
 
-
   // controller
   else if(dataName=="t-rBDes")
     stream << data.t[i] << " " << data.dc[i].rBDes.transpose() << endl;
@@ -165,6 +164,19 @@ void RLS::Output::setDat(ofstream& stream, string dataName, int i)
   else if(dataName=="t-tau")
     stream << data.t[i] << " " << data.dc[i].tau.transpose() << endl;
 
+  else if(dataName=="t-pCRB")
+    stream << data.t[i] << " " << data.dc[i].pCRB.transpose() << endl;
+  else if(dataName=="t-lCRB")
+    stream << data.t[i] << " " << data.dc[i].lCRB.transpose() << endl;
+  else if(dataName=="t-pCth")
+    stream << data.t[i] << " " << data.dc[i].pCth.transpose() << endl;
+  else if(dataName=="t-lCth")
+    stream << data.t[i] << " " << data.dc[i].lCth.transpose() << endl;
+  else if(dataName=="t-psys")
+    stream << data.t[i] << " " << data.dc[i].p.transpose() << endl;
+  else if(dataName=="t-lCsys")
+    stream << data.t[i] << " " << data.dc[i].lC.transpose() << endl;
+
   else if(dataName=="t-rpkx")
     stream << data.t[i] << " " << data.dc[i].rpkx.transpose() << endl;
   else if(dataName=="t-rpky")
@@ -197,9 +209,17 @@ void RLS::Output::setDat(ofstream& stream, string dataName, int i)
       data.dc[i].rcmp(1) << " " << data.dc[i].rcmp(0) << " " <<
       data.dc[i].rX(1) << " " << data.dc[i].rX(0) << endl;
 
+  // desired VRP
+  else if(dataName=="t-vrpDesx")
+    stream << data.t[i] << " " << data.dc[i].rvrpDes(0) << endl;
+  else if(dataName=="t-vrpDesy")
+    stream << data.t[i] << " " << data.dc[i].rvrpDes(1) << endl;
+
   // foot print
-  else if(dataName=="rXDesy-rXDesx")
-    stream << data.dc[i].rXDes(1) << " " << data.dc[i].rXDes(0) << endl;
+  else if(dataName=="foot print")
+    stream <<
+      data.dc[i].rXDes(1) << " " << data.dc[i].rXDes(0) << " " <<
+      data.dc[i].rvrpDes(1) << " " << data.dc[i].rvrpDes(0) << endl;
 
   else
     cout << "not found: " << "'" << dataName << "'" << endl;

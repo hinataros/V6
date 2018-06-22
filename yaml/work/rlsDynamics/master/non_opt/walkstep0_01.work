@@ -1,0 +1,421 @@
+# @author Sho Miyahara 2017
+
+State:
+  -
+  -
+    Inverse dynamics controller: fullDynamics
+
+    Momentum controller: centroidalDcmMomentum
+    Force controller: centroidalDcmDistribution
+
+    Motion controller: mixedGeneralizedMomentum
+    Torque controller: mixedmixedOpt
+
+    # Motion controller: rest_cmlC
+    # Torque controller: mixedmixed
+
+    Bc: &ds
+      - [1, 1, 1, 1, 1, 1]
+      - [1, 1, 1, 1, 1, 1]
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+    Bm: &zs
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+
+    # old
+    KX: 3.e+2
+    KpwB: 3.e+2
+    KdwB: 5.e+1
+    Kpv: 3.e+3
+    Kdv: 5.e+2
+
+    # KdwB: 10.e+0
+
+    Kpp: 1.e+0
+
+    # # new
+    # KX: 3.e+2
+    # KpwB: 6.e+2
+    # KdwB: 1.e+1
+    # Kpv: 3.e+3
+    # Kdv: 5.e+2
+
+    KDlC: 0.
+    # KDlC: 1.e+2
+    # KDlC: 5.e+1
+    KDth: 1.e+2
+    KDq:
+      - [0., 0., 0., 0., 0., 0.]
+      - [1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2]
+      - [1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2]
+      - [1.e+2, 1.e+2, 1.e+2, 1.e+2]
+      - [1.e+2, 1.e+2, 1.e+2, 1.e+2]
+  -
+    Force controller: centroidalDistribution
+    Bc: &lss
+      - [0, 0, 0, 0, 0, 0]
+      - [1, 1, 1, 1, 1, 1]
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+    Bm: &rss
+      - [1, 1, 1, 1, 1, 1]
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+  -
+    Force controller: centroidalDistribution
+    Bc: *rss
+    Bm: *lss
+
+Setting:
+  KDlC: &kdlC 1.e+2
+
+# twf: &tini 1.2
+  # twf: &tliftleg 0.3
+  # twf: &tlol 0.3
+  # twf: &tds 0.4
+  twf: &tinitial 0.95
+  twf: &tliftleg 0.25
+  twf: &tlegoff 0.25
+  twf: &tds 0.3
+
+  height: &height 0.001
+
+  # length: &steplength1 0.01
+  # length: &steplength2 0.02
+  # length: &steplength3 0.03
+  # length: &steplength4 0.04
+  # length: &steplength5 0.05
+  # length: &steplength6 0.06
+  # length: &steplength7 0.07
+  # length: &steplength1 0.05
+  # length: &steplength2 0.10
+  # length: &steplength3 0.15
+  # length: &steplength4 0.20
+  # length: &steplength5 0.25
+  # length: &steplength6 0.30
+  # length: &steplength7 0.35
+
+  length: &steplength1 0.045
+  length: &steplength2 0.09
+  length: &steplength3 0.135
+  length: &steplength4 0.180
+  length: &steplength5 0.225
+  length: &steplength6 0.270
+  length: &steplength7 0.315
+
+Footstep:
+  cal_Xf: &liftleg1
+      - [0., 0., 0., 0., 0., 0.]
+      - [*steplength1, 0., *height, 0., 0., 0.]
+      - 6
+      - 6
+  cal_Xf: &legoff1
+      - [0., 0., 0., 0., 0., 0.]
+      - [*steplength1, 0., 0.0, 0., 0., 0.]
+      - 6
+      - 6
+  cal_Xf: &liftleg2
+      - [*steplength2, 0., *height, 0., 0., 0.]
+      - [*steplength1, 0., 0., 0., 0., 0.]
+      - 6
+      - 6
+  cal_Xf: &legoff2
+      - [*steplength2, 0., 0.0, 0., 0., 0.]
+      - [*steplength1, 0., 0., 0., 0., 0.]
+      - 6
+      - 6
+  cal_Xf: &liftleg3
+      - [*steplength2, 0., 0., 0., 0., 0.]
+      - [*steplength3, 0., *height, 0., 0., 0.]
+      - 6
+      - 6
+  cal_Xf: &legoff3
+      - [*steplength2, 0., 0., 0., 0., 0.]
+      - [*steplength3, 0., 0.0, 0., 0., 0.]
+      - 6
+      - 6
+  cal_Xf: &liftleg4
+      - [*steplength4, 0., *height, 0., 0., 0.]
+      - [*steplength3, 0., 0., 0., 0., 0.]
+      - 6
+      - 6
+  cal_Xf: &legoff4
+      - [*steplength4, 0., 0.0, 0., 0., 0.]
+      - [*steplength3, 0., 0., 0., 0., 0.]
+      - 6
+      - 6
+  cal_Xf: &liftleg5
+      - [*steplength4, 0., 0., 0., 0., 0.]
+      - [*steplength5, 0., *height, 0., 0., 0.]
+      - 6
+      - 6
+  cal_Xf: &legoff5
+      - [*steplength4, 0., 0., 0., 0., 0.]
+      - [*steplength5, 0., 0.0, 0., 0., 0.]
+      - 6
+      - 6
+  cal_Xf: &liftleg6
+      - [*steplength6, 0., *height, 0., 0., 0.]
+      - [*steplength5, 0., 0., 0., 0., 0.]
+      - 6
+      - 6
+  cal_Xf: &legoff6
+      - [*steplength6, 0., 0.0, 0., 0., 0.]
+      - [*steplength5, 0., 0., 0., 0., 0.]
+      - 6
+      - 6
+  cal_Xf: &liftleg7
+      - [*steplength6, 0., 0., 0., 0., 0.]
+      - [*steplength7, 0., *height, 0., 0., 0.]
+      - 6
+      - 6
+  cal_Xf: &legoff7
+      - [*steplength6, 0., 0., 0., 0., 0.]
+      - [*steplength7, 0., 0.0, 0., 0., 0.]
+      - 6
+      - 6
+  cal_Xf: &liftleg8
+      - [*steplength7, 0., *height, 0., 0., 0.]
+      - [*steplength7, 0., 0., 0., 0., 0.]
+      - 6
+      - 6
+  cal_Xf: &legoff8
+      - [*steplength7, 0., 0.0, 0., 0., 0.]
+      - [*steplength7, 0., 0., 0., 0., 0.]
+      - 6
+      - 6
+
+# ****************************************************************
+Sequence:
+  -
+    twf: 2.
+  -
+    twf: *tinitial
+  -
+    twf: *tliftleg
+    Force controller: centroidalDistribution
+    Bc: *rss
+    Bm: *lss
+    cal_Xf: *liftleg1
+  -
+    twf: *tlegoff
+    cal_Xf: *legoff1
+  -
+    twf: *tds
+
+  # 1 step
+  -
+    twf: *tliftleg
+    Force controller: centroidalDistribution
+    Bc: *lss
+    Bm: *rss
+    cal_Xf: *liftleg2
+  -
+    twf: *tlegoff
+    cal_Xf: *legoff2
+  -
+    twf: *tds
+  # 2 step
+  -
+    twf: *tliftleg
+    Force controller: centroidalDistribution
+    Bc: *rss
+    Bm: *lss
+    cal_Xf: *liftleg3
+  -
+    twf: *tlegoff
+    cal_Xf: *legoff3
+  -
+    twf: *tds
+  # 3 step
+  -
+    twf: *tliftleg
+    Force controller: centroidalDistribution
+    Bc: *lss
+    Bm: *rss
+    cal_Xf: *liftleg4
+  -
+    twf: *tlegoff
+    cal_Xf: *legoff4
+  -
+    twf: *tds
+  # 4 step
+  -
+    twf: *tliftleg
+    Force controller: centroidalDistribution
+    Bc: *rss
+    Bm: *lss
+    cal_Xf: *liftleg5
+  -
+    twf: *tlegoff
+    cal_Xf: *legoff5
+  -
+    twf: *tds
+  # 5 step
+  -
+    twf: *tliftleg
+    Force controller: centroidalDistribution
+    Bc: *lss
+    Bm: *rss
+    cal_Xf: *liftleg6
+  -
+    twf: *tlegoff
+    cal_Xf: *legoff6
+  -
+    twf: *tds
+  # 6 step
+  -
+    twf: *tliftleg
+    Force controller: centroidalDistribution
+    Bc: *rss
+    Bm: *lss
+    cal_Xf: *liftleg7
+  -
+    twf: *tlegoff
+    cal_Xf: *legoff7
+  -
+    twf: *tds
+  # 7 step
+  -
+    twf: *tliftleg
+    Force controller: centroidalDistribution
+    Bc: *lss
+    Bm: *rss
+    cal_Xf: *liftleg8
+  -
+    twf: *tlegoff
+    cal_Xf: *legoff8
+  -
+    twf: *tds
+# ****************************************************************
+
+# # ****************************************************************
+# Sequence:
+#   -
+#     twf: 2.
+#   -
+#     twf: *tinitial
+#   -
+#     twf: *tliftleg
+#     Force controller: centroidalDistribution
+#     Motion controller: rest_cmlC
+#     Torque controller: mixedmixed
+#     KDlC: *kdlC
+#     Bc: *rss
+#     Bm: *lss
+#     cal_Xf: *liftleg1
+#   -
+#     twf: *tlegoff
+#     cal_Xf: *legoff1
+#   -
+#     twf: *tds
+
+#   # 1 step
+#   -
+#     twf: *tliftleg
+#     Force controller: centroidalDistribution
+#     Motion controller: rest_cmlC
+#     Torque controller: mixedmixed
+#     KDlC: *kdlC
+#     Bc: *lss
+#     Bm: *rss
+#     cal_Xf: *liftleg2
+#   -
+#     twf: *tlegoff
+#     cal_Xf: *legoff2
+#   -
+#     twf: *tds
+#   # 2 step
+#   -
+#     twf: *tliftleg
+#     Force controller: centroidalDistribution
+#     Motion controller: rest_cmlC
+#     Torque controller: mixedmixed
+#     KDlC: *kdlC
+#     Bc: *rss
+#     Bm: *lss
+#     cal_Xf: *liftleg3
+#   -
+#     twf: *tlegoff
+#     cal_Xf: *legoff3
+#   -
+#     twf: *tds
+#   # 3 step
+#   -
+#     twf: *tliftleg
+#     Force controller: centroidalDistribution
+#     Motion controller: rest_cmlC
+#     Torque controller: mixedmixed
+#     KDlC: *kdlC
+#     Bc: *lss
+#     Bm: *rss
+#     cal_Xf: *liftleg4
+#   -
+#     twf: *tlegoff
+#     cal_Xf: *legoff4
+#   -
+#     twf: *tds
+#   # 4 step
+#   -
+#     twf: *tliftleg
+#     Force controller: centroidalDistribution
+#     Motion controller: rest_cmlC
+#     Torque controller: mixedmixed
+#     KDlC: *kdlC
+#     Bc: *rss
+#     Bm: *lss
+#     cal_Xf: *liftleg5
+#   -
+#     twf: *tlegoff
+#     cal_Xf: *legoff5
+#   -
+#     twf: *tds
+#   # 5 step
+#   -
+#     twf: *tliftleg
+#     Force controller: centroidalDistribution
+#     Motion controller: rest_cmlC
+#     Torque controller: mixedmixed
+#     KDlC: *kdlC
+#     Bc: *lss
+#     Bm: *rss
+#     cal_Xf: *liftleg6
+#   -
+#     twf: *tlegoff
+#     cal_Xf: *legoff6
+#   -
+#     twf: *tds
+#   # 6 step
+#   -
+#     twf: *tliftleg
+#     Force controller: centroidalDistribution
+#     Motion controller: rest_cmlC
+#     Torque controller: mixedmixed
+#     KDlC: *kdlC
+#     Bc: *rss
+#     Bm: *lss
+#     cal_Xf: *liftleg7
+#   -
+#     twf: *tlegoff
+#     cal_Xf: *legoff7
+#   -
+#     twf: *tds
+#   # 7 step
+#   -
+#     twf: *tliftleg
+#     Force controller: centroidalDistribution
+#     Motion controller: rest_cmlC
+#     Torque controller: mixedmixed
+#     KDlC: *kdlC
+#     Bc: *lss
+#     Bm: *rss
+#     cal_Xf: *liftleg8
+#   -
+#     twf: *tlegoff
+#     cal_Xf: *legoff8
+#   -
+#     twf: *tds

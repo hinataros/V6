@@ -9,7 +9,7 @@ import config
 
 from check_superuserMod import check_superuser
 
-from res_cmd_lfeedMod import res_cmd_lfeed
+# from res_cmd_lfeedMod import res_cmd_lfeed
 
 def local_recursive_uninstaller():
     cmd=input("_/_/ all user _/_/ uninstall? [y/] ")
@@ -26,18 +26,11 @@ def local_recursive_uninstaller():
         dir_local = os.path.join(dir,line_user, "rlsSimulator")
         if os.path.exists(dir_local):
             shutil.rmtree(dir_local)
-        for line_passwd in res_cmd_lfeed("cat /etc/passwd"):
-            if os.path.basename(line_user) == str(line_passwd).split(":")[2]:
-                home = str(line_passwd).split(":")[5].replace("b'", "")
 
-        temp = ""
-        with open(os.path.join(home, ".bashrc"), "r", encoding="utf-8") as f:
-            for line in f:
-                if config.PATH and "RLSBIN" not in line:
-                    temp += line.rstrip() + config.n
-
-            with open(os.path.join(home, ".bashrc"), "w", encoding="utf-8") as f:
-                f.write(temp[:-1])
+        # search home directory from user id
+        # for line_passwd in res_cmd_lfeed("cat /etc/passwd"):
+        #     if os.path.basename(line_user) == str(line_passwd).split(":")[2]:
+        #         home = str(line_passwd).split(":")[5].replace("b'", "")
 
         os.unlink(os.path.join(dir,line_user))
 

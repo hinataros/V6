@@ -94,6 +94,7 @@ namespace RLS{
       bool flag;
       bool check;
       int st;
+      double tstart;
     } gp;
 
     struct Tex{

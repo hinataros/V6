@@ -40,6 +40,7 @@ void RLS::Config::readConfig()
   gp.flag = doc["Gp"]["Flag"].as<bool>();
   gp.check = doc["Gp"]["Check"].as<bool>();
   gp.st = doc["Gp"]["Sampling time"].as<int>();
+  gp.tstart = doc["Gp"]["Start time offset"].as<double>();
 
   // tex config
   tex.flag = doc["Tex"]["Flag"].as<bool>();

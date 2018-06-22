@@ -87,7 +87,7 @@ namespace RLS{
     void eeWrenchRef(Config&, Info&, GpMaker&, TexMaker&);
     void extWrenchRef(Config&, Info&, GpMaker&, TexMaker&);
     void jointTorque(Config&, Info&, GpMaker&, TexMaker&);
-    // void formulatedMom(Config&, Info&, GpMaker&, TexMaker&);
+    void sysMom(Config&, Info&, GpMaker&, TexMaker&);
 
     // cop
     void localCop(Config&, Info&, GpMaker&, TexMaker&);
@@ -99,6 +99,7 @@ namespace RLS{
     void netCop4walking(Config&, Info&, GpMaker&, TexMaker&);
     void cmp4walking(Config&, Info&, GpMaker&, TexMaker&);
     void stabilityIndex4walking(Config&, Info&, GpMaker&, TexMaker&);
+    void vrpDes4walking(Config&, Info&, GpMaker&, TexMaker&);
     void footPrint(Config&, Info&, GpMaker&, TexMaker&);
     // ********************************************
 

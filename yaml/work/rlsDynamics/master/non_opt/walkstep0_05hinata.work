@@ -1,0 +1,294 @@
+# @author Sho Miyahara 2017
+
+State:
+  -
+  -
+    Inverse dynamics controller: fullDynamics
+    Momentum controller: centroidalDcmMomentum
+    # Momentum controller: centroidalMomentum
+    # Motion controller: hinata
+    Motion controller: mixedGeneralizedMomentum
+    Force controller: centroidalDcmDistribution
+    # Force controller: centroidalDistribution
+
+    # Torque controller: staticControl
+    Torque controller: mixedmixedOpt
+    # Torque controller: mixedmixed
+
+    Bc: &ds
+      - [1, 1, 1, 1, 1, 1]
+      - [1, 1, 1, 1, 1, 1]
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+    Bm: &zs
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+
+    KX: 3.e+2
+
+    # KpC: 3.e+2
+    # KdC: 5.e+1
+
+    # KpwB: 3.e+2
+    KdwB: 5.e+1
+
+    # KdwB: 5.e+1
+
+    Kpv: 3.e+3
+    Kdv: 5.e+2
+    # Kpv: 3.e+2
+    # Kdv: 5.e+1
+
+    Kpp: 5.e+0
+
+    KDlC: 1.e+2
+    KDth: 1.e+2
+    KDq:
+      - [0., 0., 0., 0., 0., 0.]
+      - [1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2]
+      - [1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2]
+      - [1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2]
+      - [1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2]
+  -
+    Force controller: centroidalDistribution
+    Motion controller: hinata
+    Torque controller: mixedmixed
+    Bc: &lss
+      - [0, 0, 0, 0, 0, 0]
+      - [1, 1, 1, 1, 1, 1]
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+    Bm: &rss
+      - [1, 1, 1, 1, 1, 1]
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+  -
+    Force controller: centroidalDistribution
+    Motion controller: hinata
+    Torque controller: mixedmixed
+    Bc: *rss
+    Bm: *lss
+
+Sequence:
+  -
+    twf: 2.
+  -
+    twf: 0.6
+  -
+    twf: 0.15
+    Force controller: centroidalDistribution
+    Motion controller: hinata
+    Torque controller: mixedmixed
+    Bc: *rss
+    Bm: *lss
+    cal_Xf:
+      - [0., 0., 0., 0., 0., 0.]
+      - [0.05, 0., 0.0012, 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+  -
+    twf: 0.15
+    cal_Xf:
+      - [0., 0., 0., 0., 0., 0.]
+      - [0.05, 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+  -
+    twf: 0.2
+    Force controller: centroidalDcmDistribution
+    Motion controller: mixedGeneralizedMomentum
+    Torque controller: mixedmixedOpt
+    Bc: *ds
+    Bm: *zs
+  # 1 step
+  -
+    twf: 0.15
+    Force controller: centroidalDistribution
+    Motion controller: hinata
+    Torque controller: mixedmixed
+    Bc: *lss
+    Bm: *rss
+    cal_Xf:
+      - [0.1, 0., 0.0012, 0., 0., 0.]
+      - [0.05, 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+  -
+    twf: 0.15
+    cal_Xf:
+      - [0.1, 0., 0.0, 0., 0., 0.]
+      - [0.05, 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+  -
+    twf: 0.2
+    Force controller: centroidalDcmDistribution
+    Motion controller: mixedGeneralizedMomentum
+    Torque controller: mixedmixedOpt
+    Bc: *ds
+    Bm: *zs
+  # 2 step
+  -
+    twf: 0.15
+    Force controller: centroidalDistribution
+    Motion controller: hinata
+    Torque controller: mixedmixed
+    Bc: *rss
+    Bm: *lss
+    cal_Xf:
+      - [0.1, 0., 0., 0., 0., 0.]
+      - [0.15, 0., 0.0012, 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+  -
+    twf: 0.15
+    cal_Xf:
+      - [0.1, 0., 0., 0., 0., 0.]
+      - [0.15, 0., 0.0, 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+  -
+    twf: 0.2
+    Force controller: centroidalDcmDistribution
+    Motion controller: mixedGeneralizedMomentum
+    Torque controller: mixedmixedOpt
+    Bc: *ds
+    Bm: *zs
+  # 3 step
+  -
+    twf: 0.15
+    Force controller: centroidalDistribution
+    Motion controller: hinata
+    Torque controller: mixedmixed
+    Bc: *lss
+    Bm: *rss
+    cal_Xf:
+      - [0.2, 0., 0.0012, 0., 0., 0.]
+      - [0.15, 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+  -
+    twf: 0.15
+    cal_Xf:
+      - [0.2, 0., 0.0, 0., 0., 0.]
+      - [0.15, 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+  -
+    twf: 0.2
+    Force controller: centroidalDcmDistribution
+    Motion controller: mixedGeneralizedMomentum
+    Torque controller: mixedmixedOpt
+    Bc: *ds
+    Bm: *zs
+  # 4 step
+  -
+    twf: 0.15
+    Force controller: centroidalDistribution
+    Motion controller: hinata
+    Torque controller: mixedmixed
+    Bc: *rss
+    Bm: *lss
+    cal_Xf:
+      - [0.2, 0., 0., 0., 0., 0.]
+      - [0.25, 0., 0.0012, 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+  -
+    twf: 0.15
+    cal_Xf:
+      - [0.2, 0., 0., 0., 0., 0.]
+      - [0.25, 0., 0.0, 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+  -
+    twf: 0.2
+    Force controller: centroidalDcmDistribution
+    Motion controller: mixedGeneralizedMomentum
+    Torque controller: mixedmixedOpt
+    Bc: *ds
+    Bm: *zs
+  # 5 step
+  -
+    twf: 0.15
+    Force controller: centroidalDistribution
+    Motion controller: hinata
+    Torque controller: mixedmixed
+    Bc: *lss
+    Bm: *rss
+    cal_Xf:
+      - [0.3, 0., 0.0012, 0., 0., 0.]
+      - [0.25, 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+  -
+    twf: 0.15
+    cal_Xf:
+      - [0.3, 0., 0.0, 0., 0., 0.]
+      - [0.25, 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+  -
+    twf: 0.2
+    Force controller: centroidalDcmDistribution
+    Motion controller: mixedGeneralizedMomentum
+    Torque controller: mixedmixedOpt
+    Bc: *ds
+    Bm: *zs
+  # 6 step
+  -
+    twf: 0.15
+    Force controller: centroidalDistribution
+    Motion controller: hinata
+    Torque controller: mixedmixed
+    Bc: *rss
+    Bm: *lss
+    cal_Xf:
+      - [0.3, 0., 0., 0., 0., 0.]
+      - [0.35, 0., 0.0012, 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+  -
+    twf: 0.15
+    cal_Xf:
+      - [0.3, 0., 0., 0., 0., 0.]
+      - [0.35, 0., 0.0, 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+  -
+    twf: 0.2
+    Force controller: centroidalDcmDistribution
+    Motion controller: mixedGeneralizedMomentum
+    Torque controller: mixedmixedOpt
+    Bc: *ds
+    Bm: *zs
+  # 7 step
+  -
+    twf: 0.15
+    Force controller: centroidalDistribution
+    Motion controller: hinata
+    Torque controller: mixedmixed
+    Bc: *lss
+    Bm: *rss
+    cal_Xf:
+      - [0.35, 0., 0.0012, 0., 0., 0.]
+      - [0.35, 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+  -
+    twf: 0.15
+    cal_Xf:
+      - [0.35, 0., 0.0, 0., 0., 0.]
+      - [0.35, 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+      - [0., 0., 0., 0., 0., 0.]
+  -
+    twf: 0.15
+    Force controller: centroidalDcmDistribution
+    Motion controller: mixedGeneralizedMomentum
+    Torque controller: mixedmixedOpt
+    Bc: *ds
+    Bm: *zs

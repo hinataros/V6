@@ -9,7 +9,6 @@ import config
 from check_superuserMod import check_superuser
 
 from add_userMod import add_user
-from add_bashrcMod import add_bashrc
 from ins_confMod import install_conf
 from ins_name4texMod import install_name4tex
 from add_texMod import add_tex
@@ -19,7 +18,6 @@ def local_installer():
     print("local install...")
 
     add_user()
-    add_bashrc()
     install_conf()
     install_name4tex()
     add_tex()

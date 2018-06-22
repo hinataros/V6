@@ -6,7 +6,7 @@ import os, sys
 
 import config
 from check_superuserMod import check_superuser
-from del_apps_bin_pathMod import del_apps_bin_path
+from unins_pathMod import uninstall_path
 # not implement
 # from unins_modMod import uninstall_module
 
@@ -18,7 +18,7 @@ def global_uninstaller():
 
     print("global uninstall...")
 
-    del_apps_bin_path()
+    uninstall_path()
 
     # uninstall_module()
     if not os.path.exists(config.RLS_DIR):

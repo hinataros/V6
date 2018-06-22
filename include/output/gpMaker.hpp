@@ -35,6 +35,7 @@ namespace RLS{
     string path_eps_ind;
     double dt;
     int st;
+    double tstart;
 
     void makeMacro();
     void makeConfig();
@@ -65,6 +66,7 @@ namespace RLS{
     void setEpsPath(string);
     void setDt(double);
     void setST(int);
+    void setStartTime(double);
     void makeLibrary();
 
     void reset();

@@ -7,7 +7,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-VectorXd RLS::RlsDynamics::noname(Config &config, Info &info, Model &model)
+VectorXd RLS::RlsDynamics::rest_clCm(Config &config, Info &info, Model &model)
 {
   if(config.flag.debug) DEBUG;
 
@@ -61,6 +61,10 @@ VectorXd RLS::RlsDynamics::noname(Config &config, Info &info, Model &model)
   // VectorXd ddthnRef = N(cal_JcM)*ddthD(config, model);
 
   // ddthRef = ddthcRef + ddthnRef;
+
+  ddqMRef <<
+    cal_dVMRef,
+    ddthRef;
 
   return ddqMRef;
 }

@@ -1,7 +1,7 @@
 # @author Sho Miyahara 2018
 
 set(srcs
-  # formulatedMom.cpp
+  sysMom.cpp
   localCop.cpp
   netCop.cpp
   stabilityIndex.cpp

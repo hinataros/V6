@@ -70,8 +70,10 @@ int RLS::RlsDynamics::readWork(Config &config, Info &info, string node, int seq)
 
   // optimization weight
   WFSD = checkMatrix<MatrixXd>(doc, node, seq, "WFSD", WFSD);
+  Wb = checkMatrix<MatrixXd>(doc, node, seq, "Wb", Wb);
   Wp = checkMatrix<MatrixXd>(doc, node, seq, "Wp", Wp);
-  WF = checkMatrix<MatrixXd>(doc, node, seq, "WF", WF);
+  WF = checkMatrix<MatrixXd>(doc, node, seq, "WF", info.value.joint, WF);
+  WFmin = checkMatrix<MatrixXd>(doc, node, seq, "WFmin", info.value.joint, WFmin);
   Wm = checkMatrix<MatrixXd>(doc, node, seq, "Wm", info.value.joint, Wm);
   WJ = checkMatrix<MatrixXd>(doc, node, seq, "WJ", info.value.joint, WJ);
   Wth = checkMatrix<MatrixXd>(doc, node, seq, "Wth", info.value.joint, Wth);

@@ -20,6 +20,15 @@ def setup():
             rlsModule.check_userMod.check_user()
             rlsModule.loc_insMod.local_installer()
 
+        elif sys.argv[1] == "insmod":
+            if not rlsModule.check_superuserMod.check_superuser():
+                print("not super user")
+                return -1
+
+            rlsModule.check_src_dirMod.check_src_dir()
+            from rlsModule.ins_modMod import install_module
+            install_module()
+
         elif sys.argv[1] == "useradd":
             if not rlsModule.check_superuserMod.check_superuser():
                 print("not super user")

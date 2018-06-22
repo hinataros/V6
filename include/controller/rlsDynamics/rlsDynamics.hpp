@@ -393,8 +393,10 @@ namespace RLS{
 
     // optimization weight
     Matrix6d WFSD;
+    Matrix6d Wb;
     MatrixXd Wp;
     MatrixXd WF;
+    MatrixXd WFmin;
     MatrixXd Wm;
     MatrixXd WJ;
     MatrixXd Wth;
@@ -487,7 +489,8 @@ namespace RLS{
     VectorXd baseAccelerationSynergy(Config&, Info&, Model&);
     VectorXd mixedAccelerationSynergy(Config&, Info&, Model&);
     VectorXd centroidalAccelerationSynergy(Config&, Info&, Model&);
-    VectorXd noname(Config&, Info&, Model&);
+    VectorXd rest_cmlC(Config&, Info&, Model&);
+    VectorXd rest_clCm(Config&, Info&, Model&);
     VectorXd baseGeneralizedMomentum(Config&, Info&, Model&);
     VectorXd mixedGeneralizedMomentum(Config&, Info&, Model&);
     VectorXd accelerationSolver(Config&, Info&, Model&);
@@ -530,7 +533,7 @@ namespace RLS{
     VectorXd momentumInverseDynamicsController(Config&, Info&, Model&);
     VectorXd highGainController(Config&, Info&, Model&);
     VectorXd spatialDynamicsSolver(Config&, Info&, Model&);
-    VectorXd atlasSolver(Config&, Info&, Model&);
+    VectorXd dlrSolver(Config&, Info&, Model&);
 
     void controlMethod(Config&, Info&, Model&);
 

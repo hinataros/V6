@@ -321,6 +321,7 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   // optimization weight
   WFSD = Matrix6d::Zero();
+  Wb = Matrix6d::Zero();
   Wm = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
   WJ = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
 
@@ -328,6 +329,7 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   // smiyahara: 接触点の個数を数えたい
   Wp = MatrixXd::Zero(2*info.value.joint, 2*info.value.joint);
   WF = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
+  WFmin = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
 
   // trigger flag
   flagInit = true;
@@ -360,7 +362,8 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   map_motionController["centroidalAccelerationSynergy"] = &RLS::RlsDynamics::centroidalAccelerationSynergy;
   map_motionController["hinata"] = &RLS::RlsDynamics::hinata;
 
-  map_motionController["noname"] = &RLS::RlsDynamics::noname;
+  map_motionController["rest_cmlC"] = &RLS::RlsDynamics::rest_cmlC;
+  map_motionController["rest_clCm"] = &RLS::RlsDynamics::rest_clCm;
   map_motionController["baseGeneralizedMomentum"] = &RLS::RlsDynamics::baseGeneralizedMomentum;
   map_motionController["mixedGeneralizedMomentum"] = &RLS::RlsDynamics::mixedGeneralizedMomentum;
   map_motionController["accelerationSolver"] = &RLS::RlsDynamics::accelerationSolver;
@@ -387,5 +390,5 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   map_inverseDynamicsController["momentumInverseDynamics"] = &RLS::RlsDynamics::momentumInverseDynamicsController;
   map_inverseDynamicsController["highGain"] = &RLS::RlsDynamics::highGainController;
   map_inverseDynamicsController["spatialDynamicsSolver"] = &RLS::RlsDynamics::spatialDynamicsSolver;
-  map_inverseDynamicsController["atlasSolver"] = &RLS::RlsDynamics::atlasSolver;
+  map_inverseDynamicsController["dlrSolver"] = &RLS::RlsDynamics::dlrSolver;
 }

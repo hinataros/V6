@@ -7,13 +7,13 @@ import os, sys
 import config
 from check_superuserMod import check_superuser
 from ins_modMod import install_module
-from add_apps_bin_pathMod import add_apps_bin_path
+from ins_pathMod import install_path
 
 def global_installer():
     print("global install...")
 
     install_module()
-    add_apps_bin_path()
+    install_path()
 
 if __name__ == "__main__":
     if not check_superuser():

@@ -9,7 +9,7 @@ from read_confMod import read_conf
 def lnk():
     sl = os.path.join(os.environ['HOME'], ".config", "rlsSimulator", "sl")
 
-    if os.path.exists(sl):
+    if os.path.islink(sl):
         print("already linked...")
 
         cmd=input("relink? [y/] ")

@@ -3,11 +3,9 @@
 # @author Sho Miyahara 2017
 
 RLS_DIR = "/usr/local/etc/rls"
-SH = "/etc/profile.d/apps-bin-path.sh"
+SH = "/etc/profile.d/rls.sh"
 
-PATH = "PATH=$PATH:$RLSBIN"
-
-n = "\n"
+PATH = "PATH=$PATH:$RLS_BIN"
 
 # latex output
 OUTPUT = "build"

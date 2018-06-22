@@ -18,7 +18,7 @@ def install_module():
         cmd=input("reinstall module? [y/] ")
         if cmd != "y" and cmd != "":
             print("interrupted...")
-            sys.exit()
+            return -1
 
         shutil.rmtree(dir_rlsmod)
         print("{} deleted...".format(dir_rlsmod))

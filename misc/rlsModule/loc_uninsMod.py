@@ -8,7 +8,6 @@ import config
 from check_superuserMod import check_superuser
 from unlnkMod import unlnk
 from unins_confMod import uninstall_conf
-from del_bashrcMod import del_bashrc
 from del_userMod import del_user
 
 def local_uninstaller():
@@ -16,7 +15,6 @@ def local_uninstaller():
 
     unlnk()
     uninstall_conf()
-    del_bashrc()
     del_user()
 
 if __name__ == "__main__":

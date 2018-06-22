@@ -29,29 +29,91 @@ void RLS::Output::stabilityIndex4walking(Config &config, Info &info, GpMaker &gp
   gpMaker.setUnit("m");
 
   gpMaker.add("set ytics 60");
-  gpMaker.add("set yrange[-30:120]");
+  gpMaker.add("set yrange[-30:360]");
 
   int ob = 1;
-  int step = 10;
-  // *********************************
-  gpMaker.add("set object "+to_string(ob)+" rect from 0, "+to_string(x_length_bottom)+" to 0.6, "+to_string(x_length_top)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 0.9, "+to_string(x_length_bottom)+" to 1.1, "+to_string(x_length_top+step)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 1.4, "+to_string(x_length_bottom+step)+" to 1.6, "+to_string(x_length_top+2*step)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 1.9, "+to_string(x_length_bottom+2*step)+" to 2.1, "+to_string(x_length_top+3*step)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 2.4, "+to_string(x_length_bottom+3*step)+" to 2.6, "+to_string(x_length_top+4*step)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 2.9, "+to_string(x_length_bottom+4*step)+" to 3.1, "+to_string(x_length_top+5*step)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 3.4, "+to_string(x_length_bottom+5*step)+" to 3.6, "+to_string(x_length_top+6*step)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 3.9, "+to_string(x_length_bottom+6*step)+" to 4.1, "+to_string(x_length_top+7*step)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 4.4, "+to_string(x_length_bottom+7*step)+" to 1e+3, "+to_string(x_length_top+7*step)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+  int step = 45;
 
-  gpMaker.add("set object "+to_string(ob)+" rect from 0.6, "+to_string(x_length_bottom)+" to 0.9, "+to_string(x_length_top)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 1.1, "+to_string(x_length_bottom+step)+" to 1.4, "+to_string(x_length_top+step)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 1.6, "+to_string(x_length_bottom+2*step)+" to 1.9, "+to_string(x_length_top+2*step)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 2.1, "+to_string(x_length_bottom+3*step)+" to 2.4, "+to_string(x_length_top+3*step)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 2.6, "+to_string(x_length_bottom+4*step)+" to 2.9, "+to_string(x_length_top+4*step)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 3.1, "+to_string(x_length_bottom+5*step)+" to 3.4, "+to_string(x_length_top+5*step)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 3.6, "+to_string(x_length_bottom+6*step)+" to 3.9, "+to_string(x_length_top+6*step)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 4.1, "+to_string(x_length_bottom+7*step)+" to 4.4, "+to_string(x_length_top+7*step)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+  double dtstep = 0.8;
+  double dtDSstep = 0.3;
+  double dtDSini = 0.15;
+
+  double tinit = 0.;
+  double tend = 0.;
+  double pinit = 0.;
+  double pend = 0.;
+
+  // double support
+  // *********************************
+  tinit = 0.; tend = dtstep + dtDSini;
+  pinit = x_length_bottom; pend = x_length_top;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+to_string(pinit)+" to "+to_string(tend)+", "+to_string(pend)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
+
+  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
+  pend += step;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+to_string(pinit)+" to "+to_string(tend)+", "+to_string(pend)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
+  pinit += step; pend += step;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+to_string(pinit)+" to "+to_string(tend)+", "+to_string(pend)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
+  pinit += step; pend += step;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+to_string(pinit)+" to "+to_string(tend)+", "+to_string(pend)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
+  pinit += step; pend += step;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+to_string(pinit)+" to "+to_string(tend)+", "+to_string(pend)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
+  pinit += step; pend += step;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+to_string(pinit)+" to "+to_string(tend)+", "+to_string(pend)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
+  pinit += step; pend += step;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+to_string(pinit)+" to "+to_string(tend)+", "+to_string(pend)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
+  pinit += step; pend += step;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+to_string(pinit)+" to "+to_string(tend)+", "+to_string(pend)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
+  pinit += step;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+to_string(pinit)+" to "+to_string(tend)+", "+to_string(pend)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+
+  // single support
+  // *********************************
+  tinit = dtstep+dtDSini; tend = tinit+(dtstep-dtDSstep);
+  pinit = x_length_bottom; pend = x_length_top;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+to_string(pinit)+" to "+to_string(tend)+", "+to_string(pend)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+dtDSstep; tend = tinit+(dtstep-dtDSstep);
+  pinit += step; pend += step;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+to_string(pinit)+" to "+to_string(tend)+", "+to_string(pend)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+dtDSstep; tend = tinit+(dtstep-dtDSstep);
+  pinit += step; pend += step;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+to_string(pinit)+" to "+to_string(tend)+", "+to_string(pend)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+dtDSstep; tend = tinit+(dtstep-dtDSstep);
+  pinit += step; pend += step;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+to_string(pinit)+" to "+to_string(tend)+", "+to_string(pend)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+dtDSstep; tend = tinit+(dtstep-dtDSstep);
+  pinit += step; pend += step;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+to_string(pinit)+" to "+to_string(tend)+", "+to_string(pend)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+dtDSstep; tend = tinit+(dtstep-dtDSstep);
+  pinit += step; pend += step;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+to_string(pinit)+" to "+to_string(tend)+", "+to_string(pend)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+dtDSstep; tend = tinit+(dtstep-dtDSstep);
+  pinit += step; pend += step;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+to_string(pinit)+" to "+to_string(tend)+", "+to_string(pend)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+dtDSstep; tend = tinit+(dtstep-dtDSstep);
+  pinit += step; pend += step;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+to_string(pinit)+" to "+to_string(tend)+", "+to_string(pend)+" behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
   // *********************************
 
   gpMaker.setDimention(4);
@@ -72,25 +134,66 @@ void RLS::Output::stabilityIndex4walking(Config &config, Info &info, GpMaker &gp
   gpMaker.add("set yrange[-70:70]");
 
   ob = 1;
-  gpMaker.add("set object "+to_string(ob)+" rect from 0, (-39-"+to_string(y_length)+") to 0.6, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 0.9, (-39-"+to_string(y_length)+") to 1.1, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 1.4, (-39-"+to_string(y_length)+") to 1.6, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 1.9, (-39-"+to_string(y_length)+") to 2.1, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 2.4, (-39-"+to_string(y_length)+") to 2.6, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 2.9, (-39-"+to_string(y_length)+") to 3.1, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 3.4, (-39-"+to_string(y_length)+") to 3.6, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 3.9, (-39-"+to_string(y_length)+") to 4.1, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 4.4, (-39-"+to_string(y_length)+") to 1e+3, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
 
-  gpMaker.add("set object "+to_string(ob)+" rect from 0.6, (-39-"+to_string(y_length)+") to 0.9, (-39+"+to_string(y_length)+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 1.6, (-39-"+to_string(y_length)+") to 1.9, (-39+"+to_string(y_length)+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 2.6, (-39-"+to_string(y_length)+") to 2.9, (-39+"+to_string(y_length)+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 3.6, (-39-"+to_string(y_length)+") to 3.9, (-39+"+to_string(y_length)+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+  string norm = to_string(y_length);
+  // double support
+  // *********************************
+  tinit = 0.; tend = dtstep+dtDSini;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", (-39-"+norm+") to "+to_string(tend)+", (39+"+norm+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
 
-  gpMaker.add("set object "+to_string(ob)+" rect from 1.1, (39-"+to_string(y_length)+") to 1.4, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 2.1, (39-"+to_string(y_length)+") to 2.4, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 3.1, (39-"+to_string(y_length)+") to 3.4, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
-  gpMaker.add("set object "+to_string(ob)+" rect from 4.1, (39-"+to_string(y_length)+") to 4.4, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", (-39-"+norm+") to "+to_string(tend)+", (39+"+norm+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", (-39-"+norm+") to "+to_string(tend)+", (39+"+norm+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", (-39-"+norm+") to "+to_string(tend)+", (39+"+norm+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", (-39-"+norm+") to "+to_string(tend)+", (39+"+norm+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", (-39-"+norm+") to "+to_string(tend)+", (39+"+norm+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", (-39-"+norm+") to "+to_string(tend)+", (39+"+norm+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", (-39-"+norm+") to "+to_string(tend)+", (39+"+norm+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", (-39-"+norm+") to "+to_string(tend)+", (39+"+norm+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
+
+
+  // right leg support
+  // *********************************
+  tinit = dtstep+dtDSini; tend = tinit+(dtstep-dtDSstep);
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", (-39-"+norm+") to "+to_string(tend)+", (-39+"+norm+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+dtDSstep+dtstep; tend = tinit+(dtstep-dtDSstep);
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", (-39-"+norm+") to "+to_string(tend)+", (-39+"+norm+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+dtDSstep+dtstep; tend = tinit+(dtstep-dtDSstep);
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", (-39-"+norm+") to "+to_string(tend)+", (-39+"+norm+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+dtDSstep+dtstep; tend = tinit+(dtstep-dtDSstep);
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", (-39-"+norm+") to "+to_string(tend)+", (-39+"+norm+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+
+
+  // left leg support
+  // *********************************
+  tinit = 2*dtstep+dtDSini; tend = tinit+(dtstep-dtDSstep);
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", (39-"+norm+") to "+to_string(tend)+", (39+"+norm+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+dtDSstep+dtstep; tend = tinit+(dtstep-dtDSstep);
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", (39-"+norm+") to "+to_string(tend)+", (39+"+norm+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+dtDSstep+dtstep; tend = tinit+(dtstep-dtDSstep);
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", (39-"+norm+") to "+to_string(tend)+", (39+"+norm+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
+
+  tinit = tend+dtDSstep+dtstep; tend = tinit+(dtstep-dtDSstep);
+  gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", (39-"+norm+") to "+to_string(tend)+", (39+"+norm+") behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
 
   // static
   // *********************************

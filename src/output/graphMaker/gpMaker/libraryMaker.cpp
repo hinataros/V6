@@ -31,6 +31,12 @@ void RLS::GpMaker::setST(int arg)
   st = arg;
 }
 
+// smiyahara: tstartの初期化が面倒だからsetStartTime()は呼ぶ前提
+void RLS::GpMaker::setStartTime(double arg)
+{
+  tstart = arg;
+}
+
 void RLS::GpMaker::makeLibrary()
 {
   makeMacro();
@@ -93,7 +99,7 @@ void RLS::GpMaker::makeConfig()
     "TERMINAL = 'x11'\n";
 
   string time_config =
-    "T_OFFSET = 2\n"
+    "T_OFFSET = "+to_string(tstart)+"\n"
     "SAMPLING = "+to_string(static_cast<int>(1/(st*dt)))+"\n";
 
   ofstream libConfig((path_gp_ind+"library/config.gp").c_str());

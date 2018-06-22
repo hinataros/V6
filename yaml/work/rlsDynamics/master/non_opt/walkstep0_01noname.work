@@ -6,13 +6,14 @@ State:
     Inverse dynamics controller: fullDynamics
     Momentum controller: centroidalDcmMomentum
     # Momentum controller: centroidalMomentum
-    # Motion controller: hinata
+    # Motion controller: rest_cmlC
     Motion controller: mixedGeneralizedMomentum
     Force controller: centroidalDcmDistribution
     # Force controller: centroidalDistribution
 
     # Torque controller: staticControl
     Torque controller: mixedmixedOpt
+    # Torque controller: mixedmixed
 
     Bc: &ds
       - [1, 1, 1, 1, 1, 1]
@@ -33,7 +34,7 @@ State:
     # KpwB: 3.e+2
     # KdwB: 5.e+1
 
-    KdwB: 5.e+1
+    KdwB: 5.e+0
 
     Kpv: 3.e+3
     Kdv: 5.e+2
@@ -42,8 +43,8 @@ State:
 
     Kpp: 5.e+0
 
-    # KDlC: 1.e+2
-    # KDth: 1.e+2
+    KDlC: 0.
+    KDth: 1.e+2
     KDq:
       - [0., 0., 0., 0., 0., 0.]
       - [1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2]
@@ -52,6 +53,8 @@ State:
       - [1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2]
   -
     Force controller: centroidalDistribution
+    Motion controller: rest_cmlC
+    Torque controller: mixedmixed
     Bc: &lss
       - [0, 0, 0, 0, 0, 0]
       - [1, 1, 1, 1, 1, 1]
@@ -64,6 +67,8 @@ State:
       - [0, 0, 0, 0, 0, 0]
   -
     Force controller: centroidalDistribution
+    Motion controller: rest_cmlC
+    Torque controller: mixedmixed
     Bc: *rss
     Bm: *lss
 
@@ -75,6 +80,9 @@ Sequence:
   -
     twf: 0.15
     Force controller: centroidalDistribution
+    Motion controller: rest_cmlC
+    Torque controller: mixedmixed
+    KDlC: 1.e+2
     Bc: *rss
     Bm: *lss
     cal_Xf:
@@ -92,12 +100,18 @@ Sequence:
   -
     twf: 0.2
     Force controller: centroidalDcmDistribution
+    Motion controller: mixedGeneralizedMomentum
+    Torque controller: mixedmixedOpt
+    KDlC: 0.
     Bc: *ds
     Bm: *zs
   # 1 step
   -
     twf: 0.15
     Force controller: centroidalDistribution
+    Motion controller: rest_cmlC
+    Torque controller: mixedmixed
+    KDlC: 1.e+2
     Bc: *lss
     Bm: *rss
     cal_Xf:
@@ -115,12 +129,18 @@ Sequence:
   -
     twf: 0.2
     Force controller: centroidalDcmDistribution
+    Motion controller: mixedGeneralizedMomentum
+    Torque controller: mixedmixedOpt
+    KDlC: 0.
     Bc: *ds
     Bm: *zs
   # 2 step
   -
     twf: 0.15
     Force controller: centroidalDistribution
+    Motion controller: rest_cmlC
+    Torque controller: mixedmixed
+    KDlC: 1.e+2
     Bc: *rss
     Bm: *lss
     cal_Xf:
@@ -138,12 +158,18 @@ Sequence:
   -
     twf: 0.2
     Force controller: centroidalDcmDistribution
+    Motion controller: mixedGeneralizedMomentum
+    Torque controller: mixedmixedOpt
+    KDlC: 0.
     Bc: *ds
     Bm: *zs
   # 3 step
   -
     twf: 0.15
     Force controller: centroidalDistribution
+    Motion controller: rest_cmlC
+    Torque controller: mixedmixed
+    KDlC: 1.e+2
     Bc: *lss
     Bm: *rss
     cal_Xf:
@@ -161,12 +187,18 @@ Sequence:
   -
     twf: 0.2
     Force controller: centroidalDcmDistribution
+    Motion controller: mixedGeneralizedMomentum
+    Torque controller: mixedmixedOpt
+    KDlC: 0.
     Bc: *ds
     Bm: *zs
   # 4 step
   -
     twf: 0.15
     Force controller: centroidalDistribution
+    Motion controller: rest_cmlC
+    Torque controller: mixedmixed
+    KDlC: 1.e+2
     Bc: *rss
     Bm: *lss
     cal_Xf:
@@ -184,12 +216,18 @@ Sequence:
   -
     twf: 0.2
     Force controller: centroidalDcmDistribution
+    Motion controller: mixedGeneralizedMomentum
+    Torque controller: mixedmixedOpt
+    KDlC: 0.
     Bc: *ds
     Bm: *zs
   # 5 step
   -
     twf: 0.15
     Force controller: centroidalDistribution
+    Motion controller: rest_cmlC
+    Torque controller: mixedmixed
+    KDlC: 1.e+2
     Bc: *lss
     Bm: *rss
     cal_Xf:
@@ -207,12 +245,18 @@ Sequence:
   -
     twf: 0.2
     Force controller: centroidalDcmDistribution
+    Motion controller: mixedGeneralizedMomentum
+    Torque controller: mixedmixedOpt
+    KDlC: 0.
     Bc: *ds
     Bm: *zs
   # 6 step
   -
     twf: 0.15
     Force controller: centroidalDistribution
+    Motion controller: rest_cmlC
+    Torque controller: mixedmixed
+    KDlC: 1.e+2
     Bc: *rss
     Bm: *lss
     cal_Xf:
@@ -230,12 +274,18 @@ Sequence:
   -
     twf: 0.2
     Force controller: centroidalDcmDistribution
+    Motion controller: mixedGeneralizedMomentum
+    Torque controller: mixedmixedOpt
+    KDlC: 0.
     Bc: *ds
     Bm: *zs
   # 7 step
   -
     twf: 0.15
     Force controller: centroidalDistribution
+    Motion controller: rest_cmlC
+    Torque controller: mixedmixed
+    KDlC: 1.e+2
     Bc: *lss
     Bm: *rss
     cal_Xf:
@@ -253,5 +303,8 @@ Sequence:
   -
     twf: 0.15
     Force controller: centroidalDcmDistribution
+    Motion controller: mixedGeneralizedMomentum
+    Torque controller: mixedmixedOpt
+    KDlC: 0.
     Bc: *ds
     Bm: *zs

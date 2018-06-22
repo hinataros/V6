@@ -15,7 +15,7 @@ def add_tex():
     with open(tex, "r", encoding="utf-8") as f:
         for line in f:
             if "\\def\\user" in line:
-                temp += "\\def\\user{"+str(config.uid)+"}"+config.n
+                temp += "\\def\\user{"+str(config.uid)+"}"+"\n"
             else:
                 temp += line
 

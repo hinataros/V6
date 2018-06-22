@@ -33,7 +33,7 @@ void RLS::RlsDynamics::distributionSolver(Config &config, Info &info, Model &mod
   // VectorXd rpkDes = VectorXd::Zero(2*info.contact.num);
   VectorXd rpkDes = VectorXd::Zero(2*BpDiag.diagonal().sum()/2);
 
-  MatrixXd G = Pc.transpose()*Bp.transpose()*Wp*Bp*Pc + Bc.transpose()*WF*Bc;
+  MatrixXd G = Bc.transpose()*WF*Bc + Pc.transpose()*Bp.transpose()*Wp*Bp*Pc;
 
   VectorXd g = -rpkDes.transpose()*Bp.transpose()*Wp*Bp*Pc;
 
@@ -42,6 +42,5 @@ void RLS::RlsDynamics::distributionSolver(Config &config, Info &info, Model &mod
 
   // ************************************************************************
 
-  if(info.sim.state)
-    QuadProgpp::solver(G, g, "e", CE, ce, cal_FcBarRef);
+  QuadProgpp::solver(G, g, "e", CE, ce, cal_FcBarRef);
 }

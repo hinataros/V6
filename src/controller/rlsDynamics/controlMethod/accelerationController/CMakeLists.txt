@@ -7,7 +7,8 @@ set(srcs
   baseAccelerationSynergy.cpp
   mixedAccelerationSynergy.cpp
   centroidalAccelerationSynergy.cpp
-  noname.cpp
+  rest_cmlC.cpp
+  rest_clCm.cpp
   baseGeneralizedMomentum.cpp
   mixedGeneralizedMomentum.cpp
   accelerationSolver.cpp

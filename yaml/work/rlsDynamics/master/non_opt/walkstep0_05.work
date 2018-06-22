@@ -13,12 +13,12 @@ State:
     # Torque controller: staticControl
     Torque controller: mixedmixedOpt
 
-    Bc:
+    Bc: &ds
       - [1, 1, 1, 1, 1, 1]
       - [1, 1, 1, 1, 1, 1]
       - [0, 0, 0, 0, 0, 0]
       - [0, 0, 0, 0, 0, 0]
-    Bm:
+    Bm: &zs
       - [0, 0, 0, 0, 0, 0]
       - [0, 0, 0, 0, 0, 0]
       - [0, 0, 0, 0, 0, 0]
@@ -26,21 +26,27 @@ State:
 
     KX: 3.e+2
 
-    KpC: 3.e+2
-    KdC: 5.e+1
+    # KpC: 3.e+2
+    # KdC: 5.e+1
 
-    # KpwB: 3.e+2
-    KdwB: 1.e+1
+    # # KpwB: 3.e+2
+    # KdwB: 1.e+1
 
-    Kpv: 1.e+3
-    Kdv: 1.e+2
+    KpwB: 1.e+3
+    KdwB: 1.e+2
+
+    # Kpv: 1.e+3
+    # Kdv: 1.e+2
     # Kpv: 3.e+2
     # Kdv: 5.e+1
 
-    Kpp: .5e+1
+    Kpv: 3.e+3
+    Kdv: 5.e+2
 
-    KDlC: 1.e+2
-    KDth: 1.e+2
+    Kpp: 5.e+0
+
+    # KDlC: 1.e+2
+    # KDth: 1.e+2
     KDq:
       - [0., 0., 0., 0., 0., 0.]
       - [1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2]

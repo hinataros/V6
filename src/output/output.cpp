@@ -34,6 +34,7 @@ void RLS::Output::output(Config &config, Info &info)
     libraryMaker.setEpsPath(config.dir.eps.ind);
     libraryMaker.setDt(info.sim.dt);
     libraryMaker.setST(config.gp.st);
+    libraryMaker.setStartTime(config.gp.tstart);
 
     libraryMaker.makeLibrary();
 
