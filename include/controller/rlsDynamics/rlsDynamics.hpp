@@ -537,9 +537,21 @@ namespace RLS{
 
     void controlMethod(Config&, Info&, Model&);
 
+    // output config
+    // velocity output config
     void velocityOutputConfig(Config&, Info&, Model&);
+
+    // acceleration output config
     void accelerationOutputConfig(Config&, Info&, Model&);
+
+    // torque output config
+    void torqueOutputDesConfig(Config&, Info&, Model&);
+    void torqueOutputErrConfig(Config&, Info&, Model&);
+    void torqueOutputRefConfig(Config&, Info&, Model&);
+    void torqueOutputIndexConfig(Config&, Info&, Model&);
+    void torqueOutputIndexPrintConfig(Config&, Info&, Model&);
     void torqueOutputConfig(Config&, Info&, Model&);
+
     void outputConfig(Config&, Info&, Model&);
 
     // readWork

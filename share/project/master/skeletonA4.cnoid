@@ -1,3 +1,24 @@
+setting:
+  skeleton:
+    rootPosition: &POS1 [ 0, 0, 0.21019 ]
+    jointPositions: &STANDARD1 [
+      0.000000,  0.000000, -0.523599,  1.047198, -0.523599,  0.000000,
+      0.000000,  0.000000, -0.523599,  1.047198, -0.523599,  0.000000,
+      1.745329,  0.000000,  0.000000, -0.523599,
+      1.745329,  0.000000,  0.000000, -0.523599 ]
+    rootPosition: &POS2 [ 0, 0, 0.17842 ]
+    jointPositions: &STANDARD2 [
+      0.000000,  0.000000, -0.7853981634,  1.570796327, -0.7853981634,  0.000000,
+      0.000000,  0.000000, -0.7853981634,  1.570796327, -0.7853981634,  0.000000,
+      1.745329,  0.000000,  0.000000, -0.523599,
+      1.745329,  0.000000,  0.000000, -0.523599 ]
+
+    jointPositions: &LEFTLEGUP [
+      0.000000,  0.000000, -0.523599,  1.047198, -0.523599,  0.000000,
+      0.000000,  0.000000, -1.396263402,  2.792526803, -1.396263402, -0.000000,
+      1.745329,  0.000000,  0.000000, -0.523599,
+      1.745329,  0.000000,  0.000000, -0.523599 ]
+
 items: 
   id: 0
   name: "Root"
@@ -22,22 +43,18 @@ items:
           data: 
             modelFile: "/home/smiyahara/Documents/rlsSimulator/share/model/master/skeletonA4prim.body"
             currentBaseLink: "ROOT"
-            rootPosition: [ 0, 0, 0.21019 ]
+            rootPosition: *POS1
             rootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
               0, 0, 1 ]
-            jointPositions: [ 
-               0.000000,  0.000000, -0.523599,  1.047198, -0.523599,  0.000000,  0.000000,  0.000000, -0.523599,  1.047198, 
-              -0.523599, -0.000000,  1.745329,  0.000000,  0.000000, -0.523599,  1.745329,  0.000000,  0.000000, -0.523599 ]
-            initialRootPosition: [ 0, 0, 0.21019 ]
+            jointPositions: *STANDARD1
+            initialRootPosition: *POS1
             initialRootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
               0, 0, 1 ]
-            initialJointPositions: [ 
-               0.000000,  0.000000, -0.523599,  1.047198, -0.523599,  0.000000,  0.000000,  0.000000, -0.523599,  1.047198, 
-              -0.523599, -0.000000,  1.745329,  0.000000,  0.000000, -0.523599,  1.745329,  0.000000,  0.000000, -0.523599 ]
+            initialJointPositions: *STANDARD1
             zmp: [ 0, 0, 0 ]
             collisionDetection: true
             selfCollisionDetection: false
@@ -60,6 +77,35 @@ items:
                 baseDirectory: "RTC directory"
         - 
           id: 4
+          name: "AISTSimulator"
+          plugin: Body
+          class: AISTSimulatorItem
+          data: 
+            realtimeSync: true
+            recording: "full"
+            timeRangeMode: "Time bar range"
+            timeLength: 180
+            allLinkPositionOutputMode: false
+            deviceStateOutput: true
+            controllerThreads: false
+            recordCollisionData: false
+            controllerOptions: ""
+            dynamicsMode: "Forward dynamics"
+            integrationMode: "Runge Kutta"
+            gravity: [ 0, 0, -9.81 ]
+            staticFriction: 1
+            dynamicFriction: 1
+            cullingThresh: 0.005
+            contactCullingDepth: 0.05
+            errorCriterion: 0.00000001
+            maxNumIterations: 1000
+            contactCorrectionDepth: 0.0001
+            contactCorrectionVelocityRatio: 1
+            kinematicWalking: false
+            2Dmode: false
+            oldAccelSensorMode: false
+        - 
+          id: 5
           name: "floor"
           plugin: Body
           class: BodyItem
@@ -81,35 +127,6 @@ items:
             collisionDetection: true
             selfCollisionDetection: false
             isEditable: false
-        - 
-          id: 5
-          name: "AISTSimulator"
-          plugin: Body
-          class: AISTSimulatorItem
-          data: 
-            realtimeSync: true
-            recording: "full"
-            timeRangeMode: "Time bar range"
-            timeLength: 180
-            allLinkPositionOutputMode: false
-            deviceStateOutput: true
-            controllerThreads: false
-            recordCollisionData: false
-            controllerOptions: ""
-            dynamicsMode: "Forward dynamics"
-            integrationMode: "Runge Kutta"
-            gravity: [ 0, 0, -9.81 ]
-            staticFriction: 1
-            dynamicFriction: 1
-            cullingThresh: 0.005
-            contactCullingDepth: 0.05
-            errorCriterion: 0.00001
-            maxNumIterations: 1000
-            contactCorrectionDepth: 0.0001
-            contactCorrectionVelocityRatio: 1
-            kinematicWalking: false
-            2Dmode: false
-            oldAccelSensorMode: false
 views: 
   - 
     id: 0
@@ -122,8 +139,8 @@ views:
     class: ItemTreeView
     mounted: true
     state: 
-      selected: [ 3, 5 ]
-      checked: [ 1, 2, 3, 5 ]
+      selected: [ 3 ]
+      checked: [ 1, 2, 3, 4, 5, 6 ]
       expanded: [ 1, 2, 3 ]
   - 
     id: 2
@@ -173,7 +190,7 @@ views:
           fieldOfView: 0.698132
           near: 0.01
           far: 100
-          eye: [ 1.21936234, 0.0393523051, 0.238879064 ]
+          eye: [ 1.10682697, 0.0240542279, 0.225877881 ]
           direction: [ -1, 6.123234e-17, -6.123234e-17 ]
           up: [ -6.123234e-17, 3.74939946e-33, 1 ]
         - 
@@ -299,7 +316,12 @@ Body:
         showPpcom: false
         showZmp: false
       - 
-        bodyItem: 4
+        bodyItem: 5
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+      - 
+        bodyItem: 6
         showCenterOfMass: false
         showPpcom: false
         showZmp: false

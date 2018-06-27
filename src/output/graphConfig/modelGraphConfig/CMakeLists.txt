@@ -1,5 +1,7 @@
 # @author Sho Miyahara 2018
 
+add_subdirectory(gif)
+
 set(srcs
   baseTrans.cpp
   baseRot.cpp
@@ -13,4 +15,4 @@ set(srcs
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" modelGraphConfig_srcs)
-set(modelGraphConfig_srcs ${modelGraphConfig_srcs} PARENT_SCOPE)
+set(modelGraphConfig_srcs ${modelGraphConfig_srcs} ${gif_srcs} PARENT_SCOPE)

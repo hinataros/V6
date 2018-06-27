@@ -1,0 +1,24 @@
+floor:
+  - &FLOORNODE
+    id: 5
+    name: "floor"
+    plugin: Body
+    class: BodyItem
+    data: 
+      modelFile: "/home/smiyahara/Documents/rlsSimulator/share/model/object/floor.body"
+      currentBaseLink: ""
+      rootPosition: [ 0, 0, -0.025 ]
+      rootAttitude: [ 
+      1, 0, 0, 
+      0, 1, 0, 
+      0, 0, 1 ]
+      jointPositions: [  ]
+      initialRootPosition: [ 0, 0, -0.025 ]
+      initialRootAttitude: [ 
+      1, 0, 0, 
+      0, 1, 0, 
+      0, 0, 1 ]
+      zmp: [ 0, 0, 0 ]
+      collisionDetection: true
+      selfCollisionDetection: false
+      isEditable: false

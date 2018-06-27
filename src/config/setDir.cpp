@@ -18,13 +18,15 @@ void RLS::Config::setDir()
   dir.cmp = dir.result + result.name.cmp+"/";
 
   dir.dat.cmp = dir.cmp + "dat/";
-  dir.eps.cmp = dir.cmp + "eps/";
   dir.gp.cmp = dir.cmp + "gp/";
+  dir.eps.cmp = dir.cmp + "eps/";
   dir.pdf.cmp = dir.cmp + "pdf/";
+  dir.gif.cmp = dir.cmp + "gif/";
 
   dir.dat.ind = dir.dat.cmp + result.name.ind+"/";
-  dir.eps.ind = dir.eps.cmp + result.name.ind+"/";
   dir.gp.ind = dir.gp.cmp + result.name.ind+"/";
+  dir.eps.ind = dir.eps.cmp + result.name.ind+"/";
+  dir.gif.ind = dir.gif.cmp + result.name.ind+"/";
   dir.pdf.ind = dir.pdf.cmp + "src/" + result.name.ind+"/";
 
   dir.interface = dir.result + "interface/";

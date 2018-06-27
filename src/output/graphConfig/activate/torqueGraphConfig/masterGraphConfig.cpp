@@ -69,9 +69,12 @@ void RLS::Output::masterGraphConfig(Config &config, Info &info)
   // cmp4walking(config, info, gpMaker, texMaker);
   stabilityIndex4walking(config, info, gpMaker, texMaker);
   vrpDes4walking(config, info, gpMaker, texMaker);
-  footPrint(config, info, gpMaker, texMaker);
+  // footPrint(config, info, gpMaker, texMaker);
 
   // main
   gpMaker.makeMainGp();
   texMaker.makeMainTex();
+
+  // allJointPos(config, info, gpMaker, texMaker);
+  indexPrint(config, info, gpMaker, texMaker);
 }

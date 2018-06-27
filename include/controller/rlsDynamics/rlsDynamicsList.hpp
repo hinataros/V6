@@ -99,6 +99,10 @@ namespace RLS{
     Vector2d rcmp;
 
     Vector3d rX;
+
+    // gif
+    // index print
+    MatrixXd indexPrintMatrix;
   };
 }
 

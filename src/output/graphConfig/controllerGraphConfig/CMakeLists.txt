@@ -6,6 +6,8 @@ add_subdirectory(ref)
 add_subdirectory(index)
 add_subdirectory(walking)
 
+add_subdirectory(gif)
+
 set(srcs
   )
 
@@ -16,5 +18,6 @@ set(controllerGraphConfig_srcs ${controllerGraphConfig_srcs}
   ${ref_srcs}
   ${index_srcs}
   ${walking_srcs}
+  ${gif_srcs}
   PARENT_SCOPE
   )

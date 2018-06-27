@@ -60,6 +60,9 @@ namespace RLS{
     void com(Config&, Info&, GpMaker&, TexMaker&);
     void mix(Config&, Info&, GpMaker&, TexMaker&);
     void spatialMom(Config&, Info&, GpMaker&, TexMaker&);
+    // gif
+    // ****************
+    void allJointPos(Config&, Info&, GpMaker&, TexMaker&);
     // ********************************************
 
     // ********************************************
@@ -102,6 +105,9 @@ namespace RLS{
     void vrpDes4walking(Config&, Info&, GpMaker&, TexMaker&);
     void footPrint(Config&, Info&, GpMaker&, TexMaker&);
     // ********************************************
+
+    // gif
+    void indexPrint(Config&, Info&, GpMaker&, TexMaker&);
 
     // velocity
     void velocityGraphConfig(Config&, Info&);

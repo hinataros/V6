@@ -15,14 +15,14 @@ links:
         1, 0,
         1 ]
         elements:
-          Shape: &FloorBody
+          Shape: &FloorShape
             geometry:
               type: Box
-              size: [ 1.0, 1.0, 0.05 ]
+              size: [ 1.2, 0.2, 0.05 ]
             appearance:
               material:
                 diffuseColor: [ 0.5, 0.5, 0.5 ]
       -
         type: Collision
         elements:
-          Shape: *FloorBody
+          Shape: *FloorShape

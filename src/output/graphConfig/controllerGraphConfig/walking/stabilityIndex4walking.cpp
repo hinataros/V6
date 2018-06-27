@@ -267,10 +267,6 @@ void RLS::Output::stabilityIndex4walking(Config &config, Info &info, GpMaker &gp
   gpMaker.add("INIT_LX = 0.0");
   gpMaker.add("INIT_LY = 39.00");
 
-  // gpMaker.add("PMAX_X  = 58.0");
-  // gpMaker.add("PMIN_X  =-40.0");
-  // gpMaker.add("PMAX_Y  = 31.5");
-  // gpMaker.add("PMIN_Y  =-31.5");
   gpMaker.add("PMAX_X  = "+to_string(x_length_top));
   gpMaker.add("PMIN_X  = "+to_string(x_length_bottom));
   gpMaker.add("PMAX_Y  = "+to_string(y_length));

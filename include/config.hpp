@@ -60,6 +60,7 @@ namespace RLS{
       Compos eps;
       Compos gp;
       Compos pdf;
+      Compos gif;
       string interface;
     } dir;
 

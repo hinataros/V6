@@ -120,3 +120,5 @@ dcとtmはdynamicsControllerに変える
 outputの設定をyamlに
 
 mkdataのディレクトリ名の指定を.modelから.cnoidにする
+
+.confのsampling timeがdatの時点で間引いているからgpのsamplingではない

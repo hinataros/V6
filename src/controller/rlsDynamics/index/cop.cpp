@@ -35,11 +35,16 @@ void RLS::RlsDynamics::cop(Config &config, Info &info, TreeModel &hoap2)
       rpNumerator(1) += rpw2k(2*(i-1)+1)*cal_Fk(2);
       rpDenominator += cal_Fk(2);
     }
+    else{
+      rpk.segment(2*(i-1), 2) << NAN, NAN;
+      rpw2k.segment(2*(i-1), 2) << NAN, NAN;
+    }
   }
 
   if(rpDenominator != 0.)
     rp = rpNumerator/rpDenominator;
 
   else
-    rp = hoap2.all.rC.head(2);
+    rp <<
+      NAN, NAN;
 }

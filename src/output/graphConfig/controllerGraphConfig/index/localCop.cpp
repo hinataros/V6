@@ -15,9 +15,12 @@ void RLS::Output::localCop(Config &config, Info &info, GpMaker &gpMaker, TexMake
   texMaker.setLimbNum(3, false);
   texMaker.setLimbNum(4, false);
 
-  double y_length = 31.5;
-  double x_length_top = 58;
-  double x_length_bottom = -40;
+  // double y_length = 31.5;
+  // double x_length_top = 58;
+  // double x_length_bottom = -40;
+  double y_length = 21;
+  double x_length_top = 116/3;
+  double x_length_bottom = -80/3;
 
   reset();
   setFileName("localCoPx");
@@ -54,6 +57,7 @@ void RLS::Output::localCop(Config &config, Info &info, GpMaker &gpMaker, TexMake
   gpMaker.setYLabel("EE CoP y [mm]");
   gpMaker.setUnit("m");
   gpMaker.add(1,"set yrange[-40:40]");
+
   gpMaker.add(1,"set object 1 rect from 0, (-"+to_string(y_length)+") to 1e+3, ("+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");
   gpMaker.add(2,"set yrange[-40:40]");
   gpMaker.add(2,"set object 1 rect from 0, (-"+to_string(y_length)+") to 1e+3, ("+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");

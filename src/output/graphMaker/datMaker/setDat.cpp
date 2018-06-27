@@ -221,6 +221,15 @@ void RLS::Output::setDat(ofstream& stream, string dataName, int i)
       data.dc[i].rXDes(1) << " " << data.dc[i].rXDes(0) << " " <<
       data.dc[i].rvrpDes(1) << " " << data.dc[i].rvrpDes(0) << endl;
 
+  // gif
+  else if(dataName=="index print")
+    stream <<
+      data.dc[i].indexPrintMatrix.transpose().row(0) << endl <<
+      data.dc[i].indexPrintMatrix.transpose().row(1) << endl <<
+      data.dc[i].indexPrintMatrix.transpose().row(2) << endl <<
+      data.dc[i].indexPrintMatrix.transpose().row(3) << endl <<
+      data.dc[i].indexPrintMatrix.transpose().row(4) << endl << endl << endl;
+
   else
     cout << "not found: " << "'" << dataName << "'" << endl;
 }

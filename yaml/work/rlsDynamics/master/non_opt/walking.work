@@ -27,21 +27,16 @@ State:
 
     # old
     KX: 3.e+2
-    KpwB: 3.e+2
+    # KpwB: 3.e+2
     KdwB: 5.e+1
+    # KpwB: 8.e+2
+    # KdwB: 2.e+1
     Kpv: 3.e+3
     Kdv: 5.e+2
 
     # KdwB: 10.e+0
 
-    Kpp: 1.e+0
-
-    # # new
-    # KX: 3.e+2
-    # KpwB: 6.e+2
-    # KdwB: 1.e+1
-    # Kpv: 3.e+3
-    # Kdv: 5.e+2
+    Kpp: 5.e+0
 
     KDlC: 0.
     # KDlC: 1.e+2
@@ -82,7 +77,7 @@ Setting:
   twf: &tlegoff 0.25
   twf: &tds 0.3
 
-  height: &height 0.001
+  height: &height 0.008
 
   # length: &steplength1 0.01
   # length: &steplength2 0.02
@@ -106,6 +101,11 @@ Setting:
   length: &steplength5 0.225
   length: &steplength6 0.270
   length: &steplength7 0.315
+
+  xiBf: &gobaseinitial [0., 0., 0.]
+  xiBf: &backbaseinitial [0., 0., 0.]
+  xiBf: &gobase [0., 0., 0.]
+  xiBf: &backbase [0., 0., 0.]
 
 Footstep:
   cal_Xf: &liftleg1
@@ -201,11 +201,13 @@ Sequence:
     Bc: *rss
     Bm: *lss
     cal_Xf: *liftleg1
+    xiBf: *gobaseinitial
   -
     twf: *tlegoff
     cal_Xf: *legoff1
   -
     twf: *tds
+    xiBf: *backbaseinitial
 
   # 1 step
   -
@@ -214,11 +216,13 @@ Sequence:
     Bc: *lss
     Bm: *rss
     cal_Xf: *liftleg2
+    xiBf: *gobase
   -
     twf: *tlegoff
     cal_Xf: *legoff2
   -
     twf: *tds
+    xiBf: *backbase
   # 2 step
   -
     twf: *tliftleg
@@ -226,11 +230,13 @@ Sequence:
     Bc: *rss
     Bm: *lss
     cal_Xf: *liftleg3
+    xiBf: *gobase
   -
     twf: *tlegoff
     cal_Xf: *legoff3
   -
     twf: *tds
+    xiBf: *backbase
   # 3 step
   -
     twf: *tliftleg
@@ -238,11 +244,13 @@ Sequence:
     Bc: *lss
     Bm: *rss
     cal_Xf: *liftleg4
+    xiBf: *gobase
   -
     twf: *tlegoff
     cal_Xf: *legoff4
   -
     twf: *tds
+    xiBf: *backbase
   # 4 step
   -
     twf: *tliftleg
@@ -250,11 +258,13 @@ Sequence:
     Bc: *rss
     Bm: *lss
     cal_Xf: *liftleg5
+    xiBf: *gobase
   -
     twf: *tlegoff
     cal_Xf: *legoff5
   -
     twf: *tds
+    xiBf: *backbase
   # 5 step
   -
     twf: *tliftleg
@@ -262,11 +272,13 @@ Sequence:
     Bc: *lss
     Bm: *rss
     cal_Xf: *liftleg6
+    xiBf: *gobase
   -
     twf: *tlegoff
     cal_Xf: *legoff6
   -
     twf: *tds
+    xiBf: *backbase
   # 6 step
   -
     twf: *tliftleg
@@ -274,11 +286,13 @@ Sequence:
     Bc: *rss
     Bm: *lss
     cal_Xf: *liftleg7
+    xiBf: *gobase
   -
     twf: *tlegoff
     cal_Xf: *legoff7
   -
     twf: *tds
+    xiBf: *backbase
   # 7 step
   -
     twf: *tliftleg
@@ -286,11 +300,13 @@ Sequence:
     Bc: *lss
     Bm: *rss
     cal_Xf: *liftleg8
+    xiBf: *gobaseinitial
   -
     twf: *tlegoff
     cal_Xf: *legoff8
   -
     twf: *tds
+    xiBf: *backbaseinitial
 # ****************************************************************
 
 # # ****************************************************************
