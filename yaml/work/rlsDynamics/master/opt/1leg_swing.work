@@ -2,7 +2,6 @@
 
 State:
   -
-    Inverse dynamics controller: default
   -
     Inverse dynamics controller: dlrSolver
     Momentum controller: centroidalDcmMomentum

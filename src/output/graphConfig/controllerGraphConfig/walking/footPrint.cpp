@@ -31,9 +31,10 @@ void RLS::Output::footPrint(Config &config, Info &info, GpMaker &gpMaker, TexMak
 
   gpMaker.add("set xtics 40");
   gpMaker.add("set parametric");
-  gpMaker.add("set size square");
-  gpMaker.add("set xrange[80:-80]");
-  gpMaker.add("set yrange[-80:80]");
+  // gpMaker.add("set size square");
+  gpMaker.add("set size ratio "+to_string(670./140));
+  gpMaker.add("set xrange[70:-70]");
+  gpMaker.add("set yrange[-70:600]");
   gpMaker.add("INIT_RX = 0.0");
   gpMaker.add("INIT_RY =-39.00");
   gpMaker.add("INIT_LX = 0.0");
@@ -58,7 +59,7 @@ void RLS::Output::footPrint(Config &config, Info &info, GpMaker &gpMaker, TexMak
   gpMaker.add("set arrow 11 from INIT_RY, INIT_RX+PMIN_X to INIT_RY, INIT_RX+PMAX_X as 1");
   gpMaker.add("set arrow 12 from INIT_LY, INIT_LX+PMIN_X to INIT_LY, INIT_LX+PMAX_X as 1");
 
-  gpMaker.setDimention(2);
+  gpMaker.setDimention(1);
   gpMaker.makeGp();
 
   texMaker.setName(file_name);

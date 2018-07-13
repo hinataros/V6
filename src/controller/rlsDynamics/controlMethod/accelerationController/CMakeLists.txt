@@ -2,7 +2,8 @@
 
 set(srcs
   ddthD.cpp
-  ddqD.cpp
+  ddqthD.cpp
+  ddqthinit.cpp
   workAcceleration.cpp
   baseAccelerationSynergy.cpp
   mixedAccelerationSynergy.cpp

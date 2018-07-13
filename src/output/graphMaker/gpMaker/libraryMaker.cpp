@@ -87,6 +87,10 @@ void RLS::GpMaker::makeConfig()
     "DECIMAL_COORD_X = 0.29\n"
     "DECIMAL_COORD_Y = 0.94\n";
 
+  string lavel_color_config =
+    "XLABEL_COLOR = 'black'\n"
+    "YLABEL_COLOR = 'black'\n";
+
   string ylabel_config =
     "YLABEL_OFFSET_X = -0.35\n"
     "YLABEL_OFFSET_Y = 0.5\n";
@@ -94,6 +98,11 @@ void RLS::GpMaker::makeConfig()
   string etc_config =
     "VIEWMODE = 0# 1:on 0:off\n"
     "KEY = 0\n";
+
+  string background_config =
+    "BACKGROUND = 0\n"
+    "if(BACKGROUND) XLABEL_COLOR = 'white'\n"
+    "if(BACKGROUND) YLABEL_COLOR = 'white'\n";
 
   string terminal_config =
     "TERMINAL = 'x11'\n";
@@ -111,8 +120,10 @@ void RLS::GpMaker::makeConfig()
       font_config << endl <<
       line_config << endl <<
       decimal_config << endl <<
+      lavel_color_config << endl <<
       ylabel_config << endl <<
       etc_config << endl <<
+      background_config << endl <<
       terminal_config << endl <<
       time_config << endl;
     libConfig.close();
@@ -152,6 +163,14 @@ void RLS::GpMaker::makeSet()
     "set style line 5 lw LINE_WIDTH lc 5\n"
     "set style line 6 lw LINE_WIDTH lc rgb 'orange'\n";
 
+  string background_set =
+    "if(BACKGROUND) set object 1000 rect behind from screen 0,0 to screen 1,1 fc rgb '#333333' fillstyle solid 1.0 border -1\n"
+    "if(BACKGROUND) set xzeroaxis lc rgb 'white'\n"
+    "if(BACKGROUND) set border lc rgb 'white'\n"
+    "if(BACKGROUND) set xtics textcolor rgb 'white'\n"
+    "if(BACKGROUND) set ytics textcolor rgb 'white'\n"
+    "if(BACKGROUND) set key textcolor rgb 'white'\n";
+
   ofstream libSet((path_gp_ind+"library/set.gp").c_str());
   if(!libSet)
     cout << path_gp_ind+"library/set.gp" << ": " << endl
@@ -164,7 +183,8 @@ void RLS::GpMaker::makeSet()
       margin_set << endl <<
       autotics_set << endl <<
       format_set << endl <<
-      line_style_set << endl;
+      line_style_set << endl <<
+      background_set << endl;
     libSet.close();
   }
 }

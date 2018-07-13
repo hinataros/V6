@@ -421,7 +421,7 @@ links:
   -
     name: RLEGEE
     parent: RLEG6
-    translation: [ 0.0, 0.0, -0.0370 ]
+    translation: &LEGEEPOS [ 0.0, 0.0, -0.0370 ]
     elements:
       -
         type: Visual
@@ -430,7 +430,6 @@ links:
             type: Shape
             rotation: &Y [ 0, 1, 0, 90 ]
             # translation: [ 0.009, 0.0, 0.005 ]
-            # geometry: &FOOT { type: Box, size: [ 0.01, 2., 3. ] }
             # geometry: &FOOT { type: Box, size: [ 0.01, 0.063, 0.098 ] }
             translation: [ 0.006, 0.0, 0.005 ]
             geometry: &FOOT { type: Box, size: [ 0.01, 0.042, 0.065333333 ] }
@@ -723,7 +722,7 @@ links:
   -
     name: LLEGEE
     parent: LLEG6
-    translation: [ 0.0, 0.0, -0.0370 ]
+    translation: *LEGEEPOS
     elements:
       -
         type: Visual

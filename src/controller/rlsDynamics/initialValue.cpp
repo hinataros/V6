@@ -11,6 +11,8 @@ void RLS::RlsDynamics::initialValue(Config &config, Info &info, Model &model)
 {
   if(config.flag.debug) DEBUG;
 
+  th0 = model.hoap2.all.th;
+
   rC0 = model.hoap2.all.rC;
   rB0 = model.hoap2.limb[0].node[0].r;
   xiB0 = R2xi(model.hoap2.limb[0].node[0].R);

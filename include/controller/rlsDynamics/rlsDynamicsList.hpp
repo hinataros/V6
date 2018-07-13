@@ -72,6 +72,8 @@ namespace RLS{
 
     Vector3d dvCoptRef;
 
+    Vector3d rvrpRef;
+
     Vector3d dpRef;
     Vector3d dlCRef;
 

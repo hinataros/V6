@@ -118,15 +118,16 @@ void RLS::TreeModel::readBody(Config &config, Info &info)
   // }
   // for(int i=0; i<info.value.node; i++){
   //   for(int j=0; j<info.limb[i].value; j++){
-  //     // o(i);
-  //     // o(j);
+  //     o(i);
+  //     o(j);
   //     // o(limb[i].node[j].jointType);
-  //     // o(limb[i].node[j].d.transpose());
+  //     o(limb[i].node[j].d.transpose());
   //     // o(limb[i].node[j].m);
   //     // o(limb[i].node[j].ri2C.transpose());
   //     // o(limb[i].node[j].Iw_C);
   //   }
   // }
+  // gc;
 
   // smiyahara: 場所がびみょ～
   joints(config, info);

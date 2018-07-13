@@ -1,6 +1,7 @@
 # @author Sho Miyahara 2018
 
 set(srcs
+  dcm.cpp
   sysMom.cpp
   localCop.cpp
   netCop.cpp

@@ -123,6 +123,10 @@ void RLS::TexMaker::makeTex()
 
   string caption =
     "\\caption{"+capRef+"}";
+  // // for color package
+  // string caption =
+  //   "\\vspace{5mm}\n"
+  //   "\\caption{"+capRef+"}";
 
   string end =
     "\\end{figure}";

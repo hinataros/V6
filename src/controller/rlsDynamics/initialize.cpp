@@ -124,6 +124,8 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   // boundary
   // ******************************
+  th0 = VectorXd::Zero(info.dof.joint);
+
   rC0 = rCf = Vector3d::Zero();
 
   rB0 = rBf = Vector3d::Zero();
@@ -185,13 +187,14 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   flagDS = true;
 
   stepNum = 10;
+  // stepNum = 18;
   stepPhase = 0;
   tstep0 = 0.;
   tstep = 0.;
   tDS0 = 0.;
 
   dt = VectorXd::Zero(stepNum);
-  rf = MatrixXd::Zero(3,stepNum);
+  rf = MatrixXd::Zero(3,stepNum+1);
   rvrpd = MatrixXd::Zero(3,stepNum+1);
 
   rXeos = MatrixXd::Zero(3,stepNum+1);
@@ -209,6 +212,27 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   ddrXiniDS = MatrixXd::Zero(3,stepNum+1);
   ddrXeoDS = MatrixXd::Zero(3,stepNum+1);
 
+  // HT
+  alphaHT = VectorXd::Zero(stepNum);
+  dtHT = VectorXd::Zero(stepNum);
+  dtTH = VectorXd::Zero(stepNum);
+
+  rfT = MatrixXd::Zero(3,stepNum+1);
+  rfH = MatrixXd::Zero(3,stepNum+1);
+
+  rXHT = MatrixXd::Zero(3,stepNum+1);
+  rXTH = MatrixXd::Zero(3,stepNum+1);
+
+  rvrpTd = MatrixXd::Zero(3,stepNum+1);
+  rvrpHd = MatrixXd::Zero(3,stepNum+1);
+
+  // polynomial
+  initial_walking = true;
+  tphasef = 0.;
+  support = 0;
+
+  // EE reference
+  cal_Xtd = VectorXd::Zero(6*info.value.joint);
   // ******************************
 
   // dcmWalkiing
@@ -313,15 +337,14 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
 
   KDlC = Matrix3d::Zero();
   KDth = MatrixXd::Zero(info.dof.joint, info.dof.joint);
-  KDq = MatrixXd::Zero(info.dof.all, info.dof.all);
+  Kthinit = MatrixXd::Zero(info.dof.joint, info.dof.joint);
 
   // high gain control
   KpHG = MatrixXd::Zero(info.dof.joint, info.dof.joint);
   KdHG = MatrixXd::Zero(info.dof.joint, info.dof.joint);
 
   // optimization weight
-  WFSD = Matrix6d::Zero();
-  Wb = Matrix6d::Zero();
+  Wdh = Matrix6d::Zero();
   Wm = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
   WJ = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
 

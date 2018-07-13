@@ -43,6 +43,7 @@ int RLS::RlsDynamics::readWork(Config &config, Info &info, string node, int seq)
   cal_Fextf = checkVector<VectorXd>(doc, node, seq, "cal_Fextf", cal_Fextf);
 
   cal_Xf = checkVector<VectorXd>(doc, node, seq, "cal_Xf", info.value.joint, cal_Xf);
+  // cal_Xf = spatialVector<VectorXd>(doc, node, seq, "cal_Xf", info.value.joint, cal_Xf);
 
   KpC = checkMatrix<MatrixXd>(doc, node, seq, "KpC", KpC);
   KdC = checkMatrix<MatrixXd>(doc, node, seq, "KdC", KdC);
@@ -62,21 +63,24 @@ int RLS::RlsDynamics::readWork(Config &config, Info &info, string node, int seq)
 
   KDlC = checkMatrix<MatrixXd>(doc, node, seq, "KDlC", KDlC);
   KDth = checkMatrix<MatrixXd>(doc, node, seq, "KDth", info.value.joint, KDth);
-  KDq = checkMatrix<MatrixXd>(doc, node, seq, "KDq", info.value.node, KDq);
+
+  Kthinit = checkMatrix<MatrixXd>(doc, node, seq, "Kthinit", info.value.joint, Kthinit);
 
   // high gain control
   KpHG = checkMatrix<MatrixXd>(doc, node, seq, "KpHG", info.value.joint, KpHG);
   KdHG = checkMatrix<MatrixXd>(doc, node, seq, "KdHG", info.value.joint, KdHG);
 
   // optimization weight
-  WFSD = checkMatrix<MatrixXd>(doc, node, seq, "WFSD", WFSD);
-  Wb = checkMatrix<MatrixXd>(doc, node, seq, "Wb", Wb);
+  Wdh = checkMatrix<MatrixXd>(doc, node, seq, "Wdh", Wdh);
   Wp = checkMatrix<MatrixXd>(doc, node, seq, "Wp", Wp);
   WF = checkMatrix<MatrixXd>(doc, node, seq, "WF", info.value.joint, WF);
   WFmin = checkMatrix<MatrixXd>(doc, node, seq, "WFmin", info.value.joint, WFmin);
   Wm = checkMatrix<MatrixXd>(doc, node, seq, "Wm", info.value.joint, Wm);
   WJ = checkMatrix<MatrixXd>(doc, node, seq, "WJ", info.value.joint, WJ);
   Wth = checkMatrix<MatrixXd>(doc, node, seq, "Wth", info.value.joint, Wth);
+
+  // others
+  cal_Xtd = checkVector<VectorXd>(doc, node, seq, "cal_Xtd", info.value.joint, cal_Xtd);
 
   return 0;
 }

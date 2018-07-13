@@ -26,16 +26,16 @@ VectorXd RLS::RlsDynamics::spatialDynamicsSolver(Config &config, Info &info, Mod
   MatrixXd G = MatrixXd::Identity(n, n);
   // no motion
   // G <<
-  //   cal_AB.transpose()*WFSD*cal_AB + Wq, MatrixXd::Zero(info.dof.all,info.contact.c.all),
+  //   cal_AB.transpose()*Wdh*cal_AB + Wq, MatrixXd::Zero(info.dof.all,info.contact.c.all),
   //   MatrixXd::Zero(info.contact.c.all,info.dof.all), Pc.transpose()*Bp.transpose()*Wp*Bp*Pc + Bc.transpose()*WF*Bc;
 
   // G <<
-  //   cal_AB.transpose()*WFSD*cal_AB + Jm.transpose()*Bm.transpose()*Wm*Bm*Jm + Wq, MatrixXd::Zero(info.dof.all,info.contact.c.all),
+  //   cal_AB.transpose()*Wh*cal_AB + Jm.transpose()*Bm.transpose()*Wm*Bm*Jm + Wq, MatrixXd::Zero(info.dof.all,info.contact.c.all),
   //   MatrixXd::Zero(info.contact.c.all,info.dof.all), Pc.transpose()*Bp.transpose()*Wp*Bp*Pc + Bc.transpose()*WF*Bc;
 
   // centroidal
   G <<
-    cal_AM.transpose()*WFSD*cal_AM + Wq, MatrixXd::Zero(info.dof.all,info.contact.c.all),
+    cal_AM.transpose()*Wdh*cal_AM + Wq, MatrixXd::Zero(info.dof.all,info.contact.c.all),
     MatrixXd::Zero(info.contact.c.all,info.dof.all), Pc.transpose()*Bp.transpose()*Wp*Bp*Pc + Bc.transpose()*WF*Bc;
 
   // momentum control
@@ -51,17 +51,17 @@ VectorXd RLS::RlsDynamics::spatialDynamicsSolver(Config &config, Info &info, Mod
   // nomotion
   VectorXd g = VectorXd::Zero(n);
   // g.transpose() <<
-  //   -(cal_dLBRef - cal_CB).transpose()*WFSD*cal_AB,
+  //   -(cal_dLBRef - cal_CB).transpose()*Wdh*cal_AB,
   //   -rpkDes.transpose()*Bp.transpose()*Wp*Bp*Pc;
 
   // VectorXd g = VectorXd::Zero(n);
   // g.transpose() <<
-  //   -(cal_dLBRef - cal_CB).transpose()*WFSD*cal_AB - dVmBarRef.transpose()*Bm.transpose()*Wm*Bm*Jm,
+  //   -(cal_dLBRef - cal_CB).transpose()*Wdh*cal_AB - dVmBarRef.transpose()*Bm.transpose()*Wm*Bm*Jm,
   //   -rpkDes.transpose()*Bp.transpose()*Wp*Bp*Pc;
 
   // // centroidal
   g.transpose() <<
-    -(cal_dLCRef - cal_CM).transpose()*WFSD*cal_AM,
+    -(cal_dLCRef - cal_CM).transpose()*Wdh*cal_AM,
     -rpkDes.transpose()*Bp.transpose()*Wp*Bp*Pc;
 
   // **********************************************************************

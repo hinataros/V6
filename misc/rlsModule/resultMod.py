@@ -21,7 +21,7 @@ def make_result(arg_cmp, arg_ind):
         os.makedirs(os.path.join(dir_result, arg_cmp, "gp", arg_ind[i], "library"), exist_ok=True)
         os.makedirs(os.path.join(dir_result, arg_cmp, "gp", arg_ind[i], "src"), exist_ok=True)
 
-        os.makedirs(os.path.join(dir_result, arg_cmp, "gif", "src", arg_ind[i]), exist_ok=True)
+        os.makedirs(os.path.join(dir_result, arg_cmp, "gif", arg_ind[i]), exist_ok=True)
         os.makedirs(os.path.join(dir_result, arg_cmp, "pdf", "src", arg_ind[i]), exist_ok=True)
         os.makedirs(os.path.join(dir_result, arg_cmp, "movie", arg_ind[i], "src"), exist_ok=True)
 

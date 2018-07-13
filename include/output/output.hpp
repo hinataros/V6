@@ -97,6 +97,9 @@ namespace RLS{
     void netCop(Config&, Info&, GpMaker&, TexMaker&);
     void stabilityIndex(Config&, Info&, GpMaker&, TexMaker&);
 
+    // dcm
+    void dcm(Config&, Info&, GpMaker&, TexMaker&);
+
     // walking
     void localCop4walking(Config&, Info&, GpMaker&, TexMaker&);
     void netCop4walking(Config&, Info&, GpMaker&, TexMaker&);

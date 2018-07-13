@@ -16,25 +16,23 @@ void RLS::RlsDynamics::dcmDSWalking(Config &config, Info &info, Model &model, do
   // ********************************
   double tstab = 2.;
 
-  // double dtstep = .3;
-  // double dtDSstep = .1;
+  // double dtstep = 1.;
+  // double dtDSstep = .5;
   // double alphDSstep = .5;
-  // double dtstep = .5;
-  // double dtDSstep = .2;
+
+  // double dtstep = .8;
+  // double dtDSstep = .3;
   // double alphDSstep = .5;
-  double dtstep = .8;
-  double dtDSstep = .3;
+  double dtstep = .6;
+  double dtDSstep = .1;
   double alphDSstep = .5;
-  // double dtstep = .6;
-  // double dtDSstep = .4;
-  // double alphDSstep = .5;
 
   // double steplength = 0.01;
-  double steplength = 0.045;
+  double steplength = 0.07;
 
   double offset = 0.;
-  // offset = 0.015;
   offset = 0.01;
+  // offset = 0.01;
   // offset = 0.011;
 
   // offset = 1.e-3;
@@ -135,8 +133,9 @@ void RLS::RlsDynamics::dcmDSWalking(Config &config, Info &info, Model &model, do
 
     rvrpd.col(stepNum) = rXeos.col(stepNum);
 
+    Vector3d Dzvrp = (-model.hoap2.ag)/(wX*wX);
     for(int i=stepNum-1; i>0; i--){
-      rvrpd.col(i) = rf.col(i) - model.hoap2.ag/(wX*wX);
+      rvrpd.col(i) = rf.col(i) + Dzvrp;
       rXeos.col(i) = rvrpd.col(i) + exp(-wX*dt(i))*(rXeos.col(i+1) - rvrpd.col(i));
     }
 

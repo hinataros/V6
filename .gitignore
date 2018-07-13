@@ -6,3 +6,4 @@ misc/rlsModule/__pycache__/
 share/motion/*.yaml
 !share/motion/skeleton/.gitkeep
 *~
+*.dev

@@ -1,11 +1,24 @@
 format: ChoreonoidBody
 formatVersion: 1.0
 name: Stairs
+
+height: &height 0.02
+height: &-height -0.02
+width: &width 0.07
+
 links:
   -
-    name: 1STEP
+    name: ROOT
     jointType: fixed
-    translation: [ 0.076, 0.039, 0.005 ]
+  -
+    name: 1STEP
+    parent: ROOT
+    translation: [ 0.07, 0.039, -0.005 ]
+  -
+    name: 2STEP
+    parent: 1STEP
+    jointType: fixed
+    translation: [ *width, -0.078, *height ]
     elements:
       -
         type: RigidBody
@@ -19,7 +32,7 @@ links:
           Shape: &FloorBody
             geometry:
               type: Box
-              size: [ 0.07, 0.05, 0.01 ]
+              size: [ 0.1, 0.1, 0.01 ]
             appearance:
               material:
                 diffuseColor: [ 1, 0, 0 ]
@@ -28,30 +41,10 @@ links:
         elements:
           Shape: *FloorBody
   -
-    name: 2STEP
-    parent: 1STEP
-    jointType: fixed
-    translation: [ 0.07, -0.078, 0.01 ]
-    elements:
-      -
-        type: RigidBody
-        mass: 1.0
-        centerOfMass: [ 0, 0, 0 ]
-        inertia: [
-        1, 0, 0,
-        1, 0,
-        1 ]
-        elements:
-          Shape: *FloorBody
-      -
-        type: Collision
-        elements:
-          Shape: *FloorBody
-  -
     name: 3STEP
     parent: 2STEP
     jointType: fixed
-    translation: [ 0.07, 0.078, 0.01 ]
+    translation: [ *width, 0.078, *height ]
     elements:
       -
         type: RigidBody
@@ -71,7 +64,7 @@ links:
     name: 4STEP
     parent: 3STEP
     jointType: fixed
-    translation: [ 0.07, -0.078, 0.01 ]
+    translation: [ *width, -0.078, *height ]
     elements:
       -
         type: RigidBody
@@ -91,7 +84,7 @@ links:
     name: 5STEP
     parent: 4STEP
     jointType: fixed
-    translation: [ 0.07, 0.078, 0.01 ]
+    translation: [ *width, 0.078, *height ]
     elements:
       -
         type: RigidBody
@@ -111,7 +104,7 @@ links:
     name: 6STEP
     parent: 5STEP
     jointType: fixed
-    translation: [ 0.07, -0.078, 0.01 ]
+    translation: [ *width, -0.078, *height ]
     elements:
       -
         type: RigidBody
@@ -131,7 +124,7 @@ links:
     name: 7STEP
     parent: 6STEP
     jointType: fixed
-    translation: [ 0.07, 0.078, 0.01 ]
+    translation: [ *width, 0.078, *height ]
     elements:
       -
         type: RigidBody
@@ -151,7 +144,107 @@ links:
     name: 8STEP
     parent: 7STEP
     jointType: fixed
-    translation: [ 0, -0.078, 0 ]
+    translation: [ *width, -0.078, 0 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          Shape: *FloorBody
+      -
+        type: Collision
+        elements:
+          Shape: *FloorBody
+  -
+    name: 9STEP
+    parent: 8STEP
+    jointType: fixed
+    translation: [ *width, 0.078, *-height ]
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          Shape: *FloorBody
+      -
+        type: Collision
+        elements:
+          Shape: *FloorBody
+  -
+    name: 10STEP
+    parent: 9STEP
+    jointType: fixed
+    translation: [ *width, -0.078, *-height ]
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          Shape: *FloorBody
+      -
+        type: Collision
+        elements:
+          Shape: *FloorBody
+  -
+    name: 11STEP
+    parent: 10STEP
+    jointType: fixed
+    translation: [ *width, 0.078, *-height ]
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          Shape: *FloorBody
+      -
+        type: Collision
+        elements:
+          Shape: *FloorBody
+  -
+    name: 12STEP
+    parent: 11STEP
+    jointType: fixed
+    translation: [ *width, -0.078, *-height ]
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          Shape: *FloorBody
+      -
+        type: Collision
+        elements:
+          Shape: *FloorBody
+  -
+    name: 13STEP
+    parent: 12STEP
+    jointType: fixed
+    translation: [ *width, 0.078, *-height ]
     elements:
       -
         type: RigidBody

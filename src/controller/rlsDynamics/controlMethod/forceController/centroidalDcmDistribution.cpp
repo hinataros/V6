@@ -27,6 +27,11 @@ void RLS::RlsDynamics::centroidalDcmDistribution(Config &config, Info &info, Mod
 
   // o(W);
 
+  // // VectorXd temp = bm_wFR + bm_wFL;
+  // // MatrixXd tempM = temp.asDiagonal();
+  // // MatrixXd tempMinv = tempM.inverse();
+  // // VectorXd tempwtil = tempMinv.diagonal();
+
   // Vector6d bm_wTilde = (((bm_wFR + bm_wFL).asDiagonal()).inverse()).diagonal();
 
   // MatrixXd TW = MatrixXd::Zero(12,6);
@@ -44,27 +49,38 @@ void RLS::RlsDynamics::centroidalDcmDistribution(Config &config, Info &info, Mod
   // o(TW*cal_FF);
   // o(TW*cal_FF - cal_FcBarRef);
 
+  // gc;
+
   // DCM-GI **************************************************************
   // cal_FcBarRef = pInv(cal_Pc, weight(config, info, model, 2, rX))*(cal_dLBRef + cal_GB);
 
-  Vector2d nLtRef = 0.*cal_Ep.segment(6,6).segment(3,2);
-  Vector6d cal_FLRef = (Vector6d()<<Vector3d::Zero(), nLtRef, 0.).finished();
+  // // local CoP feedback
+  // // **************************************************************
+  // Vector2d nLtRef = 0.*cal_Ep.segment(6,6).segment(3,2);
+  // Vector6d cal_FLRef = (Vector6d()<<Vector3d::Zero(), nLtRef, 0.).finished();
 
-  Vector2d nRtRef = -bb_Spx*Kpp*(F2rp(cal_F.segment(6,6)) - F2rp(cal_F.head(6)));
-  Vector6d cal_FRRef = (Vector6d()<<Vector3d::Zero(), nRtRef, 0.).finished();
+  // Vector2d nRtRef = -bb_Spx*Kpp*(F2rp(cal_F.segment(6,6)) - F2rp(cal_F.head(6)));
+  // Vector6d cal_FRRef = (Vector6d()<<Vector3d::Zero(), nRtRef, 0.).finished();
 
-  VectorXd cal_FaBar = N(cal_PcM)*pInv(N(cal_PcM).block(0,0,6,12))*cal_FRRef;
+  // VectorXd cal_FaBar = N(cal_PcM)*pInv(N(cal_PcM).block(0,0,6,12))*cal_FRRef;
+  // cal_FcBarRef = pInv(cal_PcM, Wvrp)*(cal_dLCRef + cal_GC) + cal_FaBar;
+  // // **************************************************************
+
   // VectorXd cal_FaBar = N(cal_PcM)*pInv(N(cal_PcM).block(6,0,6,12))*cal_FLRef;
 
-  // cal_FcBarRef = pInv(cal_PcM, weight(config, info, model, 2, rX))*(cal_dLCRef + cal_GC) + cal_FaBar;
-  cal_FcBarRef = pInv(cal_PcM, weight(config, info, model, 2, rX - drXDes/wX))*(cal_dLCRef + cal_GC) + cal_FaBar;
-  // cal_FcBarRef = pInv(cal_PcM, weight(config, info, model, 2, model.hoap2.all.rC))*(cal_dLCRef + cal_GC) + cal_FaBar;
+  MatrixXd WC = weight(config, info, model, model.hoap2.all.rC);
+  MatrixXd WX = weight(config, info, model, rX);
+  MatrixXd Wvrp = weight(config, info, model, rX - drXDes/wX);
 
-  // o(weight(config, info, model, 2, rX)(0,0));
-  // o(weight(config, info, model, 2, rX)(6,6));
+  MatrixXd Wvrpc = Bc.transpose()*Wvrp*Bc;
 
-  // double wFRz = weight(config, info, model, 2, rX)(0,0);
-  // double wFLz = weight(config, info, model, 2, rX)(6,6);
+  cal_FcBarRef = pInv(cal_PcM, Wvrpc)*(cal_dLCRef + cal_GC);
+
+  // o(weight(config, info, model, 2, rX - drXDes/wX)(0,0));
+  // o(weight(config, info, model, 2, rX - drXDes/wX)(6,6));
+
+  // double wFRz = weight(config, info, model, 2, rX - drXDes/wX)(0,0);
+  // double wFLz = weight(config, info, model, 2, rX - drXDes/wX)(6,6);
 
   // Vector6d bm_wFR = Vector6d::Zero();
   // bm_wFR <<
@@ -94,5 +110,6 @@ void RLS::RlsDynamics::centroidalDcmDistribution(Config &config, Info &info, Mod
   // o(temp);
 
   // o(WX*temp - cal_FcBarRef);
+  // gc;
   // DCM-GI **************************************************************
 }

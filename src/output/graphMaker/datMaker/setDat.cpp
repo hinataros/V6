@@ -177,6 +177,9 @@ void RLS::Output::setDat(ofstream& stream, string dataName, int i)
   else if(dataName=="t-lCsys")
     stream << data.t[i] << " " << data.dc[i].lC.transpose() << endl;
 
+  else if(dataName=="t-dcm")
+    stream << data.t[i] << " " << data.dc[i].rX.transpose() << endl;
+
   else if(dataName=="t-rpkx")
     stream << data.t[i] << " " << data.dc[i].rpkx.transpose() << endl;
   else if(dataName=="t-rpky")
@@ -197,17 +200,17 @@ void RLS::Output::setDat(ofstream& stream, string dataName, int i)
 
   else if(dataName=="t-xStabilityIndex")
     stream << data.t[i] << " " <<
-      data.tm[i].rC(0) << " " << data.dc[i].rp(0) << " " << data.dc[i].rcmp(0) << " " << data.dc[i].rX(0) << endl;
+      data.tm[i].rC(0) << " " << data.dc[i].rp(0) << " " << data.dc[i].rX(0) << " " << data.dc[i].rvrpRef(0) << endl;
   else if(dataName=="t-yStabilityIndex")
     stream << data.t[i] << " " <<
-      data.tm[i].rC(1) << " " << data.dc[i].rp(1) << " " << data.dc[i].rcmp(1) << " " << data.dc[i].rX(1) << endl;
+      data.tm[i].rC(1) << " " << data.dc[i].rp(1) << " " << data.dc[i].rX(1) << " " << data.dc[i].rvrpRef(1) << endl;
 
   else if(dataName=="yStabilityIndex-xStabilityIndex")
     stream <<
-      data.tm[i].rC(1) << " " << data.tm[i].rC(0) << " " <<
-      data.dc[i].rp(1) << " " << data.dc[i].rp(0) << " " <<
-      data.dc[i].rcmp(1) << " " << data.dc[i].rcmp(0) << " " <<
-      data.dc[i].rX(1) << " " << data.dc[i].rX(0) << endl;
+      data.tm[i].rC(0) << " " << data.tm[i].rC(1) << " " <<
+      data.dc[i].rp(0) << " " << data.dc[i].rp(1) << " " <<
+      data.dc[i].rX(0) << " " << data.dc[i].rX(1) << " " <<
+      data.dc[i].rvrpRef(0) << " " << data.dc[i].rvrpRef(1) << endl;
 
   // desired VRP
   else if(dataName=="t-vrpDesx")
@@ -218,8 +221,7 @@ void RLS::Output::setDat(ofstream& stream, string dataName, int i)
   // foot print
   else if(dataName=="foot print")
     stream <<
-      data.dc[i].rXDes(1) << " " << data.dc[i].rXDes(0) << " " <<
-      data.dc[i].rvrpDes(1) << " " << data.dc[i].rvrpDes(0) << endl;
+      data.dc[i].rXDes(1) << " " << data.dc[i].rXDes(0) << endl;
 
   // gif
   else if(dataName=="index print")

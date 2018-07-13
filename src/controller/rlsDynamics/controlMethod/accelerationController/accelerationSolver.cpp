@@ -16,8 +16,8 @@ VectorXd RLS::RlsDynamics::accelerationSolver(Config &config, Info &info, Model 
   // MatrixXd Wq = MatrixXd::Zero(info.dof.all,info.dof.all);
   // Wq.block(6,6,info.dof.joint,info.dof.joint) = Wth;
 
-  // MatrixXd G = cal_AB.transpose()*WFSD*cal_AB + Wq;
-  // VectorXd g = -(cal_dLBRef - cal_CB).transpose()*WFSD*cal_AB;
+  // MatrixXd G = cal_AB.transpose()*Wdh*cal_AB + Wq;
+  // VectorXd g = -(cal_dLBRef - cal_CB).transpose()*Wdh*cal_AB;
 
   // int ceNum = info.contact.c.all + info.contact.m.all;
   // MatrixXd CE = MatrixXd::Zero(ceNum,info.dof.all);
@@ -37,8 +37,8 @@ VectorXd RLS::RlsDynamics::accelerationSolver(Config &config, Info &info, Model 
   MatrixXd Wq = MatrixXd::Zero(info.dof.all,info.dof.all);
   Wq.block(6,6,info.dof.joint,info.dof.joint) = Wth;
 
-  MatrixXd G = cal_AM.transpose()*WFSD*cal_AM + Wq;
-  VectorXd g = -(cal_dLCRef - cal_CM).transpose()*WFSD*cal_AM;
+  MatrixXd G = cal_AM.transpose()*Wdh*cal_AM + Wq;
+  VectorXd g = -(cal_dLCRef - cal_CM).transpose()*Wdh*cal_AM;
 
   int ceNum = info.contact.c.all + info.contact.m.all;
   MatrixXd CE = MatrixXd::Zero(ceNum,info.dof.all);

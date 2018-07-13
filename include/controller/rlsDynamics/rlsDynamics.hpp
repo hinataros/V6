@@ -186,6 +186,8 @@ namespace RLS{
 
     // boundary
     // ******************************
+    VectorXd th0;
+
     Vector3d rC0;
     Vector3d rCf;
 
@@ -294,6 +296,30 @@ namespace RLS{
     MatrixXd ddrXiniDS;
     MatrixXd ddrXeoDS;
 
+    // HT
+    // ****************
+    VectorXd alphaHT;
+    VectorXd dtHT;
+    VectorXd dtTH;
+
+    MatrixXd rfT;
+    MatrixXd rfH;
+
+    MatrixXd rXHT;
+    MatrixXd rXTH;
+
+    MatrixXd rvrpTd;
+    MatrixXd rvrpHd;
+
+    // polynomial
+    bool initial_walking;
+    int support;
+    double tphasef;
+
+    // EE reference
+    VectorXd cal_Xtd;
+    // ****************
+
     // ******************************
 
     // error
@@ -385,15 +411,14 @@ namespace RLS{
 
     Matrix3d KDlC;
     MatrixXd KDth;
-    MatrixXd KDq;
+    MatrixXd Kthinit;
 
     // high gain control
     MatrixXd KpHG;
     MatrixXd KdHG;
 
     // optimization weight
-    Matrix6d WFSD;
-    Matrix6d Wb;
+    Matrix6d Wdh;
     MatrixXd Wp;
     MatrixXd WF;
     MatrixXd WFmin;
@@ -459,6 +484,7 @@ namespace RLS{
     void dcmAnkleHip(Config&, Info&, Model&, double&);
     void dcmSSWalking(Config&, Info&, Model&, double&);
     void dcmDSWalking(Config&, Info&, Model&, double&);
+    void dcmHTWalking(Config&, Info&, Model&, double&);
 
     // end effector
     void endEffectorSequence(Config&, Info&, Model&, double&);
@@ -471,7 +497,7 @@ namespace RLS{
 
     // add function
     Vector2d F2rp(Vector6d);
-    MatrixXd weight(Config&, Info&, Model&, int, Vector3d);
+    MatrixXd weight(Config&, Info&, Model&, Vector3d);
 
     // zero controller
     VectorXd zeroDynamics(Config&, Info&, Model&);
@@ -498,7 +524,8 @@ namespace RLS{
 
     // acceleration dumper
     VectorXd ddthD(Config&, Model&);
-    VectorXd ddqD(Config&, Info&, Model&);
+    VectorXd ddqthD(Config&, Info&, Model&);
+    VectorXd ddqthinit(Config&, Info&, Model&);
 
     // momentum controller
     void linearMomentum(Config&, Info&, Model&);

@@ -43,9 +43,9 @@ VectorXd RLS::RlsDynamics::baseGeneralizedMomentum(Config &config, Info &info, M
 
   VectorXd ddqmRef = N(ABBar)*pInv(JmBar)*dVmTildeRef;
 
-  VectorXd ddqDRef = N(ABBar)*N(JmBar)*ddqD(config, info, model);
+  VectorXd ddqthDRef = N(ABBar)*N(JmBar)*ddqthD(config, info, model);
 
-  ddqBoptRef = ddqLBRef + ddqmRef + ddqDRef;
+  ddqBoptRef = ddqLBRef + ddqmRef + ddqthDRef;
 
   return ddqBoptRef;
 }

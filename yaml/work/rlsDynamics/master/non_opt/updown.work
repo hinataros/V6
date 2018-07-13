@@ -11,9 +11,6 @@ State:
     Motion controller: mixedGeneralizedMomentum
     Torque controller: mixedmixedOpt
 
-    # Motion controller: rest_cmlC
-    # Torque controller: mixedmixed
-
     Bc: &ds
       - [1, 1, 1, 1, 1, 1]
       - [1, 1, 1, 1, 1, 1]
@@ -31,19 +28,23 @@ State:
     Kpv: 3.e+3
     Kdv: 5.e+2
 
-    Kpp: 5.e+0
+    # Kpp: 5.e+0
 
     KDlC: 0.
-    # KDlC: 1.e+2
-    # KDth: 1.e+2
-    KDq:
-      - [0., 0., 0., 0., 0., 0.]
-      - [1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2]
-      - [1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2, 1.e+2]
-      - [1.e+2, 1.e+2, 1.e+2, 1.e+2]
-      - [1.e+2, 1.e+2, 1.e+2, 1.e+2]
+    kDth: &kDth 1.e+2
+    KDth:
+      - [0.,0.,0.,0.,0.,0.]
+      - [0.,0.,0.,0.,0.,0.]
+      - [*kDth, *kDth, *kDth, *kDth]
+      - [*kDth, *kDth, *kDth, *kDth]
+    # kthinit: &kthinit 1.e+2
+    kthinit: &kthinit 0.
+    Kthinit:
+      - [0.,0.,0.,0.,0.,0.]
+      - [0.,0.,0.,0.,0.,0.]
+      - [*kthinit, *kthinit, *kthinit, *kthinit]
+      - [*kthinit, *kthinit, *kthinit, *kthinit]
   -
-    Force controller: centroidalDistribution
     Bc: &lss
       - [0, 0, 0, 0, 0, 0]
       - [1, 1, 1, 1, 1, 1]
@@ -55,185 +56,27 @@ State:
       - [0, 0, 0, 0, 0, 0]
       - [0, 0, 0, 0, 0, 0]
   -
-    Force controller: centroidalDistribution
     Bc: *rss
     Bm: *lss
 
 Setting:
-  KDlC: &kdlC 1.e+2
+    # twf: &tinitial 0.65
+  # twf: &tswingleg 0.7
+  # twf: &tds 0.3
 
-  # twf: &tinitial 1.25
-  # twf: &tliftleg 0.2
-  # twf: &tmoveleg 0.1
-  # twf: &tlegoff 0.2
+  twf: &tinitial 0.5
+  twf: &tswingleg 0.6
+  twf: &tds 0.2
+
+  # twf: &tinitial 0.4
+  # twf: &tswingleg 0.4
+  # twf: &tds 0.2
+  # twf: &tinitial 0.75
+  # twf: &tswingleg 0.5
   # twf: &tds 0.5
-
-  twf: &tinitial 1.75
-  twf: &tliftleg 0.3
-  twf: &tmoveleg 0.4
-  twf: &tlegoff 0.3
-  twf: &tds 0.5
-
-  height: &liftheight1 0.015
-  height: &liftheight2 0.025
-  height: &liftheight3 0.035
-  height: &liftheight4 0.045
-  height: &liftheight5 0.055
-  height: &liftheight6 0.065
-  height: &liftheight7 0.075
-
-  height: &groundheight1 0.01
-  height: &groundheight2 0.02
-  height: &groundheight3 0.03
-  height: &groundheight4 0.04
-  height: &groundheight5 0.05
-  height: &groundheight6 0.06
-  height: &groundheight7 0.07
-
-  # length: &steplength1 0.01
-  # length: &steplength2 0.02
-  # length: &steplength3 0.03
-  # length: &steplength4 0.04
-  # length: &steplength5 0.05
-  # length: &steplength6 0.06
-  # length: &steplength7 0.07
-  # length: &steplength1 0.05
-  # length: &steplength2 0.10
-  # length: &steplength3 0.15
-  # length: &steplength4 0.20
-  # length: &steplength5 0.25
-  # length: &steplength6 0.30
-  # length: &steplength7 0.35
-
-  length: &steplength1 0.07
-  length: &steplength2 0.14
-  length: &steplength3 0.21
-  length: &steplength4 0.28
-  length: &steplength5 0.35
-  length: &steplength6 0.42
-  length: &steplength7 0.49
-
-Footstep:
-  cal_Xf: &liftleg1
-    - [0., 0., 0., 0., 0., 0.]
-    - [0., 0., *liftheight1, 0., 0., 0.]
-    - 6
-    - 6
-  cal_Xf: &moveleg1
-    - [0., 0., 0., 0., 0., 0.]
-    - [*steplength1, 0., *liftheight1, 0., 0., 0.]
-    - 6
-    - 6
-  cal_Xf: &legoff1
-    - [0., 0., 0., 0., 0., 0.]
-    - [*steplength1, 0., *groundheight1, 0., 0., 0.]
-    - 6
-    - 6
-  cal_Xf: &liftleg2
-    - [0., 0., *liftheight2, 0., 0., 0.]
-    - [*steplength1, 0., *groundheight1, 0., 0., 0.]
-    - 6
-    - 6
-  cal_Xf: &moveleg2
-    - [*steplength2, 0., *liftheight2, 0., 0., 0.]
-    - [*steplength1, 0., *groundheight1, 0., 0., 0.]
-    - 6
-    - 6
-  cal_Xf: &legoff2
-    - [*steplength2, 0., *groundheight2, 0., 0., 0.]
-    - [*steplength1, 0., *groundheight1, 0., 0., 0.]
-    - 6
-    - 6
-  cal_Xf: &liftleg3
-    - [*steplength2, 0., *groundheight2, 0., 0., 0.]
-    - [*steplength1, 0., *liftheight3, 0., 0., 0.]
-    - 6
-    - 6
-  cal_Xf: &moveleg3
-    - [*steplength2, 0., *groundheight2, 0., 0., 0.]
-    - [*steplength3, 0., *liftheight3, 0., 0., 0.]
-    - 6
-    - 6
-  cal_Xf: &legoff3
-    - [*steplength2, 0., *groundheight2, 0., 0., 0.]
-    - [*steplength3, 0., *groundheight3, 0., 0., 0.]
-    - 6
-    - 6
-  cal_Xf: &liftleg4
-    - [*steplength2, 0., *liftheight4, 0., 0., 0.]
-    - [*steplength3, 0., *groundheight3, 0., 0., 0.]
-    - 6
-    - 6
-  cal_Xf: &moveleg4
-    - [*steplength4, 0., *liftheight4, 0., 0., 0.]
-    - [*steplength3, 0., *groundheight3, 0., 0., 0.]
-    - 6
-    - 6
-  cal_Xf: &legoff4
-    - [*steplength4, 0., *groundheight4, 0., 0., 0.]
-    - [*steplength3, 0., *groundheight3, 0., 0., 0.]
-    - 6
-    - 6
-  cal_Xf: &liftleg5
-    - [*steplength4, 0., *groundheight4, 0., 0., 0.]
-    - [*steplength3, 0., *liftheight5, 0., 0., 0.]
-    - 6
-    - 6
-  cal_Xf: &moveleg5
-    - [*steplength4, 0., *groundheight4, 0., 0., 0.]
-    - [*steplength5, 0., *liftheight5, 0., 0., 0.]
-    - 6
-    - 6
-  cal_Xf: &legoff5
-    - [*steplength4, 0., *groundheight4, 0., 0., 0.]
-    - [*steplength5, 0., *groundheight5, 0., 0., 0.]
-    - 6
-    - 6
-  cal_Xf: &liftleg6
-    - [*steplength4, 0., *liftheight6, 0., 0., 0.]
-    - [*steplength5, 0., *groundheight5, 0., 0., 0.]
-    - 6
-    - 6
-  cal_Xf: &moveleg6
-    - [*steplength6, 0., *liftheight6, 0., 0., 0.]
-    - [*steplength5, 0., *groundheight5, 0., 0., 0.]
-    - 6
-    - 6
-  cal_Xf: &legoff6
-    - [*steplength6, 0., *groundheight6, 0., 0., 0.]
-    - [*steplength5, 0., *groundheight5, 0., 0., 0.]
-    - 6
-    - 6
-  cal_Xf: &liftleg7
-    - [*steplength6, 0., *groundheight6, 0., 0., 0.]
-    - [*steplength5, 0., *liftheight7, 0., 0., 0.]
-    - 6
-    - 6
-  cal_Xf: &moveleg7
-    - [*steplength6, 0., *groundheight6, 0., 0., 0.]
-    - [*steplength7, 0., *liftheight7, 0., 0., 0.]
-    - 6
-    - 6
-  cal_Xf: &legoff7
-    - [*steplength6, 0., *groundheight6, 0., 0., 0.]
-    - [*steplength7, 0., *groundheight7, 0., 0., 0.]
-    - 6
-    - 6
-  cal_Xf: &liftleg8
-    - [*steplength6, 0., *liftheight7, 0., 0., 0.]
-    - [*steplength7, 0., *groundheight7, 0., 0., 0.]
-    - 6
-    - 6
-  cal_Xf: &moveleg8
-    - [*steplength7, 0., *liftheight7, 0., 0., 0.]
-    - [*steplength7, 0., *groundheight7, 0., 0., 0.]
-    - 6
-    - 6
-  cal_Xf: &legoff8
-    - [*steplength7, 0., *groundheight7, 0., 0., 0.]
-    - [*steplength7, 0., *groundheight7, 0., 0., 0.]
-    - 6
-    - 6
+  # twf: &tinitial 1.5
+  # twf: &tswingleg 1.
+  # twf: &tds 1.
 
 Sequence:
   -
@@ -241,122 +84,269 @@ Sequence:
   -
     twf: *tinitial
   -
-    twf: *tliftleg
-    Force controller: centroidalDistribution
+    twf: *tswingleg
     Bc: *rss
     Bm: *lss
-    cal_Xf: *liftleg1
-  -
-    twf: *tmoveleg
-    cal_Xf: *moveleg1
-  -
-    twf: *tlegoff
-    cal_Xf: *legoff1
+    cal_Xf:
+      - 6
+      - [0.07, 0., 0.01, 0., 0., 0.]
+      - 6
+      - 6
   -
     twf: *tds
 
   # 1 step
   -
-    twf: *tliftleg
-    Force controller: centroidalDistribution
+    twf: *tswingleg
     Bc: *lss
     Bm: *rss
-    cal_Xf: *liftleg2
-  -
-    twf: *tmoveleg
-    cal_Xf: *moveleg2
-  -
-    twf: *tlegoff
-    cal_Xf: *legoff2
+    cal_Xf:
+      - [0.14, 0., 0.03, 0., 0., 0.]
+      - 6
+      - 6
+      - 6
+    cal_Xtd:
+      - [.,., 0.02,.,.,.]
+      - 6
+      - 6
+      - 6
   -
     twf: *tds
   # 2 step
   -
-    twf: *tliftleg
-    Force controller: centroidalDistribution
+    twf: *tswingleg
     Bc: *rss
     Bm: *lss
-    cal_Xf: *liftleg3
-  -
-    twf: *tmoveleg
-    cal_Xf: *moveleg3
-  -
-    twf: *tlegoff
-    cal_Xf: *legoff3
+    cal_Xf:
+      - 6
+      - [0.21, 0., 0.05, 0., 0., 0.]
+      - 6
+      - 6
+    cal_Xtd:
+      - 6
+      - [.,., 0.04,.,.,.]
+      - 6
+      - 6
   -
     twf: *tds
   # 3 step
   -
-    twf: *tliftleg
-    Force controller: centroidalDistribution
+    twf: *tswingleg
     Bc: *lss
     Bm: *rss
-    cal_Xf: *liftleg4
-  -
-    twf: *tmoveleg
-    cal_Xf: *moveleg4
-  -
-    twf: *tlegoff
-    cal_Xf: *legoff4
+    cal_Xf:
+      - [0.28, 0., 0.07, 0., 0., 0.]
+      - 6
+      - 6
+      - 6
+    cal_Xtd:
+      - [.,., 0.06,.,.,.]
+      - 6
+      - 6
+      - 6
   -
     twf: *tds
   # 4 step
   -
-    twf: *tliftleg
-    Force controller: centroidalDistribution
+    twf: *tswingleg
     Bc: *rss
     Bm: *lss
-    cal_Xf: *liftleg5
-  -
-    twf: *tmoveleg
-    cal_Xf: *moveleg5
-  -
-    twf: *tlegoff
-    cal_Xf: *legoff5
+    cal_Xf:
+      - 6
+      - [0.35, 0., 0.09, 0., 0., 0.]
+      - 6
+      - 6
+    cal_Xtd:
+      - 6
+      - [.,., 0.08,.,.,.]
+      - 6
+      - 6
   -
     twf: *tds
   # 5 step
   -
-    twf: *tliftleg
-    Force controller: centroidalDistribution
+    twf: *tswingleg
     Bc: *lss
     Bm: *rss
-    cal_Xf: *liftleg6
-  -
-    twf: *tmoveleg
-    cal_Xf: *moveleg6
-  -
-    twf: *tlegoff
-    cal_Xf: *legoff6
+    cal_Xf:
+      - [0.42, 0., 0.11, 0., 0., 0.]
+      - 6
+      - 6
+      - 6
+    cal_Xtd:
+      - [.,., 0.10,.,.,.]
+      - 6
+      - 6
+      - 6
   -
     twf: *tds
   # 6 step
   -
-    twf: *tliftleg
-    Force controller: centroidalDistribution
+    twf: *tswingleg
     Bc: *rss
     Bm: *lss
-    cal_Xf: *liftleg7
-  -
-    twf: *tmoveleg
-    cal_Xf: *moveleg7
-  -
-    twf: *tlegoff
-    cal_Xf: *legoff7
+    cal_Xf:
+      - 6
+      - [0.49, 0., 0.13, 0., 0., 0.]
+      - 6
+      - 6
+    cal_Xtd:
+      - 6
+      - [.,., 0.12,.,.,.]
+      - 6
+      - 6
   -
     twf: *tds
   # 7 step
   -
-    twf: *tliftleg
-    Force controller: centroidalDistribution
+    twf: *tswingleg
     Bc: *lss
     Bm: *rss
-    cal_Xf: *liftleg8
+    cal_Xf:
+      - [0.56, 0., 0.13, 0., 0., 0.]
+      - 6
+      - 6
+      - 6
+    cal_Xtd:
+      - [.,., 0.12,.,.,.]
+      - 6
+      - 6
+      - 6
   -
-    twf: *tmoveleg
-    cal_Xf: *moveleg8
+    twf: *tds
+  # 8 step
   -
-    twf: *tlegoff
-    cal_Xf: *legoff8
+    twf: *tswingleg
+    Bc: *rss
+    Bm: *lss
+    cal_Xf:
+      - 6
+      - [0.63, 0., 0.13, 0., 0., 0.]
+      - 6
+      - 6
+    cal_Xtd:
+      - 6
+      - [.,., 0.0999,.,.,.]
+      - 6
+      - 6
+  -
+    twf: *tds
+  # 9 step
+  -
+    twf: *tswingleg
+    Bc: *lss
+    Bm: *rss
+    cal_Xf:
+      - [0.70, 0., 0.13, 0., 0., 0.]
+      - 6
+      - 6
+      - 6
+    cal_Xtd:
+      - [.,., 0.0799,.,.,.]
+      - 6
+      - 6
+      - 6
+  -
+    twf: *tds
+  # 10 step
+  -
+    twf: *tswingleg
+    Bc: *rss
+    Bm: *lss
+    cal_Xf:
+      - 6
+      - [0.77, 0., 0.11, 0., 0., 0.]
+      - 6
+      - 6
+    cal_Xtd:
+      - 6
+      - [.,., 0.0599,.,.,.]
+      - 6
+      - 6
+  -
+    twf: *tds
+  # 11 step
+  -
+    twf: *tswingleg
+    Bc: *lss
+    Bm: *rss
+    cal_Xf:
+      - [0.84, 0., 0.09, 0., 0., 0.]
+      - 6
+      - 6
+      - 6
+    cal_Xtd:
+      - [.,., 0.0399,.,.,.]
+      - 6
+      - 6
+      - 6
+  -
+    twf: *tds
+  # 12 step
+  -
+    twf: *tswingleg
+    Bc: *rss
+    Bm: *lss
+    cal_Xf:
+      - 6
+      - [0.91, 0., 0.07, 0., 0., 0.]
+      - 6
+      - 6
+    cal_Xtd:
+      - 6
+      - [.,., 0.0199,.,.,.]
+      - 6
+      - 6
+  -
+    twf: *tds
+  # 13 step
+  -
+    twf: *tswingleg
+    Bc: *lss
+    Bm: *rss
+    cal_Xf:
+      - [0.98, 0., 0.05, 0., 0., 0.]
+      - 6
+      - 6
+      - 6
+    cal_Xtd:
+      - [.,., -0.0001,.,.,.]
+      - 6
+      - 6
+      - 6
+  -
+    twf: *tds
+  # 14 step
+  -
+    twf: *tswingleg
+    Bc: *rss
+    Bm: *lss
+    cal_Xf:
+      - 6
+      - [1.05, 0., 0.03, 0., 0., 0.]
+      - 6
+      - 6
+    cal_Xtd:
+      - 6
+      - [.,., 0.0,.,.,.]
+      - 6
+      - 6
+  -
+    twf: *tds
+  # 15 step
+  -
+    twf: *tswingleg
+    Bc: *lss
+    Bm: *rss
+    cal_Xf:
+      - [1.05, 0., 0.01, 0., 0., 0.]
+      - 6
+      - 6
+      - 6
+    cal_Xtd:
+      - [.,., -0.0001,.,.,.]
+      - 6
+      - 6
+      - 6
   -
     twf: *tds

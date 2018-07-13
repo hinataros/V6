@@ -27,6 +27,8 @@ void RLS::RlsDynamics::torqueOutputRefConfig(Config &config, Info &info, Model &
   dc_list.dwBoptRef = ddqMoptRef.segment(3,3);
   dc_list.ddthoptRef = ddqMoptRef.tail(info.dof.joint);
 
+  dc_list.rvrpRef = rX - drXRef/wX;
+
   dc_list.dpRef = dpRef;
   dc_list.dlCRef = dlCRef;
 
