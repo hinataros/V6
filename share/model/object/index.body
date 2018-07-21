@@ -1,0 +1,28 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+name: Index
+links:
+  -
+    name: ROOT
+    jointType: fixed
+    elements:
+      -
+        type: ForceSensor
+        name: RootForceSensor
+        id: 0
+  -
+    name: COM
+    parent: ROOT
+    jointId: 0
+    elements:
+      -
+        type: Visual
+        elements:
+          -
+            type: Shape
+            geometry:
+              type: Sphere
+              radius: 0.01
+            appearance:
+              material:
+              diffuseColor: [ 1, 0, 0 ]

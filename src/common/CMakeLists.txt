@@ -16,6 +16,7 @@ set(srcs
   xi2R.cpp
   dxi2w.cpp
   w2dxi.cpp
+  w2dR.cpp
   ddxi2dw.cpp
   round_cast.cpp
   dpInv.cpp

@@ -3,7 +3,7 @@ formatVersion: 1.0
 name: Box
 links:
   -
-    name: BOX
+    name: ROOT
     jointType: fixed
     elements:
       -

@@ -97,10 +97,11 @@ void RLS::GpMaker::makeConfig()
 
   string etc_config =
     "VIEWMODE = 0# 1:on 0:off\n"
+    "XLABEL = 1\n"
     "KEY = 0\n";
 
   string background_config =
-    "BACKGROUND = 0\n"
+    "BACKGROUND = 1\n"
     "if(BACKGROUND) XLABEL_COLOR = 'white'\n"
     "if(BACKGROUND) YLABEL_COLOR = 'white'\n";
 
@@ -144,8 +145,10 @@ void RLS::GpMaker::makeSet()
     "# set grid\n";
 
   string margin_set =
-    "set lmargin 8\n"
-    "set rmargin 2\n";
+    "set lmargin 7.5\n"
+    "set rmargin 1\n"
+    "set tmargin 0.5\n"
+    "set bmargin 3.5\n";
 
   string autotics_set =
     "set xtics autofreq\n"
@@ -169,7 +172,10 @@ void RLS::GpMaker::makeSet()
     "if(BACKGROUND) set border lc rgb 'white'\n"
     "if(BACKGROUND) set xtics textcolor rgb 'white'\n"
     "if(BACKGROUND) set ytics textcolor rgb 'white'\n"
-    "if(BACKGROUND) set key textcolor rgb 'white'\n";
+    "if(BACKGROUND) set key textcolor rgb 'white'\n"
+    "if(BACKGROUND) set style line 1 lw LINE_WIDTH lc rgb 'magenta'\n"
+    "if(BACKGROUND) set style line 2 lw LINE_WIDTH lc rgb 'greenyellow'\n"
+    "if(BACKGROUND) set style line 3 lw LINE_WIDTH lc rgb 'cyan'\n";
 
   ofstream libSet((path_gp_ind+"library/set.gp").c_str());
   if(!libSet)

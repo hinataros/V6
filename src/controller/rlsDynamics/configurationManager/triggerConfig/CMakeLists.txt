@@ -6,6 +6,7 @@ set(srcs
   ankleStratagy.cpp
   ankleHipStratagy.cpp
   walking.cpp
+  walkHT.cpp
   triggerConfig.cpp
   )
 

@@ -50,6 +50,10 @@ namespace RLS{
     VectorXd dq;
     VectorXd dqM;
 
+    // transform offset
+    Vector3d *rkk;
+
+    // jacobian
     // ******************************
     MatrixXd cal_J;
     // smiyahara: bbではないから要検討
@@ -112,6 +116,8 @@ namespace RLS{
     MatrixXd dJth;
     MatrixXd cal_dJcHat;
     MatrixXd cal_dJmHat;
+
+    // ******************************
 
     // objective
     // ******************************
@@ -317,6 +323,7 @@ namespace RLS{
     double tphasef;
 
     // EE reference
+    int referenceSequence;
     VectorXd cal_Xtd;
     // ****************
 
@@ -452,6 +459,7 @@ namespace RLS{
     int ankleStratagy(Config&, Info&, Model&, double&);
     int ankleHipStratagy(Config&, Info&, Model&, double&);
     int walking(Config&, Info&, Model&, double&);
+    int walkHT(Config&, Info&, Model&, double&);
     int stateTriggerConfig(Config&, Info&, Model&, double&);
 
     bool sequenceTriggerConfig(Config&, Info&, double&);
@@ -462,10 +470,33 @@ namespace RLS{
 
     void reconfigure(Config&, Info&);
 
+    // transform matrix
+    MatrixXd jacobian(Config&, Info&, TreeModel&, int);
+    MatrixXd jacobian(Config&, Info&, TreeModel&, int, Vector3d);
+    MatrixXd diffJacobian(Config&, Info&, TreeModel&, int);
+    MatrixXd diffJacobian(Config&, Info&, TreeModel&, int, Vector3d);
+    Matrix6d spatialTransform(Config&, Info&, Vector3d);
+    Matrix6d diffSpatialTransform(Config&, Info&, Vector3d);
+
+    // update
+    // ******************************
+    void transform(Config&, Info&, Model&);
+
+    void basis(Config&, Model&);
+    void decomposeBase(Config&, Model&);
+    void decomposeMix(Config&, Model&);
     void decompose(Config&, Model&);
-    int objective(Config&, Info&, Model&);
+
+    void renameBase(Config&, Info&, Model&);
+    void renameMix(Config&, Info&, Model&);
+    void renameCentroidal(Config&, Info&, Model&);
+    void renameOthers(Config&, Info&, Model&);
+    void renameDebug(Config&, Info&, Model&);
     void rename(Config&, Info&, Model&);
+
+    int objective(Config&, Info&, Model&);
     void update(Config&, Info&, Model&);
+    // ******************************
 
     // reference
     //com
@@ -616,6 +647,7 @@ namespace RLS{
 
     // smiyahara: 名前は変えたい
     void initialize(Config&, Info&);
+    void finalize(Config&, Info&);
     VectorXd rlsDynamics(Config&, Info&, Model&, double&);
 
     RlsDynamicsList dc_list;

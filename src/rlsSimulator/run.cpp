@@ -27,5 +27,5 @@ void RLS::RlsSimulator::run(Config &config, Info &info, Model &model, Controller
 
   output.output(config, info);
 
-  finalize(config, info, model, output);
+  finalize(config, info, model, controller, output);
 }

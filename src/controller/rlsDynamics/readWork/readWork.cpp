@@ -82,5 +82,10 @@ int RLS::RlsDynamics::readWork(Config &config, Info &info, string node, int seq)
   // others
   cal_Xtd = checkVector<VectorXd>(doc, node, seq, "cal_Xtd", info.value.joint, cal_Xtd);
 
+  // transform offset
+  if(doc[node][seq]["rkk"].size())
+    for(int i=0; i<info.value.joint; i++)
+      rkk[i] = readVector<VectorXd>(doc, node, seq, "rkk", i, 3);
+
   return 0;
 }

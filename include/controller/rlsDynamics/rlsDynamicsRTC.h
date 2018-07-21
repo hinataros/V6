@@ -72,6 +72,7 @@ private:
 
   void readState(RLS::Config&, RLS::Info&, RLS::TreeModel&);
   void readSharedData(RLS::Config&, RLS::Info&, RLS::RigidBodyModel&, RLS::SharedData&);
+  void writeSharedData(RLS::Config&, RLS::Info&, RLS::TreeModelList&, RLS::RlsDynamicsList&, RLS::SharedData&);
   void writeInput(RLS::Config&);
 };
 

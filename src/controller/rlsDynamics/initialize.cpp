@@ -33,6 +33,13 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   dq = VectorXd::Zero(info.dof.all);
   dqM = VectorXd::Zero(info.dof.all);
 
+  // transform offset
+  rkk = new Vector3d[info.value.joint];
+
+  for(int i=0; i<info.value.joint; i++)
+    rkk[i] = Vector3d::Zero();
+
+  // jacobian
   // ******************************
   cal_J = MatrixXd::Zero(6*info.value.joint, info.dof.joint);
   bb_Rk = MatrixXd::Zero(6*info.value.joint, 6*info.value.joint);
@@ -232,6 +239,7 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   support = 0;
 
   // EE reference
+  referenceSequence = 1;
   cal_Xtd = VectorXd::Zero(6*info.value.joint);
   // ******************************
 

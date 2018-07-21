@@ -1,4 +1,5 @@
 deg2rad:
+  angle: &-20deg -0.3490658504
   angle: &-25deg -0.4363323313
   angle: &-30deg -0.5235987756
   angle: &-40deg -0.6981317008
@@ -8,6 +9,8 @@ deg2rad:
   angle: &-80deg -1.396263402
   angle: &-90deg -1.570796327
   angle: &-120deg -2.094395102
+
+  angle: &-4942deg -0.8625417163
 
   angle: &30deg 0.5235987756
   angle: &40deg 0.6981317008
@@ -27,15 +30,15 @@ setting:
       1.745329,  0.000000,  0.000000, -0.523599,
       1.745329,  0.000000,  0.000000, -0.523599 ]
     rootPosition: &POS484 [ 0, 0, 0.1902088886 ]
-    jointPositions: &STANDARD484 [
+    jointPositions: &STANDARD2 [
       0.000000,  0.000000, *-40deg,  *80deg, *-40deg,  0.000000,
       0.000000,  0.000000, *-40deg,  *80deg, *-40deg,  0.000000,
       1.745329,  0.000000,  0.000000, -0.523599,
       1.745329,  0.000000,  0.000000, -0.523599 ]
-    rootPosition: &POS3 [ 0, 0, 0.2249385 ]
-    jointPositions: &STANDARD3 [
-      0.000000,  0.000000, -0.3490658504,  0.6981317008, -0.3490658504,  0.000000,
-      0.000000,  0.000000, -0.3490658504,  0.6981317008, -0.3490658504,  0.000000,
+    rootPosition: &POS242 [ 0, 0, 0.2249385 ]
+    jointPositions: &STANDARD242 [
+      0.000000,  0.000000, *-20deg,  *40deg, *-20deg,  0.000000,
+      0.000000,  0.000000, *-20deg,  *40deg, *-20deg,  0.000000,
       1.745329,  0.000000,  0.000000, -0.523599,
       1.745329,  0.000000,  0.000000, -0.523599 ]
     rootPosition: &POS4 [ 0, 0, 0.2182615574 ]
@@ -48,6 +51,23 @@ setting:
     jointPositions: &STANDARD5 [
       0.000000,  0.000000, *-60deg,  *120deg, *-60deg,  0.000000,
       0.000000,  0.000000, *-60deg,  *120deg, *-60deg,  0.000000,
+      1.745329,  0.000000,  0.000000, -0.523599,
+      1.745329,  0.000000,  0.000000, -0.523599 ]
+
+    jointPositions: &CENTER [
+      0.000000,  0.000000, *-30deg,  *60deg, *-30deg,  0.000000,
+      0.000000,  0.000000, *-30deg,  *60deg, *-30deg,  0.000000,
+      1.745329,  0.000000,  0.000000, *-4942deg,
+      1.745329,  0.000000,  0.000000, *-4942deg ]
+    jointPositions: &Diag363 [
+      0.000000,  0.000000, -0.702995,  0.952068, -0.249073,  0.000000,
+      0.000000,  0.000000, -0.249073,  0.952068, -0.702995,  0.000000,
+      1.745329,  0.000000,  0.000000, -0.523599,
+      1.745329,  0.000000,  0.000000, -0.523599 ]
+
+    jointPositions: &LEFTLEGUP [
+      0.000000,  0.000000, -0.523599,  1.047198, -0.523599,  0.000000,
+      0.000000,  0.000000, -1.396263402,  2.792526803, -1.396263402, -0.000000,
       1.745329,  0.000000,  0.000000, -0.523599,
       1.745329,  0.000000,  0.000000, -0.523599 ]
 items: 
@@ -74,18 +94,18 @@ items:
           data: 
             modelFile: "/home/smiyahara/Documents/rlsSimulator/share/model/master/skeletonA4prim.body"
             currentBaseLink: "ROOT"
-            rootPosition: *POS484
+            rootPosition: *POS363
             rootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
               0, 0, 1 ]
-            jointPositions: *STANDARD484
-            initialRootPosition: *POS484
+            jointPositions: *STANDARD363
+            initialRootPosition: *POS363
             initialRootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
               0, 0, 1 ]
-            initialJointPositions: *STANDARD484
+            initialJointPositions: *STANDARD363
             zmp: [ 0, 0, 0 ]
             collisionDetection: true
             selfCollisionDetection: false
@@ -306,7 +326,7 @@ views:
 toolbars: 
   "TimeBar": 
     minTime: 0
-    maxTime: 17
+    maxTime: 19
     frameRate: 1000
     playbackFrameRate: 10
     idleLoopDrivenMode: false

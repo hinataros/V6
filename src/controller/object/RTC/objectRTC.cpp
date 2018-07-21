@@ -56,7 +56,12 @@ RTC::ReturnCode_t ObjectRTC::onActivated(RTC::UniqueId ec_id)
 
   // smiyahara: 要検討
   readState(sharedData);
-  sharedMemory.putData(&sharedData);
+  if(read)
+    sharedMemory.putData(&sharedData);
+  if(write)
+    sharedMemory.getData(&sharedData);
+
+  writeInput(sharedData);
 
   return RTC::RTC_OK;
 }
@@ -67,7 +72,12 @@ RTC::ReturnCode_t ObjectRTC::onDeactivated(RTC::UniqueId ec_id)
   cout << "ObjectRTC::onDeactivated()" << endl;
 
   readState(sharedData);
-  sharedMemory.putData(&sharedData);
+  if(read)
+    sharedMemory.putData(&sharedData);
+  if(write)
+    sharedMemory.getData(&sharedData);
+
+  writeInput(sharedData);
 
   sharedMemory.finalize();
 
@@ -78,7 +88,12 @@ RTC::ReturnCode_t ObjectRTC::onDeactivated(RTC::UniqueId ec_id)
 RTC::ReturnCode_t ObjectRTC::onExecute(RTC::UniqueId ec_id)
 {
   readState(sharedData);
-  sharedMemory.putData(&sharedData);
+  if(read)
+    sharedMemory.putData(&sharedData);
+  if(write)
+    sharedMemory.getData(&sharedData);
+
+  writeInput(sharedData);
 
   return RTC::RTC_OK;
 }

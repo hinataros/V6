@@ -27,14 +27,5 @@ int RLS::RlsDynamics::walking(Config &config, Info &info, Model &model, double &
   if(info.limb[0].contact==true&&info.limb[1].contact==false)
     return 3;
 
-  // if(info.contact.num==2)
-  //   return 1;
-
-  // if(info.contact.num==1)
-  //   return 2;
-
-  // if(info.contact.num)
-  //   return 1;
-
   return 0;
 }

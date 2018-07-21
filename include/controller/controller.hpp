@@ -14,6 +14,7 @@ namespace RLS{
     VectorXd u;
 
   public:
+    void finalize(Config&, Info&);
     VectorXd controller(Config&, Info&, Model&, double&);
 
     Controller(){}

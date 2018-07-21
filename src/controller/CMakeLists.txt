@@ -28,6 +28,7 @@ endif(rls_objectRTC)
 if(rls_rlsSimulator)
   set(srcs
     initialize.cpp
+    finalize.cpp
     controller.cpp
     )
 

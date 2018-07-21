@@ -31,5 +31,7 @@ void RLS::RlsDynamics::initialValue(Config &config, Info &info, Model &model)
   // high gain control
   thDes = model.hoap2.all.th;
 
+  readWork(config, info, "Default", 0);
+
   initialValueFlag = false;
 }

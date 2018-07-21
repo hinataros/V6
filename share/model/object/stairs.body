@@ -13,7 +13,7 @@ links:
   -
     name: 1STEP
     parent: ROOT
-    translation: [ 0.07, 0.039, -0.005 ]
+    translation: [ 0.075, 0.039, -0.005 ]
   -
     name: 2STEP
     parent: 1STEP

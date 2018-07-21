@@ -2,7 +2,7 @@
 
 set(srcs
   readState.cpp
-  # writeInput.cpp
+  writeInput.cpp
   objectRTC.cpp
   )
 

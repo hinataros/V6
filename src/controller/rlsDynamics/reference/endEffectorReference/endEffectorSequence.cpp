@@ -11,7 +11,7 @@ void RLS::RlsDynamics::endEffectorSequence(Config &config, Info &info, Model &mo
 {
   if(config.flag.debug) DEBUG;
 
-  for(int i=0; i<6*info.value.joint; i++){
+  for(int i=0, k=0; i<6*info.value.joint; i++){
     des = makeSpline5(t-info.sim.tw0, info.sim.twf, cal_XpreDes(i), cal_Xf(i));
 
     cal_XDes(i) = des(0) + cal_X0(i);

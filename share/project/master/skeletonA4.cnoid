@@ -1,55 +1,3 @@
-deg2rad:
-  angle: &-25deg -0.4363323313
-  angle: &-30deg -0.5235987756
-  angle: &-40deg -0.6981317008
-  angle: &-45deg -0.7853981634
-  angle: &-50deg -0.872664626
-  angle: &-60deg -1.047197551
-  angle: &-80deg -1.396263402
-  angle: &-90deg -1.570796327
-  angle: &-120deg -2.094395102
-
-  angle: &30deg 0.5235987756
-  angle: &40deg 0.6981317008
-  angle: &45deg 0.7853981634
-  angle: &50deg 0.872664626
-  angle: &60deg 1.047197551
-  angle: &80deg 1.396263402
-  angle: &90deg 1.570796327
-  angle: &120deg 2.094395102
-
-setting:
-  skeleton:
-    rootPosition: &POS363 [ 0, 0, 0.21019 ]
-    jointPositions: &STANDARD363 [
-      0.000000,  0.000000, *-30deg,  *60deg, *-30deg,  0.000000,
-      0.000000,  0.000000, *-30deg,  *60deg, *-30deg,  0.000000,
-      1.745329,  0.000000,  0.000000, -0.523599,
-      1.745329,  0.000000,  0.000000, -0.523599 ]
-    rootPosition: &POS484 [ 0, 0, 0.1902088886 ]
-    jointPositions: &STANDARD2 [
-      0.000000,  0.000000, *-40deg,  *80deg, *-40deg,  0.000000,
-      0.000000,  0.000000, *-40deg,  *80deg, *-40deg,  0.000000,
-      1.745329,  0.000000,  0.000000, -0.523599,
-      1.745329,  0.000000,  0.000000, -0.523599 ]
-    rootPosition: &POS3 [ 0, 0, 0.2249385 ]
-    jointPositions: &STANDARD3 [
-      0.000000,  0.000000, -0.3490658504,  0.6981317008, -0.3490658504,  0.000000,
-      0.000000,  0.000000, -0.3490658504,  0.6981317008, -0.3490658504,  0.000000,
-      1.745329,  0.000000,  0.000000, -0.523599,
-      1.745329,  0.000000,  0.000000, -0.523599 ]
-    rootPosition: &POS4 [ 0, 0, 0.2182615574 ]
-    jointPositions: &STANDARD4 [
-      0.000000,  0.000000, *-25deg,  *50deg, *-25deg,  0.000000,
-      0.000000,  0.000000, *-25deg,  *50deg, *-25deg,  0.000000,
-      1.745329,  0.000000,  0.000000, -0.523599,
-      1.745329,  0.000000,  0.000000, -0.523599 ]
-    rootPosition: &POS5 [ 0, 0, 0.2182615574 ]
-    jointPositions: &STANDARD5 [
-      0.000000,  0.000000, *-60deg,  *120deg, *-60deg,  0.000000,
-      0.000000,  0.000000, *-60deg,  *120deg, *-60deg,  0.000000,
-      1.745329,  0.000000,  0.000000, -0.523599,
-      1.745329,  0.000000,  0.000000, -0.523599 ]
 items: 
   id: 0
   name: "Root"
@@ -64,50 +12,10 @@ items:
       data: 
         collisionDetection: true
         collisionDetector: AISTCollisionDetector
-        materialTableFile: "../../material/default.yaml"
+        materialTableFile: "/home/smiyahara/Documents/rlsSimulator/share/material/default.yaml"
       children: 
         - 
           id: 2
-          name: "master/skeletonA4prim"
-          plugin: Body
-          class: BodyItem
-          data: 
-            modelFile: "../../model/master/skeletonA4prim.body"
-            currentBaseLink: "ROOT"
-            rootPosition: *POS363
-            rootAttitude: [ 
-              1, 0, 0, 
-              0, 1, 0, 
-              0, 0, 1 ]
-            jointPositions: *STANDARD363
-            initialRootPosition: *POS363
-            initialRootAttitude: [ 
-              1, 0, 0, 
-              0, 1, 0, 
-              0, 0, 1 ]
-            initialJointPositions: *STANDARD363
-            zmp: [ 0, 0, 0 ]
-            collisionDetection: true
-            selfCollisionDetection: false
-            isEditable: true
-          children: 
-            - 
-              id: 3
-              name: "BodyRTC"
-              plugin: OpenRTM
-              class: BodyRTCItem
-              data: 
-                isNoDelayMode: true
-                controllerOptions: ""
-                moduleName: "/home/smiyahara/Documents/rlsSimulator/build/bin/rlsDynamicsRTC.so"
-                confFileName: "/home/smiyahara/Documents/rlsSimulator/src/controller/rlsDynamics/RTC/rtcConfig/skeletonPort.conf"
-                configurationMode: "Use Configuration File"
-                AutoConnect: false
-                InstanceName: "skeleton"
-                bodyPeriodicRate: 0
-                baseDirectory: "RTC directory"
-        - 
-          id: 4
           name: "AISTSimulator"
           plugin: Body
           class: AISTSimulatorItem
@@ -136,12 +44,12 @@ items:
             2Dmode: false
             oldAccelSensorMode: false
         - 
-          id: 5
+          id: 3
           name: "floor"
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "../../model/object/floor.body"
+            modelFile: "/home/smiyahara/Documents/rlsSimulator/share/model/object/floor.body"
             currentBaseLink: ""
             rootPosition: [ 0, 0, -0.025 ]
             rootAttitude: [ 
@@ -158,29 +66,50 @@ items:
             collisionDetection: true
             selfCollisionDetection: false
             isEditable: false
-        # - 
-        #   id: 6
-        #   name: "Box"
-        #   plugin: Body
-        #   class: BodyItem
-        #   data: 
-        #     modelFile: "/home/smiyahara/Documents/rlsSimulator/share/model/object/box.body"
-        #     currentBaseLink: "BOX"
-        #     rootPosition: [ 0, 0.039, 0.0531 ]
-        #     rootAttitude: [ 
-        #       1, 0, 0, 
-        #       0, 1, 0, 
-        #       0, 0, 1 ]
-        #     jointPositions: [  ]
-        #     initialRootPosition: [ 0, 0.039, 0.0531 ]
-        #     initialRootAttitude: [ 
-        #       1, 0, 0, 
-        #       0, 1, 0, 
-        #       0, 0, 1 ]
-        #     zmp: [ 0, 0, 0 ]
-        #     collisionDetection: true
-        #     selfCollisionDetection: false
-        #     isEditable: false
+        - 
+          id: 4
+          name: "master/skeletonA4prim"
+          plugin: Body
+          class: BodyItem
+          data: 
+            modelFile: "/home/smiyahara/Documents/rlsSimulator/share/model/master/skeletonA4prim.body"
+            currentBaseLink: "ROOT"
+            rootPosition: [ 0, 0, 0.218261557 ]
+            rootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            jointPositions: [ 
+               0.000000,  0.000000, -0.436332,  0.872665, -0.436332,  0.000000,  0.000000,  0.000000, -0.436332,  0.872665, 
+              -0.436332,  0.000000,  1.745329,  0.000000,  0.000000, -0.523599,  1.745329,  0.000000,  0.000000, -0.523599 ]
+            initialRootPosition: [ 0, 0, 0.218261557 ]
+            initialRootAttitude: [ 
+              1, 0, 0, 
+              0, 1, 0, 
+              0, 0, 1 ]
+            initialJointPositions: [ 
+               0.000000,  0.000000, -0.436332,  0.872665, -0.436332,  0.000000,  0.000000,  0.000000, -0.436332,  0.872665, 
+              -0.436332,  0.000000,  1.745329,  0.000000,  0.000000, -0.523599,  1.745329,  0.000000,  0.000000, -0.523599 ]
+            zmp: [ 0, 0, 0 ]
+            collisionDetection: true
+            selfCollisionDetection: false
+            isEditable: true
+          children: 
+            - 
+              id: 5
+              name: "BodyRTC"
+              plugin: OpenRTM
+              class: BodyRTCItem
+              data: 
+                isNoDelayMode: true
+                controllerOptions: ""
+                moduleName: "/home/smiyahara/Documents/rlsSimulator/build/bin/rlsDynamicsRTC.so"
+                confFileName: "/home/smiyahara/Documents/rlsSimulator/src/controller/rlsDynamics/RTC/rtcConfig/skeletonPort.conf"
+                configurationMode: "Use Configuration File"
+                AutoConnect: false
+                InstanceName: "skeleton"
+                bodyPeriodicRate: 0
+                baseDirectory: "RTC directory"
 views: 
   - 
     id: 0
@@ -193,9 +122,9 @@ views:
     class: ItemTreeView
     mounted: true
     state: 
-      selected: [ 6 ]
-      checked: [ 1, 2, 3, 4, 5, 6 ]
-      expanded: [ 1, 2, 3 ]
+      selected: [ 4 ]
+      checked: [ 1, 2, 3, 4, 5 ]
+      expanded: [ 1, 4 ]
   - 
     id: 2
     plugin: Base
@@ -244,13 +173,13 @@ views:
           fieldOfView: 0.698132
           near: 0.01
           far: 100
-          eye: [ 1.10681, 0.0445612452, 0.193910887 ]
-          direction: [ -1, 6.123234e-17, -6.123234e-17 ]
-          up: [ -6.123234e-17, 3.74939946e-33, 1 ]
+          eye: [ 0.081440181, 1.3988584, 0.22230554 ]
+          direction: [ -1.2246468e-16, -1, -6.123234e-17 ]
+          up: [ -7.49879891e-33, -6.123234e-17, 1 ]
         - 
           camera: [ System, Orthographic ]
           isCurrent: true
-          orthoHeight: 0.560711
+          orthoHeight: 0.719967
           near: 0.01
           far: 100
       backgroundColor: [ 0, 0.333333343, 0 ]
@@ -284,7 +213,7 @@ views:
       spinBox: true
       slider: true
       labelOnLeft: true
-      currentBodyItem: 6
+      currentBodyItem: 4
   - 
     id: 7
     plugin: Body
@@ -292,14 +221,11 @@ views:
     mounted: true
     state: 
       listingMode: "Link List"
-      currentBodyItem: 6
+      currentBodyItem: 4
       bodyItems: 
         - 
-          id: 2
+          id: 4
           selectedLinks: [ 14 ]
-        - 
-          id: 6
-          selectedLinks: [ 0 ]
   - 
     id: 8
     plugin: OpenRTM
@@ -313,7 +239,7 @@ views:
 toolbars: 
   "TimeBar": 
     minTime: 0
-    maxTime: 7
+    maxTime: 8
     frameRate: 1000
     playbackFrameRate: 10
     idleLoopDrivenMode: false
@@ -330,7 +256,7 @@ toolbars:
     penetrationBlockDepth: 0.0005
     lazyCollisionDetectionMode: true
   "BodyBar": 
-    current: 6
+    current: 4
   "LeggedBodyBar": 
     stanceWidth: 0.15
   "BodyMotionGenerationBar": 
@@ -372,18 +298,13 @@ Body:
   "EditableSceneBody": 
     editableSceneBodies: 
       - 
-        bodyItem: 2
+        bodyItem: 3
+        showCenterOfMass: false
+        showPpcom: false
+        showZmp: false
+      - 
+        bodyItem: 4
         showCenterOfMass: true
-        showPpcom: false
-        showZmp: false
-      - 
-        bodyItem: 5
-        showCenterOfMass: false
-        showPpcom: false
-        showZmp: false
-      - 
-        bodyItem: 6
-        showCenterOfMass: false
         showPpcom: false
         showZmp: false
     staticModelEditing: true
@@ -405,12 +326,12 @@ viewAreas:
     contents: 
       type: splitter
       orientation: horizontal
-      sizes: [ 253, 1661 ]
+      sizes: [ 326, 1588 ]
       children: 
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 462, 461 ]
+          sizes: [ 479, 479 ]
           children: 
             - 
               type: pane
@@ -423,7 +344,7 @@ viewAreas:
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 804, 119 ]
+          sizes: [ 849, 109 ]
           children: 
             - 
               type: pane
@@ -437,13 +358,12 @@ layoutOfToolBars:
   rows: 
     - 
       - { name: "FileBar", x: 0, priority: 0 }
-      - { name: "ScriptBar", x: 49, priority: 0 }
-      - { name: "TimeBar", x: 98, priority: 0 }
+      - { name: "ScriptBar", x: 47, priority: 0 }
+      - { name: "TimeBar", x: 94, priority: 0 }
+      - { name: "GraphBar", x: 1383, priority: 0 }
+      - { name: "KinematicsBar", x: 1687, priority: 0 }
     - 
-      - { name: "SceneBar", x: 0, priority: 0 }
-      - { name: "GraphBar", x: 310, priority: 0 }
-      - { name: "SimulationBar", x: 423, priority: 0 }
-      - { name: "BodyBar", x: 632, priority: 0 }
-    - 
-      - { name: "KinematicsBar", x: 0, priority: 0 }
-      - { name: "BodyMotionGenerationBar", x: 248, priority: 0 }
+      - { name: "SceneBar", x: 0, priority: 3 }
+      - { name: "SimulationBar", x: 260, priority: 1 }
+      - { name: "BodyMotionGenerationBar", x: 260, priority: 0 }
+      - { name: "BodyBar", x: 333, priority: 2 }

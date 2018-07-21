@@ -6,7 +6,7 @@
 
 void RLS::SharedMemory::initialize()
 {
-  key = 4000;
+  key = 1;
 
   if((id = shmget(key, SHAREDMEMORYSIZE, IPC_CREAT|0666)) < 0){
     perror("shmget");

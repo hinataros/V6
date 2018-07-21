@@ -25,7 +25,7 @@ void RLS::RlsDynamics::torqueOutputIndexConfig(Config &config, Info &info, Model
   // replace x <==> y
   dc_list.rpk = VectorXd::Zero(2*info.value.joint);
   for(int i=0; i<info.value.joint; i++)
-    dc_list.rpk.segment(2*i, 2) = antiDiag(2,1.,1.)*rpk.segment(2*i, 2);
+    dc_list.rpk.segment(2*i, 2) = rpk.segment(2*i, 2);
 
   dc_list.rpkx = dc_list.rpky
     = VectorXd::Zero(1*info.value.joint);

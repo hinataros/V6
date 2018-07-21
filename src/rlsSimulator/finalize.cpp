@@ -9,9 +9,11 @@
 #include "output.hpp"
 #include "rlsSimulator.hpp"
 
-void RLS::RlsSimulator::finalize(Config &config, Info &info, Model &model, Output &output)
+void RLS::RlsSimulator::finalize(Config &config, Info &info, Model &model, Controller &controller, Output &output)
 {
   if(config.flag.debug) DEBUG;
+
+  controller.finalize(config, info);
 
   output.finalize(config);
 

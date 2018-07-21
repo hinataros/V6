@@ -74,7 +74,7 @@ void setFootPrint(MatrixXd &rfT, MatrixXd &rfH, double offset, double toe, doubl
   rfH.col(num)<<0., 0.039,0.; rfH.col(num) += (Vector3d()<< 0.638, -0.078-0.48, 0.).finished(); rfH.col(num) += Rz(-1.5708)*offsetLH3D; num++;// 22
 }
 
-void UpDownFootPrint(MatrixXd &rf, double offset)
+void upDownFootPrint(MatrixXd &rf, double offset)
 {
   int num = 1;
   rf.col(num) <<   0., -0.039+offset,   0.; num++;// 1
@@ -97,6 +97,47 @@ void UpDownFootPrint(MatrixXd &rf, double offset)
   rf.col(num) << 1.05,            0.,   0.; num++;// 18
 }
 
+void upDownHTFootPrint(MatrixXd &rfT, MatrixXd &rfH, double y, double t, double h)
+{
+  int num = 1;
+  rfH.col(num) <<     0., -0.039+y,   0.;
+  rfT.col(num) <<   0.+t, -0.039+y,   0.; num++;// 1
+  rfH.col(num) << 0.07+h,  0.039-y,   0.;
+  rfT.col(num) << 0.07+t,  0.039-y,   0.; num++;// 2
+  rfH.col(num) << 0.14+h, -0.039+y, 0.02;
+  rfT.col(num) << 0.14+t, -0.039+y, 0.02; num++;// 3
+  rfH.col(num) << 0.21+h,  0.039-y, 0.04;
+  rfT.col(num) << 0.21+t,  0.039-y, 0.04; num++;// 4
+  rfH.col(num) << 0.28+h, -0.039+y, 0.06;
+  rfT.col(num) << 0.28+t, -0.039+y, 0.06; num++;// 5
+  rfH.col(num) << 0.35+h,  0.039-y, 0.08;
+  rfT.col(num) << 0.35+t,  0.039-y, 0.08; num++;// 6
+  rfH.col(num) << 0.42+h, -0.039+y, 0.10;
+  rfT.col(num) << 0.42+t, -0.039+y, 0.10; num++;// 7
+  rfH.col(num) << 0.49+h,  0.039-y, 0.12;
+  rfT.col(num) << 0.49+t,  0.039-y, 0.12; num++;// 8
+  rfH.col(num) << 0.56+h, -0.039+y, 0.12;
+  rfT.col(num) << 0.56+t, -0.039+y, 0.10; num++;// 9
+  rfH.col(num) << 0.63+h,  0.039-y, 0.10;
+  rfT.col(num) << 0.63+t,  0.039-y, 0.08; num++;// 10
+  rfH.col(num) << 0.70+h, -0.039+y, 0.08;
+  rfT.col(num) << 0.70+t, -0.039+y, 0.06; num++;// 11
+  rfH.col(num) << 0.77+h,  0.039-y, 0.06;
+  rfT.col(num) << 0.77+t,  0.039-y, 0.04; num++;// 12
+  rfH.col(num) << 0.84+h, -0.039+y, 0.04;
+  rfT.col(num) << 0.84+t, -0.039+y, 0.02; num++;// 13
+  rfH.col(num) << 0.91+h,  0.039-y, 0.02;
+  rfT.col(num) << 0.91+t,  0.039-y,   0.; num++;// 14
+  rfH.col(num) << 0.98+h, -0.039+y,   0.;
+  rfT.col(num) << 0.98+t, -0.039+y,   0.; num++;// 15
+  rfH.col(num) << 1.05+h,  0.039-y,   0.;
+  rfT.col(num) <<   1.05,  0.039-y,   0.; num++;// 16
+  rfH.col(num) <<   1.05,       0.,   0.;
+  rfT.col(num) <<   1.05,       0.,   0.; num++;// 17
+  rfH.col(num) <<   1.05,       0.,   0.;
+  rfT.col(num) <<   1.05,       0.,   0.; num++;// 18
+}
+
 void straightWalkFootPrint(MatrixXd &rf, double offset)
 {
   int num = 1;
@@ -113,6 +154,18 @@ void straightWalkFootPrint(MatrixXd &rf, double offset)
   rf.col(num) << 0.56,            0., 0.; num++;// 10
 }
 
+void testFootPrint(MatrixXd &rf, double offset)
+{
+  int num = 1;
+  // rf.col(num) << 0., 0.039-offset,   0.; num++;// 1
+  // rf.col(num) << 0., 0.039-offset,   0.; num++;// 1
+  // rf.col(num) << 0.03, -0.039+offset,   0.; num++;// 1
+  // rf.col(num) << 0.03, -0.039+offset,   0.; num++;// 1
+  rf.col(num) << 0., 0.,   0.; num++;// 1
+  rf.col(num) << 0., 0.,   0.; num++;// 1
+  rf.col(num) << 0.03, 0.,   0.; num++;// 1
+  rf.col(num) << 0.03, 0.,   0.; num++;// 1
+}
 void RLS::RlsDynamics::dcmHTWalking(Config &config, Info &info, Model &model, double &t)
 {
   if(config.flag.debug) DEBUG;
@@ -122,33 +175,42 @@ void RLS::RlsDynamics::dcmHTWalking(Config &config, Info &info, Model &model, do
   // ********************************
   double tstab = 2.;
 
-  // straight walk
+  // straight walk HT
   double dtstep = .5;
-  double dtDSstep = .1;
-  double alphDSstep = .5;
+  double dtDSstep = .2;
+  double alphDSstep = .3;
+  double alphaHTstep = 0.6;
+  double offset = 0.015;
+  double toe = 0.025;
+  double heel = 0.;
+
+  // // straight walk
+  // double dtstep = .5;
+  // double dtDSstep = .1;
+  // double alphDSstep = .5;
 
   // // updown
   // double dtstep = .8;
   // double dtDSstep = .2;
   // double alphDSstep = .5;
 
+  // // updown HT
+  // double dtstep = .8;
+  // double dtDSstep = .3;
+  // double alphDSstep = .3;
+  // double offset = 0.01;
+  // double toe = 0.026;
+  // double heel = 0.;
+  // double alphaHTstep = 0.5;
+
   // double steplength = 0.01;
   // double steplength = 0.055;
   // double steplength = 0.08;
-
-  double offset = 0.;
-  offset = 0.01;
-  // offset = 0.01;
-  // offset = 0.011;
 
   double height = 0.;
 
   // HT
   // setting
-  double alphaHTstep = 0.5;
-
-  double toe = 0.025;
-  double heel = -0.015;
   // ********************************
 
   double tf = tstab + dtstep*(1.-alphaHTstep) + dtstep*(stepNum-1);
@@ -226,16 +288,19 @@ void RLS::RlsDynamics::dcmHTWalking(Config &config, Info &info, Model &model, do
     // ******************************
     // rf.col(0) << 0., 0., 0.;
 
-    // setFootPrint(rfT, rfH, offset, toe, heel);
-    // UpDownFootPrint(rf, offset);
-    straightWalkFootPrint(rf, offset);
-
     // backward calculation
     Vector3d toeOffset = (Vector3d()<<toe, 0., 0.).finished();
     Vector3d heelOffset = (Vector3d()<<heel, 0., 0.).finished();
 
     Vector3d Dzvrp = (-model.hoap2.ag)/(wX*wX);
 
+    // testFootPrint(rf, offset);
+    // setFootPrint(rfT, rfH, offset, toe, heel);
+    // upDownFootPrint(rf, offset);
+    // upDownHTFootPrint(rfT, rfH, offset, toe, heel);
+    straightWalkFootPrint(rf, offset);
+
+    // ******************************
     // final desired DCM position
     // rXTH.col(stepNum) is unused
     rXHT.col(stepNum) = rf.col(stepNum) + Dzvrp;
@@ -244,7 +309,6 @@ void RLS::RlsDynamics::dcmHTWalking(Config &config, Info &info, Model &model, do
     // final desired VRP
     rvrpHd.col(stepNum) = rXHT.col(stepNum);
 
-    // ******************************
     for(int i=stepNum-1; i>0; i--){
       if(i==stepNum-1){
         rvrpTd.col(i) = rf.col(i) + Dzvrp;
@@ -268,7 +332,15 @@ void RLS::RlsDynamics::dcmHTWalking(Config &config, Info &info, Model &model, do
     }
     // ******************************
 
-    // ******************************
+    // // ******************************
+    // // final desired DCM position
+    // // rXTH.col(stepNum) is unused
+    // rXHT.col(stepNum) = rfH.col(stepNum) + Dzvrp;
+
+    // // rvrpTd.col(stepNum) is unused
+    // // final desired VRP
+    // rvrpHd.col(stepNum) = rXHT.col(stepNum);
+
     // for(int i=stepNum-1; i>0; i--){
     //   rvrpTd.col(i) = rfT.col(i) + Dzvrp;
     //   rvrpHd.col(i) = rfH.col(i) + Dzvrp;
@@ -276,7 +348,7 @@ void RLS::RlsDynamics::dcmHTWalking(Config &config, Info &info, Model &model, do
     //   rXTH.col(i) = rvrpTd.col(i) + exp(-wX*dtTH(i))*(rXHT.col(i+1) - rvrpTd.col(i));
     //   rXHT.col(i) = rvrpHd.col(i) + exp(-wX*dtHT(i))*(rXTH.col(i) - rvrpHd.col(i));
     // }
-    // ******************************
+    // // ******************************
 
     // dtHT(0) is unused
     // rvrpHd.col(0) is unused
@@ -322,11 +394,6 @@ void RLS::RlsDynamics::dcmHTWalking(Config &config, Info &info, Model &model, do
     // ddrXeoDS.col(0) = wX*wX*exp(wX*dtDSend(0))*(rXTH.col(0) - rvrpTd.col(0));
     ddrXiniDS.col(0) = Vector3d::Zero();// assumption
   }
-
-  // if(info.sim.phase==21){
-  //   o(info.sim.phase);
-  //   gc;
-  // }
 
   double twalk = t - tstab;
   if(round_cast(t, 3)<round_cast(tstab, 3)){

@@ -106,6 +106,11 @@ RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
   tau = rlsDynamics.rlsDynamics(config, info, model, t);
   Fext = rlsDynamics.virtualInput;
 
+  if(config.flag.shm){
+    writeSharedData(config, info, model.hoap2.tm_list, rlsDynamics.dc_list, sharedData);
+    sharedMemory.putData(&sharedData);
+  }
+
   output.tm_temp = model.hoap2.tm_list;
   output.dc_temp = rlsDynamics.dc_list;
   output.pushBack(config, t);
@@ -134,6 +139,11 @@ RTC::ReturnCode_t RlsDynamicsRTC::onDeactivated(RTC::UniqueId ec_id)
   tau = rlsDynamics.rlsDynamics(config, info, model, t);
   Fext = rlsDynamics.virtualInput;
 
+  if(config.flag.shm){
+    writeSharedData(config, info, model.hoap2.tm_list, rlsDynamics.dc_list, sharedData);
+    sharedMemory.putData(&sharedData);
+  }
+
   output.dc_temp = rlsDynamics.dc_list;
   output.tm_temp = model.hoap2.tm_list;
   output.pushBack(config, t);
@@ -142,6 +152,8 @@ RTC::ReturnCode_t RlsDynamicsRTC::onDeactivated(RTC::UniqueId ec_id)
     sharedMemory.finalize();
 
   output.output(config, info);
+
+  rlsDynamics.finalize(config, info);
   output.finalize(config);
 
   model.deleteModel(config, info);
@@ -162,6 +174,11 @@ RTC::ReturnCode_t RlsDynamicsRTC::onExecute(RTC::UniqueId ec_id)
 
   tau = rlsDynamics.rlsDynamics(config, info, model, t);
   Fext = rlsDynamics.virtualInput;
+
+  if(config.flag.shm){
+    writeSharedData(config, info, model.hoap2.tm_list, rlsDynamics.dc_list, sharedData);
+    sharedMemory.putData(&sharedData);
+  }
 
   output.dc_temp = rlsDynamics.dc_list;
   output.tm_temp = model.hoap2.tm_list;

@@ -9,10 +9,10 @@ void RlsDynamicsRTC::readSharedData(RLS::Config &config, RLS::Info &info, RLS::R
   if(config.flag.debug) DEBUG;
 
   for(int i=0; i<3; i++)
-    object.rO(i) = sharedData.rR[i];
+    object.rO(i) = sharedData.root.r[i];
 
   for(int i=0, j=0, k=0; k<9; k++){
-    object.RO(i,j) = sharedData.RR[k];
+    object.RO(i,j) = sharedData.root.R[k];
     if(j==2){
       i++;
       j=0;
@@ -20,9 +20,9 @@ void RlsDynamicsRTC::readSharedData(RLS::Config &config, RLS::Info &info, RLS::R
   }
 
   for(int i=0; i<3; i++){
-    object.vO(i) = sharedData.vR[i];
-    object.wO(i) = sharedData.wR[i];
-    object.fO(i) = sharedData.fR[i];
-    object.nO(i) = sharedData.nR[i];
+    object.vO(i) = sharedData.root.v[i];
+    object.wO(i) = sharedData.root.w[i];
+    object.fO(i) = sharedData.root.f[i];
+    object.nO(i) = sharedData.root.n[i];
   }
 }

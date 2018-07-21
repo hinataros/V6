@@ -33,11 +33,11 @@ void RLS::Output::stabilityIndex4walking(Config &config, Info &info, GpMaker &gp
 
   int ob = 1;
 
-  int step = 70;
+  int step = 80;
 
-  double dtstep = 0.6;
-  double dtDSstep = 0.1;
-  double dtDSini = 0.05;
+  double dtstep = 0.7;
+  double dtDSstep = 0.3;
+  double dtDSini = 0.06;
 
   // int step = 80;
 
@@ -52,8 +52,8 @@ void RLS::Output::stabilityIndex4walking(Config &config, Info &info, GpMaker &gp
 
   // double support
   // *********************************
-  tinit = 0.; tend = dtstep + dtDSini;
-  // tinit = 0.; tend = dtstep/2 + dtDSini;
+  // tinit = 0.; tend = dtstep + dtDSini;
+  tinit = 0.; tend = dtstep/2 + dtDSini;
   pinit = x_length_bottom; pend = x_length_top;
   gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+to_string(pinit)+" to "+to_string(tend)+", "+to_string(pend)+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
 
@@ -93,8 +93,8 @@ void RLS::Output::stabilityIndex4walking(Config &config, Info &info, GpMaker &gp
 
   // single support
   // *********************************
-  tinit = dtstep+dtDSini; tend = tinit+(dtstep-dtDSstep);
-  // tinit = dtstep/2+dtDSini; tend = tinit+(dtstep-dtDSstep);
+  // tinit = dtstep+dtDSini; tend = tinit+(dtstep-dtDSstep);
+  tinit = dtstep/2+dtDSini; tend = tinit+(dtstep-dtDSstep);
   pinit = x_length_bottom; pend = x_length_top;
   gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+to_string(pinit)+" to "+to_string(tend)+", "+to_string(pend)+" back lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
 
@@ -149,8 +149,8 @@ void RLS::Output::stabilityIndex4walking(Config &config, Info &info, GpMaker &gp
   string norm = to_string(y_length);
   // double support
   // *********************************
-  tinit = 0.; tend = dtstep+dtDSini;
-  // tinit = 0.; tend = dtstep/2+dtDSini;
+  // tinit = 0.; tend = dtstep+dtDSini;
+  tinit = 0.; tend = dtstep/2+dtDSini;
   gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", (-39-"+norm+") to "+to_string(tend)+", (39+"+norm+") back lw 0 fc rgb 'cyan' fill solid 0.2 noborder");ob++;
 
   tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
@@ -182,8 +182,8 @@ void RLS::Output::stabilityIndex4walking(Config &config, Info &info, GpMaker &gp
 
   // right leg support
   // *********************************
-  tinit = dtstep+dtDSini; tend = tinit+(dtstep-dtDSstep);
-  // tinit = dtstep/2+dtDSini; tend = tinit+(dtstep-dtDSstep);
+  // tinit = dtstep+dtDSini; tend = tinit+(dtstep-dtDSstep);
+  tinit = dtstep/2+dtDSini; tend = tinit+(dtstep-dtDSstep);
   gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", (-39-"+norm+") to "+to_string(tend)+", (-39+"+norm+") back lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
 
   tinit = tend+dtDSstep+dtstep; tend = tinit+(dtstep-dtDSstep);
@@ -198,8 +198,8 @@ void RLS::Output::stabilityIndex4walking(Config &config, Info &info, GpMaker &gp
 
   // left leg support
   // *********************************
-  tinit = 2*dtstep+dtDSini; tend = tinit+(dtstep-dtDSstep);
-  // tinit = dtstep+dtstep/2+dtDSini; tend = tinit+(dtstep-dtDSstep);
+  // tinit = 2*dtstep+dtDSini; tend = tinit+(dtstep-dtDSstep);
+  tinit = dtstep+dtstep/2+dtDSini; tend = tinit+(dtstep-dtDSstep);
   gpMaker.add("set object "+to_string(ob)+" rect from "+to_string(tinit)+", (39-"+norm+") to "+to_string(tend)+", (39+"+norm+") back lw 0 fc rgb 'magenta' fill solid 0.2 noborder");ob++;
 
   tinit = tend+dtDSstep+dtstep; tend = tinit+(dtstep-dtDSstep);

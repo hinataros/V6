@@ -238,12 +238,12 @@ string RLS::GpMaker::makeCode(int limb)
   string xylabel;
   if(numLimb==1)
     xylabel =
-      "set xlabel '"+xLabel+"' tc rgb XLABEL_COLOR\n"
+      "if(XLABEL) set xlabel '"+xLabel+"' tc rgb XLABEL_COLOR\n"
       // "set ylabel '"+yLabel+"'\n";
       "set label 1 at graph YLABEL_OFFSET_X, YLABEL_OFFSET_Y center '"+yLabel+"' rotate by 90  tc rgb YLABEL_COLOR\n";
   else
     xylabel =
-      "set xlabel '"+xtemp+"' tc rgb XLABEL_COLOR\n"
+      "if(XLABEL) set xlabel '"+xtemp+"' tc rgb XLABEL_COLOR\n"
       // "set ylabel '"+ytemp+"'\n";
       "set label 1 at graph YLABEL_OFFSET_X, YLABEL_OFFSET_Y center '"+ytemp+"' rotate by 90  tc rgb YLABEL_COLOR\n";
 

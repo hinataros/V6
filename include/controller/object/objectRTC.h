@@ -47,8 +47,11 @@ protected:
   InPort<RTC::TimedDoubleSeq> m_objectForceIn;
 
 private:
+  bool read = false;
+  bool write = false;
+
   void readState(RLS::SharedData&);
-  // void writeInput(RLS::Config&);
+  void writeInput(RLS::SharedData&);
 };
 
 extern "C"

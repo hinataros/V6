@@ -3,6 +3,7 @@
 set(srcs
   readState.cpp
   readSharedData.cpp
+  writeSharedData.cpp
   writeInput.cpp
   rlsDynamicsRTC.cpp
   )

@@ -6,13 +6,17 @@
 #define SHAREDDATA_HPP_
 
 namespace RLS{
+  struct Root{
+    double r[3];
+    double R[9];
+    double v[3];
+    double w[3];
+    double f[3];
+    double n[3];
+  };
+
   struct SharedData{
-    double rR[3];
-    double RR[9];
-    double vR[3];
-    double wR[3];
-    double fR[3];
-    double nR[3];
+    Root root;
   };
 }
 

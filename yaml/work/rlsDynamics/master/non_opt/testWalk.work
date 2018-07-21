@@ -1,0 +1,258 @@
+# @author Sho Miyahara 2017
+
+Default:
+  -
+    Inverse dynamics controller: fullDynamics
+    Momentum controller: centroidalDcmMomentum
+    Motion controller: mixedGeneralizedMomentum
+    Force controller: centroidalDcmDistribution
+    Torque controller: mixedmixedOpt
+
+    KX: 3.e+2
+    KpwB: 3.e+2
+    KdwB: 5.e+1
+    Kpv: 3.e+3
+    Kdv: 5.e+2
+
+    # Kp: 5.e+0
+
+    # KDlC: 1.e+2
+    # KDth: 1.e+2
+    kDth: &kDth 1.e+2
+    KDth:
+      - [0.,0.,0.,0.,0.,0.]
+      - [0.,0.,0.,0.,0.,0.]
+      - [*kDth, *kDth, *kDth, *kDth]
+      - [*kDth, *kDth, *kDth, *kDth]
+    # kthinit: &kthinit 1.e+2
+    kthinit: &kthinit 0.
+    Kthinit:
+      - [0.,0.,0.,0.,0.,0.]
+      - [0.,0.,0.,0.,0.,0.]
+      - [*kthinit, *kthinit, *kthinit, *kthinit]
+      - [*kthinit, *kthinit, *kthinit, *kthinit]
+
+State:
+  -
+    Inverse dynamics controller: default
+  -
+    Inverse dynamics controller: fullDynamics
+
+    Bc: &ds
+      - [1, 1, 1, 1, 1, 1]
+      - [1, 1, 1, 1, 1, 1]
+      - 6
+      - 6
+    Bm: &zs
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+      - 6
+      - 6
+    rkk: &zkk
+      - 3
+      - 3
+      - 3
+      - 3
+  -
+    Bc: &ls
+      - [0, 0, 0, 0, 0, 0]
+      - [1, 1, 1, 1, 1, 1]
+      - 6
+      - 6
+    Bm: &rs
+      - [1, 1, 1, 1, 1, 1]
+      - [0, 0, 0, 0, 0, 0]
+      - 6
+      - 6
+    rkk: *zkk
+  -
+    Bc: *rs
+    Bm: *ls
+    rkk: *zkk
+  -
+    Bc: &ds
+      - [1, 1, 1, 1, 0, 1]
+      - [1, 1, 1, 1, 1, 1]
+      - 6
+      - 6
+    Bm:
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+      - 6
+      - 6
+    rkk:
+      - [0.038666, 0., 0.]
+      - 3
+      - 3
+      - 3
+  -
+    Bc: &ds
+      - [1, 1, 1, 1, 1, 1]
+      - [1, 1, 1, 1, 0, 1]
+      - 6
+      - 6
+    Bm:
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+      - 6
+      - 6
+    rkk:
+      - 3
+      - [0.038666, 0., 0.]
+      - 3
+      - 3
+
+Setting:
+  # twf: &tinitial 0.3
+  # twf: &tswingleg 0.4
+  # twf: &tds 0.1
+
+  twf: &tinitial 1.5
+  twf: &tswingleg 1.
+  twf: &tds 1.
+  # twf: &tinitial 1.5
+  # twf: &tswingleg 1.
+  # twf: &tds 1.
+
+  height: &height 0.01
+
+  length: &steplength1 0.08
+  length: &steplength2 0.16
+  length: &steplength3 0.24
+  length: &steplength4 0.32
+  length: &steplength5 0.40
+  length: &steplength6 0.48
+  length: &steplength7 0.56
+
+Footstep:
+  cal_Xf: &swingleg1
+      - [0., 0., 0., 0., 0., 0.]
+      - [*steplength1, 0., *height, 0., 0., 0.]
+      - 6
+      - 6
+  cal_Xf: &swingleg2
+      - [*steplength2, 0., *height, 0., 0., 0.]
+      - [*steplength1, 0., 0., 0., 0., 0.]
+      - 6
+      - 6
+  cal_Xf: &swingleg3
+      - [*steplength2, 0., 0., 0., 0., 0.]
+      - [*steplength3, 0., *height, 0., 0., 0.]
+      - 6
+      - 6
+  cal_Xf: &swingleg4
+      - [*steplength4, 0., *height, 0., 0., 0.]
+      - [*steplength3, 0., 0., 0., 0., 0.]
+      - 6
+      - 6
+  cal_Xf: &swingleg5
+      - [*steplength4, 0., 0., 0., 0., 0.]
+      - [*steplength5, 0., *height, 0., 0., 0.]
+      - 6
+      - 6
+  cal_Xf: &swingleg6
+      - [*steplength6, 0., *height, 0., 0., 0.]
+      - [*steplength5, 0., 0., 0., 0., 0.]
+      - 6
+      - 6
+  cal_Xf: &swingleg7
+      - [*steplength6, 0., 0., 0., 0., 0.]
+      - [*steplength7, 0., *height, 0., 0., 0.]
+      - 6
+      - 6
+  cal_Xf: &swingleg8
+      # - [0.64, 0., *height, 0., 0., 0.]
+      - [0.56, 0., *height, -0.5236, 0., 0.]
+      - [*steplength7, 0., 0., 0., 0., 0.]
+      - 6
+      - 6
+
+# ****************************************************************
+Sequence:
+  -
+    twf: .5
+    rXf: [-0.01, 0.035, 0.]
+  # -
+  #   twf: 1.
+  #   Bc:
+  #     - [1, 1, 1, 1, 1, 1]
+  #     - [1, 1, 1, 1, 0, 1]
+  #     - 6
+  #     - 6
+  #   Bm:
+  #     - [0, 0, 0, 0, 0, 0]
+  #     - [0, 0, 0, 0, 0, 0]
+  #     - 6
+  #     - 6
+  #   rkk:
+  #     - 3
+  #     - [0.038666, 0., 0.]
+  #     - 3
+  #     - 3
+  # -
+  #   twf: *tinitial
+  # -
+  #   twf: *tswingleg
+  #   Bc: *rss
+  #   Bm: *lss
+  #   cal_Xf: *swingleg1
+  # -
+  #   twf: *tds
+
+  # # 1 step
+  # -
+  #   twf: *tswingleg
+  #   Bc: *lss
+  #   Bm: *rss
+  #   cal_Xf: *swingleg2
+  # -
+  #   twf: *tds
+  # # 2 step
+  # -
+  #   twf: *tswingleg
+  #   Bc: *rss
+  #   Bm: *lss
+  #   cal_Xf: *swingleg3
+  # -
+  #   twf: *tds
+  # # 3 step
+  # -
+  #   twf: *tswingleg
+  #   Bc: *lss
+  #   Bm: *rss
+  #   cal_Xf: *swingleg4
+  # -
+  #   twf: *tds
+  # # 4 step
+  # -
+  #   twf: *tswingleg
+  #   Bc: *rss
+  #   Bm: *lss
+  #   cal_Xf: *swingleg5
+  # -
+  #   twf: *tds
+  # # 5 step
+  # -
+  #   twf: *tswingleg
+  #   Bc: *lss
+  #   Bm: *rss
+  #   cal_Xf: *swingleg6
+  # -
+  #   twf: *tds
+  # # 6 step
+  # -
+  #   twf: *tswingleg
+  #   Bc: *rss
+  #   Bm: *lss
+  #   cal_Xf: *swingleg7
+  # -
+  #   twf: *tds
+  # # 7 step
+  # -
+  #   twf: *tswingleg
+  #   Bc: *lss
+  #   Bm: *rss
+  #   cal_Xf: *swingleg8
+  #   xiBf: [-0.5236, 0., 0.]
+  # -
+  #   twf: *tds

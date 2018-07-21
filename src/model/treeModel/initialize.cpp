@@ -68,11 +68,6 @@ void RLS::TreeModel::initialize(Config &config, Info &info)
       limb[i].node[j].n_rne = Vector3d::Zero();
 
     }
-
-    if(i!=0){
-      limb[i].J = MatrixXd::Zero(6, info.limb[i].dof); //smiyahara: limb[0]のJが意味ない
-      limb[i].dJ = MatrixXd::Zero(6, info.limb[i].dof);
-    }
   }
 
   all.th = all.dth = VectorXd::Zero(info.dof.joint);

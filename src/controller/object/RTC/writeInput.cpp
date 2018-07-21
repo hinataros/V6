@@ -4,8 +4,6 @@
 
 #include "objectRTC.h"
 
-void ObjectRTC::writeInput(RLS::Config &config)
+void ObjectRTC::writeInput(RLS::SharedData &sharedData)
 {
-  if(config.flag.debug) DEBUG;
-
 }

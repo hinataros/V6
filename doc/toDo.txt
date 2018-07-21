@@ -124,3 +124,6 @@ mkdataのディレクトリ名の指定を.modelから.cnoidにする
 .confのsampling timeがdatの時点で間引いているからgpのsamplingではない
 
 info.contact.c.allなどはstateではなくデフォルトにしたほうがいい
+
+jacobian(offset有): jacobian(), TreeModel::update(), Controller::resize()
+jacobianはmodelクラスの外に出したほうがいい

@@ -48,7 +48,7 @@ namespace RLS{
     void update(Config&, Info&, Model&);
     void se3exp(Config&, Vector3d&, Matrix3d&, Vector3d, Vector3d, double);
 
-    void finalize(Config&, Info&, Model&, Output&);
+    void finalize(Config&, Info&, Model&, Controller&, Output&);
   public:
     void run(Config&, Info&, Model&, Controller&, Output&);
 

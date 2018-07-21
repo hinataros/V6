@@ -131,6 +131,12 @@ void RLS::RlsDynamics::endEffectorDSWalking(Config &config, Info &info, Model &m
   //   cal_dVxiDes(i) = des(2);
   // }
 
+  if(referenceSequence==info.sim.phase){
+    cal_XpreDes = cal_X;
+
+    referenceSequence++;
+  }
+
   for(int i=0; i<info.value.joint; i++){
     for(int j=0; j<6; j++){
       des = makeSpline5(t-info.sim.tw0, info.sim.twf, cal_XpreDes(6*i+j), cal_Xf(6*i+j));
@@ -141,7 +147,8 @@ void RLS::RlsDynamics::endEffectorDSWalking(Config &config, Info &info, Model &m
         }
         else{
           if(round_cast(t-info.sim.tw0, 3) == round_cast(info.sim.twf/2, 3)){
-            cal_XpreDes(6*i+j) = cal_Xf(6*i+j);
+            cal_XpreDes(6*i+j) = cal_X(6*i+j);
+            // cal_XpreDes(6*i+j) = cal_Xf(6*i+j);
             cal_Xf(6*i+j) = cal_Xtd(6*i+j);
           }
 
@@ -149,7 +156,8 @@ void RLS::RlsDynamics::endEffectorDSWalking(Config &config, Info &info, Model &m
         }
       }
 
-      cal_XDes(6*i+j) = des(0) + cal_X0(6*i+j);
+      // cal_XDes(6*i+j) = des(0) + cal_X0(6*i+j);
+      cal_XDes(6*i+j) = des(0);
       cal_VxiDes(6*i+j) = des(1);
       cal_dVxiDes(6*i+j) = des(2);
     }

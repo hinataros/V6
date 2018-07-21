@@ -18,8 +18,6 @@ namespace RLS{
     // kinematics
     void position(Config&, Info&, Vector3d, Matrix3d, VectorXd);
     void velocity(Config&, Info&, Vector3d, Vector3d, VectorXd);
-    void jacobian(Config&, Info&);
-    void diffJacobian(Config&, Info&);
 
     // dynamics
     VectorXd recursiveNewtonEuler(Config&, Info&, Vector3d, Vector3d, VectorXd);
@@ -113,9 +111,6 @@ namespace RLS{
     };
 
     struct Limb{
-      MatrixXd J;
-      MatrixXd dJ;
-
       Node *node;
     } *limb;
 

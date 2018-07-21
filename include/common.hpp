@@ -35,6 +35,7 @@ namespace RLS{
     Matrix3d xi2R(Vector3d);
     Vector3d dxi2w(Vector3d, Vector3d);
     Vector3d w2dxi(Vector3d, Vector3d);
+    Matrix3d w2dR(Vector3d, Matrix3d);
     Vector3d ddxi2dw(Vector3d, Vector3d, Vector3d);
 
     int round_cast(double, int);

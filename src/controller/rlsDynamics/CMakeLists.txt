@@ -8,12 +8,14 @@ add_subdirectory(controlMethod)
 add_subdirectory(index)
 
 add_subdirectory(add)
+add_subdirectory(transform)
 
 add_subdirectory(outputConfig)
 
 
 set(srcs
   initialize.cpp
+  finalize.cpp
   initialValue.cpp
   resize.cpp
   reset.cpp
@@ -36,6 +38,7 @@ set(rlsDynamics_srcs
   ${controlMethod_srcs}
   ${index_srcs}
   ${add_srcs}
+  ${transform_srcs}
   ${outputConfig_srcs}
   PARENT_SCOPE
   )

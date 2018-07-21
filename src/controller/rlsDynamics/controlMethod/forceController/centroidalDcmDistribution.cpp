@@ -76,6 +76,11 @@ void RLS::RlsDynamics::centroidalDcmDistribution(Config &config, Info &info, Mod
 
   cal_FcBarRef = pInv(cal_PcM, Wvrpc)*(cal_dLCRef + cal_GC);
 
+  // // **************************************************************
+  // cal_FcBarRef = pInv(cal_PcM, Wvrpc)*(cal_GC);
+  // cal_FcBarRef.segment(6,6) += pInv(cal_PcM.block(0,6,6,6))*cal_dLCRef;
+  // // **************************************************************
+
   // o(weight(config, info, model, 2, rX - drXDes/wX)(0,0));
   // o(weight(config, info, model, 2, rX - drXDes/wX)(6,6));
 

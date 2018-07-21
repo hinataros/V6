@@ -14,21 +14,21 @@ void ObjectRTC::readState(RLS::SharedData &sharedData)
     m_objectVelIn.read();
 
   for(int i=0; i<3; i++)
-    sharedData.rR[i] = m_objectPos.data[i];
+    sharedData.root.r[i] = m_objectPos.data[i];
 
   for(int i=0; i<9; i++)
-    sharedData.RR[i] = m_objectPos.data[3+i];
+    sharedData.root.R[i] = m_objectPos.data[3+i];
 
   for(int i=0; i<3; i++){
-    sharedData.vR[i] = m_objectVel.data[i];
-    sharedData.wR[i] = m_objectVel.data[3+i];
+    sharedData.root.v[i] = m_objectVel.data[i];
+    sharedData.root.w[i] = m_objectVel.data[3+i];
   }
 
   if(m_objectForceIn.isNew())
     m_objectForceIn.read();
 
   for(int i=0; i<3; i++){
-    sharedData.fR[i] = m_objectForce.data[i];
-    sharedData.nR[i] = m_objectForce.data[3+i];
+    sharedData.root.f[i] = m_objectForce.data[i];
+    sharedData.root.n[i] = m_objectForce.data[3+i];
   }
 }
