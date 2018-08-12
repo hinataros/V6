@@ -13,7 +13,8 @@ void RLS::RlsDynamics::reference(Config &config, Info &info, Model &model, doubl
 
   // dcmDSWalking(config, info, model, t);
   dcmHTWalking(config, info, model, t);
-  endEffectorDSWalking(config, info, model, t);
+  endEffectorWalking(config, info, model, t);
+  // endEffectorWalkingToeoff(config, info, model, t);
 
   // dcmSequence(config, info, model, t);
 

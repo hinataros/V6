@@ -84,7 +84,7 @@ void RLS::GpMaker::makeConfig()
     "LINE_WIDTH = 5\n";
 
   string decimal_config =
-    "DECIMAL_COORD_X = 0.29\n"
+    "DECIMAL_COORD_X = 0.25\n"
     "DECIMAL_COORD_Y = 0.94\n";
 
   string lavel_color_config =
@@ -92,7 +92,9 @@ void RLS::GpMaker::makeConfig()
     "YLABEL_COLOR = 'black'\n";
 
   string ylabel_config =
-    "YLABEL_OFFSET_X = -0.35\n"
+    "XLABEL_OFFSET_X = 0.5\n"
+    "XLABEL_OFFSET_Y = -0.3\n"
+    "YLABEL_OFFSET_X = -0.3\n"
     "YLABEL_OFFSET_Y = 0.5\n";
 
   string etc_config =
@@ -101,7 +103,7 @@ void RLS::GpMaker::makeConfig()
     "KEY = 0\n";
 
   string background_config =
-    "BACKGROUND = 1\n"
+    "BACKGROUND = 0\n"
     "if(BACKGROUND) XLABEL_COLOR = 'white'\n"
     "if(BACKGROUND) YLABEL_COLOR = 'white'\n";
 
@@ -144,19 +146,19 @@ void RLS::GpMaker::makeSet()
     "set xzeroaxis\n"
     "# set grid\n";
 
+  string format_set =
+    "";
+    // "set format y '%3.2f'\n";
+
   string margin_set =
-    "set lmargin 7.5\n"
+    "set lmargin 6.5\n"
     "set rmargin 1\n"
-    "set tmargin 0.5\n"
-    "set bmargin 3.5\n";
+    "set tmargin 1.2\n"
+    "set bmargin 2.8\n";
 
   string autotics_set =
     "set xtics autofreq\n"
     "set ytics autofreq\n";
-
-  string format_set =
-    "";
-    // "set format y '%3.1f'\n";
 
   string line_style_set =
     "set style line 1 lw LINE_WIDTH lc 1\n"
@@ -186,9 +188,9 @@ void RLS::GpMaker::makeSet()
       terminal_set << endl <<
       key_set << endl <<
       etc_set << endl <<
+      format_set << endl <<
       margin_set << endl <<
       autotics_set << endl <<
-      format_set << endl <<
       line_style_set << endl <<
       background_set << endl;
     libSet.close();

@@ -1,0 +1,292 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+angleUnit: degree
+name: Stairs
+
+height: &height 0.02
+height: &-height -0.02
+width: &width 0.07
+
+links:
+  -
+    name: ROOT
+    jointType: fixed
+  -
+    name: 1STEP
+    parent: ROOT
+    translation: [ 0.07, 0.039, 0 ]
+  -
+    name: 2STEP
+    parent: 1STEP
+    jointType: fixed
+    translation: [ *width, -0.078, *height ]
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          Shape: &FloorBody
+            translation: [ 0, 0, -0.005 ]
+            geometry:
+              type: Box
+              size: [ 0.1, 0.1, 0.01 ]
+            appearance:
+              material:
+                diffuseColor: [ 1, 0, 0 ]
+      -
+        type: Collision
+        elements:
+          Shape: *FloorBody
+  -
+    name: 3STEP
+    parent: 2STEP
+    jointType: fixed
+    translation: [ *width, 0.078, *height ]
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          Shape: *FloorBody
+      -
+        type: Collision
+        elements:
+          Shape: *FloorBody
+  -
+    name: 4STEP
+    parent: 3STEP
+    jointType: fixed
+    rotation: [ 1, 0, 0, -15 ]
+    translation: [ *width, -0.078, *height ]
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          Shape: *FloorBody
+      -
+        type: Collision
+        elements:
+          Shape: *FloorBody
+  -
+    name: 4ROTATION
+    parent: 4STEP
+    rotation: [ 1, 0, 0, 15 ]
+  -
+    name: 5STEP
+    parent: 4ROTATION
+    jointType: fixed
+    translation: [ *width, 0.078, *height ]
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          Shape: *FloorBody
+      -
+        type: Collision
+        elements:
+          Shape: *FloorBody
+  -
+    name: 6STEP
+    parent: 5STEP
+    jointType: fixed
+    rotation: [ 1, 0, 0, 15 ]
+    translation: [ *width, -0.078, *height ]
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          Shape: *FloorBody
+      -
+        type: Collision
+        elements:
+          Shape: *FloorBody
+  -
+    name: 6ROTATION1
+    parent: 6STEP
+    rotation: [ 1, 0, 0, -15 ]
+  -
+    name: 6ROTATION2
+    parent: 6ROTATION1
+    translation: [ *width, 0.078, *height ]
+  -
+    name: 7STEP
+    parent: 6ROTATION2
+    jointType: fixed
+    rotation: [ 0, 1, 0, -15 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          Shape: *FloorBody
+      -
+        type: Collision
+        elements:
+          Shape: *FloorBody
+  -
+    name: 7ROTATION
+    parent: 7STEP
+    rotation: [ 0, 1, 0, 15 ]
+  -
+    name: 8STEP
+    parent: 7ROTATION
+    jointType: fixed
+    translation: [ *width, -0.078, 0 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          Shape: *FloorBody
+      -
+        type: Collision
+        elements:
+          Shape: *FloorBody
+  -
+    name: 9STEP
+    parent: 8STEP
+    jointType: fixed
+    translation: [ *width, 0.078, *-height ]
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          Shape: *FloorBody
+      -
+        type: Collision
+        elements:
+          Shape: *FloorBody
+  -
+    name: 10STEP
+    parent: 9STEP
+    jointType: fixed
+    rotation: [ 0, 1, 0, 15 ]
+    translation: [ *width, -0.078, *-height ]
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          Shape: *FloorBody
+      -
+        type: Collision
+        elements:
+          Shape: *FloorBody
+  -
+    name: 10ROTATION
+    parent: 10STEP
+    rotation: [ 0, 1, 0, -15 ]
+  -
+    name: 11STEP
+    parent: 10ROTATION
+    jointType: fixed
+    rotation: [ 0, 1, 0, -15 ]
+    translation: [ *width, 0.078, *-height ]
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          Shape: *FloorBody
+      -
+        type: Collision
+        elements:
+          Shape: *FloorBody
+  -
+    name: 11ROTATION
+    parent: 11STEP
+    rotation: [ 0, 1, 0, 15 ]
+  -
+    name: 12STEP
+    parent: 11ROTATION
+    jointType: fixed
+    translation: [ *width, -0.078, *-height ]
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          Shape: *FloorBody
+      -
+        type: Collision
+        elements:
+          Shape: *FloorBody
+  -
+    name: 13STEP
+    parent: 12STEP
+    jointType: fixed
+    translation: [ *width, 0.078, *-height ]
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          Shape: *FloorBody
+      -
+        type: Collision
+        elements:
+          Shape: *FloorBody

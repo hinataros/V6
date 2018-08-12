@@ -14,6 +14,7 @@ set(srcs
   mixedGeneralizedMomentum.cpp
   accelerationSolver.cpp
   hinata.cpp
+  hogehogeMomentum.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" accelerationController_srcs)

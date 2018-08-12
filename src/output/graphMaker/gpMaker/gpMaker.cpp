@@ -238,18 +238,18 @@ string RLS::GpMaker::makeCode(int limb)
   string xylabel;
   if(numLimb==1)
     xylabel =
-      "if(XLABEL) set xlabel '"+xLabel+"' tc rgb XLABEL_COLOR\n"
+      "if(XLABEL) set label 1 at graph XLABEL_OFFSET_X, XLABEL_OFFSET_Y center '"+xLabel+"' tc rgb XLABEL_COLOR\n"
       // "set ylabel '"+yLabel+"'\n";
-      "set label 1 at graph YLABEL_OFFSET_X, YLABEL_OFFSET_Y center '"+yLabel+"' rotate by 90  tc rgb YLABEL_COLOR\n";
+      "set label 2 at graph YLABEL_OFFSET_X, YLABEL_OFFSET_Y center '"+yLabel+"' rotate by 90  tc rgb YLABEL_COLOR\n";
   else
     xylabel =
-      "if(XLABEL) set xlabel '"+xtemp+"' tc rgb XLABEL_COLOR\n"
+      "if(XLABEL) set label 1 at graph XLABEL_OFFSET_X, XLABEL_OFFSET_Y center '"+xtemp+"' tc rgb XLABEL_COLOR\n"
       // "set ylabel '"+ytemp+"'\n";
-      "set label 1 at graph YLABEL_OFFSET_X, YLABEL_OFFSET_Y center '"+ytemp+"' rotate by 90  tc rgb YLABEL_COLOR\n";
+      "set label 2 at graph YLABEL_OFFSET_X, YLABEL_OFFSET_Y center '"+ytemp+"' rotate by 90  tc rgb YLABEL_COLOR\n";
 
   string label = "";
   if(exponent[limb-1])
-    label += "set label 2 'x10^{"+to_string(exponent[limb-1])+"}' at screen DECIMAL_COORD_X, DECIMAL_COORD_Y\n";
+    label += "set label 3 'x10^{"+to_string(exponent[limb-1])+"}' at screen DECIMAL_COORD_X, DECIMAL_COORD_Y\n";
 
   string out =
     "set output DIR_EPS.'"+name+suffix+".eps'\n";

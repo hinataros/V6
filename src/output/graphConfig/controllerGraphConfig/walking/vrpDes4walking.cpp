@@ -29,11 +29,11 @@ void RLS::Output::vrpDes4walking(Config &config, Info &info, GpMaker &gpMaker, T
   gpMaker.setUnit("m");
 
   gpMaker.add("set ytics 300");
-  gpMaker.add("set yrange[-30:610]");
+  gpMaker.add("set yrange[-30:750]");
 
   int ob = 1;
 
-  int step = 80;
+  int step = 100;
 
   double dtstep = 0.5;
   double dtDSstep = 0.1;

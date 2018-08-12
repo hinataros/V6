@@ -375,6 +375,8 @@ namespace RLS{
     VectorXd ddqMRef;
     VectorXd ddqMoptRef;
 
+    VectorXd ddqwoptRef;
+
     Vector3d drXRef;
 
     Vector6d cal_dVBRef;
@@ -519,7 +521,8 @@ namespace RLS{
 
     // end effector
     void endEffectorSequence(Config&, Info&, Model&, double&);
-    void endEffectorDSWalking(Config&, Info&, Model&, double&);
+    void endEffectorWalking(Config&, Info&, Model&, double&);
+    void endEffectorWalkingToeoff(Config&, Info&, Model&, double&);
 
     // external wrench
     void externalWrenchSequence(Config&, Info&, Model&, double&);
@@ -552,6 +555,7 @@ namespace RLS{
     VectorXd mixedGeneralizedMomentum(Config&, Info&, Model&);
     VectorXd accelerationSolver(Config&, Info&, Model&);
     VectorXd hinata(Config&, Info&, Model&);
+    VectorXd hogehogeMomentum(Config&, Info&, Model&);
 
     // acceleration dumper
     VectorXd ddthD(Config&, Model&);

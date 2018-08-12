@@ -17,5 +17,11 @@ void RLS::RlsDynamics::mixedmixedOpt(Config &config, Info &info, Model &model)
 
   tau = MthHatBar*ddqMoptRef + cthC + gth - cal_Jc.transpose()*cal_FcBarRef;
 
+  // MatrixXd A = MatrixXd::Zero(info.dof.joint, 3+info.dof.joint);
+  // A <<
+  //   HC.transpose(), MthC;
+
+  // tau = A*ddqwoptRef + cthC + gth - cal_Jc.transpose()*cal_FcBarRef;
+
   // tau = HMth.transpose()*cal_dVMRef + MthC*ddthRef + cthC + gth - cal_Jc.transpose()*cal_FcBarRef;
 }

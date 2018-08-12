@@ -33,8 +33,8 @@ void RLS::Output::indexPrint(Config &config, Info &info, GpMaker &gpMaker, TexMa
 
   string add =
     "set ytics 40\n"
-    "set size ratio "+to_string(140./640)+"\n"
-    "set xrange[-30:610]\n"
+    "set size ratio "+to_string(140./780)+"\n"
+    "set xrange[-30:750]\n"
     "set yrange[-70:70]\n";
 
   // smiyahara: config.gp.stではなくconfig.gif.stにしたい
@@ -51,9 +51,9 @@ void RLS::Output::indexPrint(Config &config, Info &info, GpMaker &gpMaker, TexMa
     "\t\tDIR_DAT.'"+file_name+".dat' index i using ($3*M):($4*M) notitle w l lw 3 lc rgb 'grey10',\\\n"
     "\t\tDIR_DAT.'"+file_name+".dat' index i using ($5*M):($6*M) notitle w l lw 2 lc rgb 'grey10',\\\n"
     "\t\tDIR_DAT.'"+file_name+".dat' index i using ($7*M):($8*M) notitle w l lw 2 lc rgb 'grey10',\\\n"
-    "\t\tDIR_DAT.'"+file_name+".dat' index i using ($9*M):($10*M) t 'gCoM' w p pt 7 ps PS lc rgb 'red',\\\n"
-    "\t\tDIR_DAT.'"+file_name+".dat' index i using ($11*M):($12*M) t 'netCoP' w p pt 5 ps PS lc rgb 'green',\\\n"
-    "\t\tDIR_DAT.'"+file_name+".dat' index i using ($13*M):($14*M) t 'xCoM' w p pt 13 ps PS lc rgb 'blue'\n"
+    "\t\tDIR_DAT.'"+file_name+".dat' index i using ($9*M):($10*M) t 'CoM' w p pt 7 ps PS lc rgb 'red',\\\n"
+    "\t\tDIR_DAT.'"+file_name+".dat' index i using ($11*M):($12*M) t 'CoP' w p pt 5 ps PS lc rgb 'green',\\\n"
+    "\t\tDIR_DAT.'"+file_name+".dat' index i using ($13*M):($14*M) t 'DCM' w p pt 13 ps PS lc rgb 'blue'\n"
     "}\n";
 
   ofstream indexPrint((config.dir.gp.ind+"src/"+file_name+".gp").c_str());

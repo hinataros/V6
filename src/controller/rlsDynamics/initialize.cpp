@@ -193,8 +193,8 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   phaseDS = 0;
   flagDS = true;
 
-  stepNum = 10;
-  // stepNum = 18;
+  // stepNum = 10;
+  stepNum = 18;
   stepPhase = 0;
   tstep0 = 0.;
   tstep = 0.;
@@ -305,6 +305,8 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   ddqMRef = VectorXd::Zero(info.dof.all);
   ddqMoptRef = VectorXd::Zero(info.dof.all);
 
+  ddqwoptRef = VectorXd::Zero(3+info.dof.joint);
+
   drXRef = Vector3d::Zero();
 
   cal_dVBRef = Vector6d::Zero();
@@ -398,6 +400,7 @@ void RLS::RlsDynamics::initialize(Config &config, Info &info)
   map_motionController["baseGeneralizedMomentum"] = &RLS::RlsDynamics::baseGeneralizedMomentum;
   map_motionController["mixedGeneralizedMomentum"] = &RLS::RlsDynamics::mixedGeneralizedMomentum;
   map_motionController["accelerationSolver"] = &RLS::RlsDynamics::accelerationSolver;
+  map_motionController["hogehogeMomentum"] = &RLS::RlsDynamics::hogehogeMomentum;
 
   map_forceController["default"] = &RLS::RlsDynamics::zeroDistribution;
   map_forceController["baseDistribution"] = &RLS::RlsDynamics::baseDistribution;

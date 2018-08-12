@@ -4,7 +4,8 @@ State:
   -
   -
     Inverse dynamics controller: fullDynamics
-    Motion controller: mixedGeneralizedMomentum
+    # Motion controller: mixedGeneralizedMomentum
+    Motion controller: hogehogeMomentum
 
     # Inverse dynamics controller: momentumInverseDynamics
     # Momentum controller: centroidalMomentum
@@ -53,7 +54,7 @@ State:
 
     # Kpp: 1.e+1
 
-    # KDlC: 1.e+2
+    # KDlC: 5.e+1
     KDth: 1.e+2
 
 Sequence:
@@ -61,5 +62,5 @@ Sequence:
     twf: 2.
   -
     twf: .5
-    rXf: [0., -0.035, 0.]
+    rXf: [0.03, -0.035, 0.]
 

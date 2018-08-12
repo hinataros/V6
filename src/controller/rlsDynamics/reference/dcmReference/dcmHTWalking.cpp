@@ -142,16 +142,38 @@ void straightWalkFootPrint(MatrixXd &rf, double offset)
 {
   int num = 1;
 
-  rf.col(num) <<   0., -0.039+offset, 0.; num++;// 1
-  rf.col(num) << 0.08,  0.039-offset, 0.; num++;// 2
-  rf.col(num) << 0.16, -0.039+offset, 0.; num++;// 3
-  rf.col(num) << 0.24,  0.039-offset, 0.; num++;// 4
-  rf.col(num) << 0.32, -0.039+offset, 0.; num++;// 5
-  rf.col(num) << 0.40,  0.039-offset, 0.; num++;// 6
-  rf.col(num) << 0.48, -0.039+offset, 0.; num++;// 7
-  rf.col(num) << 0.56,  0.039-offset, 0.; num++;// 8
-  rf.col(num) << 0.56,            0., 0.; num++;// 9
-  rf.col(num) << 0.56,            0., 0.; num++;// 10
+  rf.col(num) <<  0., -0.039+offset, 0.; num++;// 1
+  rf.col(num) << 0.1,  0.039-offset, 0.; num++;// 2
+  rf.col(num) << 0.2, -0.039+offset, 0.; num++;// 3
+  rf.col(num) << 0.3,  0.039-offset, 0.; num++;// 4
+  rf.col(num) << 0.4, -0.039+offset, 0.; num++;// 5
+  rf.col(num) << 0.5,  0.039-offset, 0.; num++;// 6
+  rf.col(num) << 0.6, -0.039+offset, 0.; num++;// 7
+  rf.col(num) << 0.7,  0.039-offset, 0.; num++;// 8
+  rf.col(num) << 0.7,            0., 0.; num++;// 9
+  rf.col(num) << 0.7,            0., 0.; num++;// 10
+
+  // rf.col(num) <<   0., -0.039+offset, 0.; num++;// 1
+  // rf.col(num) << 0.09,  0.039-offset, 0.; num++;// 2
+  // rf.col(num) << 0.18, -0.039+offset, 0.; num++;// 3
+  // rf.col(num) << 0.27,  0.039-offset, 0.; num++;// 4
+  // rf.col(num) << 0.36, -0.039+offset, 0.; num++;// 5
+  // rf.col(num) << 0.45,  0.039-offset, 0.; num++;// 6
+  // rf.col(num) << 0.54, -0.039+offset, 0.; num++;// 7
+  // rf.col(num) << 0.63,  0.039-offset, 0.; num++;// 8
+  // rf.col(num) << 0.63,            0., 0.; num++;// 9
+  // rf.col(num) << 0.63,            0., 0.; num++;// 10
+
+  // rf.col(num) <<   0., -0.039+offset, 0.; num++;// 1
+  // rf.col(num) << 0.08,  0.039-offset, 0.; num++;// 2
+  // rf.col(num) << 0.16, -0.039+offset, 0.; num++;// 3
+  // rf.col(num) << 0.24,  0.039-offset, 0.; num++;// 4
+  // rf.col(num) << 0.32, -0.039+offset, 0.; num++;// 5
+  // rf.col(num) << 0.40,  0.039-offset, 0.; num++;// 6
+  // rf.col(num) << 0.48, -0.039+offset, 0.; num++;// 7
+  // rf.col(num) << 0.56,  0.039-offset, 0.; num++;// 8
+  // rf.col(num) << 0.56,            0., 0.; num++;// 9
+  // rf.col(num) << 0.56,            0., 0.; num++;// 10
 }
 
 void testFootPrint(MatrixXd &rf, double offset)
@@ -175,24 +197,41 @@ void RLS::RlsDynamics::dcmHTWalking(Config &config, Info &info, Model &model, do
   // ********************************
   double tstab = 2.;
 
-  // straight walk HT
-  double dtstep = .5;
-  double dtDSstep = .2;
-  double alphDSstep = .3;
-  double alphaHTstep = 0.6;
-  double offset = 0.015;
-  double toe = 0.025;
-  double heel = 0.;
+  // // straight walk toe off
+  // double dtstep = .5;
+  // double dtDSstep = .2;
+  // double alphDSstep = .3;
+  // double alphaHTstep = 0.6;
+  // double offset = 0.015;
+  // double toe = 0.025;
+  // double heel = 0.;
 
   // // straight walk
   // double dtstep = .5;
   // double dtDSstep = .1;
   // double alphDSstep = .5;
+  // double alphaHTstep = 0.5;
+  // double offset = 0.01;
+  // double toe = 0.025;
+  // double heel = -0.015;
 
-  // // updown
-  // double dtstep = .8;
-  // double dtDSstep = .2;
+  // updown
+  double dtstep = 1.;
+  double dtDSstep = .5;
+  double alphDSstep = .5;
+  double alphaHTstep = .5;
+  double offset = 0.01;
+  double toe = 0.025;
+  double heel = -0.015;
+
+  // // rough updown
+  // double dtstep = 1.;
+  // double dtDSstep = .5;
   // double alphDSstep = .5;
+  // double alphaHTstep = .5;
+  // double offset = 0.01;
+  // double toe = 0.025;
+  // double heel = -0.015;
 
   // // updown HT
   // double dtstep = .8;
@@ -296,9 +335,9 @@ void RLS::RlsDynamics::dcmHTWalking(Config &config, Info &info, Model &model, do
 
     // testFootPrint(rf, offset);
     // setFootPrint(rfT, rfH, offset, toe, heel);
-    // upDownFootPrint(rf, offset);
+    upDownFootPrint(rf, offset);
     // upDownHTFootPrint(rfT, rfH, offset, toe, heel);
-    straightWalkFootPrint(rf, offset);
+    // straightWalkFootPrint(rf, offset);
 
     // ******************************
     // final desired DCM position

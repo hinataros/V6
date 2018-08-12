@@ -18,8 +18,10 @@ void RLS::Output::dcm(Config &config, Info &info, GpMaker &gpMaker, TexMaker &te
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setYLabel("DCM [mm]");
+  gpMaker.setYLabel("DCM pos. [mm]");
   gpMaker.setUnit("m");
+  gpMaker.add("set ytics 300");
+  gpMaker.add("set yrange[-30:750]");
   gpMaker.setDimention(3);
   gpMaker.makeGp();
 

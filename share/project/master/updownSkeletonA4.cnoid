@@ -2,10 +2,12 @@ deg2rad:
   angle: &-20deg -0.3490658504
   angle: &-25deg -0.4363323313
   angle: &-30deg -0.5235987756
+  angle: &-35deg -0.6108652382
   angle: &-40deg -0.6981317008
   angle: &-45deg -0.7853981634
   angle: &-50deg -0.872664626
   angle: &-60deg -1.047197551
+  angle: &-70deg -1.221730476
   angle: &-80deg -1.396263402
   angle: &-90deg -1.570796327
   angle: &-120deg -2.094395102
@@ -13,10 +15,12 @@ deg2rad:
   angle: &-4942deg -0.8625417163
 
   angle: &30deg 0.5235987756
+  angle: &35deg 0.6108652382
   angle: &40deg 0.6981317008
   angle: &45deg 0.7853981634
   angle: &50deg 0.872664626
   angle: &60deg 1.047197551
+  angle: &70deg 1.221730476
   angle: &80deg 1.396263402
   angle: &90deg 1.570796327
   angle: &120deg 2.094395102
@@ -29,8 +33,14 @@ setting:
       0.000000,  0.000000, *-30deg,  *60deg, *-30deg,  0.000000,
       1.745329,  0.000000,  0.000000, -0.523599,
       1.745329,  0.000000,  0.000000, -0.523599 ]
+    rootPosition: &POS35735 [ 0, 0, 0.200830409 ]
+    jointPositions: &STANDARD35735 [
+      0.000000,  0.000000, *-35deg,  *70deg, *-35deg,  0.000000,
+      0.000000,  0.000000, *-35deg,  *70deg, *-35deg,  0.000000,
+      1.745329,  0.000000,  0.000000, -0.523599,
+      1.745329,  0.000000,  0.000000, -0.523599 ]
     rootPosition: &POS484 [ 0, 0, 0.1902088886 ]
-    jointPositions: &STANDARD2 [
+    jointPositions: &STANDARD484 [
       0.000000,  0.000000, *-40deg,  *80deg, *-40deg,  0.000000,
       0.000000,  0.000000, *-40deg,  *80deg, *-40deg,  0.000000,
       1.745329,  0.000000,  0.000000, -0.523599,
@@ -64,12 +74,6 @@ setting:
       0.000000,  0.000000, -0.249073,  0.952068, -0.702995,  0.000000,
       1.745329,  0.000000,  0.000000, -0.523599,
       1.745329,  0.000000,  0.000000, -0.523599 ]
-
-    jointPositions: &LEFTLEGUP [
-      0.000000,  0.000000, -0.523599,  1.047198, -0.523599,  0.000000,
-      0.000000,  0.000000, -1.396263402,  2.792526803, -1.396263402, -0.000000,
-      1.745329,  0.000000,  0.000000, -0.523599,
-      1.745329,  0.000000,  0.000000, -0.523599 ]
 items: 
   id: 0
   name: "Root"
@@ -94,18 +98,18 @@ items:
           data: 
             modelFile: "/home/smiyahara/Documents/rlsSimulator/share/model/master/skeletonA4prim.body"
             currentBaseLink: "ROOT"
-            rootPosition: *POS363
+            rootPosition: *POS484
             rootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
               0, 0, 1 ]
-            jointPositions: *STANDARD363
-            initialRootPosition: *POS363
+            jointPositions: *STANDARD484
+            initialRootPosition: *POS484
             initialRootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
               0, 0, 1 ]
-            initialJointPositions: *STANDARD363
+            initialJointPositions: *STANDARD484
             zmp: [ 0, 0, 0 ]
             collisionDetection: true
             selfCollisionDetection: false
@@ -184,7 +188,7 @@ items:
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "/home/smiyahara/Documents/rlsSimulator/share/model/object/stairs.body"
+            modelFile: "/home/smiyahara/Documents/rlsSimulator/share/model/object/rough_stairs.body"
             currentBaseLink: "ROOT"
             rootPosition: [ 0, 0, 0 ]
             rootAttitude: [ 
@@ -213,7 +217,6 @@ views:
     class: ItemTreeView
     mounted: true
     state: 
-      selected: [ 3 ]
       checked: [ 1, 2, 3, 4, 5, 6 ]
       expanded: [ 1, 2, 3 ]
   - 
@@ -264,13 +267,13 @@ views:
           fieldOfView: 0.698132
           near: 0.01
           far: 100
-          eye: [ 0.178810668, 0.986437182, 0.216741795 ]
+          eye: [ 0.47088903, 0.57608907, 0.230679106 ]
           direction: [ 1.2246468e-16, -1, -6.123234e-17 ]
           up: [ 7.49879891e-33, -6.123234e-17, 1 ]
         - 
           camera: [ System, Orthographic ]
           isCurrent: true
-          orthoHeight: 0.560711
+          orthoHeight: 0.719967
           near: 0.01
           far: 100
       backgroundColor: [ 0, 0.333333343, 0 ]
@@ -304,7 +307,7 @@ views:
       spinBox: true
       slider: true
       labelOnLeft: true
-      currentBodyItem: 2
+      currentBodyItem: 6
   - 
     id: 7
     plugin: Body
@@ -312,7 +315,7 @@ views:
     mounted: true
     state: 
       listingMode: "Link List"
-      currentBodyItem: 2
+      currentBodyItem: 6
   - 
     id: 8
     plugin: OpenRTM
@@ -326,7 +329,7 @@ views:
 toolbars: 
   "TimeBar": 
     minTime: 0
-    maxTime: 19
+    maxTime: 20
     frameRate: 1000
     playbackFrameRate: 10
     idleLoopDrivenMode: false
@@ -343,7 +346,7 @@ toolbars:
     penetrationBlockDepth: 0.0005
     lazyCollisionDetectionMode: true
   "BodyBar": 
-    current: 2
+    current: 6
   "LeggedBodyBar": 
     stanceWidth: 0.15
   "BodyMotionGenerationBar": 

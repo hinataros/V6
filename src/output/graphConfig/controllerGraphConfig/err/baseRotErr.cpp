@@ -18,7 +18,8 @@ void RLS::Output::baseRotErr(Config &config, Info &info, GpMaker &gpMaker, TexMa
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setYLabel("Base orient. err. [rad]");
+  gpMaker.setYLabel("Base orient. err. [deg]");
+  gpMaker.setUnit("RAD2DEG");
   gpMaker.setDimention(3);
   gpMaker.makeGp();
 

@@ -37,13 +37,28 @@ void RLS::Output::localCop4walking(Config &config, Info &info, GpMaker &gpMaker,
 
   int ob = 1;
 
+  // straight walk
+  // int num = 6;
+
+  // double dtstep = 0.5;
+  // double dtDSstep = 0.1;
+  // double dtDSini = 0.05;
+
+  // toe off straight walk
+  int num = 6;
+
   double dtstep = 0.5;
-  double dtDSstep = 0.1;
-  double dtDSini = 0.05;
+  double dtDSstep = 0.2;
+  double dtDSini = 0.1;
+
+  // int num = 14;
+
+  // double dtstep = 0.8;
+  // double dtDSstep = 0.2;
+  // double dtDSini = 0.1;
 
   double tinit = 0.;
-  double tend = 0.;
-  string bottom = "";
+  double tend = 0.;  string bottom = "";
   string top = "";
 
   // double support
@@ -55,29 +70,10 @@ void RLS::Output::localCop4walking(Config &config, Info &info, GpMaker &gpMaker,
   tinit = 0.; tend = dtstep/2 + dtDSini;
   gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
 
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
+  for(int i=0; i<num+2; i++){
+    tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
+    gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
+  }
 
   gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tend)+", "+bottom+" to 1e+3, "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
 
@@ -87,14 +83,10 @@ void RLS::Output::localCop4walking(Config &config, Info &info, GpMaker &gpMaker,
   tinit = dtstep/2+dtDSini; tend = tinit+(dtstep-dtDSstep);
   gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'magenta' fill solid 0.2 noborder"); ob++;
 
-  tinit = tend+dtDSstep+dtstep; tend = tinit+(dtstep-dtDSstep);
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'magenta' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+dtDSstep+dtstep; tend = tinit+(dtstep-dtDSstep);
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'magenta' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+dtDSstep+dtstep; tend = tinit+(dtstep-dtDSstep);
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'magenta' fill solid 0.2 noborder"); ob++;
+  for(int i=0; i<num/2; i++){
+    tinit = tend+dtDSstep+dtstep; tend = tinit+(dtstep-dtDSstep);
+    gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'magenta' fill solid 0.2 noborder"); ob++;
+  }
   // *********************************
 
   ob=1;
@@ -107,29 +99,10 @@ void RLS::Output::localCop4walking(Config &config, Info &info, GpMaker &gpMaker,
   tinit = 0.; tend = dtstep/2+dtDSini;
   gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
 
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
+  for(int i=0; i<num+2; i++){
+    tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
+    gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
+  }
 
   gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tend)+", "+bottom+" to 1e+3, "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
 
@@ -139,14 +112,10 @@ void RLS::Output::localCop4walking(Config &config, Info &info, GpMaker &gpMaker,
   tinit = dtstep/2+dtDSini+dtstep; tend = tinit+(dtstep-dtDSstep);
   gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'magenta' fill solid 0.2 noborder"); ob++;
 
-  tinit = tend+dtDSstep+dtstep; tend = tinit+(dtstep-dtDSstep);
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'magenta' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+dtDSstep+dtstep; tend = tinit+(dtstep-dtDSstep);
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'magenta' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+dtDSstep+dtstep; tend = tinit+(dtstep-dtDSstep);
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'magenta' fill solid 0.2 noborder"); ob++;
+  for(int i=0; i<num/2; i++){
+    tinit = tend+dtDSstep+dtstep; tend = tinit+(dtstep-dtDSstep);
+    gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'magenta' fill solid 0.2 noborder"); ob++;
+  }
 
   // *********************************
 
@@ -180,29 +149,10 @@ void RLS::Output::localCop4walking(Config &config, Info &info, GpMaker &gpMaker,
   tinit = 0.; tend = dtstep/2 + dtDSini;
   gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
 
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
+  for(int i=0; i<num+2; i++){
+    tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
+    gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
+  }
 
   gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tend)+", "+bottom+" to 1e+3, "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
 
@@ -212,14 +162,10 @@ void RLS::Output::localCop4walking(Config &config, Info &info, GpMaker &gpMaker,
   tinit = dtstep/2+dtDSini; tend = tinit+(dtstep-dtDSstep);
   gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'magenta' fill solid 0.2 noborder"); ob++;
 
-  tinit = tend+dtDSstep+dtstep; tend = tinit+(dtstep-dtDSstep);
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'magenta' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+dtDSstep+dtstep; tend = tinit+(dtstep-dtDSstep);
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'magenta' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+dtDSstep+dtstep; tend = tinit+(dtstep-dtDSstep);
-  gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'magenta' fill solid 0.2 noborder"); ob++;
+  for(int i=0; i<num/2; i++){
+    tinit = tend+dtDSstep+dtstep; tend = tinit+(dtstep-dtDSstep);
+    gpMaker.add(1,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'magenta' fill solid 0.2 noborder"); ob++;
+  }
   // *********************************
 
   ob=1;
@@ -232,29 +178,10 @@ void RLS::Output::localCop4walking(Config &config, Info &info, GpMaker &gpMaker,
   tinit = 0.; tend = dtstep/2 + dtDSini;
   gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
 
+  for(int i=0; i<num+2; i++){
   tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
   gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+(dtstep-dtDSstep); tend = tinit+dtDSstep;
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
+  }
 
   gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tend)+", "+bottom+" to 1e+3, "+top+" back lw 0 fc rgb 'cyan' fill solid 0.2 noborder"); ob++;
 
@@ -264,14 +191,10 @@ void RLS::Output::localCop4walking(Config &config, Info &info, GpMaker &gpMaker,
   tinit = dtstep/2+dtDSini+dtstep; tend = tinit+(dtstep-dtDSstep);
   gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'magenta' fill solid 0.2 noborder"); ob++;
 
-  tinit = tend+dtDSstep+dtstep; tend = tinit+(dtstep-dtDSstep);
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'magenta' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+dtDSstep+dtstep; tend = tinit+(dtstep-dtDSstep);
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'magenta' fill solid 0.2 noborder"); ob++;
-
-  tinit = tend+dtDSstep+dtstep; tend = tinit+(dtstep-dtDSstep);
-  gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'magenta' fill solid 0.2 noborder"); ob++;
+  for(int i=0; i<num/2; i++){
+    tinit = tend+dtDSstep+dtstep; tend = tinit+(dtstep-dtDSstep);
+    gpMaker.add(2,"set object "+to_string(ob)+" rect from "+to_string(tinit)+", "+bottom+" to "+to_string(tend)+", "+top+" back lw 0 fc rgb 'magenta' fill solid 0.2 noborder"); ob++;
+  }
 
   // *********************************
 

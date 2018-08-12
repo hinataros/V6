@@ -56,6 +56,6 @@ void RLS::Output::mixedQuasiAccOptRef(Config &config, Info &info, GpMaker &gpMak
   texMaker.addMinipage();
 
   texMaker.setTexName("mixedQuasiAccOptRef");
-  texMaker.setCaption("Optimized Mixed quasi-acceleration reference values.");
+  texMaker.setCaption("Non-iterative optimized Mixed quasi-acceleration reference values.");
   texMaker.makeTex();
 }
