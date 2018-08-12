@@ -27,11 +27,22 @@ void RLS::TreeModel::readBody(Config &config, Info &info)
   info.value.node = node[0];
   info.value.all += node[0];
 
+  string parent = "ROOT";
+
+  int link_num = doc["links"].size();
+  bool active[link_num];
+
   for(unsigned i=1, nodetemp=0; i<doc["links"].size(); i++){
-    try{
-      if(doc["links"][i]["jointId"].as<int>()>=0)
-        nodetemp++;
-    }catch(...){
+    if(parent==doc["links"][i]["parent"].as<string>()){
+      try{
+        if(doc["links"][i]["jointId"].as<int>()>=0){
+          active[i] = true;
+          nodetemp++;
+        }
+      }catch(...){
+        active[i] = false;
+      }
+    }else{
       dof.push_back(nodetemp);
       info.dof.joint += nodetemp;
       info.dof.all += nodetemp;
@@ -45,6 +56,24 @@ void RLS::TreeModel::readBody(Config &config, Info &info)
       nodetemp=0;
     };
   }
+  // for(unsigned i=1, nodetemp=0; i<doc["links"].size(); i++){
+  //   try{
+  //     if(doc["links"][i]["jointId"].as<int>()>=0)
+  //       nodetemp++;
+  //   }catch(...){
+  //     dof.push_back(nodetemp);
+  //     info.dof.joint += nodetemp;
+  //     info.dof.all += nodetemp;
+
+  //     nodetemp++;
+  //     node.push_back(nodetemp);
+  //     info.value.all += nodetemp;
+  //     info.value.joint++;
+  //     info.value.node++;
+
+  //     nodetemp=0;
+  //   };
+  // }
 
   info.limb = new Info::Limb[info.value.node];
 

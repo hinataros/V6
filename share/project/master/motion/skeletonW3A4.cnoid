@@ -16,11 +16,11 @@ items:
       children: 
         - 
           id: 2
-          name: "skeleton/skeletonA4prim"
+          name: "master/skeletonW3A4prim"
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "/home/smiyahara/Documents/rlsSimulator/share/model/skeleton/skeletonA4prim.body"
+            modelFile: "/home/smiyahara/Documents/rlsSimulator/share/model/master/skeletonW3A4prim.body"
             currentBaseLink: "ROOT"
             rootPosition: [ 0, 0, 0.21019 ]
             rootAttitude: [ 
@@ -29,7 +29,8 @@ items:
               0, 0, 1 ]
             jointPositions: [ 
                0.000000,  0.000000, -0.523599,  1.047198, -0.523599,  0.000000,  0.000000,  0.000000, -0.523599,  1.047198, 
-              -0.523599,  0.000000,  1.745329,  0.000000,  0.000000, -0.523599,  1.745329,  0.000000,  0.000000, -0.523599 ]
+              -0.523599,  0.000000,  0.000000,  0.000000,  0.000000,  1.745329,  0.000000,  0.000000, -0.523599,  1.745329, 
+               0.000000,  0.000000, -0.523599 ]
             initialRootPosition: [ 0, 0, 0.2102051 ]
             initialRootAttitude: [ 
               1, 0, 0, 
@@ -137,7 +138,7 @@ views:
           fieldOfView: 0.698132
           near: 0.01
           far: 100
-          eye: [ 0.576051629, 0.502990106, 0.549078056 ]
+          eye: [ 0.544907115, 0.505029318, 0.597644847 ]
           direction: [ -0.677778172, -0.611022415, -0.408984545 ]
           up: [ -0.303767944, -0.273849218, 0.91254131 ]
         - 
@@ -189,28 +190,6 @@ views:
     plugin: Python
     class: PythonConsoleView
 toolbars: 
-  "TimeBar": 
-    minTime: 0
-    maxTime: 10
-    frameRate: 1000
-    playbackFrameRate: 50
-    idleLoopDrivenMode: false
-    currentTime: 0
-    speedScale: 1
-    syncToOngoingUpdates: true
-    autoExpansion: true
-  "KinematicsBar": 
-    mode: AUTO
-    enablePositionDragger: true
-    penetrationBlock: false
-    collisionLinkHighlight: false
-    snapDistance: 0.025
-    penetrationBlockDepth: 0.0005
-    lazyCollisionDetectionMode: true
-  "BodyBar": 
-    current: 2
-  "LeggedBodyBar": 
-    stanceWidth: 0.15
   "BodyMotionGenerationBar": 
     autoGenerationForNewBody: true
     balancer: false
@@ -244,6 +223,28 @@ toolbars:
     waistHeightRelaxation: false
     gravity: 9.8
     dynamicsTimeRatio: 1
+  "TimeBar": 
+    minTime: 0
+    maxTime: 10
+    frameRate: 1000
+    playbackFrameRate: 50
+    idleLoopDrivenMode: false
+    currentTime: 0
+    speedScale: 1
+    syncToOngoingUpdates: true
+    autoExpansion: true
+  "KinematicsBar": 
+    mode: AUTO
+    enablePositionDragger: true
+    penetrationBlock: false
+    collisionLinkHighlight: false
+    snapDistance: 0.025
+    penetrationBlockDepth: 0.0005
+    lazyCollisionDetectionMode: true
+  "BodyBar": 
+    current: 2
+  "LeggedBodyBar": 
+    stanceWidth: 0.15
 Body: 
   "BodyMotionEngine": 
     updateJointVelocities: false
@@ -278,7 +279,7 @@ viewAreas:
     contents: 
       type: splitter
       orientation: horizontal
-      sizes: [ 246, 1668 ]
+      sizes: [ 276, 1638 ]
       children: 
         - 
           type: splitter
@@ -292,7 +293,7 @@ viewAreas:
             - 
               type: pane
               views: [ 0, 6, 4, 5 ]
-              current: 0
+              current: 5
         - 
           type: splitter
           orientation: vertical

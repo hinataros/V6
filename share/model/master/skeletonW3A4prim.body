@@ -1,7 +1,7 @@
 format: ChoreonoidBody
 formatVersion: 1.0
 angleUnit: degree
-name: skeletonA7prim
+name: skeletonW3A4prim
 
 links:
   -
@@ -30,8 +30,8 @@ links:
                     # transparency: 0.5
               -
                 type: Shape
-                rotation: &X [ 1, 0, 0, 90 ]
                 translation: [ 0, 0.039, 0.0225 ]
+                rotation: &X [ 1, 0, 0, 90 ]
                 geometry: { type: Capsule, radius: 0.0025, height: 0.015 }
                 appearance: *bodyColor
               -
@@ -51,96 +51,6 @@ links:
                 translation: [ 0.034, 0, 0.03375 ]
                 rotation: *X
                 geometry: { type: Capsule, radius: 0.0025, height: 0.0075 }
-                appearance: *bodyColor
-
-              # Head1
-              # translation: [ -0.034, 0.0, 0.09 ]
-              -
-                type: Shape
-                translation: [ 0, 0.0, 0.19125 ]
-                rotation: *X
-                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
-                appearance: *bodyColor
-
-              # Head2
-              # translation: [ 0.008, 0.0, 0.081 ]
-              -
-                type: Shape
-                translation: [ 0.0, 0.0, 0.227 ]
-                geometry: { type: Sphere, radius: 0.027 }
-                appearance: *bodyColor
-
-              # waist1
-              # translation: [ 0.034, 0, 0.055 ]
-              -
-                type: Shape
-                translation: [ 0.034, 0, 0.0375]
-                rotation: *X
-                geometry: &jointShape
-                  {type: Cylinder, radius: 0.005, height: 0.01}
-                appearance: &jointColor
-                  material: {diffuseColor: [ 0, 0, 0 ]}
-              -
-                type: Shape
-                translation: [ 0.034, 0.0, 0.04125 ]
-                rotation: *X
-                geometry: { type: Capsule, radius: 0.0025, height: 0.0075 }
-                appearance: *bodyColor
-              -
-                type: Shape
-                translation: [ 0.034, -0.00875, 0.045 ]
-                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
-                appearance: *bodyColor
-              -
-                type: Shape
-                translation: [ 0.034, -0.0175, 0.05 ]
-                rotation: *X
-                geometry: { type: Capsule, radius: 0.0025, height: 0.01 }
-                appearance: *bodyColor
-              -
-                type: Shape
-                translation: [ 0.034, -0.00875, 0.055 ]
-                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
-                appearance: *bodyColor
-
-              # waist2
-              # translation: [ 0.034, 0, 0.055 ]
-              -
-                type: Shape
-                translation: [ 0.034, 0, 0.055 ]
-                geometry: *jointShape
-                appearance: *jointColor
-              -
-                type: Shape
-                translation: [ 0.02475, 0.0, 0.055 ]
-                rotation: *Z
-                geometry: { type: Capsule, radius: 0.0025, height: 0.0185 }
-                appearance: *bodyColor
-              # torso
-              # translation: [ 0.034, 0, 0.055 ]
-              -
-                type: Shape
-                rotation: *Z
-                translation: [ 0.0155, 0, 0.055 ]
-                geometry: *jointShape
-                appearance: *jointColor
-              -
-                type: Shape
-                translation: [ 0.00775, 0.0, 0.055 ]
-                rotation: *Z
-                geometry: { type: Capsule, radius: 0.0025, height: 0.0155 }
-                appearance: *bodyColor
-              -
-                type: Shape
-                translation: [ 0.0, 0.0, 0.11875 ]
-                rotation: *X
-                geometry: { type: Capsule, radius: 0.0025, height: 0.1275 }
-                appearance: *bodyColor
-              -
-                type: Shape
-                translation: [ 0.0, 0.0, 0.145 ]
-                rotation: [ 1, 0, 0, 0 ]
-                geometry: { type: Capsule, radius: 0.0025, height: 0.159 }
                 appearance: *bodyColor
 
           -
@@ -171,8 +81,10 @@ links:
                 type: Shape
                 rotation: *X
                 translation: [ 0, 0, 0.015 ]
-                geometry: *jointShape
-                appearance: *jointColor
+                geometry: &jointShape
+                  {type: Cylinder, radius: 0.005, height: 0.01}
+                appearance: &jointColor
+                  material: {diffuseColor: [ 0, 0, 0 ]}
               -
                 type: Shape
                 translation: [ 0.01375, 0.0, 0.015 ]
@@ -421,7 +333,7 @@ links:
   -
     name: RLEGEE
     parent: RLEG6
-    translation: [ 0.0, 0.0, -0.0370 ]
+    translation: &LEGEEPOS [ 0.0, 0.0, -0.0370 ]
     elements:
       -
         type: Visual
@@ -429,9 +341,10 @@ links:
           -
             type: Shape
             rotation: &Y [ 0, 1, 0, 90 ]
-            translation: [ 0.009, 0.0, 0.005 ]
-            geometry: &FOOT { type: Box, size: [ 0.01, 0.063, 0.098 ] }
-            # geometry: &FOOT { type: Box, size: [ 0.01, 0.042, 0.0653 ] }
+            # translation: [ 0.009, 0.0, 0.005 ]
+            # geometry: &FOOT { type: Box, size: [ 0.01, 0.063, 0.098 ] }
+            translation: [ 0.006, 0.0, 0.005 ]
+            geometry: &FOOT { type: Box, size: [ 0.01, 0.042, 0.065333333 ] }
             appearance: *bodyColor
       -
         type: Collision
@@ -721,15 +634,16 @@ links:
   -
     name: LLEGEE
     parent: LLEG6
-    translation: [ 0.0, 0.0, -0.0370 ]
+    translation: *LEGEEPOS
     elements:
       -
         type: Visual
         elements: &LLEGEE
           -
             type: Shape
-            translation: [ 0.009, 0, 0.005 ]
             rotation: *Y
+            # translation: [ 0.009, 0, 0.005 ]
+            translation: [ 0.006, 0.0, 0.005 ]
             geometry: *FOOT
             appearance: *bodyColor
       -
@@ -740,12 +654,156 @@ links:
         name: LFForceSensor
         id: 1
   -
-    name: RARM1
+    name: TOLSO1
     parent: ROOT
     jointId: 12
     jointType: revolute
+    jointAxis: Z
+    translation: [ 0.034, 0, 0.055 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 0.1
+        centerOfMass: [0, 0, 0]
+        inertia: [
+        5.97968e-05, -3.80602e-07, 1.70683e-05,
+        -3.80602e-07, 0.000139643, 7.14057e-08,
+        1.70683e-05, 7.14057e-08, 0.000155016]
+        elements:
+          -
+            type: Visual
+            elements: &TOLSO1
+              -
+                type: Shape
+                translation: [ 0, 0, -0.0175]
+                rotation: *X
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ 0.0, 0.0, -0.01375 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0075 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, -0.00875, -0.01 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, -0.0175, -0.005 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.01 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ 0, -0.00875, 0 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *TOLSO1
+  -
+    name: TOLSO2
+    parent: TOLSO1
+    jointId: 13
+    jointType: revolute
     jointAxis: Y
-    translation: [ 0.0, -0.0995, 0.145 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 0.1
+        centerOfMass: [0, 0, 0]
+        inertia: [
+        5.97968e-05, -3.80602e-07, 1.70683e-05,
+        -3.80602e-07, 0.000139643, 7.14057e-08,
+        1.70683e-05, 7.14057e-08, 0.000155016]
+        elements:
+          -
+            type: Visual
+            elements: &TOLSO2
+              -
+                type: Shape
+                # translation: [ 0.034, 0, 0.055 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                translation: [ -0.00925, 0.0, 0.0 ]
+                rotation: *Z
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0185 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *TOLSO2
+  -
+    name: TOLSO3
+    parent: TOLSO2
+    jointId: 14
+    jointType: revolute
+    jointAxis: X
+    elements:
+      -
+        type: RigidBody
+        mass: 0.1
+        centerOfMass: [0, 0, 0]
+        inertia: [
+        5.97968e-05, -3.80602e-07, 1.70683e-05,
+        -3.80602e-07, 0.000139643, 7.14057e-08,
+        1.70683e-05, 7.14057e-08, 0.000155016]
+        elements:
+          -
+            type: Visual
+            elements: &TOLSO3
+              -
+                type: Shape
+                rotation: *Z
+                translation: [ -0.0185, 0, 0 ]
+                geometry: *jointShape
+                appearance: *jointColor
+              -
+                type: Shape
+                rotation: *Z
+                translation: [ -0.02625, 0.0, 0.0 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0155 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                rotation: *X
+                translation: [ -0.034, 0.0, 0.06375 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.1275 }
+                appearance: *bodyColor
+              -
+                type: Shape
+                translation: [ -0.034, 0.0, 0.09 ]
+                geometry: { type: Capsule, radius: 0.0025, height: 0.159 }
+                appearance: *bodyColor
+              # Head1
+              # translation: [ -0.034, 0.0, 0.09 ]
+              -
+                type: Shape
+                translation: [ -0.034, 0.0, 0.13625 ]
+                rotation: *X
+                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
+                appearance: *bodyColor
+              # Head2
+              # translation: [ 0.008, 0.0, 0.081 ]
+              -
+                type: Shape
+                translation: [ -0.034, 0.0, 0.172 ]
+                geometry: { type: Sphere, radius: 0.027 }
+                appearance: *bodyColor
+          -
+            type: Collision
+            elements: *TOLSO3
+  -
+    name: RARM1
+    parent: TOLSO3
+    jointId: 15
+    jointType: revolute
+    jointAxis: Y
+    translation: [ -0.034, -0.0995, 0.09 ]
     elements:
       -
         type: RigidBody
@@ -787,7 +845,7 @@ links:
   -
     name: RARM2
     parent: RARM1
-    jointId: 13
+    jointId: 16
     jointType: revolute
     jointAxis: Z
     elements:
@@ -821,7 +879,7 @@ links:
   -
     name: RARM3
     parent: RARM2
-    jointId: 14
+    jointId: 17
     jointType: revolute
     jointAxis: X
     elements:
@@ -873,7 +931,7 @@ links:
   -
     name: RARM4
     parent: RARM3
-    jointId: 15
+    jointId: 18
     jointType: revolute
     jointAxis: Y
     translation: [ 0.101, 0, 0 ]
@@ -912,137 +970,27 @@ links:
                 appearance: *bodyColor
               -
                 type: Shape
-                translation: [ 0.053625, 0, 0 ]
+                translation: [ 0.059875, 0, 0 ]
                 rotation: *Z
-                geometry: { type: Capsule, radius: 0.0025, height: 0.08725}
+                geometry: { type: Capsule, radius: 0.0025, height: 0.09975}
                 appearance: *bodyColor
           -
             type: Collision
             elements: *RARM4
   -
-    name: RARM5
-    parent: RARM4
-    jointId: 16
-    jointType: revolute
-    jointAxis: X
-    translation: [ 0.1097, 0, 0 ]
-    elements:
-      -
-        type: RigidBody
-        centerOfMass: [-0.009469, -0.009469, 0.0]
-        mass: 0.001316
-        inertia: [
-        9.423E-8, 4.512E-8, 0,
-        4.512E-8, 9.423E-8, 0,
-        0, 0, 1.7313E-7 ]
-        elements:
-          -
-            type: Visual
-            elements: &RARM5
-              -
-                type: Shape
-                rotation: *Z
-                translation: [ -0.0125, 0, 0 ]
-                geometry: *jointShape
-                appearance: *jointColor
-              -
-                type: Shape
-                translation: [ -0.0125, -0.00625, 0 ]
-                geometry: { type: Capsule, radius: 0.0025, height: 0.0125}
-                appearance: *bodyColor
-              -
-                type: Shape
-                translation: [ -0.00625, -0.0125, 0 ]
-                rotation: *Z
-                geometry: { type: Capsule, radius: 0.0025, height: 0.0125}
-                appearance: *bodyColor
-          -
-            type: Collision
-            elements: *RARM5
-  -
-    name: RARM6
-    parent: RARM5
-    jointId: 17
-    jointType: revolute
-    jointAxis: Y
-    elements:
-      -
-        type: RigidBody
-        mass: 0.001316
-        centerOfMass: [0.003031, -0.003031, 0.0]
-        inertia: [
-        9.423E-8, -4.512E-8, 0,
-        -4.512E-8, 9.423E-8, 0,
-        0, 0, 1.7313E-7]
-        elements:
-          -
-            type: Visual
-            elements: &RARM6
-              -
-                type: Shape
-                translation: [ 0, -0.0125, 0 ]
-                geometry: *jointShape
-                appearance: *jointColor
-              -
-                type: Shape
-                translation: [ 0, -0.00625, 0 ]
-                geometry: { type: Capsule, radius: 0.0025, height: 0.0125}
-                appearance: *bodyColor
-              -
-                type: Shape
-                translation: [ 0.00625, 0, 0 ]
-                rotation: *Z
-                geometry: { type: Capsule, radius: 0.0025, height: 0.0125}
-                appearance: *bodyColor
-          -
-            type: Collision
-            elements: *RARM6
-  -
-    name: RARM7
-    parent: RARM6
-    jointId: 18
-    jointType: revolute
-    jointAxis: X
-    elements:
-      -
-        type: RigidBody
-        mass: 0.017276
-        centerOfMass: [0.034467, 0.0, 0.0]
-        inertia: [
-        3.78218E-6, 0, 0,
-        0, 4.37848E-6, 0,
-        0, 0, 7.11285E-6]
-        elements:
-          -
-            type: Visual
-            elements: &RARM7
-              -
-                type: Shape
-                rotation: *Z
-                translation: [ 0.0125, 0, 0 ]
-                geometry: *jointShape
-                appearance: *jointColor
-              -
-                type: Shape
-                translation: [ 0.0175, 0.0, 0.0 ]
-                rotation: *Z
-                geometry: { type: Capsule, radius: 0.0025, height: 0.01 }
-                appearance: *bodyColor
-          -
-            type: Collision
-            elements: *RARM7
-  -
     name: RARMEE
-    parent: RARM7
-    translation: [ 0.035, 0, 0 ]
+    parent: RARM4
+    translation: [ 0.10975, 0, 0 ]
     elements:
       -
         type: Visual
         elements: &RARMEE
           -
             type: Shape
-            geometry: { type: Box, size: [ 0.025, 0.025, 0.01 ] }
-            appearance: *bodyColor
+            geometry: &handShape
+              { type: Sphere, radius: 0.00625 }
+            appearance: &handColor
+              material: {diffuseColor: [ 0, 0, 0 ]}
       -
         type: Collision
         elements: *RARMEE
@@ -1054,11 +1002,11 @@ links:
           Transform: { translation: [ 0.10975, 0, 0 ]}
   -
     name: LARM1
-    parent: ROOT
+    parent: TOLSO3
     jointId: 19
     jointType: revolute
     jointAxis: Y
-    translation: [ 0.0, 0.0995, 0.145 ]
+    translation: [ -0.034, 0.0995, 0.09 ]
     elements:
       -
         type: RigidBody
@@ -1224,137 +1172,25 @@ links:
                 appearance: *bodyColor
               -
                 type: Shape
-                translation: [ 0.053625, 0, 0 ]
+                translation: [ 0.059875, 0, 0 ]
                 rotation: *Z
-                geometry: { type: Capsule, radius: 0.0025, height: 0.08725}
+                geometry: { type: Capsule, radius: 0.0025, height: 0.09975}
                 appearance: *bodyColor
           -
             type: Collision
             elements: *LARM4
   -
-    name: LARM5
-    parent: LARM4
-    jointId: 23
-    jointType: revolute
-    jointAxis: X
-    translation: [ 0.1097, 0, 0 ]
-    elements:
-      -
-        type: RigidBody
-        mass: 0.001316
-        centerOfMass: [-0.009469, 0.009469, 0.0]
-        inertia: [
-        9.423E-8, -4.512E-8, 0,
-        -4.512E-8, 9.423E-8, 0,
-        0, 0, 1.7313E-7]
-        elements:
-          -
-            type: Visual
-            elements: &LARM5
-              -
-                type: Shape
-                rotation: *Z
-                translation: [ -0.0125, 0, 0 ]
-                geometry: *jointShape
-                appearance: *jointColor
-              -
-                type: Shape
-                translation: [ -0.0125, 0.00625, 0 ]
-                geometry: { type: Capsule, radius: 0.0025, height: 0.0125}
-                appearance: *bodyColor
-              -
-                type: Shape
-                translation: [ -0.00625, 0.0125, 0 ]
-                rotation: *Z
-                geometry: { type: Capsule, radius: 0.0025, height: 0.0125}
-                appearance: *bodyColor
-          -
-            type: Collision
-            elements: *LARM5
-  -
-    name: LARM6
-    parent: LARM5
-    jointId: 24
-    jointType: revolute
-    jointAxis: Y
-    elements:
-      -
-        type: RigidBody
-        mass: 0.001316
-        centerOfMass: [0.003031, 0.003031, 0.0]
-        inertia: [
-        9.423E-8, 4.512E-8, 0,
-        4.512E-8, 9.423E-8, 0,
-        0, 0, 1.7313E-7]
-        elements:
-          -
-            type: Visual
-            elements: &LARM6
-              -
-                type: Shape
-                translation: [ 0, 0.0125, 0 ]
-                geometry: *jointShape
-                appearance: *jointColor
-              -
-                type: Shape
-                translation: [ 0, 0.00625, 0 ]
-                geometry: { type: Capsule, radius: 0.0025, height: 0.0125 }
-                appearance: *bodyColor
-              -
-                type: Shape
-                translation: [ 0.00625, 0, 0 ]
-                rotation: *Z
-                geometry: { type: Capsule, radius: 0.0025, height: 0.0125 }
-                appearance: *bodyColor
-          -
-            type: Collision
-            elements: *LARM6
-  -
-    name: LARM7
-    parent: LARM6
-    jointId: 25
-    jointType: revolute
-    jointAxis: X
-    elements:
-      -
-        type: RigidBody
-        mass: 0.017276
-        centerOfMass: [0.034467, 0.0, 0.0]
-        inertia: [
-        3.78218E-6, 0, 0,
-        0, 4.37848E-6, 0,
-        0, 0, 7.11285E-6]
-        elements:
-          -
-            type: Visual
-            elements: &LARM7
-              -
-                type: Shape
-                rotation: *Z
-                translation: [ 0.0125, 0, 0 ]
-                geometry: *jointShape
-                appearance: *jointColor
-              -
-                type: Shape
-                translation: [ 0.0175, 0.0, 0.0 ]
-                rotation: [ 0, 0, 1, 90 ]
-                geometry: { type: Capsule, radius: 0.0025, height: 0.01 }
-                appearance: *bodyColor
-          -
-            type: Collision
-            elements: *LARM7
-  -
     name: LARMEE
-    parent: LARM7
-    translation: [ 0.035, 0, 0 ]
+    parent: LARM4
+    translation: [ 0.10975, 0, 0 ]
     elements:
       -
         type: Visual
         elements: &LARMEE
           -
             type: Shape
-            geometry: { type: Box, size: [ 0.025, 0.025, 0.01 ] }
-            appearance: *bodyColor
+            geometry: *handShape
+            appearance: *handColor
       -
         type: Collision
         elements: *LARMEE
