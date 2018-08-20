@@ -3,13 +3,12 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 
-void RLS::Model::update(Config &config, Info &info)
+void RLS::Model::update(const bool dynamics_flag)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
-  hoap2.update(config, info);
-  object.update(config, info);
+  hoap2.update(dynamics_flag);
+  // object.update(config, info);
 }

@@ -5,31 +5,42 @@
 #include "yaml-cpp/yaml.h"
 
 #include "config.hpp"
-#include "info.hpp"
 #include "treeModel.hpp"
 
-void RLS::TreeModel::readCnoid(Config &config, Info &info)
+void RLS::TreeModel::readCnoid(const string cnoid_path, const string body_name, Config::Clock &clock)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   int worldItem = 0;
   int bodyItem, aistItem;
+  bool bodyFlag=false, aistFlag=false;
 
-  YAML::Node doc = YAML::LoadFile(config.dir.cnoid.c_str());
+  YAML::Node doc = YAML::LoadFile(cnoid_path.c_str());
 
-  info.sim.t0 = doc["toolbars"]["TimeBar"]["minTime"].as<double>();
-  info.sim.tf = doc["toolbars"]["TimeBar"]["maxTime"].as<double>();
-  info.sim.dt = 1./doc["toolbars"]["TimeBar"]["frameRate"].as<int>();
-  info.sim.n = (info.sim.tf - info.sim.t0)/info.sim.dt;
+  clock.t0 = doc["toolbars"]["TimeBar"]["minTime"].as<double>();
+  clock.tf = doc["toolbars"]["TimeBar"]["maxTime"].as<double>();
+  clock.dt = 1./doc["toolbars"]["TimeBar"]["frameRate"].as<int>();
+  clock.n = (clock.tf - clock.t0)/clock.dt;
 
   int num = doc["items"]["children"][worldItem]["children"].size();
   for(int i=0; i<num; i++){
-    if(doc["items"]["children"][worldItem]["children"][i]["name"].as<string>()==config.body.name)
+    if(doc["items"]["children"][worldItem]["children"][i]["name"].as<string>()==body_name){
+      bodyFlag=true;
       bodyItem = i;
+    }
 
-    if(doc["items"]["children"][worldItem]["children"][i]["name"].as<string>()=="AISTSimulator")
+    if(doc["items"]["children"][worldItem]["children"][i]["name"].as<string>()=="AISTSimulator"){
+      aistFlag=true;
       aistItem = i;
+    }
   }
+
+  if(!bodyFlag)
+    cout << "****************************************************************" << endl
+         << "not found '" << body_name << "' item" << endl
+         << "****************************************************************" << endl;
+  if(!aistFlag)
+    cout << "not found 'AISTSimulator' item" << endl;
 
   for(int i=0; i<3; i++)
     try{
@@ -37,26 +48,33 @@ void RLS::TreeModel::readCnoid(Config &config, Info &info)
     }catch(...){ag(i) = 0.;}
 
   for(int i=0, k=0; i<3; i++){
-    limb[0].node[0].r0(i) = doc["items"]["children"][worldItem]["children"][bodyItem]["data"]["initialRootPosition"][i].as<double>();
+    link[info.rootNode].r0(i) = doc["items"]["children"][worldItem]["children"][bodyItem]["data"]["initialRootPosition"][i].as<double>();
 
     for(int j=0; j<3; j++, k++)
-      limb[0].node[0].R0(j,i) = doc["items"]["children"][worldItem]["children"][bodyItem]["data"]["initialRootAttitude"][k].as<double>();
+      link[info.rootNode].R0(i,j) = doc["items"]["children"][worldItem]["children"][bodyItem]["data"]["initialRootAttitude"][k].as<double>();
 
     try{
-      limb[0].node[0].v0(i) = doc["items"]["children"][worldItem]["children"][bodyItem]["data"]["initialRootVelocity"][i].as<double>();
-    }catch(...){limb[0].node[0].v0(i) = 0.;}
+      link[info.rootNode].v0(i) = doc["items"]["children"][worldItem]["children"][bodyItem]["data"]["initialRootVelocity"][i].as<double>();
+
+    }catch(...){link[info.rootNode].v0(i) = 0.;}
+
     try{
-      limb[0].node[0].w0(i) = doc["items"]["children"][worldItem]["children"][bodyItem]["data"]["initialRootAngularVelocity"][i].as<double>();
-    }catch(...){limb[0].node[0].w0(i) = 0.;}
+      link[info.rootNode].w0(i) = doc["items"]["children"][worldItem]["children"][bodyItem]["data"]["initialRootAngularVelocity"][i].as<double>();
+    }catch(...){link[info.rootNode].w0(i) = 0.;}
   }
 
-  for(int i=1, k=0; i<info.value.node; i++){
-    for(int j=0; j<info.limb[i].dof; j++, k++){
-      limb[i].node[j].th0 = doc["items"]["children"][worldItem]["children"][bodyItem]["data"]["initialJointPositions"][k].as<double>();
+  link[info.rootNode].vo0 =
+    link[info.rootNode].v0 + cross(link[info.rootNode].r0)*link[info.rootNode].w0;
+
+  for(int i=0, j=0; i<info.linkNum; i++){
+    if(link[i].active){
+      link[i].th0 = doc["items"]["children"][worldItem]["children"][bodyItem]["data"]["initialJointPositions"][j].as<double>();
 
       try{
-        limb[i].node[j].dth0 = doc["items"]["children"][worldItem]["children"][bodyItem]["data"]["initialJointVelocities"][k].as<double>();
-      }catch(...){limb[i].node[j].dth0=0.;}
+        link[i].dth0 = doc["items"]["children"][worldItem]["children"][bodyItem]["data"]["initialJointVelocities"][j].as<double>();
+      }catch(...){}
+
+      j++;
     }
   }
 }

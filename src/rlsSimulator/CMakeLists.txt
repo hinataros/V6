@@ -10,7 +10,7 @@ set(srcs
   se3exp.cpp
   update.cpp
   run.cpp
-  finalize.cpp
+  # finalize.cpp
   main.cpp
   )
 

@@ -35,25 +35,25 @@ namespace RLS{
       VectorXd ddth[4];
     } k;
 
-    void initialize(Config&, Info&);
-    void initialParameter(Config&, Info&, Model&);
+    void initialize(const TreeModel::Info&);
+    void initialParameter(const Config::Clock&, TreeModel&);
 
-    void runge4(Config&, Info&, Model&, Controller&, Output&);
+    void runge4(Config&, Model&, RlsDynamics&, Output&);
 
-    void linkEqs(Config&, Info&, Model&, Controller&, Output&);
-    void linkEqs(Config&, Info&, Model&, Controller&);
-    void diffEqs(Config&, Info&, Model&, int);
+    void linkEqs(Config&, Model&, RlsDynamics&, Output&);
+    void linkEqs(Config&, Model&, RlsDynamics&);
+    void diffEqs(Config&, Model&, const int);
 
-    void integrator(Config&, Model&, int, double);
-    void update(Config&, Info&, Model&);
-    void se3exp(Config&, Vector3d&, Matrix3d&, Vector3d, Vector3d, double);
+    void integrator(Model&, const int, const double);
+    void se3exp(Vector3d&, Matrix3d&, const Vector3d, const Vector3d, const double);
+    void update(const Config::Clock&);
 
-    void finalize(Config&, Info&, Model&, Controller&, Output&);
+    // void finalize(Config&, Info&, Model&, RlsDynamics&, Output&);
   public:
-    void run(Config&, Info&, Model&, Controller&, Output&);
+    void run(Config&, Model&, RlsDynamics&, Output&);
 
-    RlsSimulator(Config &config, Info &info){
-      initialize(config, info);
+    RlsSimulator(const TreeModel::Info &info){
+      initialize(info);
     }
   };
 }

@@ -1,25 +1,24 @@
 # @author Sho Miyahara 2017
 
-add_subdirectory(configurationManager)
-add_subdirectory(readWork)
-add_subdirectory(update)
-add_subdirectory(reference)
-add_subdirectory(controlMethod)
+add_subdirectory(initialize)
+# add_subdirectory(configurationManager)
+# add_subdirectory(readWork)
+# add_subdirectory(update)
+# add_subdirectory(reference)
+# add_subdirectory(controlMethod)
 add_subdirectory(index)
 
-add_subdirectory(add)
-add_subdirectory(transform)
+# add_subdirectory(add)
+# add_subdirectory(transform)
 
-add_subdirectory(outputConfig)
-
+# add_subdirectory(outputConfig)
 
 set(srcs
-  initialize.cpp
-  finalize.cpp
+  # finalize.cpp
   initialValue.cpp
   resize.cpp
-  reset.cpp
-  reconfigure.cpp
+  # reset.cpp
+  # reconfigure.cpp
   rlsDynamics.cpp
   )
 
@@ -29,8 +28,10 @@ if(rls_rlsDynamicsRTC)
 endif(rls_rlsDynamicsRTC)
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" rlsDynamics_srcs)
+
 set(rlsDynamics_srcs
   ${rlsDynamics_srcs}
+  ${initialize_srcs}
   ${configurationManager_srcs}
   ${readWork_srcs}
   ${update_srcs}

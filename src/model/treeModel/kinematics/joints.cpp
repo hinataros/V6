@@ -3,25 +3,29 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 
-void RLS::TreeModel::joints(Config &config, Info &info)
+void RLS::TreeModel::joints()
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
-  // smiyahara: Base部のjSは本当は6*6のMatrixにしたいがまだしていない
-  // smiyahara: 先端部のjSはすべて0のベクトル
-  for(int i=1; i<info.value.node; i++)
-    for(int j=0; j<info.limb[i].dof; j++){
+  // smiyahara: 先端部のejはすべて0のベクトル
+  for(int i=0; i<info.linkNum; i++){
+    if(i==info.rootNode){
+      if(link[i].jointType == "fixed")
+        link[i].ej << 0, 0, 0;
+      if(link[i].jointType == "free")
+        link[i].ej << 1, 1, 1;
 
-      if(limb[i].node[j].jointType == "x" || limb[i].node[j].jointType == "X")
-        limb[i].node[j].jS << 0, 0, 0, 1, 0, 0;
+    }else{
+      if(link[i].jointAxis == "x" || link[i].jointAxis == "X")
+        link[i].ej << 1, 0, 0;
 
-      if(limb[i].node[j].jointType == "y" || limb[i].node[j].jointType == "Y")
-        limb[i].node[j].jS << 0, 0, 0, 0, 1, 0;
+      if(link[i].jointAxis == "y" || link[i].jointAxis == "Y")
+        link[i].ej << 0, 1, 0;
 
-      if(limb[i].node[j].jointType == "z" || limb[i].node[j].jointType == "Z")
-        limb[i].node[j].jS << 0, 0, 0, 0, 0, 1;
+      if(link[i].jointAxis == "z" || link[i].jointAxis == "Z")
+        link[i].ej << 0, 0, 1;
     }
+  }
 }

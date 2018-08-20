@@ -4,12 +4,17 @@ add_subdirectory(kinematics)
 add_subdirectory(dynamics)
 
 set(srcs
+  readJointStateVector.cpp
+  writeJointStateVector.cpp
+  stateMatrixFilter.cpp
+  readEndEffectorValueVector.cpp
   readBody.cpp
-  readModel.cpp
+  # readModel.cpp
   readCnoid.cpp
-  initialize.cpp
-  outputConfig.cpp
-  deleteModel.cpp
+  initializeLink.cpp
+  initializeAll.cpp
+  # outputConfig.cpp
+  # deleteModel.cpp
   update.cpp
   )
 

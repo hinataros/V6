@@ -5,129 +5,157 @@
 #include "yaml-cpp/yaml.h"
 
 #include "config.hpp"
-#include "info.hpp"
 #include "treeModel.hpp"
 
-void RLS::TreeModel::readBody(Config &config, Info &info)
+void RLS::TreeModel::readBody(const string body_path)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   vector<int> node, dof;
 
-  YAML::Node doc = YAML::LoadFile((config.dir.body+config.body.name+".body").c_str());
+  YAML::Node doc = YAML::LoadFile(body_path.c_str());
 
   // try{
   //   if(doc["links"][0]["name"].as<string>()=="free")
   //     dof.push_back(6);
   // }catch(...){cout << "error... " << endl;};
-  dof.push_back(6);
-  info.dof.all += dof[0];
+  // dof.push_back(6);
+  // info.dof.all += dof[0];
 
-  node.push_back(1);
-  info.value.node = node[0];
-  info.value.all += node[0];
+  // node.push_back(1);
+  // info.value.node = node[0];
+  // info.value.all += node[0];
 
-  for(unsigned i=1, nodetemp=0; i<doc["links"].size(); i++){
-    try{
-      if(doc["links"][i]["jointId"].as<int>()>=0)
-        nodetemp++;
-    }catch(...){
-      dof.push_back(nodetemp);
-      info.dof.joint += nodetemp;
-      info.dof.all += nodetemp;
+  info.linkNum = doc["links"].size();
 
-      nodetemp++;
-      node.push_back(nodetemp);
-      info.value.all += nodetemp;
-      info.value.joint++;
-      info.value.node++;
+  link = new Link[info.linkNum];
 
-      nodetemp=0;
-    };
-  }
+  initializeLink();
 
-  info.limb = new Info::Limb[info.value.node];
+  // for(int i=1; i<linkNum; i++){
+  //   parent = doc["links"][i]["parent"].as<string>();
 
-  for(int i=0; i<info.value.node; i++){
-    info.limb[i].dof = dof[i];
-    info.limb[i].value = node[i];
-  }
+  //   try{
+  //     if(doc["links"][i]["jointId"].as<int>()>=0)
+  //       active[i] = true;
+  //   }catch(...){
+  //     active[i] = false;
+  //   }
+  // }
 
-  limb = new Limb[info.value.node];
-  for(int i=0; i<info.value.node; i++)
-    limb[i].node = new Node[info.limb[i].value];
+  // // info.limb = new Info::Limb[info.value.node];
 
-  initialize(config, info);
+  // for(int i=0; i<info.value.node; i++){
+  //   info.limb[i].dof = dof[i];
+  //   info.limb[i].value = node[i];
+  // }
+
+  // limb = new Limb[info.value.node];
+  // for(int i=0; i<info.value.node; i++)
+  //   limb[i].node = new Node[info.limb[i].value];
 
   int rigidBodyNode = 0;
-  for(int i=0, node=0; i<info.value.node; i++){
-    for(int j=0; j<info.limb[i].value; j++, node++){
-      // joint type
-      try{
-        limb[i].node[j].jointType = doc["links"][node]["jointAxis"].as<string>();
-      }catch(...){
-        try{
-          if(doc["links"][node]["jointType"].as<string>()=="free")
-            limb[i].node[j].jointType = "free";
-        }catch(...){
-          limb[i].node[j].jointType = "fix";
-        }
+  for(int i=0; i<info.linkNum; i++){
+    link[i].name = doc["links"][i]["name"].as<string>();
+
+    try{
+      link[i].parent = doc["links"][i]["parent"].as<string>();
+    }catch(...){info.rootNode=i;}
+
+    try{
+      if(doc["links"][i]["jointId"].as<int>()>=0){
+        link[i].active = true;
+        info.dof.joint++;
       }
+    }catch(...){}
 
-      // joint distance
-      try{
-        for(int k=0; k<3; k++)
-          limb[i].node[j].d(k) = doc["links"][node]["translation"][k].as<double>();
-      }catch(...){limb[i].node[j].d=Vector3d::Zero();}
+    try{
+      link[i].jointType = doc["links"][i]["jointType"].as<string>();
+    }catch(...){link[i].jointType="no joint";}
 
-      // mass
-      try{
-        limb[i].node[j].m = doc["links"][node]["elements"][rigidBodyNode]["mass"].as<double>();
-        all.m += limb[i].node[j].m;
-      }catch(...){limb[i].node[j].m=0.;}
+    try{
+      link[i].jointAxis = doc["links"][i]["jointAxis"].as<string>();
+    }catch(...){link[i].jointAxis="no axis";}
 
-      // com
-      try{
-        for(int k=0; k<3; k++)
-          limb[i].node[j].ri2C(k) = doc["links"][node]["elements"][rigidBodyNode]["centerOfMass"][k].as<double>();
-      }catch(...){limb[i].node[j].ri2C=Vector3d::Zero();}
+    // joint distance
+    try{
+      for(int j=0; j<3; j++)
+        link[i].d(j) = doc["links"][i]["translation"][j].as<double>();
+    }catch(...){link[i].d=Vector3d::Zero();}
 
-      // inertia matrix
-      try{
-        for(int k=0, m=0; k<3; k++)
-          for(int l=0; l<3; l++, m++)
-            limb[i].node[j].Iw_C(k,l) = doc["links"][node]["elements"][rigidBodyNode]["inertia"][m].as<double>();
-      }catch(...){limb[i].node[j].Iw_C=Matrix3d::Zero();}
+    // mass
+    try{
+      link[i].m = doc["links"][i]["elements"][rigidBodyNode]["mass"].as<double>();
+      all.m += link[i].m;
+    }catch(...){link[i].m=0.;}
+
+    // com
+    try{
+      for(int j=0; j<3; j++)
+        link[i].ri2C(j) = doc["links"][i]["elements"][rigidBodyNode]["centerOfMass"][j].as<double>();
+    }catch(...){link[i].ri2C=Vector3d::Zero();}
+
+    // inertia matrix
+    try{
+      for(int j=0, l=0; j<3; j++)
+        for(int k=0; k<3; k++, l++)
+          link[i].Iw_C(j,k) = doc["links"][i]["elements"][rigidBodyNode]["inertia"][l].as<double>();
+    }catch(...){link[i].Iw_C=Matrix3d::Zero();}
+  }
+
+  if(link[info.rootNode].jointType=="fixed")
+    info.dof.root = 0;
+  else if(link[info.rootNode].jointType=="free")
+    info.dof.root = 6;
+
+  info.dof.all = info.dof.root + info.dof.joint;
+
+  // smiyahara: link[0].parentNode is 0 (no initialized)
+  for(int i=0, count=0; i<info.linkNum; i++, count=0){
+    for(int j=0; j<info.linkNum; j++){
+      if(link[i].parent==link[j].name)
+        link[i].parentNode = j;
+
+      if(link[i].name==link[j].parent)
+        count++;
     }
-  }
 
-  o(info.value.node);
-  o(node.size());
-
-  o(info.dof.joint);
-  o(info.dof.all);
-
-  o(info.value.all);
-  o(info.value.joint);
-  o(info.value.node);
-
-  for(int i=0; i<info.value.node; i++){
-    o(i);
-    o(info.limb[i].dof);
-    o(info.limb[i].value);
-  }
-  for(int i=0; i<info.value.node; i++){
-    for(int j=0; j<info.limb[i].value; j++){
-      cout <<"i:j << "<< i << ":" << j << endl;
-      // o(limb[i].node[j].jointType);
-      o(limb[i].node[j].d.transpose());
-      // o(limb[i].node[j].m);
-      // o(limb[i].node[j].ri2C.transpose());
-      // o(limb[i].node[j].Iw_C);
+    if(count)
+      link[i].linkType = "limb";
+    else{
+      info.eeNum++;
+      link[i].linkType = "end effector";
     }
+
+    if(i==info.rootNode)
+      link[i].linkType = "root";
   }
-  gc;
+
+  initializeAll();
 
   // smiyahara: 場所がびみょ～
-  joints(config, info);
+  joints();
+
+  // o(info.rootNode);
+  // o(info.dof.joint);
+
+  // o(link[0].parent);
+
+  // o(info.linkNum);
+  // for(int i=0; i<info.linkNum; i++){
+  //   // o(i);
+  //   o(link[i].name);
+  //   // o(link[i].name);
+  //   // o(link[i].parentNode);
+  //   // o(link[i].linkType);
+  // //   o(link[i].parent);
+  // //   o(link[i].jointType);
+  // //   o(link[i].jointAxis);
+  // //   o(link[i].d.transpose());
+  // //   o(link[i].m);
+  // //   o(link[i].ri2C.transpose());
+  // //   o(link[i].Iw_C);
+  // //   o(link[i].jS);
+  // }
+  // gc;
 }

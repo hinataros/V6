@@ -9,21 +9,24 @@
 #include <limits>
 // setprecision(numeric_limits<double>::max_digits10)
 
-using namespace std;
-
-using namespace Eigen;
-typedef Eigen::Matrix<double, 6, 1> Vector6d;
-typedef Eigen::Matrix<double, 6, 6> Matrix6d;
-
 #define PI M_PI
 #define DEG2RAD M_PI / 180.
 #define RAD2DEG 180. * M_1_PI
 
 #define o(x) cout << #x << ":" << endl << setprecision(6) << scientific << x << endl
 #define gc cout << endl << "Please hit any key to continue !!" << endl; getchar()
+
 #define DEBUG cout << "************************************************" << endl \
   << "file:  " << __FILE__ << endl << "function:  " << __func__ << endl \
   << "************************************************" << endl;
+
+extern bool debug;
+
+using namespace std;
+
+using namespace Eigen;
+typedef Eigen::Matrix<double, 6, 1> Vector6d;
+typedef Eigen::Matrix<double, 6, 6> Matrix6d;
 
 namespace RLS{
   class Config{
@@ -34,10 +37,15 @@ namespace RLS{
 
     string def;
 
-    // string path;
-
   public:
     string option;
+
+    struct Clock{
+      double t0;
+      double tf;
+      double dt;
+      double n;
+    } clock;
 
     // smiyahara: この分け方びみょ Flagのcontrollerとdpとか
     // smiyahara: controllerの中のflagとかにしてflagは中に入れたい
@@ -70,7 +78,6 @@ namespace RLS{
 
     struct Flag{
       bool shm;
-      bool debug;
     } flag;
 
     struct Cnoid{

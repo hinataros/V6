@@ -9,7 +9,7 @@ Matrix3d RLS::Common::R(string axis, double th)
 {
   Matrix3d R = Matrix3d::Zero();
 
-  if(axis=="E")
+  if(axis=="E"||axis=="no axis")
     R = Matrix3d::Identity();
 
   else{

@@ -10,7 +10,7 @@ namespace RLS{
   class RigidBodyModel:
     public World{
   private:
-    void initialize(Config&, Info&);
+    void initialize(Config&);
 
   public:
     double mO;
@@ -44,7 +44,7 @@ namespace RLS{
     Vector3d fO;
     Vector3d nO;
 
-    void readModel(Config&, Info&);
-    void update(Config&, Info&);
+    void readModel(Config&);
+    void update(Config&);
   };
 }

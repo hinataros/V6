@@ -1,10 +1,10 @@
 # @author Sho Miyahara 2017
 
-add_subdirectory(sharedMemory)
-add_subdirectory(interpolation)
-add_subdirectory(solver)
+# add_subdirectory(sharedMemory)
+# add_subdirectory(interpolation)
+# add_subdirectory(solver)
 add_subdirectory(rlsDynamics)
-add_subdirectory(object)
+# add_subdirectory(object)
 
 if(rls_rlsDynamicsRTC)
   set(rlsDynamicsRTC_srcs ${rlsDynamicsRTC_srcs}
@@ -26,13 +26,13 @@ if(rls_objectRTC)
 endif(rls_objectRTC)
 
 if(rls_rlsSimulator)
-  set(srcs
-    initialize.cpp
-    finalize.cpp
-    controller.cpp
-    )
+  # set(srcs
+  #   initialize.cpp
+  #   finalize.cpp
+  #   controller.cpp
+  #   )
 
-  MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" controller_srcs)
+  # MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" controller_srcs)
 
   set(controller_srcs ${controller_srcs}
     ${interpolation_srcs}

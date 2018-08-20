@@ -3,15 +3,14 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
-#include "controller.hpp"
+#include "rlsDynamics.hpp"
 #include "output.hpp"
 #include "rlsSimulator.hpp"
 
-void RLS::RlsSimulator::se3exp(Config &config, Vector3d &r, Matrix3d &R, Vector3d vo, Vector3d w, double dt)
+void RLS::RlsSimulator::se3exp(Vector3d &r, Matrix3d &R, const Vector3d vo, const Vector3d w, const double dt)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   double norm_w = w.norm();
 

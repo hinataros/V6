@@ -3,37 +3,33 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
-#include "controller.hpp"
+#include "rlsDynamics.hpp"
 #include "output.hpp"
 #include "rlsSimulator.hpp"
 
-void RLS::RlsSimulator::linkEqs(Config &config, Info &info, Model &model, Controller &controller, Output &output)
+void RLS::RlsSimulator::linkEqs(Config &config, Model &model, RlsDynamics &rlsDynamics, Output &output)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
-  model.hoap2.limb[0].node[0].r = rB;
-  model.hoap2.limb[0].node[0].R = RB;
-  model.hoap2.limb[0].node[0].vo = voB;
-  model.hoap2.limb[0].node[0].w = wB;
-  model.hoap2.all.th = th;
-  model.hoap2.all.dth = dth;
+  model.hoap2.link[model.hoap2.info.rootNode].r = rB;
+  model.hoap2.link[model.hoap2.info.rootNode].R = RB;
+  model.hoap2.link[model.hoap2.info.rootNode].vo = voB;
+  model.hoap2.link[model.hoap2.info.rootNode].w = wB;
+  model.hoap2.writeJointStateVector("joint angle", th);
+  model.hoap2.writeJointStateVector("joint velocity", dth);
 
-  u = controller.controller(config, info, model, t);
+  u = rlsDynamics.rlsDynamics(config, model, t);
 
   output.tm_temp = model.hoap2.tm_list;
+  output.dc_temp = rlsDynamics.dc_list;
 
-  // smiyahara: 要検討
-  if(config.controller.name=="rlsDynamics")
-    output.dc_temp = controller.RlsDynamics::dc_list;
-
-  output.pushBack(config, t);
+  // output.pushBack(config, t);
 }
 
-void RLS::RlsSimulator::linkEqs(Config &config, Info &info, Model &model, Controller &controller)
+void RLS::RlsSimulator::linkEqs(Config &config, Model &model, RlsDynamics &rlsDynamics)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
-  u = controller.controller(config, info, model, t);
+  u = rlsDynamics.rlsDynamics(config, model, t);
 }

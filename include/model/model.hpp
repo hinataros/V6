@@ -12,13 +12,13 @@ namespace RLS{
     TreeModel hoap2;
     RigidBodyModel object;
 
-    void readModel(Config&, Info&);
-    void deleteModel(Config&, Info&);
-    void update(Config&, Info&);
+    void readModel(Config&);
+    void deleteModel(Config&);
+    void update(const bool);
 
     Model(){}
-    Model(Config& config, Info &info){
-      readModel(config, info);
+    Model(Config& config){
+      readModel(config);
     }
     // ~Model(){
     //   deleteNode(config);

@@ -3,20 +3,19 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "treeModel.hpp"
 
-void RLS::TreeModel::update(Config &config, Info &info)
+void RLS::TreeModel::update(const bool dynamics_flag)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
-  position(config, info, limb[0].node[0].r, limb[0].node[0].R, all.th);
-  velocity(config, info, limb[0].node[0].vo, limb[0].node[0].w, all.dth);
+  position();
+  velocity();
 
-  if(config.controller.dynamics){
-    identityVectorMethod(config, info);
-    analyticalDynamics(config, info);
+  if(dynamics_flag){
+    identityVectorMethod();
+    analyticalDynamics();
   }
 
-  outputConfig(config, info);
+  // outputConfig(config, info);
 }

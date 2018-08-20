@@ -443,217 +443,225 @@ namespace RLS{
     // selective matrix for forward kinematics
     Matrix6d bb_ScB;
 
-    void initialValue(Config&, Info&, Model&);
-    void resize(Config&, Info&, Model&);
+    void initializeWalking(const TreeModel::Info&);
+    void initializeMap();
 
-    void cop(Config&, Info&, TreeModel&);
-    void cmp(Config&, Info&, TreeModel&);
-    void dcm(Config&, Info&, TreeModel&);
-    void index(Config&, Info&, Model&);
+    void initialValue(Model&);
+    void resize(Model&);
 
-    // state transition
-    bool resetState(Config&, Info&, Model&, double&);
-    bool resetSequence(Config&, Info&, double&);
-    void mapping(Config&);
+    void cop(const TreeModel&);
+    void cmp(const TreeModel&);
+    void dcm(const TreeModel&);
+    void index(const Model&);
 
-    int checkContact(Config&, Info&, Model&, double&);
-    int staticCheckContact(Config&, Info&, Model&, double&);
-    int ankleStratagy(Config&, Info&, Model&, double&);
-    int ankleHipStratagy(Config&, Info&, Model&, double&);
-    int walking(Config&, Info&, Model&, double&);
-    int walkHT(Config&, Info&, Model&, double&);
-    int stateTriggerConfig(Config&, Info&, Model&, double&);
+    // // state transition
+    // bool resetState(Config&, Info&, Model&, double&);
+    // bool resetSequence(Config&, Info&, double&);
+    // void mapping(Config&);
 
-    bool sequenceTriggerConfig(Config&, Info&, double&);
+    // int checkContact(Config&, Info&, Model&, double&);
+    // int staticCheckContact(Config&, Info&, Model&, double&);
+    // int ankleStratagy(Config&, Info&, Model&, double&);
+    // int ankleHipStratagy(Config&, Info&, Model&, double&);
+    // int walking(Config&, Info&, Model&, double&);
+    // int walkHT(Config&, Info&, Model&, double&);
+    // int stateTriggerConfig(Config&, Info&, Model&, double&);
 
-    bool configurationManager(Config&, Info&, Model&, double&);
+    // bool sequenceTriggerConfig(Config&, Info&, double&);
 
-    int readWork(Config&, Info&, string, int);
+    // bool configurationManager(Config&, Info&, Model&, double&);
 
-    void reconfigure(Config&, Info&);
+    // int readWork(Config&, Info&, string, int);
 
-    // transform matrix
-    MatrixXd jacobian(Config&, Info&, TreeModel&, int);
-    MatrixXd jacobian(Config&, Info&, TreeModel&, int, Vector3d);
-    MatrixXd diffJacobian(Config&, Info&, TreeModel&, int);
-    MatrixXd diffJacobian(Config&, Info&, TreeModel&, int, Vector3d);
-    Matrix6d spatialTransform(Config&, Info&, Vector3d);
-    Matrix6d diffSpatialTransform(Config&, Info&, Vector3d);
+    // void reconfigure(Config&, Info&);
 
-    // update
-    // ******************************
-    void transform(Config&, Info&, Model&);
+    // // transform matrix
+    // MatrixXd jacobian(Config&, Info&, TreeModel&, int);
+    // MatrixXd jacobian(Config&, Info&, TreeModel&, int, Vector3d);
+    // MatrixXd diffJacobian(Config&, Info&, TreeModel&, int);
+    // MatrixXd diffJacobian(Config&, Info&, TreeModel&, int, Vector3d);
+    // Matrix6d spatialTransform(Config&, Info&, Vector3d);
+    // Matrix6d diffSpatialTransform(Config&, Info&, Vector3d);
 
-    void basis(Config&, Model&);
-    void decomposeBase(Config&, Model&);
-    void decomposeMix(Config&, Model&);
-    void decompose(Config&, Model&);
+    // // update
+    // // ******************************
+    // void transform(Config&, Info&, Model&);
 
-    void renameBase(Config&, Info&, Model&);
-    void renameMix(Config&, Info&, Model&);
-    void renameCentroidal(Config&, Info&, Model&);
-    void renameOthers(Config&, Info&, Model&);
-    void renameDebug(Config&, Info&, Model&);
-    void rename(Config&, Info&, Model&);
+    // void basis(Config&, Model&);
+    // void decomposeBase(Config&, Model&);
+    // void decomposeMix(Config&, Model&);
+    // void decompose(Config&, Model&);
 
-    int objective(Config&, Info&, Model&);
-    void update(Config&, Info&, Model&);
-    // ******************************
+    // void renameBase(Config&, Info&, Model&);
+    // void renameMix(Config&, Info&, Model&);
+    // void renameCentroidal(Config&, Info&, Model&);
+    // void renameOthers(Config&, Info&, Model&);
+    // void renameDebug(Config&, Info&, Model&);
+    // void rename(Config&, Info&, Model&);
 
-    // reference
-    //com
-    void comSequence(Config&, Info&, Model&, double&);
-    void dcm2com(Config&, Info&, Model&, double&);
+    // int objective(Config&, Info&, Model&);
+    // void update(Config&, Info&, Model&);
+    // // ******************************
 
-    // base translation
-    void baseTranslationSequence(Config&, Info&, Model&, double&);
+    // // reference
+    // //com
+    // void comSequence(Config&, Info&, Model&, double&);
+    // void dcm2com(Config&, Info&, Model&, double&);
 
-    // base orientation
-    void baseOrientationSequence(Config&, Info&, Model&, double&);
-    void baseOrientationAnkleHip(Config&, Info&, Model&, double&);
+    // // base translation
+    // void baseTranslationSequence(Config&, Info&, Model&, double&);
 
-    // DCM
-    void dcmSequence(Config&, Info&, Model&, double&);
-    void dcmAnkleHip(Config&, Info&, Model&, double&);
-    void dcmSSWalking(Config&, Info&, Model&, double&);
-    void dcmDSWalking(Config&, Info&, Model&, double&);
-    void dcmHTWalking(Config&, Info&, Model&, double&);
+    // // base orientation
+    // void baseOrientationSequence(Config&, Info&, Model&, double&);
+    // void baseOrientationAnkleHip(Config&, Info&, Model&, double&);
 
-    // end effector
-    void endEffectorSequence(Config&, Info&, Model&, double&);
-    void endEffectorWalking(Config&, Info&, Model&, double&);
-    void endEffectorWalkingToeoff(Config&, Info&, Model&, double&);
+    // // DCM
+    // void dcmSequence(Config&, Info&, Model&, double&);
+    // void dcmAnkleHip(Config&, Info&, Model&, double&);
+    // void dcmSSWalking(Config&, Info&, Model&, double&);
+    // void dcmDSWalking(Config&, Info&, Model&, double&);
+    // void dcmHTWalking(Config&, Info&, Model&, double&);
 
-    // external wrench
-    void externalWrenchSequence(Config&, Info&, Model&, double&);
+    // // end effector
+    // void endEffectorSequence(Config&, Info&, Model&, double&);
+    // void endEffectorWalking(Config&, Info&, Model&, double&);
+    // void endEffectorWalkingToeoff(Config&, Info&, Model&, double&);
 
-    void reference(Config&, Info&, Model&, double&);
+    // // external wrench
+    // void externalWrenchSequence(Config&, Info&, Model&, double&);
 
-    // add function
-    Vector2d F2rp(Vector6d);
-    MatrixXd weight(Config&, Info&, Model&, Vector3d);
+    // void reference(Config&, Info&, Model&, double&);
 
-    // zero controller
-    VectorXd zeroDynamics(Config&, Info&, Model&);
-    VectorXd zeroMotion(Config&, Info&, Model&);
-    void zeroMomentum(Config&, Info&, Model&);
-    void zeroDistribution(Config&, Info&, Model&);
-    void zeroTorque(Config&, Info&, Model&);
+    // // add function
+    // Vector2d F2rp(Vector6d);
+    // MatrixXd weight(Config&, Info&, Model&, Vector3d);
 
-    // velocity controller
-    VectorXd baseVelocitySynergy(Config&, Info&, Model&);
-    VectorXd mixedVelocitySynergy(Config&, Info&, Model&);
+    // // zero controller
+    // VectorXd zeroDynamics(Config&, Info&, Model&);
+    // VectorXd zeroMotion(Config&, Info&, Model&);
+    // void zeroMomentum(Config&, Info&, Model&);
+    // void zeroDistribution(Config&, Info&, Model&);
+    // void zeroTorque(Config&, Info&, Model&);
 
-    // acceleration controller
-    VectorXd workAcceleration(Config&, Info&, Model&);
-    VectorXd baseAccelerationSynergy(Config&, Info&, Model&);
-    VectorXd mixedAccelerationSynergy(Config&, Info&, Model&);
-    VectorXd centroidalAccelerationSynergy(Config&, Info&, Model&);
-    VectorXd rest_cmlC(Config&, Info&, Model&);
-    VectorXd rest_clCm(Config&, Info&, Model&);
-    VectorXd baseGeneralizedMomentum(Config&, Info&, Model&);
-    VectorXd mixedGeneralizedMomentum(Config&, Info&, Model&);
-    VectorXd accelerationSolver(Config&, Info&, Model&);
-    VectorXd hinata(Config&, Info&, Model&);
-    VectorXd hogehogeMomentum(Config&, Info&, Model&);
+    // // velocity controller
+    // VectorXd baseVelocitySynergy(Config&, Info&, Model&);
+    // VectorXd mixedVelocitySynergy(Config&, Info&, Model&);
 
-    // acceleration dumper
-    VectorXd ddthD(Config&, Model&);
-    VectorXd ddqthD(Config&, Info&, Model&);
-    VectorXd ddqthinit(Config&, Info&, Model&);
+    // // acceleration controller
+    // VectorXd workAcceleration(Config&, Info&, Model&);
+    // VectorXd baseAccelerationSynergy(Config&, Info&, Model&);
+    // VectorXd mixedAccelerationSynergy(Config&, Info&, Model&);
+    // VectorXd centroidalAccelerationSynergy(Config&, Info&, Model&);
+    // VectorXd rest_cmlC(Config&, Info&, Model&);
+    // VectorXd rest_clCm(Config&, Info&, Model&);
+    // VectorXd baseGeneralizedMomentum(Config&, Info&, Model&);
+    // VectorXd mixedGeneralizedMomentum(Config&, Info&, Model&);
+    // VectorXd accelerationSolver(Config&, Info&, Model&);
+    // VectorXd hinata(Config&, Info&, Model&);
+    // VectorXd hogehogeMomentum(Config&, Info&, Model&);
 
-    // momentum controller
-    void linearMomentum(Config&, Info&, Model&);
-    void dcmMomentum(Config&, Info&, Model&);
-    void centroidalAngularMomentum(Config&, Info&, Model&);
-    void baseAngularMomentum(Config&, Info&, Model&);
-    void baseMomentum(Config&, Info&, Model&);
-    void baseDcmMomentum(Config&, Info&, Model&);
-    void centroidalMomentum(Config&, Info&, Model&);
-    void centroidalDcmMomentum(Config&, Info&, Model&);
-    void centroidalCmpMomentum(Config&, Info&, Model&);
+    // // acceleration dumper
+    // VectorXd ddthD(Config&, Model&);
+    // VectorXd ddqthD(Config&, Info&, Model&);
+    // VectorXd ddqthinit(Config&, Info&, Model&);
 
-    // force controller
-    void baseDistribution(Config&, Info&, Model&);
-    void centroidalDistribution(Config&, Info&, Model&);
-    void centroidalDcmDistribution(Config&, Info&, Model&);
-    void distributionSolver(Config&, Info&, Model&);
+    // // momentum controller
+    // void linearMomentum(Config&, Info&, Model&);
+    // void dcmMomentum(Config&, Info&, Model&);
+    // void centroidalAngularMomentum(Config&, Info&, Model&);
+    // void baseAngularMomentum(Config&, Info&, Model&);
+    // void baseMomentum(Config&, Info&, Model&);
+    // void baseDcmMomentum(Config&, Info&, Model&);
+    // void centroidalMomentum(Config&, Info&, Model&);
+    // void centroidalDcmMomentum(Config&, Info&, Model&);
+    // void centroidalCmpMomentum(Config&, Info&, Model&);
 
-    // torque controller
-    void jointSpace(Config&, Info&, Model&);
-    void staticControl(Config&, Info&, Model&);
-    void base(Config&, Info&, Model&);
-    void mixed(Config&, Info&, Model&);
-    void mixedmixed(Config&, Info&, Model&);
-    void crb(Config&, Info&, Model&);
-    void baseOpt(Config&, Info&, Model&);
-    void mixedOpt(Config&, Info&, Model&);
-    void mixedmixedOpt(Config&, Info&, Model&);
+    // // force controller
+    // void baseDistribution(Config&, Info&, Model&);
+    // void centroidalDistribution(Config&, Info&, Model&);
+    // void centroidalDcmDistribution(Config&, Info&, Model&);
+    // void distributionSolver(Config&, Info&, Model&);
 
-    // inverse dynamics controller
-    VectorXd fullDynamicsController(Config&, Info&, Model&);
-    VectorXd momentumInverseDynamicsController(Config&, Info&, Model&);
-    VectorXd highGainController(Config&, Info&, Model&);
-    VectorXd spatialDynamicsSolver(Config&, Info&, Model&);
-    VectorXd dlrSolver(Config&, Info&, Model&);
+    // // torque controller
+    // void jointSpace(Config&, Info&, Model&);
+    // void staticControl(Config&, Info&, Model&);
+    // void base(Config&, Info&, Model&);
+    // void mixed(Config&, Info&, Model&);
+    // void mixedmixed(Config&, Info&, Model&);
+    // void crb(Config&, Info&, Model&);
+    // void baseOpt(Config&, Info&, Model&);
+    // void mixedOpt(Config&, Info&, Model&);
+    // void mixedmixedOpt(Config&, Info&, Model&);
 
-    void controlMethod(Config&, Info&, Model&);
+    // // inverse dynamics controller
+    // VectorXd fullDynamicsController(Config&, Info&, Model&);
+    // VectorXd momentumInverseDynamicsController(Config&, Info&, Model&);
+    // VectorXd highGainController(Config&, Info&, Model&);
+    // VectorXd spatialDynamicsSolver(Config&, Info&, Model&);
+    // VectorXd dlrSolver(Config&, Info&, Model&);
 
-    // output config
-    // velocity output config
-    void velocityOutputConfig(Config&, Info&, Model&);
+    // void controlMethod(Config&, Info&, Model&);
 
-    // acceleration output config
-    void accelerationOutputConfig(Config&, Info&, Model&);
+    // // output config
+    // // velocity output config
+    // void velocityOutputConfig(Config&, Info&, Model&);
 
-    // torque output config
-    void torqueOutputDesConfig(Config&, Info&, Model&);
-    void torqueOutputErrConfig(Config&, Info&, Model&);
-    void torqueOutputRefConfig(Config&, Info&, Model&);
-    void torqueOutputIndexConfig(Config&, Info&, Model&);
-    void torqueOutputIndexPrintConfig(Config&, Info&, Model&);
-    void torqueOutputConfig(Config&, Info&, Model&);
+    // // acceleration output config
+    // void accelerationOutputConfig(Config&, Info&, Model&);
 
-    void outputConfig(Config&, Info&, Model&);
+    // // torque output config
+    // void torqueOutputDesConfig(Config&, Info&, Model&);
+    // void torqueOutputErrConfig(Config&, Info&, Model&);
+    // void torqueOutputRefConfig(Config&, Info&, Model&);
+    // void torqueOutputIndexConfig(Config&, Info&, Model&);
+    // void torqueOutputIndexPrintConfig(Config&, Info&, Model&);
+    // void torqueOutputConfig(Config&, Info&, Model&);
 
-    // readWork
-    void checkNode(YAML::Node&, string, int, string);
-    void checkNode(YAML::Node&, string, int, string, int);
-    void checkNode(YAML::Node&, string, int, string, int, int);
-    template <class T> T checkValue(YAML::Node&, string, int, string, T);
-    template <class T> T checkVector(YAML::Node&, string, int, string, T);
-    template <class T> T checkVector(YAML::Node&, string, int, string, int, T);
-    template <class T> T checkMatrix(YAML::Node&, string, int, string, T);
-    template <class T> T checkMatrix(YAML::Node&, string, int, string, int, T);
+    // void outputConfig(Config&, Info&, Model&);
 
-    template <class T> T readValue(YAML::Node&, string, int, string);
-    template <class T> T readValue(YAML::Node&, string, int, string, string);
-    template <class T> T readValue(YAML::Node&, string, int, string, int);
-    template <class T> T readValue(YAML::Node&, string, int, string, int, int);
-    template <class T> T readVector(YAML::Node&, string, int, string, int);
-    template <class T> T readVector(YAML::Node&, string, int, string, int, int);
+    // // readWork
+    // void checkNode(YAML::Node&, string, int, string);
+    // void checkNode(YAML::Node&, string, int, string, int);
+    // void checkNode(YAML::Node&, string, int, string, int, int);
+    // template <class T> T checkValue(YAML::Node&, string, int, string, T);
+    // template <class T> T checkVector(YAML::Node&, string, int, string, T);
+    // template <class T> T checkVector(YAML::Node&, string, int, string, int, T);
+    // template <class T> T checkMatrix(YAML::Node&, string, int, string, T);
+    // template <class T> T checkMatrix(YAML::Node&, string, int, string, int, T);
 
-    // select controller
-    VectorXd (RLS::RlsDynamics::*motionController_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
-    void (RLS::RlsDynamics::*momentumController_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
-    void (RLS::RlsDynamics::*forceController_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
-    void (RLS::RlsDynamics::*torqueController_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
-    VectorXd (RLS::RlsDynamics::*inverseDynamicsController_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
+    // template <class T> T readValue(YAML::Node&, string, int, string);
+    // template <class T> T readValue(YAML::Node&, string, int, string, string);
+    // template <class T> T readValue(YAML::Node&, string, int, string, int);
+    // template <class T> T readValue(YAML::Node&, string, int, string, int, int);
+    // template <class T> T readVector(YAML::Node&, string, int, string, int);
+    // template <class T> T readVector(YAML::Node&, string, int, string, int, int);
 
-    map<string, VectorXd (RLS::RlsDynamics::*)(RLS::Config&, RLS::Info&, RLS::Model&)>
-    map_motionController, map_inverseDynamicsController;
-    map<string, void (RLS::RlsDynamics::*)(RLS::Config&, RLS::Info&, RLS::Model&)>
-    map_momentumController, map_forceController, map_torqueController;
+    // // select controller
+    // VectorXd (RLS::RlsDynamics::*motionController_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
+    // void (RLS::RlsDynamics::*momentumController_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
+    // void (RLS::RlsDynamics::*forceController_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
+    // void (RLS::RlsDynamics::*torqueController_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
+    // VectorXd (RLS::RlsDynamics::*inverseDynamicsController_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
+
+    // map<string, VectorXd (RLS::RlsDynamics::*)(RLS::Config&, RLS::Info&, RLS::Model&)>
+    // map_motionController, map_inverseDynamicsController;
+    // map<string, void (RLS::RlsDynamics::*)(RLS::Config&, RLS::Info&, RLS::Model&)>
+    // map_momentumController, map_forceController, map_torqueController;
 
   public:
     // smiyahara: 要検討(とりあえず外乱のみを考慮し"6"にしといた)
     Vector6d virtualInput;
 
     // smiyahara: 名前は変えたい
-    void initialize(Config&, Info&);
-    void finalize(Config&, Info&);
-    VectorXd rlsDynamics(Config&, Info&, Model&, double&);
+    void initialize(const TreeModel::Info&);
+    // void finalize(Config&, Info&);
+    VectorXd rlsDynamics(Config&, Model&, double&);
 
     RlsDynamicsList dc_list;
+
+    RlsDynamics(){}
+    RlsDynamics(const TreeModel::Info &info){
+      initialize(info);
+    }
   };
 }

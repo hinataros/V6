@@ -3,15 +3,14 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::index(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::index(const Model &model)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
-  cop(config, info, model.hoap2);
-  cmp(config, info, model.hoap2);
-  dcm(config, info, model.hoap2);
+  cop(model.hoap2);
+  cmp(model.hoap2);
+  dcm(model.hoap2);
 }

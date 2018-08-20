@@ -3,15 +3,14 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::dcm(Config &config, Info &info, TreeModel &hoap2)
+void RLS::RlsDynamics::dcm(const TreeModel &model)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   wX = sqrt(g/rC0(2));
 
-  rX = hoap2.all.rC + (hoap2.all.vC/wX);
+  rX = model.all.rC + (model.all.vC/wX);
 }

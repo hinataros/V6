@@ -3,37 +3,36 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
-#include "controller.hpp"
+#include "rlsDynamics.hpp"
 #include "output.hpp"
 #include "rlsSimulator.hpp"
 
-void RLS::RlsSimulator::runge4(Config &config, Info &info, Model &model, Controller &controller, Output &output)
+void RLS::RlsSimulator::runge4(Config &config, Model &model, RlsDynamics &rlsDynamics, Output &output)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
-  // // phase 1
-  linkEqs(config, info, model, controller, output);
-  diffEqs(config, info, model, 0);
-  integrator(config, model, 0, info.sim.dt/2);
+  // phase 1
+  linkEqs(config, model, rlsDynamics, output);
+  diffEqs(config, model, 0);
+  integrator(model, 0, config.clock.dt/2);
 
   // phase 2
-  t += info.sim.dt/2;
-  linkEqs(config, info, model, controller);
-  diffEqs(config, info, model, 1);
-  integrator(config, model, 1, info.sim.dt/2);
+  t += config.clock.dt/2;
+  linkEqs(config, model, rlsDynamics);
+  diffEqs(config, model, 1);
+  integrator(model, 1, config.clock.dt/2);
 
   // phase 3
-  linkEqs(config, info, model, controller);
-  diffEqs(config, info, model, 2);
-  integrator(config, model, 2, info.sim.dt);
+  linkEqs(config, model, rlsDynamics);
+  diffEqs(config, model, 2);
+  integrator(model, 2, config.clock.dt);
 
   // phase 4
-  t += info.sim.dt/2;
-  linkEqs(config, info, model, controller);
-  diffEqs(config, info, model, 3);
+  t += config.clock.dt/2;
+  linkEqs(config, model, rlsDynamics);
+  diffEqs(config, model, 3);
 
   // update phase
-  update(config, info, model);
+  update(config.clock);
 }

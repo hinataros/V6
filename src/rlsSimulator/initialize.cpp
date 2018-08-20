@@ -3,15 +3,14 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
-#include "controller.hpp"
+#include "rlsDynamics.hpp"
 #include "output.hpp"
 #include "rlsSimulator.hpp"
 
-void RLS::RlsSimulator::initialize(Config &config, Info &info)
+void RLS::RlsSimulator::initialize(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   rB = Vector3d::Zero();
   RB = Matrix3d::Zero();
@@ -20,7 +19,7 @@ void RLS::RlsSimulator::initialize(Config &config, Info &info)
   th = VectorXd::Zero(info.dof.joint);
   dth = VectorXd::Zero(info.dof.joint);
 
-  u = VectorXd::Zero(info.dof.joint);
+  u = VectorXd::Zero(info.dof.all);
 
   dvoB = dwB = Vector3d::Zero();
   ddth = VectorXd::Zero(info.dof.joint);

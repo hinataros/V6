@@ -3,115 +3,73 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "treeModel.hpp"
 
-void RLS::TreeModel::analyticalDynamics(Config &config, Info &info)
+void RLS::TreeModel::analyticalDynamics()
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   // ********************************************
-  Matrix3d Mv = Matrix3d::Zero();
-  Mv = all.m*Matrix3d::Identity();
-  // diff
+  Matrix3d Mv = all.m*Matrix3d::Identity();
   Matrix3d dMv = Matrix3d::Zero();
 
   // ********************************************
-  Matrix3d Mvw = Matrix3d::Zero();
-  Mvw = -all.m*cross(all.rC - limb[0].node[0].r);
-  // diff
-  Matrix3d dMvw = Matrix3d::Zero();
-  dMvw = -all.m*cross(all.vC - limb[0].node[0].v);
+  Matrix3d Mvw = -all.m*cross(all.rC - link[info.rootNode].r);
+  Matrix3d dMvw = -all.m*cross(all.vC - link[info.rootNode].v);
 
   // ********************************************
   Matrix3d IB = Matrix3d::Zero();
   Matrix3d rB2ix = Matrix3d::Zero();
-  // diff
+
   Matrix3d dIB = Matrix3d::Zero();
   Matrix3d drB2ix = Matrix3d::Zero();
 
-  MatrixXd Jvi;
-  MatrixXd Jwi;
-  MatrixXd Hv = MatrixXd::Zero(3,info.dof.joint);
-  MatrixXd HB = MatrixXd::Zero(3,info.dof.joint);
-  MatrixXd Mth = MatrixXd::Zero(info.dof.joint,info.dof.joint);
+  MatrixXd linkHv = MatrixXd::Zero(3,info.linkNum);
+  MatrixXd linkHB = MatrixXd::Zero(3,info.linkNum);
+  MatrixXd linkMth = MatrixXd::Zero(info.linkNum,info.linkNum);
 
-  // diff
-  MatrixXd dJvi;
-  MatrixXd dJwi;
   Matrix3d dIi = Matrix3d::Zero();
-  MatrixXd dHv = MatrixXd::Zero(3,info.dof.joint);
-  MatrixXd dHB = MatrixXd::Zero(3,info.dof.joint);
-  MatrixXd dMth = MatrixXd::Zero(info.dof.joint,info.dof.joint);
+  MatrixXd linkdHv = MatrixXd::Zero(3,info.linkNum);
+  MatrixXd linkdHB = MatrixXd::Zero(3,info.linkNum);
+  MatrixXd linkdMth = MatrixXd::Zero(info.linkNum,info.linkNum);
 
-  int cur=0, temp;
-  for(int i=0; i<info.value.node; i++){
-    if(i==0){
-      rB2ix = cross(limb[0].node[0].rC - limb[0].node[0].r);
-      IB += limb[0].node[0].I;
-      IB += limb[0].node[0].m*rB2ix.transpose()*rB2ix;
+  for(int i=0; i<info.linkNum; i++){
+    rB2ix = cross(link[i].rC - link[info.rootNode].r);
+    IB += link[i].I;
+    IB += link[i].m*rB2ix.transpose()*rB2ix;
 
-      // diff
-      drB2ix = cross(limb[0].node[0].vC - limb[0].node[0].v);
-      dIB += cross(limb[0].node[0].w)*limb[0].node[0].I + limb[0].node[0].I*cross(limb[0].node[0].w).transpose();
-      dIB += limb[0].node[0].m*drB2ix.transpose()*rB2ix + limb[0].node[0].m*rB2ix.transpose()*drB2ix;
+    drB2ix = cross(link[i].vC - link[info.rootNode].v);
+    dIB += cross(link[i].w)*link[i].I + link[i].I*cross(link[i].w).transpose();
+    dIB += link[i].m*drB2ix.transpose()*rB2ix + link[i].m*rB2ix.transpose()*drB2ix;
 
-    }else{
-      Jvi = MatrixXd::Zero(3,info.dof.joint);
-      Jwi = MatrixXd::Zero(3,info.dof.joint);
-      dJvi = MatrixXd::Zero(3,info.dof.joint);
-      dJwi = MatrixXd::Zero(3,info.dof.joint);
+    // smiyahara:
+    // if link[i].ri2C = 0 => link[i].rC = link[i].r
+    // if link[i].jointAxis = "no axis" => link[i].sw = 0
+    for(int j=i; j!=info.rootNode; j=link[j].parentNode){
+      // if j=0 => through. Note that no probrem even if through here.
+      link[i].Jvi.col(j) = cross(link[j].sw)*(link[i].rC - link[j].r);
+      link[i].dJvi.col(j) = cross(link[j].dsw)*(link[i].rC - link[j].r) + cross(link[j].sw)*(link[i].vC - link[j].v);
 
-      temp=0;
-      for(int j=0; j<info.limb[i].dof; j++){
-	rB2ix = cross(limb[i].node[j].rC - limb[0].node[0].r);
-	IB += limb[i].node[j].I;
-	IB += limb[i].node[j].m*rB2ix.transpose()*rB2ix;
-
-	// diff
-  	drB2ix = cross(limb[i].node[j].vC - limb[0].node[0].v);
-	dIB += cross(limb[i].node[j].w)*limb[i].node[j].I + limb[i].node[j].I*cross(limb[i].node[j].w).transpose();
-  	dIB += limb[i].node[j].m*drB2ix.transpose()*rB2ix + limb[i].node[j].m*rB2ix.transpose()*drB2ix;
-
-	for(int k=0; k<j+1; k++){
-	  Jvi.col(cur+k) = cross(limb[i].node[k].sw)*(limb[i].node[j].rC - limb[i].node[k].r);
-	  // diff
-	  dJvi.col(cur+k) = cross(limb[i].node[k].dsw)*(limb[i].node[j].rC - limb[i].node[k].r)
-	    + cross(limb[i].node[k].sw)*(limb[i].node[j].vC - limb[i].node[k].v);
-	}
-
-	Hv += limb[i].node[j].m*Jvi;
-	// diff
-	dHv += limb[i].node[j].m*dJvi;
-
-	Jwi.col(cur+j) = limb[i].node[j].sw;
-	// diff
-	dJwi.col(cur+j) = limb[i].node[j].dsw;
-
-	HB += limb[i].node[j].I*Jwi + limb[i].node[j].m*rB2ix*Jvi;
-	// diff
-	dIi = cross(limb[i].node[j].w)*limb[i].node[j].I + limb[i].node[j].I*cross(limb[i].node[j].w).transpose();
-	dHB += dIi*Jwi + limb[i].node[j].I*dJwi + limb[i].node[j].m*rB2ix*dJvi + limb[i].node[j].m*drB2ix*Jvi;
-
-	Mth += limb[i].node[j].m*Jvi.transpose()*Jvi+Jwi.transpose()*limb[i].node[j].I*Jwi;
-	// diff
-	dMth += limb[i].node[j].m*Jvi.transpose()*dJvi + limb[i].node[j].m*dJvi.transpose()*Jvi +
-	  Jwi.transpose()*limb[i].node[j].I*dJwi + Jwi.transpose()*dIi*Jwi + dJwi.transpose()*limb[i].node[j].I*Jwi;
-
-	temp++;
-      }
-
-      cur += temp;
+      link[i].Jwi.col(j) = link[j].sw;
+      link[i].dJwi.col(j) = link[j].dsw;
     }
+
+    linkHv += link[i].m*link[i].Jvi;
+    linkdHv += link[i].m*link[i].dJvi;
+
+    linkHB += link[i].I*link[i].Jwi + link[i].m*rB2ix*link[i].Jvi;
+    dIi = cross(link[i].w)*link[i].I + link[i].I*cross(link[i].w).transpose();
+    linkdHB += dIi*link[i].Jwi + link[i].I*link[i].dJwi + link[i].m*rB2ix*link[i].dJvi + link[i].m*drB2ix*link[i].Jvi;
+
+    linkMth += link[i].m*link[i].Jvi.transpose()*link[i].Jvi + link[i].Jwi.transpose()*link[i].I*link[i].Jwi;
+    linkdMth += link[i].m*link[i].Jvi.transpose()*link[i].dJvi + link[i].m*link[i].dJvi.transpose()*link[i].Jvi
+      + link[i].Jwi.transpose()*link[i].I*link[i].dJwi + link[i].Jwi.transpose()*dIi*link[i].Jwi + link[i].dJwi.transpose()*link[i].I*link[i].Jwi;
   }
 
   // ********************************************
-  Vector3d gf = Vector3d::Zero();
-  gf = all.m*ag;
-  Vector3d gm = Vector3d::Zero();
-  gm = all.m*cross(all.rC - limb[0].node[0].r)*ag;
-  VectorXd gth = VectorXd::Zero(1);
-  gth = Hv.transpose()*ag;
+  MatrixXd Hv = stateMatrixFilter(false,true, linkHv);
+  MatrixXd HB = stateMatrixFilter(false,true, linkHB);
+  MatrixXd Mth = stateMatrixFilter(true,true, linkMth);
 
   MatrixXd M = MatrixXd::Zero(info.dof.all,info.dof.all);
   M <<
@@ -119,46 +77,45 @@ void RLS::TreeModel::analyticalDynamics(Config &config, Info &info)
     Mvw.transpose(),IB,HB,
     Hv.transpose(),HB.transpose(),Mth;
 
+  MatrixXd dHv = stateMatrixFilter(false,true, linkdHv);
+  MatrixXd dHB = stateMatrixFilter(false,true, linkdHB);
+  MatrixXd dMth = stateMatrixFilter(true,true, linkdMth);
+
   MatrixXd dM = MatrixXd::Zero(info.dof.all,info.dof.all);
   dM <<
     dMv,dMvw,dHv,
     dMvw.transpose(),dIB,dHB,
     dHv.transpose(),dHB.transpose(),dMth;
 
+  Vector3d gf = all.m*ag;
+  Vector3d gm = all.m*cross(all.rC - link[info.rootNode].r)*ag;
+  VectorXd gth = Hv.transpose()*ag;
+
   VectorXd g = VectorXd::Zero(info.dof.all);
   g <<
     -gf,
     -gm,
     -gth;
-  // ********************************************
 
   all.dM=dM;
+  // ********************************************
+
 
   // centroidal
-  Vector3d rC2B = Vector3d::Zero();
-  rC2B = limb[0].node[0].r - all.rC;
-  Vector3d drC2B = Vector3d::Zero();
-  drC2B = limb[0].node[0].v - all.vC;
+  Matrix3d rC2Bx = cross(link[info.rootNode].r - all.rC);
+  Matrix3d drC2Bx = cross(link[info.rootNode].v - all.vC);
 
-  Matrix3d IC = Matrix3d::Zero();
-  IC = IB - all.m*cross(rC2B)*cross(rC2B).transpose();
-  Matrix3d dIC = Matrix3d::Zero();
-  dIC = dIB - all.m*cross(drC2B)*cross(rC2B).transpose() - all.m*cross(rC2B)*cross(drC2B).transpose();
+  Matrix3d IC = IB - all.m*rC2Bx*rC2Bx.transpose();
+  Matrix3d dIC = dIB - all.m*drC2Bx*rC2Bx.transpose() - all.m*rC2Bx*drC2Bx.transpose();
 
-  MatrixXd JB2C = MatrixXd::Zero(3,info.dof.joint);
-  JB2C = Hv / all.m;
-  MatrixXd dJB2C = MatrixXd::Zero(3,info.dof.joint);
-  dJB2C = dHv / all.m;
+  MatrixXd JB2C = Hv / all.m;
+  MatrixXd dJB2C = dHv / all.m;
 
-  MatrixXd HC = MatrixXd::Zero(3,info.dof.joint);
-  HC = HB - all.m*cross(rC2B).transpose()*JB2C;
-  MatrixXd dHC = MatrixXd::Zero(3,info.dof.joint);
-  dHC = dHB - all.m*cross(drC2B).transpose()*JB2C - all.m*cross(rC2B).transpose()*dJB2C;
+  MatrixXd HC = HB - all.m*rC2Bx.transpose()*JB2C;
+  MatrixXd dHC = dHB - all.m*drC2Bx.transpose()*JB2C - all.m*rC2Bx.transpose()*dJB2C;
 
-  MatrixXd MthC = MatrixXd::Zero(info.dof.joint,info.dof.joint);
-  MthC = Mth - all.m*JB2C.transpose()*JB2C;
-  MatrixXd dMthC = MatrixXd::Zero(info.dof.joint,info.dof.joint);
-  dMthC = dMth - all.m*dJB2C.transpose()*JB2C - all.m*JB2C.transpose()*dJB2C;
+  MatrixXd MthC = Mth - all.m*JB2C.transpose()*JB2C;
+  MatrixXd dMthC = dMth - all.m*dJB2C.transpose()*JB2C - all.m*JB2C.transpose()*dJB2C;
 
   MatrixXd MM = MatrixXd::Zero(info.dof.all,info.dof.all);
   MM <<
@@ -168,7 +125,7 @@ void RLS::TreeModel::analyticalDynamics(Config &config, Info &info)
 
   MatrixXd dMM = MatrixXd::Zero(info.dof.all,info.dof.all);
   dMM <<
-    Matrix3d::Zero(),Matrix3d::Zero(),MatrixXd::Zero(3,info.dof.joint),
+    dMv,Matrix3d::Zero(),MatrixXd::Zero(3,info.dof.joint),
     Matrix3d::Zero().transpose(),dIC,dHC,
     MatrixXd::Zero(3,info.dof.joint).transpose(),dHC.transpose(),dMthC;
 

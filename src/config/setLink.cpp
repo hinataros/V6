@@ -8,7 +8,7 @@
 
 void RLS::Config::setLink()
 {
-  if(flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   dir.link = "/usr/local/etc/rls/user/"+to_string(getuid())+"/rlsSimulator/sl/";
 }

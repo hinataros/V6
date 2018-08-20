@@ -3,24 +3,22 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
-#include "controller.hpp"
+#include "rlsDynamics.hpp"
 #include "output.hpp"
 #include "rlsSimulator.hpp"
 
 int main(int argc, char *argv[])
 {
   RLS::Config config(argc, argv);
-  RLS::Info info(config);
 
-  RLS::Model model(config, info);
-  RLS::Controller controller(config, info);
+  RLS::Model model(config);
+  RLS::RlsDynamics rlsDynamics(model.hoap2.info);
   RLS::Output output;
 
-  RLS::RlsSimulator rlsSimulator(config, info);
+  RLS::RlsSimulator rlsSimulator(model.hoap2.info);
 
-  rlsSimulator.run(config, info, model, controller, output);
+  rlsSimulator.run(config, model, rlsDynamics, output);
 
   return 0;
 }

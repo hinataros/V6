@@ -12,28 +12,38 @@ namespace RLS{
     public World,
     virtual public Common{
   private:
-    void joints(Config&, Info&);
-    void initialize(Config&, Info&);
+    void joints();
+    void initializeLink();
+    void initializeAll();
 
     // kinematics
-    void position(Config&, Info&, Vector3d, Matrix3d, VectorXd);
-    void velocity(Config&, Info&, Vector3d, Vector3d, VectorXd);
+    void position();
+    void velocity();
 
     // dynamics
-    VectorXd recursiveNewtonEuler(Config&, Info&, Vector3d, Vector3d, VectorXd);
-    VectorXd gravity(Config&, Info&);
-    void identityVectorMethod(Config&, Info&);
+    VectorXd recursiveNewtonEuler();
+    VectorXd gravity();
+    void identityVectorMethod();
 
-    void analyticalDynamics(Config&, Info&);
+    void analyticalDynamics();
 
-    void outputConfig(Config&, Info&);
+    // void outputConfig(Config&, Info&);
 
   public:
-    struct All{ // smiyahara:ココのallの定義の仕方がびみょ
-      // state vector
-      VectorXd th;
-      VectorXd dth;
+    struct Dof{
+      int all;
+      int root;
+      int joint;
+    };
 
+    struct Info{
+      int rootNode;
+      int linkNum;
+      int eeNum;
+      Dof dof;
+    } info;
+
+    struct All{ // smiyahara:ココのallの定義の仕方がびみょ
       double m;
       Vector3d rC;
       Vector3d vC;
@@ -54,21 +64,32 @@ namespace RLS{
       MatrixXd dMM;
     } all;
 
-    struct Node{
+    struct Link{
+      bool active;
+      string name;
+      string parent;
+      int parentNode;
       string jointType;
+      string jointAxis;
+      string linkType;
 
       // inital value
       Matrix3d R0;
       Vector3d r0;
       Vector3d w0;
+      Vector3d vo0;
       Vector3d v0;// 今のところcnoidから読むとき、B部のみが必要
       double th0;
       double dth0;
 
+      // joint value
+      double th;
+      double dth;
+
       Vector3d d;
       Vector3d ri2C;
 
-      Vector6d jS;
+      Vector3d ej;
       Vector3d sv;
       Vector3d sw;
 
@@ -100,26 +121,35 @@ namespace RLS{
       Vector3d f;
       Vector3d n;
 
+      // for CoM jacobian
+      MatrixXd Jvi;
+      MatrixXd Jwi;
+      MatrixXd dJvi;
+      MatrixXd dJwi;
+
       // for recursive newton euler
       Vector3d dv_rne;
       Vector3d dw_rne;
       Vector3d dvC_rne;
+      double ddth_rne;
       Vector3d fHat_rne;
       Vector3d nHat_rne;
       Vector3d f_rne;
       Vector3d n_rne;
-    };
-
-    struct Limb{
-      Node *node;
-    } *limb;
+      double tau_rne;
+    } *link;
 
     TreeModelList tm_list;
 
-    void readCnoid(Config&, Info&);
-    void readBody(Config&, Info&);
-    void readModel(Config&, Info&);
-    void deleteModel(Config&, Info&);
-    void update(Config&, Info&);
+    VectorXd readJointStateVector(const string);
+    void writeJointStateVector(const string, const VectorXd);
+    MatrixXd stateMatrixFilter(const bool, const bool, const MatrixXd);
+    VectorXd readEndEffectorValueVector(const string);
+
+    void readCnoid(const string, const string, Config::Clock&);
+    void readBody(const string);
+    void readModel(Config&);
+    void deleteModel();
+    void update(const bool);
   };
 }

@@ -6,7 +6,7 @@
 
 void RLS::Config::setDir()
 {
-  if(flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   dir.share = dir.link + "share/";
   dir.cnoid = dir.share + "project/" + cnoid.name + ".cnoid";

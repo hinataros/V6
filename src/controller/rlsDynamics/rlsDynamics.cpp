@@ -3,31 +3,31 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-VectorXd RLS::RlsDynamics::rlsDynamics(Config &config, Info &info, Model &model, double &t)
+VectorXd RLS::RlsDynamics::rlsDynamics(Config &config, Model &model, double &t)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
-  model.update(config, info);
+  model.update(config.controller.dynamics);
 
   if(initialValueFlag)
-    initialValue(config, info, model);
+    initialValue(model);
 
-  resize(config, info, model);
-  index(config, info, model);
+  resize(model);
+  index(model);
 
-  if(configurationManager(config, info, model, t))
-    reconfigure(config, info);
+  // if(configurationManager(config, info, model, t))
+  //   reconfigure(config, info);
 
-  update(config, info, model);
+  // update(config, info, model);
 
-  reference(config, info, model, t);
-  controlMethod(config, info, model);
+  // reference(config, info, model, t);
+  // controlMethod(config, info, model);
 
-  outputConfig(config, info, model);
+  // outputConfig(config, info, model);
 
-  return input;
+  // return input;
+  return VectorXd(model.hoap2.info.dof.all);
 }

@@ -6,6 +6,12 @@ Sequence:
 
     Motion controller: baseVelocitySynergy
 
+    des:
+      com: default
+      base: default
+    ref:
+      com: com2dcm
+
     Bc:
       - [1, 1, 1, 1, 1, 1]
       - [1, 1, 1, 1, 1, 1]

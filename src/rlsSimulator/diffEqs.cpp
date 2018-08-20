@@ -3,33 +3,31 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
-#include "controller.hpp"
+#include "rlsDynamics.hpp"
 #include "output.hpp"
 #include "rlsSimulator.hpp"
 
-void RLS::RlsSimulator::diffEqs(Config &config, Info &info, Model &model, int phase)
+void RLS::RlsSimulator::diffEqs(Config &config, Model &model, const int phase)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   if(config.controller.input=="velocity"){
-    k.vo[phase] = u.head(3) - cross(u.segment(3,3))*model.hoap2.limb[0].node[0].r;
+    k.vo[phase] = u.head(3) - cross(u.segment(3,3))*model.hoap2.link[model.hoap2.info.rootNode].r;
     k.w[phase] = u.segment(3,3);
-    k.dth[phase] = u.tail(info.dof.joint);
+    k.dth[phase] = u.tail(model.hoap2.info.dof.joint);
 
     k.dvo[phase] = Vector3d::Zero();
     k.dw[phase] = Vector3d::Zero();
-    k.ddth[phase] = VectorXd::Zero(info.dof.joint);
+    k.ddth[phase] = VectorXd::Zero(model.hoap2.info.dof.joint);
 
   }else{
     if(config.controller.input=="acceleration"){
-      dvoB = u.head(3) - (cross(u.segment(3,3))*model.hoap2.limb[0].node[0].r + cross(model.hoap2.limb[0].node[0].w)*model.hoap2.limb[0].node[0].v);
+      dvoB = u.head(3) - (cross(u.segment(3,3))*model.hoap2.link[model.hoap2.info.rootNode].r + cross(model.hoap2.link[model.hoap2.info.rootNode].w)*model.hoap2.link[model.hoap2.info.rootNode].v);
       dwB = u.segment(3,3);
-      ddth = u.tail(info.dof.joint);
-
+      ddth = u.tail(model.hoap2.info.dof.joint);
     }
-    if(config.controller.input=="torque"){
+    // if(config.controller.input=="torque"){
       // lmp(config, model, u, controller.cal_Jc, controller.cal_dJc, controller.Bc);
       // forwardDynamics(config, model, u);
 
@@ -39,11 +37,11 @@ void RLS::RlsSimulator::diffEqs(Config &config, Info &info, Model &model, int ph
       // dvoB = ddq.head(3) - (cross(ddq.segment(3,3))*model.hoap2.limb[0].node[0].r + cross(model.hoap2.limb[0].node[0].w)*model.hoap2.limb[0].node[0].v);
       // dwB = ddq.segment(3,3);
       // ddth = ddq.tail(info.dof.joint);
-    }
+    // }
 
-    k.vo[phase] = model.hoap2.limb[0].node[0].vo;
-    k.w[phase] = model.hoap2.limb[0].node[0].w;
-    k.dth[phase] = model.hoap2.all.dth;
+    k.vo[phase] = model.hoap2.link[model.hoap2.info.rootNode].vo;
+    k.w[phase] = model.hoap2.link[model.hoap2.info.rootNode].w;
+    k.dth[phase] = model.hoap2.readJointStateVector("joint velocity");
 
     k.dvo[phase] = dvoB;
     k.dw[phase] = dwB;

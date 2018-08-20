@@ -6,7 +6,7 @@
 
 void RLS::Config::readArgument(int argc, char *argv[])
 {
-  if(flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   // switch (argc) {
   // case 2:
@@ -24,5 +24,5 @@ void RLS::Config::readArgument(int argc, char *argv[])
   }
 
   if(option=="-d")
-    flag.debug = true;
+    debug = true;
 }

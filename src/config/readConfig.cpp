@@ -9,7 +9,7 @@
 
 void RLS::Config::readConfig()
 {
-  if(flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   cout << "config: " << def << ".conf"<< endl;
 
@@ -22,7 +22,7 @@ void RLS::Config::readConfig()
   flag.shm = doc["Execution"]["Shared memory"].as<bool>();
 
   if(option!="-d")
-    flag.debug = doc["Execution"]["Debug mode"].as<bool>();
+    debug = doc["Execution"]["Debug mode"].as<bool>();
 
   // model config
   body.name = doc["Model"]["Body name"].as<string>();
