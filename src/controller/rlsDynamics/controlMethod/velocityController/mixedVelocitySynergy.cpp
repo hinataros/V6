@@ -3,13 +3,12 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-VectorXd RLS::RlsDynamics::mixedVelocitySynergy(Config &config, Info &info, Model &model)
+VectorXd RLS::RlsDynamics::mixedVelocitySynergy(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   // constraint
   VectorXd cal_VcBarRef = -cal_PcM.transpose()*cal_VMRef;

@@ -3,16 +3,15 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::centroidalDcmMomentum(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::centroidalDcmMomentum(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
-  dcmMomentum(config, info, model);
-  centroidalAngularMomentum(config, info, model);
+  dcmMomentum(info);
+  centroidalAngularMomentum(info);
 
   cal_dLCRef <<
     dpRef,

@@ -3,13 +3,12 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-VectorXd RLS::RlsDynamics::accelerationSolver(Config &config, Info &info, Model &model)
+VectorXd RLS::RlsDynamics::accelerationSolver(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   // // base
   // // *********************************************************************************
@@ -57,8 +56,8 @@ VectorXd RLS::RlsDynamics::accelerationSolver(Config &config, Info &info, Model 
 
   // return ddqBoptRef;
 
-  if(info.sim.state)
-    QuadProgpp::solver(G, g, "e", CE, ce, ddqMoptRef);
+  // if(info.sim.state)
+  //   QuadProgpp::solver(G, g, "e", CE, ce, ddqMoptRef);
 
   return ddqMoptRef;
 }

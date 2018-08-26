@@ -8,6 +8,7 @@ add_subdirectory(endEffectorReference)
 add_subdirectory(externalWrenchReference)
 
 set(srcs
+  spatialReference.cpp
   reference.cpp
   )
 

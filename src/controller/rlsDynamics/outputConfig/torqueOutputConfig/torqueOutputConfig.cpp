@@ -3,17 +3,16 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::torqueOutputConfig(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::torqueOutputConfig(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
-  torqueOutputDesConfig(config, info, model);
-  torqueOutputErrConfig(config, info, model);
-  torqueOutputRefConfig(config, info, model);
-  torqueOutputIndexConfig(config, info, model);
-  torqueOutputIndexPrintConfig(config, info, model);
+  torqueOutputDesConfig(info);
+  torqueOutputErrConfig(info);
+  torqueOutputRefConfig(info);
+  torqueOutputIndexConfig(info);
+  torqueOutputIndexPrintConfig(info);
 }

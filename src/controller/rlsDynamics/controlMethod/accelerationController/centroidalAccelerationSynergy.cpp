@@ -3,13 +3,12 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-VectorXd RLS::RlsDynamics::centroidalAccelerationSynergy(Config &config, Info &info, Model &model)
+VectorXd RLS::RlsDynamics::centroidalAccelerationSynergy(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   // constraint
   VectorXd cal_dVcCBarRef = -cal_PcM.transpose()*cal_dVCRef;
@@ -24,12 +23,12 @@ VectorXd RLS::RlsDynamics::centroidalAccelerationSynergy(Config &config, Info &i
   VectorXd ddthmRef = pInv(cal_JmCBar)*cal_dVmCTildeRef;
 
   // nonlinear
-  VectorXd hcC = cal_dPcM.transpose()*cal_VC + cal_dJcHat*model.hoap2.all.dth;
-  VectorXd hmC = -dBm.transpose()*cal_V + cal_dPmM.transpose()*cal_VC + cal_dJmHat*model.hoap2.all.dth;
+  VectorXd hcC = cal_dPcM.transpose()*cal_VC + cal_dJcHat*dth;
+  VectorXd hmC = -dBm.transpose()*cal_V + cal_dPmM.transpose()*cal_VC + cal_dJmHat*dth;
 
   VectorXd h = pInv(cal_JcHat)*hcC + pInv(cal_JmCBar)*(hmC - cal_JmHat*pInv(cal_JcHat)*hcC);
 
-  VectorXd ddthnRef = N(cal_JcHat)*N(cal_JmCBar)*ddthD(config, model);
+  VectorXd ddthnRef = N(cal_JcHat)*N(cal_JmCBar)*ddthD(info);
 
   ddthRef = ddthcRef + ddthmRef + ddthnRef- h;
 

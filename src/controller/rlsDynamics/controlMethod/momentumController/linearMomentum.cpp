@@ -3,13 +3,12 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::linearMomentum(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::linearMomentum(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
-  dpRef = model.hoap2.all.m*dvCRef;
+  dpRef = M*dvCRef;
 }

@@ -1,16 +1,14 @@
 # @author Sho Miyahara 2017
 
-Sequence:
+Default:
   -
-    twf: 5.
-
-    Motion controller: baseVelocitySynergy
-
-    des:
+    trajectory:
       com: default
       base: default
     ref:
       com: com2dcm
+
+    Motion controller: baseVelocitySynergy
 
     Bc:
       - [1, 1, 1, 1, 1, 1]
@@ -23,15 +21,6 @@ Sequence:
       - [1, 1, 1, 0, 0, 0]
       - [1, 1, 1, 0, 0, 0]
 
-    rCf: [., ., .]
-    rBf: [., ., -0.05]
-    xiBf: [., .52, .]
-    cal_Xf:
-      - [., ., ., ., ., .]
-      - [., ., ., ., ., .]
-      - [., ., ., ., ., .]
-      - [., ., ., ., ., .]
-
     KpC: .
     KdC: .
 
@@ -40,8 +29,80 @@ Sequence:
 
     KthD: .
 
+Sequence:
   -
-    twf: 10.
+    twf: 2.
 
-  -
-    twf: 10.
+    # CoM trajectory: {name: CP}
+    # Base translation trajectory: {name: CP}
+    # External wrench trajectory: {name: CP}
+    # DCM trajectory: {name: CP}
+
+    # Base translation reference: default
+    # Base orientation reference: default
+    # End effector reference: default
+    # CoM reference: dcmControl
+    # DCM reference: default
+    # External wrench reference: default
+
+    Motion controller: baseVelocitySynergy
+    rCf: [0., 0., -0.05]
+    rBf: [0., 0., 0.1]
+    xiBf: [0., 0.52, 0.]
+    cal_Fextf: [0, 0, 0, 1, 0, 0]
+    cal_Xf:
+      - [1., 0., 0., 0., 0., 0.]
+      - [0., 1., 0., 0., 0., 0.]
+      - [0., 0., 1., 0., 0., 0.]
+      - [0., 0., 0., 1., 0., 0.]
+    Bc:
+      - [1, 1, 1, 1, 1, 1]
+      - [1, 1, 1, 1, 1, 1]
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+    Bm:
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+      - [1, 1, 1, 0, 0, 0]
+      - [1, 1, 1, 0, 0, 0]
+    Bp:
+      - [0, 0]
+      - [1, 0]
+      - [1, 0]
+      - [1, 0]
+
+    KDlC: [1,1,1]
+    KpHG: 2
+    KdHG: 3
+    cal_Xtd:
+      - [1, 2, 3, 4, 5, 6]
+      - [1, 2, 3, 4, 5, 6]
+      - [1, 2, 3, 4, 5, 6]
+      - [1, 2, 3, 4, 5, 6]
+  # -
+  #   -
+  #     twf: 2.
+
+  #     Motion controller: a
+  #     rCf: [0, 0, -0.05]
+  #     rBf: [0., 0., 0.1]
+  #     xiBf: [0., 0.52, 0.]
+  #     cal_Xf:
+  #       - [1., 0., 0., 0., 0., 0.]
+  #       - [0., 1., 0., 0., 0., 0.]
+  #       - [0., 0., 1., 0., 0., 0.]
+  #       - [0., 0., 0., 1., 0., 0.]
+  #   -
+  #     twf: 3.
+  # -
+  #   -
+  #     twf: 5.
+  #     Motion controller: b
+  #     rCf: [0, 0, -0.02]
+  #     rBf: [0., 0., 0.4]
+  #     xiBf: [0., 0.2, 0.]
+  #     cal_Xf:
+  #       - [2., 0., 0., 0., 0., 0.]
+  #       - [0., 2., 0., 0., 0., 0.]
+  #       - [0., 0., 2., 0., 0., 0.]
+  #       - [0., 0., 0., 2., 0., 0.]

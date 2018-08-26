@@ -8,86 +8,173 @@
 #include "rlsDynamics.hpp"
 
 namespace RLS{
-  template<> string RlsDynamics::readValue(YAML::Node &doc, string node, int seq, string name)
+  template<>
+  string RlsDynamics::readValue(YAML::Node &doc, string node, int phase, string name)
   {
     string value;
 
     try{
-      value = doc[node][seq][name].as<string>();
+      value = doc[node][phase][name].as<string>();
     }
-    catch(...){value="default";}
+    catch(...){value=NAN;}
 
     return value;
   }
-
-  template<> int RlsDynamics::readValue(YAML::Node &doc, string node, int seq, string name)
+  template<>
+  int RlsDynamics::readValue(YAML::Node &doc, string node, int phase, string name, int i, int j)
   {
     int value;
 
     try{
-      value = doc[node][seq][name].as<int>();
+      value = doc[node][phase][name][i][j].as<int>();
     }
-    catch(...){value=0;}
+    catch(...){value=NAN;}
 
     return value;
   }
-
-  template<> double RlsDynamics::readValue(YAML::Node &doc, string node, int seq, string name)
+  template<>
+  double RlsDynamics::readValue(YAML::Node &doc, string node, int phase, string name)
   {
     double value;
 
     try{
-      value = doc[node][seq][name].as<double>();
+      value = doc[node][phase][name].as<double>();
     }
-    catch(...){value=0.;}
+    catch(...){value=NAN;}
+
+    return value;
+  }
+  template<>
+  double RlsDynamics::readValue(YAML::Node &doc, string node, int phase, string name, int i)
+  {
+    double value;
+
+    try{
+      value = doc[node][phase][name][i].as<double>();
+    }
+    catch(...){value=NAN;}
+
+    return value;
+  }
+  template<>
+  double RlsDynamics::readValue(YAML::Node &doc, string node, int phase, string name, int i, int j)
+  {
+    double value;
+
+    try{
+      value = doc[node][phase][name][i][j].as<double>();
+    }
+    catch(...){value=NAN;}
 
     return value;
   }
 
-  template<> int RlsDynamics::readValue(YAML::Node &doc, string node, int seq, string name, int i)
+  template<>
+  string RlsDynamics::readValue(YAML::Node &doc, string node, int num, int phase, string name)
+  {
+    string value;
+
+    try{
+      value = doc[node][num][phase][name].as<string>();
+    }
+    catch(...){value=NAN;}
+
+    return value;
+  }
+  template<>
+  int RlsDynamics::readValue(YAML::Node &doc, string node, int num, int phase, string name, int i, int j)
   {
     int value;
 
     try{
-      value = doc[node][seq][name][i].as<int>();
+      value = doc[node][num][phase][name][i][j].as<int>();
     }
-    catch(...){value=0;}
+    catch(...){value=NAN;}
 
     return value;
   }
-
-  template<> double RlsDynamics::readValue(YAML::Node &doc, string node, int seq, string name, int i)
+  template<>
+  double RlsDynamics::readValue(YAML::Node &doc, string node, int num, int phase, string name)
   {
     double value;
 
     try{
-      value = doc[node][seq][name][i].as<double>();
+      value = doc[node][num][phase][name].as<double>();
     }
-    catch(...){value=0.;}
+    catch(...){value=NAN;}
+
+    return value;
+  }
+  template<>
+  double RlsDynamics::readValue(YAML::Node &doc, string node, int num, int phase, string name, int i)
+  {
+    double value;
+
+    try{
+      value = doc[node][num][phase][name][i].as<double>();
+    }
+    catch(...){value=NAN;}
+
+    return value;
+  }
+  template<>
+  double RlsDynamics::readValue(YAML::Node &doc, string node, int num, int phase, string name, int i, int j)
+  {
+    double value;
+
+    try{
+      value = doc[node][num][phase][name][i][j].as<double>();
+    }
+    catch(...){value=NAN;}
 
     return value;
   }
 
-  template<> int RlsDynamics::readValue(YAML::Node &doc, string node, int seq, string name, int i, int j)
+  template<>
+  string RlsDynamics::readValue(YAML::Node &doc, string node, int phase, string name1, string name2)
+  {
+    string value;
+
+    try{
+      value = doc[node][phase][name1][name2].as<string>();
+    }
+    catch(...){value=NAN;}
+
+    return value;
+  }
+  template<>
+  int RlsDynamics::readValue(YAML::Node &doc, string node, int phase, string name1, string name2)
   {
     int value;
 
     try{
-      value = doc[node][seq][name][i][j].as<int>();
+      value = doc[node][phase][name1][name2].as<int>();
     }
-    catch(...){value=0;}
+    catch(...){value=NAN;}
 
     return value;
   }
-
-  template<> double RlsDynamics::readValue(YAML::Node &doc, string node, int seq, string name, int i, int j)
+  template<>
+  string RlsDynamics::readValue(YAML::Node &doc, string node, int num, int phase, string name1, string name2)
   {
-    double value;
+    string value;
 
     try{
-      value = doc[node][seq][name][i][j].as<double>();
+      value = doc[node][num][phase][name1][name2].as<string>();
     }
-    catch(...){value=0.;}
+    catch(...){value=NAN;}
+
+    return value;
+  }
+  template<>
+  int RlsDynamics::readValue(YAML::Node &doc, string node, int num, int phase, string name1, string name2)
+  {
+    int value;
+
+    try{
+      value = doc[node][num][phase][name1][name2].as<int>();
+    }
+    catch(...){value=NAN;}
 
     return value;
   }

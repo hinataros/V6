@@ -3,57 +3,50 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::renameMix(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::renameMix(TreeModel &model)
 {
-  if(config.flag.debug) DEBUG;
-
-  cal_VM <<
-    model.hoap2.all.vC,
-    model.hoap2.limb[0].node[0].w;
-
-  dqM <<
-    cal_VM,
-    model.hoap2.all.dth;
+  if(debug) DEBUG;
 
   // ******************************
   // inertia
-  IC = model.hoap2.all.MM.block(3,3,3,3);
-  MC = model.hoap2.all.MM.block(0,0,6,6);
-  HMth = model.hoap2.all.MM.block(0,6,6,info.dof.joint);
-  HC = model.hoap2.all.MM.block(3,6,3,info.dof.joint);
-  cal_AM = model.hoap2.all.MM.block(0,0,6,info.dof.all);
+  IC = model.all.MM.block(3,3,3,3);
+  MC = model.all.MM.block(0,0,6,6);
+  HMth = model.all.MM.block(0,6,6,model.info.dof.joint);
+  HC = model.all.MM.block(3,6,3,model.info.dof.joint);
+  cal_AM = model.all.MM.block(0,0,6,model.info.dof.all);
 
-  MthC = model.hoap2.all.MM.block(6,6,info.dof.joint,info.dof.joint);
+  MthC = model.all.MM.block(6,6,model.info.dof.joint,model.info.dof.joint);
 
   // diff inertia
-  dIC = model.hoap2.all.dMM.block(3,3,3,3);
-  dHC = model.hoap2.all.dMM.block(3,6,3,info.dof.joint);
+  cal_dAM = model.all.dMM.block(0,0,6,model.info.dof.all);
+  dIC = model.all.dMM.block(3,3,3,3);
+  dHC = model.all.dMM.block(3,6,3,model.info.dof.joint);
 
   // nonlinear
-  cal_CM.tail(3) = dIC*cal_VM.tail(3) + dHC*model.hoap2.all.dth;
-  cthC = cth - model.hoap2.all.JB2C.transpose()*cal_CB.head(3);
+  cmm = dIC*wB + dHC*dth;
+  cal_CM.tail(3) = cmm;
+  cthC = cth - model.all.JB2C.transpose()*cal_CB.head(3);
 
   // gravity
   gf = cal_GB.head(3);
   cal_GC.head(3) = gf;
 
   // ******************************
-  if(info.contact.c.all)
+  if(model.info.contact.c.all)
     JcM <<
       cal_PcM.transpose(), cal_JcM;
-  if(info.contact.m.all)
+  if(model.info.contact.m.all)
     JmM <<
       cal_PmM.transpose(), cal_JmM;
 
   // diff
-  if(info.contact.c.all)
+  if(model.info.contact.c.all)
     dJcM <<
       cal_dPcM.transpose(), cal_dJcM;
-  if(info.contact.m.all)
+  if(model.info.contact.m.all)
     dJmM <<
       cal_dPmM.transpose(), cal_dJmM;
   // ******************************

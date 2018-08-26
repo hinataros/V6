@@ -3,29 +3,28 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::reconfigure(Config &config, Info &info)
+void RLS::RlsDynamics::reconfigure(TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
-  for(int i=1; i<info.value.node; i++){
-    info.limb[i].c = Bc_kDiag.block(6*(i-1),6*(i-1),6,6).diagonal().sum();
-    info.limb[i].m = Bm_kDiag.block(6*(i-1),6*(i-1),6,6).diagonal().sum();
+  for(int i=0; i<info.eeNum; i++){
+    // info.limb[i].c = Bc_kDiag.block(6*(i-1),6*(i-1),6,6).diagonal().sum();
+    // info.limb[i].m = Bm_kDiag.block(6*(i-1),6*(i-1),6,6).diagonal().sum();
 
     info.contact.c.all = Bc_kDiag.diagonal().sum();
     info.contact.m.all = Bm_kDiag.diagonal().sum();
 
     // smiyahara: closed loop formulation におけるforward kinematicsのため
     for(int j=0; j<6; j++)
-      info.contact.c.axis[j] += Bc_kDiag(6*(i-1)+j,6*(i-1)+j);
+      info.contact.c.axis[j] += Bc_kDiag(6*i+j,6*i+j);
   }
 
-  Bc_k = MatrixXd::Zero(6*info.value.joint, info.contact.c.all);
-  Bm_k = MatrixXd::Zero(6*info.value.joint, info.contact.m.all);
-  for(int i=0, ci=0, mi=0; i<6*info.value.joint; i++){
+  Bc_k = MatrixXd::Zero(6*info.eeNum, info.contact.c.all);
+  Bm_k = MatrixXd::Zero(6*info.eeNum, info.contact.m.all);
+  for(int i=0, ci=0, mi=0; i<6*info.eeNum; i++){
     if(Bc_kDiag(i, i)){
       Bc_k(i,ci) = 1.;
       ci++;
@@ -36,20 +35,20 @@ void RLS::RlsDynamics::reconfigure(Config &config, Info &info)
     }
   }
 
-  Bp = MatrixXd::Zero(2*info.value.joint, BpDiag.diagonal().sum());
-  for(int i=0, pi=0; i<2*info.value.joint; i++)
+  Bp = MatrixXd::Zero(2*info.eeNum, BpDiag.diagonal().sum());
+  for(int i=0, pi=0; i<2*info.eeNum; i++)
     if(BpDiag(i, i)){
       Bp(i,pi) = 1.;
       pi++;
     }
 
   // ******************************
-  Bc = MatrixXd::Zero(6*info.value.joint, info.contact.c.all);
-  Bm = MatrixXd::Zero(6*info.value.joint, info.contact.m.all);
+  Bc = MatrixXd::Zero(6*info.eeNum, info.contact.c.all);
+  Bm = MatrixXd::Zero(6*info.eeNum, info.contact.m.all);
 
   // diff
-  dBc = MatrixXd::Zero(6*info.value.joint, info.contact.c.all);
-  dBm = MatrixXd::Zero(6*info.value.joint, info.contact.m.all);
+  dBc = MatrixXd::Zero(6*info.eeNum, info.contact.c.all);
+  dBm = MatrixXd::Zero(6*info.eeNum, info.contact.m.all);
 
   // ******************************
   cal_Pc = MatrixXd::Zero(6, info.contact.c.all);

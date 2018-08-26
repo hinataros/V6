@@ -1,24 +1,23 @@
 # @author Sho Miyahara 2017
 
 add_subdirectory(initialize)
-# add_subdirectory(configurationManager)
-# add_subdirectory(readWork)
-# add_subdirectory(update)
-# add_subdirectory(reference)
-# add_subdirectory(controlMethod)
+add_subdirectory(configurationManager)
+add_subdirectory(readWork)
+add_subdirectory(update)
+add_subdirectory(trajectoryGenerator)
+add_subdirectory(reference)
+add_subdirectory(controlMethod)
 add_subdirectory(index)
 
-# add_subdirectory(add)
-# add_subdirectory(transform)
+add_subdirectory(add)
 
-# add_subdirectory(outputConfig)
+add_subdirectory(outputConfig)
 
 set(srcs
   # finalize.cpp
   initialValue.cpp
   resize.cpp
-  # reset.cpp
-  # reconfigure.cpp
+  reconfigure.cpp
   rlsDynamics.cpp
   )
 
@@ -35,6 +34,7 @@ set(rlsDynamics_srcs
   ${configurationManager_srcs}
   ${readWork_srcs}
   ${update_srcs}
+  ${trajectoryGenerator_srcs}
   ${reference_srcs}
   ${controlMethod_srcs}
   ${index_srcs}

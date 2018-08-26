@@ -11,15 +11,6 @@ void RLS::TreeModel::initializeLink()
 
   ag = Vector3d::Zero();
 
-  // for(int i=0; i<info.value.node; i++){
-  //   // smiyahara: 初期化の場所考えたほうがいい
-  //   info.limb[i].contact = false;
-  //   info.limb[i].c = info.limb[i].m = 0;
-
-  info.dof.joint = 0;
-
-  info.eeNum = 0;
-
   for(int i=0; i<info.linkNum; i++){
     link[i].active = false;
 

@@ -3,19 +3,18 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-VectorXd RLS::RlsDynamics::highGainController(Config &config, Info &info, Model &model)
+VectorXd RLS::RlsDynamics::highGainController(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
-  (this->*motionController_ptr)(config, info, model);
+  (this->*motionController_ptr)(info);
 
-  thDes += dthRef*info.sim.dt;
+  thDes += dthRef*dt;
 
-  tau = KdHG*(dthRef - model.hoap2.all.dth) + KpHG*(thDes - model.hoap2.all.th);
+  tau = KdHG*(dthRef - dth) + KpHG*(thDes - th);
 
   return tau;
 }

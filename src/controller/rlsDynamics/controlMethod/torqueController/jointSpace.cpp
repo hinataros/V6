@@ -3,13 +3,12 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::jointSpace(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::jointSpace(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   tau = Mth*ddthRef + cth + gth;
 }

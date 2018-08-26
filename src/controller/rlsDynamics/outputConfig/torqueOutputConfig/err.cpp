@@ -3,13 +3,12 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::torqueOutputErrConfig(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::torqueOutputErrConfig(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   dc_list.erB = erB;
   dc_list.evB = evB;
@@ -24,8 +23,9 @@ void RLS::RlsDynamics::torqueOutputErrConfig(Config &config, Info &info, Model &
   dc_list.er = dc_list.ev
     = dc_list.eo = dc_list.ew
     = dc_list.ef = dc_list.en
-    = VectorXd::Zero(3*info.value.joint);
-  for(int i=0; i<info.value.joint; i++){
+    = VectorXd::Zero(3*info.eeNum);
+
+  for(int i=0; i<info.eeNum; i++){
     dc_list.er.segment(3*i, 3) = cal_Ep.segment(6*i, 3);
     dc_list.eo.segment(3*i, 3) = antiDiag(3,1.,1.,1.)*cal_Ep.segment(6*i+3, 3);
 

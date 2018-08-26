@@ -3,13 +3,12 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-VectorXd RLS::RlsDynamics::hogehogeMomentum(Config &config, Info &info, Model &model)
+VectorXd RLS::RlsDynamics::hogehogeMomentum(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   int qwdof = 3 + info.dof.joint;
 
@@ -28,7 +27,7 @@ VectorXd RLS::RlsDynamics::hogehogeMomentum(Config &config, Info &info, Model &m
     dJcw <<
       dCcm.transpose(), cal_dJcM;
 
-    VectorXd cal_dVccRef = -Ccf.transpose()*(dpRef/model.hoap2.all.m) - dJcw*dqw;
+    VectorXd cal_dVccRef = -Ccf.transpose()*(dpRef/M) - dJcw*dqw;
 
     ddq1Ref = pInv(Jcw)*cal_dVccRef;
   }
@@ -52,7 +51,7 @@ VectorXd RLS::RlsDynamics::hogehogeMomentum(Config &config, Info &info, Model &m
   JmwBar = Jmw*N(Jcw);
 
   VectorXd dVmBarRef = Bm.transpose()*cal_dVRef + dBm.transpose()*cal_V;
-  VectorXd cal_dVmcRef = dVmBarRef - Cmf.transpose()*(dpRef/model.hoap2.all.m) - dJmw*dqw;
+  VectorXd cal_dVmcRef = dVmBarRef - Cmf.transpose()*(dpRef/M) - dJmw*dqw;
   ddq2Ref = N(Jcw)*pInv(JmwBar)*cal_dVmcRef;
 
   VectorXd ddq3Ref = VectorXd::Zero(qwdof);
@@ -63,11 +62,11 @@ VectorXd RLS::RlsDynamics::hogehogeMomentum(Config &config, Info &info, Model &m
   MatrixXd AwBar = MatrixXd::Zero(3, qwdof);
   AwBar = Aw*N(Jcw)*N(JmwBar);
 
-  VectorXd dlCcRef = dlCRef - cal_CM.tail(3);
+  VectorXd dlCcRef = dlCRef - cmm;
 
   ddq3Ref = N(Jcw)*N(JmwBar)*pInv(AwBar)*dlCcRef;
 
-  VectorXd ddqnRef = N(Jcw)*N(JmwBar)*N(AwBar)*ddqthinit(config, info, model).tail(qwdof);
+  VectorXd ddqnRef = N(Jcw)*N(JmwBar)*N(AwBar)*ddqthinit(info).tail(qwdof);
   // // ****************************************************************
 
   // VectorXd ddq2Ref = VectorXd::Zero(qwdof);

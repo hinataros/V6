@@ -3,13 +3,12 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::base(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::base(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   MatrixXd MthBar = MatrixXd::Zero(info.dof.joint, info.dof.all);
   MthBar <<

@@ -3,15 +3,14 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-VectorXd RLS::RlsDynamics::ddqthD(Config &config, Info &info, Model &model)
+VectorXd RLS::RlsDynamics::ddqthD(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
-  VectorXd ddthD = -KDth*model.hoap2.all.dth;
+  VectorXd ddthD = -KDth*dth;
 
   return (VectorXd(info.dof.all)<<Vector6d::Zero(), ddthD).finished();
 }

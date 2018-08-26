@@ -3,13 +3,12 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::centroidalDistribution(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::centroidalDistribution(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   cal_FcBarRef = pInv(cal_PcM)*(cal_dLCRef + cal_GC);
   // cal_FcBarRef = cal_PcM.inverse()*(cal_dLCRef + cal_GC);

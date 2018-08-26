@@ -9,7 +9,7 @@ set(srcs
   baseOpt.cpp
   mixedOpt.cpp
   mixedmixedOpt.cpp
-  crb.cpp
+  centroidal.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" torqueController_srcs)

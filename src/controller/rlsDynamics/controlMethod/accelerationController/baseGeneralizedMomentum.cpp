@@ -3,32 +3,22 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-VectorXd RLS::RlsDynamics::baseGeneralizedMomentum(Config &config, Info &info, Model &model)
+VectorXd RLS::RlsDynamics::baseGeneralizedMomentum(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   MatrixXd ABBar = MatrixXd::Zero(6+info.contact.c.all, info.dof.all);
   ABBar <<
     cal_AB,
     Jc;
 
-  MatrixXd dAB = MatrixXd::Zero(6, info.dof.all);
-  dAB <<
-    model.hoap2.all.dM.block(0,0,6,info.dof.all);
-
   MatrixXd dABBar = MatrixXd::Zero(6+info.contact.c.all, info.dof.all);
   dABBar <<
-    dAB,
+    cal_dAB,
     dJc;
-
-  VectorXd dq = VectorXd::Zero(info.dof.all);
-  dq <<
-    cal_VB,
-    model.hoap2.all.dth;
 
   VectorXd cal_dLBBarRef = VectorXd::Zero(6+info.contact.c.all);
   cal_dLBBarRef.head(6) = -cal_dLBRef;
@@ -43,7 +33,7 @@ VectorXd RLS::RlsDynamics::baseGeneralizedMomentum(Config &config, Info &info, M
 
   VectorXd ddqmRef = N(ABBar)*pInv(JmBar)*dVmTildeRef;
 
-  VectorXd ddqthDRef = N(ABBar)*N(JmBar)*ddqthD(config, info, model);
+  VectorXd ddqthDRef = N(ABBar)*N(JmBar)*ddqthD(info);
 
   ddqBoptRef = ddqLBRef + ddqmRef + ddqthDRef;
 

@@ -3,18 +3,17 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::decomposeMix(Config &config, Model &model)
+void RLS::RlsDynamics::decomposeMix(Model &model)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
-  cal_PcM = TC2k.transpose()*Bc;
-  cal_PmM = TC2k.transpose()*Bm;
+  cal_PcM = model.hoap2.all.TC2k.transpose()*Bc;
+  cal_PmM = model.hoap2.all.TC2k.transpose()*Bm;
 
   // diff
-  cal_dPcM = dTC2k.transpose()*Bc + TC2k.transpose()*dBc;
-  cal_dPmM = dTC2k.transpose()*Bm + TC2k.transpose()*dBm;
+  cal_dPcM = model.hoap2.all.dTC2k.transpose()*Bc + model.hoap2.all.TC2k.transpose()*dBc;
+  cal_dPmM = model.hoap2.all.dTC2k.transpose()*Bm + model.hoap2.all.TC2k.transpose()*dBm;
 }

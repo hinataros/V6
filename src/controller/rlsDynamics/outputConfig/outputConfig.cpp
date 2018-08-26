@@ -3,20 +3,19 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::outputConfig(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::outputConfig(const string controlInput, const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
-  if(config.controller.input=="velocity")
-    velocityOutputConfig(config, info, model);
+  if(controlInput=="velocity")
+    velocityOutputConfig(info);
 
-  else if(config.controller.input=="acceleration")
-    accelerationOutputConfig(config, info, model);
+  else if(controlInput=="acceleration")
+    accelerationOutputConfig(info);
 
-  else if(config.controller.input=="torque")
-    torqueOutputConfig(config, info, model);
+  else if(controlInput=="torque")
+    torqueOutputConfig(info);
 }

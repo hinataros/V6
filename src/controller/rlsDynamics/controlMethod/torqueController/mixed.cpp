@@ -3,17 +3,16 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::mixed(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::mixed(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   MatrixXd MthHatBar = MatrixXd::Zero(info.dof.joint, info.dof.all);
   MthHatBar <<
-    model.hoap2.all.MM.block(0,6,6,info.dof.joint).transpose(), MthC;
+    HMth.transpose(), MthC;
 
   tau = MthHatBar*ddqMRef + cthC - cal_JcM.transpose()*cal_FcBarRef;
 

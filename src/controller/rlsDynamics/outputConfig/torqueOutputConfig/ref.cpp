@@ -3,13 +3,12 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::torqueOutputRefConfig(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::torqueOutputRefConfig(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   // dc_list.dvBRef = dvBRef;
   // dc_list.dwBRef = dwBRef;
@@ -35,8 +34,8 @@ void RLS::RlsDynamics::torqueOutputRefConfig(Config &config, Info &info, Model &
   // dc_list.dlBRef = dlBRef;
 
   dc_list.fRef = dc_list.nRef
-    = VectorXd::Zero(3*info.value.joint);
-  for(int i=0; i<info.value.joint; i++){
+    = VectorXd::Zero(3*info.eeNum);
+  for(int i=0; i<info.eeNum; i++){
     dc_list.fRef.segment(3*i, 3) = (Bc_k*cal_FcBarRef).segment(6*i, 3);
     dc_list.nRef.segment(3*i, 3) = (Bc_k*cal_FcBarRef).segment(6*i+3, 3);
   }

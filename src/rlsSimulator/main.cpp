@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
   RLS::Config config(argc, argv);
 
   RLS::Model model(config);
-  RLS::RlsDynamics rlsDynamics(model.hoap2.info);
+  RLS::RlsDynamics rlsDynamics(config.dir.work, model.hoap2.info);
   RLS::Output output;
 
   RLS::RlsSimulator rlsSimulator(model.hoap2.info);

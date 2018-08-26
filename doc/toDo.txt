@@ -127,3 +127,10 @@ info.contact.c.allなどはstateではなくデフォルトにしたほうがい
 
 jacobian(offset有): jacobian(), TreeModel::update(), Controller::resize()
 jacobianはmodelクラスの外に出したほうがいい
+
+
+**** chmodel branch ****
+transform()のオフセット
+bb_Rの計算位置
+接触座標系の設定をworkにしたい
+outputConfig/indexPrintのinfo.limb[i].contact

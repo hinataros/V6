@@ -3,13 +3,12 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::torqueOutputDesConfig(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::torqueOutputDesConfig(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   dc_list.rBDes = rBDes;
   dc_list.vBDes = vBDes;
@@ -30,9 +29,9 @@ void RLS::RlsDynamics::torqueOutputDesConfig(Config &config, Info &info, Model &
 
   dc_list.rDes = dc_list.vDes = dc_list.dvDes
     = dc_list.xiDes = dc_list.wDes = dc_list.dwDes
-    = VectorXd::Zero(3*info.value.joint);
+    = VectorXd::Zero(3*info.eeNum);
 
-  for(int i=0; i<info.value.joint; i++){
+  for(int i=0; i<info.eeNum; i++){
     dc_list.rDes.segment(3*i, 3) = cal_XDes.segment(6*i, 3);
     dc_list.xiDes.segment(3*i, 3) = antiDiag(3,1.,1.,1.)*cal_XDes.segment(6*i+3, 3);
 

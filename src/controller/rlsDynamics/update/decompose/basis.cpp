@@ -3,13 +3,12 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::basis(Config &config, Model &model)
+void RLS::RlsDynamics::basis()
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   Bc = bb_Rk*Bc_k;
   Bm = bb_Rk*Bm_k;

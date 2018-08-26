@@ -3,16 +3,15 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::update(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::update(Model &model)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
-  transform(config, info, model);
-  decompose(config, model);
-  objective(config, info, model);
-  rename(config, info, model);
+  transform(model);
+  decompose(model);
+  objective(model.hoap2.info);
+  rename(model);
 }

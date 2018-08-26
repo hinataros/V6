@@ -13,7 +13,7 @@ set(srcs
   baseGeneralizedMomentum.cpp
   mixedGeneralizedMomentum.cpp
   accelerationSolver.cpp
-  hinata.cpp
+  raa.cpp
   hogehogeMomentum.cpp
   )
 

@@ -1,7 +1,7 @@
 # @author Sho Miyahara 2017
 
 set(srcs
-  readVector.cpp
+  # readVector.cpp
   readValue.cpp
   )
 

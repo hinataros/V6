@@ -3,15 +3,14 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-VectorXd RLS::RlsDynamics::ddqthinit(Config &config, Info &info, Model &model)
+VectorXd RLS::RlsDynamics::ddqthinit(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
-  VectorXd ddthinit = -KDth*model.hoap2.all.dth + Kthinit*(th0 - model.hoap2.all.th);
+  VectorXd ddthinit = -KDth*dth + Kthinit*(th0 - th);
 
   return (VectorXd(info.dof.all)<<Vector6d::Zero(), ddthinit).finished();
 }

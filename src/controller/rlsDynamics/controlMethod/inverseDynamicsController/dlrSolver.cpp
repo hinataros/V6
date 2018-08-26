@@ -7,13 +7,12 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-VectorXd RLS::RlsDynamics::dlrSolver(Config &config, Info &info, Model &model)
+VectorXd RLS::RlsDynamics::dlrSolver(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   int n = info.dof.all + info.contact.c.all;
 
@@ -46,7 +45,7 @@ VectorXd RLS::RlsDynamics::dlrSolver(Config &config, Info &info, Model &model)
   G.block(info.dof.all, info.dof.all, info.contact.c.all, info.contact.c.all) = cF;
 
   // momentum control
-  (this->*momentumController_ptr)(config, info, model);
+  (this->*momentumController_ptr)(info);
 
   VectorXd dhRef = cal_dLCRef - cal_CM;
   VectorXd gdv = -(dhRef.transpose()*Wdh*cal_AM).transpose();
@@ -118,9 +117,9 @@ VectorXd RLS::RlsDynamics::dlrSolver(Config &config, Info &info, Model &model)
     0.,0.,0.,0.;
 
   VectorXd ci = VectorXd::Zero(ciNum);
-  ci <<
-    Smin*(1/info.sim.dt*info.sim.dt)*(DEG2RAD*thmin - (model.hoap2.all.th + info.sim.dt*model.hoap2.all.dth)),
-    -Smax(1/info.sim.dt*info.sim.dt)*(DEG2RAD*thmax - (model.hoap2.all.th + info.sim.dt*model.hoap2.all.dth));
+  // ci <<
+  //   Smin*(1/info.sim.dt*info.sim.dt)*(DEG2RAD*thmin - (th + info.sim.dt*dth)),
+  //   -Smax(1/info.sim.dt*info.sim.dt)*(DEG2RAD*thmax - (th + info.sim.dt*dth));
 
   // if(info.contact.c.all==12){
   //   MatrixXd CI = (MatrixXd(n, n) <<
@@ -141,7 +140,7 @@ VectorXd RLS::RlsDynamics::dlrSolver(Config &config, Info &info, Model &model)
   cal_FcBarRef = x.tail(info.contact.c.all);
 
   // torque control
-  (this->*torqueController_ptr)(config, info, model);
+  (this->*torqueController_ptr)(info);
 
 
   // int n = info.dof.all + info.contact.c.all;

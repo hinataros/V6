@@ -1,12 +1,12 @@
 #@author Sho Miyahara 2017
 
 set(srcs
-  checkContact.cpp
-  staticCheckContact.cpp
-  ankleStratagy.cpp
-  ankleHipStratagy.cpp
-  walking.cpp
-  walkHT.cpp
+  # checkContact.cpp
+  # staticCheckContact.cpp
+  # ankleStratagy.cpp
+  # ankleHipStratagy.cpp
+  # walking.cpp
+  # walkHT.cpp
   triggerConfig.cpp
   )
 

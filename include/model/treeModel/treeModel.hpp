@@ -13,6 +13,7 @@ namespace RLS{
     virtual public Common{
   private:
     void joints();
+    void initializeInfo();
     void initializeLink();
     void initializeAll();
 
@@ -36,11 +37,24 @@ namespace RLS{
       int joint;
     };
 
+    // smiyahara: 良い名前が浮かばなかった
+    struct Each{
+      int all;
+      int axis[6];
+    };
+    struct Contact{
+      string name;
+      int num;
+      Each c;
+      Each m;
+    };
+
     struct Info{
       int rootNode;
       int linkNum;
       int eeNum;
       Dof dof;
+      Contact contact;
     } info;
 
     struct All{ // smiyahara:ココのallの定義の仕方がびみょ
@@ -50,6 +64,15 @@ namespace RLS{
 
       Vector3d p;
       Vector3d lC;
+
+      MatrixXd Rk;
+      MatrixXd dRk;
+      MatrixXd TB2k;
+      MatrixXd dTB2k;
+      MatrixXd TC2k;
+      MatrixXd dTC2k;
+      MatrixXd J;
+      MatrixXd dJ;
 
       MatrixXd M;
       VectorXd c;
@@ -150,6 +173,9 @@ namespace RLS{
     void readBody(const string);
     void readModel(Config&);
     void deleteModel();
+
+    void transformMatrix();
+
     void update(const bool);
   };
 }

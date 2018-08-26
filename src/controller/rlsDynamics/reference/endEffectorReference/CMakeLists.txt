@@ -1,9 +1,9 @@
 # @author Sho Miyahara 2017
 
 set(srcs
-  endEffectorSequence.cpp
-  endEffectorWalking.cpp
-  endEffectorWalkingToeoff.cpp
+  endEffectorReferencePI.cpp
+  # endEffectorWalking.cpp
+  # endEffectorWalkingToeoff.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" endEffectorReference_srcs)

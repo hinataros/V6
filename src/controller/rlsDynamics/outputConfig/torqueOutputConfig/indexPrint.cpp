@@ -3,13 +3,12 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::torqueOutputIndexPrintConfig(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::torqueOutputIndexPrintConfig(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   MatrixXd vertex =
     // test
@@ -89,10 +88,10 @@ void RLS::RlsDynamics::torqueOutputIndexPrintConfig(Config &config, Info &info, 
   dc_list.indexPrintMatrix = MatrixXd::Zero(2*4+2*3, 5);
 
   double contactr = 1., contactl = 1.;
-  if(info.limb[0].contact==false&&info.limb[1].contact==true)
-    contactr = NAN;
-  if(info.limb[0].contact==true&&info.limb[1].contact==false)
-    contactl = NAN;
+  // if(info.limb[0].contact==false&&info.limb[1].contact==true)
+  //   contactr = NAN;
+  // if(info.limb[0].contact==true&&info.limb[1].contact==false)
+  //   contactl = NAN;
 
   dc_list.indexPrintMatrix =
     (MatrixXd(2*4+2*3,5)<<
@@ -100,7 +99,7 @@ void RLS::RlsDynamics::torqueOutputIndexPrintConfig(Config &config, Info &info, 
      contactl*vertexl, contactl*vertexl.col(0),
      contactr*rmax, contactl*lmax, NAN*MatrixXd::Zero(2,3),
      contactr*rmin, contactl*lmin, NAN*MatrixXd::Zero(2,3),
-     model.hoap2.all.rC.head(2), NAN*MatrixXd::Zero(2,4),
+     rC.head(2), NAN*MatrixXd::Zero(2,4),
      rp, NAN*MatrixXd::Zero(2,4),
      rX.head(2), NAN*MatrixXd::Zero(2,4)
      ).finished();

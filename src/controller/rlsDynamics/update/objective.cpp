@@ -3,21 +3,20 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-int RLS::RlsDynamics::objective(Config &config, Info &info, Model &model)
+int RLS::RlsDynamics::objective(TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
-  MatrixXd Fz = MatrixXd::Identity(2*info.value.joint, 2*info.value.joint);
+  MatrixXd Fz = MatrixXd::Identity(2*info.eeNum, 2*info.eeNum);
 
-  MatrixXd cal_S = MatrixXd::Zero(2*info.value.joint,6*info.value.joint);
-  for(int i=0; i<info.value.joint; i++)
+  MatrixXd cal_S = MatrixXd::Zero(2*info.eeNum,6*info.eeNum);
+  for(int i=0; i<info.eeNum; i++)
     cal_S.block(2*i,6*i+3,2,2) = bb_Spx;
 
-  for(int i=0; i<info.value.joint; i++){
+  for(int i=0; i<info.eeNum; i++){
     Fz.block(2*i,2*i,2,2) *= cal_F(6*i+2);
   }
 

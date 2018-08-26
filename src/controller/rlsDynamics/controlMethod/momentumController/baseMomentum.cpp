@@ -3,16 +3,15 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::baseMomentum(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::baseMomentum(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
-  linearMomentum(config, info, model);
-  baseAngularMomentum(config, info, model);
+  linearMomentum(info);
+  baseAngularMomentum(info);
 
   cal_dLBRef <<
     dpRef,

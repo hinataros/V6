@@ -3,16 +3,16 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::decompose(Config &config, Model &model)
+void RLS::RlsDynamics::decompose(Model &model)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
-  basis(config, model);
+  contactCoordinate(model);
+  basis();
 
-  decomposeBase(config, model);
-  decomposeMix(config, model);
+  decomposeBase(model);
+  decomposeMix(model);
 }

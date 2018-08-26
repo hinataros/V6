@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::initialize(const TreeModel::Info &info)
+void RLS::RlsDynamics::initialize(const string work_path, const TreeModel::Info &info)
 {
   if(debug) DEBUG;
 
@@ -20,6 +20,17 @@ void RLS::RlsDynamics::initialize(const TreeModel::Info &info)
 
   BpDiag = MatrixXi::Zero(2*info.eeNum, 2*info.eeNum);
 
+  th = VectorXd::Zero(info.dof.joint);
+  dth = VectorXd::Zero(info.dof.joint);
+
+  rB = Vector3d::Zero();
+  xiB = Vector3d::Zero();
+  vB = Vector3d::Zero();
+  wB = Vector3d::Zero();
+
+  rC = Vector3d::Zero();
+  vC = Vector3d::Zero();
+
   cal_XB = Vector6d::Zero();
   cal_VB = Vector6d::Zero();
   cal_VM = Vector6d::Zero();
@@ -32,32 +43,20 @@ void RLS::RlsDynamics::initialize(const TreeModel::Info &info)
   dq = VectorXd::Zero(info.dof.all);
   dqM = VectorXd::Zero(info.dof.all);
 
+  M = 0.;
   // transform offset
   rkk = new Vector3d[info.eeNum];
 
   for(int i=0; i<info.eeNum; i++)
     rkk[i] = Vector3d::Zero();
 
-  // jacobian
-  // ******************************
-  cal_J = MatrixXd::Zero(6*info.eeNum, info.dof.joint);
   bb_Rk = MatrixXd::Zero(6*info.eeNum, 6*info.eeNum);
-  TB2k = MatrixXd::Zero(6*info.eeNum, 6);
 
   // diff
-  cal_dJ = MatrixXd::Zero(6*info.eeNum, info.dof.joint);
   bb_dRk = MatrixXd::Zero(6*info.eeNum, 6*info.eeNum);
-  dTB2k = MatrixXd::Zero(6*info.eeNum, 6);
 
   Jth = MatrixXd::Zero(6, info.dof.joint);
   dJth = MatrixXd::Zero(6, info.dof.joint);
-
-  // ******************************
-  TC2k = MatrixXd::Zero(6*info.eeNum, 6);
-
-  // diff
-  dTC2k = MatrixXd::Zero(6*info.eeNum, 6);
-  // ******************************
 
   // rename
   // ******************************
@@ -72,6 +71,7 @@ void RLS::RlsDynamics::initialize(const TreeModel::Info &info)
   Mth = MatrixXd::Zero(info.dof.joint, info.dof.joint);
 
   // nonlinear
+  cal_dAB = MatrixXd::Zero(6, info.dof.all);
   cal_CB = Vector6d::Zero();
   cth = VectorXd::Zero(info.dof.joint);
 
@@ -89,10 +89,12 @@ void RLS::RlsDynamics::initialize(const TreeModel::Info &info)
   MthC = MatrixXd::Zero(info.dof.joint, info.dof.joint);
 
   // diff inertia
+  cal_dAM = MatrixXd::Zero(6, info.dof.all);
   dIC = Matrix3d::Zero();
   dHC = MatrixXd::Zero(3, info.dof.joint);
 
   // nonlinear
+  cmm = Vector3d::Zero();
   cal_CM = Vector6d::Zero();
   cthC = VectorXd::Zero(info.dof.joint);
 
@@ -132,18 +134,16 @@ void RLS::RlsDynamics::initialize(const TreeModel::Info &info)
   // ******************************
   th0 = VectorXd::Zero(info.dof.joint);
 
-  rC0 = rCf = Vector3d::Zero();
+  rC0 = Vector3d::Zero();
 
-  rB0 = rBf = Vector3d::Zero();
-  xiB0 = xiBf = Vector3d::Zero();
+  rB0 = Vector3d::Zero();
+  xiB0 = Vector3d::Zero();
 
-  rX0 = rXf = Vector3d::Zero();
+  rX0 = Vector3d::Zero();
 
   cal_X0 = VectorXd::Zero(6*info.eeNum);
-  cal_Xf = VectorXd::Zero(6*info.eeNum);
 
   cal_Fext0 = Vector6d::Zero();
-  cal_Fextf = Vector6d::Zero();
 
   rpk0 = VectorXd::Zero(2*info.eeNum);
 
@@ -155,15 +155,6 @@ void RLS::RlsDynamics::initialize(const TreeModel::Info &info)
 
   rXpreState = drXpreState = Vector3d::Zero();
   cal_XpreState = cal_VpreState = VectorXd::Zero(6*info.eeNum);
-
-  // previous desired value
-  // ******************************
-  rCpreDes = Vector3d::Zero();
-  rBpreDes = Vector3d::Zero();
-  xiBpreDes = Vector3d::Zero();
-  rXpreDes = Vector3d::Zero();
-  cal_XpreDes = VectorXd::Zero(6*info.eeNum);
-  cal_FextpreDes = Vector6d::Zero();
 
   // desired value
   // ******************************
@@ -292,6 +283,9 @@ void RLS::RlsDynamics::initialize(const TreeModel::Info &info)
   // selective matrix for forward kinematics
   bb_ScB = Matrix6d::Zero();
 
+  initializeSequence(work_path, info);
   initializeWalking(info);
-  initializeMap();
+  initializeTrajectoryGeneratorMap();
+  initializeReferenceMap();
+  initializeControllerMap();
 }

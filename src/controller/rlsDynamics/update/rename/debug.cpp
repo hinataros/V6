@@ -3,13 +3,12 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::renameDebug(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::renameDebug(Model &model)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   // o(cth);
   // o(model.hoap2.all.dM.block(6,6,info.dof.joint,info.dof.joint)*model.hoap2.all.dth);

@@ -3,18 +3,18 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::rename(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::rename(Model &model)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
-  renameBase(config, info, model);
-  renameMix(config, info, model);
-  renameCentroidal(config, info, model);
-  renameOthers(config, info, model);
+  renameState(model.hoap2);
+  renameBase(model.hoap2);
+  renameMix(model.hoap2);
+  renameCentroidal(model.hoap2);
+  renameOthers(model);
 
-  renameDebug(config, info, model);
+  renameDebug(model);
 }

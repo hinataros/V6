@@ -3,16 +3,17 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::renameOthers(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::renameOthers(Model &model)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
+
+  M = model.hoap2.all.m;
 
   // forward kinematics for kinematics simulation
   for(int i=0; i<6; i++)
-    if(!info.contact.c.axis[i]==0)
+    if(!model.hoap2.info.contact.c.axis[i]==0)
       bb_ScB(i,i) = 1;
 }

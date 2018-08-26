@@ -30,6 +30,7 @@ void RLS::TreeModel::readBody(const string body_path)
 
   link = new Link[info.linkNum];
 
+  initializeInfo();
   initializeLink();
 
   // for(int i=1; i<linkNum; i++){

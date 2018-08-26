@@ -3,13 +3,12 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-VectorXd RLS::RlsDynamics::mixedAccelerationSynergy(Config &config, Info &info, Model &model)
+VectorXd RLS::RlsDynamics::mixedAccelerationSynergy(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   // constraint
   VectorXd cal_dVcMBarRef = -cal_PcM.transpose()*cal_dVMRef;
@@ -24,8 +23,8 @@ VectorXd RLS::RlsDynamics::mixedAccelerationSynergy(Config &config, Info &info, 
   VectorXd ddthmRef = pInv(cal_JmMBar)*cal_dVmMTildeRef;
 
   // nonlinear
-  VectorXd hcM = cal_dPcM.transpose()*cal_VM + cal_dJcM*model.hoap2.all.dth;
-  VectorXd hmM = -dBm.transpose()*cal_V + cal_dPmM.transpose()*cal_VM + cal_dJmM*model.hoap2.all.dth;
+  VectorXd hcM = cal_dPcM.transpose()*cal_VM + cal_dJcM*dth;
+  VectorXd hmM = -dBm.transpose()*cal_V + cal_dPmM.transpose()*cal_VM + cal_dJmM*dth;
 
   VectorXd h = pInv(cal_JcM)*hcM + pInv(cal_JmMBar)*(hmM - cal_JmM*pInv(cal_JcM)*hcM);
 

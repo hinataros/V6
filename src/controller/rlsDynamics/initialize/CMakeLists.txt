@@ -1,7 +1,10 @@
 # @author Sho Miyahara 2017
 
 set(srcs
-  map.cpp
+  sequence.cpp
+  referenceMap.cpp
+  trajectoryGeneratorMap.cpp
+  controllerMap.cpp
   walking.cpp
   initialize.cpp
   )

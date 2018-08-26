@@ -3,11 +3,11 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::zeroTorque(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::zeroTorque(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
+
 }

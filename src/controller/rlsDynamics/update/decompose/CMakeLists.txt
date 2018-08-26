@@ -1,4 +1,5 @@
 set(srcs
+  contactCoordinate.cpp
   basis.cpp
   base.cpp
   mix.cpp

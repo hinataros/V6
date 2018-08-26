@@ -18,16 +18,17 @@ VectorXd RLS::RlsDynamics::rlsDynamics(Config &config, Model &model, double &t)
   resize(model);
   index(model);
 
-  // if(configurationManager(config, info, model, t))
-  //   reconfigure(config, info);
+  if(configurationManager(config, model, t))
+    reconfigure(model.hoap2.info);
 
-  // update(config, info, model);
+  update(model);
 
-  // reference(config, info, model, t);
-  // controlMethod(config, info, model);
+  trajectoryGenerator(t);
+  reference(model);
 
-  // outputConfig(config, info, model);
+  controlMethod(config.controller.input, model.hoap2.info);
 
-  // return input;
-  return VectorXd(model.hoap2.info.dof.all);
+  outputConfig(config.controller.input, model.hoap2.info);
+
+  return input;
 }

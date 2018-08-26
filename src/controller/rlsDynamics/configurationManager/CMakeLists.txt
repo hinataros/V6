@@ -3,6 +3,7 @@
 add_subdirectory(triggerConfig)
 
 set(srcs
+  update.cpp
   mapping.cpp
   configurationManager.cpp
   )

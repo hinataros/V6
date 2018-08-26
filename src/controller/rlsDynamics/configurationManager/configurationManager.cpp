@@ -6,9 +6,9 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-bool RLS::RlsDynamics::configurationManager(const string driven, Model &model, double &t)
+bool RLS::RlsDynamics::configurationManager(const Config &config, Model &model, double &t)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   bool flag = false;
 
@@ -21,12 +21,20 @@ bool RLS::RlsDynamics::configurationManager(const string driven, Model &model, d
   //   }
   // }
 
-  if(driven=="flow"||driven=="mix")
-    if(sequenceTriggerConfig(config, info, t))
-      flag = resetSequence(config, info, t);
+  if(config.controller.driven=="flow"||config.controller.driven=="mix"){
+    for(int i=0; i<seqNum; i++){
+      flag = sequenceTriggerConfig(t, config.clock.tf, i);
+
+      if(flag){
+        updateSequence(t, i);
+        readWork(config.dir.work, "Sequence", i, model.hoap2.info.eeNum);
+        sequence[i].phase++;
+      }
+    }
+  }
 
   if(flag)
-    mapping(config);
+    mapping();
 
   return flag;
 }

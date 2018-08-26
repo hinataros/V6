@@ -46,7 +46,7 @@ void RLS::TreeModel::analyticalDynamics()
     // if link[i].ri2C = 0 => link[i].rC = link[i].r
     // if link[i].jointAxis = "no axis" => link[i].sw = 0
     for(int j=i; j!=info.rootNode; j=link[j].parentNode){
-      // if j=0 => through. Note that no probrem even if through here.
+      // if j=0 => through. Note that no problem even if through here.
       link[i].Jvi.col(j) = cross(link[j].sw)*(link[i].rC - link[j].r);
       link[i].dJvi.col(j) = cross(link[j].dsw)*(link[i].rC - link[j].r) + cross(link[j].sw)*(link[i].vC - link[j].v);
 

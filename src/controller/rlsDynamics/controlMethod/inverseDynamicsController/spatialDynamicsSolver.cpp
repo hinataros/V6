@@ -7,16 +7,15 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-VectorXd RLS::RlsDynamics::spatialDynamicsSolver(Config &config, Info &info, Model &model)
+VectorXd RLS::RlsDynamics::spatialDynamicsSolver(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
-  if(!info.sim.state)
-    return tau;
+  // if(!info.sim.state)
+  //   return tau;
 
   int n = info.dof.all + info.contact.c.all;
 
@@ -39,7 +38,7 @@ VectorXd RLS::RlsDynamics::spatialDynamicsSolver(Config &config, Info &info, Mod
     MatrixXd::Zero(info.contact.c.all,info.dof.all), Pc.transpose()*Bp.transpose()*Wp*Bp*Pc + Bc.transpose()*WF*Bc;
 
   // momentum control
-  (this->*momentumController_ptr)(config, info, model);
+  (this->*momentumController_ptr)(info);
 
   // VectorXd rpkDes = VectorXd::Zero(2*info.contact.num);
   VectorXd rpkDes = VectorXd::Zero(2*BpDiag.diagonal().sum()/2);
@@ -160,7 +159,7 @@ VectorXd RLS::RlsDynamics::spatialDynamicsSolver(Config &config, Info &info, Mod
   // cal_FcBarRef = pInv(cal_Pc)*(cal_dLBRef + cal_GB);
 
   // torque control
-  (this->*torqueController_ptr)(config, info, model);
+  (this->*torqueController_ptr)(info);
 
   return tau;
 }

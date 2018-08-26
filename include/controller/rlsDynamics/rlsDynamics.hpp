@@ -20,12 +20,6 @@ namespace RLS{
   private:
     bool initialValueFlag;
 
-    string motionControllerName;
-    string momentumControllerName;
-    string forceControllerName;
-    string torqueControllerName;
-    string inverseDynamicsControllerName;
-
     double g;
 
     MatrixXi Bc_kDiag;
@@ -37,7 +31,19 @@ namespace RLS{
     MatrixXi BpDiag;
     MatrixXd Bp;
 
+    // state
     // ******************************
+    VectorXd th;
+    VectorXd dth;
+
+    Vector3d rB;
+    Vector3d xiB;
+    Vector3d vB;
+    Vector3d wB;
+
+    Vector3d rC;
+    Vector3d vC;
+
     Vector6d cal_XB;
     Vector6d cal_VB;
     Vector6d cal_VM;
@@ -50,15 +56,15 @@ namespace RLS{
     VectorXd dq;
     VectorXd dqM;
 
+    double M;
+
     // transform offset
     Vector3d *rkk;
 
     // jacobian
     // ******************************
-    MatrixXd cal_J;
     // smiyahara: bbではないから要検討
     MatrixXd bb_Rk;
-    MatrixXd TB2k;
 
     MatrixXd Bc;
     MatrixXd Bm;
@@ -73,10 +79,8 @@ namespace RLS{
     MatrixXd dJm;
 
     // diff
-    MatrixXd cal_dJ;
     // smiyahara: bbではないから要検討
     MatrixXd bb_dRk;
-    MatrixXd dTB2k;
 
     MatrixXd dBc;
     MatrixXd dBm;
@@ -86,7 +90,6 @@ namespace RLS{
     MatrixXd cal_dJm;
 
     // ******************************
-    MatrixXd TC2k;
     MatrixXd Pcf;
     MatrixXd Pmf;
     MatrixXd PcMm;
@@ -101,7 +104,6 @@ namespace RLS{
     MatrixXd dJmM;
 
     // diff
-    MatrixXd dTC2k;
     MatrixXd dPcf;
     MatrixXd dPmf;
     MatrixXd dPcMm;
@@ -135,7 +137,9 @@ namespace RLS{
     MatrixXd cal_AB;
     MatrixXd Mth;
 
+
     // nonlinear
+    MatrixXd cal_dAB;
     Vector6d cal_CB;
     VectorXd cth;
 
@@ -153,10 +157,12 @@ namespace RLS{
     MatrixXd MthC;
 
     // diff inertia
+    MatrixXd cal_dAM;
     Matrix3d dIC;
     MatrixXd dHC;
 
     // nonlinear
+    Vector3d cmm;
     Vector6d cal_CM;
     VectorXd cthC;
 
@@ -195,21 +201,15 @@ namespace RLS{
     VectorXd th0;
 
     Vector3d rC0;
-    Vector3d rCf;
 
     Vector3d rB0;
-    Vector3d rBf;
     Vector3d xiB0;
-    Vector3d xiBf;
 
     Vector3d rX0;
-    Vector3d rXf;
 
     VectorXd cal_X0;
-    VectorXd cal_Xf;
 
     Vector6d cal_Fext0;
-    Vector6d cal_Fextf;
 
     VectorXd rpk0;
 
@@ -217,35 +217,76 @@ namespace RLS{
 
     // previous state
     // ******************************
-    Vector3d rCpreState;
-    Vector3d vCpreState;
     Vector3d rBpreState;
     Vector3d vBpreState;
     Vector3d xiBpreState;
     Vector3d dxiBpreState;
-    Vector3d rXpreState;
-    Vector3d drXpreState;
-
+    Vector3d rCpreState;
     VectorXd cal_XpreState;
     VectorXd cal_VpreState;
 
-    // previous desired value
+    Vector3d vCpreState;
+    Vector3d rXpreState;
+    Vector3d drXpreState;
+
+    // trajectory
     // ******************************
-    Vector3d rCpreDes;
-    Vector3d rBpreDes;
-    Vector3d xiBpreDes;
-    VectorXd cal_XpreDes;
+    bool multiSequence;
+    int seqNum;
 
-    Vector3d rXpreDes;
+    string baseTranslationTrajectoryName;
+    string baseOrientationTrajectoryName;
+    string endEffectorTrajectoryName;
+    string comTrajectoryName;
+    string dcmTrajectoryName;
+    string externalWrenchTrajectoryName;
 
-    Vector6d cal_FextpreDes;
+    int baseTranslationTrajectoryNum;
+    int baseOrientationTrajectoryNum;
+    int endEffectorTrajectoryNum;
+    int comTrajectoryNum;
+    int dcmTrajectoryNum;
+    int externalWrenchTrajectoryNum;
+
+    struct Sequence{
+      int phase;
+      double tw0;
+      double twf;
+
+      Vector3d rBf;
+      Vector3d rBpreDes;
+      Vector3d xiBf;
+      Vector3d xiBpreDes;
+      VectorXd cal_Xf;
+      VectorXd cal_XpreDes;
+
+      Vector3d rCf;
+      Vector3d rCpreDes;
+      Vector3d rXf;
+      Vector3d rXpreDes;
+
+      Vector6d cal_Fextf;
+      Vector6d cal_FextpreDes;
+    } *sequence;
+
+    // select trajectory generator
+    void (RLS::RlsDynamics::*baseTranslationTrajectory_ptr)(double&)=0;
+    void (RLS::RlsDynamics::*baseOrientationTrajectory_ptr)(double&)=0;
+    void (RLS::RlsDynamics::*endEffectorTrajectory_ptr)(double&)=0;
+    void (RLS::RlsDynamics::*comTrajectory_ptr)(double&)=0;
+    void (RLS::RlsDynamics::*dcmTrajectory_ptr)(double&)=0;
+    void (RLS::RlsDynamics::*externalWrenchTrajectory_ptr)(double&)=0;
+
+    map<string, void (RLS::RlsDynamics::*)(double&)>
+    map_baseTranslationTrajectory,
+      map_baseOrientationTrajectory,
+      map_endEffectorTrajectory,
+      map_comTrajectory,
+      map_dcmTrajectory,
+      map_externalWrenchTrajectory;
 
     // desired value
     // ******************************
-    Vector3d rCDes;
-    Vector3d vCDes;
-    Vector3d dvCDes;
-
     Vector3d rBDes;
     Vector3d vBDes;
     Vector3d dvBDes;
@@ -256,6 +297,10 @@ namespace RLS{
     Matrix3d RBDes;
     Vector3d wBDes;
     Vector3d dwBDes;
+
+    Vector3d rCDes;
+    Vector3d vCDes;
+    Vector3d dvCDes;
 
     Vector3d rXDes;
     Vector3d drXDes;
@@ -346,6 +391,13 @@ namespace RLS{
 
     // reference
     // **********************
+    string baseTranslationReferenceName;
+    string baseOrientationReferenceName;
+    string endEffectorReferenceName;
+    string comReferenceName;
+    string dcmReferenceName;
+    string externalWrenchReferenceName;
+
     // velocityController
     // **********************
     Vector3d vBRef;
@@ -401,6 +453,12 @@ namespace RLS{
 
     VectorXd input;
 
+    string motionControllerName;
+    string momentumControllerName;
+    string forceControllerName;
+    string torqueControllerName;
+    string inverseDynamicsControllerName;
+
     // gain
     Matrix3d KpC;
     Matrix3d KdC;
@@ -443,8 +501,11 @@ namespace RLS{
     // selective matrix for forward kinematics
     Matrix6d bb_ScB;
 
+    void initializeSequence(const string, const TreeModel::Info&);
     void initializeWalking(const TreeModel::Info&);
-    void initializeMap();
+    void initializeReferenceMap();
+    void initializeTrajectoryGeneratorMap();
+    void initializeControllerMap();
 
     void initialValue(Model&);
     void resize(Model&);
@@ -456,8 +517,8 @@ namespace RLS{
 
     // // state transition
     // bool resetState(Config&, Info&, Model&, double&);
-    // bool resetSequence(Config&, Info&, double&);
-    // void mapping(Config&);
+    void updateSequence(const double&, const int);
+    void mapping();
 
     // int checkContact(Config&, Info&, Model&, double&);
     // int staticCheckContact(Config&, Info&, Model&, double&);
@@ -467,13 +528,14 @@ namespace RLS{
     // int walkHT(Config&, Info&, Model&, double&);
     // int stateTriggerConfig(Config&, Info&, Model&, double&);
 
-    // bool sequenceTriggerConfig(Config&, Info&, double&);
+    bool sequenceTriggerConfig(const double&, const double, const int);
 
-    // bool configurationManager(Config&, Info&, Model&, double&);
+    bool configurationManager(const Config&, Model&, double&);
 
-    // int readWork(Config&, Info&, string, int);
+    void readSequence(YAML::Node&, string, int, int, int);
+    int readWork(const string, string, int, int);
 
-    // void reconfigure(Config&, Info&);
+    void reconfigure(TreeModel::Info&);
 
     // // transform matrix
     // MatrixXd jacobian(Config&, Info&, TreeModel&, int);
@@ -485,183 +547,245 @@ namespace RLS{
 
     // // update
     // // ******************************
-    // void transform(Config&, Info&, Model&);
+    void transform(Model&);
 
-    // void basis(Config&, Model&);
-    // void decomposeBase(Config&, Model&);
-    // void decomposeMix(Config&, Model&);
-    // void decompose(Config&, Model&);
+    void contactCoordinate(Model&);
+    void basis();
+    void decomposeBase(Model&);
+    void decomposeMix(Model&);
+    void decompose(Model&);
 
-    // void renameBase(Config&, Info&, Model&);
-    // void renameMix(Config&, Info&, Model&);
-    // void renameCentroidal(Config&, Info&, Model&);
-    // void renameOthers(Config&, Info&, Model&);
-    // void renameDebug(Config&, Info&, Model&);
-    // void rename(Config&, Info&, Model&);
+    int objective(TreeModel::Info&);
 
-    // int objective(Config&, Info&, Model&);
-    // void update(Config&, Info&, Model&);
-    // // ******************************
+    void renameState(TreeModel&);
+    void renameBase(TreeModel&);
+    void renameMix(TreeModel&);
+    void renameCentroidal(TreeModel&);
+    void renameOthers(Model&);
+    void renameDebug(Model&);
+    void rename(Model&);
 
-    // // reference
-    // //com
-    // void comSequence(Config&, Info&, Model&, double&);
-    // void dcm2com(Config&, Info&, Model&, double&);
+    void update(Model&);
+    // ******************************
 
-    // // base translation
-    // void baseTranslationSequence(Config&, Info&, Model&, double&);
+    // trajectory generator
+    // ******************************
+    // base translation
+    void baseTranslationZeroTrajectory(double&);
+    void baseTranslationTrajectoryCP(double&);
 
-    // // base orientation
-    // void baseOrientationSequence(Config&, Info&, Model&, double&);
-    // void baseOrientationAnkleHip(Config&, Info&, Model&, double&);
+    // base orientation
+    void baseOrientationZeroTrajectory(double&);
+    void baseOrientationTrajectoryCP(double&);
 
-    // // DCM
-    // void dcmSequence(Config&, Info&, Model&, double&);
-    // void dcmAnkleHip(Config&, Info&, Model&, double&);
-    // void dcmSSWalking(Config&, Info&, Model&, double&);
-    // void dcmDSWalking(Config&, Info&, Model&, double&);
-    // void dcmHTWalking(Config&, Info&, Model&, double&);
+    // end effector
+    void endEffectorZeroTrajectory(double&);
+    void endEffectorTrajectoryCP(double&);
 
-    // // end effector
-    // void endEffectorSequence(Config&, Info&, Model&, double&);
-    // void endEffectorWalking(Config&, Info&, Model&, double&);
-    // void endEffectorWalkingToeoff(Config&, Info&, Model&, double&);
+    // com
+    void comZeroTrajectory(double&);
+    void comTrajectoryCP(double&);
 
-    // // external wrench
-    // void externalWrenchSequence(Config&, Info&, Model&, double&);
+    // dcm
+    void dcmZeroTrajectory(double&);
+    void dcmTrajectoryCP(double&);
 
-    // void reference(Config&, Info&, Model&, double&);
+    // external wrench
+    void externalWrenchZeroTrajectory(double&);
+    void externalWrenchTrajectoryCP(double&);
 
-    // // add function
-    // Vector2d F2rp(Vector6d);
-    // MatrixXd weight(Config&, Info&, Model&, Vector3d);
+    void trajectoryGenerator(double&);
 
-    // // zero controller
-    // VectorXd zeroDynamics(Config&, Info&, Model&);
-    // VectorXd zeroMotion(Config&, Info&, Model&);
-    // void zeroMomentum(Config&, Info&, Model&);
-    // void zeroDistribution(Config&, Info&, Model&);
-    // void zeroTorque(Config&, Info&, Model&);
+    // reference
+    // ******************************
+    // base translation
+    void baseTranslationReferencePI(TreeModel&);
 
-    // // velocity controller
-    // VectorXd baseVelocitySynergy(Config&, Info&, Model&);
-    // VectorXd mixedVelocitySynergy(Config&, Info&, Model&);
+    // base orientation
+    void baseOrientationReferencePI(TreeModel&);
 
-    // // acceleration controller
-    // VectorXd workAcceleration(Config&, Info&, Model&);
-    // VectorXd baseAccelerationSynergy(Config&, Info&, Model&);
-    // VectorXd mixedAccelerationSynergy(Config&, Info&, Model&);
-    // VectorXd centroidalAccelerationSynergy(Config&, Info&, Model&);
-    // VectorXd rest_cmlC(Config&, Info&, Model&);
-    // VectorXd rest_clCm(Config&, Info&, Model&);
-    // VectorXd baseGeneralizedMomentum(Config&, Info&, Model&);
-    // VectorXd mixedGeneralizedMomentum(Config&, Info&, Model&);
-    // VectorXd accelerationSolver(Config&, Info&, Model&);
-    // VectorXd hinata(Config&, Info&, Model&);
-    // VectorXd hogehogeMomentum(Config&, Info&, Model&);
+    // end effector
+    void endEffectorReferencePI(TreeModel&);
 
-    // // acceleration dumper
-    // VectorXd ddthD(Config&, Model&);
-    // VectorXd ddqthD(Config&, Info&, Model&);
-    // VectorXd ddqthinit(Config&, Info&, Model&);
+    // com
+    void comReferencePI(TreeModel&);
+    void comReferenceDcmControl(TreeModel&);
 
-    // // momentum controller
-    // void linearMomentum(Config&, Info&, Model&);
-    // void dcmMomentum(Config&, Info&, Model&);
-    // void centroidalAngularMomentum(Config&, Info&, Model&);
-    // void baseAngularMomentum(Config&, Info&, Model&);
-    // void baseMomentum(Config&, Info&, Model&);
-    // void baseDcmMomentum(Config&, Info&, Model&);
-    // void centroidalMomentum(Config&, Info&, Model&);
-    // void centroidalDcmMomentum(Config&, Info&, Model&);
-    // void centroidalCmpMomentum(Config&, Info&, Model&);
+    // dcm
+    void dcmReferencePI(TreeModel&);
 
-    // // force controller
-    // void baseDistribution(Config&, Info&, Model&);
-    // void centroidalDistribution(Config&, Info&, Model&);
-    // void centroidalDcmDistribution(Config&, Info&, Model&);
-    // void distributionSolver(Config&, Info&, Model&);
+    // external wrench
+    void externalWrenchReferenceFF(TreeModel&);
 
-    // // torque controller
-    // void jointSpace(Config&, Info&, Model&);
-    // void staticControl(Config&, Info&, Model&);
-    // void base(Config&, Info&, Model&);
-    // void mixed(Config&, Info&, Model&);
-    // void mixedmixed(Config&, Info&, Model&);
-    // void crb(Config&, Info&, Model&);
-    // void baseOpt(Config&, Info&, Model&);
-    // void mixedOpt(Config&, Info&, Model&);
-    // void mixedmixedOpt(Config&, Info&, Model&);
+    void spatialReference(Model&);
 
-    // // inverse dynamics controller
-    // VectorXd fullDynamicsController(Config&, Info&, Model&);
-    // VectorXd momentumInverseDynamicsController(Config&, Info&, Model&);
-    // VectorXd highGainController(Config&, Info&, Model&);
-    // VectorXd spatialDynamicsSolver(Config&, Info&, Model&);
-    // VectorXd dlrSolver(Config&, Info&, Model&);
+    void reference(Model&);
 
-    // void controlMethod(Config&, Info&, Model&);
+    // select reference
+    void (RLS::RlsDynamics::*baseTranslationReference_ptr)(TreeModel&)=0;
+    void (RLS::RlsDynamics::*baseOrientationReference_ptr)(TreeModel&)=0;
+    void (RLS::RlsDynamics::*endEffectorReference_ptr)(TreeModel&)=0;
+    void (RLS::RlsDynamics::*comReference_ptr)(TreeModel&)=0;
+    void (RLS::RlsDynamics::*dcmReference_ptr)(TreeModel&)=0;
+    void (RLS::RlsDynamics::*externalWrenchReference_ptr)(TreeModel&)=0;
 
-    // // output config
-    // // velocity output config
-    // void velocityOutputConfig(Config&, Info&, Model&);
+    map<string, void (RLS::RlsDynamics::*)(TreeModel&)>
+    map_baseTranslationReference,
+      map_baseOrientationReference,
+      map_endEffectorReference,
+      map_comReference,
+      map_dcmReference,
+      map_externalWrenchReference;
 
-    // // acceleration output config
-    // void accelerationOutputConfig(Config&, Info&, Model&);
+    // ******************************
 
-    // // torque output config
-    // void torqueOutputDesConfig(Config&, Info&, Model&);
-    // void torqueOutputErrConfig(Config&, Info&, Model&);
-    // void torqueOutputRefConfig(Config&, Info&, Model&);
-    // void torqueOutputIndexConfig(Config&, Info&, Model&);
-    // void torqueOutputIndexPrintConfig(Config&, Info&, Model&);
-    // void torqueOutputConfig(Config&, Info&, Model&);
+    // add function
+    Vector2d F2rp(const Vector6d);
+    MatrixXd weight(const TreeModel::Info&, const Vector3d);
 
-    // void outputConfig(Config&, Info&, Model&);
+    // controller
+    // ******************************
+    // zero controller
+    VectorXd zeroDynamics(const TreeModel::Info&);
+    VectorXd zeroMotion(const TreeModel::Info&);
+    void zeroMomentum(const TreeModel::Info&);
+    void zeroDistribution(const TreeModel::Info&);
+    void zeroTorque(const TreeModel::Info&);
 
-    // // readWork
-    // void checkNode(YAML::Node&, string, int, string);
-    // void checkNode(YAML::Node&, string, int, string, int);
-    // void checkNode(YAML::Node&, string, int, string, int, int);
-    // template <class T> T checkValue(YAML::Node&, string, int, string, T);
-    // template <class T> T checkVector(YAML::Node&, string, int, string, T);
-    // template <class T> T checkVector(YAML::Node&, string, int, string, int, T);
-    // template <class T> T checkMatrix(YAML::Node&, string, int, string, T);
-    // template <class T> T checkMatrix(YAML::Node&, string, int, string, int, T);
+    // velocity controller
+    VectorXd baseVelocitySynergy(const TreeModel::Info&);
+    VectorXd mixedVelocitySynergy(const TreeModel::Info&);
 
-    // template <class T> T readValue(YAML::Node&, string, int, string);
-    // template <class T> T readValue(YAML::Node&, string, int, string, string);
-    // template <class T> T readValue(YAML::Node&, string, int, string, int);
-    // template <class T> T readValue(YAML::Node&, string, int, string, int, int);
-    // template <class T> T readVector(YAML::Node&, string, int, string, int);
-    // template <class T> T readVector(YAML::Node&, string, int, string, int, int);
+    // acceleration controller
+    VectorXd workAcceleration(const TreeModel::Info&);
+    VectorXd baseAccelerationSynergy(const TreeModel::Info&);
+    VectorXd mixedAccelerationSynergy(const TreeModel::Info&);
+    VectorXd centroidalAccelerationSynergy(const TreeModel::Info&);
+    VectorXd rest_cmlC(const TreeModel::Info&);
+    VectorXd rest_clCm(const TreeModel::Info&);
+    VectorXd baseGeneralizedMomentum(const TreeModel::Info&);
+    VectorXd mixedGeneralizedMomentum(const TreeModel::Info&);
+    VectorXd accelerationSolver(const TreeModel::Info&);
+    VectorXd raa(const TreeModel::Info&);
+    VectorXd hogehogeMomentum(const TreeModel::Info&);
 
-    // // select controller
-    // VectorXd (RLS::RlsDynamics::*motionController_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
-    // void (RLS::RlsDynamics::*momentumController_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
-    // void (RLS::RlsDynamics::*forceController_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
-    // void (RLS::RlsDynamics::*torqueController_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
-    // VectorXd (RLS::RlsDynamics::*inverseDynamicsController_ptr)(RLS::Config&, RLS::Info&, RLS::Model&)=0;
+    // acceleration dumper
+    VectorXd ddthD(const TreeModel::Info&);
+    VectorXd ddqthD(const TreeModel::Info&);
+    VectorXd ddqthinit(const TreeModel::Info&);
 
-    // map<string, VectorXd (RLS::RlsDynamics::*)(RLS::Config&, RLS::Info&, RLS::Model&)>
-    // map_motionController, map_inverseDynamicsController;
-    // map<string, void (RLS::RlsDynamics::*)(RLS::Config&, RLS::Info&, RLS::Model&)>
-    // map_momentumController, map_forceController, map_torqueController;
+    // momentum controller
+    void linearMomentum(const TreeModel::Info&);
+    void dcmMomentum(const TreeModel::Info&);
+    void centroidalAngularMomentum(const TreeModel::Info&);
+    void baseAngularMomentum(const TreeModel::Info&);
+    void baseMomentum(const TreeModel::Info&);
+    void baseDcmMomentum(const TreeModel::Info&);
+    void centroidalMomentum(const TreeModel::Info&);
+    void centroidalDcmMomentum(const TreeModel::Info&);
+    void centroidalCmpMomentum(const TreeModel::Info&);
+
+    // force controller
+    void baseDistribution(const TreeModel::Info&);
+    void centroidalDistribution(const TreeModel::Info&);
+    void centroidalDcmDistribution(const TreeModel::Info&);
+    void distributionSolver(const TreeModel::Info&);
+
+    // torque controller
+    void jointSpace(const TreeModel::Info&);
+    void staticControl(const TreeModel::Info&);
+    void base(const TreeModel::Info&);
+    void mixed(const TreeModel::Info&);
+    void mixedmixed(const TreeModel::Info&);
+    void crb(const TreeModel::Info&);
+    void baseOpt(const TreeModel::Info&);
+    void mixedOpt(const TreeModel::Info&);
+    void mixedmixedOpt(const TreeModel::Info&);
+
+    // inverse dynamics controller
+    VectorXd fullDynamicsController(const TreeModel::Info&);
+    VectorXd momentumInverseDynamicsController(const TreeModel::Info&);
+    VectorXd highGainController(const TreeModel::Info&);
+    VectorXd spatialDynamicsSolver(const TreeModel::Info&);
+    VectorXd dlrSolver(const TreeModel::Info&);
+
+    void controlMethod(const string, const TreeModel::Info&);
+
+    // select controller
+    VectorXd (RLS::RlsDynamics::*motionController_ptr)(const TreeModel::Info&)=0;
+    void (RLS::RlsDynamics::*momentumController_ptr)(const TreeModel::Info&)=0;
+    void (RLS::RlsDynamics::*forceController_ptr)(const TreeModel::Info&)=0;
+    void (RLS::RlsDynamics::*torqueController_ptr)(const TreeModel::Info&)=0;
+    VectorXd (RLS::RlsDynamics::*inverseDynamicsController_ptr)(const TreeModel::Info&)=0;
+
+    map<string, VectorXd (RLS::RlsDynamics::*)(const TreeModel::Info&)>
+    map_motionController, map_inverseDynamicsController;
+    map<string, void (RLS::RlsDynamics::*)(const TreeModel::Info&)>
+    map_momentumController, map_forceController, map_torqueController;
+
+    // ******************************
+
+    // output config
+    // velocity output config
+    void velocityOutputConfig(const TreeModel::Info&);
+
+    // acceleration output config
+    void accelerationOutputConfig(const TreeModel::Info&);
+
+    // torque output config
+    void torqueOutputDesConfig(const TreeModel::Info&);
+    void torqueOutputErrConfig(const TreeModel::Info&);
+    void torqueOutputRefConfig(const TreeModel::Info&);
+    void torqueOutputIndexConfig(const TreeModel::Info&);
+    void torqueOutputIndexPrintConfig(const TreeModel::Info&);
+    void torqueOutputConfig(const TreeModel::Info&);
+
+    void outputConfig(const string, const TreeModel::Info&);
+
+    // readWork
+    // ****************************************************************
+    YAML::Node checkNode(YAML::Node&, string, int, string);
+    YAML::Node checkNode(YAML::Node&, string, int, string, string);
+    YAML::Node checkNode(YAML::Node&, string, int, int, string);
+    YAML::Node checkNode(YAML::Node&, string, int, int, string, string);
+
+    // update value
+    template <class T> T updateValue(YAML::Node&, string, int, int, string, T);
+    template <class T> T updateValue(YAML::Node&, string, int, int, string, string, T);
+
+    // update vector
+    template <class T> T updateVector(YAML::Node&, string, int, int, string, T);
+    template <class T> T updateVector(YAML::Node&, string, int, int, string, int, T);
+
+    // update diagonal matrix
+    template <class T> T updateDiagonalMatrix(YAML::Node&, string, int, int, string, T);
+    template <class T> T updateDiagonalMatrix(YAML::Node&, string, int, int, string, int, T);
+
+    template <class T> T readValue(YAML::Node&, string, int, string);
+    template <class T> T readValue(YAML::Node&, string, int, string, string);
+    template <class T> T readValue(YAML::Node&, string, int, string, int);
+    template <class T> T readValue(YAML::Node&, string, int, string, int, int);
+
+    template <class T> T readValue(YAML::Node&, string, int, int, string);
+    template <class T> T readValue(YAML::Node&, string, int, int, string, string);
+    template <class T> T readValue(YAML::Node&, string, int, int, string, int);
+    template <class T> T readValue(YAML::Node&, string, int, int, string, int, int);
+    // ****************************************************************
 
   public:
     // smiyahara: 要検討(とりあえず外乱のみを考慮し"6"にしといた)
     Vector6d virtualInput;
 
     // smiyahara: 名前は変えたい
-    void initialize(const TreeModel::Info&);
+    void initialize(const string, const TreeModel::Info&);
     // void finalize(Config&, Info&);
     VectorXd rlsDynamics(Config&, Model&, double&);
 
     RlsDynamicsList dc_list;
 
     RlsDynamics(){}
-    RlsDynamics(const TreeModel::Info &info){
-      initialize(info);
+    RlsDynamics(const string work_path, const TreeModel::Info &info){
+      initialize(work_path, info);
     }
   };
 }

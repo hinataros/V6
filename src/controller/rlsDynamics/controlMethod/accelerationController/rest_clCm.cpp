@@ -3,17 +3,16 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-VectorXd RLS::RlsDynamics::rest_clCm(Config &config, Info &info, Model &model)
+VectorXd RLS::RlsDynamics::rest_clCm(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   // constraint
   VectorXd cal_dVcTildeRef = -cal_PcM.transpose()*cal_dVMRef;
-  VectorXd hcth = cal_dPcM.transpose()*cal_VM + cal_dJcM*model.hoap2.all.dth;
+  VectorXd hcth = cal_dPcM.transpose()*cal_VM + cal_dJcM*dth;
 
   VectorXd ddthcRef = pInv(cal_JcM)*(cal_dVcTildeRef - hcth);
 
@@ -23,34 +22,21 @@ VectorXd RLS::RlsDynamics::rest_clCm(Config &config, Info &info, Model &model)
   VectorXd dlCthRef = dlCRef - IC*dwBRef;
   VectorXd dlCTildeRef = dlCthRef - HC*ddthcRef;
 
-  VectorXd cmm = dIC*cal_VM.tail(3) + dHC*model.hoap2.all.dth;
-
   VectorXd ddthlCRef = N(cal_JcM)*pInv(HCBar)*(dlCTildeRef - cmm);
 
   // mobility
-  if(info.contact.m.all){
-    MatrixXd cal_JmMBar = cal_JmM*N(cal_JcM)*N(HCBar);
-    VectorXd cal_dVmthRef = Bm.transpose()*cal_dVRef - cal_PmM.transpose()*cal_dVMRef;
-    VectorXd cal_dVmTildeRef = cal_dVmthRef - cal_JmM*ddthlCRef;
+  MatrixXd cal_JmMBar = cal_JmM*N(cal_JcM)*N(HCBar);
+  VectorXd cal_dVmthRef = Bm.transpose()*cal_dVRef - cal_PmM.transpose()*cal_dVMRef;
+  VectorXd cal_dVmTildeRef = cal_dVmthRef - cal_JmM*ddthlCRef;
 
-    VectorXd hmth = -dBm.transpose()*cal_V + cal_dPmM.transpose()*cal_VM + cal_dJmM*model.hoap2.all.dth;
+  VectorXd hmth = -dBm.transpose()*cal_V + cal_dPmM.transpose()*cal_VM + cal_dJmM*dth;
 
-    VectorXd ddthmRef = N(cal_JcM)*N(HCBar)*pInv(cal_JmMBar)*(cal_dVmTildeRef - hmth);
+  VectorXd ddthmRef = N(cal_JcM)*N(HCBar)*pInv(cal_JmMBar)*(cal_dVmTildeRef - hmth);
 
-    // redundancy
-    VectorXd ddthnRef = N(cal_JcM)*N(HCBar)*N(cal_JmMBar)*ddthD(config, model);
+  // redundancy
+  VectorXd ddthnRef = N(cal_JcM)*N(HCBar)*N(cal_JmMBar)*ddthD(info);
 
-    ddthRef = ddthcRef + ddthlCRef + ddthmRef + ddthnRef;
-
-  }
-  else{
-    // redundancy
-    // VectorXd ddthnRef = N(cal_JcM)*N(HCBar)*ddthD(config, model);
-    VectorXd ddthnRef = N(cal_JcM)*ddthD(config, model);
-
-    // ddthRef = ddthcRef + ddthlCRef + ddthnRef;
-    ddthRef = ddthcRef + ddthnRef;
-  }
+  ddthRef = ddthcRef + ddthlCRef + ddthmRef + ddthnRef;
 
   // // constraint
   // VectorXd cal_dVcthRef = -cal_PcM.transpose()*cal_dVMRef - cal_dPcM.transpose()*cal_VM;

@@ -1,8 +1,8 @@
 # @author Sho Miyahara 2017
 
 set(srcs
-  comSequence.cpp
-  dcm2com.cpp
+  comReferencePI.cpp
+  comReferenceDcmControl.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" comReference_srcs)

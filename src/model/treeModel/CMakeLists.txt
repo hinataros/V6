@@ -11,6 +11,7 @@ set(srcs
   readBody.cpp
   # readModel.cpp
   readCnoid.cpp
+  initializeInfo.cpp
   initializeLink.cpp
   initializeAll.cpp
   # outputConfig.cpp

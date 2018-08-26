@@ -3,13 +3,12 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::accelerationOutputConfig(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::accelerationOutputConfig(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   // desired value
   dc_list.rBDes = rBDes;

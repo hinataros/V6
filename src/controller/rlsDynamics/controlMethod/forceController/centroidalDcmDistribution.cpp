@@ -3,13 +3,12 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::centroidalDcmDistribution(Config &config, Info &info, Model &model)
+void RLS::RlsDynamics::centroidalDcmDistribution(const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   // o(cal_dLCRef + cal_GC);
 
@@ -68,9 +67,9 @@ void RLS::RlsDynamics::centroidalDcmDistribution(Config &config, Info &info, Mod
 
   // VectorXd cal_FaBar = N(cal_PcM)*pInv(N(cal_PcM).block(6,0,6,12))*cal_FLRef;
 
-  MatrixXd WC = weight(config, info, model, model.hoap2.all.rC);
-  MatrixXd WX = weight(config, info, model, rX);
-  MatrixXd Wvrp = weight(config, info, model, rX - drXDes/wX);
+  // MatrixXd WC = weight(info, rC);
+  MatrixXd WX = weight(info, rX);
+  MatrixXd Wvrp = weight(info, rX - drXDes/wX);
 
   MatrixXd Wvrpc = Bc.transpose()*Wvrp*Bc;
 

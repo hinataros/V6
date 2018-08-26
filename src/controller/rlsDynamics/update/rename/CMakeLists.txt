@@ -1,4 +1,5 @@
 set(srcs
+  state.cpp
   base.cpp
   mix.cpp
   centroidal.cpp
