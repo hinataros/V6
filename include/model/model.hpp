@@ -13,7 +13,7 @@ namespace RLS{
     RigidBodyModel object;
 
     void readModel(Config&);
-    void deleteModel(Config&);
+    void deleteModel();
     void update(const bool);
 
     Model(){}

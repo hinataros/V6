@@ -45,11 +45,11 @@ items:
           children: 
             - 
               id: 3
-              name: "skeletonW3A4primMotion"
+              name: "skeletonA4primMotion"
               plugin: Body
               class: BodyMotionItem
               data: 
-                filename: "/home/smiyahara/Documents/rlsSimulator/share/motion/master/skeletonW3A4primMotion.yaml"
+                filename: "/home/smiyahara/Documents/rlsSimulator/share/motion/master/skeletonA4primMotion.yaml"
                 format: BODY-MOTION-YAML
         - 
           id: 4

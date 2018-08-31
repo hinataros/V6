@@ -28,7 +28,7 @@ namespace RLS{
 
     void analyticalDynamics();
 
-    // void outputConfig(Config&, Info&);
+    void outputConfig();
 
   public:
     struct Dof{

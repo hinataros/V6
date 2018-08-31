@@ -4,6 +4,7 @@ add_subdirectory(triggerConfig)
 
 set(srcs
   update.cpp
+  trigger.cpp
   mapping.cpp
   configurationManager.cpp
   )

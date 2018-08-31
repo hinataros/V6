@@ -3,15 +3,15 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
+#include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::eeTrans(Config &config, Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::eeTrans(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   texMaker.reset();
-  texMaker.setLimb(info.value.joint);
+  texMaker.setLimb(info.eeNum);
 
   reset();
   setFileName("eePos");
@@ -19,7 +19,7 @@ void RLS::Output::eeTrans(Config &config, Info &info, GpMaker &gpMaker, TexMaker
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.value.joint);
+  gpMaker.setLimb(info.eeNum);
   gpMaker.setYLabel("EE pos. [mm]");
   gpMaker.setUnit("m");
   gpMaker.setDimention(3);
@@ -34,7 +34,7 @@ void RLS::Output::eeTrans(Config &config, Info &info, GpMaker &gpMaker, TexMaker
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.value.joint);
+  gpMaker.setLimb(info.eeNum);
   gpMaker.setYLabel("EE vel. [m/s]");
   gpMaker.setDimention(3);
   gpMaker.makeGp();

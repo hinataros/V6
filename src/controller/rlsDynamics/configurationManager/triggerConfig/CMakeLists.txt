@@ -7,7 +7,7 @@ set(srcs
   # ankleHipStratagy.cpp
   # walking.cpp
   # walkHT.cpp
-  triggerConfig.cpp
+  noTrigger.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" triggerConfig_srcs)

@@ -14,7 +14,7 @@ add_subdirectory(add)
 add_subdirectory(outputConfig)
 
 set(srcs
-  # finalize.cpp
+  finalize.cpp
   initialValue.cpp
   resize.cpp
   reconfigure.cpp

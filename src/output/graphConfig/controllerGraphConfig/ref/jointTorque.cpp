@@ -3,32 +3,32 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
+#include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::jointTorque(Config &config, Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::jointTorque(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
-  texMaker.reset();
-  texMaker.setLimb(info.value.joint);
+  // texMaker.reset();
+  // texMaker.setLimb(info.eeNum);
 
-  reset();
-  setFileName("jointTorque");
-  makeDat("t-tau");
+  // reset();
+  // setFileName("jointTorque");
+  // makeDat("t-tau");
 
-  gpMaker.reset();
-  gpMaker.setName(file_name);
-  gpMaker.setLimb(info.value.joint);
-  for(int i=1; i<info.value.joint+1; i++)
-    gpMaker.setDimention(i, info.limb[i].dof);
-  gpMaker.setYLabel("j. torque [Nm]");
-  gpMaker.makeGp();
+  // gpMaker.reset();
+  // gpMaker.setName(file_name);
+  // gpMaker.setLimb(info.eeNum);
+  // for(int i=1; i<info.eeNum+1; i++)
+  //   gpMaker.setDimention(i, info.limb[i].dof);
+  // gpMaker.setYLabel("j. torque [Nm]");
+  // gpMaker.makeGp();
 
-  texMaker.setName(file_name);
-  texMaker.addMinipage();
+  // texMaker.setName(file_name);
+  // texMaker.addMinipage();
 
-  texMaker.setTexName("jointTorque");
-  texMaker.setCaption("Joint torque.");
-  texMaker.makeTex();
+  // texMaker.setTexName("jointTorque");
+  // texMaker.setCaption("Joint torque.");
+  // texMaker.makeTex();
 }

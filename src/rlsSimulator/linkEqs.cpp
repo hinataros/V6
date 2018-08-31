@@ -24,7 +24,7 @@ void RLS::RlsSimulator::linkEqs(Config &config, Model &model, RlsDynamics &rlsDy
   output.tm_temp = model.hoap2.tm_list;
   output.dc_temp = rlsDynamics.dc_list;
 
-  // output.pushBack(config, t);
+  output.pushBack(t);
 }
 
 void RLS::RlsSimulator::linkEqs(Config &config, Model &model, RlsDynamics &rlsDynamics)

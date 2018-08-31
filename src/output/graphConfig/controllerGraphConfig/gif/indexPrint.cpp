@@ -5,12 +5,12 @@
 #include <fstream>
 
 #include "config.hpp"
-#include "info.hpp"
+#include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::indexPrint(Config &config, Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::indexPrint(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   reset();
   setFileName("indexPrint");
@@ -39,13 +39,13 @@ void RLS::Output::indexPrint(Config &config, Info &info, GpMaker &gpMaker, TexMa
 
   // smiyahara: config.gp.stではなくconfig.gif.stにしたい
   // smiyahara: ほかはevery使っているから統一感がない
-  string start = "start = "+to_string(static_cast<int>(config.gp.tstart/(config.gp.st*info.sim.dt)))+"\n";
-  string end = "end = "+to_string(static_cast<int>(info.sim.n/config.gp.st))+"\n";
+  string start = "start = "+to_string(static_cast<int>(config.gp.tstart/(config.gp.st*config.clock.dt)))+"\n";
+  string end = "end = "+to_string(static_cast<int>(config.clock.n/config.gp.st))+"\n";
 
   string plot =
     "do for [i = start:end]{\n"
     // smiyahara: config.gp.stではなくconfig.gif.stにしたい
-    "\tset title sprintf('t = %5.3f', (i - start)*"+to_string(config.gp.st*info.sim.dt)+") offset -12,-0.5\n\n"
+    "\tset title sprintf('t = %5.3f', (i - start)*"+to_string(config.gp.st*config.clock.dt)+") offset -12,-0.5\n\n"
     "\tplot\\\n"
     "\t\tDIR_DAT.'"+file_name+".dat' index i using ($1*M):($2*M) notitle w l lw 3 lc rgb 'grey10',\\\n"
     "\t\tDIR_DAT.'"+file_name+".dat' index i using ($3*M):($4*M) notitle w l lw 3 lc rgb 'grey10',\\\n"

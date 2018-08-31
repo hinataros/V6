@@ -1,7 +1,9 @@
 # @author Sho Miyahara 2017
 
 set(srcs
+  state.cpp
   sequence.cpp
+  triggerMap.cpp
   referenceMap.cpp
   trajectoryGeneratorMap.cpp
   controllerMap.cpp

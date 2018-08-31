@@ -6,31 +6,27 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-// bool RLS::RlsDynamics::resetState(Config &config, Info &info, Model &model, double &t)
-// {
-//   if(config.flag.debug) DEBUG;
+void RLS::RlsDynamics::updateState(const Model &model, const double &t)
+{
+  if(debug) DEBUG;
 
-//   rCpreState = model.hoap2.all.rC - rC0;
-//   vCpreState = model.hoap2.all.vC;
+  state.rCpreDes = model.hoap2.all.rC - rC0;
+  state.vCpreDes = model.hoap2.all.vC;
 
-//   rBpreState = model.hoap2.limb[0].node[0].r - rB0;
-//   vBpreState = model.hoap2.limb[0].node[0].v;
-//   xiBpreState = R2xi(model.hoap2.limb[0].node[0].R) - xiB0;
-//   dxiBpreState = w2dxi(model.hoap2.limb[0].node[0].w, R2xi(model.hoap2.limb[0].node[0].R));
+  state.rBpreDes = model.hoap2.link[model.hoap2.info.rootNode].r - rB0;
+  state.vBpreDes = model.hoap2.link[model.hoap2.info.rootNode].v;
+  state.xiBpreDes = R2xi(model.hoap2.link[model.hoap2.info.rootNode].R) - xiB0;
+  state.dxiBpreDes = w2dxi(model.hoap2.link[model.hoap2.info.rootNode].w, R2xi(model.hoap2.link[model.hoap2.info.rootNode].R));
 
-//   rXpreState = rX - rX0;
-//   // smiyahara: いつか変える
-//   drXpreState = drXDes;
+  state.rXpreDes = rX - rX0;
+  // smiyahara: いつか変える
+  state.drXpreDes = drXDes;
 
-//   cal_XpreState = cal_X - cal_X0;
-//   cal_VpreState = cal_V;
+  state.cal_XpreDes = cal_X - cal_X0;
+  state.cal_VpreDes = cal_V;
 
-//   readWork(config, info, "State", info.sim.state);
-
-//   info.sim.trev = t;
-
-//   return true;
-// }
+  // state.trev = t;
+}
 
 void RLS::RlsDynamics::updateSequence(const double &t, const int num)
 {

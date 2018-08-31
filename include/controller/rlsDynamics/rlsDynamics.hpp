@@ -217,17 +217,21 @@ namespace RLS{
 
     // previous state
     // ******************************
-    Vector3d rBpreState;
-    Vector3d vBpreState;
-    Vector3d xiBpreState;
-    Vector3d dxiBpreState;
-    Vector3d rCpreState;
-    VectorXd cal_XpreState;
-    VectorXd cal_VpreState;
+    struct State{
+      int num;
 
-    Vector3d vCpreState;
-    Vector3d rXpreState;
-    Vector3d drXpreState;
+      Vector3d rBpreDes;
+      Vector3d vBpreDes;
+      Vector3d xiBpreDes;
+      Vector3d dxiBpreDes;
+      Vector3d rCpreDes;
+      VectorXd cal_XpreDes;
+      VectorXd cal_VpreDes;
+
+      Vector3d vCpreDes;
+      Vector3d rXpreDes;
+      Vector3d drXpreDes;
+    } state;
 
     // trajectory
     // ******************************
@@ -501,13 +505,15 @@ namespace RLS{
     // selective matrix for forward kinematics
     Matrix6d bb_ScB;
 
+    void initializeState(const TreeModel::Info&);
     void initializeSequence(const string, const TreeModel::Info&);
     void initializeWalking(const TreeModel::Info&);
+    void initializeTriggerMap(string);
     void initializeReferenceMap();
     void initializeTrajectoryGeneratorMap();
     void initializeControllerMap();
 
-    void initialValue(Model&);
+    void initialValue(const string, Model&);
     void resize(Model&);
 
     void cop(const TreeModel&);
@@ -516,24 +522,30 @@ namespace RLS{
     void index(const Model&);
 
     // // state transition
-    // bool resetState(Config&, Info&, Model&, double&);
+    void updateState(const Model&, const double&);
     void updateSequence(const double&, const int);
     void mapping();
 
+    // triggre config
+    int noTrigger(Model&, double&);
     // int checkContact(Config&, Info&, Model&, double&);
     // int staticCheckContact(Config&, Info&, Model&, double&);
     // int ankleStratagy(Config&, Info&, Model&, double&);
     // int ankleHipStratagy(Config&, Info&, Model&, double&);
     // int walking(Config&, Info&, Model&, double&);
     // int walkHT(Config&, Info&, Model&, double&);
-    // int stateTriggerConfig(Config&, Info&, Model&, double&);
 
-    bool sequenceTriggerConfig(const double&, const double, const int);
+    // select reference
+    int (RLS::RlsDynamics::*customTrigger_ptr)(Model&, double&)=0;
+    map<string, int (RLS::RlsDynamics::*)(Model&, double&)> map_customTrigger;
+
+    int stateTrigger(Model&, double&);
+    bool sequenceTrigger(const double&, const double, const int);
 
     bool configurationManager(const Config&, Model&, double&);
 
-    void readSequence(YAML::Node&, string, int, int, int);
-    int readWork(const string, string, int, int);
+    void readSequence(YAML::Node&, bool, string, int, int, int);
+    int readWork(const string, bool, string, int, int, int);
 
     void reconfigure(TreeModel::Info&);
 
@@ -750,16 +762,16 @@ namespace RLS{
     YAML::Node checkNode(YAML::Node&, string, int, int, string, string);
 
     // update value
-    template <class T> T updateValue(YAML::Node&, string, int, int, string, T);
-    template <class T> T updateValue(YAML::Node&, string, int, int, string, string, T);
+    template <class T> T updateValue(YAML::Node&, bool, string, int, int, string, T);
+    template <class T> T updateValue(YAML::Node&, bool, string, int, int, string, string, T);
 
     // update vector
-    template <class T> T updateVector(YAML::Node&, string, int, int, string, T);
-    template <class T> T updateVector(YAML::Node&, string, int, int, string, int, T);
+    template <class T> T updateVector(YAML::Node&, bool, string, int, int, string, T);
+    template <class T> T updateVector(YAML::Node&, bool, string, int, int, string, int, T);
 
     // update diagonal matrix
-    template <class T> T updateDiagonalMatrix(YAML::Node&, string, int, int, string, T);
-    template <class T> T updateDiagonalMatrix(YAML::Node&, string, int, int, string, int, T);
+    template <class T> T updateDiagonalMatrix(YAML::Node&, bool, string, int, int, string, T);
+    template <class T> T updateDiagonalMatrix(YAML::Node&, bool, string, int, int, string, int, T);
 
     template <class T> T readValue(YAML::Node&, string, int, string);
     template <class T> T readValue(YAML::Node&, string, int, string, string);
@@ -777,15 +789,15 @@ namespace RLS{
     Vector6d virtualInput;
 
     // smiyahara: 名前は変えたい
-    void initialize(const string, const TreeModel::Info&);
-    // void finalize(Config&, Info&);
+    void initialize(const Config&, const TreeModel::Info&);
+    void finalize();
     VectorXd rlsDynamics(Config&, Model&, double&);
 
     RlsDynamicsList dc_list;
 
     RlsDynamics(){}
-    RlsDynamics(const string work_path, const TreeModel::Info &info){
-      initialize(work_path, info);
+    RlsDynamics(const Config &config, const TreeModel::Info &info){
+      initialize(config, info);
     }
   };
 }

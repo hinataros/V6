@@ -12,22 +12,26 @@ bool RLS::RlsDynamics::configurationManager(const Config &config, Model &model, 
 
   bool flag = false;
 
-  // if(config.controller.driven=="event"||config.controller.driven=="mix"){
-  //   // １ステップ目は初期化
-  //   int temp=stateTriggerConfig(config, info, model, t);
-  //   if(temp!=info.sim.state){
-  //     info.sim.state=temp;
-  //     flag = resetState(config, info, model, t);
-  //   }
-  // }
+  if(config.controller.driven=="event"||config.controller.driven=="mix"){
+    // １ステップ目は初期化
+    int temp = stateTrigger(model, t);
+    if(temp!=state.num){
+      state.num = temp;
+
+      updateState(model, t);
+      readWork(config.dir.work, false, "State", 0, state.num, model.hoap2.info.eeNum);
+
+      flag = true;
+    }
+  }
 
   if(config.controller.driven=="flow"||config.controller.driven=="mix"){
     for(int i=0; i<seqNum; i++){
-      flag = sequenceTriggerConfig(t, config.clock.tf, i);
+      flag = sequenceTrigger(t, config.clock.tf, i);
 
       if(flag){
         updateSequence(t, i);
-        readWork(config.dir.work, "Sequence", i, model.hoap2.info.eeNum);
+        readWork(config.dir.work, multiSequence, "Sequence", i, sequence[i].phase, model.hoap2.info.eeNum);
         sequence[i].phase++;
       }
     }

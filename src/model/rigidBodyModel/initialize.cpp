@@ -3,12 +3,11 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "rigidBodyModel.hpp"
 
-void RLS::RigidBodyModel::initialize(Config &config, Info &info)
+void RLS::RigidBodyModel::initialize()
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   mO = 0.;
   rOC = Vector3d::Zero();

@@ -10,10 +10,6 @@ void RLS::RlsDynamics::baseTranslationTrajectoryCP(double &t)
 {
   if(debug) DEBUG;
 
-  o("base transdl");
-  gc;
-
-
   double tw0 = sequence[baseTranslationTrajectoryNum].tw0;
   double twf = sequence[baseTranslationTrajectoryNum].twf;
   Vector3d initialDes = sequence[baseTranslationTrajectoryNum].rBpreDes;

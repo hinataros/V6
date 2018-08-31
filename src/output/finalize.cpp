@@ -3,17 +3,14 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
+#include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::finalize(Config &config)
+void RLS::Output::finalize()
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   vector<double>().swap(data.t);
-
   vector<TreeModelList>().swap(data.tm);
-
-  if(config.controller.name=="rlsDynamics")
-    vector<RlsDynamicsList>().swap(data.dc);
+  vector<RlsDynamicsList>().swap(data.dc);
 }

@@ -3,13 +3,12 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 
-void RLS::Model::deleteModel(Config &config, Info &info)
+void RLS::Model::deleteModel()
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   // smiyahara: 分岐希望
-  hoap2.deleteModel(config, info);
+  hoap2.deleteModel();
 }

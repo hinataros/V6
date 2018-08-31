@@ -5,16 +5,15 @@
 // #include "yaml-cpp/yaml.h"
 
 #include "config.hpp"
-#include "info.hpp"
 #include "rigidBodyModel.hpp"
 
-void RLS::RigidBodyModel::readModel(Config &config, Info &info)
+void RLS::RigidBodyModel::readModel()
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   // YAML::Node doc = YAML::LoadFile(config.dir.model.c_str());
 
-  initialize(config, info);
+  initialize();
 
   // for(int i=0; i<3; i++)
   //   ag(i) = doc["World model"]["gravity"][i].as<double>();

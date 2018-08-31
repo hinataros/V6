@@ -5,12 +5,12 @@
 #include <fstream>
 
 #include "config.hpp"
-#include "info.hpp"
+#include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::output(Config &config, Info &info)
+void RLS::Output::output(const Config &config, const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   if(config.tex.flag){
     TexMaker interfaceMaker;
@@ -32,22 +32,21 @@ void RLS::Output::output(Config &config, Info &info)
     libraryMaker.setGpPath(config.dir.gp.ind);
     libraryMaker.setDatPath(config.dir.dat.ind);
     libraryMaker.setEpsPath(config.dir.eps.ind);
-    libraryMaker.setDt(info.sim.dt);
+    libraryMaker.setDt(config.clock.dt);
     libraryMaker.setST(config.gp.st);
     libraryMaker.setStartTime(config.gp.tstart);
 
     libraryMaker.makeLibrary();
 
     // controller graph config
-    if(config.controller.name=="rlsDynamics"){
-      if(config.controller.input=="velocity")
-        velocityGraphConfig(config, info);
-      else if(config.controller.input=="acceleration")
-        accelerationGraphConfig(config, info);
-      else if(config.controller.input=="torque")
-        masterGraphConfig(config, info);
-        // torqueGraphConfig(config, info);
-    }
+    if(config.controller.input=="velocity")
+      velocityGraphConfig(config, info);
+    else if(config.controller.input=="acceleration")
+      accelerationGraphConfig(config, info);
+    else if(config.controller.input=="torque")
+      masterGraphConfig(config, info);
+    // torqueGraphConfig(config, info);
+
     runGnuplot(config);
   }
 

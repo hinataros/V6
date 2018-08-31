@@ -3,12 +3,12 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
+#include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::baseTransDes(Config &config, Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::baseTransDes(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   texMaker.reset();
 

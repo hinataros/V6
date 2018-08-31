@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::initialValue(Model &model)
+void RLS::RlsDynamics::initialValue(const string work_dir, Model &model)
 {
   if(debug) DEBUG;
 
@@ -27,7 +27,7 @@ void RLS::RlsDynamics::initialValue(Model &model)
   // high gain control
   thDes = model.hoap2.readJointStateVector("joint angle");
 
-  // readWork(config, info, "Default", 0);
+  readWork(work_dir, false, "Default", 0, 0, model.hoap2.info.eeNum);
 
   initialValueFlag = false;
 }

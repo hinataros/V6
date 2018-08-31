@@ -22,9 +22,9 @@ void RLS::RlsSimulator::run(Config &config, Model &model, RlsDynamics &rlsDynami
 
   } cout << endl;
 
-  // linkEqs(config, info, model, controller, output);
+  linkEqs(config, model, rlsDynamics, output);
 
-  // output.output(config, info);
+  output.output(config, model.hoap2.info);
 
-  // finalize(config, info, model, controller, output);
+  finalize(model, rlsDynamics, output);
 }

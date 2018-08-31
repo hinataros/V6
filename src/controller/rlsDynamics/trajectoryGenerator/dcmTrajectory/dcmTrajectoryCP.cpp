@@ -10,9 +10,6 @@ void RLS::RlsDynamics::dcmTrajectoryCP(double &t)
 {
   if(debug) DEBUG;
 
-  o("dcm");
-  gc;
-
   double tw0 = sequence[dcmTrajectoryNum].tw0;
   double twf = sequence[dcmTrajectoryNum].twf;
   Vector3d initialDes = sequence[dcmTrajectoryNum].rXpreDes;

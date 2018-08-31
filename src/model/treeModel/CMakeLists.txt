@@ -14,8 +14,8 @@ set(srcs
   initializeInfo.cpp
   initializeLink.cpp
   initializeAll.cpp
-  # outputConfig.cpp
-  # deleteModel.cpp
+  outputConfig.cpp
+  deleteModel.cpp
   update.cpp
   )
 

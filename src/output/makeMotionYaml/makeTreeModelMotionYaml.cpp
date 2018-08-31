@@ -5,12 +5,12 @@
 #include <fstream>
 
 #include "config.hpp"
-#include "info.hpp"
+#include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::makeTreeModelMotionYaml(Config &config, Info &info)
+void RLS::Output::makeTreeModelMotionYaml(const Config &config, const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   string path = config.dir.link + "share/motion/" + config.body.name + "Motion.yaml";
 
@@ -24,11 +24,11 @@ void RLS::Output::makeTreeModelMotionYaml(Config &config, Info &info)
       << "-" << endl
       << " type: 'MultiValueSeq'" << endl
       << " content: 'JointPosition'" << endl
-      << " frameRate: " << 1/(info.sim.dt*config.cho.st) << endl
+      << " frameRate: " << 1/(config.clock.dt*config.cho.st) << endl
       << " numParts: " << info.dof.joint << endl
       << " frames:" << endl << endl;
 
-    for(int i=0; i<info.sim.n+1; i+=config.cho.st){
+    for(int i=0; i<config.clock.n+1; i+=config.cho.st){
       motionYaml << "  - [";
 
       for (int j=0; j<info.dof.joint-1; j++)
@@ -48,12 +48,12 @@ void RLS::Output::makeTreeModelMotionYaml(Config &config, Info &info)
       << "-" << endl
       << " type: 'MultiSE3Seq'" << endl
       << " content: 'LinkPosition'" << endl
-      << " frameRate: " << 1/(info.sim.dt*config.cho.st) << endl
+      << " frameRate: " << 1/(config.clock.dt*config.cho.st) << endl
       << " numParts: " << "1" << endl
       << " format: " << "XYZQWQXQYQZ" << endl
       << " frames:" << endl << endl;
 
-    for(int i=0; i<info.sim.n+1; i+=config.cho.st){
+    for(int i=0; i<config.clock.n+1; i+=config.cho.st){
       motionYaml << "  - [ [";
 
       for(int j=0; j<3; j++)

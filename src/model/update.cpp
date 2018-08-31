@@ -10,5 +10,5 @@ void RLS::Model::update(const bool dynamics_flag)
   if(debug) DEBUG;
 
   hoap2.update(dynamics_flag);
-  // object.update(config, info);
+  object.update();
 }

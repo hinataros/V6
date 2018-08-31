@@ -5,12 +5,12 @@
 #include <fstream>
 
 #include "config.hpp"
-#include "info.hpp"
+#include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::makeMotionYaml(Config &config, Info &info)
+void RLS::Output::makeMotionYaml(const Config &config, const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   makeTreeModelMotionYaml(config, info);
 }

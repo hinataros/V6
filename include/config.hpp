@@ -96,6 +96,7 @@ namespace RLS{
       string input;
       string work;
       string driven;
+      string trigger;
     } controller;
 
     struct Gp{

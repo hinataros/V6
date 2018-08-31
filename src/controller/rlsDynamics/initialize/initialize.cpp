@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::initialize(const string work_path, const TreeModel::Info &info)
+void RLS::RlsDynamics::initialize(const Config &config, const TreeModel::Info &info)
 {
   if(debug) DEBUG;
 
@@ -147,15 +147,6 @@ void RLS::RlsDynamics::initialize(const string work_path, const TreeModel::Info 
 
   rpk0 = VectorXd::Zero(2*info.eeNum);
 
-  // previous state
-  // ******************************
-  rCpreState = vCpreState = Vector3d::Zero();
-  rBpreState = vBpreState = Vector3d::Zero();
-  xiBpreState = xiBpreState = Vector3d::Zero();
-
-  rXpreState = drXpreState = Vector3d::Zero();
-  cal_XpreState = cal_VpreState = VectorXd::Zero(6*info.eeNum);
-
   // desired value
   // ******************************
   des = Vector3d::Zero();
@@ -283,9 +274,11 @@ void RLS::RlsDynamics::initialize(const string work_path, const TreeModel::Info 
   // selective matrix for forward kinematics
   bb_ScB = Matrix6d::Zero();
 
-  initializeSequence(work_path, info);
+  initializeState(info);
+  initializeSequence(config.dir.work, info);
   initializeWalking(info);
   initializeTrajectoryGeneratorMap();
   initializeReferenceMap();
   initializeControllerMap();
+  initializeTriggerMap(config.controller.trigger);
 }

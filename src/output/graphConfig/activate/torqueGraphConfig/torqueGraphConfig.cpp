@@ -3,18 +3,18 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
+#include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::torqueGraphConfig(Config &config, Info &info)
+void RLS::Output::torqueGraphConfig(const Config &config, const TreeModel::Info &info)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   // initialize
   // ************************************************
   nameNum = 1;
   setDatPath(config.dir.dat.ind);
-  setDataNum(info.sim.n);
+  setDataNum(config.clock.n);
   setST(config.gp.st);
 
   GpMaker gpMaker;

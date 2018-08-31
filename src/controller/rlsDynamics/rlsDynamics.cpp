@@ -13,7 +13,7 @@ VectorXd RLS::RlsDynamics::rlsDynamics(Config &config, Model &model, double &t)
   model.update(config.controller.dynamics);
 
   if(initialValueFlag)
-    initialValue(model);
+    initialValue(config.dir.work, model);
 
   resize(model);
   index(model);

@@ -3,15 +3,15 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
+#include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::eeRotErr(Config &config, Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::eeRotErr(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   texMaker.reset();
-  texMaker.setLimb(info.value.joint);
+  texMaker.setLimb(info.eeNum);
 
   reset();
   setFileName("eeOrientErr");
@@ -19,7 +19,7 @@ void RLS::Output::eeRotErr(Config &config, Info &info, GpMaker &gpMaker, TexMake
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.value.joint);
+  gpMaker.setLimb(info.eeNum);
   gpMaker.setYLabel("EE orient. err. [rad]");
   gpMaker.setDimention(3);
   gpMaker.makeGp();
@@ -33,7 +33,7 @@ void RLS::Output::eeRotErr(Config &config, Info &info, GpMaker &gpMaker, TexMake
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.value.joint);
+  gpMaker.setLimb(info.eeNum);
   gpMaker.setYLabel("EE ang. vel. err. [rad/s]");
   gpMaker.setDimention(3);
   gpMaker.makeGp();

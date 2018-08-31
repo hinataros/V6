@@ -71,7 +71,7 @@ add_subdirectory(config)
 # add_subdirectory(info)
 add_subdirectory(common)
 add_subdirectory(model)
-# add_subdirectory(output)
+add_subdirectory(output)
 set(sources
   ${config_srcs}
   # ${info_srcs}

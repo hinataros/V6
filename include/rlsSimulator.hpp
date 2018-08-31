@@ -48,7 +48,7 @@ namespace RLS{
     void se3exp(Vector3d&, Matrix3d&, const Vector3d, const Vector3d, const double);
     void update(const Config::Clock&);
 
-    // void finalize(Config&, Info&, Model&, RlsDynamics&, Output&);
+    void finalize(Model&, RlsDynamics&, Output&);
   public:
     void run(Config&, Model&, RlsDynamics&, Output&);
 

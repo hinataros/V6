@@ -3,12 +3,12 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
+#include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::footPrint(Config &config, Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::footPrint(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   // double y_length = 31.5;
   // double x_length_top = 58;

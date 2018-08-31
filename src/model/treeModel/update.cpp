@@ -17,5 +17,5 @@ void RLS::TreeModel::update(const bool dynamics_flag)
     analyticalDynamics();
   }
 
-  // outputConfig(config, info);
+  outputConfig();
 }

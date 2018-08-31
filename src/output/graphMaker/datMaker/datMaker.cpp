@@ -5,7 +5,7 @@
 #include <fstream>
 
 #include "config.hpp"
-#include "info.hpp"
+#include "model.hpp"
 #include "output.hpp"
 
 void RLS::Output::reset()

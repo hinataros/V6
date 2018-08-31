@@ -3,13 +3,12 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::finalize(Config &config, Info &info)
+void RLS::RlsDynamics::finalize()
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   delete[] rkk;
 }

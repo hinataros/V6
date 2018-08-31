@@ -3,12 +3,11 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "rigidBodyModel.hpp"
 
-void RLS::RigidBodyModel::update(Config &config, Info &info)
+void RLS::RigidBodyModel::update()
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   // calculate this inertia and so on...
 }

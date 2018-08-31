@@ -34,6 +34,14 @@ void RLS::Config::readConfig()
   controller.input = doc["Controller"]["Input"].as<string>();
   controller.work = doc["Controller"]["Work"].as<string>();
   controller.driven = doc["Controller"]["Driven"].as<string>();
+
+  if(controller.driven=="event"||controller.driven=="mix"){
+    if(doc["Controller"]["Trigger"])
+      controller.trigger = doc["Controller"]["Trigger"].as<string>();
+    else
+      controller.trigger = "default";
+  }
+
   controller.dynamics = doc["Controller"]["Dynamics"].as<bool>();
 
   // gp config

@@ -3,15 +3,15 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
+#include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::localCop(Config &config, Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::localCop(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   texMaker.reset();
-  texMaker.setLimb(info.value.joint);
+  texMaker.setLimb(info.eeNum);
   texMaker.setLimbNum(3, false);
   texMaker.setLimbNum(4, false);
 
@@ -28,7 +28,7 @@ void RLS::Output::localCop(Config &config, Info &info, GpMaker &gpMaker, TexMake
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.value.joint);
+  gpMaker.setLimb(info.eeNum);
   gpMaker.setLimbNum(3, false);
   gpMaker.setLimbNum(4, false);
   gpMaker.setYLabel("EE CoP x [mm]");
@@ -51,7 +51,7 @@ void RLS::Output::localCop(Config &config, Info &info, GpMaker &gpMaker, TexMake
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.value.joint);
+  gpMaker.setLimb(info.eeNum);
   gpMaker.setLimbNum(3, false);
   gpMaker.setLimbNum(4, false);
   gpMaker.setYLabel("EE CoP y [mm]");
@@ -74,7 +74,7 @@ void RLS::Output::localCop(Config &config, Info &info, GpMaker &gpMaker, TexMake
 
   // gpMaker.reset();
   // gpMaker.setName(file_name);
-  // gpMaker.setLimb(info.value.joint);
+  // gpMaker.setLimb(info.eeNum);
   // gpMaker.setXLabel("EE local CoP y [mm]");
   // gpMaker.setYLabel("EE local CoP x [mm]");
   // gpMaker.setUnit("m");

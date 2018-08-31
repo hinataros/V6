@@ -10,9 +10,6 @@ void RLS::RlsDynamics::externalWrenchTrajectoryCP(double &t)
 {
   if(debug) DEBUG;
 
-  o("external wrench");
-  gc;
-
   double tw0 = sequence[externalWrenchTrajectoryNum].tw0;
   double twf = sequence[externalWrenchTrajectoryNum].twf;
   Vector6d initialDes = sequence[externalWrenchTrajectoryNum].cal_FextpreDes;

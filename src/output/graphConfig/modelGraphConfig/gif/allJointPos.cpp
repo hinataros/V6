@@ -5,12 +5,12 @@
 #include <fstream>
 
 #include "config.hpp"
-#include "info.hpp"
+#include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::allJointPos(Config &config, Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::allJointPos(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   string path_temp;
 
@@ -25,7 +25,7 @@ void RLS::Output::allJointPos(Config &config, Info &info, GpMaker &gpMaker, TexM
     if(!gif)
       cout << path_temp << ": " << endl << "file open error..." << endl;
     else{
-      for(int i=0; i<info.sim.n+1; i+=config.gif.st)
+      for(int i=0; i<config.clock.n+1; i+=config.gif.st)
         gif << setprecision(9) << scientific <<
           data.tm[i].posGifMatrix.col(0).transpose() << endl <<
           data.tm[i].posGifMatrix.block(0,cur+1,3,limb[l-1]).transpose() <<
@@ -57,11 +57,11 @@ void RLS::Output::allJointPos(Config &config, Info &info, GpMaker &gpMaker, TexM
   fprintf(gp, "set zrange[%s:%s]\n", config.gif.all.zMin.c_str(), config.gif.all.zMax.c_str());
 
   double t;
-  for(int i=0; i<info.sim.n/config.gif.st+1; i++){
-    t = i*config.gif.st*info.sim.dt;
-    o(info.sim.n);
+  for(int i=0; i<config.clock.n/config.gif.st+1; i++){
+    t = i*config.gif.st*config.clock.dt;
+    o(config.clock.n);
     o(config.gif.st);
-    o(info.sim.dt);
+    o(config.clock.dt);
     // t = model.t0 + i*config.gif.st*model.dt;
 
     fprintf(gp, "t = %f\n", t);
