@@ -7,7 +7,7 @@
 #include "config.hpp"
 #include "treeModel.hpp"
 
-void RLS::TreeModel::readCnoid(const string cnoid_path, const string body_name, Config::Clock &clock)
+void RLS::TreeModel::readCnoid(Config::Clock &clock)
 {
   if(debug) DEBUG;
 
@@ -15,7 +15,7 @@ void RLS::TreeModel::readCnoid(const string cnoid_path, const string body_name, 
   int bodyItem, aistItem;
   bool bodyFlag=false, aistFlag=false;
 
-  YAML::Node doc = YAML::LoadFile(cnoid_path.c_str());
+  YAML::Node doc = YAML::LoadFile(info.path.cnoid.c_str());
 
   clock.t0 = doc["toolbars"]["TimeBar"]["minTime"].as<double>();
   clock.tf = doc["toolbars"]["TimeBar"]["maxTime"].as<double>();
@@ -24,7 +24,7 @@ void RLS::TreeModel::readCnoid(const string cnoid_path, const string body_name, 
 
   int num = doc["items"]["children"][worldItem]["children"].size();
   for(int i=0; i<num; i++){
-    if(doc["items"]["children"][worldItem]["children"][i]["name"].as<string>()==body_name){
+    if(doc["items"]["children"][worldItem]["children"][i]["name"].as<string>()==info.name.body){
       bodyFlag=true;
       bodyItem = i;
     }
@@ -37,7 +37,7 @@ void RLS::TreeModel::readCnoid(const string cnoid_path, const string body_name, 
 
   if(!bodyFlag)
     cout << "****************************************************************" << endl
-         << "not found '" << body_name << "' item" << endl
+         << "not found '" << info.name.body << "' item" << endl
          << "****************************************************************" << endl;
   if(!aistFlag)
     cout << "not found 'AISTSimulator' item" << endl;

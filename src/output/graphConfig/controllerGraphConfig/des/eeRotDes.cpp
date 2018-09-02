@@ -11,7 +11,7 @@ void RLS::Output::eeRotDes(const Config &config, const TreeModel::Info &info, Gp
   if(debug) DEBUG;
 
   texMaker.reset();
-  texMaker.setLimb(info.eeNum);
+  texMaker.setLimb(info.controlNodeNum);
 
   reset();
   setFileName("eeOrientDes");
@@ -19,7 +19,7 @@ void RLS::Output::eeRotDes(const Config &config, const TreeModel::Info &info, Gp
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.eeNum);
+  gpMaker.setLimb(info.controlNodeNum);
   gpMaker.setYLabel("EE des. orient. [deg]");
   gpMaker.setUnit("RAD2DEG");
   gpMaker.setDimention(3);
@@ -34,7 +34,7 @@ void RLS::Output::eeRotDes(const Config &config, const TreeModel::Info &info, Gp
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.eeNum);
+  gpMaker.setLimb(info.controlNodeNum);
   gpMaker.setYLabel("EE des. ang. vel. [rad/s]");
   gpMaker.setDimention(3);
   gpMaker.makeGp();
@@ -48,7 +48,7 @@ void RLS::Output::eeRotDes(const Config &config, const TreeModel::Info &info, Gp
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.eeNum);
+  gpMaker.setLimb(info.controlNodeNum);
   gpMaker.setYLabel("EE des. ang. acc. [rad/s^2]");
   gpMaker.setDimention(3);
   gpMaker.makeGp();

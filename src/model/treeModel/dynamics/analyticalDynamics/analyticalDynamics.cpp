@@ -97,7 +97,7 @@ void RLS::TreeModel::analyticalDynamics()
     -gm,
     -gth;
 
-  all.dM=dM;
+  all.dM = dM;
   // ********************************************
 
 
@@ -129,8 +129,8 @@ void RLS::TreeModel::analyticalDynamics()
     Matrix3d::Zero().transpose(),dIC,dHC,
     MatrixXd::Zero(3,info.dof.joint).transpose(),dHC.transpose(),dMthC;
 
-  all.JB2C=JB2C;
-  all.dJB2C=dJB2C;
-  all.MM=MM;
-  all.dMM=dMM;
+  all.JB2C = JB2C;
+  all.dJB2C = dJB2C;
+  all.MM = MM;
+  all.dMM = dMM;
 }

@@ -15,10 +15,10 @@ void RLS::RlsDynamics::initialize(const Config &config, const TreeModel::Info &i
   // smiyahara: model.worldとかに持ってきたい
   g = 9.81;
 
-  Bc_kDiag = MatrixXi::Zero(6*info.eeNum, 6*info.eeNum);
-  Bm_kDiag = MatrixXi::Zero(6*info.eeNum, 6*info.eeNum);
+  Bc_kDiag = MatrixXi::Zero(6*info.controlNodeNum, 6*info.controlNodeNum);
+  Bm_kDiag = MatrixXi::Zero(6*info.controlNodeNum, 6*info.controlNodeNum);
 
-  BpDiag = MatrixXi::Zero(2*info.eeNum, 2*info.eeNum);
+  BpDiag = MatrixXi::Zero(2*info.controlNodeNum, 2*info.controlNodeNum);
 
   th = VectorXd::Zero(info.dof.joint);
   dth = VectorXd::Zero(info.dof.joint);
@@ -35,25 +35,28 @@ void RLS::RlsDynamics::initialize(const Config &config, const TreeModel::Info &i
   cal_VB = Vector6d::Zero();
   cal_VM = Vector6d::Zero();
   cal_VC = Vector6d::Zero();
-  cal_X = VectorXd::Zero(6*info.eeNum);
-  cal_V = VectorXd::Zero(6*info.eeNum);
+  cal_X = VectorXd::Zero(6*info.controlNodeNum);
+  cal_V = VectorXd::Zero(6*info.controlNodeNum);
 
-  cal_F = VectorXd::Zero(6*info.eeNum);
+  cal_F = VectorXd::Zero(6*info.controlNodeNum);
 
   dq = VectorXd::Zero(info.dof.all);
   dqM = VectorXd::Zero(info.dof.all);
 
   M = 0.;
-  // transform offset
-  rkk = new Vector3d[info.eeNum];
+  JB2C = MatrixXd::Zero(3, info.dof.joint);
+  dJB2C = MatrixXd::Zero(3, info.dof.joint);
 
-  for(int i=0; i<info.eeNum; i++)
+  // transform offset
+  rkk = new Vector3d[info.controlNodeNum];
+
+  for(int i=0; i<info.controlNodeNum; i++)
     rkk[i] = Vector3d::Zero();
 
-  bb_Rk = MatrixXd::Zero(6*info.eeNum, 6*info.eeNum);
+  bb_Rk = MatrixXd::Zero(6*info.controlNodeNum, 6*info.controlNodeNum);
 
   // diff
-  bb_dRk = MatrixXd::Zero(6*info.eeNum, 6*info.eeNum);
+  bb_dRk = MatrixXd::Zero(6*info.controlNodeNum, 6*info.controlNodeNum);
 
   Jth = MatrixXd::Zero(6, info.dof.joint);
   dJth = MatrixXd::Zero(6, info.dof.joint);
@@ -119,8 +122,8 @@ void RLS::RlsDynamics::initialize(const Config &config, const TreeModel::Info &i
   cal_Sp.block(0,3,2,2) = bb_Spx;
 
   // CoP
-  rpw2k = VectorXd::Zero(2*info.eeNum);
-  rpk = VectorXd::Zero(2*info.eeNum);
+  rpw2k = VectorXd::Zero(2*info.controlNodeNum);
+  rpk = VectorXd::Zero(2*info.controlNodeNum);
   rp = Vector2d::Zero();
 
   // CMP
@@ -141,11 +144,11 @@ void RLS::RlsDynamics::initialize(const Config &config, const TreeModel::Info &i
 
   rX0 = Vector3d::Zero();
 
-  cal_X0 = VectorXd::Zero(6*info.eeNum);
+  cal_X0 = VectorXd::Zero(6*info.controlNodeNum);
 
   cal_Fext0 = Vector6d::Zero();
 
-  rpk0 = VectorXd::Zero(2*info.eeNum);
+  rpk0 = VectorXd::Zero(2*info.controlNodeNum);
 
   // desired value
   // ******************************
@@ -161,8 +164,8 @@ void RLS::RlsDynamics::initialize(const Config &config, const TreeModel::Info &i
 
   rXDes = drXDes = Vector3d::Zero();
 
-  cal_XDes = cal_VxiDes = cal_dVxiDes = VectorXd::Zero(6*info.eeNum);
-  cal_VDes = cal_dVDes = VectorXd::Zero(6*info.eeNum);
+  cal_XDes = cal_VxiDes = cal_dVxiDes = VectorXd::Zero(6*info.controlNodeNum);
+  cal_VDes = cal_dVDes = VectorXd::Zero(6*info.controlNodeNum);
 
   cal_FextDes = Vector6d::Zero();
 
@@ -173,7 +176,7 @@ void RLS::RlsDynamics::initialize(const Config &config, const TreeModel::Info &i
   // ******************************
   erC = evC = Vector3d::Zero();
   erB = evB = eoB = ewB = Vector3d::Zero();
-  cal_Ep = cal_Ev = VectorXd::Zero(6*info.eeNum);
+  cal_Ep = cal_Ev = VectorXd::Zero(6*info.controlNodeNum);
 
   // reference
   // ******************************
@@ -192,7 +195,7 @@ void RLS::RlsDynamics::initialize(const Config &config, const TreeModel::Info &i
   cal_VBRef = Vector6d::Zero();
   cal_VMRef = Vector6d::Zero();
 
-  cal_VRef = VectorXd::Zero(6*info.eeNum);
+  cal_VRef = VectorXd::Zero(6*info.controlNodeNum);
   // **********************
 
   dvBRef = Vector3d::Zero();
@@ -215,7 +218,7 @@ void RLS::RlsDynamics::initialize(const Config &config, const TreeModel::Info &i
   cal_dVMRef = Vector6d::Zero();
   cal_dVCRef = Vector6d::Zero();
 
-  cal_dVRef = VectorXd::Zero(6*info.eeNum);
+  cal_dVRef = VectorXd::Zero(6*info.controlNodeNum);
 
   // momentum
   dpRef = Vector3d::Zero();
@@ -242,8 +245,8 @@ void RLS::RlsDynamics::initialize(const Config &config, const TreeModel::Info &i
 
   KX = Matrix3d::Zero();
 
-  Kpv = MatrixXd::Zero(6*info.eeNum, 6*info.eeNum);
-  Kdv = MatrixXd::Zero(6*info.eeNum, 6*info.eeNum);
+  Kpv = MatrixXd::Zero(6*info.controlNodeNum, 6*info.controlNodeNum);
+  Kdv = MatrixXd::Zero(6*info.controlNodeNum, 6*info.controlNodeNum);
 
   Kpp = Matrix2d::Zero();
 
@@ -257,14 +260,14 @@ void RLS::RlsDynamics::initialize(const Config &config, const TreeModel::Info &i
 
   // optimization weight
   Wdh = Matrix6d::Zero();
-  Wm = MatrixXd::Zero(6*info.eeNum, 6*info.eeNum);
-  WJ = MatrixXd::Zero(6*info.eeNum, 6*info.eeNum);
+  Wm = MatrixXd::Zero(6*info.controlNodeNum, 6*info.controlNodeNum);
+  WJ = MatrixXd::Zero(6*info.controlNodeNum, 6*info.controlNodeNum);
 
   Wth = MatrixXd::Zero(info.dof.joint, info.dof.joint);
   // smiyahara: 接触点の個数を数えたい
-  Wp = MatrixXd::Zero(2*info.eeNum, 2*info.eeNum);
-  WF = MatrixXd::Zero(6*info.eeNum, 6*info.eeNum);
-  WFmin = MatrixXd::Zero(6*info.eeNum, 6*info.eeNum);
+  Wp = MatrixXd::Zero(2*info.controlNodeNum, 2*info.controlNodeNum);
+  WF = MatrixXd::Zero(6*info.controlNodeNum, 6*info.controlNodeNum);
+  WFmin = MatrixXd::Zero(6*info.controlNodeNum, 6*info.controlNodeNum);
 
   // trigger flag
   flagInit = true;

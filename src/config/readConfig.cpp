@@ -25,8 +25,7 @@ void RLS::Config::readConfig()
     debug = doc["Execution"]["Debug mode"].as<bool>();
 
   // model config
-  body.name = doc["Model"]["Body name"].as<string>();
-  cnoid.name = doc["Model"]["cnoid name"].as<string>();
+  model.name = doc["Model"].as<string>();
 
   // controller config
   controller.flag = doc["Controller"]["Flag"].as<bool>();

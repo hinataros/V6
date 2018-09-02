@@ -23,9 +23,9 @@ void RLS::RlsDynamics::torqueOutputErrConfig(const TreeModel::Info &info)
   dc_list.er = dc_list.ev
     = dc_list.eo = dc_list.ew
     = dc_list.ef = dc_list.en
-    = VectorXd::Zero(3*info.eeNum);
+    = VectorXd::Zero(3*info.controlNodeNum);
 
-  for(int i=0; i<info.eeNum; i++){
+  for(int i=0; i<info.controlNodeNum; i++){
     dc_list.er.segment(3*i, 3) = cal_Ep.segment(6*i, 3);
     dc_list.eo.segment(3*i, 3) = antiDiag(3,1.,1.,1.)*cal_Ep.segment(6*i+3, 3);
 

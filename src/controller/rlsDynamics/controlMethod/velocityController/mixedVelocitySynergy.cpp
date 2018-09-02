@@ -16,17 +16,25 @@ VectorXd RLS::RlsDynamics::mixedVelocitySynergy(const TreeModel::Info &info)
   VectorXd dthcRef = pInv(cal_JcM)*cal_VcBarRef;
 
   // mobility
-  // cal_VmBarRef = Bm.transpose()*cal_VRef - cal_Pm.transpose()*cal_VBRef;
-  // cal_VmTildeRef = cal_VmBarRef - cal_Jm*pInv(cal_Jc)*cal_VcBarRef;
-  // cal_JmBar = cal_Jm*N(cal_Jc);
+  MatrixXd cal_JmMBar = cal_JmM*N(cal_JcM);
+  VectorXd cal_VmMBarRef = Bm.transpose()*cal_VRef - cal_PmM.transpose()*cal_VMRef;
+  VectorXd cal_VmMTildeRef = cal_VmMBarRef - cal_JmM*dthcRef;
 
-  // dthmRef = pInv(cal_JmBar)*cal_VmTildeRef;
+  VectorXd dthmRef = pInv(cal_JmMBar)*cal_VmMTildeRef;
 
-  dthRef = dthcRef;
+  // VectorXd dthnRef = N(cal_JcM)*N(cal_JmMBar)*dthaRef;
+
+  dthRef = dthcRef + dthmRef;
 
   dqMRef <<
     cal_VMRef,
     dthRef;
 
-  return dqMRef;
+  VectorXd dqcRef = VectorXd::Zero(info.dof.all);
+  dqcRef <<
+    bb_ScB.block(0,0,3,3)*(vCRef + cross(rB2C)*wBRef - JB2C*dthRef),
+    bb_ScB.block(3,3,3,3)*wBRef,
+    dthRef;
+
+  return dqcRef;
 }

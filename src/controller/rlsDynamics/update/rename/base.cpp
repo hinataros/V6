@@ -10,9 +10,6 @@ void RLS::RlsDynamics::renameBase(TreeModel &model)
 {
   if(debug) DEBUG;
 
-  rB2C = rC - rB;
-  drB2C = vC - vB;
-
   if(model.info.contact.c.all)
     Jc <<
       cal_Pc.transpose(), cal_Jc;

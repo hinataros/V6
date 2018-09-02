@@ -57,6 +57,8 @@ namespace RLS{
     VectorXd dqM;
 
     double M;
+    MatrixXd JB2C;
+    MatrixXd dJB2C;
 
     // transform offset
     Vector3d *rkk;

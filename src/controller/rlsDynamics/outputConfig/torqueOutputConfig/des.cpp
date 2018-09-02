@@ -29,9 +29,9 @@ void RLS::RlsDynamics::torqueOutputDesConfig(const TreeModel::Info &info)
 
   dc_list.rDes = dc_list.vDes = dc_list.dvDes
     = dc_list.xiDes = dc_list.wDes = dc_list.dwDes
-    = VectorXd::Zero(3*info.eeNum);
+    = VectorXd::Zero(3*info.controlNodeNum);
 
-  for(int i=0; i<info.eeNum; i++){
+  for(int i=0; i<info.controlNodeNum; i++){
     dc_list.rDes.segment(3*i, 3) = cal_XDes.segment(6*i, 3);
     dc_list.xiDes.segment(3*i, 3) = antiDiag(3,1.,1.,1.)*cal_XDes.segment(6*i+3, 3);
 

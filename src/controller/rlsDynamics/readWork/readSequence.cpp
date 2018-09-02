@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::readSequence(YAML::Node &doc, bool multi, string node, int num, int phase, int eeNum)
+void RLS::RlsDynamics::readSequence(YAML::Node &doc, bool multi, string node, int num, int phase, int controlNodeNum)
 {
   sequence[num].twf = updateValue<double>(doc, multi, node, num, phase, "twf", sequence[num].twf);
 
@@ -18,7 +18,7 @@ void RLS::RlsDynamics::readSequence(YAML::Node &doc, bool multi, string node, in
   sequence[num].rXf = updateVector<Vector3d>(doc, multi, node, num, phase, "rXf", sequence[num].rXf);
   sequence[num].cal_Fextf = updateVector<Vector6d>(doc, multi, node, num, phase, "cal_Fextf", sequence[num].cal_Fextf);
 
-  sequence[num].cal_Xf = updateVector<VectorXd>(doc, multi, node, num, phase, "cal_Xf", eeNum, sequence[num].cal_Xf);
+  sequence[num].cal_Xf = updateVector<VectorXd>(doc, multi, node, num, phase, "cal_Xf", controlNodeNum, sequence[num].cal_Xf);
 
   // info.sim.trecf = checkValue<double>(doc, node, seq, "trecf", info.sim.trecf);
 }

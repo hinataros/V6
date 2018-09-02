@@ -11,7 +11,7 @@ void RLS::Output::eeTransDes(const Config &config, const TreeModel::Info &info, 
   if(debug) DEBUG;
 
   texMaker.reset();
-  texMaker.setLimb(info.eeNum);
+  texMaker.setLimb(info.controlNodeNum);
 
   reset();
   setFileName("eePosDes");
@@ -19,7 +19,7 @@ void RLS::Output::eeTransDes(const Config &config, const TreeModel::Info &info, 
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.eeNum);
+  gpMaker.setLimb(info.controlNodeNum);
   gpMaker.setYLabel("EE des. pos. [mm]");
   gpMaker.setUnit("m");
   gpMaker.setDimention(3);
@@ -34,7 +34,7 @@ void RLS::Output::eeTransDes(const Config &config, const TreeModel::Info &info, 
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.eeNum);
+  gpMaker.setLimb(info.controlNodeNum);
   gpMaker.setYLabel("EE des. vel. [m/s]");
   gpMaker.setDimention(3);
   gpMaker.makeGp();
@@ -48,7 +48,7 @@ void RLS::Output::eeTransDes(const Config &config, const TreeModel::Info &info, 
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.eeNum);
+  gpMaker.setLimb(info.controlNodeNum);
   gpMaker.setYLabel("EE des. acc. [m/s^2]");
   gpMaker.setDimention(3);
   gpMaker.makeGp();

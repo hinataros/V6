@@ -2,27 +2,29 @@
 
 Default:
   -
+    CoM trajectory: {name: CP}
     Base orientation trajectory: {name: CP}
     End effector trajectory: {num: 1, name: CP}
 
-    Motion controller: baseVelocitySynergy
+    Motion controller: mixedVelocitySynergy
 
     Bc:
       - [1, 1, 1, 1, 1, 1]
       - [1, 1, 1, 1, 1, 1]
       - [0, 0, 0, 0, 0, 0]
       - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
     Bm:
       - [0, 0, 0, 0, 0, 0]
       - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 1, 1, 1]
       - [1, 1, 1, 0, 0, 0]
       - [1, 1, 1, 0, 0, 0]
 
-    # KpC: .
-    # KdC: .
+    KpC: 100.
 
-    KpwB: 10.
-    Kpv: 10.
+    KpwB: 100.
+    Kpv: 100.
 
     # KthD: .
 
@@ -35,12 +37,13 @@ Sequence:
       twf: 1.
     -
       twf: 3.
-      xiBf: [0., 0.52, 0.]
+      xiBf: [-0.52, -0.52, 0.]
   -
     -
       twf: 3.
       cal_Xf:
         - [0., 0., 0., 0., 0., 0.]
         - [0., 0., 0., 0., 0., 0.]
-        - [0., 0., 0.1, 0., 0., 0.]
+        - [0., 0., 0., 0.52, 0.52, 0.]
+        - [0., 0.1, 0.1, 0., 0., 0.]
         - [0.1, 0., 0.1, 0., 0., 0.]

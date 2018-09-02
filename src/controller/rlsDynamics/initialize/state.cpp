@@ -19,5 +19,5 @@ void RLS::RlsDynamics::initializeState(const TreeModel::Info &info)
   state.xiBpreDes = state.xiBpreDes = Vector3d::Zero();
 
   state.rXpreDes = state.drXpreDes = Vector3d::Zero();
-  state.cal_XpreDes = state.cal_VpreDes = VectorXd::Zero(6*info.eeNum);
+  state.cal_XpreDes = state.cal_VpreDes = VectorXd::Zero(6*info.controlNodeNum);
 }

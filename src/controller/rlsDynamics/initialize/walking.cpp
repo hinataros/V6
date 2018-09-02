@@ -62,5 +62,5 @@ void RLS::RlsDynamics::initializeWalking(const TreeModel::Info &info)
 
   // EE reference
   referenceSequence = 1;
-  cal_Xtd = VectorXd::Zero(6*info.eeNum);
+  cal_Xtd = VectorXd::Zero(6*info.controlNodeNum);
 }

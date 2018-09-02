@@ -11,7 +11,7 @@ void RLS::Output::eeRotErr(const Config &config, const TreeModel::Info &info, Gp
   if(debug) DEBUG;
 
   texMaker.reset();
-  texMaker.setLimb(info.eeNum);
+  texMaker.setLimb(info.controlNodeNum);
 
   reset();
   setFileName("eeOrientErr");
@@ -19,7 +19,7 @@ void RLS::Output::eeRotErr(const Config &config, const TreeModel::Info &info, Gp
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.eeNum);
+  gpMaker.setLimb(info.controlNodeNum);
   gpMaker.setYLabel("EE orient. err. [rad]");
   gpMaker.setDimention(3);
   gpMaker.makeGp();
@@ -33,7 +33,7 @@ void RLS::Output::eeRotErr(const Config &config, const TreeModel::Info &info, Gp
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.eeNum);
+  gpMaker.setLimb(info.controlNodeNum);
   gpMaker.setYLabel("EE ang. vel. err. [rad/s]");
   gpMaker.setDimention(3);
   gpMaker.makeGp();

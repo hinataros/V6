@@ -42,6 +42,7 @@ namespace RLS{
       int all;
       int axis[6];
     };
+    // smiyahara: 別の名前希望
     struct Contact{
       string name;
       int num;
@@ -49,10 +50,21 @@ namespace RLS{
       Each m;
     };
 
+    struct ChoModel{
+      string body;
+      string cnoid;
+    };
+
     struct Info{
+      string bodyName;
+      string cnoidName;
+      ChoModel name;
+      ChoModel path;
+
       int rootNode;
       int linkNum;
-      int eeNum;
+      int controlNodeNum;
+      Contact *controlNode;
       Dof dof;
       Contact contact;
     } info;
@@ -94,7 +106,7 @@ namespace RLS{
       int parentNode;
       string jointType;
       string jointAxis;
-      string linkType;
+      // string linkType;
 
       // inital value
       Matrix3d R0;
@@ -167,11 +179,13 @@ namespace RLS{
     VectorXd readJointStateVector(const string);
     void writeJointStateVector(const string, const VectorXd);
     MatrixXd stateMatrixFilter(const bool, const bool, const MatrixXd);
-    VectorXd readEndEffectorValueVector(const string);
+    VectorXd readControlNodeValueVector(const string);
 
-    void readCnoid(const string, const string, Config::Clock&);
-    void readBody(const string);
-    void readModel(Config&);
+    void readModel(string);
+    void setDir(string);
+    void readBody();
+    void setInfo();
+    void readCnoid(Config::Clock&);
     void deleteModel();
 
     void transformMatrix();

@@ -16,7 +16,7 @@ void RLS::RlsDynamics::cop(const TreeModel &model)
   // sensor position w.r.t. world coordinates
   Vector3d rSensor = Vector3d::Zero();
 
-  for(int i=0; i<model.info.eeNum; i++){
+  for(int i=0; i<model.info.controlNodeNum; i++){
     cal_Fk = cal_F.segment(6*i, 6);
     // smiyahara: 先端部と仮定． 他の場所で定義したほうがいいかも
     rSensor = cal_X.segment(6*i, 3);

@@ -11,7 +11,7 @@ void RLS::Output::eeWrenchErr(const Config &config, const TreeModel::Info &info,
   if(debug) DEBUG;
 
   texMaker.reset();
-  texMaker.setLimb(info.eeNum);
+  texMaker.setLimb(info.controlNodeNum);
 
   reset();
   setFileName("eeForceErr");
@@ -19,7 +19,7 @@ void RLS::Output::eeWrenchErr(const Config &config, const TreeModel::Info &info,
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.eeNum);
+  gpMaker.setLimb(info.controlNodeNum);
   gpMaker.setYLabel("EE force err. [N]");
   gpMaker.setDimention(3);
   gpMaker.makeGp();
@@ -33,7 +33,7 @@ void RLS::Output::eeWrenchErr(const Config &config, const TreeModel::Info &info,
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.eeNum);
+  gpMaker.setLimb(info.controlNodeNum);
   gpMaker.setYLabel("EE moment err. [Nm]");
   gpMaker.setDimention(3);
   gpMaker.makeGp();

@@ -34,8 +34,8 @@ void RLS::RlsDynamics::torqueOutputRefConfig(const TreeModel::Info &info)
   // dc_list.dlBRef = dlBRef;
 
   dc_list.fRef = dc_list.nRef
-    = VectorXd::Zero(3*info.eeNum);
-  for(int i=0; i<info.eeNum; i++){
+    = VectorXd::Zero(3*info.controlNodeNum);
+  for(int i=0; i<info.controlNodeNum; i++){
     dc_list.fRef.segment(3*i, 3) = (Bc_k*cal_FcBarRef).segment(6*i, 3);
     dc_list.nRef.segment(3*i, 3) = (Bc_k*cal_FcBarRef).segment(6*i+3, 3);
   }

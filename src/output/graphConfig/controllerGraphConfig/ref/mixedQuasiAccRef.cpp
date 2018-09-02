@@ -42,14 +42,14 @@ void RLS::Output::mixedQuasiAccRef(const Config &config, const TreeModel::Info &
 
   // gpMaker.reset();
   // gpMaker.setName(file_name);
-  // gpMaker.setLimb(info.eeNum);
-  // for(int i=1; i<info.eeNum+1; i++)
+  // gpMaker.setLimb(info.controlNodeNum);
+  // for(int i=1; i<info.controlNodeNum+1; i++)
   //   gpMaker.setDimention(i, info.limb[i].dof);
   // gpMaker.setYLabel("J. acc. ref. [rad/s^2]");
   // gpMaker.makeGp();
 
   // texMaker.setName(file_name);
-  // texMaker.setLimb(info.eeNum);
+  // texMaker.setLimb(info.controlNodeNum);
   // texMaker.setNewline();
   // texMaker.addMinipage();
 

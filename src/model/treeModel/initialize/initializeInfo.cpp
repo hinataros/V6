@@ -16,8 +16,6 @@ void RLS::TreeModel::initializeInfo()
 
   info.dof.joint = 0;
 
-  info.eeNum = 0;
-
   info.contact.num = 0;
   info.contact.c.all = info.contact.m.all = 0;
 

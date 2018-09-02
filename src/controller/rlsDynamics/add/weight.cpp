@@ -10,7 +10,7 @@ MatrixXd RLS::RlsDynamics::weight(const TreeModel::Info &info, const Vector3d rI
 {
   if(debug) DEBUG;
 
-  MatrixXd W = MatrixXd::Identity(6*info.eeNum, 6*info.eeNum);
+  MatrixXd W = MatrixXd::Identity(6*info.controlNodeNum, 6*info.controlNodeNum);
 
   Vector3d Dr = cal_X.segment(0,3) - cal_X.segment(6,3);
 
@@ -21,7 +21,7 @@ MatrixXd RLS::RlsDynamics::weight(const TreeModel::Info &info, const Vector3d rI
   double wzTilde;
 
   // only foot support
-  for(int i=0; i<info.eeNum; i++){
+  for(int i=0; i<info.controlNodeNum; i++){
     Drk = rIndex - cal_X.segment(6*i,3);
     wkz = abs(Dr.head(2).transpose()*Drk.head(2));
 

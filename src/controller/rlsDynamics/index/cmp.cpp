@@ -12,7 +12,7 @@ void RLS::RlsDynamics::cmp(const TreeModel &model)
 
   Vector3d f = Vector3d::Zero();
 
-  for(int i=0; i<model.info.eeNum; i++)
+  for(int i=0; i<model.info.controlNodeNum; i++)
     f += cal_F.segment((6*i), 3);
 
   if(f(2) != 0.)

@@ -36,7 +36,7 @@ void RLS::RlsDynamics::initializeSequence(const string work_path, const TreeMode
     sequence[i].rBf = Vector3d::Zero();
     sequence[i].xiBf = Vector3d::Zero();
     sequence[i].rXf = Vector3d::Zero();
-    sequence[i].cal_Xf = VectorXd::Zero(6*info.eeNum);
+    sequence[i].cal_Xf = VectorXd::Zero(6*info.controlNodeNum);
     sequence[i].cal_Fextf = Vector6d::Zero();
 
     // previous desired value
@@ -45,7 +45,7 @@ void RLS::RlsDynamics::initializeSequence(const string work_path, const TreeMode
     sequence[i].rBpreDes = Vector3d::Zero();
     sequence[i].xiBpreDes = Vector3d::Zero();
     sequence[i].rXpreDes = Vector3d::Zero();
-    sequence[i].cal_XpreDes = VectorXd::Zero(6*info.eeNum);
+    sequence[i].cal_XpreDes = VectorXd::Zero(6*info.controlNodeNum);
     sequence[i].cal_FextpreDes = Vector6d::Zero();
   }
 }

@@ -23,16 +23,16 @@ void RLS::TreeModel::outputConfig()
   tm_list.p = all.p;
   tm_list.lC = all.lC;
 
-  tm_list.r = readEndEffectorValueVector("position");
-  tm_list.v = readEndEffectorValueVector("velocity");
+  tm_list.r = readControlNodeValueVector("position");
+  tm_list.v = readControlNodeValueVector("velocity");
 
-  MatrixXd antiDiagMat = MatrixXd::Zero(3*info.eeNum,3*info.eeNum);
-  for(int i=0; i<info.eeNum; i++)
+  MatrixXd antiDiagMat = MatrixXd::Zero(3*info.controlNodeNum,3*info.controlNodeNum);
+  for(int i=0; i<info.controlNodeNum; i++)
     antiDiagMat.block(3*i,3*i,3,3) = antiDiag(3,1.,1.,1.);
-  tm_list.xi = antiDiagMat*readEndEffectorValueVector("orientation");
-  tm_list.w = readEndEffectorValueVector("angular velocity");
-  tm_list.f = readEndEffectorValueVector("force");
-  tm_list.n = readEndEffectorValueVector("moment");
+  tm_list.xi = antiDiagMat*readControlNodeValueVector("orientation");
+  tm_list.w = readControlNodeValueVector("angular velocity");
+  tm_list.f = readControlNodeValueVector("force");
+  tm_list.n = readControlNodeValueVector("moment");
 
   // // smiyahara: サイズの初期化の変数がびみょ
   // int cur=0, temp=0;

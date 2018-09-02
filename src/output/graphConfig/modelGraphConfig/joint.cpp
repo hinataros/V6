@@ -11,7 +11,7 @@ void RLS::Output::joint(const Config &config, const TreeModel::Info &info, GpMak
   if(debug) DEBUG;
 
   // texMaker.reset();
-  // texMaker.setLimb(info.eeNum);
+  // texMaker.setLimb(info.controlNodeNum);
 
   // reset();
   // setFileName("jointAng");
@@ -19,8 +19,8 @@ void RLS::Output::joint(const Config &config, const TreeModel::Info &info, GpMak
 
   // gpMaker.reset();
   // gpMaker.setName(file_name);
-  // gpMaker.setLimb(info.eeNum);
-  // for(int i=1; i<info.eeNum+1; i++)
+  // gpMaker.setLimb(info.controlNodeNum);
+  // for(int i=1; i<info.controlNodeNum+1; i++)
   //   gpMaker.setDimention(i, info.limb[i].dof);
   // gpMaker.setYLabel("j. ang. [deg]");
   // gpMaker.setUnit("RAD2DEG");
@@ -35,8 +35,8 @@ void RLS::Output::joint(const Config &config, const TreeModel::Info &info, GpMak
 
   // gpMaker.reset();
   // gpMaker.setName(file_name);
-  // gpMaker.setLimb(info.eeNum);
-  // for(int i=1; i<info.eeNum+1; i++)
+  // gpMaker.setLimb(info.controlNodeNum);
+  // for(int i=1; i<info.controlNodeNum+1; i++)
   //   gpMaker.setDimention(i, info.limb[i].dof);
   // gpMaker.setYLabel("j. vel. [rad/s]");
   // gpMaker.makeGp();

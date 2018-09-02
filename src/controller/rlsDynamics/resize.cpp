@@ -13,7 +13,7 @@ void RLS::RlsDynamics::resize(Model &model)
   th = model.hoap2.readJointStateVector("joint angle");
   dth = model.hoap2.readJointStateVector("joint velocity");
 
-  cal_X = model.hoap2.readEndEffectorValueVector("6D position");
-  cal_V = model.hoap2.readEndEffectorValueVector("spatial velocity");
-  cal_F = model.hoap2.readEndEffectorValueVector("wrench");
+  cal_X = model.hoap2.readControlNodeValueVector("6D position");
+  cal_V = model.hoap2.readControlNodeValueVector("spatial velocity");
+  cal_F = model.hoap2.readControlNodeValueVector("wrench");
 }

@@ -10,4 +10,6 @@ void RLS::TreeModel::deleteModel()
   if(debug) DEBUG;
 
   delete[] link;
+
+  delete[] info.controlNode;
 }

@@ -11,7 +11,7 @@ void RLS::Output::eeWrenchRef(const Config &config, const TreeModel::Info &info,
   if(debug) DEBUG;
 
   texMaker.reset();
-  texMaker.setLimb(info.eeNum);
+  texMaker.setLimb(info.controlNodeNum);
   texMaker.setLimbNum(3, false);
   texMaker.setLimbNum(4, false);
 
@@ -21,7 +21,7 @@ void RLS::Output::eeWrenchRef(const Config &config, const TreeModel::Info &info,
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.eeNum);
+  gpMaker.setLimb(info.controlNodeNum);
   gpMaker.setLimbNum(3, false);
   gpMaker.setLimbNum(4, false);
   gpMaker.setYLabel("EE force ref. [N]");
@@ -37,7 +37,7 @@ void RLS::Output::eeWrenchRef(const Config &config, const TreeModel::Info &info,
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.eeNum);
+  gpMaker.setLimb(info.controlNodeNum);
   gpMaker.setLimbNum(3, false);
   gpMaker.setLimbNum(4, false);
   gpMaker.setYLabel("EE moment ref. [Nm]");

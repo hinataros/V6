@@ -18,7 +18,7 @@ void RLS::RlsDynamics::initialValue(const string work_dir, Model &model)
 
   rX0 = model.hoap2.all.rC + sqrt(model.hoap2.all.rC(2)/abs(model.hoap2.ag(2)))*model.hoap2.all.vC;
 
-  cal_X0 = model.hoap2.readEndEffectorValueVector("6D position");
+  cal_X0 = model.hoap2.readControlNodeValueVector("6D position");
 
   cal_Fext0 <<
     model.hoap2.link[model.hoap2.info.rootNode].f,
@@ -27,7 +27,7 @@ void RLS::RlsDynamics::initialValue(const string work_dir, Model &model)
   // high gain control
   thDes = model.hoap2.readJointStateVector("joint angle");
 
-  readWork(work_dir, false, "Default", 0, 0, model.hoap2.info.eeNum);
+  readWork(work_dir, false, "Default", 0, 0, model.hoap2.info.controlNodeNum);
 
   initialValueFlag = false;
 }

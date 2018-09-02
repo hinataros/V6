@@ -12,6 +12,7 @@ items:
       data: 
         collisionDetection: false
         collisionDetector: AISTCollisionDetector
+        materialTableFile: "${SHARE}/default/materials.yaml"
       children: 
         - 
           id: 2
@@ -43,8 +44,17 @@ items:
             collisionDetection: true
             selfCollisionDetection: false
             isEditable: true
+          children: 
+            - 
+              id: 3
+              name: "skeletonW3A4primMotion"
+              plugin: Body
+              class: BodyMotionItem
+              data: 
+                filename: "/home/smiyahara/Documents/rlsSimulator/share/motion/master/skeletonW3A4primMotion.yaml"
+                format: BODY-MOTION-YAML
         - 
-          id: 3
+          id: 4
           name: "floor"
           plugin: Body
           class: BodyItem
@@ -78,8 +88,8 @@ views:
     class: ItemTreeView
     mounted: true
     state: 
-      selected: [ 2 ]
-      checked: [ 1, 2, 3 ]
+      selected: [ 3 ]
+      checked: [ 1, 2, 3, 4 ]
       expanded: [ 1, 2 ]
   - 
     id: 2
@@ -183,7 +193,7 @@ views:
 toolbars: 
   "TimeBar": 
     minTime: 0
-    maxTime: 10
+    maxTime: 5
     frameRate: 1000
     playbackFrameRate: 50
     idleLoopDrivenMode: false
@@ -247,7 +257,7 @@ Body:
         showPpcom: false
         showZmp: false
       - 
-        bodyItem: 3
+        bodyItem: 4
         showCenterOfMass: false
         showPpcom: false
         showZmp: false
@@ -275,7 +285,7 @@ viewAreas:
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 421, 430 ]
+          sizes: [ 457, 466 ]
           children: 
             - 
               type: pane
@@ -288,7 +298,7 @@ viewAreas:
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 741, 110 ]
+          sizes: [ 804, 119 ]
           children: 
             - 
               type: pane

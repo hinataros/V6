@@ -10,13 +10,13 @@ int RLS::RlsDynamics::objective(TreeModel::Info &info)
 {
   if(debug) DEBUG;
 
-  MatrixXd Fz = MatrixXd::Identity(2*info.eeNum, 2*info.eeNum);
+  MatrixXd Fz = MatrixXd::Identity(2*info.controlNodeNum, 2*info.controlNodeNum);
 
-  MatrixXd cal_S = MatrixXd::Zero(2*info.eeNum,6*info.eeNum);
-  for(int i=0; i<info.eeNum; i++)
+  MatrixXd cal_S = MatrixXd::Zero(2*info.controlNodeNum,6*info.controlNodeNum);
+  for(int i=0; i<info.controlNodeNum; i++)
     cal_S.block(2*i,6*i+3,2,2) = bb_Spx;
 
-  for(int i=0; i<info.eeNum; i++){
+  for(int i=0; i<info.controlNodeNum; i++){
     Fz.block(2*i,2*i,2,2) *= cal_F(6*i+2);
   }
 

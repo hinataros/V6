@@ -10,7 +10,7 @@ void RLS::RlsDynamics::endEffectorReferencePI(TreeModel &model)
 {
   if(debug) DEBUG;
 
-  for(int i=0; i<model.info.eeNum; i++){
+  for(int i=0; i<model.info.controlNodeNum; i++){
     // cal_VDes.segment(6*i, 6) <<
     //   cal_VxiDes.segment(6*i, 3),
     //   dxi2w(cal_VxiDes.segment(6*i+3, 3), cal_X.segment(6*i+3, 3));

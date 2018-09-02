@@ -9,9 +9,7 @@ void RLS::Config::setDir()
   if(debug) DEBUG;
 
   dir.share = dir.link + "share/";
-  dir.cnoid = dir.share + "project/" + cnoid.name + ".cnoid";
-  dir.body = dir.share + "model/";
-  dir.model = dir.link + "yaml/model/" + body.name+".model";
+  dir.model = dir.link + "yaml/model/" + model.name+".model";
   dir.work = dir.link + "yaml/work/" + controller.name+"/" + controller.work+".work";
 
   dir.result = dir.link + "result/";
