@@ -42,4 +42,20 @@ void RLS::RlsDynamics::renameState(TreeModel &model)
   cal_VC <<
     vC,
     wB + IC.inverse()*HC*dth;
+
+  // mixed
+  // ******************************
+  Pcf = cal_Pc.block(0,0,3,model.info.contact.c.all);
+  Pmf = cal_Pm.block(0,0,3,model.info.contact.m.all);
+  PcMm = cal_PcM.block(3,0,3,model.info.contact.c.all);
+  cal_JcM = cal_Jc - Pcf.transpose()*model.all.JB2C;
+  cal_JmM = cal_Jm - Pmf.transpose()*model.all.JB2C;
+
+  // diff
+  dPcf = cal_dPc.block(0,0,3,model.info.contact.c.all);
+  dPmf = cal_dPm.block(0,0,3,model.info.contact.m.all);
+  dPcMm = cal_dPc.block(3,0,3,model.info.contact.c.all);
+  // dPcf = 0と仮定
+  cal_dJcM = cal_dJc - Pcf.transpose()*model.all.dJB2C;
+  cal_dJmM = cal_dJm - Pmf.transpose()*model.all.dJB2C;
 }

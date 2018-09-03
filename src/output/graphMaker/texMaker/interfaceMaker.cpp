@@ -16,11 +16,6 @@ void RLS::TexMaker::setModelName(string arg)
   name_model = arg;
 }
 
-void RLS::TexMaker::setControllerName(string arg)
-{
-  name_controller = arg;
-}
-
 void RLS::TexMaker::setTitle(string arg)
 {
   title = arg;

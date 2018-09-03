@@ -16,7 +16,6 @@ void RLS::Output::output(const Config &config, const TreeModel::Info &info)
     TexMaker interfaceMaker;
     interfaceMaker.setInterfacePath(config.dir.interface);
     interfaceMaker.setModelName(info.name.body);
-    interfaceMaker.setControllerName(config.controller.name);
     interfaceMaker.setTitle(config.tex.title);
     interfaceMaker.setCmpName(config.result.name.cmp);
     interfaceMaker.setIndName(config.result.name.ind);

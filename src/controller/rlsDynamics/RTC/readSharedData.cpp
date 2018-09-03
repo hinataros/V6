@@ -4,9 +4,9 @@
 
 #include "rlsDynamicsRTC.h"
 
-void RlsDynamicsRTC::readSharedData(RLS::Config &config, RLS::Info &info, RLS::RigidBodyModel &object, RLS::SharedData &sharedData)
+void RlsDynamicsRTC::readSharedData(RLS::Config &config, RLS::RigidBodyModel &object, RLS::SharedData &sharedData)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   for(int i=0; i<3; i++)
     object.rO(i) = sharedData.root.r[i];

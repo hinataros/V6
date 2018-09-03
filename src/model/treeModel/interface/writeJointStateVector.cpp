@@ -10,7 +10,7 @@ void RLS::TreeModel::writeJointStateVector(const string state, const VectorXd x)
   if(debug) DEBUG;
 
   if(info.dof.joint != x.size()){
-    cout << "does not match vector size..." << endl;
+    cout << "does not match joint state vector size..." << endl;
   }
 
   if(state=="joint angle"){

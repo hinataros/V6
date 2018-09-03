@@ -65,6 +65,8 @@ namespace RLS{
       int linkNum;
       int controlNodeNum;
       Contact *controlNode;
+      int sensorNodeNum;
+      Contact *sensorNode;
       Dof dof;
       Contact contact;
     } info;
@@ -178,13 +180,13 @@ namespace RLS{
 
     VectorXd readJointStateVector(const string);
     void writeJointStateVector(const string, const VectorXd);
+    void writeSensorValueVector(const string, const VectorXd);
     MatrixXd stateMatrixFilter(const bool, const bool, const MatrixXd);
     VectorXd readControlNodeValueVector(const string);
 
     void readModel(string);
     void setDir(string);
     void readBody();
-    void setInfo();
     void readCnoid(Config::Clock&);
     void deleteModel();
 

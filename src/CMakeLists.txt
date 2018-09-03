@@ -67,14 +67,12 @@ if(rls_thirdparty_QuadProgpp)
   set(LDFLAGS ${LDFLAGS} quadprog)
 endif()
 
-add_subdirectory(config)
-# add_subdirectory(info)
 add_subdirectory(common)
+add_subdirectory(config)
 add_subdirectory(model)
 add_subdirectory(output)
 set(sources
   ${config_srcs}
-  # ${info_srcs}
   ${common_srcs}
   ${model_srcs}
   ${output_srcs}

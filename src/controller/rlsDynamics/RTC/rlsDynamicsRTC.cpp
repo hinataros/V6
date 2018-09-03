@@ -5,7 +5,6 @@
 #include "rlsDynamicsRTC.h"
 
 RLS::Config config;
-RLS::Info info;
 RLS::Model model;
 RLS::RlsDynamics rlsDynamics;
 RLS::Output output;
@@ -71,16 +70,14 @@ RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
   t = 0.;
 
   config.readConfig();
+  model.readModel(config);
+  rlsDynamics.initialize(config, model.hoap2.info);
 
   cout << "=========================================" << endl;
-  cout << "Body : "<< config.body.name << ".body" << endl;
-  cout << "cnoid: "<< config.cnoid.name << ".cnoid" << endl;
+  cout << "Body : "<< model.hoap2.info.name.body << ".body" << endl;
+  cout << "cnoid: "<< model.hoap2.info.name.cnoid << ".cnoid" << endl;
   cout << "Work : "<< config.controller.work << ".work" << endl;
   cout << "=========================================" << endl << endl;
-
-  info.initialize(config);
-  model.readModel(config, info);
-  rlsDynamics.initialize(config, info);
 
   if(config.flag.shm)
     sharedMemory.initialize();
@@ -96,28 +93,28 @@ RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
     m_externalForce.data[i] = 0.;
 
   // smiyahara: 要検討
-  readState(config, info, model.hoap2);
+  readState(config, model.hoap2);
 
   if(config.flag.shm){
     sharedMemory.getData(&sharedData);
-    readSharedData(config, info, model.object, sharedData);
+    readSharedData(config, model.object, sharedData);
   }
 
-  tau = rlsDynamics.rlsDynamics(config, info, model, t);
+  tau = rlsDynamics.rlsDynamics(config, model, t);
   Fext = rlsDynamics.virtualInput;
 
   if(config.flag.shm){
-    writeSharedData(config, info, model.hoap2.tm_list, rlsDynamics.dc_list, sharedData);
+    writeSharedData(config, model.hoap2.tm_list, rlsDynamics.dc_list, sharedData);
     sharedMemory.putData(&sharedData);
   }
 
   output.tm_temp = model.hoap2.tm_list;
   output.dc_temp = rlsDynamics.dc_list;
-  output.pushBack(config, t);
+  output.pushBack(t);
 
-  writeInput(config);
+  writeInput();
 
-  t += info.sim.dt;
+  t += config.clock.dt;
 
   return RTC::RTC_OK;
 }
@@ -127,37 +124,35 @@ RTC::ReturnCode_t RlsDynamicsRTC::onDeactivated(RTC::UniqueId ec_id)
   cout << "RlsDynamicsRTC::onDeactivated()" << endl;
 
   // smiyahara: はい?
-  info.sim.n = (t - info.sim.t0) / info.sim.dt;
+  config.clock.n = (t - config.clock.t0) / config.clock.dt;
 
-  readState(config, info, model.hoap2);
+  readState(config, model.hoap2);
 
   if(config.flag.shm){
     sharedMemory.getData(&sharedData);
-    readSharedData(config, info, model.object, sharedData);
+    readSharedData(config, model.object, sharedData);
   }
 
-  tau = rlsDynamics.rlsDynamics(config, info, model, t);
+  tau = rlsDynamics.rlsDynamics(config, model, t);
   Fext = rlsDynamics.virtualInput;
 
   if(config.flag.shm){
-    writeSharedData(config, info, model.hoap2.tm_list, rlsDynamics.dc_list, sharedData);
+    writeSharedData(config, model.hoap2.tm_list, rlsDynamics.dc_list, sharedData);
     sharedMemory.putData(&sharedData);
   }
 
   output.dc_temp = rlsDynamics.dc_list;
   output.tm_temp = model.hoap2.tm_list;
-  output.pushBack(config, t);
+  output.pushBack(t);
 
   if(config.flag.shm)
     sharedMemory.finalize();
 
-  output.output(config, info);
+  output.output(config, model.hoap2.info);
 
-  rlsDynamics.finalize(config, info);
-  output.finalize(config);
-
-  model.deleteModel(config, info);
-  info.finalize(config);
+  rlsDynamics.finalize();
+  output.finalize();
+  model.deleteModel();
 
   return RTC::RTC_OK;
 }
@@ -165,28 +160,28 @@ RTC::ReturnCode_t RlsDynamicsRTC::onDeactivated(RTC::UniqueId ec_id)
 
 RTC::ReturnCode_t RlsDynamicsRTC::onExecute(RTC::UniqueId ec_id)
 {
-  readState(config, info, model.hoap2);
+  readState(config, model.hoap2);
 
   if(config.flag.shm){
     sharedMemory.getData(&sharedData);
-    readSharedData(config, info, model.object, sharedData);
+    readSharedData(config, model.object, sharedData);
   }
 
-  tau = rlsDynamics.rlsDynamics(config, info, model, t);
+  tau = rlsDynamics.rlsDynamics(config, model, t);
   Fext = rlsDynamics.virtualInput;
 
   if(config.flag.shm){
-    writeSharedData(config, info, model.hoap2.tm_list, rlsDynamics.dc_list, sharedData);
+    writeSharedData(config, model.hoap2.tm_list, rlsDynamics.dc_list, sharedData);
     sharedMemory.putData(&sharedData);
   }
 
   output.dc_temp = rlsDynamics.dc_list;
   output.tm_temp = model.hoap2.tm_list;
-  output.pushBack(config, t);
+  output.pushBack(t);
 
-  writeInput(config);
+  writeInput();
 
-  t += info.sim.dt;
+  t += config.clock.dt;
 
   return RTC::RTC_OK;
 }

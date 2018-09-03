@@ -4,9 +4,9 @@
 
 #include "rlsDynamicsRTC.h"
 
-void RlsDynamicsRTC::writeInput(RLS::Config &config)
+void RlsDynamicsRTC::writeInput()
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   for(unsigned i=0; i<m_angle.data.length(); i++)
     m_torque.data[i] = tau(i);

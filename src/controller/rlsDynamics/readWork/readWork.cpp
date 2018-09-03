@@ -17,8 +17,11 @@ int RLS::RlsDynamics::readWork(const string work_path, bool multi, string node, 
   baseTranslationTrajectoryName = updateValue<string>(doc, multi, node, num, phase, "Base translation trajectory", "name", baseTranslationTrajectoryName);
   baseOrientationTrajectoryNum = updateValue<int>(doc, multi, node, num, phase, "Base orientation trajectory", "num", baseOrientationTrajectoryNum);
   baseOrientationTrajectoryName = updateValue<string>(doc, multi, node, num, phase, "Base orientation trajectory", "name", baseOrientationTrajectoryName);
-  endEffectorTrajectoryNum = updateValue<int>(doc, multi, node, num, phase, "End effector trajectory", "num", endEffectorTrajectoryNum);
-  endEffectorTrajectoryName = updateValue<string>(doc, multi, node, num, phase, "End effector trajectory", "name", endEffectorTrajectoryName);
+  // for(int i=0; i<controlNodeNum; i++){
+  //   endEffectorTrajectoryNum[i] = updateValue<int>(doc, multi, node, num, phase, "End effector trajectory", "num", endEffectorTrajectoryNum);
+  //   endEffectorTrajectoryName[i] = updateValue<string>(doc, multi, node, num, phase, "End effector trajectory", "name", endEffectorTrajectoryName);
+  // }
+
   comTrajectoryNum = updateValue<int>(doc, multi, node, num, phase, "CoM trajectory", "num", comTrajectoryNum);
   comTrajectoryName = updateValue<string>(doc, multi, node, num, phase, "CoM trajectory", "name", comTrajectoryName);
   dcmTrajectoryNum = updateValue<int>(doc, multi, node, num, phase, "DCM trajectory", "num", dcmTrajectoryNum);

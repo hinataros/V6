@@ -38,7 +38,7 @@ bool RLS::RlsDynamics::configurationManager(const Config &config, Model &model, 
   }
 
   if(flag)
-    mapping();
+    mapping(model.hoap2.info.controlNodeNum);
 
   return flag;
 }

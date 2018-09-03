@@ -10,5 +10,5 @@ void RLS::RlsDynamics::externalWrenchZeroTrajectory(double &t)
 {
   if(debug) DEBUG;
 
-  cal_FextDes = sequence[externalWrenchTrajectoryNum].cal_FextpreDes;
+  cal_FextDes = Vector6d::Zero();
 }

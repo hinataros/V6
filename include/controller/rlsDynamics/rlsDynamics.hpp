@@ -242,14 +242,14 @@ namespace RLS{
 
     string baseTranslationTrajectoryName;
     string baseOrientationTrajectoryName;
-    string endEffectorTrajectoryName;
+    string *endEffectorTrajectoryName;
     string comTrajectoryName;
     string dcmTrajectoryName;
     string externalWrenchTrajectoryName;
 
     int baseTranslationTrajectoryNum;
     int baseOrientationTrajectoryNum;
-    int endEffectorTrajectoryNum;
+    int *endEffectorTrajectoryNum;
     int comTrajectoryNum;
     int dcmTrajectoryNum;
     int externalWrenchTrajectoryNum;
@@ -278,7 +278,6 @@ namespace RLS{
     // select trajectory generator
     void (RLS::RlsDynamics::*baseTranslationTrajectory_ptr)(double&)=0;
     void (RLS::RlsDynamics::*baseOrientationTrajectory_ptr)(double&)=0;
-    void (RLS::RlsDynamics::*endEffectorTrajectory_ptr)(double&)=0;
     void (RLS::RlsDynamics::*comTrajectory_ptr)(double&)=0;
     void (RLS::RlsDynamics::*dcmTrajectory_ptr)(double&)=0;
     void (RLS::RlsDynamics::*externalWrenchTrajectory_ptr)(double&)=0;
@@ -286,10 +285,13 @@ namespace RLS{
     map<string, void (RLS::RlsDynamics::*)(double&)>
     map_baseTranslationTrajectory,
       map_baseOrientationTrajectory,
-      map_endEffectorTrajectory,
       map_comTrajectory,
       map_dcmTrajectory,
       map_externalWrenchTrajectory;
+
+    void (RLS::RlsDynamics::**endEffectorTrajectory_ptr)(int, double&);
+    map<string, void (RLS::RlsDynamics::*)(int, double&)>
+    *map_endEffectorTrajectory;
 
     // desired value
     // ******************************
@@ -512,7 +514,7 @@ namespace RLS{
     void initializeWalking(const TreeModel::Info&);
     void initializeTriggerMap(string);
     void initializeReferenceMap();
-    void initializeTrajectoryGeneratorMap();
+    void initializeTrajectoryGeneratorMap(const TreeModel::Info&);
     void initializeControllerMap();
 
     void initialValue(const string, Model&);
@@ -526,7 +528,7 @@ namespace RLS{
     // // state transition
     void updateState(const Model&, const double&);
     void updateSequence(const double&, const int);
-    void mapping();
+    void mapping(int);
 
     // triggre config
     int noTrigger(Model&, double&);
@@ -593,8 +595,8 @@ namespace RLS{
     void baseOrientationTrajectoryCP(double&);
 
     // end effector
-    void endEffectorZeroTrajectory(double&);
-    void endEffectorTrajectoryCP(double&);
+    void endEffectorZeroTrajectory(int, double&);
+    void endEffectorTrajectoryCP(int, double&);
 
     // com
     void comZeroTrajectory(double&);
@@ -608,7 +610,7 @@ namespace RLS{
     void externalWrenchZeroTrajectory(double&);
     void externalWrenchTrajectoryCP(double&);
 
-    void trajectoryGenerator(double&);
+    void trajectoryGenerator(int, double&);
 
     // reference
     // ******************************

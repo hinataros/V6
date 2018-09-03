@@ -86,7 +86,6 @@ namespace RLS{
     struct Controller{
       bool flag;
       bool dynamics;
-      string name;
       string input;
       string work;
       string driven;

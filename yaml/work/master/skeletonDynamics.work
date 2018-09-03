@@ -1,0 +1,79 @@
+# @author Sho Miyahara 2017
+
+Default:
+  -
+    Inverse dynamics controller: fullDynamics
+    Motion controller: mixedGeneralizedMomentum
+
+    Momentum controller: centroidalMomentum
+    Force controller: centroidalDistribution
+
+    # Momentum controller: centroidalMomentum
+    # Force controller: centroidalDistribution
+
+    # Torque controller: staticControl
+    Torque controller: mixedmixedOpt
+
+    Base orientation trajectory: {name: CP}
+    # End effector trajectory: {num: 1, name: CP}
+    # Control Node trajectory: {num: 1, node: RARMEE, name: CP}
+    # Control Node trajectory: {num: 2, node: LARMEE, name: CP}
+
+    Bc:
+      - [1, 1, 1, 1, 1, 1]
+      - [1, 1, 1, 1, 1, 1]
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+    Bm:
+      - [0, 0, 0, 0, 0, 0]
+      - [0, 0, 0, 0, 0, 0]
+      # - [0, 0, 0, 0, 0, 0]
+      # - [0, 0, 0, 0, 0, 0]
+      - [1, 1, 1, 0, 0, 0]
+      - [1, 1, 1, 0, 0, 0]
+      # - [1, 1, 1, 1, 1, 1]
+      # - [1, 1, 1, 1, 1, 1]
+
+    KX: 3.e+2
+
+    KpC: 3.e+2
+    KdC: 5.e+1
+    # KpC: 10.
+    # KdC: 5.
+
+    KpwB: 3.e+2
+    KdwB: 5.e+1
+    # KpwB: 10.
+    # KdwB: 5.
+
+    Kpv: 3.e+2
+    Kdv: 5.e+1
+    # Kpv: 10.
+    # Kdv: 5.
+
+    # Kpp: 1.e+1
+
+    # KDlC: 5.e+1
+    KDth: 1.e+2
+
+State:
+  -
+
+Sequence:
+  -
+    -
+      twf: 2.
+    -
+      twf: 2.
+      xiBf: [0., 0.52, 0.]
+  -
+    -
+      twf: 3.
+      # cal_Xf: {node: RLEGEE, value: [0., 0., 0.1, 0., 0., 0.]}
+
+        # - [0., 0., 0., 0., 0., 0.]
+        # - [0., 0., 0., 0., 0., 0.]
+        # - [0., 0., 0.1, 0., 0., 0.]
+        # - [0.1, 0., 0.1, 0., 0., 0.]
+      # rXf: [0.03, -0.035, 0.]
+

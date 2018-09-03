@@ -35,7 +35,5 @@ VectorXd RLS::RlsDynamics::mixedGeneralizedMomentum(const TreeModel::Info &info)
   // ddqMoptRef = ddqLCRef + ddqmRef + N(ACBar)*N(JmMBar)*ddqthD(info);
   ddqMoptRef = ddqLCRef + ddqmRef + N(ACBar)*N(JmMBar)*ddqthinit(info);
 
-  // ddqMoptRef = VectorXd::Zero(info.dof.all);
-
   return ddqMoptRef;
 }

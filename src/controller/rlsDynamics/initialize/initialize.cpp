@@ -280,7 +280,7 @@ void RLS::RlsDynamics::initialize(const Config &config, const TreeModel::Info &i
   initializeState(info);
   initializeSequence(config.dir.work, info);
   initializeWalking(info);
-  initializeTrajectoryGeneratorMap();
+  initializeTrajectoryGeneratorMap(info);
   initializeReferenceMap();
   initializeControllerMap();
   initializeTriggerMap(config.controller.trigger);

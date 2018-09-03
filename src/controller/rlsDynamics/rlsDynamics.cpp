@@ -23,7 +23,7 @@ VectorXd RLS::RlsDynamics::rlsDynamics(Config &config, Model &model, double &t)
 
   update(model);
 
-  trajectoryGenerator(t);
+  trajectoryGenerator(model.hoap2.info.controlNodeNum, t);
   reference(model);
 
   controlMethod(config.controller.input, model.hoap2.info);

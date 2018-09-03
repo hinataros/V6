@@ -4,7 +4,6 @@ set(srcs
   readModel.cpp
   setDir.cpp
   readBody.cpp
-  setInfo.cpp
   readCnoid.cpp
   )
 

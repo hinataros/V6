@@ -6,13 +6,16 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::mapping()
+void RLS::RlsDynamics::mapping(int controlNodeNum)
 {
   if(debug) DEBUG;
 
   baseTranslationTrajectory_ptr = map_baseTranslationTrajectory[baseTranslationTrajectoryName];
   baseOrientationTrajectory_ptr = map_baseOrientationTrajectory[baseOrientationTrajectoryName];
-  endEffectorTrajectory_ptr = map_endEffectorTrajectory[endEffectorTrajectoryName];
+
+  for(int i=0; i<controlNodeNum; i++)
+    endEffectorTrajectory_ptr[i] = map_endEffectorTrajectory[i][endEffectorTrajectoryName[i]];
+
   comTrajectory_ptr = map_comTrajectory[comTrajectoryName];
   dcmTrajectory_ptr = map_dcmTrajectory[dcmTrajectoryName];
   externalWrenchTrajectory_ptr = map_externalWrenchTrajectory[externalWrenchTrajectoryName];

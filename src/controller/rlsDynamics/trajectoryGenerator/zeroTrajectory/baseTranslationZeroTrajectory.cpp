@@ -10,7 +10,7 @@ void RLS::RlsDynamics::baseTranslationZeroTrajectory(double &t)
 {
   if(debug) DEBUG;
 
-  rBDes = sequence[baseTranslationTrajectoryNum].rBpreDes + rB0;
+  rBDes = rB;
   vBDes = Vector3d::Zero();
   dvBDes = Vector3d::Zero();
 }

@@ -10,7 +10,7 @@ void RLS::RlsDynamics::baseOrientationZeroTrajectory(double &t)
 {
   if(debug) DEBUG;
 
-  xiBDes = sequence[baseOrientationTrajectoryNum].xiBpreDes + xiB0;
+  xiBDes = xiB;
   dxiBDes = Vector3d::Zero();
   ddxiBDes = Vector3d::Zero();
 }

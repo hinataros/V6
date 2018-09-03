@@ -29,7 +29,6 @@ void RLS::Config::readConfig()
 
   // controller config
   controller.flag = doc["Controller"]["Flag"].as<bool>();
-  controller.name = doc["Controller"]["Name"].as<string>();
   controller.input = doc["Controller"]["Input"].as<string>();
   controller.work = doc["Controller"]["Work"].as<string>();
   controller.driven = doc["Controller"]["Driven"].as<string>();

@@ -12,4 +12,5 @@ void RLS::TreeModel::deleteModel()
   delete[] link;
 
   delete[] info.controlNode;
+  delete[] info.sensorNode;
 }

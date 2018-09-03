@@ -4,9 +4,9 @@
 
 #include "rlsDynamicsRTC.h"
 
-void RlsDynamicsRTC::readState(RLS::Config &config, RLS::Info &info, RLS::TreeModel &hoap2)
+void RlsDynamicsRTC::readState(RLS::Config &config, RLS::TreeModel &hoap2)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   if(m_basePosIn.isNew())
     m_basePosIn.read();
@@ -20,30 +20,36 @@ void RlsDynamicsRTC::readState(RLS::Config &config, RLS::Info &info, RLS::TreeMo
     m_eeForceIn.read();
 
   for(int i=0; i<3; i++)
-    hoap2.limb[0].node[0].r(i) = m_basePos.data[i];
+    hoap2.link[hoap2.info.rootNode].r(i) = m_basePos.data[i];
 
   for(int i=0, j=0, k=3; k<12; k++){
-    hoap2.limb[0].node[0].R(i,j) = m_basePos.data[k];
+    hoap2.link[hoap2.info.rootNode].R(i,j) = m_basePos.data[k];
     if(j==2){
       i++;j=0;
     }else j++;
   }
 
   for(int i=0; i<3; i++){
-    hoap2.limb[0].node[0].v(i) = m_baseVel.data[i];
-    hoap2.limb[0].node[0].w(i) = m_baseVel.data[3+i];
+    hoap2.link[hoap2.info.rootNode].v(i) = m_baseVel.data[i];
+    hoap2.link[hoap2.info.rootNode].w(i) = m_baseVel.data[3+i];
   }
 
-  hoap2.limb[0].node[0].vo = hoap2.limb[0].node[0].v - cross(hoap2.limb[0].node[0].w)*hoap2.limb[0].node[0].r;
+  hoap2.link[hoap2.info.rootNode].vo =
+    hoap2.link[hoap2.info.rootNode].v - cross(hoap2.link[hoap2.info.rootNode].w)*hoap2.link[hoap2.info.rootNode].r;
 
+  VectorXd th = VectorXd(m_angle.data.length());
+  VectorXd dth = VectorXd(m_angle.data.length());
   for(unsigned i=0; i<m_angle.data.length(); i++)
-    hoap2.all.th(i) = m_angle.data[i];
+    th(i) = m_angle.data[i];
   for(unsigned i=0; i<m_angVel.data.length(); i++)
-    hoap2.all.dth(i) = m_angVel.data[i];
+    dth(i) = m_angVel.data[i];
 
-  for(int i=1; i<info.value.node; i++)
-    for(int j=0; j<3; j++){
-      hoap2.limb[i].node[info.limb[i].dof].f(j) = m_eeForce.data[6*(i-1)+j];
-      hoap2.limb[i].node[info.limb[i].dof].n(j) = m_eeForce.data[6*(i-1)+j+3];
-    }
+  hoap2.writeJointStateVector("joint angle", th);
+  hoap2.writeJointStateVector("joint velocity", dth);
+
+  VectorXd FTsensor = VectorXd(m_eeForce.data.length());
+  for(int i=0; i<m_eeForce.data.length(); i++)
+    FTsensor(i) = m_eeForce.data[i];
+
+  hoap2.writeSensorValueVector("force torque sensor", FTsensor);
 }

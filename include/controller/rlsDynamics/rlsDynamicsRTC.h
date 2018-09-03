@@ -16,7 +16,6 @@
 #include <rtm/DataOutPort.h>
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 #include "output.hpp"
@@ -70,10 +69,10 @@ private:
   VectorXd tau;
   Vector6d Fext;
 
-  void readState(RLS::Config&, RLS::Info&, RLS::TreeModel&);
-  void readSharedData(RLS::Config&, RLS::Info&, RLS::RigidBodyModel&, RLS::SharedData&);
-  void writeSharedData(RLS::Config&, RLS::Info&, RLS::TreeModelList&, RLS::RlsDynamicsList&, RLS::SharedData&);
-  void writeInput(RLS::Config&);
+  void readState(RLS::Config&, RLS::TreeModel&);
+  void readSharedData(RLS::Config&, RLS::RigidBodyModel&, RLS::SharedData&);
+  void writeSharedData(RLS::Config&, RLS::TreeModelList&, RLS::RlsDynamicsList&, RLS::SharedData&);
+  void writeInput();
 };
 
 extern "C"

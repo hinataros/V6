@@ -9,10 +9,10 @@ namespace RLS{
   private:
     bool initialValueFlag;
 
-    void initialValue(Config&, Info&, Model&);
+    void initialValue(Model&);
 
   public:
-    void initialize(Config&, Info&);
-    VectorXd object(Config&, Info&, Model&, double&);
+    void initialize();
+    VectorXd object(Config&, Model&, double&);
   };
 }

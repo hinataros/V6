@@ -11,4 +11,6 @@ void RLS::RlsDynamics::finalize()
   if(debug) DEBUG;
 
   delete[] rkk;
+
+  free(endEffectorTrajectory_ptr);
 }

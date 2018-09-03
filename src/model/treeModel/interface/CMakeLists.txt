@@ -3,6 +3,7 @@
 set(srcs
   readJointStateVector.cpp
   writeJointStateVector.cpp
+  writeSensorValueVector.cpp
   stateMatrixFilter.cpp
   readControlNodeValueVector.cpp
   )

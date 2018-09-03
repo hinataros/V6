@@ -10,6 +10,6 @@ void RLS::RlsDynamics::dcmZeroTrajectory(double &t)
 {
   if(debug) DEBUG;
 
-  rXDes = sequence[dcmTrajectoryNum].rXpreDes + rX0;
+  rXDes = rX;
   drXDes = Vector3d::Zero();
 }

@@ -6,24 +6,31 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::initializeTrajectoryGeneratorMap()
+void RLS::RlsDynamics::initializeTrajectoryGeneratorMap(const TreeModel::Info &info)
 {
   if(debug) DEBUG;
 
   baseTranslationTrajectoryNum = 0;
   baseOrientationTrajectoryNum = 0;
-  endEffectorTrajectoryNum = 0;
+
+  endEffectorTrajectoryNum = new int[info.controlNodeNum];
+  endEffectorTrajectoryName = new string[info.controlNodeNum];
+  for(int i=0; i<info.controlNodeNum; i++){
+    endEffectorTrajectoryNum[i] = 0;
+    endEffectorTrajectoryName[i] = "default";
+  }
+
   comTrajectoryNum = 0;
   dcmTrajectoryNum = 0;
   externalWrenchTrajectoryNum = 0;
 
   baseTranslationTrajectoryName
     = baseOrientationTrajectoryName
-    = endEffectorTrajectoryName
     = comTrajectoryName
     = dcmTrajectoryName
     = externalWrenchTrajectoryName
     = "default";
+
 
   // mapping
   // ********************************
@@ -36,8 +43,11 @@ void RLS::RlsDynamics::initializeTrajectoryGeneratorMap()
   map_baseOrientationTrajectory["CP"] = &RLS::RlsDynamics::baseOrientationTrajectoryCP;
 
   // end effector
-  map_endEffectorTrajectory["default"] = &RLS::RlsDynamics::endEffectorZeroTrajectory;
-  map_endEffectorTrajectory["CP"] = &RLS::RlsDynamics::endEffectorTrajectoryCP;
+  // map_endEffectorTrajectory["default"] = &RLS::RlsDynamics::endEffectorZeroTrajectory;
+
+  map_endEffectorTrajectory = new map<string, void (RLS::RlsDynamics::*)(int, double&)>[info.controlNodeNum];
+  for(int i=0; i<info.controlNodeNum; i++)
+    map_endEffectorTrajectory[i]["default"] = &RLS::RlsDynamics::endEffectorTrajectoryCP;
 
   // com
   map_comTrajectory["default"] = &RLS::RlsDynamics::comZeroTrajectory;
@@ -50,4 +60,6 @@ void RLS::RlsDynamics::initializeTrajectoryGeneratorMap()
   // external wrench
   map_externalWrenchTrajectory["default"] = &RLS::RlsDynamics::externalWrenchZeroTrajectory;
   map_externalWrenchTrajectory["CP"] = &RLS::RlsDynamics::externalWrenchTrajectoryCP;
+
+  endEffectorTrajectory_ptr = (void (RLS::RlsDynamics::**)(int, double&))malloc(sizeof(void (RLS::RlsDynamics::*)(int, double&))*info.controlNodeNum);
 }
