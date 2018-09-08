@@ -3,28 +3,29 @@
 Default:
   -
     Base orientation trajectory: {name: CP}
-    End effector trajectory: {num: 1, name: CP}
+    Control node trajectory:
+      RARMEE: {num: 0, name: CP}
+      LARMEE: {num: 1, name: CP}
 
     Motion controller: baseVelocitySynergy
 
     Bc:
-      - [1, 1, 1, 1, 1, 1]
-      - [1, 1, 1, 1, 1, 1]
-      - [0, 0, 0, 0, 0, 0]
-      - [0, 0, 0, 0, 0, 0]
+      RLEGEE: [1, 1, 1, 1, 1, 1]
+      LLEGEE: [1, 1, 1, 1, 1, 1]
+
     Bm:
-      - [0, 0, 0, 0, 0, 0]
-      - [0, 0, 0, 0, 0, 0]
-      - [1, 1, 1, 0, 0, 0]
-      - [1, 1, 1, 0, 0, 0]
+      RARMEE: [1, 1, 1, 0, 0, 0]
+      LARMEE: [1, 1, 1, 0, 0, 0]
 
     # KpC: .
     # KdC: .
 
     KpwB: 10.
-    Kpv: 10.
+    Kpv:
+      RARMEE: 10.
+      LARMEE: 20.
 
-    # KthD: .
+    KDth: 10.
 
 State:
   -
@@ -35,12 +36,11 @@ Sequence:
       twf: 1.
     -
       twf: 3.
+      cal_Xf:
+        RARMEE: [0., 0., 0.1, 0., 0., 0.]
       xiBf: [0., 0.52, 0.]
   -
     -
       twf: 3.
       cal_Xf:
-        - [0., 0., 0., 0., 0., 0.]
-        - [0., 0., 0., 0., 0., 0.]
-        - [0., 0., 0.1, 0., 0., 0.]
-        - [0.1, 0., 0.1, 0., 0., 0.]
+        LARMEE: [0.1, 0., 0.1, 0., 0., 0.]

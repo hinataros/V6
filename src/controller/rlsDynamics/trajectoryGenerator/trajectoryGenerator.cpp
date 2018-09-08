@@ -16,7 +16,6 @@ void RLS::RlsDynamics::trajectoryGenerator(int controlNodeNum, double &t)
   for(int i=0; i<controlNodeNum; i++)
     (this->*endEffectorTrajectory_ptr[i])(i, t);
 
-
   (this->*comTrajectory_ptr)(t);
   (this->*dcmTrajectory_ptr)(t);
   (this->*externalWrenchTrajectory_ptr)(t);

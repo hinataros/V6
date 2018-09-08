@@ -27,7 +27,7 @@ void RLS::RlsDynamics::initialValue(const string work_dir, Model &model)
   // high gain control
   thDes = model.hoap2.readJointStateVector("joint angle");
 
-  readWork(work_dir, false, "Default", 0, 0, model.hoap2.info.controlNodeNum);
+  readWork(work_dir, model.hoap2.info, false, "Default", 0, 0);
 
   initialValueFlag = false;
 }

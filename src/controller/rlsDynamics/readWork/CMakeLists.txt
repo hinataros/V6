@@ -5,6 +5,7 @@ add_subdirectory(updateSequence)
 
 set(srcs
   readSequence.cpp
+  readControlNode.cpp
   readWork.cpp
   )
 

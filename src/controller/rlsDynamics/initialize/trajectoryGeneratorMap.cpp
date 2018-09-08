@@ -42,12 +42,11 @@ void RLS::RlsDynamics::initializeTrajectoryGeneratorMap(const TreeModel::Info &i
   map_baseOrientationTrajectory["default"] = &RLS::RlsDynamics::baseOrientationZeroTrajectory;
   map_baseOrientationTrajectory["CP"] = &RLS::RlsDynamics::baseOrientationTrajectoryCP;
 
-  // end effector
-  // map_endEffectorTrajectory["default"] = &RLS::RlsDynamics::endEffectorZeroTrajectory;
-
   map_endEffectorTrajectory = new map<string, void (RLS::RlsDynamics::*)(int, double&)>[info.controlNodeNum];
-  for(int i=0; i<info.controlNodeNum; i++)
-    map_endEffectorTrajectory[i]["default"] = &RLS::RlsDynamics::endEffectorTrajectoryCP;
+  for(int i=0; i<info.controlNodeNum; i++){
+    map_endEffectorTrajectory[i]["default"] = &RLS::RlsDynamics::endEffectorZeroTrajectory;
+    map_endEffectorTrajectory[i]["CP"] = &RLS::RlsDynamics::endEffectorTrajectoryCP;
+  }
 
   // com
   map_comTrajectory["default"] = &RLS::RlsDynamics::comZeroTrajectory;

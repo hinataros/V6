@@ -6,21 +6,17 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-int RLS::RlsDynamics::readWork(const string work_path, bool multi, string node, int num, int phase, int controlNodeNum)
+int RLS::RlsDynamics::readWork(string work_path, const TreeModel::Info &info, bool multi, string node, int num, int phase)
 {
   YAML::Node doc = YAML::LoadFile(work_path.c_str());
 
   if(node=="Sequence")
-    readSequence(doc, multi, node, num, phase, controlNodeNum);
+    readSequence(doc, multi, node, num, phase, info.controlNodeNum);
 
   baseTranslationTrajectoryNum = updateValue<int>(doc, multi, node, num, phase, "Base translation trajectory", "num", baseTranslationTrajectoryNum);
   baseTranslationTrajectoryName = updateValue<string>(doc, multi, node, num, phase, "Base translation trajectory", "name", baseTranslationTrajectoryName);
   baseOrientationTrajectoryNum = updateValue<int>(doc, multi, node, num, phase, "Base orientation trajectory", "num", baseOrientationTrajectoryNum);
   baseOrientationTrajectoryName = updateValue<string>(doc, multi, node, num, phase, "Base orientation trajectory", "name", baseOrientationTrajectoryName);
-  // for(int i=0; i<controlNodeNum; i++){
-  //   endEffectorTrajectoryNum[i] = updateValue<int>(doc, multi, node, num, phase, "End effector trajectory", "num", endEffectorTrajectoryNum);
-  //   endEffectorTrajectoryName[i] = updateValue<string>(doc, multi, node, num, phase, "End effector trajectory", "name", endEffectorTrajectoryName);
-  // }
 
   comTrajectoryNum = updateValue<int>(doc, multi, node, num, phase, "CoM trajectory", "num", comTrajectoryNum);
   comTrajectoryName = updateValue<string>(doc, multi, node, num, phase, "CoM trajectory", "name", comTrajectoryName);
@@ -42,47 +38,25 @@ int RLS::RlsDynamics::readWork(const string work_path, bool multi, string node, 
   forceControllerName = updateValue<string>(doc, multi, node, num, phase, "Force controller", forceControllerName);
   torqueControllerName = updateValue<string>(doc, multi, node, num, phase, "Torque controller", torqueControllerName);
 
-  Bc_kDiag = updateDiagonalMatrix<MatrixXi>(doc, multi, node, num, phase, "Bc", controlNodeNum, Bc_kDiag);
-  Bm_kDiag = updateDiagonalMatrix<MatrixXi>(doc, multi, node, num, phase, "Bm", controlNodeNum, Bm_kDiag);
+  KpC = updateValue<Matrix3d>(doc, multi, node, num, phase, "KpC", KpC);
+  KdC = updateValue<Matrix3d>(doc, multi, node, num, phase, "KdC", KdC);
 
-  BpDiag = updateDiagonalMatrix<MatrixXi>(doc, multi, node, num, phase, "Bp", controlNodeNum, BpDiag);
+  KpvB = updateValue<Matrix3d>(doc, multi, node, num, phase, "KpvB", KpvB);
+  KdvB = updateValue<Matrix3d>(doc, multi, node, num, phase, "KdvB", KdvB);
 
-  KpC = updateDiagonalMatrix<Matrix3d>(doc, multi, node, num, phase, "KpC", KpC);
-  KdC = updateDiagonalMatrix<Matrix3d>(doc, multi, node, num, phase, "KdC", KdC);
+  KpwB = updateValue<Matrix3d>(doc, multi, node, num, phase, "KpwB", KpwB);
+  KdwB = updateValue<Matrix3d>(doc, multi, node, num, phase, "KdwB", KdwB);
 
-  KpvB = updateDiagonalMatrix<Matrix3d>(doc, multi, node, num, phase, "KpvB", KpvB);
-  KdvB = updateDiagonalMatrix<Matrix3d>(doc, multi, node, num, phase, "KdvB", KdvB);
+  KX = updateValue<Matrix3d>(doc, multi, node, num, phase, "KX", KX);
 
-  KpwB = updateDiagonalMatrix<Matrix3d>(doc, multi, node, num, phase, "KpwB", KpwB);
-  KdwB = updateDiagonalMatrix<Matrix3d>(doc, multi, node, num, phase, "KdwB", KdwB);
+  Kpp = updateValue<Matrix2d>(doc, multi, node, num, phase, "Kpp", Kpp);
 
-  KX = updateDiagonalMatrix<Matrix3d>(doc, multi, node, num, phase, "KX", KX);
-
-  Kpv = updateDiagonalMatrix<MatrixXd>(doc, multi, node, num, phase, "Kpv", controlNodeNum, Kpv);
-  Kdv = updateDiagonalMatrix<MatrixXd>(doc, multi, node, num, phase, "Kdv", controlNodeNum, Kdv);
-
-  Kpp = updateDiagonalMatrix<Matrix2d>(doc, multi, node, num, phase, "Kpp", Kpp);
-
-  KDlC = updateDiagonalMatrix<Matrix3d>(doc, multi, node, num, phase, "KDlC", KDlC);
-  KDth = updateDiagonalMatrix<MatrixXd>(doc, multi, node, num, phase, "KDth", controlNodeNum, KDth);
-
-  Kthinit = updateDiagonalMatrix<MatrixXd>(doc, multi, node, num, phase, "Kthinit", controlNodeNum, Kthinit);
-
-  // high gain control
-  KpHG = updateDiagonalMatrix<MatrixXd>(doc, multi, node, num, phase, "KpHG", controlNodeNum, KpHG);
-  KdHG = updateDiagonalMatrix<MatrixXd>(doc, multi, node, num, phase, "KdHG", controlNodeNum, KdHG);
+  KDlC = updateValue<Matrix3d>(doc, multi, node, num, phase, "KDlC", KDlC);
 
   // optimization weight
-  Wdh = updateDiagonalMatrix<Matrix6d>(doc, multi, node, num, phase, "Wdh", Wdh);
-  Wp = updateDiagonalMatrix<MatrixXd>(doc, multi, node, num, phase, "Wp", controlNodeNum, Wp);
-  WF = updateDiagonalMatrix<MatrixXd>(doc, multi, node, num, phase, "WF", controlNodeNum, WF);
-  WFmin = updateDiagonalMatrix<MatrixXd>(doc, multi, node, num, phase, "WFmin", controlNodeNum, WFmin);
-  Wm = updateDiagonalMatrix<MatrixXd>(doc, multi, node, num, phase, "Wm", controlNodeNum, Wm);
-  WJ = updateDiagonalMatrix<MatrixXd>(doc, multi, node, num, phase, "WJ", controlNodeNum, WJ);
-  Wth = updateDiagonalMatrix<MatrixXd>(doc, multi, node, num, phase, "Wth", controlNodeNum, Wth);
+  Wdh = updateValue<Matrix6d>(doc, multi, node, num, phase, "Wdh", Wdh);
 
-  // others
-  cal_Xtd = updateVector<VectorXd>(doc, multi, node, num, phase, "cal_Xtd", controlNodeNum, cal_Xtd);
+  readControlNode(doc, info, multi, node, num, phase);
 
   // // transform offset
   // if(multiSequence){

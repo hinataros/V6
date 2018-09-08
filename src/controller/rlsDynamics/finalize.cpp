@@ -12,5 +12,8 @@ void RLS::RlsDynamics::finalize()
 
   delete[] rkk;
 
+  delete[] endEffectorTrajectoryNum;
+  delete[] endEffectorTrajectoryName;
+  delete[] map_endEffectorTrajectory;
   free(endEffectorTrajectory_ptr);
 }

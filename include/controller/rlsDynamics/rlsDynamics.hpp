@@ -549,7 +549,8 @@ namespace RLS{
     bool configurationManager(const Config&, Model&, double&);
 
     void readSequence(YAML::Node&, bool, string, int, int, int);
-    int readWork(const string, bool, string, int, int, int);
+    void readControlNode(YAML::Node&, const TreeModel::Info&, bool, string, int, int);
+    int readWork(string, const TreeModel::Info&, bool, string, int, int);
 
     void reconfigure(TreeModel::Info&);
 
@@ -762,30 +763,35 @@ namespace RLS{
     // ****************************************************************
     YAML::Node checkNode(YAML::Node&, string, int, string);
     YAML::Node checkNode(YAML::Node&, string, int, string, string);
+    YAML::Node checkNode(YAML::Node&, string, int, string, string, string);
+    YAML::Node checkNode(YAML::Node&, string, int, string, int, string);
     YAML::Node checkNode(YAML::Node&, string, int, int, string);
     YAML::Node checkNode(YAML::Node&, string, int, int, string, string);
+    YAML::Node checkNode(YAML::Node&, string, int, int, string, string, string);
+    YAML::Node checkNode(YAML::Node&, string, int, int, string, int, string);
 
     // update value
     template <class T> T updateValue(YAML::Node&, bool, string, int, int, string, T);
+    template <class T> T updateValue(YAML::Node&, bool, string, int, int, string, int, T);
+    template <class T> T updateValue(YAML::Node&, bool, string, int, int, string, int, string, T);
     template <class T> T updateValue(YAML::Node&, bool, string, int, int, string, string, T);
-
-    // update vector
-    template <class T> T updateVector(YAML::Node&, bool, string, int, int, string, T);
-    template <class T> T updateVector(YAML::Node&, bool, string, int, int, string, int, T);
-
-    // update diagonal matrix
-    template <class T> T updateDiagonalMatrix(YAML::Node&, bool, string, int, int, string, T);
-    template <class T> T updateDiagonalMatrix(YAML::Node&, bool, string, int, int, string, int, T);
+    template <class T> T updateValue(YAML::Node&, bool, string, int, int, string, string, string, T);
 
     template <class T> T readValue(YAML::Node&, string, int, string);
-    template <class T> T readValue(YAML::Node&, string, int, string, string);
     template <class T> T readValue(YAML::Node&, string, int, string, int);
     template <class T> T readValue(YAML::Node&, string, int, string, int, int);
+    template <class T> T readValue(YAML::Node&, string, int, string, int, string);
+    template <class T> T readValue(YAML::Node&, string, int, string, string);
+    template <class T> T readValue(YAML::Node&, string, int, string, string, int);
+    template <class T> T readValue(YAML::Node&, string, int, string, string, string);
 
     template <class T> T readValue(YAML::Node&, string, int, int, string);
-    template <class T> T readValue(YAML::Node&, string, int, int, string, string);
     template <class T> T readValue(YAML::Node&, string, int, int, string, int);
     template <class T> T readValue(YAML::Node&, string, int, int, string, int, int);
+    template <class T> T readValue(YAML::Node&, string, int, int, string, int, string);
+    template <class T> T readValue(YAML::Node&, string, int, int, string, string);
+    template <class T> T readValue(YAML::Node&, string, int, int, string, string, int);
+    template <class T> T readValue(YAML::Node&, string, int, int, string, string, string);
     // ****************************************************************
 
   public:

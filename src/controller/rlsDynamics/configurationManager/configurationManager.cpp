@@ -19,7 +19,7 @@ bool RLS::RlsDynamics::configurationManager(const Config &config, Model &model, 
       state.num = temp;
 
       updateState(model, t);
-      readWork(config.dir.work, false, "State", 0, state.num, model.hoap2.info.controlNodeNum);
+      readWork(config.dir.work, model.hoap2.info, false, "State", 0, state.num);
 
       flag = true;
     }
@@ -31,7 +31,7 @@ bool RLS::RlsDynamics::configurationManager(const Config &config, Model &model, 
 
       if(flag){
         updateSequence(t, i);
-        readWork(config.dir.work, multiSequence, "Sequence", i, sequence[i].phase, model.hoap2.info.controlNodeNum);
+        readWork(config.dir.work, model.hoap2.info, multiSequence, "Sequence", i, sequence[i].phase);
         sequence[i].phase++;
       }
     }

@@ -8,7 +8,79 @@
 
 namespace RLS{
   template<>
-  Matrix2d RlsDynamics::updateDiagonalMatrix(YAML::Node &doc, bool multi, string node, int num, int phase, string name, Matrix2d mat)
+  string RlsDynamics::updateValue(YAML::Node &doc, bool multi, string node, int num, int phase, string name, string value)
+  {
+    if(multi){
+      if(!checkNode(doc, node, num, phase, name))
+        return value;
+
+      return readValue<string>(doc, node, num, phase, name);
+    }
+
+    if(!checkNode(doc, node, phase, name))
+      return value;
+
+    return readValue<string>(doc, node, phase, name);
+  }
+  template<>
+  double RlsDynamics::updateValue(YAML::Node &doc, bool multi, string node, int num, int phase, string name, double value)
+  {
+    if(multi){
+      if(!checkNode(doc, node, num, phase, name))
+        return value;
+
+      return readValue<double>(doc, node, num, phase, name);
+    }
+
+    if(!checkNode(doc, node, phase, name))
+      return value;
+
+    return readValue<double>(doc, node, phase, name);
+  }
+
+  template<>
+  Vector3d RlsDynamics::updateValue(YAML::Node &doc, bool multi, string node, int num, int phase, string name, Vector3d vec)
+  {
+    if(multi){
+      if(doc[node][num][phase][name].size()==3)
+        for(int i=0; i<3; i++)
+          vec(i) = readValue<double>(doc, node, num, phase, name, i);
+      else
+        return vec;
+    }
+    else{
+      if(doc[node][phase][name].size()==3)
+        for(int i=0; i<3; i++)
+          vec(i) = readValue<double>(doc, node, phase, name, i);
+      else
+        return vec;
+    }
+
+    return vec;
+  }
+  template<>
+  Vector6d RlsDynamics::updateValue(YAML::Node &doc, bool multi, string node, int num, int phase, string name, Vector6d vec)
+  {
+    if(multi){
+      if(doc[node][num][phase][name].size()==6)
+        for(int i=0; i<6; i++)
+          vec(i) = readValue<double>(doc, node, num, phase, name, i);
+      else
+        return vec;
+    }
+    else{
+      if(doc[node][phase][name].size()==6)
+        for(int i=0; i<6; i++)
+          vec(i) = readValue<double>(doc, node, phase, name, i);
+      else
+        return vec;
+    }
+
+    return vec;
+  }
+
+  template<>
+  Matrix2d RlsDynamics::updateValue(YAML::Node &doc, bool multi, string node, int num, int phase, string name, Matrix2d mat)
   {
     Matrix2d temp_mat = Matrix2d::Zero();
 
@@ -48,7 +120,7 @@ namespace RLS{
     return mat;
   }
   template<>
-  Matrix3d RlsDynamics::updateDiagonalMatrix(YAML::Node &doc, bool multi, string node, int num, int phase, string name, Matrix3d mat)
+  Matrix3d RlsDynamics::updateValue(YAML::Node &doc, bool multi, string node, int num, int phase, string name, Matrix3d mat)
   {
     Matrix3d temp_mat = Matrix3d::Zero();
 
@@ -88,7 +160,7 @@ namespace RLS{
     return mat;
   }
   template<>
-  Matrix6d RlsDynamics::updateDiagonalMatrix(YAML::Node &doc, bool multi, string node, int num, int phase, string name, Matrix6d mat)
+  Matrix6d RlsDynamics::updateValue(YAML::Node &doc, bool multi, string node, int num, int phase, string name, Matrix6d mat)
   {
     Matrix6d temp_mat = Matrix6d::Zero();
 
