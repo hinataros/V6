@@ -8,7 +8,7 @@
 #include "output.hpp"
 #include "rlsSimulator.hpp"
 
-void RLS::RlsSimulator::se3exp(Vector3d &r, Matrix3d &R, const Vector3d vo, const Vector3d w, const double dt)
+void RLS::RlsSimulator::se3exp(Vector3d &r, Matrix3d &R, const Vector3d &vo, const Vector3d &w, const double dt)
 {
   if(debug) DEBUG;
 

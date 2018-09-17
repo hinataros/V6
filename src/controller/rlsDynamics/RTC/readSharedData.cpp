@@ -4,7 +4,7 @@
 
 #include "rlsDynamicsRTC.h"
 
-void RlsDynamicsRTC::readSharedData(RLS::Config &config, RLS::RigidBodyModel &object, RLS::SharedData &sharedData)
+void RlsDynamicsRTC::readSharedData(RLS::RigidBodyModel &object, const RLS::SharedData &sharedData)
 {
   if(debug) DEBUG;
 

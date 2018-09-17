@@ -6,12 +6,12 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::update(Model &model)
+void RLS::RlsDynamics::update(const Config::Clock &clock, Model &model)
 {
   if(debug) DEBUG;
 
   transform(model);
   decompose(model);
   objective(model.hoap2.info);
-  rename(model);
+  rename(clock, model);
 }

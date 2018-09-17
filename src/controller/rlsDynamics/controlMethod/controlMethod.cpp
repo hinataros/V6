@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::controlMethod(const string controlInput, const TreeModel::Info &info)
+void RLS::RlsDynamics::controlMethod(const string &controlInput, const TreeModel::Info &info)
 {
   if(debug) DEBUG;
 
@@ -17,5 +17,5 @@ void RLS::RlsDynamics::controlMethod(const string controlInput, const TreeModel:
     input = (this->*inverseDynamicsController_ptr)(info);
 
   else
-    cout << "no such control input..." << endl;
+    input = VectorXd::Zero(info.dof.joint);
 }

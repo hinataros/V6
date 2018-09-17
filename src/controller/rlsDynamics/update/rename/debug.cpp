@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::renameDebug(Model &model)
+void RLS::RlsDynamics::renameDebug(const Model &model)
 {
   if(debug) DEBUG;
 

@@ -5,7 +5,7 @@
 #include "config.hpp"
 #include "treeModel.hpp"
 
-MatrixXd RLS::TreeModel::stateMatrixFilter(const bool row, const bool col, const MatrixXd A)
+MatrixXd RLS::TreeModel::stateMatrixFilter(bool row, bool col, MatrixXd A)
 {
   if(debug) DEBUG;
 

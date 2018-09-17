@@ -2,7 +2,7 @@
 
 add_subdirectory(baseTranslationTrajectory)
 add_subdirectory(baseOrientationTrajectory)
-add_subdirectory(endEffectorTrajectory)
+add_subdirectory(controlNodeTrajectory)
 add_subdirectory(comTrajectory)
 add_subdirectory(dcmTrajectory)
 add_subdirectory(externalWrenchTrajectory)
@@ -16,7 +16,7 @@ MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" trajectoryGenerator_srcs)
 set(trajectoryGenerator_srcs
   ${baseTranslationTrajectory_srcs}
   ${baseOrientationTrajectory_srcs}
-  ${endEffectorTrajectory_srcs}
+  ${controlNodeTrajectory_srcs}
   ${comTrajectory_srcs}
   ${dcmTrajectory_srcs}
   ${externalWrenchTrajectory_srcs}

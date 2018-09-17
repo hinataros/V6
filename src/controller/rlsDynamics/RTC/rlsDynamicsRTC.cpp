@@ -93,18 +93,21 @@ RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
     m_externalForce.data[i] = 0.;
 
   // smiyahara: 要検討
-  readState(config, model.hoap2);
+  readState(model.hoap2);
 
   if(config.flag.shm){
     sharedMemory.getData(&sharedData);
-    readSharedData(config, model.object, sharedData);
+    readSharedData(model.object, sharedData);
   }
 
-  tau = rlsDynamics.rlsDynamics(config, model, t);
+  tau = VectorXd::Zero(m_angle.data.length());
+  if(config.controller.flag)
+    tau = rlsDynamics.rlsDynamics(config, model, t);
+
   Fext = rlsDynamics.virtualInput;
 
   if(config.flag.shm){
-    writeSharedData(config, model.hoap2.tm_list, rlsDynamics.dc_list, sharedData);
+    writeSharedData(model.hoap2.tm_list, rlsDynamics.dc_list, sharedData);
     sharedMemory.putData(&sharedData);
   }
 
@@ -126,18 +129,19 @@ RTC::ReturnCode_t RlsDynamicsRTC::onDeactivated(RTC::UniqueId ec_id)
   // smiyahara: はい?
   config.clock.n = (t - config.clock.t0) / config.clock.dt;
 
-  readState(config, model.hoap2);
+  readState(model.hoap2);
 
   if(config.flag.shm){
     sharedMemory.getData(&sharedData);
-    readSharedData(config, model.object, sharedData);
+    readSharedData(model.object, sharedData);
   }
 
-  tau = rlsDynamics.rlsDynamics(config, model, t);
+  if(config.controller.flag)
+    tau = rlsDynamics.rlsDynamics(config, model, t);
   Fext = rlsDynamics.virtualInput;
 
   if(config.flag.shm){
-    writeSharedData(config, model.hoap2.tm_list, rlsDynamics.dc_list, sharedData);
+    writeSharedData(model.hoap2.tm_list, rlsDynamics.dc_list, sharedData);
     sharedMemory.putData(&sharedData);
   }
 
@@ -160,18 +164,19 @@ RTC::ReturnCode_t RlsDynamicsRTC::onDeactivated(RTC::UniqueId ec_id)
 
 RTC::ReturnCode_t RlsDynamicsRTC::onExecute(RTC::UniqueId ec_id)
 {
-  readState(config, model.hoap2);
+  readState(model.hoap2);
 
   if(config.flag.shm){
     sharedMemory.getData(&sharedData);
-    readSharedData(config, model.object, sharedData);
+    readSharedData(model.object, sharedData);
   }
 
-  tau = rlsDynamics.rlsDynamics(config, model, t);
+  if(config.controller.flag)
+    tau = rlsDynamics.rlsDynamics(config, model, t);
   Fext = rlsDynamics.virtualInput;
 
   if(config.flag.shm){
-    writeSharedData(config, model.hoap2.tm_list, rlsDynamics.dc_list, sharedData);
+    writeSharedData(model.hoap2.tm_list, rlsDynamics.dc_list, sharedData);
     sharedMemory.putData(&sharedData);
   }
 

@@ -5,7 +5,7 @@
 #include "config.hpp"
 #include "treeModel.hpp"
 
-VectorXd RLS::TreeModel::readJointStateVector(const string state)
+VectorXd RLS::TreeModel::readJointStateVector(string state)
 {
   if(debug) DEBUG;
 

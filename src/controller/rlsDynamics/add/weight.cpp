@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-MatrixXd RLS::RlsDynamics::weight(const TreeModel::Info &info, const Vector3d rIndex)
+MatrixXd RLS::RlsDynamics::weight(const TreeModel::Info &info, const Vector3d &rIndex)
 {
   if(debug) DEBUG;
 

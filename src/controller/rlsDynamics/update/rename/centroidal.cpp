@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::renameCentroidal(TreeModel &model)
+void RLS::RlsDynamics::renameCentroidal(const TreeModel &model)
 {
   if(debug) DEBUG;
 

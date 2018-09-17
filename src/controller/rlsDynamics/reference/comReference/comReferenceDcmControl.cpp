@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::comReferenceDcmControl(TreeModel &model)
+void RLS::RlsDynamics::comReferenceDcmControl(const TreeModel &model)
 {
   if(debug) DEBUG;
 

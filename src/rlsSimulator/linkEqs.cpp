@@ -8,7 +8,7 @@
 #include "output.hpp"
 #include "rlsSimulator.hpp"
 
-void RLS::RlsSimulator::linkEqs(Config &config, Model &model, RlsDynamics &rlsDynamics, Output &output)
+void RLS::RlsSimulator::linkEqs(const Config &config, Model &model, RlsDynamics &rlsDynamics, Output &output)
 {
   if(debug) DEBUG;
 
@@ -19,7 +19,8 @@ void RLS::RlsSimulator::linkEqs(Config &config, Model &model, RlsDynamics &rlsDy
   model.hoap2.writeJointStateVector("joint angle", th);
   model.hoap2.writeJointStateVector("joint velocity", dth);
 
-  u = rlsDynamics.rlsDynamics(config, model, t);
+  if(config.controller.flag)
+    u = rlsDynamics.rlsDynamics(config, model, t);
 
   output.tm_temp = model.hoap2.tm_list;
   output.dc_temp = rlsDynamics.dc_list;
@@ -27,9 +28,10 @@ void RLS::RlsSimulator::linkEqs(Config &config, Model &model, RlsDynamics &rlsDy
   output.pushBack(t);
 }
 
-void RLS::RlsSimulator::linkEqs(Config &config, Model &model, RlsDynamics &rlsDynamics)
+void RLS::RlsSimulator::linkEqs(const Config &config, Model &model, RlsDynamics &rlsDynamics)
 {
   if(debug) DEBUG;
 
-  u = rlsDynamics.rlsDynamics(config, model, t);
+  if(config.controller.flag)
+    u = rlsDynamics.rlsDynamics(config, model, t);
 }

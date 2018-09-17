@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::externalWrenchReferenceFF(TreeModel &model)
+void RLS::RlsDynamics::externalWrenchReferenceFF(const TreeModel &model)
 {
   if(debug) DEBUG;
 

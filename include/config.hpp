@@ -9,6 +9,8 @@
 #include <limits>
 // setprecision(numeric_limits<double>::max_digits10)
 
+#include "manipulator.hpp"
+
 #define PI M_PI
 #define DEG2RAD M_PI / 180.
 #define RAD2DEG 180. * M_1_PI
@@ -33,6 +35,7 @@ typedef Eigen::Matrix<double, 6, 6> Matrix6d;
 namespace RLS{
   class Config{
   private:
+    void initialize();
     void readArgument(int, char**);
     void setLink();
     void setDir();

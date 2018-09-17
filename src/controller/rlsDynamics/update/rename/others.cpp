@@ -6,11 +6,15 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::renameOthers(Model &model)
+void RLS::RlsDynamics::renameOthers(const Config::Clock &clock, const Model &model)
 {
   if(debug) DEBUG;
 
+  dt = clock.dt;
+
   M = model.hoap2.all.m;
+
+  ag = model.hoap2.ag;
 
   rB2C = rC - rB;
   drB2C = vC - vB;

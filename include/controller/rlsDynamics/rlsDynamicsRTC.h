@@ -69,9 +69,9 @@ private:
   VectorXd tau;
   Vector6d Fext;
 
-  void readState(RLS::Config&, RLS::TreeModel&);
-  void readSharedData(RLS::Config&, RLS::RigidBodyModel&, RLS::SharedData&);
-  void writeSharedData(RLS::Config&, RLS::TreeModelList&, RLS::RlsDynamicsList&, RLS::SharedData&);
+  void readState(RLS::TreeModel&);
+  void readSharedData(RLS::RigidBodyModel&, const RLS::SharedData&);
+  void writeSharedData(RLS::TreeModelList&, RLS::RlsDynamicsList&, RLS::SharedData&);
   void writeInput();
 };
 

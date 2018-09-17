@@ -12,8 +12,8 @@ void RLS::RlsDynamics::finalize()
 
   delete[] rkk;
 
-  delete[] endEffectorTrajectoryNum;
-  delete[] endEffectorTrajectoryName;
-  delete[] map_endEffectorTrajectory;
-  free(endEffectorTrajectory_ptr);
+  delete[] controlNodeTrajectoryNum;
+  delete[] controlNodeTrajectoryName;
+  delete[] map_controlNodeTrajectory;
+  free(controlNodeTrajectory_ptr);
 }

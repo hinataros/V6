@@ -13,11 +13,11 @@ void RLS::RlsDynamics::initializeTrajectoryGeneratorMap(const TreeModel::Info &i
   baseTranslationTrajectoryNum = 0;
   baseOrientationTrajectoryNum = 0;
 
-  endEffectorTrajectoryNum = new int[info.controlNodeNum];
-  endEffectorTrajectoryName = new string[info.controlNodeNum];
+  controlNodeTrajectoryNum = new int[info.controlNodeNum];
+  controlNodeTrajectoryName = new string[info.controlNodeNum];
   for(int i=0; i<info.controlNodeNum; i++){
-    endEffectorTrajectoryNum[i] = 0;
-    endEffectorTrajectoryName[i] = "default";
+    controlNodeTrajectoryNum[i] = 0;
+    controlNodeTrajectoryName[i] = "default";
   }
 
   comTrajectoryNum = 0;
@@ -42,10 +42,11 @@ void RLS::RlsDynamics::initializeTrajectoryGeneratorMap(const TreeModel::Info &i
   map_baseOrientationTrajectory["default"] = &RLS::RlsDynamics::baseOrientationZeroTrajectory;
   map_baseOrientationTrajectory["CP"] = &RLS::RlsDynamics::baseOrientationTrajectoryCP;
 
-  map_endEffectorTrajectory = new map<string, void (RLS::RlsDynamics::*)(int, double&)>[info.controlNodeNum];
+  map_controlNodeTrajectory = new map<string, void (RLS::RlsDynamics::*)(const int&, const double&)>[info.controlNodeNum];
   for(int i=0; i<info.controlNodeNum; i++){
-    map_endEffectorTrajectory[i]["default"] = &RLS::RlsDynamics::endEffectorZeroTrajectory;
-    map_endEffectorTrajectory[i]["CP"] = &RLS::RlsDynamics::endEffectorTrajectoryCP;
+    map_controlNodeTrajectory[i]["default"] = &RLS::RlsDynamics::controlNodeZeroTrajectory;
+    map_controlNodeTrajectory[i]["CP"] = &RLS::RlsDynamics::controlNodeTrajectoryCP;
+    map_controlNodeTrajectory[i]["walking"] = &RLS::RlsDynamics::controlNodeTrajectoryWalking;
   }
 
   // com
@@ -55,10 +56,11 @@ void RLS::RlsDynamics::initializeTrajectoryGeneratorMap(const TreeModel::Info &i
   // dcm
   map_dcmTrajectory["default"] = &RLS::RlsDynamics::dcmZeroTrajectory;
   map_dcmTrajectory["CP"] = &RLS::RlsDynamics::dcmTrajectoryCP;
+  map_dcmTrajectory["dcmHTWalking"] = &RLS::RlsDynamics::dcmHTWalking;
 
   // external wrench
   map_externalWrenchTrajectory["default"] = &RLS::RlsDynamics::externalWrenchZeroTrajectory;
   map_externalWrenchTrajectory["CP"] = &RLS::RlsDynamics::externalWrenchTrajectoryCP;
 
-  endEffectorTrajectory_ptr = (void (RLS::RlsDynamics::**)(int, double&))malloc(sizeof(void (RLS::RlsDynamics::*)(int, double&))*info.controlNodeNum);
+  controlNodeTrajectory_ptr = (void (RLS::RlsDynamics::**)(const int&, const double&))malloc(sizeof(void (RLS::RlsDynamics::*)(const int&, const double&))*info.controlNodeNum);
 }

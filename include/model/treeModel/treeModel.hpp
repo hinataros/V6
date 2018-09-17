@@ -178,20 +178,21 @@ namespace RLS{
 
     TreeModelList tm_list;
 
-    VectorXd readJointStateVector(const string);
-    void writeJointStateVector(const string, const VectorXd);
-    void writeSensorValueVector(const string, const VectorXd);
-    MatrixXd stateMatrixFilter(const bool, const bool, const MatrixXd);
-    VectorXd readControlNodeValueVector(const string);
+    VectorXd readJointStateVector(string);
+    void writeJointStateVector(string, VectorXd);
+    VectorXd readSensorNodeValueVector(string);
+    void writeSensorNodeValueVector(string, VectorXd);
+    MatrixXd stateMatrixFilter(bool, bool, MatrixXd);
+    VectorXd readControlNodeValueVector(string);
 
-    void readModel(string);
-    void setDir(string);
+    void readModel(const string&);
+    void setDir(const string&);
     void readBody();
     void readCnoid(Config::Clock&);
     void deleteModel();
 
     void transformMatrix();
 
-    void update(const bool);
+    void update(bool);
   };
 }

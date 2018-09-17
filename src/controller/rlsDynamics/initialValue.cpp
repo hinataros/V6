@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::initialValue(const string work_dir, Model &model)
+void RLS::RlsDynamics::initialValue(const string &work_dir, Model &model)
 {
   if(debug) DEBUG;
 

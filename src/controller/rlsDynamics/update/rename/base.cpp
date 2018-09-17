@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::renameBase(TreeModel &model)
+void RLS::RlsDynamics::renameBase(const TreeModel &model)
 {
   if(debug) DEBUG;
 

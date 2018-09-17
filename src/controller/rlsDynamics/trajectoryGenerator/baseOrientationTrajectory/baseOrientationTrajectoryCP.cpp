@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::baseOrientationTrajectoryCP(double &t)
+void RLS::RlsDynamics::baseOrientationTrajectoryCP(const double &t)
 {
   if(debug) DEBUG;
 

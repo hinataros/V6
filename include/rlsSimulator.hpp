@@ -38,19 +38,19 @@ namespace RLS{
     void initialize(const TreeModel::Info&);
     void initialParameter(const Config::Clock&, TreeModel&);
 
-    void runge4(Config&, Model&, RlsDynamics&, Output&);
+    void runge4(const Config&, Model&, RlsDynamics&, Output&);
 
-    void linkEqs(Config&, Model&, RlsDynamics&, Output&);
-    void linkEqs(Config&, Model&, RlsDynamics&);
-    void diffEqs(Config&, Model&, const int);
+    void linkEqs(const Config&, Model&, RlsDynamics&, Output&);
+    void linkEqs(const Config&, Model&, RlsDynamics&);
+    void diffEqs(const Config&, Model&, const int);
 
     void integrator(Model&, const int, const double);
-    void se3exp(Vector3d&, Matrix3d&, const Vector3d, const Vector3d, const double);
+    void se3exp(Vector3d&, Matrix3d&, const Vector3d&, const Vector3d&, const double);
     void update(const Config::Clock&);
 
     void finalize(Model&, RlsDynamics&, Output&);
   public:
-    void run(Config&, Model&, RlsDynamics&, Output&);
+    void run(const Config&, Model&, RlsDynamics&, Output&);
 
     RlsSimulator(const TreeModel::Info &info){
       initialize(info);

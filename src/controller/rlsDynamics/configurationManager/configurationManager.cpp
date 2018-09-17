@@ -6,11 +6,11 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-bool RLS::RlsDynamics::configurationManager(const Config &config, Model &model, double &t)
+bool RLS::RlsDynamics::configurationManager(const Config &config, const Model &model, const double &t)
 {
   if(debug) DEBUG;
 
-  bool flag = false;
+  bool flag_configuration=false, flag_state = false, flag_sequence = false;
 
   if(config.controller.driven=="event"||config.controller.driven=="mix"){
     // １ステップ目は初期化
@@ -21,15 +21,15 @@ bool RLS::RlsDynamics::configurationManager(const Config &config, Model &model, 
       updateState(model, t);
       readWork(config.dir.work, model.hoap2.info, false, "State", 0, state.num);
 
-      flag = true;
+      flag_state = true;
     }
   }
 
   if(config.controller.driven=="flow"||config.controller.driven=="mix"){
     for(int i=0; i<seqNum; i++){
-      flag = sequenceTrigger(t, config.clock.tf, i);
+      flag_sequence = sequenceTrigger(t, config.clock.tf, i);
 
-      if(flag){
+      if(flag_sequence){
         updateSequence(t, i);
         readWork(config.dir.work, model.hoap2.info, multiSequence, "Sequence", i, sequence[i].phase);
         sequence[i].phase++;
@@ -37,8 +37,10 @@ bool RLS::RlsDynamics::configurationManager(const Config &config, Model &model, 
     }
   }
 
-  if(flag)
+  if(flag_state||flag_sequence){
     mapping(model.hoap2.info.controlNodeNum);
+    flag_configuration = true;
+  }
 
-  return flag;
+  return flag_configuration;
 }

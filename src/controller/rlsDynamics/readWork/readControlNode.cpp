@@ -9,11 +9,14 @@
 void RLS::RlsDynamics::readControlNode(YAML::Node &doc, const TreeModel::Info &info, bool multi, string node, int num, int phase)
 {
   for(int i=0; i<info.controlNodeNum; i++){
-    endEffectorTrajectoryNum[i] = updateValue<int>(doc, multi, node, num, phase, "Control node trajectory", info.controlNode[i].name, "num", endEffectorTrajectoryNum[i]);
-    endEffectorTrajectoryName[i] = updateValue<string>(doc, multi, node, num, phase, "Control node trajectory", info.controlNode[i].name, "name", endEffectorTrajectoryName[i]);
+    controlNodeTrajectoryNum[i] = updateValue<int>(doc, multi, node, num, phase, "Control node trajectory", info.controlNode[i].name, "num", controlNodeTrajectoryNum[i]);
+    controlNodeTrajectoryName[i] = updateValue<string>(doc, multi, node, num, phase, "Control node trajectory", info.controlNode[i].name, "name", controlNodeTrajectoryName[i]);
 
-    if(node=="Sequence")
+    if(node=="Sequence"){
       sequence[num].cal_Xf.segment(6*i,6) = updateValue<Vector6d>(doc, multi, node, num, phase, "cal_Xf", info.controlNode[i].name, sequence[num].cal_Xf.segment(6*i,6));
+
+      sequence[num].cal_Xtd.segment(6*i,6) = updateValue<Vector6d>(doc, multi, node, num, phase, "cal_Xtd", info.controlNode[i].name, sequence[num].cal_Xtd.segment(6*i,6));
+    }
 
     Bc_kDiag.block(6*i,6*i,6,6) = updateValue<Matrix6i>(doc, multi, node, num, phase, "Bc", info.controlNode[i].name, Bc_kDiag.block(6*i,6*i,6,6));
     Bm_kDiag.block(6*i,6*i,6,6) = updateValue<Matrix6i>(doc, multi, node, num, phase, "Bm", info.controlNode[i].name, Bm_kDiag.block(6*i,6*i,6,6));
@@ -45,9 +48,4 @@ void RLS::RlsDynamics::readControlNode(YAML::Node &doc, const TreeModel::Info &i
   Wm = updateValue<MatrixXd>(doc, multi, node, num, phase, "Wm", info.controlNodeNum, Wm);
   WJ = updateValue<MatrixXd>(doc, multi, node, num, phase, "WJ", info.controlNodeNum, WJ);
   Wth = updateValue<MatrixXd>(doc, multi, node, num, phase, "Wth", info.controlNodeNum, Wth);
-
-  // // others
-  // cal_Xtd = updateVector<VectorXd>(doc, multi, node, num, phase, "cal_Xtd", controlNodeNum, cal_Xtd);
-
 }
-

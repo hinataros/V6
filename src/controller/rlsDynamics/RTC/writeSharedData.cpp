@@ -4,7 +4,7 @@
 
 #include "rlsDynamicsRTC.h"
 
-void RlsDynamicsRTC::writeSharedData(RLS::Config &config, RLS::TreeModelList &tm_list, RLS::RlsDynamicsList &dc_list, RLS::SharedData &sharedData)
+void RlsDynamicsRTC::writeSharedData(RLS::TreeModelList &tm_list, RLS::RlsDynamicsList &dc_list, RLS::SharedData &sharedData)
 {
   if(debug) DEBUG;
 }

@@ -5,7 +5,7 @@
 #include "config.hpp"
 #include "treeModel.hpp"
 
-void RLS::TreeModel::update(const bool dynamics_flag)
+void RLS::TreeModel::update(bool dynamics_flag)
 {
   if(debug) DEBUG;
 

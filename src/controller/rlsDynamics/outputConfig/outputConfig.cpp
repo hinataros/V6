@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::outputConfig(const string controlInput, const TreeModel::Info &info)
+void RLS::RlsDynamics::outputConfig(const string &controlInput, const TreeModel::Info &info)
 {
   if(debug) DEBUG;
 

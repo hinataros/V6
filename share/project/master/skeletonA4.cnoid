@@ -311,7 +311,7 @@ views:
 toolbars: 
   "TimeBar": 
     minTime: 0
-    maxTime: 5
+    maxTime: 12
     frameRate: 1000
     playbackFrameRate: 10
     idleLoopDrivenMode: false

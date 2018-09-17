@@ -5,7 +5,7 @@
 #include "config.hpp"
 #include "treeModel.hpp"
 
-void RLS::TreeModel::setDir(string dir_share)
+void RLS::TreeModel::setDir(const string &dir_share)
 {
   if(debug) DEBUG;
 

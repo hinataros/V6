@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::comTrajectoryCP(double &t)
+void RLS::RlsDynamics::comTrajectoryCP(const double &t)
 {
   if(debug) DEBUG;
 

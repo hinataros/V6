@@ -2,6 +2,7 @@
    @author Sho Miyahara 2017
 */
 
+#include <sys/stat.h>
 #include "yaml-cpp/yaml.h"
 
 #include "config.hpp"
@@ -14,6 +15,11 @@ void RLS::TreeModel::readCnoid(Config::Clock &clock)
   int worldItem = 0;
   int bodyItem, aistItem;
   bool bodyFlag=false, aistFlag=false;
+
+  struct stat statFile;
+  if(stat(info.path.cnoid.c_str(), &statFile)!=0)
+    cout << manip_error("TreeModel::readCnoid() error...") << endl
+         << manip_error("no such file '"+info.path.cnoid+"'") << endl;
 
   YAML::Node doc = YAML::LoadFile(info.path.cnoid.c_str());
 
@@ -36,11 +42,11 @@ void RLS::TreeModel::readCnoid(Config::Clock &clock)
   }
 
   if(!bodyFlag)
-    cout << "****************************************************************" << endl
-         << "not found '" << info.name.body << "' item" << endl
-         << "****************************************************************" << endl;
+    cout << manip_error("TreeModel::readCnoid() error...") << endl
+         << manip_error("not found '"+info.name.body+"' item") << endl;
   if(!aistFlag)
-    cout << "not found 'AISTSimulator' item" << endl;
+    cout << manip_error("TreeModel::readCnoid() error...") << endl
+         << manip_error("not found 'AISTSimulator' item") << endl;
 
   for(int i=0; i<3; i++)
     try{

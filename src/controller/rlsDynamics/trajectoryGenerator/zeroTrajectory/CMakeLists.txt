@@ -3,7 +3,7 @@
 set(srcs
   baseTranslationZeroTrajectory.cpp
   baseOrientationZeroTrajectory.cpp
-  endEffectorZeroTrajectory.cpp
+  controlNodeZeroTrajectory.cpp
   comZeroTrajectory.cpp
   dcmZeroTrajectory.cpp
   externalWrenchZeroTrajectory.cpp

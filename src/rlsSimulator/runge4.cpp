@@ -8,7 +8,7 @@
 #include "output.hpp"
 #include "rlsSimulator.hpp"
 
-void RLS::RlsSimulator::runge4(Config &config, Model &model, RlsDynamics &rlsDynamics, Output &output)
+void RLS::RlsSimulator::runge4(const Config &config, Model &model, RlsDynamics &rlsDynamics, Output &output)
 {
   if(debug) DEBUG;
 

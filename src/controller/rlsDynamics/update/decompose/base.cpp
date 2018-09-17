@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::decomposeBase(Model &model)
+void RLS::RlsDynamics::decomposeBase(const Model &model)
 {
   if(debug) DEBUG;
 

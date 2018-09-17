@@ -6,13 +6,13 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::reference(Model &model)
+void RLS::RlsDynamics::reference(const Model &model)
 {
   if(debug) DEBUG;
 
   (this->*baseTranslationReference_ptr)(model.hoap2);
   (this->*baseOrientationReference_ptr)(model.hoap2);
-  (this->*endEffectorReference_ptr)(model.hoap2);
+  (this->*controlNodeReference_ptr)(model.hoap2);
   (this->*comReference_ptr)(model.hoap2);
   (this->*dcmReference_ptr)(model.hoap2);
   (this->*externalWrenchReference_ptr)(model.hoap2);

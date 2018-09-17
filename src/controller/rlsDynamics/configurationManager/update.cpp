@@ -28,7 +28,7 @@ void RLS::RlsDynamics::updateState(const Model &model, const double &t)
   // state.trev = t;
 }
 
-void RLS::RlsDynamics::updateSequence(const double &t, const int num)
+void RLS::RlsDynamics::updateSequence(const double &t, const int &num)
 {
   if(debug) DEBUG;
 

@@ -8,7 +8,7 @@
 #include "output.hpp"
 #include "rlsSimulator.hpp"
 
-void RLS::RlsSimulator::diffEqs(Config &config, Model &model, const int phase)
+void RLS::RlsSimulator::diffEqs(const Config &config, Model &model, const int phase)
 {
   if(debug) DEBUG;
 

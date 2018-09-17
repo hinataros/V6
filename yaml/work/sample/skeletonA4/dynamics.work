@@ -1,0 +1,52 @@
+# @author Sho Miyahara 2017
+
+Default:
+  -
+    Inverse dynamics controller: fullDynamics
+    Momentum controller: baseMomentum
+    Motion controller: baseGeneralizedMomentum
+    Force controller: baseDistribution
+    Torque controller: baseOpt
+
+    CoM trajectory: {name: CP}
+    Base orientation trajectory: {name: CP}
+    Control node trajectory:
+      RARMEE: {name: CP}
+      LARMEE: {name: CP}
+
+    Bc:
+      RLEGEE: [1, 1, 1, 1, 1, 1]
+      LLEGEE: [1, 1, 1, 1, 1, 1]
+    Bm:
+      RARMEE: [1, 1, 1, 0, 0, 0]
+      LARMEE: [1, 1, 1, 0, 0, 0]
+
+    KpC: 3.e+2
+    KdC: 5.e+1
+    KpwB: 3.e+2
+    KdwB: 5.e+1
+    Kpv:
+      RARMEE: 3.e+2
+      LARMEE: 3.e+2
+    Kdv:
+      RARMEE: 5.e+1
+      LARMEE: 5.e+1
+
+    kDth: &kDthH 1.e+2
+    KDth:
+      - [0.,0.,0.,0.,0.,0.]
+      - [0.,0.,0.,0.,0.,0.]
+      - [*kDthH, *kDthH, *kDthH, *kDthH]
+      - [*kDthH, *kDthH, *kDthH, *kDthH]
+
+Sequence:
+  -
+    twf: 2.
+  -
+    twf: 2.
+    rCf: [0., 0., -0.03]
+    xiBf: [0., 0.32, 0.]
+  -
+    twf: 1.
+    cal_Xf:
+      RARMEE: [0.1, 0., 0.1, 0., 0., 0.]

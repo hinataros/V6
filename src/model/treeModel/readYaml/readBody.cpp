@@ -2,6 +2,7 @@
    @author Sho Miyahara 2017
 */
 
+#include <sys/stat.h>
 #include "yaml-cpp/yaml.h"
 
 #include "config.hpp"
@@ -10,6 +11,11 @@
 void RLS::TreeModel::readBody()
 {
   if(debug) DEBUG;
+
+  struct stat statFile;
+  if(stat(info.path.body.c_str(), &statFile)!=0)
+    cout << manip_error("TreeModel::readBody() error...") << endl
+         << manip_error("no such file '"+info.path.body+"'") << endl;
 
   YAML::Node doc = YAML::LoadFile(info.path.body.c_str());
 
@@ -110,7 +116,8 @@ void RLS::TreeModel::readBody()
     }
 
     if(!flag){
-      cout << "not found '" << info.controlNode[i].name << "' node"<< endl;
+      cout << manip_error("TreeModel::readBody() error...") << endl
+           << manip_error("not found '"+info.controlNode[i].name+"' node") << endl;
       info.controlNode[i].num = 0;
     }
   }

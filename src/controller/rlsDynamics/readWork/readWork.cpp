@@ -2,12 +2,21 @@
    @author Sho Miyahara 2017
 */
 
+#include <sys/stat.h>
 #include "config.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
 int RLS::RlsDynamics::readWork(string work_path, const TreeModel::Info &info, bool multi, string node, int num, int phase)
 {
+  struct stat statFile;
+  if(stat(work_path.c_str(), &statFile)!=0){
+    cout << manip_error("RlsDynamics::readWork() error...") << endl
+         << manip_error("no such file '"+work_path+"'") << endl;
+
+    return -1;
+  }
+
   YAML::Node doc = YAML::LoadFile(work_path.c_str());
 
   if(node=="Sequence")
@@ -27,7 +36,7 @@ int RLS::RlsDynamics::readWork(string work_path, const TreeModel::Info &info, bo
 
   baseTranslationReferenceName = updateValue<string>(doc, multi, node, num, phase, "Base translation reference", baseTranslationReferenceName);
   baseOrientationReferenceName = updateValue<string>(doc, multi, node, num, phase, "Base orientation reference", baseOrientationReferenceName);
-  endEffectorReferenceName = updateValue<string>(doc, multi, node, num, phase, "End effector reference", endEffectorReferenceName);
+  controlNodeReferenceName = updateValue<string>(doc, multi, node, num, phase, "Control node reference", controlNodeReferenceName);
   comReferenceName = updateValue<string>(doc, multi, node, num, phase, "CoM reference", comReferenceName);
   dcmReferenceName = updateValue<string>(doc, multi, node, num, phase, "DCM reference", dcmReferenceName);
   externalWrenchReferenceName = updateValue<string>(doc, multi, node, num, phase, "External wrench reference", externalWrenchReferenceName);

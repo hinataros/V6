@@ -1,0 +1,10 @@
+# @author Sho Miyahara 2017
+
+Model:
+  Body name: skeleton/skeletonA4wRIprim
+  cnoid name: sample/skeletonA4wRI
+  Control node:
+    - RLEGEE
+    - LLEGEE
+    - RARMEE
+    - LARMEE

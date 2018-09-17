@@ -12,6 +12,7 @@ void RLS::RlsDynamics::initialize(const Config &config, const TreeModel::Info &i
 
   initialValueFlag = true;
 
+  dt = 0.;
   // smiyahara: model.worldとかに持ってきたい
   g = 9.81;
 
@@ -37,13 +38,16 @@ void RLS::RlsDynamics::initialize(const Config &config, const TreeModel::Info &i
   cal_VC = Vector6d::Zero();
   cal_X = VectorXd::Zero(6*info.controlNodeNum);
   cal_V = VectorXd::Zero(6*info.controlNodeNum);
-
   cal_F = VectorXd::Zero(6*info.controlNodeNum);
+
+  // cal_Xsensor = VectorXd::Zero(6*info.sensorNodeNum);
+  // cal_Fsensor = VectorXd::Zero(6*info.sensorNodeNum);
 
   dq = VectorXd::Zero(info.dof.all);
   dqM = VectorXd::Zero(info.dof.all);
 
   M = 0.;
+  ag = Vector3d::Zero();
   JB2C = MatrixXd::Zero(3, info.dof.joint);
   dJB2C = MatrixXd::Zero(3, info.dof.joint);
 

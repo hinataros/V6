@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::renameMix(TreeModel &model)
+void RLS::RlsDynamics::renameMix(const TreeModel &model)
 {
   if(debug) DEBUG;
 

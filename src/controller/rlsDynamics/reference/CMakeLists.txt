@@ -4,7 +4,7 @@ add_subdirectory(baseTranslationReference)
 add_subdirectory(baseOrientationReference)
 add_subdirectory(comReference)
 add_subdirectory(dcmReference)
-add_subdirectory(endEffectorReference)
+add_subdirectory(controlNodeReference)
 add_subdirectory(externalWrenchReference)
 
 set(srcs
@@ -18,7 +18,7 @@ set(reference_srcs
   ${baseOrientationReference_srcs}
   ${comReference_srcs}
   ${dcmReference_srcs}
-  ${endEffectorReference_srcs}
+  ${controlNodeReference_srcs}
   ${externalWrenchReference_srcs}
   ${reference_srcs}
   PARENT_SCOPE

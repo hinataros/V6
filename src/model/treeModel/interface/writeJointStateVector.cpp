@@ -5,7 +5,7 @@
 #include "config.hpp"
 #include "treeModel.hpp"
 
-void RLS::TreeModel::writeJointStateVector(const string state, const VectorXd x)
+void RLS::TreeModel::writeJointStateVector(string state, VectorXd x)
 {
   if(debug) DEBUG;
 

@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::baseTranslationReferencePI(TreeModel &model)
+void RLS::RlsDynamics::baseTranslationReferencePI(const TreeModel &model)
 {
   if(debug) DEBUG;
 

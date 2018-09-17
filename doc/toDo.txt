@@ -136,3 +136,5 @@ bb_Rの計算位置
 接触座標系の設定をworkにしたい
 outputConfig/indexPrintのinfo.limb[i].contact
 controller内のdt
+cal_Fは無くしたい
+drivenを設定しないとBcとかが初期化されないからエラーだす

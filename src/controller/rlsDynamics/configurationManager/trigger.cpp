@@ -6,12 +6,12 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-int RLS::RlsDynamics::stateTrigger(Model &model, double &t)
+int RLS::RlsDynamics::stateTrigger(const Model &model, const double &t)
 {
   return (this->*customTrigger_ptr)(model, t);
 }
 
-bool RLS::RlsDynamics::sequenceTrigger(const double &t, const double tf, const int num)
+bool RLS::RlsDynamics::sequenceTrigger(const double &t, const double tf, const int &num)
 {
   int tint = round_cast(t, 3);
   int tfint = round_cast(tf, 3);

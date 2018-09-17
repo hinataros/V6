@@ -1,4 +1,0 @@
-void RLS::Walking::walking()
-{
-}
-

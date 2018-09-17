@@ -12,7 +12,7 @@ void RLS::RlsDynamics::initializeReferenceMap()
 
   baseTranslationReferenceName
     = baseOrientationReferenceName
-    = endEffectorReferenceName
+    = controlNodeReferenceName
     = comReferenceName
     = dcmReferenceName
     = externalWrenchReferenceName
@@ -29,8 +29,8 @@ void RLS::RlsDynamics::initializeReferenceMap()
     = &RLS::RlsDynamics::baseOrientationReferencePI;
 
   // end effector
-  map_endEffectorReference["default"]
-    = &RLS::RlsDynamics::endEffectorReferencePI;
+  map_controlNodeReference["default"]
+    = &RLS::RlsDynamics::controlNodeReferencePI;
 
   // com
   map_comReference["default"]

@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::spatialReference(Model &model)
+void RLS::RlsDynamics::spatialReference(const Model &model)
 {
   if(debug) DEBUG;
 

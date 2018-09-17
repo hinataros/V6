@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::trajectoryGenerator(int controlNodeNum, double &t)
+void RLS::RlsDynamics::trajectoryGenerator(const int &controlNodeNum, const double &t)
 {
   if(debug) DEBUG;
 
@@ -14,7 +14,7 @@ void RLS::RlsDynamics::trajectoryGenerator(int controlNodeNum, double &t)
   (this->*baseOrientationTrajectory_ptr)(t);
 
   for(int i=0; i<controlNodeNum; i++)
-    (this->*endEffectorTrajectory_ptr[i])(i, t);
+    (this->*controlNodeTrajectory_ptr[i])(i, t);
 
   (this->*comTrajectory_ptr)(t);
   (this->*dcmTrajectory_ptr)(t);

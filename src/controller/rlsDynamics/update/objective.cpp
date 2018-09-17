@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-int RLS::RlsDynamics::objective(TreeModel::Info &info)
+int RLS::RlsDynamics::objective(const TreeModel::Info &info)
 {
   if(debug) DEBUG;
 

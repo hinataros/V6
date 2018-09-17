@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::contactCoordinate(Model &model)
+void RLS::RlsDynamics::contactCoordinate(const Model &model)
 {
   if(debug) DEBUG;
 

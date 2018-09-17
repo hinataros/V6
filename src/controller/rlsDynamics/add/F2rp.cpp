@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-Vector2d RLS::RlsDynamics::F2rp(const Vector6d cal_F)
+Vector2d RLS::RlsDynamics::F2rp(const Vector6d &cal_F)
 {
   if(cal_F(2)==0.)
     return Vector2d::Zero();

@@ -20,6 +20,7 @@ namespace RLS{
   private:
     bool initialValueFlag;
 
+    double dt;
     double g;
 
     MatrixXi Bc_kDiag;
@@ -50,13 +51,16 @@ namespace RLS{
     Vector6d cal_VC;
     VectorXd cal_X;
     VectorXd cal_V;
-
     VectorXd cal_F;
+
+    // VectorXd cal_Xsensor;
+    // VectorXd cal_Fsensor;
 
     VectorXd dq;
     VectorXd dqM;
 
     double M;
+    Vector3d ag;
     MatrixXd JB2C;
     MatrixXd dJB2C;
 
@@ -242,14 +246,14 @@ namespace RLS{
 
     string baseTranslationTrajectoryName;
     string baseOrientationTrajectoryName;
-    string *endEffectorTrajectoryName;
+    string *controlNodeTrajectoryName;
     string comTrajectoryName;
     string dcmTrajectoryName;
     string externalWrenchTrajectoryName;
 
     int baseTranslationTrajectoryNum;
     int baseOrientationTrajectoryNum;
-    int *endEffectorTrajectoryNum;
+    int *controlNodeTrajectoryNum;
     int comTrajectoryNum;
     int dcmTrajectoryNum;
     int externalWrenchTrajectoryNum;
@@ -273,25 +277,27 @@ namespace RLS{
 
       Vector6d cal_Fextf;
       Vector6d cal_FextpreDes;
+
+      VectorXd cal_Xtd;
     } *sequence;
 
     // select trajectory generator
-    void (RLS::RlsDynamics::*baseTranslationTrajectory_ptr)(double&)=0;
-    void (RLS::RlsDynamics::*baseOrientationTrajectory_ptr)(double&)=0;
-    void (RLS::RlsDynamics::*comTrajectory_ptr)(double&)=0;
-    void (RLS::RlsDynamics::*dcmTrajectory_ptr)(double&)=0;
-    void (RLS::RlsDynamics::*externalWrenchTrajectory_ptr)(double&)=0;
+    void (RLS::RlsDynamics::*baseTranslationTrajectory_ptr)(const double&)=0;
+    void (RLS::RlsDynamics::*baseOrientationTrajectory_ptr)(const double&)=0;
+    void (RLS::RlsDynamics::*comTrajectory_ptr)(const double&)=0;
+    void (RLS::RlsDynamics::*dcmTrajectory_ptr)(const double&)=0;
+    void (RLS::RlsDynamics::*externalWrenchTrajectory_ptr)(const double&)=0;
 
-    map<string, void (RLS::RlsDynamics::*)(double&)>
+    map<string, void (RLS::RlsDynamics::*)(const double&)>
     map_baseTranslationTrajectory,
       map_baseOrientationTrajectory,
       map_comTrajectory,
       map_dcmTrajectory,
       map_externalWrenchTrajectory;
 
-    void (RLS::RlsDynamics::**endEffectorTrajectory_ptr)(int, double&);
-    map<string, void (RLS::RlsDynamics::*)(int, double&)>
-    *map_endEffectorTrajectory;
+    void (RLS::RlsDynamics::**controlNodeTrajectory_ptr)(const int&, const double&);
+    map<string, void (RLS::RlsDynamics::*)(const int&, const double&)>
+    *map_controlNodeTrajectory;
 
     // desired value
     // ******************************
@@ -336,7 +342,7 @@ namespace RLS{
     double tstep;
     double tDS0;
 
-    VectorXd dt;
+    VectorXd dT;
     MatrixXd rf;
     MatrixXd rvrpd;
 
@@ -401,7 +407,7 @@ namespace RLS{
     // **********************
     string baseTranslationReferenceName;
     string baseOrientationReferenceName;
-    string endEffectorReferenceName;
+    string controlNodeReferenceName;
     string comReferenceName;
     string dcmReferenceName;
     string externalWrenchReferenceName;
@@ -510,14 +516,14 @@ namespace RLS{
     Matrix6d bb_ScB;
 
     void initializeState(const TreeModel::Info&);
-    void initializeSequence(const string, const TreeModel::Info&);
+    void initializeSequence(const string&, const TreeModel::Info&);
     void initializeWalking(const TreeModel::Info&);
-    void initializeTriggerMap(string);
+    void initializeTriggerMap(const string&);
     void initializeReferenceMap();
     void initializeTrajectoryGeneratorMap(const TreeModel::Info&);
     void initializeControllerMap();
 
-    void initialValue(const string, Model&);
+    void initialValue(const string&, Model&);
     void resize(Model&);
 
     void cop(const TreeModel&);
@@ -527,26 +533,21 @@ namespace RLS{
 
     // // state transition
     void updateState(const Model&, const double&);
-    void updateSequence(const double&, const int);
-    void mapping(int);
+    void updateSequence(const double&, const int&);
+    void mapping(const int&);
 
     // triggre config
-    int noTrigger(Model&, double&);
-    // int checkContact(Config&, Info&, Model&, double&);
-    // int staticCheckContact(Config&, Info&, Model&, double&);
-    // int ankleStratagy(Config&, Info&, Model&, double&);
-    // int ankleHipStratagy(Config&, Info&, Model&, double&);
-    // int walking(Config&, Info&, Model&, double&);
-    // int walkHT(Config&, Info&, Model&, double&);
+    int noTrigger(const Model&, const double&);
+    int checkContact(const Model&, const double&);
 
     // select reference
-    int (RLS::RlsDynamics::*customTrigger_ptr)(Model&, double&)=0;
-    map<string, int (RLS::RlsDynamics::*)(Model&, double&)> map_customTrigger;
+    int (RLS::RlsDynamics::*customTrigger_ptr)(const Model&, const double&)=0;
+    map<string, int (RLS::RlsDynamics::*)(const Model&, const double&)> map_customTrigger;
 
-    int stateTrigger(Model&, double&);
-    bool sequenceTrigger(const double&, const double, const int);
+    int stateTrigger(const Model&, const double&);
+    bool sequenceTrigger(const double&, const double, const int&);
 
-    bool configurationManager(const Config&, Model&, double&);
+    bool configurationManager(const Config&, const Model&, const double&);
 
     void readSequence(YAML::Node&, bool, string, int, int, int);
     void readControlNode(YAML::Node&, const TreeModel::Info&, bool, string, int, int);
@@ -554,102 +555,96 @@ namespace RLS{
 
     void reconfigure(TreeModel::Info&);
 
-    // // transform matrix
-    // MatrixXd jacobian(Config&, Info&, TreeModel&, int);
-    // MatrixXd jacobian(Config&, Info&, TreeModel&, int, Vector3d);
-    // MatrixXd diffJacobian(Config&, Info&, TreeModel&, int);
-    // MatrixXd diffJacobian(Config&, Info&, TreeModel&, int, Vector3d);
-    // Matrix6d spatialTransform(Config&, Info&, Vector3d);
-    // Matrix6d diffSpatialTransform(Config&, Info&, Vector3d);
-
     // // update
     // // ******************************
     void transform(Model&);
 
-    void contactCoordinate(Model&);
+    void contactCoordinate(const Model&);
     void basis();
-    void decomposeBase(Model&);
-    void decomposeMix(Model&);
-    void decompose(Model&);
+    void decomposeBase(const Model&);
+    void decomposeMix(const Model&);
+    void decompose(const Model&);
 
-    int objective(TreeModel::Info&);
+    int objective(const TreeModel::Info&);
 
-    void renameState(TreeModel&);
-    void renameBase(TreeModel&);
-    void renameMix(TreeModel&);
-    void renameCentroidal(TreeModel&);
-    void renameOthers(Model&);
-    void renameDebug(Model&);
-    void rename(Model&);
+    void renameState(const TreeModel&);
+    void renameBase(const TreeModel&);
+    void renameMix(const TreeModel&);
+    void renameCentroidal(const TreeModel&);
+    void renameOthers(const Config::Clock&, const Model&);
+    void renameDebug(const Model&);
+    void rename(const Config::Clock&, const Model&);
 
-    void update(Model&);
+    void update(const Config::Clock&, Model&);
     // ******************************
 
     // trajectory generator
     // ******************************
     // base translation
-    void baseTranslationZeroTrajectory(double&);
-    void baseTranslationTrajectoryCP(double&);
+    void baseTranslationZeroTrajectory(const double&);
+    void baseTranslationTrajectoryCP(const double&);
 
     // base orientation
-    void baseOrientationZeroTrajectory(double&);
-    void baseOrientationTrajectoryCP(double&);
+    void baseOrientationZeroTrajectory(const double&);
+    void baseOrientationTrajectoryCP(const double&);
 
-    // end effector
-    void endEffectorZeroTrajectory(int, double&);
-    void endEffectorTrajectoryCP(int, double&);
+    // control node
+    void controlNodeZeroTrajectory(const int&, const double&);
+    void controlNodeTrajectoryCP(const int&, const double&);
+    void controlNodeTrajectoryWalking(const int&, const double&);
 
     // com
-    void comZeroTrajectory(double&);
-    void comTrajectoryCP(double&);
+    void comZeroTrajectory(const double&);
+    void comTrajectoryCP(const double&);
 
     // dcm
-    void dcmZeroTrajectory(double&);
-    void dcmTrajectoryCP(double&);
+    void dcmZeroTrajectory(const double&);
+    void dcmTrajectoryCP(const double&);
+    void dcmHTWalking(const double&);
 
     // external wrench
-    void externalWrenchZeroTrajectory(double&);
-    void externalWrenchTrajectoryCP(double&);
+    void externalWrenchZeroTrajectory(const double&);
+    void externalWrenchTrajectoryCP(const double&);
 
-    void trajectoryGenerator(int, double&);
+    void trajectoryGenerator(const int&, const double&);
 
     // reference
     // ******************************
     // base translation
-    void baseTranslationReferencePI(TreeModel&);
+    void baseTranslationReferencePI(const TreeModel&);
 
     // base orientation
-    void baseOrientationReferencePI(TreeModel&);
+    void baseOrientationReferencePI(const TreeModel&);
 
-    // end effector
-    void endEffectorReferencePI(TreeModel&);
+    // control node
+    void controlNodeReferencePI(const TreeModel&);
 
     // com
-    void comReferencePI(TreeModel&);
-    void comReferenceDcmControl(TreeModel&);
+    void comReferencePI(const TreeModel&);
+    void comReferenceDcmControl(const TreeModel&);
 
     // dcm
-    void dcmReferencePI(TreeModel&);
+    void dcmReferencePI(const TreeModel&);
 
     // external wrench
-    void externalWrenchReferenceFF(TreeModel&);
+    void externalWrenchReferenceFF(const TreeModel&);
 
-    void spatialReference(Model&);
+    void spatialReference(const Model&);
 
-    void reference(Model&);
+    void reference(const Model&);
 
     // select reference
-    void (RLS::RlsDynamics::*baseTranslationReference_ptr)(TreeModel&)=0;
-    void (RLS::RlsDynamics::*baseOrientationReference_ptr)(TreeModel&)=0;
-    void (RLS::RlsDynamics::*endEffectorReference_ptr)(TreeModel&)=0;
-    void (RLS::RlsDynamics::*comReference_ptr)(TreeModel&)=0;
-    void (RLS::RlsDynamics::*dcmReference_ptr)(TreeModel&)=0;
-    void (RLS::RlsDynamics::*externalWrenchReference_ptr)(TreeModel&)=0;
+    void (RLS::RlsDynamics::*baseTranslationReference_ptr)(const TreeModel&)=0;
+    void (RLS::RlsDynamics::*baseOrientationReference_ptr)(const TreeModel&)=0;
+    void (RLS::RlsDynamics::*controlNodeReference_ptr)(const TreeModel&)=0;
+    void (RLS::RlsDynamics::*comReference_ptr)(const TreeModel&)=0;
+    void (RLS::RlsDynamics::*dcmReference_ptr)(const TreeModel&)=0;
+    void (RLS::RlsDynamics::*externalWrenchReference_ptr)(const TreeModel&)=0;
 
-    map<string, void (RLS::RlsDynamics::*)(TreeModel&)>
+    map<string, void (RLS::RlsDynamics::*)(const TreeModel&)>
     map_baseTranslationReference,
       map_baseOrientationReference,
-      map_endEffectorReference,
+      map_controlNodeReference,
       map_comReference,
       map_dcmReference,
       map_externalWrenchReference;
@@ -657,8 +652,8 @@ namespace RLS{
     // ******************************
 
     // add function
-    Vector2d F2rp(const Vector6d);
-    MatrixXd weight(const TreeModel::Info&, const Vector3d);
+    Vector2d F2rp(const Vector6d&);
+    MatrixXd weight(const TreeModel::Info&, const Vector3d&);
 
     // controller
     // ******************************
@@ -726,7 +721,7 @@ namespace RLS{
     VectorXd spatialDynamicsSolver(const TreeModel::Info&);
     VectorXd dlrSolver(const TreeModel::Info&);
 
-    void controlMethod(const string, const TreeModel::Info&);
+    void controlMethod(const string&, const TreeModel::Info&);
 
     // select controller
     VectorXd (RLS::RlsDynamics::*motionController_ptr)(const TreeModel::Info&)=0;
@@ -757,7 +752,7 @@ namespace RLS{
     void torqueOutputIndexPrintConfig(const TreeModel::Info&);
     void torqueOutputConfig(const TreeModel::Info&);
 
-    void outputConfig(const string, const TreeModel::Info&);
+    void outputConfig(const string&, const TreeModel::Info&);
 
     // readWork
     // ****************************************************************
@@ -801,7 +796,7 @@ namespace RLS{
     // smiyahara: 名前は変えたい
     void initialize(const Config&, const TreeModel::Info&);
     void finalize();
-    VectorXd rlsDynamics(Config&, Model&, double&);
+    VectorXd rlsDynamics(const Config&, Model&, const double&);
 
     RlsDynamicsList dc_list;
 

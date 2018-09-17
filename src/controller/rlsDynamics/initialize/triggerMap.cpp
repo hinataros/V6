@@ -6,12 +6,13 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::initializeTriggerMap(string customTriggerName)
+void RLS::RlsDynamics::initializeTriggerMap(const string &customTriggerName)
 {
   if(debug) DEBUG;
 
   // mapping
   map_customTrigger["default"] = &RLS::RlsDynamics::noTrigger;
+  map_customTrigger["check contact"] = &RLS::RlsDynamics::checkContact;
 
   customTrigger_ptr = map_customTrigger[customTriggerName];
 }

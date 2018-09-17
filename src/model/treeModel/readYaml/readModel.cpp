@@ -2,14 +2,20 @@
    @author Sho Miyahara 2017
 */
 
+#include <sys/stat.h>
 #include "yaml-cpp/yaml.h"
 
 #include "config.hpp"
 #include "treeModel.hpp"
 
-void RLS::TreeModel::readModel(string dir_model)
+void RLS::TreeModel::readModel(const string &dir_model)
 {
   if(debug) DEBUG;
+
+  struct stat statFile;
+  if(stat(dir_model.c_str(), &statFile)!=0)
+    cout << manip_error("TreeModel::readModel() error...") << endl
+         << manip_error("no such file '"+dir_model+"'") << endl;
 
   YAML::Node doc = YAML::LoadFile(dir_model.c_str());
 

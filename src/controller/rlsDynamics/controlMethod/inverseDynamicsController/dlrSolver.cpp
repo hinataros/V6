@@ -117,21 +117,21 @@ VectorXd RLS::RlsDynamics::dlrSolver(const TreeModel::Info &info)
     0.,0.,0.,0.;
 
   VectorXd ci = VectorXd::Zero(ciNum);
-  // ci <<
-  //   Smin*(1/info.sim.dt*info.sim.dt)*(DEG2RAD*thmin - (th + info.sim.dt*dth)),
-  //   -Smax(1/info.sim.dt*info.sim.dt)*(DEG2RAD*thmax - (th + info.sim.dt*dth));
-
-  // if(info.contact.c.all==12){
-  //   MatrixXd CI = (MatrixXd(n, n) <<
-  //                  MatrixXd::Zero(info.dof.all, info.dof.all), MatrixXd::Zero(info.dof.all, info.contact.c.all),
-  //                  MatrixXd::Zero(info.contact.c.all, info.dof.all), Bc.transpose()*WFmin*Bc).finished();
-
-  //   VectorXd ci = (VectorXd(n) <<
-  //                  VectorXd::Zero(info.dof.all), 0.,0.,2.e-0,0.,0.,0., 0.,0.,2.e-0,0.,0.,0.).finished();
-  //   QuadProgpp::solver(G, g, CE, ce, CI, ci, x);
-  // }
+  ci <<
+    Smin*(1/dt*dt)*(DEG2RAD*thmin - (th + dt*dth)),
+    -Smax(1/dt*dt)*(DEG2RAD*thmax - (th + dt*dth));
 
   VectorXd x = VectorXd::Zero(n);
+  if(info.contact.c.all==12){
+    MatrixXd CI = (MatrixXd(n, n) <<
+                   MatrixXd::Zero(info.dof.all, info.dof.all), MatrixXd::Zero(info.dof.all, info.contact.c.all),
+                   MatrixXd::Zero(info.contact.c.all, info.dof.all), Bc.transpose()*WFmin*Bc).finished();
+
+    VectorXd ci = (VectorXd(n) <<
+                   VectorXd::Zero(info.dof.all), 0.,0.,2.e-0,0.,0.,0., 0.,0.,2.e-0,0.,0.,0.).finished();
+    QuadProgpp::solver(G, g, CE, ce, CI, ci, x);
+  }
+
   // else
   QuadProgpp::solver(G, g, CE, ce, CI, ci, x);
     // QuadProgpp::solver(G, g, "e", CE, ce, x);

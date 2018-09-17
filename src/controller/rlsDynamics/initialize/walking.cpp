@@ -15,14 +15,14 @@ void RLS::RlsDynamics::initializeWalking(const TreeModel::Info &info)
   phaseDS = 0;
   flagDS = true;
 
-  // stepNum = 10;
-  stepNum = 18;
+  stepNum = 10;
+  // stepNum = 18;
   stepPhase = 0;
   tstep0 = 0.;
   tstep = 0.;
   tDS0 = 0.;
 
-  dt = VectorXd::Zero(stepNum);
+  dT = VectorXd::Zero(stepNum);
   rf = MatrixXd::Zero(3,stepNum+1);
   rvrpd = MatrixXd::Zero(3,stepNum+1);
 

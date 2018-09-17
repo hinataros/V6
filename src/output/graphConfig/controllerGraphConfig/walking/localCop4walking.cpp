@@ -11,7 +11,7 @@ void RLS::Output::localCop4walking(const Config &config, const TreeModel::Info &
   if(debug) DEBUG;
 
   texMaker.reset();
-  texMaker.setLimb(info.controlNodeNum);
+  texMaker.setLimb(info.sensorNodeNum);
   texMaker.setLimbNum(3, false);
   texMaker.setLimbNum(4, false);
 
@@ -28,7 +28,7 @@ void RLS::Output::localCop4walking(const Config &config, const TreeModel::Info &
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.controlNodeNum);
+  gpMaker.setLimb(info.sensorNodeNum);
   gpMaker.setLimbNum(3, false);
   gpMaker.setLimbNum(4, false);
   gpMaker.setYLabel("EE CoP x [mm]");
@@ -131,7 +131,7 @@ void RLS::Output::localCop4walking(const Config &config, const TreeModel::Info &
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.controlNodeNum);
+  gpMaker.setLimb(info.sensorNodeNum);
   gpMaker.setLimbNum(3, false);
   gpMaker.setLimbNum(4, false);
   gpMaker.setYLabel("EE CoP y [mm]");
@@ -210,7 +210,7 @@ void RLS::Output::localCop4walking(const Config &config, const TreeModel::Info &
 
   // gpMaker.reset();
   // gpMaker.setName(file_name);
-  // gpMaker.setLimb(info.controlNodeNum);
+  // gpMaker.setLimb(info.sensorNodeNum);
   // gpMaker.setXLabel("EE local CoP y [mm]");
   // gpMaker.setYLabel("EE local CoP x [mm]");
   // gpMaker.chUnit("m");

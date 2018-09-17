@@ -3,7 +3,6 @@
 */
 
 #include "config.hpp"
-#include "info.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
@@ -142,16 +141,16 @@ void straightWalkFootPrint(MatrixXd &rf, double offset)
 {
   int num = 1;
 
-  rf.col(num) <<  0., -0.039+offset, 0.; num++;// 1
-  rf.col(num) << 0.1,  0.039-offset, 0.; num++;// 2
-  rf.col(num) << 0.2, -0.039+offset, 0.; num++;// 3
-  rf.col(num) << 0.3,  0.039-offset, 0.; num++;// 4
-  rf.col(num) << 0.4, -0.039+offset, 0.; num++;// 5
-  rf.col(num) << 0.5,  0.039-offset, 0.; num++;// 6
-  rf.col(num) << 0.6, -0.039+offset, 0.; num++;// 7
-  rf.col(num) << 0.7,  0.039-offset, 0.; num++;// 8
-  rf.col(num) << 0.7,            0., 0.; num++;// 9
-  rf.col(num) << 0.7,            0., 0.; num++;// 10
+  // rf.col(num) <<  0., -0.039+offset, 0.; num++;// 1
+  // rf.col(num) << 0.1,  0.039-offset, 0.; num++;// 2
+  // rf.col(num) << 0.2, -0.039+offset, 0.; num++;// 3
+  // rf.col(num) << 0.3,  0.039-offset, 0.; num++;// 4
+  // rf.col(num) << 0.4, -0.039+offset, 0.; num++;// 5
+  // rf.col(num) << 0.5,  0.039-offset, 0.; num++;// 6
+  // rf.col(num) << 0.6, -0.039+offset, 0.; num++;// 7
+  // rf.col(num) << 0.7,  0.039-offset, 0.; num++;// 8
+  // rf.col(num) << 0.7,            0., 0.; num++;// 9
+  // rf.col(num) << 0.7,            0., 0.; num++;// 10
 
   // rf.col(num) <<   0., -0.039+offset, 0.; num++;// 1
   // rf.col(num) << 0.09,  0.039-offset, 0.; num++;// 2
@@ -164,16 +163,16 @@ void straightWalkFootPrint(MatrixXd &rf, double offset)
   // rf.col(num) << 0.63,            0., 0.; num++;// 9
   // rf.col(num) << 0.63,            0., 0.; num++;// 10
 
-  // rf.col(num) <<   0., -0.039+offset, 0.; num++;// 1
-  // rf.col(num) << 0.08,  0.039-offset, 0.; num++;// 2
-  // rf.col(num) << 0.16, -0.039+offset, 0.; num++;// 3
-  // rf.col(num) << 0.24,  0.039-offset, 0.; num++;// 4
-  // rf.col(num) << 0.32, -0.039+offset, 0.; num++;// 5
-  // rf.col(num) << 0.40,  0.039-offset, 0.; num++;// 6
-  // rf.col(num) << 0.48, -0.039+offset, 0.; num++;// 7
-  // rf.col(num) << 0.56,  0.039-offset, 0.; num++;// 8
-  // rf.col(num) << 0.56,            0., 0.; num++;// 9
-  // rf.col(num) << 0.56,            0., 0.; num++;// 10
+  rf.col(num) <<   0., -0.039+offset, 0.; num++;// 1
+  rf.col(num) << 0.08,  0.039-offset, 0.; num++;// 2
+  rf.col(num) << 0.16, -0.039+offset, 0.; num++;// 3
+  rf.col(num) << 0.24,  0.039-offset, 0.; num++;// 4
+  rf.col(num) << 0.32, -0.039+offset, 0.; num++;// 5
+  rf.col(num) << 0.40,  0.039-offset, 0.; num++;// 6
+  rf.col(num) << 0.48, -0.039+offset, 0.; num++;// 7
+  rf.col(num) << 0.56,  0.039-offset, 0.; num++;// 8
+  rf.col(num) << 0.56,            0., 0.; num++;// 9
+  rf.col(num) << 0.56,            0., 0.; num++;// 10
 }
 
 void testFootPrint(MatrixXd &rf, double offset)
@@ -188,14 +187,23 @@ void testFootPrint(MatrixXd &rf, double offset)
   rf.col(num) << 0.03, 0.,   0.; num++;// 1
   rf.col(num) << 0.03, 0.,   0.; num++;// 1
 }
-void RLS::RlsDynamics::dcmHTWalking(Config &config, Info &info, Model &model, double &t)
+void RLS::RlsDynamics::dcmHTWalking(const double &t)
 {
-  if(config.flag.debug) DEBUG;
+  if(debug) DEBUG;
 
   // setting
   // straight walk on flat ground
   // ********************************
   double tstab = 2.;
+
+  // test straight walk
+  double dtstep = 1.;
+  double dtDSstep =0.5;
+  double alphDSstep = .5;
+  double alphaHTstep = .5;
+  double offset = 0.01;
+  double toe = 0.025;
+  double heel = -0.015;
 
   // // straight walk toe off
   // double dtstep = .5;
@@ -215,14 +223,14 @@ void RLS::RlsDynamics::dcmHTWalking(Config &config, Info &info, Model &model, do
   // double toe = 0.025;
   // double heel = -0.015;
 
-  // updown
-  double dtstep = 1.;
-  double dtDSstep = .5;
-  double alphDSstep = .5;
-  double alphaHTstep = .5;
-  double offset = 0.01;
-  double toe = 0.025;
-  double heel = -0.015;
+  // // updown
+  // double dtstep = 1.;
+  // double dtDSstep = .5;
+  // double alphDSstep = .5;
+  // double alphaHTstep = .5;
+  // double offset = 0.01;
+  // double toe = 0.025;
+  // double heel = -0.015;
 
   // // rough updown
   // double dtstep = 1.;
@@ -256,7 +264,7 @@ void RLS::RlsDynamics::dcmHTWalking(Config &config, Info &info, Model &model, do
 
   if(t==0.){
     for(int i=0; i<stepNum; i++){
-      dt(i) = dtstep;
+      dT(i) = dtstep;
      }
     for(int i=0; i<stepNum+1; i++){
       dtDS(i) = dtDSstep;
@@ -279,9 +287,9 @@ void RLS::RlsDynamics::dcmHTWalking(Config &config, Info &info, Model &model, do
 
       // smiyahara: dtHT(0) is unused
       if(i)
-        dtHT(i) = alphaHT(i)*dt(i);
+        dtHT(i) = alphaHT(i)*dT(i);
 
-      dtTH(i) = (1 - alphaHT(i))*dt(i);
+      dtTH(i) = (1 - alphaHT(i))*dT(i);
     }
 
     // double heighttemp = 0.;
@@ -331,13 +339,13 @@ void RLS::RlsDynamics::dcmHTWalking(Config &config, Info &info, Model &model, do
     Vector3d toeOffset = (Vector3d()<<toe, 0., 0.).finished();
     Vector3d heelOffset = (Vector3d()<<heel, 0., 0.).finished();
 
-    Vector3d Dzvrp = (-model.hoap2.ag)/(wX*wX);
+    Vector3d Dzvrp = (-ag)/(wX*wX);
 
     // testFootPrint(rf, offset);
     // setFootPrint(rfT, rfH, offset, toe, heel);
-    upDownFootPrint(rf, offset);
+    // upDownFootPrint(rf, offset);
     // upDownHTFootPrint(rfT, rfH, offset, toe, heel);
-    // straightWalkFootPrint(rf, offset);
+    straightWalkFootPrint(rf, offset);
 
     // ******************************
     // final desired DCM position
@@ -436,8 +444,14 @@ void RLS::RlsDynamics::dcmHTWalking(Config &config, Info &info, Model &model, do
 
   double twalk = t - tstab;
   if(round_cast(t, 3)<round_cast(tstab, 3)){
+    double tw0 = sequence[dcmTrajectoryNum].tw0;
+    double twf = sequence[dcmTrajectoryNum].twf;
+    Vector3d initialDes = sequence[dcmTrajectoryNum].rXpreDes;
+    Vector3d finalDes = sequence[dcmTrajectoryNum].rXf;
+
     for(int i=0; i<3; i++){
-      des = makeSpline5(t-info.sim.tw0, info.sim.twf, rXpreDes(i), rXf(i));
+      des = makeSpline5(t-tw0, twf, initialDes(i), finalDes(i));
+
       rXDes(i) = des(0) + rX0(i);
       drXDes(i) = des(1);
     }

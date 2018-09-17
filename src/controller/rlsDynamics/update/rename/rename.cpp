@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::rename(Model &model)
+void RLS::RlsDynamics::rename(const Config::Clock &clock, const Model &model)
 {
   if(debug) DEBUG;
 
@@ -14,7 +14,8 @@ void RLS::RlsDynamics::rename(Model &model)
   renameBase(model.hoap2);
   renameMix(model.hoap2);
   renameCentroidal(model.hoap2);
-  renameOthers(model);
+
+  renameOthers(clock, model);
 
   renameDebug(model);
 }

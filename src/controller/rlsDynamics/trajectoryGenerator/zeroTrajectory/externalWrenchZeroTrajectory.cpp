@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::externalWrenchZeroTrajectory(double &t)
+void RLS::RlsDynamics::externalWrenchZeroTrajectory(const double &t)
 {
   if(debug) DEBUG;
 

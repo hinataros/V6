@@ -1,6 +1,7 @@
 # @author Sho Miyahara 2017
 
 set(srcs
+  initialize.cpp
   setLink.cpp
   readConfig.cpp
   setDir.cpp

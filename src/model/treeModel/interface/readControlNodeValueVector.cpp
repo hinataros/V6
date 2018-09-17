@@ -5,7 +5,7 @@
 #include "config.hpp"
 #include "treeModel.hpp"
 
-VectorXd RLS::TreeModel::readControlNodeValueVector(const string value)
+VectorXd RLS::TreeModel::readControlNodeValueVector(string value)
 {
   if(debug) DEBUG;
 

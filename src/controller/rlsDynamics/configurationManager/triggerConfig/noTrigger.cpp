@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-int RLS::RlsDynamics::noTrigger(Model &model, double &t)
+int RLS::RlsDynamics::noTrigger(const Model &model, const double &t)
 {
   return 0;
 }

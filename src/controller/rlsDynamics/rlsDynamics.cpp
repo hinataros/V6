@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-VectorXd RLS::RlsDynamics::rlsDynamics(Config &config, Model &model, double &t)
+VectorXd RLS::RlsDynamics::rlsDynamics(const Config &config, Model &model, const double &t)
 {
   if(debug) DEBUG;
 
@@ -21,7 +21,7 @@ VectorXd RLS::RlsDynamics::rlsDynamics(Config &config, Model &model, double &t)
   if(configurationManager(config, model, t))
     reconfigure(model.hoap2.info);
 
-  update(model);
+  update(config.clock, model);
 
   trajectoryGenerator(model.hoap2.info.controlNodeNum, t);
   reference(model);

@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::baseOrientationReferencePI(TreeModel &model)
+void RLS::RlsDynamics::baseOrientationReferencePI(const TreeModel &model)
 {
   if(debug) DEBUG;
 

@@ -4,7 +4,7 @@
 
 #include "rlsDynamicsRTC.h"
 
-void RlsDynamicsRTC::readState(RLS::Config &config, RLS::TreeModel &hoap2)
+void RlsDynamicsRTC::readState(RLS::TreeModel &hoap2)
 {
   if(debug) DEBUG;
 
@@ -51,5 +51,5 @@ void RlsDynamicsRTC::readState(RLS::Config &config, RLS::TreeModel &hoap2)
   for(int i=0; i<m_eeForce.data.length(); i++)
     FTsensor(i) = m_eeForce.data[i];
 
-  hoap2.writeSensorValueVector("force torque sensor", FTsensor);
+  hoap2.writeSensorNodeValueVector("force torque sensor", FTsensor);
 }

@@ -8,31 +8,25 @@ Default:
     Momentum controller: centroidalMomentum
     Force controller: centroidalDistribution
 
-    # Momentum controller: centroidalMomentum
-    # Force controller: centroidalDistribution
+    # Momentum controller: centroidalMomentum Force controller:
+    # centroidalDistribution
 
     # Torque controller: staticControl
     Torque controller: mixedmixedOpt
 
     Base orientation trajectory: {name: CP}
-    # End effector trajectory: {num: 1, name: CP}
-    # Control Node trajectory: {num: 1, node: RARMEE, name: CP}
-    # Control Node trajectory: {num: 2, node: LARMEE, name: CP}
+
+    Control node trajectory:
+      RARMEE: {num: 0, name: CP}
+      LARMEE: {num: 1, name: CP}
 
     Bc:
-      - [1, 1, 1, 1, 1, 1]
-      - [1, 1, 1, 1, 1, 1]
-      - [0, 0, 0, 0, 0, 0]
-      - [0, 0, 0, 0, 0, 0]
+      RLEGEE: [1, 1, 1, 1, 1, 1]
+      LLEGEE: [1, 1, 1, 1, 1, 1]
+
     Bm:
-      - [0, 0, 0, 0, 0, 0]
-      - [0, 0, 0, 0, 0, 0]
-      # - [0, 0, 0, 0, 0, 0]
-      # - [0, 0, 0, 0, 0, 0]
-      - [1, 1, 1, 0, 0, 0]
-      - [1, 1, 1, 0, 0, 0]
-      # - [1, 1, 1, 1, 1, 1]
-      # - [1, 1, 1, 1, 1, 1]
+      RARMEE: [1, 1, 1, 0, 0, 0]
+      LARMEE: [1, 1, 1, 0, 0, 0]
 
     KX: 3.e+2
 
@@ -46,10 +40,12 @@ Default:
     # KpwB: 10.
     # KdwB: 5.
 
-    Kpv: 3.e+2
-    Kdv: 5.e+1
-    # Kpv: 10.
-    # Kdv: 5.
+    Kpv:
+      RARMEE: 3.e+2
+      LARMEE: 3.e+2
+    Kdv:
+      RARMEE: 5.e+1
+      LARMEE: 5.e+1
 
     # Kpp: 1.e+1
 
@@ -62,18 +58,15 @@ State:
 Sequence:
   -
     -
-      twf: 2.
+      twf: 1.
     -
-      twf: 2.
+      twf: 3.
+      cal_Xf:
+        RARMEE: [0., 0., 0.1, 0., 0., 0.]
       xiBf: [0., 0.52, 0.]
   -
     -
       twf: 3.
-      # cal_Xf: {node: RLEGEE, value: [0., 0., 0.1, 0., 0., 0.]}
-
-        # - [0., 0., 0., 0., 0., 0.]
-        # - [0., 0., 0., 0., 0., 0.]
-        # - [0., 0., 0.1, 0., 0., 0.]
-        # - [0.1, 0., 0.1, 0., 0., 0.]
-      # rXf: [0.03, -0.035, 0.]
+      cal_Xf:
+        LARMEE: [0.1, 0., 0.1, 0., 0., 0.]
 

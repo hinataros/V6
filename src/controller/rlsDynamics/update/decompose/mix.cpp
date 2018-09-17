@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::decomposeMix(Model &model)
+void RLS::RlsDynamics::decomposeMix(const Model &model)
 {
   if(debug) DEBUG;
 

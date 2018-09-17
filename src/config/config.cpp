@@ -3,17 +3,14 @@
 */
 
 #include "config.hpp"
-#include "yamlConfig.hpp"
 
-bool debug =false;
+bool debug = false;
 
 RLS::Config::Config()
 {
   if(debug) DEBUG;
 
-  def = CONFIG;
-  // debug = false; // smiyahara:ココ定義の仕方びみょー
-
+  initialize();
   setLink();
 }
 
@@ -21,9 +18,7 @@ RLS::Config::Config(int argc, char *argv[])
 {
   if(debug) DEBUG;
 
-  def = CONFIG;
-  // debug = false; // smiyahara:ココ定義の仕方びみょー
-
+  initialize();
   setLink();
 
   readArgument(argc, argv);
