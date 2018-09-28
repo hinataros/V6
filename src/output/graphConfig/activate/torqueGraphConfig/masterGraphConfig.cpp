@@ -62,17 +62,17 @@ void RLS::Output::masterGraphConfig(const Config &config, const TreeModel::Info 
   // index
   dcm(config, info, gpMaker, texMaker);
   sysMom(config, info, gpMaker, texMaker);
-  // localCop(config, info, gpMaker, texMaker);
-  // // netCop(config, info, gpMaker, texMaker);
-  // stabilityIndex(config, info, gpMaker, texMaker);
+  localCop(config, info, gpMaker, texMaker);
+  netCop(config, info, gpMaker, texMaker);
+  stabilityIndex(config, info, gpMaker, texMaker);
 
-  // walking
-  localCop4walking(config, info, gpMaker, texMaker);
-  // netCop4walking(config, info, gpMaker, texMaker);
-  // cmp4walking(config, info, gpMaker, texMaker);
-  stabilityIndex4walking(config, info, gpMaker, texMaker);
-  vrpDes4walking(config, info, gpMaker, texMaker);
-  // footPrint(config, info, gpMaker, texMaker);
+  // // walking
+  // localCop4walking(config, info, gpMaker, texMaker);
+  // // netCop4walking(config, info, gpMaker, texMaker);
+  // // cmp4walking(config, info, gpMaker, texMaker);
+  // stabilityIndex4walking(config, info, gpMaker, texMaker);
+  // vrpDes4walking(config, info, gpMaker, texMaker);
+  // // footPrint(config, info, gpMaker, texMaker);
 
   // main
   gpMaker.makeMainGp();

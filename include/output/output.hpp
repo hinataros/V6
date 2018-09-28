@@ -28,6 +28,8 @@ namespace RLS{
       return s;
     }
 
+    string input;
+
     // smiyahara: vectorのdataオブジェクトをどうにかすれば別のクラスにできる
     // dat maker
     int nameNum;
@@ -137,9 +139,16 @@ namespace RLS{
     TreeModelList tm_temp;
     RlsDynamicsList dc_temp;
 
+    void initialize(const string&);
+
     void finalize();
 
     void pushBack(const double&);
     void output(const Config&, const TreeModel::Info&);
+
+    Output(){};
+    Output(const string &input){
+      initialize(input);
+    }
   };
 }

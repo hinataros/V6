@@ -1,0 +1,48 @@
+# @author Sho Miyahara 2017
+
+Model:
+  Dynamics: true
+  Body name: master/skeletonA7prim
+  # cnoid name: master/skeletonA7/standup
+  cnoid name: master/skeletonA7/wall
+  Control node:
+    - RLEGEE
+    - LLEGEE
+    - RARMEE
+    - LARMEE
+
+  # Body name: master/skeletonW3A4prim
+  # cnoid name: master/motion/skeletonW3A4
+  # cnoid name: master/updownSkeletonA4
+  # Body name: master/skeletonA7prim
+  # cnoid name: master/skeletonA7
+  # Body name: master/skeletonA4primZeff
+  # cnoid name: master/zeff
+Model:
+  World model:
+    Start time:
+    Finish time:
+    Periodic time:
+    gravity:
+    inclue:
+      type: cnoid
+      path: 
+
+  Tree model:
+    Model parameter:
+      include:
+        type: body
+        path:
+    Initial configuration:
+      include:
+        type: cnoid
+        path:
+  Rigid body model:
+    Model parameter:
+      include:
+        type: body
+        path:
+    Initial configuration:
+      include:
+        type: cnoid
+        path:

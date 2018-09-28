@@ -17,6 +17,6 @@ void RLS::RlsDynamics::resize(Model &model)
   cal_V = model.hoap2.readControlNodeValueVector("spatial velocity");
   cal_F = model.hoap2.readControlNodeValueVector("wrench");
 
-  // cal_Xsensor = model.hoap2.readSensorNodeValueVector("6D position");
-  // cal_Fsensor = model.hoap2.readSensorNodeValueVector("force torque sensor");
+  cal_Xsensor = model.hoap2.readSensorNodeValueVector("6D position");
+  cal_Fsensor = model.hoap2.readSensorNodeValueVector("force torque sensor");
 }

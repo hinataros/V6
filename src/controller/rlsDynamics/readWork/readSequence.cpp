@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::readSequence(YAML::Node &doc, bool multi, string node, int num, int phase, int controlNodeNum)
+void RLS::RlsDynamics::readSequence(YAML::Node &doc, bool multi, string node, int num, int phase)
 {
   sequence[num].twf = updateValue<double>(doc, multi, node, num, phase, "twf", sequence[num].twf);
 

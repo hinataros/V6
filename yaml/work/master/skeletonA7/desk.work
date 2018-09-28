@@ -1,0 +1,148 @@
+# @author Sho Miyahara 2017
+
+Control type:
+  Input: torque
+  Driven: mix
+  Trigger: check contact
+
+Default:
+  -
+    Inverse dynamics controller: fullDynamics
+    Motion controller: mixedGeneralizedMomentum
+
+    Momentum controller: centroidalDcmMomentum
+    Force controller: centroidalEcmpDistribution
+
+    # Momentum controller: centroidalMomentum
+    # Force controller: centroidalDistribution
+
+    # Torque controller: staticControl
+    Torque controller: mixedmixedOpt
+
+    Desired DCM generator: {name: CP}
+    Desired base orientation generator: {name: CP}
+
+    Desired control node acceleration generator:
+      RARMEE: {num: 0, name: CPabs}
+      # LARMEE: {num: 0, name: CP}
+
+    Desired control node wrench generator:
+      RARMEE: {num: 0, name: CP}
+
+    Bc:
+      RLEGEE: [1, 1, 1, 1, 1, 1]
+      LLEGEE: [1, 1, 1, 1, 1, 1]
+
+    Bm:
+      RARMEE: [1, 1, 1, 1, 1, 1]
+
+    KX: 3.e+2
+
+    KpC: 3.e+2
+    KdC: 5.e+1
+    # KpC: 10.
+    # KdC: 5.
+
+    KpwB: 3.e+2
+    KdwB: 5.e+1
+    # KpwB: 10.
+    # KdwB: 5.
+
+    Kpv:
+      RARMEE: 3.e+2
+      # LARMEE: 3.e+2
+    Kdv:
+      RARMEE: 5.e+1
+      # LARMEE: 5.e+1
+
+    # Kpp: 1.e+1
+
+    # KDlC: 5.e+1
+    KDth: 1.e+2
+
+State:
+  -
+    Inverse dynamics controller: default
+    Internal force controller: default
+    Bc:
+      RLEGEE: [0, 0, 0, 0, 0, 0]
+      LLEGEE: [0, 0, 0, 0, 0, 0]
+      RARMEE: [0, 0, 0, 0, 0, 0]
+    Bm:
+      RLEGEE: [0, 0, 0, 0, 0, 0]
+      LLEGEE: [0, 0, 0, 0, 0, 0]
+      RARMEE: [0, 0, 0, 0, 0, 0]
+  -
+    Inverse dynamics controller: fullDynamics
+    Internal force controller: default
+    Bc:
+      RLEGEE: [1, 1, 1, 1, 1, 1]
+      LLEGEE: [1, 1, 1, 1, 1, 1]
+      RARMEE: [0, 0, 0, 0, 0, 0]
+    Bm:
+      RLEGEE: [0, 0, 0, 0, 0, 0]
+      LLEGEE: [0, 0, 0, 0, 0, 0]
+      RARMEE: [1, 1, 1, 1, 1, 1]
+  -
+    Inverse dynamics controller: fullDynamics
+    Internal force controller: default
+    Bc: &ls
+      RLEGEE: [0, 0, 0, 0, 0, 0]
+      LLEGEE: [1, 1, 1, 1, 1, 1]
+      RARMEE: [0, 0, 0, 0, 0, 0]
+    Bm: &rs
+      RLEGEE: [1, 1, 1, 1, 1, 1]
+      LLEGEE: [0, 0, 0, 0, 0, 0]
+      RARMEE: [1, 1, 1, 1, 1, 1]
+  -
+    Inverse dynamics controller: fullDynamics
+    Internal force controller: default
+    Bc:
+      RLEGEE: [1, 1, 1, 1, 1, 1]
+      LLEGEE: [0, 0, 0, 0, 0, 0]
+      RARMEE: [1, 1, 1, 1, 1, 1]
+    Bm:
+      RLEGEE: [0, 0, 0, 0, 0, 0]
+      LLEGEE: [1, 1, 1, 1, 1, 1]
+      RARMEE: [0, 0, 0, 0, 0, 0]
+  -
+    Inverse dynamics controller: fullDynamics
+    Internal force controller: m_internalDistribution
+    Bc:
+      RLEGEE: [1, 1, 1, 1, 1, 1]
+      LLEGEE: [1, 1, 1, 1, 1, 1]
+      RARMEE: [1, 1, 1, 1, 1, 1]
+    Bm:
+      RLEGEE: [0, 0, 0, 0, 0, 0]
+      LLEGEE: [0, 0, 0, 0, 0, 0]
+      RARMEE: [0, 0, 0, 0, 0, 0]
+
+Sequence:
+  -
+    twf: 1.
+    rXf: [0.01, 0., 0.]
+    cal_Xfabs:
+      RARMEE: [0.05, -0.0995, 0.25, 0., 0., 0.]
+  -
+    twf: 1.
+    cal_Xfabs:
+      # RARMEE: [0.1, -0.0995, 0.2, 0., 0., 0.]
+      RARMEE: [0.1, -0.0995, 0.1999, 0., 0., 0.]
+  -
+    twf: 1.
+    Inverse dynamics controller: fullDynamics
+    Internal force controller: m_internalDistribution
+    Bc:
+      RLEGEE: [1, 1, 1, 1, 1, 1]
+      LLEGEE: [1, 1, 1, 1, 1, 1]
+      RARMEE: [1, 1, 1, 1, 1, 1]
+    Bm:
+      RLEGEE: [0, 0, 0, 0, 0, 0]
+      LLEGEE: [0, 0, 0, 0, 0, 0]
+      RARMEE: [0, 0, 0, 0, 0, 0]
+    # rXf: [0.03, -0.04, 0.]
+    # cal_Xfabs:
+    #   RARMEE: [0.1, -0.0995, 0.1999, 0., 0., 0.]
+    cal_Ff:
+      RARMEE: [10., 0., 10., 0., 0., 0.]
+

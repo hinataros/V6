@@ -38,11 +38,11 @@ void RLS::Output::output(const Config &config, const TreeModel::Info &info)
     libraryMaker.makeLibrary();
 
     // controller graph config
-    if(config.controller.input=="velocity")
+    if(input=="velocity")
       velocityGraphConfig(config, info);
-    else if(config.controller.input=="acceleration")
+    else if(input=="acceleration")
       accelerationGraphConfig(config, info);
-    else if(config.controller.input=="torque")
+    else if(input=="torque")
       masterGraphConfig(config, info);
     // torqueGraphConfig(config, info);
 

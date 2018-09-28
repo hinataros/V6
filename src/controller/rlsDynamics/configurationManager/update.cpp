@@ -40,6 +40,9 @@ void RLS::RlsDynamics::updateSequence(const double &t, const int &num)
   sequence[num].rXpreDes = sequence[num].rXf;
 
   sequence[num].cal_XpreDes = sequence[num].cal_Xf;
+  sequence[num].cal_XpreDesabs = sequence[num].cal_Xfabs;
+
+  sequence[num].cal_FpreDes = sequence[num].cal_Ff;
 
   sequence[num].cal_FextpreDes = sequence[num].cal_Fextf;
 

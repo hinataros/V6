@@ -53,7 +53,7 @@ VectorXd RLS::TreeModel::readControlNodeValueVector(string value)
   }else if(value=="moment"){
     x = VectorXd(3*info.controlNodeNum);
     for(int i=0; i<info.controlNodeNum; i++)
-      x.segment(3*i,3) = link[info.controlNode[i].num].f;
+      x.segment(3*i,3) = link[info.controlNode[i].num].n;
 
   }else if(value=="wrench"){
     x = VectorXd(6*info.controlNodeNum);

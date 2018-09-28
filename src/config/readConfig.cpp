@@ -12,9 +12,9 @@ void RLS::Config::readConfig()
 {
   if(debug) DEBUG;
 
-  cout << "config: " << def << ".conf"<< endl;
+  cout << "conf: " << conf << ".conf"<< endl;
 
-  string path = dir.link + "yaml/config/" + def+".conf";
+  string path = dir.link + "yaml/conf/" + conf +".conf";
 
   struct stat statFile;
   if(stat(path.c_str(), &statFile)!=0)
@@ -43,27 +43,11 @@ void RLS::Config::readConfig()
   else
     cout << manip_error("no model file") << endl;
 
-
   // controller config
-  if(doc["Controller"]){
-    controller.flag = true;
-
-    if(doc["Controller"]["Input"])
-      controller.input = doc["Controller"]["Input"].as<string>();
-    if(doc["Controller"]["Work"])
-      controller.work = doc["Controller"]["Work"].as<string>();
-    if(doc["Controller"]["Driven"])
-      controller.driven = doc["Controller"]["Driven"].as<string>();
-
-    if(controller.driven=="event"||controller.driven=="mix")
-      if(doc["Controller"]["Trigger"])
-        controller.trigger = doc["Controller"]["Trigger"].as<string>();
-
-    if(doc["Controller"]["Dynamics"])
-      controller.dynamics = doc["Controller"]["Dynamics"].as<bool>();
-  }else
-    cout << manip_error("no controller") << endl;
-
+  if(doc["Work"])
+    controller.name = doc["Work"].as<string>();
+  else
+    cout << manip_error("no work file") << endl;
 
   // gp config
   if(doc["Gp"]){

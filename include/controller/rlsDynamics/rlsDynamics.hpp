@@ -53,8 +53,8 @@ namespace RLS{
     VectorXd cal_V;
     VectorXd cal_F;
 
-    // VectorXd cal_Xsensor;
-    // VectorXd cal_Fsensor;
+    VectorXd cal_Xsensor;
+    VectorXd cal_Fsensor;
 
     VectorXd dq;
     VectorXd dqM;
@@ -244,19 +244,21 @@ namespace RLS{
     bool multiSequence;
     int seqNum;
 
-    string baseTranslationTrajectoryName;
-    string baseOrientationTrajectoryName;
-    string *controlNodeTrajectoryName;
-    string comTrajectoryName;
-    string dcmTrajectoryName;
-    string externalWrenchTrajectoryName;
+    string desiredBaseTranslationGeneratorName;
+    string desiredBaseOrientationGeneratorName;
+    string *desiredControlNodeAccelerationGeneratorName;
+    string *desiredControlNodeWrenchGeneratorName;
+    string desiredComGeneratorName;
+    string desiredDcmGeneratorName;
+    string desiredExternalWrenchGeneratorName;
 
-    int baseTranslationTrajectoryNum;
-    int baseOrientationTrajectoryNum;
-    int *controlNodeTrajectoryNum;
-    int comTrajectoryNum;
-    int dcmTrajectoryNum;
-    int externalWrenchTrajectoryNum;
+    int desiredBaseTranslationGeneratorNum;
+    int desiredBaseOrientationGeneratorNum;
+    int *desiredControlNodeAccelerationGeneratorNum;
+    int *desiredControlNodeWrenchGeneratorNum;
+    int desiredComGeneratorNum;
+    int desiredDcmGeneratorNum;
+    int desiredExternalWrenchGeneratorNum;
 
     struct Sequence{
       int phase;
@@ -269,35 +271,22 @@ namespace RLS{
       Vector3d xiBpreDes;
       VectorXd cal_Xf;
       VectorXd cal_XpreDes;
+      VectorXd cal_Xfabs;
+      VectorXd cal_XpreDesabs;
 
       Vector3d rCf;
       Vector3d rCpreDes;
       Vector3d rXf;
       Vector3d rXpreDes;
 
+      VectorXd cal_Ff;
+      VectorXd cal_FpreDes;
+
       Vector6d cal_Fextf;
       Vector6d cal_FextpreDes;
 
       VectorXd cal_Xtd;
     } *sequence;
-
-    // select trajectory generator
-    void (RLS::RlsDynamics::*baseTranslationTrajectory_ptr)(const double&)=0;
-    void (RLS::RlsDynamics::*baseOrientationTrajectory_ptr)(const double&)=0;
-    void (RLS::RlsDynamics::*comTrajectory_ptr)(const double&)=0;
-    void (RLS::RlsDynamics::*dcmTrajectory_ptr)(const double&)=0;
-    void (RLS::RlsDynamics::*externalWrenchTrajectory_ptr)(const double&)=0;
-
-    map<string, void (RLS::RlsDynamics::*)(const double&)>
-    map_baseTranslationTrajectory,
-      map_baseOrientationTrajectory,
-      map_comTrajectory,
-      map_dcmTrajectory,
-      map_externalWrenchTrajectory;
-
-    void (RLS::RlsDynamics::**controlNodeTrajectory_ptr)(const int&, const double&);
-    map<string, void (RLS::RlsDynamics::*)(const int&, const double&)>
-    *map_controlNodeTrajectory;
 
     // desired value
     // ******************************
@@ -325,6 +314,8 @@ namespace RLS{
 
     VectorXd cal_VDes;
     VectorXd cal_dVDes;
+
+    VectorXd cal_FDes;
 
     Vector6d cal_FextDes;
 
@@ -403,14 +394,15 @@ namespace RLS{
     VectorXd cal_Ep;
     VectorXd cal_Ev;
 
-    // reference
+    // feedback controller
     // **********************
-    string baseTranslationReferenceName;
-    string baseOrientationReferenceName;
-    string controlNodeReferenceName;
-    string comReferenceName;
-    string dcmReferenceName;
-    string externalWrenchReferenceName;
+    string baseTranslationFeedbackControllerName;
+    string baseOrientationFeedbackControllerName;
+    string controlNodeAccelerationFeedbackControllerName;
+    string controlNodeWrenchFeedbackControllerName;
+    string comFeedbackControllerName;
+    string dcmFeedbackControllerName;
+    string externalWrenchFeedbackControllerName;
 
     // velocityController
     // **********************
@@ -459,6 +451,9 @@ namespace RLS{
     Vector6d cal_dLCRef;
 
     // force
+    VectorXd cal_FRef;
+
+    VectorXd cal_FcaBarRef;
     VectorXd cal_FcBarRef;
 
     Vector6d cal_FextRef;
@@ -469,9 +464,11 @@ namespace RLS{
 
     string motionControllerName;
     string momentumControllerName;
+    string internalForceControllerName;
     string forceControllerName;
     string torqueControllerName;
     string inverseDynamicsControllerName;
+
 
     // gain
     Matrix3d KpC;
@@ -515,15 +512,18 @@ namespace RLS{
     // selective matrix for forward kinematics
     Matrix6d bb_ScB;
 
+    void initializeInfo(const string&);
+    void initializeTriggerMap();
+
     void initializeState(const TreeModel::Info&);
-    void initializeSequence(const string&, const TreeModel::Info&);
-    void initializeWalking(const TreeModel::Info&);
-    void initializeTriggerMap(const string&);
-    void initializeReferenceMap();
-    void initializeTrajectoryGeneratorMap(const TreeModel::Info&);
+    void initializeSequence(const TreeModel::Info&);
+    void initializeDesiredValueGeneratorMap(const TreeModel::Info&);
+    void initializeFeedbackControllerMap();
     void initializeControllerMap();
 
-    void initialValue(const string&, Model&);
+    void initializeWalking(const TreeModel::Info&);
+
+    void initialValue(Model&);
     void resize(Model&);
 
     void cop(const TreeModel&);
@@ -538,6 +538,7 @@ namespace RLS{
 
     // triggre config
     int noTrigger(const Model&, const double&);
+    int checkFootContact(const Model&, const double&);
     int checkContact(const Model&, const double&);
 
     // select reference
@@ -549,9 +550,10 @@ namespace RLS{
 
     bool configurationManager(const Config&, const Model&, const double&);
 
-    void readSequence(YAML::Node&, bool, string, int, int, int);
+    void readSequence(YAML::Node&, bool, string, int, int);
     void readControlNode(YAML::Node&, const TreeModel::Info&, bool, string, int, int);
-    int readWork(string, const TreeModel::Info&, bool, string, int, int);
+    int readWork();
+    int readWork(const TreeModel::Info&, bool, string, int, int);
 
     void reconfigure(TreeModel::Info&);
 
@@ -578,82 +580,112 @@ namespace RLS{
     void update(const Config::Clock&, Model&);
     // ******************************
 
-    // trajectory generator
+    // desired value  generator
     // ******************************
     // base translation
-    void baseTranslationZeroTrajectory(const double&);
-    void baseTranslationTrajectoryCP(const double&);
+    void desiredBaseTranslationZeroGenerator(const double&);
+    void desiredBaseTranslationGeneratorCP(const double&);
 
     // base orientation
-    void baseOrientationZeroTrajectory(const double&);
-    void baseOrientationTrajectoryCP(const double&);
+    void desiredBaseOrientationZeroGenerator(const double&);
+    void desiredBaseOrientationGeneratorCP(const double&);
 
-    // control node
-    void controlNodeZeroTrajectory(const int&, const double&);
-    void controlNodeTrajectoryCP(const int&, const double&);
-    void controlNodeTrajectoryWalking(const int&, const double&);
+    // control node acceleration
+    void desiredControlNodeAccelerationZeroGenerator(const int&, const double&);
+    void desiredControlNodeAccelerationGeneratorCP(const int&, const double&);
+    void desiredControlNodeAccelerationGeneratorCPabs(const int&, const double&);
+    void desiredControlNodeAccelerationGeneratorWalking(const int&, const double&);
+
+    // control node wrench
+    void desiredControlNodeWrenchZeroGenerator(const int&, const double&);
+    void desiredControlNodeWrenchGeneratorCP(const int&, const double&);
 
     // com
-    void comZeroTrajectory(const double&);
-    void comTrajectoryCP(const double&);
+    void desiredComZeroGenerator(const double&);
+    void desiredComGeneratorCP(const double&);
 
     // dcm
-    void dcmZeroTrajectory(const double&);
-    void dcmTrajectoryCP(const double&);
-    void dcmHTWalking(const double&);
+    void desiredDcmZeroGenerator(const double&);
+    void desiredDcmGeneratorCP(const double&);
+    void desiredDcmGeneratorHTWalking(const double&);
 
     // external wrench
-    void externalWrenchZeroTrajectory(const double&);
-    void externalWrenchTrajectoryCP(const double&);
+    void desiredExternalWrenchZeroGenerator(const double&);
+    void desiredExternalWrenchGeneratorCP(const double&);
 
-    void trajectoryGenerator(const int&, const double&);
+    void desiredValueGenerator(const int&, const double&);
 
-    // reference
+    // select desired value generator
+    void (RLS::RlsDynamics::*desiredBaseTranslationGenerator_ptr)(const double&)=0;
+    void (RLS::RlsDynamics::*desiredBaseOrientationGenerator_ptr)(const double&)=0;
+    void (RLS::RlsDynamics::*desiredComGenerator_ptr)(const double&)=0;
+    void (RLS::RlsDynamics::*desiredDcmGenerator_ptr)(const double&)=0;
+    void (RLS::RlsDynamics::*desiredExternalWrenchGenerator_ptr)(const double&)=0;
+
+    map<string, void (RLS::RlsDynamics::*)(const double&)>
+    map_desiredBaseTranslationGenerator,
+      map_desiredBaseOrientationGenerator,
+      map_desiredComGenerator,
+      map_desiredDcmGenerator,
+      map_desiredExternalWrenchGenerator;
+
+    void (RLS::RlsDynamics::**desiredControlNodeAccelerationGenerator_ptr)(const int&, const double&);
+    void (RLS::RlsDynamics::**desiredControlNodeWrenchGenerator_ptr)(const int&, const double&);
+    map<string, void (RLS::RlsDynamics::*)(const int&, const double&)>
+    *map_desiredControlNodeAccelerationGenerator, *map_desiredControlNodeWrenchGenerator;
+
+    // feedback controller
     // ******************************
     // base translation
-    void baseTranslationReferencePI(const TreeModel&);
+    void baseTranslationFBPI(const TreeModel&);
 
     // base orientation
-    void baseOrientationReferencePI(const TreeModel&);
+    void baseOrientationFBPI(const TreeModel&);
 
-    // control node
-    void controlNodeReferencePI(const TreeModel&);
+    // control node acceleration
+    void controlNodeAccelerationFBPI(const TreeModel&);
+
+    // control node wrench
+    void controlNodeWrenchFBFF(const TreeModel&);
 
     // com
-    void comReferencePI(const TreeModel&);
-    void comReferenceDcmControl(const TreeModel&);
+    void comFBPI(const TreeModel&);
+    void comFBDcmControl(const TreeModel&);
 
     // dcm
-    void dcmReferencePI(const TreeModel&);
+    void dcmFBPI(const TreeModel&);
 
     // external wrench
-    void externalWrenchReferenceFF(const TreeModel&);
+    void externalWrenchFBFF(const TreeModel&);
 
-    void spatialReference(const Model&);
+    void spatialFeedbackController(const Model&);
 
-    void reference(const Model&);
+    void feedbackController(const Model&);
 
     // select reference
-    void (RLS::RlsDynamics::*baseTranslationReference_ptr)(const TreeModel&)=0;
-    void (RLS::RlsDynamics::*baseOrientationReference_ptr)(const TreeModel&)=0;
-    void (RLS::RlsDynamics::*controlNodeReference_ptr)(const TreeModel&)=0;
-    void (RLS::RlsDynamics::*comReference_ptr)(const TreeModel&)=0;
-    void (RLS::RlsDynamics::*dcmReference_ptr)(const TreeModel&)=0;
-    void (RLS::RlsDynamics::*externalWrenchReference_ptr)(const TreeModel&)=0;
+    void (RLS::RlsDynamics::*baseTranslationFeedbackController_ptr)(const TreeModel&)=0;
+    void (RLS::RlsDynamics::*baseOrientationFeedbackController_ptr)(const TreeModel&)=0;
+    void (RLS::RlsDynamics::*controlNodeAccelerationFeedbackController_ptr)(const TreeModel&)=0;
+    void (RLS::RlsDynamics::*controlNodeWrenchFeedbackController_ptr)(const TreeModel&)=0;
+    void (RLS::RlsDynamics::*comFeedbackController_ptr)(const TreeModel&)=0;
+    void (RLS::RlsDynamics::*dcmFeedbackController_ptr)(const TreeModel&)=0;
+    void (RLS::RlsDynamics::*externalWrenchFeedbackController_ptr)(const TreeModel&)=0;
 
     map<string, void (RLS::RlsDynamics::*)(const TreeModel&)>
-    map_baseTranslationReference,
-      map_baseOrientationReference,
-      map_controlNodeReference,
-      map_comReference,
-      map_dcmReference,
-      map_externalWrenchReference;
+    map_baseTranslationFeedbackController,
+      map_baseOrientationFeedbackController,
+      map_controlNodeAccelerationFeedbackController,
+      map_controlNodeWrenchFeedbackController,
+      map_comFeedbackController,
+      map_dcmFeedbackController,
+      map_externalWrenchFeedbackController;
 
     // ******************************
 
     // add function
     Vector2d F2rp(const Vector6d&);
-    MatrixXd weight(const TreeModel::Info&, const Vector3d&);
+    MatrixXd h_weight(const Vector2d&);
+    MatrixXd h_weight(const Vector2d&, const Vector2d&, const Vector2d&);
 
     // controller
     // ******************************
@@ -697,10 +729,16 @@ namespace RLS{
     void centroidalDcmMomentum(const TreeModel::Info&);
     void centroidalCmpMomentum(const TreeModel::Info&);
 
+    // internal force controller
+    void m_internalDistribution(const TreeModel::Info&);
+
     // force controller
     void baseDistribution(const TreeModel::Info&);
     void centroidalDistribution(const TreeModel::Info&);
     void centroidalDcmDistribution(const TreeModel::Info&);
+    void centroidalEcmpDistribution(const TreeModel::Info&);
+    void handWrenchControlAndCentroidalEcmpDistribution(const TreeModel::Info&);
+
     void distributionSolver(const TreeModel::Info&);
 
     // torque controller
@@ -721,19 +759,23 @@ namespace RLS{
     VectorXd spatialDynamicsSolver(const TreeModel::Info&);
     VectorXd dlrSolver(const TreeModel::Info&);
 
-    void controlMethod(const string&, const TreeModel::Info&);
+    void controlMethod(const TreeModel::Info&);
 
     // select controller
     VectorXd (RLS::RlsDynamics::*motionController_ptr)(const TreeModel::Info&)=0;
+    VectorXd (RLS::RlsDynamics::*inverseDynamicsController_ptr)(const TreeModel::Info&)=0;
+    map<string, VectorXd (RLS::RlsDynamics::*)(const TreeModel::Info&)>
+    map_motionController, map_inverseDynamicsController;
+
     void (RLS::RlsDynamics::*momentumController_ptr)(const TreeModel::Info&)=0;
     void (RLS::RlsDynamics::*forceController_ptr)(const TreeModel::Info&)=0;
     void (RLS::RlsDynamics::*torqueController_ptr)(const TreeModel::Info&)=0;
-    VectorXd (RLS::RlsDynamics::*inverseDynamicsController_ptr)(const TreeModel::Info&)=0;
-
-    map<string, VectorXd (RLS::RlsDynamics::*)(const TreeModel::Info&)>
-    map_motionController, map_inverseDynamicsController;
     map<string, void (RLS::RlsDynamics::*)(const TreeModel::Info&)>
     map_momentumController, map_forceController, map_torqueController;
+
+    void (RLS::RlsDynamics::*internalForceController_ptr)(const TreeModel::Info&)=0;
+    map<string, void (RLS::RlsDynamics::*)(const TreeModel::Info&)>
+    map_internalForceController;
 
     // ******************************
 
@@ -752,7 +794,7 @@ namespace RLS{
     void torqueOutputIndexPrintConfig(const TreeModel::Info&);
     void torqueOutputConfig(const TreeModel::Info&);
 
-    void outputConfig(const string&, const TreeModel::Info&);
+    void outputConfig(const TreeModel::Info&);
 
     // readWork
     // ****************************************************************
@@ -790,19 +832,26 @@ namespace RLS{
     // ****************************************************************
 
   public:
+    struct Info{
+      string path_work;
+      string input;
+      string driven;
+      string trigger;
+    } info;
+
     // smiyahara: 要検討(とりあえず外乱のみを考慮し"6"にしといた)
     Vector6d virtualInput;
 
     // smiyahara: 名前は変えたい
-    void initialize(const Config&, const TreeModel::Info&);
+    void initialize(const string&, const TreeModel::Info&);
     void finalize();
     VectorXd rlsDynamics(const Config&, Model&, const double&);
 
     RlsDynamicsList dc_list;
 
     RlsDynamics(){}
-    RlsDynamics(const Config &config, const TreeModel::Info &info){
-      initialize(config, info);
+    RlsDynamics(const string &path_work, const TreeModel::Info &info){
+      initialize(path_work, info);
     }
   };
 }

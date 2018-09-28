@@ -14,7 +14,7 @@ namespace RLS{
 
     void readModel(Config&);
     void deleteModel();
-    void update(const bool);
+    void update();
 
     Model(){}
     Model(Config& config){

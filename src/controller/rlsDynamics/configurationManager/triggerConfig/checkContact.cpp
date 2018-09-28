@@ -16,13 +16,18 @@ int RLS::RlsDynamics::checkContact(const Model &model, const double &t)
       contactFlag[i] = false;
   }
 
-  if(contactFlag[0]==true&&contactFlag[1]==true)
-    return 1;
+  if(contactFlag[2]==false){
+    if(contactFlag[0]==true&&contactFlag[1]==true)
+      return 1;
 
-  if(contactFlag[0]==false&&contactFlag[1]==true)
-    return 2;
-  if(contactFlag[0]==true&&contactFlag[1]==false)
-    return 3;
+    if(contactFlag[0]==false&&contactFlag[1]==true)
+      return 2;
+    if(contactFlag[0]==true&&contactFlag[1]==false)
+      return 3;
+  }
+  else{
+    return 4;
+  }
 
   return 0;
 }

@@ -12,6 +12,7 @@ RLS::Config::Config()
 
   initialize();
   setLink();
+  readInitYaml();
 }
 
 RLS::Config::Config(int argc, char *argv[])
@@ -20,6 +21,7 @@ RLS::Config::Config(int argc, char *argv[])
 
   initialize();
   setLink();
+  readInitYaml();
 
   readArgument(argc, argv);
 

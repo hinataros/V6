@@ -10,25 +10,29 @@ void RLS::RlsDynamics::mapping(const int &controlNodeNum)
 {
   if(debug) DEBUG;
 
-  baseTranslationTrajectory_ptr = map_baseTranslationTrajectory[baseTranslationTrajectoryName];
-  baseOrientationTrajectory_ptr = map_baseOrientationTrajectory[baseOrientationTrajectoryName];
+  desiredBaseTranslationGenerator_ptr = map_desiredBaseTranslationGenerator[desiredBaseTranslationGeneratorName];
+  desiredBaseOrientationGenerator_ptr = map_desiredBaseOrientationGenerator[desiredBaseOrientationGeneratorName];
 
-  for(int i=0; i<controlNodeNum; i++)
-    controlNodeTrajectory_ptr[i] = map_controlNodeTrajectory[i][controlNodeTrajectoryName[i]];
+  for(int i=0; i<controlNodeNum; i++){
+    desiredControlNodeAccelerationGenerator_ptr[i] = map_desiredControlNodeAccelerationGenerator[i][desiredControlNodeAccelerationGeneratorName[i]];
+    desiredControlNodeWrenchGenerator_ptr[i] = map_desiredControlNodeWrenchGenerator[i][desiredControlNodeWrenchGeneratorName[i]];
+  }
 
-  comTrajectory_ptr = map_comTrajectory[comTrajectoryName];
-  dcmTrajectory_ptr = map_dcmTrajectory[dcmTrajectoryName];
-  externalWrenchTrajectory_ptr = map_externalWrenchTrajectory[externalWrenchTrajectoryName];
+  desiredComGenerator_ptr = map_desiredComGenerator[desiredComGeneratorName];
+  desiredDcmGenerator_ptr = map_desiredDcmGenerator[desiredDcmGeneratorName];
+  desiredExternalWrenchGenerator_ptr = map_desiredExternalWrenchGenerator[desiredExternalWrenchGeneratorName];
 
-  baseTranslationReference_ptr = map_baseTranslationReference[baseTranslationReferenceName];
-  baseOrientationReference_ptr = map_baseOrientationReference[baseOrientationReferenceName];
-  controlNodeReference_ptr = map_controlNodeReference[controlNodeReferenceName];
-  comReference_ptr = map_comReference[comReferenceName];
-  dcmReference_ptr = map_dcmReference[dcmReferenceName];
-  externalWrenchReference_ptr = map_externalWrenchReference[externalWrenchReferenceName];
+  baseTranslationFeedbackController_ptr = map_baseTranslationFeedbackController[baseTranslationFeedbackControllerName];
+  baseOrientationFeedbackController_ptr = map_baseOrientationFeedbackController[baseOrientationFeedbackControllerName];
+  controlNodeAccelerationFeedbackController_ptr = map_controlNodeAccelerationFeedbackController[controlNodeAccelerationFeedbackControllerName];
+  controlNodeWrenchFeedbackController_ptr = map_controlNodeWrenchFeedbackController[controlNodeWrenchFeedbackControllerName];
+  comFeedbackController_ptr = map_comFeedbackController[comFeedbackControllerName];
+  dcmFeedbackController_ptr = map_dcmFeedbackController[dcmFeedbackControllerName];
+  externalWrenchFeedbackController_ptr = map_externalWrenchFeedbackController[externalWrenchFeedbackControllerName];
 
   motionController_ptr = map_motionController[motionControllerName];
   momentumController_ptr = map_momentumController[momentumControllerName];
+  internalForceController_ptr = map_internalForceController[internalForceControllerName];
   forceController_ptr = map_forceController[forceControllerName];
   torqueController_ptr = map_torqueController[torqueControllerName];
   inverseDynamicsController_ptr = map_inverseDynamicsController[inverseDynamicsControllerName];

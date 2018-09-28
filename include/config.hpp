@@ -38,9 +38,10 @@ namespace RLS{
     void initialize();
     void readArgument(int, char**);
     void setLink();
+    void readInitYaml();
     void setDir();
 
-    string def;
+    string conf;
 
   public:
     string option;
@@ -64,7 +65,7 @@ namespace RLS{
       string link;
       string share;
       string model;
-      string work;
+      string controller;
       string result;
       string cmp;
       Compos dat;
@@ -89,12 +90,7 @@ namespace RLS{
     } model;
 
     struct Controller{
-      bool flag;
-      bool dynamics;
-      string input;
-      string work;
-      string driven;
-      string trigger;
+      string name;
     } controller;
 
     struct Gp{

@@ -7,43 +7,45 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-int RLS::RlsDynamics::readWork(string work_path, const TreeModel::Info &info, bool multi, string node, int num, int phase)
+int RLS::RlsDynamics::readWork(const TreeModel::Info &info, bool multi, string node, int num, int phase)
 {
   struct stat statFile;
-  if(stat(work_path.c_str(), &statFile)!=0){
+  if(stat(this->info.path_work.c_str(), &statFile)!=0){
     cout << manip_error("RlsDynamics::readWork() error...") << endl
-         << manip_error("no such file '"+work_path+"'") << endl;
+         << manip_error("no such file '"+this->info.path_work+"'") << endl;
 
     return -1;
   }
 
-  YAML::Node doc = YAML::LoadFile(work_path.c_str());
+  YAML::Node doc = YAML::LoadFile(this->info.path_work.c_str());
 
   if(node=="Sequence")
-    readSequence(doc, multi, node, num, phase, info.controlNodeNum);
+    readSequence(doc, multi, node, num, phase);
 
-  baseTranslationTrajectoryNum = updateValue<int>(doc, multi, node, num, phase, "Base translation trajectory", "num", baseTranslationTrajectoryNum);
-  baseTranslationTrajectoryName = updateValue<string>(doc, multi, node, num, phase, "Base translation trajectory", "name", baseTranslationTrajectoryName);
-  baseOrientationTrajectoryNum = updateValue<int>(doc, multi, node, num, phase, "Base orientation trajectory", "num", baseOrientationTrajectoryNum);
-  baseOrientationTrajectoryName = updateValue<string>(doc, multi, node, num, phase, "Base orientation trajectory", "name", baseOrientationTrajectoryName);
+  desiredBaseTranslationGeneratorNum = updateValue<int>(doc, multi, node, num, phase, "Desired base translation generator", "num", desiredBaseTranslationGeneratorNum);
+  desiredBaseTranslationGeneratorName = updateValue<string>(doc, multi, node, num, phase, "Desired base translation generator", "name", desiredBaseTranslationGeneratorName);
+  desiredBaseOrientationGeneratorNum = updateValue<int>(doc, multi, node, num, phase, "Desired base orientation generator", "num", desiredBaseOrientationGeneratorNum);
+  desiredBaseOrientationGeneratorName = updateValue<string>(doc, multi, node, num, phase, "Desired base orientation generator", "name", desiredBaseOrientationGeneratorName);
 
-  comTrajectoryNum = updateValue<int>(doc, multi, node, num, phase, "CoM trajectory", "num", comTrajectoryNum);
-  comTrajectoryName = updateValue<string>(doc, multi, node, num, phase, "CoM trajectory", "name", comTrajectoryName);
-  dcmTrajectoryNum = updateValue<int>(doc, multi, node, num, phase, "DCM trajectory", "num", dcmTrajectoryNum);
-  dcmTrajectoryName = updateValue<string>(doc, multi, node, num, phase, "DCM trajectory", "name", dcmTrajectoryName);
-  externalWrenchTrajectoryNum = updateValue<int>(doc, multi, node, num, phase, "External wrench trajectory", "num", externalWrenchTrajectoryNum);
-  externalWrenchTrajectoryName = updateValue<string>(doc, multi, node, num, phase, "External wrench trajectory", "name", externalWrenchTrajectoryName);
+  desiredComGeneratorNum = updateValue<int>(doc, multi, node, num, phase, "Desired CoM generator", "num", desiredComGeneratorNum);
+  desiredComGeneratorName = updateValue<string>(doc, multi, node, num, phase, "Desired CoM generator", "name", desiredComGeneratorName);
+  desiredDcmGeneratorNum = updateValue<int>(doc, multi, node, num, phase, "Desired DCM generator", "num", desiredDcmGeneratorNum);
+  desiredDcmGeneratorName = updateValue<string>(doc, multi, node, num, phase, "Desired DCM generator", "name", desiredDcmGeneratorName);
+  desiredExternalWrenchGeneratorNum = updateValue<int>(doc, multi, node, num, phase, "Desired external wrench generator", "num", desiredExternalWrenchGeneratorNum);
+  desiredExternalWrenchGeneratorName = updateValue<string>(doc, multi, node, num, phase, "Desired external wrench generator", "name", desiredExternalWrenchGeneratorName);
 
-  baseTranslationReferenceName = updateValue<string>(doc, multi, node, num, phase, "Base translation reference", baseTranslationReferenceName);
-  baseOrientationReferenceName = updateValue<string>(doc, multi, node, num, phase, "Base orientation reference", baseOrientationReferenceName);
-  controlNodeReferenceName = updateValue<string>(doc, multi, node, num, phase, "Control node reference", controlNodeReferenceName);
-  comReferenceName = updateValue<string>(doc, multi, node, num, phase, "CoM reference", comReferenceName);
-  dcmReferenceName = updateValue<string>(doc, multi, node, num, phase, "DCM reference", dcmReferenceName);
-  externalWrenchReferenceName = updateValue<string>(doc, multi, node, num, phase, "External wrench reference", externalWrenchReferenceName);
+  baseTranslationFeedbackControllerName = updateValue<string>(doc, multi, node, num, phase, "Base translation feedback controller", baseTranslationFeedbackControllerName);
+  baseOrientationFeedbackControllerName = updateValue<string>(doc, multi, node, num, phase, "Base orientation feedback controller", baseOrientationFeedbackControllerName);
+  controlNodeAccelerationFeedbackControllerName = updateValue<string>(doc, multi, node, num, phase, "Control node acceleration feedback controller", controlNodeAccelerationFeedbackControllerName);
+  controlNodeWrenchFeedbackControllerName = updateValue<string>(doc, multi, node, num, phase, "Control node wrench feedback controller", controlNodeWrenchFeedbackControllerName);
+  comFeedbackControllerName = updateValue<string>(doc, multi, node, num, phase, "CoM feedback controller", comFeedbackControllerName);
+  dcmFeedbackControllerName = updateValue<string>(doc, multi, node, num, phase, "DCM feedback controller", dcmFeedbackControllerName);
+  externalWrenchFeedbackControllerName = updateValue<string>(doc, multi, node, num, phase, "External wrench feedback controller", externalWrenchFeedbackControllerName);
 
   inverseDynamicsControllerName = updateValue<string>(doc, multi, node, num, phase, "Inverse dynamics controller", inverseDynamicsControllerName);
   motionControllerName = updateValue<string>(doc, multi, node, num, phase, "Motion controller", motionControllerName);
   momentumControllerName = updateValue<string>(doc, multi, node, num, phase, "Momentum controller", momentumControllerName);
+  internalForceControllerName = updateValue<string>(doc, multi, node, num, phase, "Internal force controller", internalForceControllerName);
   forceControllerName = updateValue<string>(doc, multi, node, num, phase, "Force controller", forceControllerName);
   torqueControllerName = updateValue<string>(doc, multi, node, num, phase, "Torque controller", torqueControllerName);
 

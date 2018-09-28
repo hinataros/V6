@@ -12,7 +12,7 @@ void RLS::TreeModel::writeSensorNodeValueVector(string value, VectorXd x)
   if(value=="force torque sensor"){
     for(int i=0; i<info.sensorNodeNum; i++){
       link[info.sensorNode[i].num].f = x.segment(6*i, 3);
-      link[info.sensorNode[i].num].n = x.segment(6*1+3, 3);
+      link[info.sensorNode[i].num].n = x.segment(6*i+3, 3);
     }
 
   }else{

@@ -4,9 +4,12 @@ add_subdirectory(zeroController)
 add_subdirectory(velocityController)
 add_subdirectory(accelerationController)
 add_subdirectory(momentumController)
+add_subdirectory(internalForceController)
 add_subdirectory(forceController)
 add_subdirectory(torqueController)
 add_subdirectory(inverseDynamicsController)
+
+add_subdirectory(others)
 
 set(srcs
   controlMethod.cpp
@@ -19,8 +22,10 @@ set(controlMethod_srcs
   ${velocityController_srcs}
   ${accelerationController_srcs}
   ${momentumController_srcs}
+  ${internalForceController_srcs}
   ${forceController_srcs}
   ${torqueController_srcs}
   ${inverseDynamicsController_srcs}
+  ${others_srcs}
   PARENT_SCOPE
   )

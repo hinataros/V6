@@ -138,3 +138,4 @@ outputConfig/indexPrintのinfo.limb[i].contact
 controller内のdt
 cal_Fは無くしたい
 drivenを設定しないとBcとかが初期化されないからエラーだす
+trajectoryでnumを0以外に設定した時にsequenceが複数設定されていなかったらコアダンプする．->「numで指定したsequenceが無い」っていうエラー文を出したい

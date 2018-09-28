@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::initialValue(const string &work_dir, Model &model)
+void RLS::RlsDynamics::initialValue(Model &model)
 {
   if(debug) DEBUG;
 
@@ -20,6 +20,9 @@ void RLS::RlsDynamics::initialValue(const string &work_dir, Model &model)
 
   cal_X0 = model.hoap2.readControlNodeValueVector("6D position");
 
+  for(int i=0; i<seqNum; i++)
+    sequence[i].cal_Xfabs = cal_X0;
+
   cal_Fext0 <<
     model.hoap2.link[model.hoap2.info.rootNode].f,
     model.hoap2.link[model.hoap2.info.rootNode].n;
@@ -27,7 +30,7 @@ void RLS::RlsDynamics::initialValue(const string &work_dir, Model &model)
   // high gain control
   thDes = model.hoap2.readJointStateVector("joint angle");
 
-  readWork(work_dir, model.hoap2.info, false, "Default", 0, 0);
+  readWork(model.hoap2.info, false, "Default", 0, 0);
 
   initialValueFlag = false;
 }

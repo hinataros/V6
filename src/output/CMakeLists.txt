@@ -6,6 +6,7 @@ add_subdirectory(makeMotionYaml)
 # add_subdirectory(makeGif)
 
 set(srcs
+  initialize.cpp
   pushBack.cpp
   finalize.cpp
   runGnuplot.cpp

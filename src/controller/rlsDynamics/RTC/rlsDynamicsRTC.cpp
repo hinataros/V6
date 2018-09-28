@@ -71,12 +71,13 @@ RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
 
   config.readConfig();
   model.readModel(config);
-  rlsDynamics.initialize(config, model.hoap2.info);
+  rlsDynamics.initialize(config.dir.controller, model.hoap2.info);
+  output.initialize(rlsDynamics.info.input);
 
   cout << "=========================================" << endl;
   cout << "Body : "<< model.hoap2.info.name.body << ".body" << endl;
   cout << "cnoid: "<< model.hoap2.info.name.cnoid << ".cnoid" << endl;
-  cout << "Work : "<< config.controller.work << ".work" << endl;
+  cout << "Work : "<< config.controller.name << ".work" << endl;
   cout << "=========================================" << endl << endl;
 
   if(config.flag.shm)
@@ -100,9 +101,7 @@ RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
     readSharedData(model.object, sharedData);
   }
 
-  tau = VectorXd::Zero(m_angle.data.length());
-  if(config.controller.flag)
-    tau = rlsDynamics.rlsDynamics(config, model, t);
+  tau = rlsDynamics.rlsDynamics(config, model, t);
 
   Fext = rlsDynamics.virtualInput;
 
@@ -136,8 +135,7 @@ RTC::ReturnCode_t RlsDynamicsRTC::onDeactivated(RTC::UniqueId ec_id)
     readSharedData(model.object, sharedData);
   }
 
-  if(config.controller.flag)
-    tau = rlsDynamics.rlsDynamics(config, model, t);
+  tau = rlsDynamics.rlsDynamics(config, model, t);
   Fext = rlsDynamics.virtualInput;
 
   if(config.flag.shm){
@@ -171,8 +169,7 @@ RTC::ReturnCode_t RlsDynamicsRTC::onExecute(RTC::UniqueId ec_id)
     readSharedData(model.object, sharedData);
   }
 
-  if(config.controller.flag)
-    tau = rlsDynamics.rlsDynamics(config, model, t);
+  tau = rlsDynamics.rlsDynamics(config, model, t);
   Fext = rlsDynamics.virtualInput;
 
   if(config.flag.shm){

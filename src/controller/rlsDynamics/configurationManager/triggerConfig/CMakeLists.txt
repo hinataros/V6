@@ -1,6 +1,7 @@
 #@author Sho Miyahara 2017
 
 set(srcs
+  checkFootContact.cpp
   checkContact.cpp
   noTrigger.cpp
   )

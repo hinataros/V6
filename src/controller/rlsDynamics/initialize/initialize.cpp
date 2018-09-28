@@ -6,15 +6,21 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::initialize(const Config &config, const TreeModel::Info &info)
+void RLS::RlsDynamics::initialize(const string &path_work, const TreeModel::Info &info)
 {
   if(debug) DEBUG;
 
+  initializeInfo(path_work);
+  readWork();
+
   initialValueFlag = true;
 
+  // initializeWorldModel();
   dt = 0.;
   // smiyahara: model.worldとかに持ってきたい
   g = 9.81;
+
+  // initializeTreeModel();
 
   Bc_kDiag = MatrixXi::Zero(6*info.controlNodeNum, 6*info.controlNodeNum);
   Bm_kDiag = MatrixXi::Zero(6*info.controlNodeNum, 6*info.controlNodeNum);
@@ -40,8 +46,8 @@ void RLS::RlsDynamics::initialize(const Config &config, const TreeModel::Info &i
   cal_V = VectorXd::Zero(6*info.controlNodeNum);
   cal_F = VectorXd::Zero(6*info.controlNodeNum);
 
-  // cal_Xsensor = VectorXd::Zero(6*info.sensorNodeNum);
-  // cal_Fsensor = VectorXd::Zero(6*info.sensorNodeNum);
+  cal_Xsensor = VectorXd::Zero(6*info.sensorNodeNum);
+  cal_Fsensor = VectorXd::Zero(6*info.sensorNodeNum);
 
   dq = VectorXd::Zero(info.dof.all);
   dqM = VectorXd::Zero(info.dof.all);
@@ -126,8 +132,8 @@ void RLS::RlsDynamics::initialize(const Config &config, const TreeModel::Info &i
   cal_Sp.block(0,3,2,2) = bb_Spx;
 
   // CoP
-  rpw2k = VectorXd::Zero(2*info.controlNodeNum);
-  rpk = VectorXd::Zero(2*info.controlNodeNum);
+  rpw2k = VectorXd::Zero(2*info.sensorNodeNum);
+  rpk = VectorXd::Zero(2*info.sensorNodeNum);
   rp = Vector2d::Zero();
 
   // CMP
@@ -170,6 +176,8 @@ void RLS::RlsDynamics::initialize(const Config &config, const TreeModel::Info &i
 
   cal_XDes = cal_VxiDes = cal_dVxiDes = VectorXd::Zero(6*info.controlNodeNum);
   cal_VDes = cal_dVDes = VectorXd::Zero(6*info.controlNodeNum);
+
+  cal_FDes = VectorXd::Zero(6*info.controlNodeNum);
 
   cal_FextDes = Vector6d::Zero();
 
@@ -223,6 +231,9 @@ void RLS::RlsDynamics::initialize(const Config &config, const TreeModel::Info &i
   cal_dVCRef = Vector6d::Zero();
 
   cal_dVRef = VectorXd::Zero(6*info.controlNodeNum);
+
+  // force
+  cal_FRef = VectorXd::Zero(6*info.controlNodeNum);
 
   // momentum
   dpRef = Vector3d::Zero();
@@ -281,11 +292,13 @@ void RLS::RlsDynamics::initialize(const Config &config, const TreeModel::Info &i
   // selective matrix for forward kinematics
   bb_ScB = Matrix6d::Zero();
 
+  initializeTriggerMap();
+
   initializeState(info);
-  initializeSequence(config.dir.work, info);
-  initializeWalking(info);
-  initializeTrajectoryGeneratorMap(info);
-  initializeReferenceMap();
+  initializeSequence(info);
+  initializeDesiredValueGeneratorMap(info);
+  initializeFeedbackControllerMap();
   initializeControllerMap();
-  initializeTriggerMap(config.controller.trigger);
+
+  initializeWalking(info);
 }

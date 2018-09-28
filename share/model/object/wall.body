@@ -1,0 +1,50 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+angleUnit: degree
+name: Wall
+
+links:
+  -
+    name: ROOT
+    jointType: fixed
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          Shape: &WallShape
+            geometry:
+              type: Box
+              size: [ 0.01, 0.05, 0.05 ]
+            appearance:
+              material:
+                diffuseColor: [ 1, 0, 0 ]
+      -
+        type: Collision
+        elements:
+          Shape: *WallShape
+  -
+    name: WALL1
+    parent: ROOT
+    rotation: [ 0, 0, 1, 90 ]
+    translation: [ -0.105, -0.105, 0.1 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          Shape: *WallShape
+      -
+        type: Collision
+        elements:
+          Shape: *WallShape

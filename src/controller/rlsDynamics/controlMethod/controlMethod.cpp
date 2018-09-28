@@ -6,14 +6,14 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::controlMethod(const string &controlInput, const TreeModel::Info &info)
+void RLS::RlsDynamics::controlMethod(const TreeModel::Info &info)
 {
   if(debug) DEBUG;
 
-  if(controlInput=="velocity"||controlInput=="acceleration")
+  if(this->info.input=="velocity"||this->info.input=="acceleration")
     input = (this->*motionController_ptr)(info);
 
-  else if(controlInput=="torque")
+  else if(this->info.input=="torque")
     input = (this->*inverseDynamicsController_ptr)(info);
 
   else

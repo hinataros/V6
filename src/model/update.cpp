@@ -5,10 +5,10 @@
 #include "config.hpp"
 #include "model.hpp"
 
-void RLS::Model::update(const bool dynamics_flag)
+void RLS::Model::update()
 {
   if(debug) DEBUG;
 
-  hoap2.update(dynamics_flag);
+  hoap2.update();
   object.update();
 }

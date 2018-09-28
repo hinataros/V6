@@ -12,8 +12,12 @@ void RLS::RlsDynamics::finalize()
 
   delete[] rkk;
 
-  delete[] controlNodeTrajectoryNum;
-  delete[] controlNodeTrajectoryName;
-  delete[] map_controlNodeTrajectory;
-  free(controlNodeTrajectory_ptr);
+  delete[] desiredControlNodeAccelerationGeneratorNum;
+  delete[] desiredControlNodeAccelerationGeneratorName;
+  delete[] desiredControlNodeWrenchGeneratorNum;
+  delete[] desiredControlNodeWrenchGeneratorName;
+  delete[] map_desiredControlNodeAccelerationGenerator;
+  delete[] map_desiredControlNodeWrenchGenerator;
+  free(desiredControlNodeAccelerationGenerator_ptr);
+  free(desiredControlNodeWrenchGenerator_ptr);
 }

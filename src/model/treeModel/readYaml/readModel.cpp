@@ -19,6 +19,7 @@ void RLS::TreeModel::readModel(const string &dir_model)
 
   YAML::Node doc = YAML::LoadFile(dir_model.c_str());
 
+  info.dynamics_flag = doc["Model"]["Dynamics"].as<bool>();
   info.name.body = doc["Model"]["Body name"].as<string>();
   info.name.cnoid = doc["Model"]["cnoid name"].as<string>();
 

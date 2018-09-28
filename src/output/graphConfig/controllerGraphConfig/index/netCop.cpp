@@ -45,6 +45,54 @@ void RLS::Output::netCop(const Config &config, const TreeModel::Info &info, GpMa
   texMaker.setName(file_name);
   texMaker.addMinipage();
 
+  reset();
+  setFileName("netCoP");
+  makeDat("rpx-rpy");
+
+  gpMaker.reset();
+  gpMaker.setName(file_name);
+  gpMaker.setXLabel("x [mm]");
+  gpMaker.setYLabel("y [mm]");
+  gpMaker.setUnit("m");
+
+  gpMaker.redef("YLABEL_OFFSET_X = -0.45");
+  gpMaker.add("set xtics 40");
+  gpMaker.add("set parametric");
+  gpMaker.add("set size square");
+  gpMaker.add("set xrange[-80:80]");
+  gpMaker.add("set yrange[-80:80]");
+
+  double ankle_offset_x = 6.;
+  double ankle_size = 3.;
+
+  double foot_size_x = 64.;
+  double foot_size_y = 42.;
+
+  double foot_pos_rx = 0.;
+  double foot_pos_ry = -39.;
+  double foot_pos_lx = 0.;
+  double foot_pos_ly = 39.;
+
+  int ob = 1;
+
+  // right foot print
+  gpMaker.add("set object "+to_string(ob)+" circle at first "+to_string(foot_pos_rx)+", "+to_string(foot_pos_ry)+" size "+to_string(ankle_size)+" fs empty border rgb 'black'"); ob++;
+
+  foot_pos_rx = ankle_offset_x;
+  gpMaker.add("set object "+to_string(ob)+" rect at first "+to_string(foot_pos_rx)+", "+to_string(foot_pos_ry)+" size "+to_string(foot_size_x)+", "+to_string(foot_size_y)+" fs empty border rgb 'black'"); ob++;
+
+  // left foot print
+  gpMaker.add("set object "+to_string(ob)+" circle at first "+to_string(foot_pos_lx)+", "+to_string(foot_pos_ly)+" size "+to_string(ankle_size)+" fs empty border rgb 'black'"); ob++;
+
+  foot_pos_lx = ankle_offset_x;
+  gpMaker.add("set object "+to_string(ob)+" rect at first "+to_string(foot_pos_lx)+", "+to_string(foot_pos_ly)+" size "+to_string(foot_size_x)+", "+to_string(foot_size_y)+" fs empty border rgb 'black'"); ob++;
+
+  gpMaker.setDimention(5);
+  gpMaker.makeGp();
+
+  texMaker.setName(file_name);
+  texMaker.addMinipage();
+
   texMaker.setTexName("netCoP");
   texMaker.setCaption("net CoP values.");
   texMaker.makeTex();

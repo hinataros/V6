@@ -3,9 +3,10 @@
 set(srcs
   initialize.cpp
   setLink.cpp
-  readConfig.cpp
   setDir.cpp
   readArgument.cpp
+  readInitYaml.cpp
+  readConfig.cpp
   config.cpp
   )
 

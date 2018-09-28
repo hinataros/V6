@@ -9,11 +9,17 @@
 void RLS::RlsDynamics::readControlNode(YAML::Node &doc, const TreeModel::Info &info, bool multi, string node, int num, int phase)
 {
   for(int i=0; i<info.controlNodeNum; i++){
-    controlNodeTrajectoryNum[i] = updateValue<int>(doc, multi, node, num, phase, "Control node trajectory", info.controlNode[i].name, "num", controlNodeTrajectoryNum[i]);
-    controlNodeTrajectoryName[i] = updateValue<string>(doc, multi, node, num, phase, "Control node trajectory", info.controlNode[i].name, "name", controlNodeTrajectoryName[i]);
+    desiredControlNodeAccelerationGeneratorNum[i] = updateValue<int>(doc, multi, node, num, phase, "Desired control node acceleration generator", info.controlNode[i].name, "num", desiredControlNodeAccelerationGeneratorNum[i]);
+    desiredControlNodeAccelerationGeneratorName[i] = updateValue<string>(doc, multi, node, num, phase, "Desired control node acceleration generator", info.controlNode[i].name, "name", desiredControlNodeAccelerationGeneratorName[i]);
+
+    desiredControlNodeWrenchGeneratorNum[i] = updateValue<int>(doc, multi, node, num, phase, "Desired control node wrench generator", info.controlNode[i].name, "num", desiredControlNodeWrenchGeneratorNum[i]);
+    desiredControlNodeWrenchGeneratorName[i] = updateValue<string>(doc, multi, node, num, phase, "Desired control node wrench generator", info.controlNode[i].name, "name", desiredControlNodeWrenchGeneratorName[i]);
 
     if(node=="Sequence"){
       sequence[num].cal_Xf.segment(6*i,6) = updateValue<Vector6d>(doc, multi, node, num, phase, "cal_Xf", info.controlNode[i].name, sequence[num].cal_Xf.segment(6*i,6));
+      sequence[num].cal_Xfabs.segment(6*i,6) = updateValue<Vector6d>(doc, multi, node, num, phase, "cal_Xfabs", info.controlNode[i].name, sequence[num].cal_Xfabs.segment(6*i,6));
+
+      sequence[num].cal_Ff.segment(6*i,6) = updateValue<Vector6d>(doc, multi, node, num, phase, "cal_Ff", info.controlNode[i].name, sequence[num].cal_Ff.segment(6*i,6));
 
       sequence[num].cal_Xtd.segment(6*i,6) = updateValue<Vector6d>(doc, multi, node, num, phase, "cal_Xtd", info.controlNode[i].name, sequence[num].cal_Xtd.segment(6*i,6));
     }

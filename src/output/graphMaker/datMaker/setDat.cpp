@@ -185,8 +185,10 @@ void RLS::Output::setDat(ofstream& stream, string dataName, int i)
   else if(dataName=="t-rpky")
     stream << data.t[i] << " " << data.dc[i].rpky.transpose() << endl;
 
-  else if(dataName=="rpky-rpkx")
-    stream << data.dc[i].rpk.transpose() << endl;
+  else if(dataName=="rpx-rpy")
+    stream <<
+      data.dc[i].rpw2k.transpose() << " " <<
+      data.dc[i].rp.transpose() << endl;
 
   else if(dataName=="t-rpx")
     stream << data.t[i] << " " << data.dc[i].rp(0) << endl;
@@ -205,12 +207,12 @@ void RLS::Output::setDat(ofstream& stream, string dataName, int i)
     stream << data.t[i] << " " <<
       data.tm[i].rC(1) << " " << data.dc[i].rp(1) << " " << data.dc[i].rX(1) << " " << data.dc[i].rvrpRef(1) << endl;
 
-  else if(dataName=="yStabilityIndex-xStabilityIndex")
+  else if(dataName=="xStabilityIndex-yStabilityIndex")
     stream <<
-      data.tm[i].rC(0) << " " << data.tm[i].rC(1) << " " <<
-      data.dc[i].rp(0) << " " << data.dc[i].rp(1) << " " <<
-      data.dc[i].rX(0) << " " << data.dc[i].rX(1) << " " <<
-      data.dc[i].rvrpRef(0) << " " << data.dc[i].rvrpRef(1) << endl;
+      data.tm[i].rC.head(2).transpose() << " " <<
+      data.dc[i].rp.head(2).transpose() << " " <<
+      data.dc[i].rX.head(2).transpose() << " " <<
+      data.dc[i].rvrpRef.head(2).transpose() << " " << endl;
 
   // desired VRP
   else if(dataName=="t-vrpDesx")
@@ -220,8 +222,7 @@ void RLS::Output::setDat(ofstream& stream, string dataName, int i)
 
   // foot print
   else if(dataName=="foot print")
-    stream <<
-      data.dc[i].rXDes(1) << " " << data.dc[i].rXDes(0) << endl;
+    stream << data.dc[i].rXDes.head(2).transpose() << endl;
 
   // gif
   else if(dataName=="index print")

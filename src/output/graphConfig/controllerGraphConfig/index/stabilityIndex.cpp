@@ -29,13 +29,15 @@ void RLS::Output::stabilityIndex(const Config &config, const TreeModel::Info &in
   gpMaker.setUnit("m");
   gpMaker.add("set yrange[-80:80]");
 
-  double x_offset_top = 40.;
-  double x_offset_bottom = -40.;
+  double x_offset_top = 0.;
+  double x_offset_bottom = 0.;
+  // double x_offset_top = 40.;
+  // double x_offset_bottom = -40.;
 
-  // gpMaker.add("set object 1 rect from 0, ("+to_string(x_offset_bottom+x_length_bottom)+") to 1e+3, "+to_string(x_offset_top+x_length_top)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");
+  gpMaker.add("set object 1 rect from 0, ("+to_string(x_offset_bottom+x_length_bottom)+") to 1e+3, "+to_string(x_offset_top+x_length_top)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");
 
-  // zeff
-  gpMaker.add("set object 1 rect from 0, ("+to_string(x_offset_bottom)+") to 1e+3, "+to_string(x_offset_top+x_length_top)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");
+  // // zeff
+  // gpMaker.add("set object 1 rect from 0, ("+to_string(x_offset_bottom)+") to 1e+3, "+to_string(x_offset_top+x_length_top)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");
 
   gpMaker.setDimention(4);
   gpMaker.makeGp();
@@ -53,8 +55,9 @@ void RLS::Output::stabilityIndex(const Config &config, const TreeModel::Info &in
   gpMaker.setUnit("m");
 
   gpMaker.add("set yrange[-70:70]");
-  // gpMaker.add("set object 1 rect from 0, ("+to_string(y_length)+") to 1e+3, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");
-  gpMaker.add("set object 1 rect from 0, (39-0.5) to 1e+3, (39+0.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");
+  gpMaker.add("set object 1 rect from 0, ("+to_string(y_length)+") to 1e+3, (39+"+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");
+  // zeff
+  // gpMaker.add("set object 1 rect from 0, (39-0.5) to 1e+3, (39+0.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");
   gpMaker.add("set object 2 rect from 0, (-"+to_string(y_length)+") to 1e+3, (-39-"+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");
 
   gpMaker.setDimention(4);
@@ -65,7 +68,7 @@ void RLS::Output::stabilityIndex(const Config &config, const TreeModel::Info &in
 
   reset();
   setFileName("stabilityIndex");
-  makeDat("yStabilityIndex-xStabilityIndex");
+  makeDat("xStabilityIndex-yStabilityIndex");
 
   gpMaker.reset();
   gpMaker.setName(file_name);
@@ -77,39 +80,33 @@ void RLS::Output::stabilityIndex(const Config &config, const TreeModel::Info &in
   gpMaker.add("set xtics 40");
   gpMaker.add("set parametric");
   gpMaker.add("set size square");
-  gpMaker.add("set xrange[80:-80]");
+  gpMaker.add("set xrange[-80:80]");
   gpMaker.add("set yrange[-80:80]");
 
-  gpMaker.add("INIT_RX = 0.0+"+to_string(x_offset_top));
-  gpMaker.add("INIT_RY =-39.00");
-  gpMaker.add("INIT_LX = 0.0"+to_string(x_offset_bottom));
-  gpMaker.add("INIT_LY = 39.00");
-  gpMaker.add("PMAX_X  = "+to_string(x_length_top));
-  gpMaker.add("PMIN_X  = "+to_string(x_length_bottom));
-  gpMaker.add("PMAX_Y  = "+to_string(y_length));
-  gpMaker.add("PMIN_Y  =-"+to_string(y_length));
-  // gpMaker.add("set arrow 1 from INIT_RY+PMIN_Y, INIT_RX+PMIN_X to INIT_RY+PMAX_Y, INIT_RX+PMIN_X nohead lw 1");
-  // gpMaker.add("set arrow 2 from INIT_RY+PMAX_Y, INIT_RX+PMIN_X to INIT_RY+PMAX_Y, INIT_RX+PMAX_X nohead lw 1");
-  // gpMaker.add("set arrow 3 from INIT_RY+PMAX_Y, INIT_RX+PMAX_X to INIT_RY+PMIN_Y, INIT_RX+PMAX_X nohead lw 2");
-  // gpMaker.add("set arrow 4 from INIT_RY+PMIN_Y, INIT_RX+PMAX_X to INIT_RY+PMIN_Y, INIT_RX+PMIN_X nohead lw 2");
-  // gpMaker.add("set arrow 5 from INIT_LY+PMIN_Y, INIT_LX+PMIN_X to INIT_LY+PMAX_Y, INIT_LX+PMIN_X nohead lw 2");
-  // gpMaker.add("set arrow 6 from INIT_LY+PMAX_Y, INIT_LX+PMIN_X to INIT_LY+PMAX_Y, INIT_LX+PMAX_X nohead lw 2");
-  // gpMaker.add("set arrow 7 from INIT_LY+PMAX_Y, INIT_LX+PMAX_X to INIT_LY+PMIN_Y, INIT_LX+PMAX_X nohead lw 1");
-  // gpMaker.add("set arrow 8 from INIT_LY+PMIN_Y, INIT_LX+PMAX_X to INIT_LY+PMIN_Y, INIT_LX+PMIN_X nohead lw 1");
-  // gpMaker.add("set arrow 9  from INIT_LY+PMAX_Y, INIT_LX+PMAX_X to INIT_RY+PMAX_Y, INIT_RX+PMAX_X nohead lw 2");
-  // gpMaker.add("set arrow 10 from INIT_LY+PMIN_Y, INIT_LX+PMIN_X to INIT_RY+PMIN_Y, INIT_RX+PMIN_X nohead lw 2");
+  double ankle_offset_x = 6.;
+  double ankle_size = 3.;
 
-  // zeff
-  gpMaker.add("set arrow 1 from INIT_RY+PMIN_Y, INIT_RX+PMIN_X to INIT_RY+PMAX_Y, INIT_RX+PMIN_X nohead lw 1");
-  gpMaker.add("set arrow 2 from INIT_RY+PMAX_Y, INIT_RX+PMIN_X to INIT_RY+PMAX_Y, INIT_RX+PMAX_X nohead lw 1");
-  gpMaker.add("set arrow 3 from INIT_RY+PMAX_Y, INIT_RX+PMAX_X to INIT_RY+PMIN_Y, INIT_RX+PMAX_X nohead lw 2");
-  gpMaker.add("set arrow 4 from INIT_RY+PMIN_Y, INIT_RX+PMAX_X to INIT_RY+PMIN_Y, INIT_RX+PMIN_X nohead lw 2");
-  // gpMaker.add("set arrow 5 from INIT_LY+PMIN_Y, INIT_LX+PMIN_X to INIT_LY+PMAX_Y, INIT_LX+PMIN_X nohead lw 2");
-  // gpMaker.add("set arrow 6 from INIT_LY+PMAX_Y, INIT_LX+PMIN_X to INIT_LY+PMAX_Y, INIT_LX+PMAX_X nohead lw 2");
-  // gpMaker.add("set arrow 7 from INIT_LY+PMAX_Y, INIT_LX+PMAX_X to INIT_LY+PMIN_Y, INIT_LX+PMAX_X nohead lw 1");
-  // gpMaker.add("set arrow 8 from INIT_LY+PMIN_Y, INIT_LX+PMAX_X to INIT_LY+PMIN_Y, INIT_LX+PMIN_X nohead lw 1");
-  gpMaker.add("set arrow 9  from INIT_LY, INIT_LX to INIT_RY+PMAX_Y, INIT_RX+PMAX_X nohead lw 2");
-  gpMaker.add("set arrow 10 from INIT_LY, INIT_LX to INIT_RY+PMIN_Y, INIT_RX+PMIN_X nohead lw 2");
+  double foot_size_x = 64.;
+  double foot_size_y = 42.;
+
+  double foot_pos_rx = 0.;
+  double foot_pos_ry = -39.;
+  double foot_pos_lx = 0.;
+  double foot_pos_ly = 39.;
+
+  int ob = 1;
+
+  // right foot print
+  gpMaker.add("set object "+to_string(ob)+" circle at first "+to_string(foot_pos_rx)+", "+to_string(foot_pos_ry)+" size "+to_string(ankle_size)+" fs empty border rgb 'black'"); ob++;
+
+  foot_pos_rx = ankle_offset_x;
+  gpMaker.add("set object "+to_string(ob)+" rect at first "+to_string(foot_pos_rx)+", "+to_string(foot_pos_ry)+" size "+to_string(foot_size_x)+", "+to_string(foot_size_y)+" fs empty border rgb 'black'"); ob++;
+
+  // left foot print
+  gpMaker.add("set object "+to_string(ob)+" circle at first "+to_string(foot_pos_lx)+", "+to_string(foot_pos_ly)+" size "+to_string(ankle_size)+" fs empty border rgb 'black'"); ob++;
+
+  foot_pos_lx = ankle_offset_x;
+  gpMaker.add("set object "+to_string(ob)+" rect at first "+to_string(foot_pos_lx)+", "+to_string(foot_pos_ly)+" size "+to_string(foot_size_x)+", "+to_string(foot_size_y)+" fs empty border rgb 'black'"); ob++;
 
   gpMaker.setDimention(4);
   gpMaker.makeGp();

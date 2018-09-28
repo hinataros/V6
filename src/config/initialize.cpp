@@ -3,13 +3,12 @@
 */
 
 #include "config.hpp"
-#include "yamlConfig.hpp"
 
 void RLS::Config::initialize()
 {
   if(debug) DEBUG;
 
-  def = CONFIG;
+  conf = "default";
 
   result.name.cmp = "cmp";
   result.name.ind = "ind";
@@ -17,12 +16,7 @@ void RLS::Config::initialize()
 
   model.name = "no model";
 
-  controller.flag = false;
-  controller.input = "no input";
-  controller.work = "no work";
-  controller.driven = "flow";
-  controller.trigger = "default";
-  controller.dynamics = false;
+  controller.name = "no controller";
 
   gp.flag = false;
   gp.check = false;

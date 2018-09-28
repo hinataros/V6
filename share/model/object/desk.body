@@ -1,0 +1,28 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+name: Desk
+links:
+  -
+    name: ROOT
+    jointType: fixed
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          Shape: &DeskShape
+            geometry:
+              type: Box
+              size: [ 0.05, 0.05, 0.01 ]
+            appearance:
+              material:
+                diffuseColor: [ 1, 0, 0 ]
+      -
+        type: Collision
+        elements:
+          Shape: *DeskShape

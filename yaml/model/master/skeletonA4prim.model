@@ -1,8 +1,9 @@
 # @author Sho Miyahara 2017
 
 Model:
+  Dynamics: true
   Body name: master/skeletonA4prim
-  cnoid name: master/skeletonA4
+  cnoid name: master/skeletonA4/standup
   Control node:
     - RLEGEE
     - LLEGEE

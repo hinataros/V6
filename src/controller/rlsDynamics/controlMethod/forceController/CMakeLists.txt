@@ -4,6 +4,8 @@ set(srcs
   baseDistribution.cpp
   centroidalDistribution.cpp
   centroidalDcmDistribution.cpp
+  centroidalEcmpDistribution.cpp
+  handWrenchControlAndCentroidalEcmpDistribution.cpp
   distributionSolver.cpp
   )
 

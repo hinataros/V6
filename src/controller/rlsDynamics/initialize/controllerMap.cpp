@@ -12,6 +12,7 @@ void RLS::RlsDynamics::initializeControllerMap()
 
   motionControllerName =
     momentumControllerName =
+    internalForceControllerName =
     forceControllerName =
     torqueControllerName =
     inverseDynamicsControllerName = "default";
@@ -41,11 +42,18 @@ void RLS::RlsDynamics::initializeControllerMap()
   map_motionController["accelerationSolver"] = &RLS::RlsDynamics::accelerationSolver;
   map_motionController["hogehogeMomentum"] = &RLS::RlsDynamics::hogehogeMomentum;
 
+  // internal force controller
+  map_internalForceController["default"] = &RLS::RlsDynamics::zeroDistribution;
+  map_internalForceController["m_internalDistribution"] = &RLS::RlsDynamics::m_internalDistribution;
+
   // force controller
   map_forceController["default"] = &RLS::RlsDynamics::zeroDistribution;
   map_forceController["baseDistribution"] = &RLS::RlsDynamics::baseDistribution;
   map_forceController["centroidalDistribution"] = &RLS::RlsDynamics::centroidalDistribution;
   map_forceController["centroidalDcmDistribution"] = &RLS::RlsDynamics::centroidalDcmDistribution;
+  map_forceController["centroidalEcmpDistribution"] = &RLS::RlsDynamics::centroidalEcmpDistribution;
+  map_forceController["handWrenchControlAndCentroidalEcmpDistribution"] = &RLS::RlsDynamics::handWrenchControlAndCentroidalEcmpDistribution;
+
   map_forceController["distributionSolver"] = &RLS::RlsDynamics::distributionSolver;
 
   // torque controller

@@ -22,10 +22,13 @@ void RLS::RlsDynamics::torqueOutputIndexConfig(const TreeModel::Info &info)
   // cop
   dc_list.rp = rp;
 
-  // replace x <==> y
   dc_list.rpk = VectorXd::Zero(2*info.sensorNodeNum);
   for(int i=0; i<info.sensorNodeNum; i++)
     dc_list.rpk.segment(2*i, 2) = rpk.segment(2*i, 2);
+
+  dc_list.rpw2k = VectorXd::Zero(2*info.sensorNodeNum);
+  for(int i=0; i<info.sensorNodeNum; i++)
+    dc_list.rpw2k.segment(2*i, 2) = rpw2k.segment(2*i, 2);
 
   dc_list.rpkx = dc_list.rpky
     = VectorXd::Zero(1*info.sensorNodeNum);

@@ -10,10 +10,10 @@ VectorXd RLS::RlsDynamics::rlsDynamics(const Config &config, Model &model, const
 {
   if(debug) DEBUG;
 
-  model.update(config.controller.dynamics);
+  model.update();
 
   if(initialValueFlag)
-    initialValue(config.dir.work, model);
+    initialValue(model);
 
   resize(model);
   index(model);
@@ -23,12 +23,12 @@ VectorXd RLS::RlsDynamics::rlsDynamics(const Config &config, Model &model, const
 
   update(config.clock, model);
 
-  trajectoryGenerator(model.hoap2.info.controlNodeNum, t);
-  reference(model);
+  desiredValueGenerator(model.hoap2.info.controlNodeNum, t);
+  feedbackController(model);
 
-  controlMethod(config.controller.input, model.hoap2.info);
+  controlMethod(model.hoap2.info);
 
-  outputConfig(config.controller.input, model.hoap2.info);
+  outputConfig(model.hoap2.info);
 
   return input;
 }

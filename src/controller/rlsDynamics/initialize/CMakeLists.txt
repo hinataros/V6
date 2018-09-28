@@ -1,11 +1,13 @@
 # @author Sho Miyahara 2017
 
 set(srcs
+  info.cpp
+  readWork.cpp
   state.cpp
   sequence.cpp
   triggerMap.cpp
-  referenceMap.cpp
-  trajectoryGeneratorMap.cpp
+  feedbackControllerMap.cpp
+  desiredValueGeneratorMap.cpp
   controllerMap.cpp
   walking.cpp
   initialize.cpp

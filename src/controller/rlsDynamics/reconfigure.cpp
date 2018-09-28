@@ -106,6 +106,7 @@ void RLS::RlsDynamics::reconfigure(TreeModel::Info &info)
   // ******************************
 
   // force
+  cal_FcaBarRef = VectorXd::Zero(info.contact.c.all);
   cal_FcBarRef = VectorXd::Zero(info.contact.c.all);
 
   // objective

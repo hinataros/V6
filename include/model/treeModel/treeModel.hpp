@@ -56,6 +56,7 @@ namespace RLS{
     };
 
     struct Info{
+      bool dynamics_flag;
       string bodyName;
       string cnoidName;
       ChoModel name;
@@ -193,6 +194,6 @@ namespace RLS{
 
     void transformMatrix();
 
-    void update(bool);
+    void update();
   };
 }
