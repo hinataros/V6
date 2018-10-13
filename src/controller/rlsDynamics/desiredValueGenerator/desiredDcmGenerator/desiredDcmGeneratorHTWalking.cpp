@@ -4,7 +4,7 @@
 
 #include "config.hpp"
 #include "model.hpp"
-#include "rlsDynamics.hpp"
+#include "desiredValueGenerator.hpp"
 
 Matrix3d Rz(double th)
 {
@@ -188,7 +188,7 @@ void testFootPrint(MatrixXd &rf, double offset)
   rf.col(num) << 0.03, 0.,   0.; num++;// 1
 }
 
-void RLS::RlsDynamics::desiredDcmGeneratorHTWalking(const double &t)
+void RLS::DesiredValueGenerator::desiredDcmGeneratorHTWalking(const double &t)
 {
   if(debug) DEBUG;
 

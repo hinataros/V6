@@ -1,30 +1,28 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
-#include "rlsDynamics.hpp"
+#include "controller.hpp"
 #include "output.hpp"
 #include "rlsSimulator.hpp"
 
-void RLS::RlsSimulator::run(const Config &config, Model &model, RlsDynamics &rlsDynamics, Output &output)
+void RLS::RlsSimulator::run(Model &model, Controller &controller, Output &output)
 {
   if(debug) DEBUG;
 
-  initialParameter(config.clock, model.hoap2);
+  initialParameter(model);
 
-  for(int i=0; i<config.clock.n; i++){
-    cout << "\r" << t << " / " << config.clock.tf;
-    t = config.clock.t0 + i*config.clock.dt;
+  for(int i=0; i<model.worldModel.n; i++){
+    cout << "\r" << t << " / " << model.worldModel.tf;
+    t = model.worldModel.t0 + i*model.worldModel.dt;
 
-    runge4(config, model, rlsDynamics, output);
+    runge4(model, controller, output);
 
   } cout << endl;
 
-  linkEqs(config, model, rlsDynamics, output);
+  linkEqs(model, controller, output);
 
-  output.output(config, model.hoap2.info);
-
-  finalize(model, rlsDynamics, output);
+  output.output();
 }

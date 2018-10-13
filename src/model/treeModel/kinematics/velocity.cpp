@@ -1,5 +1,5 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
@@ -12,9 +12,9 @@ void RLS::TreeModel::velocity()
   // initialize
   all.p = all.lC = Vector3d::Zero();
 
-  for(int i=0; i<info.linkNum; i++){
+  for(int i=0; i<info->linkNum; i++){
     // link[rootNode].sw = 0
-    if(i!=info.rootNode){
+    if(i!=info->rootNode){
       link[i].sw = link[link[i].parentNode].R*link[i].ej;
       link[i].sv = cross(link[i].r)*link[i].sw;
 

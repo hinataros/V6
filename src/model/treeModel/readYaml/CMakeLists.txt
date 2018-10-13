@@ -1,8 +1,8 @@
-# @author Sho Miyahara 2017
+# @author Sho Miyahara 2018
 
 set(srcs
   readModel.cpp
-  setDir.cpp
+  setInclude.cpp
   readBody.cpp
   readCnoid.cpp
   )

@@ -1,22 +1,18 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::base(const TreeModel::Info &info)
+void RLS::RlsDynamics::base()
 {
   if(debug) DEBUG;
 
-  MatrixXd MthBar = MatrixXd::Zero(info.dof.joint, info.dof.all);
+  MatrixXd MthBar = MatrixXd::Zero(info.model.dof.joint, info.model.dof.all);
   MthBar <<
-    HBth.transpose(), Mth;
+    model->HBth.transpose(), model->Mth;
 
-  tau = MthBar*ddqBRef + cth + gth - cal_Jc.transpose()*cal_FcBarRef;
-
-  // tau = gth - cal_Jc.transpose()*cal_FcBarRef;
-  // tau = gth - cal_Jc.transpose()*cal_FcBarRef
-  //   + Nast(cal_Jc, Mth)*Mth*ddthD(config,model);
+  tau = MthBar*ddqBRef + model->cth + model->gth - cal_Jc.transpose()*cal_FcBarRef;
 }

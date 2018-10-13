@@ -1,5 +1,5 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
@@ -12,7 +12,7 @@ void RLS::TreeModel::update()
   position();
   velocity();
 
-  if(info.dynamics_flag){
+  if(dynamics_flag){
     identityVectorMethod();
     analyticalDynamics();
   }

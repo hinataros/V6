@@ -1,18 +1,18 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::centroidalDcmDistribution(const TreeModel::Info &info)
+void RLS::RlsDynamics::centroidalDcmDistribution()
 {
   if(debug) DEBUG;
 
-  (this->*internalForceController_ptr)(info);
+  (this->*internalForceController_ptr)();
 
-  MatrixXd WXc = h_weight(rX.head(2));
+  MatrixXd WX = h_weight(model->rX.head(2));
 
-  cal_FcBarRef = pInv(cal_PcM, WXc)*(cal_dLCRef + cal_GC) + N(cal_PcM)*cal_FcaBarRef;
+  cal_FcBarRef = pInv(cal_PcM, WX)*(cal_dLCRef + model->cal_GC) + N(cal_PcM)*cal_FcaBarRef;
 }

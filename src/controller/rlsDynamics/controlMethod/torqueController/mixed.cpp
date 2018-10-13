@@ -1,26 +1,18 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::mixed(const TreeModel::Info &info)
+void RLS::RlsDynamics::mixed()
 {
   if(debug) DEBUG;
 
-  MatrixXd MthHatBar = MatrixXd::Zero(info.dof.joint, info.dof.all);
+  MatrixXd MthHatBar = MatrixXd::Zero(info.model.dof.joint, info.model.dof.all);
   MthHatBar <<
-    HMth.transpose(), MthC;
+    model->HMth.transpose(), model->MthC;
 
-  tau = MthHatBar*ddqMRef + cthC - cal_JcM.transpose()*cal_FcBarRef;
-
-  // ******************************************************************************
-  // tau = - cal_JcM.transpose()*cal_FcBarRef;
-  // tau = - cal_JcM.transpose()*cal_FcBarRef
-  //   + Nast(cal_JcM, Mth)*Mth*ddthD(config,model);
-
-  // tau = - cal_JcM.transpose()*cal_FcBarRef + Mth*ddthD(config,model);
-  // tau = - cal_JcM.transpose()*cal_FcBarRef + Mth*N(cal_JcM)*ddthD(config,model);
+  tau = MthHatBar*ddqMRef + model->cthC - cal_JcM.transpose()*cal_FcBarRef;
 }

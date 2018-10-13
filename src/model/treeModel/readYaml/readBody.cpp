@@ -1,9 +1,8 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include <sys/stat.h>
-#include "yaml-cpp/yaml.h"
 
 #include "config.hpp"
 #include "treeModel.hpp"
@@ -13,34 +12,33 @@ void RLS::TreeModel::readBody()
   if(debug) DEBUG;
 
   struct stat statFile;
-  if(stat(info.path.body.c_str(), &statFile)!=0)
+  if(stat(include_mp.path.c_str(), &statFile)!=0)
     cout << manip_error("TreeModel::readBody() error...") << endl
-         << manip_error("no such file '"+info.path.body+"'") << endl;
+         << manip_error("no such file '"+include_mp.path+"'") << endl;
 
-  YAML::Node doc = YAML::LoadFile(info.path.body.c_str());
+  YAML::Node doc = YAML::LoadFile(include_mp.path.c_str());
 
-  info.linkNum = doc["links"].size();
+  info->linkNum = doc["links"].size();
 
-  link = new Link[info.linkNum];
+  link = new Link[info->linkNum];
 
-  initializeInfo();
-  initializeLink();
+  resizeLink();
 
   int rigidBodyNode = 0;
   int forceSensorNode = 2;
   vector<int> sensor;
   vector<string> sensorName;
-  for(int i=0; i<info.linkNum; i++){
+  for(int i=0; i<info->linkNum; i++){
     link[i].name = doc["links"][i]["name"].as<string>();
 
     try{
       link[i].parent = doc["links"][i]["parent"].as<string>();
-    }catch(...){info.rootNode=i;}
+    }catch(...){info->rootNode=i;}
 
     try{
       if(doc["links"][i]["jointId"].as<int>()>=0){
         link[i].active = true;
-        info.dof.joint++;
+        info->dof.joint++;
       }
     }catch(...){}
 
@@ -85,45 +83,24 @@ void RLS::TreeModel::readBody()
     }
   }
 
-  info.sensorNodeNum = sensor.size();
-  info.sensorNode = new Contact[info.sensorNodeNum];
+  info->sensorNodeNum = sensor.size();
+  info->sensorNode = new ID[info->sensorNodeNum];
 
-  for(int i=0; i<info.sensorNodeNum; i++){
-    info.sensorNode[i].num = sensor[i];
-    info.sensorNode[i].name = sensorName[i];
+  for(int i=0; i<info->sensorNodeNum; i++){
+    info->sensorNode[i].num = sensor[i];
+    info->sensorNode[i].name = sensorName[i];
   }
 
-  if(link[info.rootNode].jointType=="fixed")
-    info.dof.root = 0;
-  else if(link[info.rootNode].jointType=="free")
-    info.dof.root = 6;
+  if(link[info->rootNode].jointType=="fixed")
+    info->dof.root = 0;
+  else if(link[info->rootNode].jointType=="free")
+    info->dof.root = 6;
 
-  info.dof.all = info.dof.root + info.dof.joint;
+  info->dof.all = info->dof.root + info->dof.joint;
 
   // smiyahara: link[0].parentNode is 0 (no initialized)
-  for(int i=0; i<info.linkNum; i++)
-    for(int j=0; j<info.linkNum; j++)
+  for(int i=0; i<info->linkNum; i++)
+    for(int j=0; j<info->linkNum; j++)
       if(link[i].parent==link[j].name)
         link[i].parentNode = j;
-
-  for(int i=0; i<info.controlNodeNum; i++){
-    bool flag = false;
-    for(int j=0; j<info.linkNum; j++){
-      if(link[j].name==info.controlNode[i].name){
-        info.controlNode[i].num = j;
-        flag = true;
-      }
-    }
-
-    if(!flag){
-      cout << manip_error("TreeModel::readBody() error...") << endl
-           << manip_error("not found '"+info.controlNode[i].name+"' node") << endl;
-      info.controlNode[i].num = 0;
-    }
-  }
-
-  initializeAll();
-
-  // smiyahara: 場所がびみょ～
-  joints();
 }

@@ -1,25 +1,25 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::centroidalAngularMomentum(const TreeModel::Info &info)
+void RLS::RlsDynamics::centroidalAngularMomentum()
 {
   if(debug) DEBUG;
 
-  // dlCRef = cross((Vector3d() << rp, 0.).finished() - model.hoap2.all.rC)*dpRef + IC*dwBRef;
+  // dlCRef = cross((Vector3d() << rp, 0.).finished() - model.hoap2.all.rC)*dpRef + model->IC*fb.dwBfb;
   // dlCRef = cross((Vector3d() << rp, 0.).finished() - model.hoap2.all.rC)*dpRef;
-  // dlCRef += IC*dwBRef + dIC*model.hoap2.limb[0].node[0].w;
+  // dlCRef += model->IC*fb.dwBfb + dmodel->IC*model->wB;
 
   // dlCRef =
-  //   cross((Vector3d() << rp, 0.).finished() - model.hoap2.all.rC)*dpRef
-  //   - KDlC*(HC*model.hoap2.all.dth);
-  // dlCRef = IC*dwBRef + dIC*model.hoap2.limb[0].node[0].w - KDlC*(IC*model.hoap2.limb[0].node[0].w + HC*model.hoap2.all.dth);
-  dlCRef = IC*dwBRef + dIC*wB - KDlC*HC*dth;
-  // dlCRef = IC*dwBRef + dIC*model.hoap2.limb[0].node[0].w + HC*ddthRef + dHC*model.hoap2.all.dth;
-  // dlCRef = IC*dwBRef + dIC*model.hoap2.limb[0].node[0].w;
-  // dlCRef = -KDlC*model.hoap2.all.lC;
+  //   cross((Vector3d() << rp, 0.).finished() - model->rC)*dpRef
+  //   - KDlC*(model->HC*model->dth);
+  // dlCRef = model->IC*fb.dwBfb + dmodel->IC*model->wB - KDlC*(model->IC*model->wB + model->HC*model->dth);
+  dlCRef = model->IC*fb.dwBfb + model->IC*model->wB - KDlC*model->HC*model->dth;
+  // dlCRef = model->IC*fb.dwBfb + dmodel->IC*model->wB + model->HC*ddthRef + dmodel->HC*model->dth;
+  // dlCRef = model->IC*fb.dwBfb + dmodel->IC*model->wB;
+  // dlCRef = -KDlC*model->lC;
 }

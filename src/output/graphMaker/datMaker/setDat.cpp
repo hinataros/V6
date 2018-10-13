@@ -8,231 +8,241 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::setDat(ofstream& stream, string dataName, int i)
+void RLS::Output::setDat(ofstream& stream, int id, string dataName, int i)
 {
-  // model
-  if(dataName=="t-rB")
-    stream << data.t[i] << " " << data.tm[i].rB.transpose() << endl;
-  else if(dataName=="t-vB")
-    stream << data.t[i] << " " << data.tm[i].vB.transpose() << endl;
-  else if(dataName=="t-xiB")
-    stream << data.t[i] << " " << data.tm[i].xiB.transpose() << endl;
-  else if(dataName=="t-wB")
-    stream << data.t[i] << " " << data.tm[i].wB.transpose() << endl;
+  if(dataName=="time")
+    stream << data.time[i];
 
-  else if(dataName=="t-th")
-    stream << data.t[i] << " " << data.tm[i].th.transpose() << endl;
-  else if(dataName=="t-dth")
-    stream << data.t[i] << " " << data.tm[i].dth.transpose() << endl;
+  // tree model
+  else if(dataName=="tree model rB")
+    stream << data.treeModel[id].vec[i].rB.transpose();
+  else if(dataName=="tree model vB")
+    stream << data.treeModel[id].vec[i].vB.transpose();
 
-  else if(dataName=="t-rC")
-    stream << data.t[i] << " " << data.tm[i].rC.transpose() << endl;
-  else if(dataName=="t-vC")
-    stream << data.t[i] << " " << data.tm[i].vC.transpose() << endl;
+  else if(dataName=="tree model xiB")
+    stream << data.treeModel[id].vec[i].xiB.transpose();
+  else if(dataName=="tree model wB")
+    stream << data.treeModel[id].vec[i].wB.transpose();
 
-  else if(dataName=="t-r")
-    stream << data.t[i] << " " << data.tm[i].r.transpose() << endl;
-  else if(dataName=="t-v")
-    stream << data.t[i] << " " << data.tm[i].v.transpose() << endl;
+  else if(dataName=="tree model th")
+    stream << data.treeModel[id].vec[i].th.transpose();
+  else if(dataName=="tree model dth")
+    stream << data.treeModel[id].vec[i].dth.transpose();
 
-  else if(dataName=="t-xi")
-    stream << data.t[i] << " " << data.tm[i].xi.transpose() << endl;
-  else if(dataName=="t-w")
-    stream << data.t[i] << " " << data.tm[i].w.transpose() << endl;
+  else if(dataName=="tree model r")
+    stream << data.treeModel[id].vec[i].r.transpose();
+  else if(dataName=="tree model v")
+    stream << data.treeModel[id].vec[i].v.transpose();
+  else if(dataName=="tree model xi")
+    stream << data.treeModel[id].vec[i].xi.transpose();
+  else if(dataName=="tree model w")
+    stream << data.treeModel[id].vec[i].w.transpose();
 
-  else if(dataName=="t-f")
-    stream << data.t[i] << " " << data.tm[i].f.transpose() << endl;
-  else if(dataName=="t-n")
-    stream << data.t[i] << " " << data.tm[i].n.transpose() << endl;
+  else if(dataName=="tree model rC")
+    stream << data.treeModel[id].vec[i].rC.transpose();
+  else if(dataName=="tree model vC")
+    stream << data.treeModel[id].vec[i].vC.transpose();
 
-  else if(dataName=="t-p")
-    stream << data.t[i] << " " << data.tm[i].p.transpose() << endl;
-  else if(dataName=="t-lC")
-    stream << data.t[i] << " " << data.tm[i].lC.transpose() << endl;
 
-  // controller
-  else if(dataName=="t-rBDes")
-    stream << data.t[i] << " " << data.dc[i].rBDes.transpose() << endl;
-  else if(dataName=="t-vBDes")
-    stream << data.t[i] << " " << data.dc[i].vBDes.transpose() << endl;
-  else if(dataName=="t-dvBDes")
-    stream << data.t[i] << " " << data.dc[i].dvBDes.transpose() << endl;
+  else if(dataName=="tree model f")
+    stream << data.treeModel[id].vec[i].f.transpose();
+  else if(dataName=="tree model n")
+    stream << data.treeModel[id].vec[i].n.transpose();
 
-  else if(dataName=="t-xiBDes")
-    stream << data.t[i] << " " << data.dc[i].xiBDes.transpose()<< endl;
-  else if(dataName=="t-wBDes")
-    stream << data.t[i] << " " << data.dc[i].wBDes.transpose() << endl;
-  else if(dataName=="t-dwBDes")
-    stream << data.t[i] << " " << data.dc[i].dwBDes.transpose() << endl;
+  else if(dataName=="tree model p")
+    stream << data.treeModel[id].vec[i].p.transpose();
+  else if(dataName=="tree model lC")
+    stream << data.treeModel[id].vec[i].lC.transpose();
 
-  else if(dataName=="t-rCDes")
-    stream << data.t[i] << " " << data.dc[i].rCDes.transpose() << endl;
-  else if(dataName=="t-vCDes")
-    stream << data.t[i] << " " << data.dc[i].vCDes.transpose() << endl;
-  else if(dataName=="t-dvCDes")
-    stream << data.t[i] << " " << data.dc[i].dvCDes.transpose() << endl;
+  // // controller
+  // else if(dataName=="t-rBDes")
+  //   stream << data.rlsDynamics[id].vec[i].rBDes.transpose();
+  // else if(dataName=="t-vBDes")
+  //   stream << data.rlsDynamics[id].vec[i].vBDes.transpose();
+  // else if(dataName=="t-dvBDes")
+  //   stream << data.rlsDynamics[id].vec[i].dvBDes.transpose();
 
-  else if(dataName=="t-rXDes")
-    stream << data.t[i] << " " << data.dc[i].rXDes.transpose() << endl;
-  else if(dataName=="t-drXDes")
-    stream << data.t[i] << " " << data.dc[i].drXDes.transpose() << endl;
+  else if(dataName=="xiBDes")
+    stream << data.rlsDynamics[id].vec[i].xiBDes.transpose();
+  else if(dataName=="wBDes")
+    stream << data.rlsDynamics[id].vec[i].wBDes.transpose();
+  else if(dataName=="dwBDes")
+    stream << data.rlsDynamics[id].vec[i].dwBDes.transpose();
 
-  else if(dataName=="t-rDes")
-    stream << data.t[i] << " " << data.dc[i].rDes.transpose() << endl;
-  else if(dataName=="t-vDes")
-    stream << data.t[i] << " " << data.dc[i].vDes.transpose() << endl;
-  else if(dataName=="t-dvDes")
-    stream << data.t[i] << " " << data.dc[i].dvDes.transpose() << endl;
+  // else if(dataName=="t-rCDes")
+  //   stream << data.rlsDynamics[id].vec[i].rCDes.transpose();
+  // else if(dataName=="t-vCDes")
+  //   stream << data.rlsDynamics[id].vec[i].vCDes.transpose();
+  // else if(dataName=="t-dvCDes")
+  //   stream << data.rlsDynamics[id].vec[i].dvCDes.transpose();
 
-  else if(dataName=="t-xiDes")
-    stream << data.t[i] << " " << data.dc[i].xiDes.transpose() << endl;
-  else if(dataName=="t-wDes")
-    stream << data.t[i] << " " << data.dc[i].wDes.transpose() << endl;
-  else if(dataName=="t-dwDes")
-    stream << data.t[i] << " " << data.dc[i].dwDes.transpose() << endl;
+  // else if(dataName=="t-rXDes")
+  //   stream << data.rlsDynamics[id].vec[i].rXDes.transpose();
+  // else if(dataName=="t-drXDes")
+  //   stream << data.rlsDynamics[id].vec[i].drXDes.transpose();
 
-  else if(dataName=="t-erB")
-    stream << data.t[i] << " " << data.dc[i].erB.transpose() << endl;
-  else if(dataName=="t-evB")
-    stream << data.t[i] << " " << data.dc[i].evB.transpose() << endl;
-  else if(dataName=="t-eoB")
-    stream << data.t[i] << " " << data.dc[i].eoB.transpose() << endl;
-  else if(dataName=="t-ewB")
-    stream << data.t[i] << " " << data.dc[i].ewB.transpose() << endl;
+  else if(dataName=="rDes")
+    stream << data.rlsDynamics[id].vec[i].rDes.transpose();
+  else if(dataName=="vDes")
+    stream << data.rlsDynamics[id].vec[i].vDes.transpose();
+  else if(dataName=="dvDes")
+    stream << data.rlsDynamics[id].vec[i].dvDes.transpose();
 
-  else if(dataName=="t-erC")
-    stream << data.t[i] << " " << data.dc[i].erC.transpose() << endl;
-  else if(dataName=="t-evC")
-    stream << data.t[i] << " " << data.dc[i].evC.transpose() << endl;
+  else if(dataName=="xiDes")
+    stream << data.rlsDynamics[id].vec[i].xiDes.transpose();
+  else if(dataName=="wDes")
+    stream << data.rlsDynamics[id].vec[i].wDes.transpose();
+  else if(dataName=="dwDes")
+    stream << data.rlsDynamics[id].vec[i].dwDes.transpose();
 
-  else if(dataName=="t-eX")
-    stream << data.t[i] << " " << data.dc[i].eX.transpose() << endl;
+  // else if(dataName=="t-erB")
+  //   stream << data.rlsDynamics[id].vec[i].erB.transpose();
+  // else if(dataName=="t-evB")
+  //   stream << data.rlsDynamics[id].vec[i].evB.transpose();
+  // else if(dataName=="t-eoB")
+  //   stream << data.rlsDynamics[id].vec[i].eoB.transpose();
+  // else if(dataName=="t-ewB")
+  //   stream << data.rlsDynamics[id].vec[i].ewB.transpose();
 
-  else if(dataName=="t-er")
-    stream << data.t[i] << " " << data.dc[i].er.transpose() << endl;
-  else if(dataName=="t-ev")
-    stream << data.t[i] << " " << data.dc[i].ev.transpose() << endl;
+  // else if(dataName=="t-erC")
+  //   stream << data.rlsDynamics[id].vec[i].erC.transpose();
+  // else if(dataName=="t-evC")
+  //   stream << data.rlsDynamics[id].vec[i].evC.transpose();
 
-  else if(dataName=="t-eo")
-    stream << data.t[i] << " " << data.dc[i].eo.transpose() << endl;
-  else if(dataName=="t-ew")
-    stream << data.t[i] << " " << data.dc[i].ew.transpose() << endl;
+  // else if(dataName=="t-eX")
+  //   stream << data.rlsDynamics[id].vec[i].eX.transpose();
 
-  else if(dataName=="t-ef")
-    stream << data.t[i] << " " << data.dc[i].ef.transpose() << endl;
-  else if(dataName=="t-en")
-    stream << data.t[i] << " " << data.dc[i].en.transpose() << endl;
+  // else if(dataName=="t-er")
+  //   stream << data.rlsDynamics[id].vec[i].er.transpose();
+  // else if(dataName=="t-ev")
+  //   stream << data.rlsDynamics[id].vec[i].ev.transpose();
 
-  else if(dataName=="t-dvBRef")
-    stream << data.t[i] << " " << data.dc[i].dvBRef.transpose() << endl;
-  else if(dataName=="t-dwBRef")
-    stream << data.t[i] << " " << data.dc[i].dwBRef.transpose() << endl;
-  else if(dataName=="t-ddthRef")
-    stream << data.t[i] << " " << data.dc[i].dthRef.transpose() << endl;
+  // else if(dataName=="t-eo")
+  //   stream << data.rlsDynamics[id].vec[i].eo.transpose();
+  // else if(dataName=="t-ew")
+  //   stream << data.rlsDynamics[id].vec[i].ew.transpose();
 
-  else if(dataName=="t-dvCRef")
-    stream << data.t[i] << " " << data.dc[i].dvCRef.transpose() << endl;
+  // else if(dataName=="t-ef")
+  //   stream << data.rlsDynamics[id].vec[i].ef.transpose();
+  // else if(dataName=="t-en")
+  //   stream << data.rlsDynamics[id].vec[i].en.transpose();
 
-  else if(dataName=="t-dvBoptRef")
-    stream << data.t[i] << " " << data.dc[i].dvBoptRef.transpose() << endl;
-  else if(dataName=="t-dwBoptRef")
-    stream << data.t[i] << " " << data.dc[i].dwBoptRef.transpose() << endl;
-  else if(dataName=="t-ddthoptRef")
-    stream << data.t[i] << " " << data.dc[i].ddthoptRef.transpose() << endl;
+  // else if(dataName=="t-dvBRef")
+  //   stream << data.rlsDynamics[id].vec[i].dvBRef.transpose();
+  // else if(dataName=="t-dwBRef")
+  //   stream << data.rlsDynamics[id].vec[i].dwBRef.transpose();
+  // else if(dataName=="t-ddthRef")
+  //   stream << data.rlsDynamics[id].vec[i].dthRef.transpose();
 
-  else if(dataName=="t-dvCoptRef")
-    stream << data.t[i] << " " << data.dc[i].dvCoptRef.transpose() << endl;
+  // else if(dataName=="t-dvCRef")
+  //   stream << data.rlsDynamics[id].vec[i].dvCRef.transpose();
 
-  else if(dataName=="t-dpRef")
-    stream << data.t[i] << " " << data.dc[i].dpRef.transpose() << endl;
-  else if(dataName=="t-dlCRef")
-    stream << data.t[i] << " " << data.dc[i].dlCRef.transpose() << endl;
+  // else if(dataName=="t-dvBoptRef")
+  //   stream << data.rlsDynamics[id].vec[i].dvBoptRef.transpose();
+  // else if(dataName=="t-dwBoptRef")
+  //   stream << data.rlsDynamics[id].vec[i].dwBoptRef.transpose();
+  // else if(dataName=="t-ddthoptRef")
+  //   stream << data.rlsDynamics[id].vec[i].ddthoptRef.transpose();
 
-  else if(dataName=="t-dlBRef")
-    stream << data.t[i] << " " << data.dc[i].dlBRef.transpose() << endl;
+  // else if(dataName=="t-dvCoptRef")
+  //   stream << data.rlsDynamics[id].vec[i].dvCoptRef.transpose();
 
-  else if(dataName=="t-fRef")
-    stream << data.t[i] << " " << data.dc[i].fRef.transpose() << endl;
-  else if(dataName=="t-nRef")
-    stream << data.t[i] << " " << data.dc[i].nRef.transpose() << endl;
+  // else if(dataName=="t-dpRef")
+  //   stream << data.rlsDynamics[id].vec[i].dpRef.transpose();
+  // else if(dataName=="t-dlCRef")
+  //   stream << data.rlsDynamics[id].vec[i].dlCRef.transpose();
 
-  else if(dataName=="t-fextRef")
-    stream << data.t[i] << " " << data.dc[i].cal_FextRef.head(3).transpose() << endl;
-  else if(dataName=="t-nextRef")
-    stream << data.t[i] << " " << data.dc[i].cal_FextRef.tail(3).transpose() << endl;
+  // else if(dataName=="t-dlBRef")
+  //   stream << data.rlsDynamics[id].vec[i].dlBRef.transpose();
 
-  else if(dataName=="t-tau")
-    stream << data.t[i] << " " << data.dc[i].tau.transpose() << endl;
+  // else if(dataName=="t-fRef")
+  //   stream << data.rlsDynamics[id].vec[i].fRef.transpose();
+  // else if(dataName=="t-nRef")
+  //   stream << data.rlsDynamics[id].vec[i].nRef.transpose();
 
-  else if(dataName=="t-pCRB")
-    stream << data.t[i] << " " << data.dc[i].pCRB.transpose() << endl;
-  else if(dataName=="t-lCRB")
-    stream << data.t[i] << " " << data.dc[i].lCRB.transpose() << endl;
-  else if(dataName=="t-pCth")
-    stream << data.t[i] << " " << data.dc[i].pCth.transpose() << endl;
-  else if(dataName=="t-lCth")
-    stream << data.t[i] << " " << data.dc[i].lCth.transpose() << endl;
-  else if(dataName=="t-psys")
-    stream << data.t[i] << " " << data.dc[i].p.transpose() << endl;
-  else if(dataName=="t-lCsys")
-    stream << data.t[i] << " " << data.dc[i].lC.transpose() << endl;
+  // else if(dataName=="t-fextRef")
+  //   stream << data.rlsDynamics[id].vec[i].cal_FextRef.head(3).transpose();
+  // else if(dataName=="t-nextRef")
+  //   stream << data.rlsDynamics[id].vec[i].cal_FextRef.tail(3).transpose();
 
-  else if(dataName=="t-dcm")
-    stream << data.t[i] << " " << data.dc[i].rX.transpose() << endl;
+  // else if(dataName=="t-tau")
+  //   stream << data.rlsDynamics[id].vec[i].tau.transpose();
 
-  else if(dataName=="t-rpkx")
-    stream << data.t[i] << " " << data.dc[i].rpkx.transpose() << endl;
-  else if(dataName=="t-rpky")
-    stream << data.t[i] << " " << data.dc[i].rpky.transpose() << endl;
+  else if(dataName=="pCRB")
+    stream << data.rlsDynamics[id].vec[i].pCRB.transpose();
+  else if(dataName=="lCRB")
+    stream << data.rlsDynamics[id].vec[i].lCRB.transpose();
+  else if(dataName=="pCth")
+    stream << data.rlsDynamics[id].vec[i].pCth.transpose();
+  else if(dataName=="lCth")
+    stream << data.rlsDynamics[id].vec[i].lCth.transpose();
+  else if(dataName=="psys")
+    stream << data.rlsDynamics[id].vec[i].p.transpose();
+  else if(dataName=="lCsys")
+    stream << data.rlsDynamics[id].vec[i].lC.transpose();
 
-  else if(dataName=="rpx-rpy")
+  else if(dataName=="rX")
+    stream << data.rlsDynamics[id].vec[i].rX.transpose();
+
+  else if(dataName=="rpkx")
+    stream << data.rlsDynamics[id].vec[i].rpkx.transpose();
+  else if(dataName=="rpky")
+    stream << data.rlsDynamics[id].vec[i].rpky.transpose();
+
+  else if(dataName=="rpx")
+    stream << data.rlsDynamics[id].vec[i].rp(0);
+  else if(dataName=="rpy")
+    stream << data.rlsDynamics[id].vec[i].rp(1);
+
+  else if(dataName=="rpw2k")
+    stream << data.rlsDynamics[id].vec[i].rpw2k.transpose();
+  else if(dataName=="rp")
+    stream << data.rlsDynamics[id].vec[i].rp.transpose();
+
+  // else if(dataName=="t-rcmpx")
+  //   stream << data.rlsDynamics[id].vec[i].rcmp(0);
+  // else if(dataName=="t-rcmpy")
+  //   stream << data.rlsDynamics[id].vec[i].rcmp(1);
+
+  else if(dataName=="xStabilityIndex")
     stream <<
-      data.dc[i].rpw2k.transpose() << " " <<
-      data.dc[i].rp.transpose() << endl;
-
-  else if(dataName=="t-rpx")
-    stream << data.t[i] << " " << data.dc[i].rp(0) << endl;
-  else if(dataName=="t-rpy")
-    stream << data.t[i] << " " << data.dc[i].rp(1) << endl;
-
-  else if(dataName=="t-rcmpx")
-    stream << data.t[i] << " " << data.dc[i].rcmp(0) << endl;
-  else if(dataName=="t-rcmpy")
-    stream << data.t[i] << " " << data.dc[i].rcmp(1) << endl;
-
-  else if(dataName=="t-xStabilityIndex")
-    stream << data.t[i] << " " <<
-      data.tm[i].rC(0) << " " << data.dc[i].rp(0) << " " << data.dc[i].rX(0) << " " << data.dc[i].rvrpRef(0) << endl;
-  else if(dataName=="t-yStabilityIndex")
-    stream << data.t[i] << " " <<
-      data.tm[i].rC(1) << " " << data.dc[i].rp(1) << " " << data.dc[i].rX(1) << " " << data.dc[i].rvrpRef(1) << endl;
-
-  else if(dataName=="xStabilityIndex-yStabilityIndex")
+      data.treeModel[id].vec[i].rC(0) << " " <<
+      data.rlsDynamics[id].vec[i].rp(0) << " " <<
+      data.rlsDynamics[id].vec[i].rX(0) << " " <<
+      data.rlsDynamics[id].vec[i].rvrpRef(0);
+  else if(dataName=="yStabilityIndex")
     stream <<
-      data.tm[i].rC.head(2).transpose() << " " <<
-      data.dc[i].rp.head(2).transpose() << " " <<
-      data.dc[i].rX.head(2).transpose() << " " <<
-      data.dc[i].rvrpRef.head(2).transpose() << " " << endl;
+      data.treeModel[id].vec[i].rC(1) << " " <<
+      data.rlsDynamics[id].vec[i].rp(1) << " " <<
+      data.rlsDynamics[id].vec[i].rX(1) << " " <<
+      data.rlsDynamics[id].vec[i].rvrpRef(1);
 
-  // desired VRP
-  else if(dataName=="t-vrpDesx")
-    stream << data.t[i] << " " << data.dc[i].rvrpDes(0) << endl;
-  else if(dataName=="t-vrpDesy")
-    stream << data.t[i] << " " << data.dc[i].rvrpDes(1) << endl;
+  else if(dataName=="gCoM")
+    stream << data.treeModel[id].vec[i].rC.head(2).transpose();
+  else if(dataName=="xCoM")
+    stream << data.rlsDynamics[id].vec[i].rX.head(2).transpose();
+  else if(dataName=="eCMPRef")
+    stream << data.rlsDynamics[id].vec[i].rvrpRef.head(2).transpose();
 
-  // foot print
-  else if(dataName=="foot print")
-    stream << data.dc[i].rXDes.head(2).transpose() << endl;
+  // // desired VRP
+  // else if(dataName=="t-vrpDesx")
+  //   stream << data.rlsDynamics[id].vec[i].rvrpDes(0);
+  // else if(dataName=="t-vrpDesy")
+  //   stream << data.rlsDynamics[id].vec[i].rvrpDes(1);
 
-  // gif
-  else if(dataName=="index print")
-    stream <<
-      data.dc[i].indexPrintMatrix.transpose().row(0) << endl <<
-      data.dc[i].indexPrintMatrix.transpose().row(1) << endl <<
-      data.dc[i].indexPrintMatrix.transpose().row(2) << endl <<
-      data.dc[i].indexPrintMatrix.transpose().row(3) << endl <<
-      data.dc[i].indexPrintMatrix.transpose().row(4) << endl << endl << endl;
+  // // foot print
+  // else if(dataName=="foot print")
+  //   stream << data.rlsDynamics[id].vec[i].rXDes.head(2).transpose();
+
+  // // gif
+  // else if(dataName=="index print")
+  //   stream <<
+  //     data.rlsDynamics[id].vec[i].indexPrintMatrix.transpose().row(0) <<
+  //     data.rlsDynamics[id].vec[i].indexPrintMatrix.transpose().row(1) <<
+  //     data.rlsDynamics[id].vec[i].indexPrintMatrix.transpose().row(2) <<
+  //     data.rlsDynamics[id].vec[i].indexPrintMatrix.transpose().row(3) <<
+  //     data.rlsDynamics[id].vec[i].indexPrintMatrix.transpose().row(4);
 
   else
-    cout << "not found: " << "'" << dataName << "'" << endl;
+    cout << manip_error("not found: '" + dataName + "'") << endl;
 }

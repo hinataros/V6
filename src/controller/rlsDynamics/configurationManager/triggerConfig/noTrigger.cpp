@@ -1,12 +1,12 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-int RLS::RlsDynamics::noTrigger(const Model &model, const double &t)
+int RLS::RlsDynamics::noTrigger(const double &t)
 {
   return 0;
 }

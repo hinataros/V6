@@ -1,9 +1,9 @@
-# @author Sho Miyahara 2017
+# @author Sho Miyahara 2018
 
 build/
 result/
 misc/rlsModule/__pycache__/
-share/motion/*.yaml
-!share/motion/skeleton/.gitkeep
+share/motion/*
+!share/motion/.gitkeep
 *~
 *.dev

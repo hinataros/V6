@@ -2,7 +2,11 @@
 
 set(srcs
   initialize.cpp
+  initializeState.cpp
+  finalize.cpp
+  readRlsSimulator.cpp
   initialParameter.cpp
+  setState2Model.cpp
   runge4.cpp
   linkEqs.cpp
   diffEqs.cpp
@@ -10,7 +14,6 @@ set(srcs
   se3exp.cpp
   update.cpp
   run.cpp
-  finalize.cpp
   main.cpp
   )
 

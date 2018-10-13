@@ -11,11 +11,6 @@ void RLS::TexMaker::setInterfacePath(string arg)
   path_interface = arg;
 }
 
-void RLS::TexMaker::setModelName(string arg)
-{
-  name_model = arg;
-}
-
 void RLS::TexMaker::setTitle(string arg)
 {
   title = arg;

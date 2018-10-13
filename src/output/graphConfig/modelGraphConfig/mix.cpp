@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::mix(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::mix(GpMaker &gpMaker, TexMaker &texMaker)
 {
   if(debug) DEBUG;
 
@@ -14,59 +14,63 @@ void RLS::Output::mix(const Config &config, const TreeModel::Info &info, GpMaker
 
   reset();
   setFileName("comPos");
-  makeDat("t-rC");
+  setID(outputID);
 
-  gpMaker.reset();
-  gpMaker.setName(file_name);
-  gpMaker.setYLabel("CoM pos. [mm]");
-  gpMaker.setUnit("m");
-  gpMaker.setDimention(3);
-  gpMaker.makeGp();
+  setVerticalDat("t");
+  setHorizontalDat("rC", id);
+  makeDat();
 
-  texMaker.setName(file_name);
-  texMaker.addMinipage();
+  // gpMaker.reset();
+  // gpMaker.setName(file_name);
+  // gpMaker.setYLabel("CoM pos. [mm]");
+  // gpMaker.setUnit("m");
+  // gpMaker.setDimention(3);
+  // gpMaker.makeGp();
 
-  reset();
-  setFileName("comVel");
-  makeDat("t-vC");
+  // texMaker.setName(file_name);
+  // texMaker.addMinipage();
 
-  gpMaker.reset();
-  gpMaker.setName(file_name);
-  gpMaker.setYLabel("CoM vel. [m/s]");
-  gpMaker.setDimention(3);
-  gpMaker.makeGp();
+  // reset();
+  // setFileName("comVel");
+  // makeDat("t-vC");
 
-  texMaker.setName(file_name);
-  texMaker.addMinipage();
+  // gpMaker.reset();
+  // gpMaker.setName(file_name);
+  // gpMaker.setYLabel("CoM vel. [m/s]");
+  // gpMaker.setDimention(3);
+  // gpMaker.makeGp();
 
-  reset();
-  setFileName("baseOrient");
-  makeDat("t-xiB");
+  // texMaker.setName(file_name);
+  // texMaker.addMinipage();
 
-  gpMaker.reset();
-  gpMaker.setName(file_name);
-  gpMaker.setYLabel("Base orient. [deg]");
-  gpMaker.setUnit("RAD2DEG");
-  gpMaker.setDimention(3);
-  gpMaker.makeGp();
+  // reset();
+  // setFileName("baseOrient");
+  // makeDat("t-xiB");
 
-  texMaker.setName(file_name);
-  texMaker.addMinipage();
+  // gpMaker.reset();
+  // gpMaker.setName(file_name);
+  // gpMaker.setYLabel("Base orient. [deg]");
+  // gpMaker.setUnit("RAD2DEG");
+  // gpMaker.setDimention(3);
+  // gpMaker.makeGp();
 
-  reset();
-  setFileName("baseAngVel");
-  makeDat("t-wB");
+  // texMaker.setName(file_name);
+  // texMaker.addMinipage();
 
-  gpMaker.reset();
-  gpMaker.setName(file_name);
-  gpMaker.setYLabel("Base ang. vel. [rad/s]");
-  gpMaker.setDimention(3);
-  gpMaker.makeGp();
+  // reset();
+  // setFileName("baseAngVel");
+  // makeDat("t-wB");
 
-  texMaker.setName(file_name);
-  texMaker.addMinipage();
+  // gpMaker.reset();
+  // gpMaker.setName(file_name);
+  // gpMaker.setYLabel("Base ang. vel. [rad/s]");
+  // gpMaker.setDimention(3);
+  // gpMaker.makeGp();
 
-  texMaker.setTexName("mix");
-  texMaker.setCaption("Mixed quasi values.");
-  texMaker.makeTex();
+  // texMaker.setName(file_name);
+  // texMaker.addMinipage();
+
+  // texMaker.setTexName("mix");
+  // texMaker.setCaption("Mixed quasi values.");
+  // texMaker.makeTex();
 }

@@ -10,8 +10,8 @@ void RLS::TreeModel::joints()
   if(debug) DEBUG;
 
   // smiyahara: 先端部のejはすべて0のベクトル
-  for(int i=0; i<info.linkNum; i++){
-    if(i==info.rootNode){
+  for(int i=0; i<info->linkNum; i++){
+    if(i==info->rootNode){
       if(link[i].jointType == "fixed")
         link[i].ej << 0, 0, 0;
       if(link[i].jointType == "free")

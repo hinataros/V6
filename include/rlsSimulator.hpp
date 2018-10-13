@@ -8,22 +8,11 @@ namespace RLS{
   class RlsSimulator:
     virtual public Common{
   private:
-  public:
-    double t;
+    struct Config{
+      string *controlInput;
+    } config;
 
-    Vector3d rB;
-    Matrix3d RB;
-    Vector3d voB;
-    Vector3d wB;
-
-    VectorXd th;
-    VectorXd dth;
-
-    VectorXd u;
-
-    Vector3d dvoB;
-    Vector3d dwB;
-    VectorXd ddth;
+    VectorXd *u;
 
     struct K{
       Vector3d vo[4];
@@ -33,27 +22,51 @@ namespace RLS{
       Vector3d dvo[4];
       Vector3d dw[4];
       VectorXd ddth[4];
-    } k;
+    } *k;
 
-    void initialize(const TreeModel::Info&);
-    void initialParameter(const Config::Clock&, TreeModel&);
+    Vector3d dvoB;
+    Vector3d dwB;
+    VectorXd ddth;
 
-    void runge4(const Config&, Model&, RlsDynamics&, Output&);
-
-    void linkEqs(const Config&, Model&, RlsDynamics&, Output&);
-    void linkEqs(const Config&, Model&, RlsDynamics&);
-    void diffEqs(const Config&, Model&, const int);
-
-    void integrator(Model&, const int, const double);
-    void se3exp(Vector3d&, Matrix3d&, const Vector3d&, const Vector3d&, const double);
-    void update(const Config::Clock&);
-
-    void finalize(Model&, RlsDynamics&, Output&);
   public:
-    void run(const Config&, Model&, RlsDynamics&, Output&);
+    double t;
 
-    RlsSimulator(const TreeModel::Info &info){
-      initialize(info);
+    struct State{
+      Vector3d rB;
+      Matrix3d RB;
+      Vector3d voB;
+      Vector3d wB;
+
+      VectorXd th;
+      VectorXd dth;
+    } *state;
+
+    void initialize(const string&, const Info&);
+    void initializeState(const Info&);
+    void finalize();
+    void readRlsSimulator(const string&, const Info&);
+    void initialParameter(Model&);
+
+    void setState2Model(Model&);
+    void runge4(Model&, Controller&, Output&);
+
+    void linkEqs(Model&, Controller&, Output&);
+    void linkEqs(Model&, Controller&);
+    void diffEqs(const int, Model&);
+
+    void integrator(const int, const double, Model&);
+    void se3exp(const int, Vector3d&, Matrix3d&, const Vector3d&, const Vector3d&, const double);
+    void update(const Info&, const double);
+
+  public:
+    void run(Model&, Controller&, Output&);
+
+    RlsSimulator(const string &path_yaml_rlsSimulator, const Info &info){
+      initialize(path_yaml_rlsSimulator, info);
+    }
+
+    ~RlsSimulator(){
+      finalize();
     }
   };
 }

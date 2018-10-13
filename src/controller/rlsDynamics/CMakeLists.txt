@@ -1,42 +1,38 @@
-# @author Sho Miyahara 2017
+# @author Sho Miyahara 2018
 
-add_subdirectory(initialize)
+add_subdirectory(model)
+add_subdirectory(yamlInfo)
 add_subdirectory(configurationManager)
-add_subdirectory(readWork)
-add_subdirectory(update)
 add_subdirectory(desiredValueGenerator)
 add_subdirectory(feedbackController)
+add_subdirectory(readController)
+add_subdirectory(update)
 add_subdirectory(controlMethod)
-add_subdirectory(index)
-
 add_subdirectory(outputConfig)
 
-set(srcs
-  finalize.cpp
-  initialValue.cpp
-  resize.cpp
-  reconfigure.cpp
-  rlsDynamics.cpp
-  )
+# add_subdirectory(extWrapper)
 
-if(rls_rlsDynamicsRTC)
-  add_subdirectory(RTC)
-  set(rlsDynamicsRTCCore_srcs ${rlsDynamicsRTCCore_srcs} PARENT_SCOPE)
-endif(rls_rlsDynamicsRTC)
+add_subdirectory(rlsDynamics)
 
-MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" rlsDynamics_srcs)
+# set(srcs
+#   )
+
+# MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" rlsDynamics_srcs)
 
 set(rlsDynamics_srcs
   ${initialize_srcs}
+  ${model_srcs}
+  ${yamlInfo_srcs}
   ${configurationManager_srcs}
-  ${readWork_srcs}
-  ${update_srcs}
   ${desiredValueGenerator_srcs}
   ${feedbackController_srcs}
+  ${readController_srcs}
+  ${update_srcs}
   ${controlMethod_srcs}
   ${index_srcs}
   ${transform_srcs}
   ${outputConfig_srcs}
+  ${extWrapper_srcs}
   ${rlsDynamics_srcs}
   PARENT_SCOPE
   )

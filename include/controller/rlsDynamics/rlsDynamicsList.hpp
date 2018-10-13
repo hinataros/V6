@@ -53,18 +53,18 @@ namespace RLS{
 
     // velocity control
     // ****************
-    Vector3d vBRef;
-    Vector3d wBRef;
-    VectorXd dthRef;
+    Vector3d vBfb;
+    Vector3d wBfb;
+    VectorXd dthfb;
 
-    Vector3d vCRef;
+    Vector3d vCfb;
     // ****************
 
-    Vector3d dvBRef;
-    Vector3d dwBRef;
+    Vector3d dvBfb;
+    Vector3d dwBfb;
     VectorXd ddthRef;
 
-    Vector3d dvCRef;
+    Vector3d dvCfb;
 
     Vector3d dvBoptRef;
     Vector3d dwBoptRef;
@@ -82,7 +82,7 @@ namespace RLS{
     VectorXd fRef;
     VectorXd nRef;
 
-    Vector6d cal_FextRef;
+    Vector6d cal_Fextfb;
 
     VectorXd tau;
 

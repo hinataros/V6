@@ -1,10 +1,10 @@
-#@author Sho Miyahara 2017
+#@author Sho Miyahara 2018
 
 add_subdirectory(triggerConfig)
 
 set(srcs
-  update.cpp
   trigger.cpp
+  reconfigure.cpp
   mapping.cpp
   configurationManager.cpp
   )

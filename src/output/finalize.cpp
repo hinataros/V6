@@ -10,7 +10,17 @@ void RLS::Output::finalize()
 {
   if(debug) DEBUG;
 
-  vector<double>().swap(data.t);
-  vector<TreeModelList>().swap(data.tm);
-  vector<RlsDynamicsList>().swap(data.dc);
+  vector<double>().swap(data.time);
+
+  for(int i=0; i<info->treeModelNum; i++)
+    vector<TreeModelList>().swap(data.treeModel[i].vec);
+
+  for(int i=0; i<controllerNum; i++)
+    vector<RlsDynamicsList>().swap(data.rlsDynamics[i].vec);
+
+  delete[] treeModelList_temp;
+  delete[] rlsDynamicsList_temp;
+
+  delete[] data.treeModel;
+  delete[] data.rlsDynamics;
 }

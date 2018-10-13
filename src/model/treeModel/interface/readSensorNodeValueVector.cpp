@@ -1,5 +1,5 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
@@ -12,19 +12,19 @@ VectorXd RLS::TreeModel::readSensorNodeValueVector(string value)
   VectorXd x;
 
   if(value=="force torque sensor"){
-    x = VectorXd(6*info.sensorNodeNum);
-    for(int i=0; i<info.sensorNodeNum; i++){
+    x = VectorXd(6*info->sensorNodeNum);
+    for(int i=0; i<info->sensorNodeNum; i++){
       x.segment(6*i,6) <<
-        link[info.sensorNode[i].num].f,
-        link[info.sensorNode[i].num].n;
+        link[info->sensorNode[i].num].f,
+        link[info->sensorNode[i].num].n;
     }
 
   }else if(value=="6D position"){
-    x = VectorXd(6*info.sensorNodeNum);
-    for(int i=0; i<info.sensorNodeNum; i++){
+    x = VectorXd(6*info->sensorNodeNum);
+    for(int i=0; i<info->sensorNodeNum; i++){
       x.segment(6*i,6) <<
-        link[info.sensorNode[i].num].r,
-        R2xi(link[info.sensorNode[i].num].R);
+        link[info->sensorNode[i].num].r,
+        R2xi(link[info->sensorNode[i].num].R);
     }
 
   }else{

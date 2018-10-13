@@ -1,16 +1,17 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-int RLS::RlsDynamics::checkFootContact(const Model &model, const double &t)
+int RLS::RlsDynamics::checkFootContact(const double &t)
 {
-  bool contactFlag[model.hoap2.info.controlNodeNum];
-  for(int i=0; i<model.hoap2.info.controlNodeNum; i++){
-    if(cal_F(6*i+2)!=0.)
+  bool contactFlag[info.model.controlNodeNum];
+
+  for(int i=0; i<info.model.controlNodeNum; i++){
+    if(model->cal_F(6*i+2)!=0.)
       contactFlag[i] = true;
     else
       contactFlag[i] = false;

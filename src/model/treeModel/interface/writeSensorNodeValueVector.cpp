@@ -1,5 +1,5 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
@@ -10,9 +10,9 @@ void RLS::TreeModel::writeSensorNodeValueVector(string value, VectorXd x)
   if(debug) DEBUG;
 
   if(value=="force torque sensor"){
-    for(int i=0; i<info.sensorNodeNum; i++){
-      link[info.sensorNode[i].num].f = x.segment(6*i, 3);
-      link[info.sensorNode[i].num].n = x.segment(6*i+3, 3);
+    for(int i=0; i<info->sensorNodeNum; i++){
+      link[info->sensorNode[i].num].f = x.segment(6*i, 3);
+      link[info->sensorNode[i].num].n = x.segment(6*i+3, 3);
     }
 
   }else{

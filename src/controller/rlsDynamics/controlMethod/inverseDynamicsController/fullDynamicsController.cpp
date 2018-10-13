@@ -1,26 +1,26 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-VectorXd RLS::RlsDynamics::fullDynamicsController(const TreeModel::Info &info)
+VectorXd RLS::RlsDynamics::fullDynamicsController()
 {
   if(debug) DEBUG;
 
   // momentum control
-  (this->*momentumController_ptr)(info);
+  (this->*momentumController_ptr)();
 
-  // acceleration control
-  (this->*motionController_ptr)(info);
+  // motion control
+  (this->*motionController_ptr)();
 
   // force control
-  (this->*forceController_ptr)(info);
+  (this->*forceController_ptr)();
 
   // torque control
-  (this->*torqueController_ptr)(info);
+  (this->*torqueController_ptr)();
 
   return tau;
 }

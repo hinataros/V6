@@ -1,17 +1,17 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::baseMomentum(const TreeModel::Info &info)
+void RLS::RlsDynamics::baseMomentum()
 {
   if(debug) DEBUG;
 
-  linearMomentum(info);
-  baseAngularMomentum(info);
+  linearMomentum();
+  baseAngularMomentum();
 
   cal_dLBRef <<
     dpRef,

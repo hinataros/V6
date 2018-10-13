@@ -1,16 +1,16 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::dcmMomentum(const TreeModel::Info &info)
+void RLS::RlsDynamics::dcmMomentum()
 {
   if(debug) DEBUG;
 
-  Vector3d rvrpRef = rX - drXRef/wX;
+  Vector3d rvrpRef = model->rX - fb.drXfb/model->wX;
 
-  dpRef = M*wX*wX*(rC - rvrpRef);
+  dpRef = model->M*model->wX*model->wX*(model->rC - rvrpRef);
 }

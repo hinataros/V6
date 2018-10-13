@@ -3,8 +3,8 @@
 set(srcs
   desiredBaseTranslationZeroGenerator.cpp
   desiredBaseOrientationZeroGenerator.cpp
-  desiredControlNodeAccelerationZeroGenerator.cpp
-  desiredControlNodeWrenchZeroGenerator.cpp
+  desiredControlNodeMotionZeroGenerator.cpp
+  desiredControlNodeForceZeroGenerator.cpp
   desiredComZeroGenerator.cpp
   desiredDcmZeroGenerator.cpp
   desiredExternalWrenchZeroGenerator.cpp

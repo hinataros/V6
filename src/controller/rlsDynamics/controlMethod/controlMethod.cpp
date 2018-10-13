@@ -1,21 +1,23 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::controlMethod(const TreeModel::Info &info)
+void RLS::RlsDynamics::controlMethod()
 {
   if(debug) DEBUG;
 
-  if(this->info.input=="velocity"||this->info.input=="acceleration")
-    input = (this->*motionController_ptr)(info);
+  if(config.input=="velocity"||config.input=="acceleration")
+    input = (this->*motionController_ptr)();
 
-  else if(this->info.input=="torque")
-    input = (this->*inverseDynamicsController_ptr)(info);
+  else if(config.input=="torque")
+    input = (this->*inverseDynamicsController_ptr)();
 
   else
-    input = VectorXd::Zero(info.dof.joint);
+    input = VectorXd::Zero(info.model.dof.joint);
+
+  (this->*externalWrenchController_ptr)();
 }

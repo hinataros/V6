@@ -184,7 +184,7 @@ void RLS::GpMaker::makeGp()
     if(xLabel == timeLabelStr)
       point += dimention[l-1];
     else
-      point += 2*dimention[l-1];        
+      point += 2*dimention[l-1];
   }
 
   ofstream gpMaker((path_gp_ind+"src/"+name+".gp").c_str());

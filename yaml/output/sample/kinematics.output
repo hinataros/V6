@@ -1,0 +1,91 @@
+# @author Sho Miyahara 2018
+
+Result:
+  Composite data name: cmp
+  Individual data name: ind
+
+Gp:
+  Check: false
+  Sampling time: 10
+  Start time offset: 0.
+
+Tex:
+  Title: Simulation results
+  Layout:
+    -
+      file name: mix
+      caption: Mixed quasi values.
+      elements:
+        -
+          file name: comPos
+          dat value:
+            vertical: time
+            horizontal:
+              terget: skeletonA7prim
+              name: tree model rC
+          y label: CoM pos. [mm]
+          unit: m
+          dimention: 3
+
+        -
+          file name: baseOrient
+          dat value:
+            vertical: time
+            horizontal:
+              terget: skeletonA7prim
+              name: tree model xiB
+          y label: Base orient. [deg]
+          unit: RAD2DEG
+          dimention: 3
+    -
+      file name: baseRotDes
+      caption: Desired base rotation values.
+      elements:
+        -
+          file name: baseOrientDes
+          dat value:
+            vertical: time
+            horizontal:
+              terget: 0
+              name: xiBDes
+          y label: Des. base orient. [deg]
+          unit: RAD2DEG
+          dimention: 3
+
+Gif:
+  Sampling time: 100
+  Link color: grey
+  Joint color: black
+  Out:
+    Terminal: true
+    Dir: true
+  Plane:
+    y-z:
+      Flag: true
+      x min: -0.5
+      x max: 0.5
+      y min: -0.5
+      y max: 0.5
+    x-z:
+      Flag: true
+      x min: -0.5
+      x max: 0.5
+      y min: -0.5
+      y max: 0.5
+    x-y:
+      Flag: true
+      x min: -0.5
+      x max: 0.5
+      y min: -0.5
+      y max: 0.5
+    3D:
+      Flag: false
+      x min: -0.5
+      x max: 0.5
+      y min: -0.5
+      y max: 0.5
+      z min: -0.5
+      z max: 0.5
+
+Choreonoid:
+  Sampling time: 10

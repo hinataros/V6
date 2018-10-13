@@ -1,5 +1,5 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include <fstream>
@@ -8,20 +8,20 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::runGnuplot(const Config &config)
+void RLS::Output::runGnuplot()
 {
   if(debug) DEBUG;
 
-  FILE *gp;
+  FILE *fp;
 
-  gp = popen("gnuplot -persist ", "w");
-  fprintf(gp,"cd '%s'\n", (config.dir.gp.ind).c_str());
-  fprintf(gp,"load 'main.gp'\n");
-  pclose(gp);
+  fp = popen("gnuplot -persist ", "w");
+  fprintf(fp,"cd '%s'\n", (dir.gp.ind).c_str());
+  fprintf(fp,"load 'main.gp'\n");
+  pclose(fp);
 
   cout << "made graphs..." << endl;
 
-  if(config.gp.check){
+  if(gp.check){
     cout << "Please hit any key...";
     getchar();
   }
@@ -31,6 +31,6 @@ void RLS::Output::runGnuplot(const Config &config)
     cout << "Graph closed successfully!" << endl;
 
   // eps handler target
-  ofstream flag((config.dir.interface+"handler.flag").c_str());
+  ofstream flag((dir.interface+"handler.flag").c_str());
   flag.close();
 }

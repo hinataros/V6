@@ -8,52 +8,44 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::output(const Config &config, const TreeModel::Info &info)
+void RLS::Output::output()
 {
   if(debug) DEBUG;
 
-  if(config.tex.flag){
+  if(tex.flag){
     TexMaker interfaceMaker;
-    interfaceMaker.setInterfacePath(config.dir.interface);
-    interfaceMaker.setModelName(info.name.body);
-    interfaceMaker.setTitle(config.tex.title);
-    interfaceMaker.setCmpName(config.result.name.cmp);
-    interfaceMaker.setIndName(config.result.name.ind);
+    interfaceMaker.setInterfacePath(dir.interface);
+    interfaceMaker.setTitle(tex.title);
+    interfaceMaker.setCmpName(result.cmp);
+    interfaceMaker.setIndName(result.ind);
 
     interfaceMaker.makeSimInfo();
 
     // clean tex
-    ofstream clean((config.dir.pdf.ind+config.result.name.ind+".tex").c_str());
+    ofstream clean((dir.pdf.ind+result.ind+".tex").c_str());
   }
 
-  if(config.gp.flag){
+  if(gp.flag){
     GpMaker libraryMaker;
-    libraryMaker.setGpPath(config.dir.gp.ind);
-    libraryMaker.setDatPath(config.dir.dat.ind);
-    libraryMaker.setEpsPath(config.dir.eps.ind);
-    libraryMaker.setDt(config.clock.dt);
-    libraryMaker.setST(config.gp.st);
-    libraryMaker.setStartTime(config.gp.tstart);
+    libraryMaker.setGpPath(dir.gp.ind);
+    libraryMaker.setDatPath(dir.dat.ind);
+    libraryMaker.setEpsPath(dir.eps.ind);
+    libraryMaker.setDt(worldModel->dt);
+    libraryMaker.setST(gp.st);
+    libraryMaker.setStartTime(gp.tstart);
 
     libraryMaker.makeLibrary();
 
-    // controller graph config
-    if(input=="velocity")
-      velocityGraphConfig(config, info);
-    else if(input=="acceleration")
-      accelerationGraphConfig(config, info);
-    else if(input=="torque")
-      masterGraphConfig(config, info);
-    // torqueGraphConfig(config, info);
+    makeGraph();
 
-    runGnuplot(config);
+    runGnuplot();
   }
 
-  if(config.cho.flag)
-    makeMotionYaml(config, info);
+  if(cho.flag)
+    makeMotionYaml();
 
-  // if(config.gif.flag){
-  //   makeGifDat(config, model);
-  //   makeGif(config, model);
-  // }
+  // // if(config.gif.flag){
+  // //   makeGifDat(config, model);
+  // //   makeGif(config, model);
+  // // }
 }

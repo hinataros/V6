@@ -1,12 +1,12 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
-#include "rlsDynamics.hpp"
+#include "desiredValueGenerator.hpp"
 
-void RLS::RlsDynamics::desiredBaseOrientationGeneratorCP(const double &t)
+void RLS::DesiredValueGenerator::desiredBaseOrientationGeneratorCP(const double &t)
 {
   if(debug) DEBUG;
 
@@ -21,4 +21,13 @@ void RLS::RlsDynamics::desiredBaseOrientationGeneratorCP(const double &t)
     dxiBDes(i) = des(1);
     ddxiBDes(i) = des(2);
   }
+
+  RBDes = xi2R(xiBDes);
+
+  // smiyahara: オイラー表現の姿勢は計算しといたほうがいいのでは
+  // wBDes = dxi2w(dxiBDes, R2xi(this->model.RB));
+  // dwBDes = ddxi2dw(ddxiBDes, R2xi(this->model.RB), w2dxi(model.link[model.info.rootNode].w, R2xi(this->model.RB)));
+
+  wBDes = dxi2w(dxiBDes, xiBDes);
+  dwBDes = ddxi2dw(ddxiBDes, xiBDes, dxiBDes);
 }

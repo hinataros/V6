@@ -3,7 +3,7 @@
 set(srcs
   initialize.cpp
   setLink.cpp
-  setDir.cpp
+  setPath.cpp
   readArgument.cpp
   readInitYaml.cpp
   readConfig.cpp

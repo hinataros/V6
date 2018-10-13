@@ -1,17 +1,17 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::centroidalMomentum(const TreeModel::Info &info)
+void RLS::RlsDynamics::centroidalMomentum()
 {
   if(debug) DEBUG;
 
-  linearMomentum(info);
-  centroidalAngularMomentum(info);
+  linearMomentum();
+  centroidalAngularMomentum();
 
   cal_dLCRef <<
     dpRef,

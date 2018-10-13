@@ -1,4 +1,5 @@
 set(srcs
+  getControlNode.cpp
   F2rp.cpp
   h_weight.cpp
   )

@@ -1,23 +1,45 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
+#include "yaml-cpp/yaml.h"
 #include "common.hpp"
-#include "world.hpp"
+
+#include "info.hpp"
+#include "worldModel.hpp"
 
 #include "treeModelList.hpp"
 
 namespace RLS{
   class TreeModel:
-    public World,
     virtual public Common{
   private:
-    void joints();
-    void initializeInfo();
-    void initializeLink();
-    void initializeAll();
+    YAML::Node doc_treeModel;
+
+    TreeModelInfo *info;
+    WorldModel *worldModel;
+
+    int uniqueNum;
+    bool dynamics_flag;
+
+    struct Include{
+      string type;
+      string search;
+      string read;
+      string path;
+    } include_mp, include_ic;;
+
+    void resizeLink();
+    void resizeAll();
+
+    void readBody();
+    void readCnoid();
+
+    void setModelParameterInclude(const string&);
+    void setInitialConfigurationInclude(const string&);
 
     // kinematics
+    void joints();
     void position();
     void velocity();
 
@@ -31,47 +53,6 @@ namespace RLS{
     void outputConfig();
 
   public:
-    struct Dof{
-      int all;
-      int root;
-      int joint;
-    };
-
-    // smiyahara: 良い名前が浮かばなかった
-    struct Each{
-      int all;
-      int axis[6];
-    };
-    // smiyahara: 別の名前希望
-    struct Contact{
-      string name;
-      int num;
-      Each c;
-      Each m;
-    };
-
-    struct ChoModel{
-      string body;
-      string cnoid;
-    };
-
-    struct Info{
-      bool dynamics_flag;
-      string bodyName;
-      string cnoidName;
-      ChoModel name;
-      ChoModel path;
-
-      int rootNode;
-      int linkNum;
-      int controlNodeNum;
-      Contact *controlNode;
-      int sensorNodeNum;
-      Contact *sensorNode;
-      Dof dof;
-      Contact contact;
-    } info;
-
     struct All{ // smiyahara:ココのallの定義の仕方がびみょ
       double m;
       Vector3d rC;
@@ -177,7 +158,7 @@ namespace RLS{
       double tau_rne;
     } *link;
 
-    TreeModelList tm_list;
+    TreeModelList outputList;
 
     VectorXd readJointStateVector(string);
     void writeJointStateVector(string, VectorXd);
@@ -186,14 +167,15 @@ namespace RLS{
     MatrixXd stateMatrixFilter(bool, bool, MatrixXd);
     VectorXd readControlNodeValueVector(string);
 
-    void readModel(const string&);
-    void setDir(const string&);
-    void readBody();
-    void readCnoid(Config::Clock&);
-    void deleteModel();
+    void initialize(const int&, TreeModelInfo&, WorldModel&);
+    void finalize();
+
+    void readModel(const string&, const string&);
 
     void transformMatrix();
 
     void update();
+
+    TreeModel(){}
   };
 }

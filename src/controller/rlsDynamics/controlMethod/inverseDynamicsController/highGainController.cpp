@@ -1,20 +1,20 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-VectorXd RLS::RlsDynamics::highGainController(const TreeModel::Info &info)
+VectorXd RLS::RlsDynamics::highGainController()
 {
   if(debug) DEBUG;
 
-  (this->*motionController_ptr)(info);
+  (this->*motionController_ptr)();
 
-  thDes += dthRef*dt;
+  thDes += dthRef*worldModel->dt;
 
-  tau = KdHG*(dthRef - dth) + KpHG*(thDes - th);
+  tau = KdHG*(dthRef - model->dth) + KpHG*(thDes - model->th);
 
   return tau;
 }

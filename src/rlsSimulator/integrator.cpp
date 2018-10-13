@@ -1,21 +1,23 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
-#include "rlsDynamics.hpp"
+#include "controller.hpp"
 #include "output.hpp"
 #include "rlsSimulator.hpp"
 
-void RLS::RlsSimulator::integrator(Model &model, const int phase, const double dttemp)
+void RLS::RlsSimulator::integrator(const int phase, const double dttemp, Model &model)
 {
   if(debug) DEBUG;
 
-  se3exp(model.hoap2.link[model.hoap2.info.rootNode].r, model.hoap2.link[model.hoap2.info.rootNode].R, k.vo[phase], k.w[phase], dttemp);
-  model.hoap2.writeJointStateVector("joint angle", th + dttemp*k.dth[phase]);
+  for(int i=0; i<model.info.treeModelNum; i++){
+    se3exp(i, model.treeModel[i].link[model.info.treeModel[i].rootNode].r, model.treeModel[i].link[model.info.treeModel[i].rootNode].R, k[i].vo[phase], k[i].w[phase], dttemp);
+    model.treeModel[i].writeJointStateVector("joint angle", state[i].th + dttemp*k[i].dth[phase]);
 
-  model.hoap2.link[model.hoap2.info.rootNode].vo = voB + dttemp*k.dvo[phase];
-  model.hoap2.link[model.hoap2.info.rootNode].w = wB + dttemp*k.dw[phase];
-  model.hoap2.writeJointStateVector("joint velocity", dth + dttemp*k.ddth[phase]);
+    model.treeModel[i].link[model.info.treeModel[i].rootNode].vo = state[i].voB + dttemp*k[i].dvo[phase];
+    model.treeModel[i].link[model.info.treeModel[i].rootNode].w = state[i].wB + dttemp*k[i].dw[phase];
+    model.treeModel[i].writeJointStateVector("joint velocity", state[i].dth + dttemp*k[i].ddth[phase]);
+  }
 }

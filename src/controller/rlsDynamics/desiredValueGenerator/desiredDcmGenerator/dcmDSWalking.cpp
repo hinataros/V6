@@ -5,9 +5,9 @@
 #include "config.hpp"
 #include "info.hpp"
 #include "model.hpp"
-#include "rlsDynamics.hpp"
+#include "desiredValueGenerator.hpp"
 
-void RLS::RlsDynamics::dcmDSWalking(Config &config, Info &info, Model &model, double &t)
+void RLS::DesiredValueGenerator::dcmDSWalking(Config &config, Info &info, Model &model, double &t)
 {
   if(config.flag.debug) DEBUG;
 

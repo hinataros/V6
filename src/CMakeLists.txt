@@ -28,7 +28,10 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 # include_directories(${OPENRTM_INCLUDE_DIRS})
 # include_directories(${OMNIORB_INCLUDE_DIRS})
 
+include_directories(${PROJECT_SOURCE_DIR}/include/config)
+
 include_directories(${PROJECT_SOURCE_DIR}/include/model)
+include_directories(${PROJECT_SOURCE_DIR}/include/model/worldModel)
 include_directories(${PROJECT_SOURCE_DIR}/include/model/treeModel)
 include_directories(${PROJECT_SOURCE_DIR}/include/model/rigidBodyModel)
 
@@ -37,10 +40,18 @@ include_directories(${PROJECT_SOURCE_DIR}/include/solver)
 
 include_directories(${PROJECT_SOURCE_DIR}/include/controller)
 include_directories(${PROJECT_SOURCE_DIR}/include/controller/sharedMemory)
+include_directories(${PROJECT_SOURCE_DIR}/include/controller/controllerModel)
+include_directories(${PROJECT_SOURCE_DIR}/include/controller/desiredValueGenerator)
+include_directories(${PROJECT_SOURCE_DIR}/include/controller/feedbackController)
 include_directories(${PROJECT_SOURCE_DIR}/include/controller/rlsDynamics)
 include_directories(${PROJECT_SOURCE_DIR}/include/controller/object)
 
 include_directories(${PROJECT_SOURCE_DIR}/include/output)
+
+if(rls_ext)
+  add_definitions(-DEXT)
+  include_directories(${PROJECT_SOURCE_DIR}/src/controller/ext)
+endif(rls_ext)
 
 include_directories(${OPENRTM_INCLUDE_DIRS})
 
@@ -82,9 +93,12 @@ add_subdirectory(controller)
 
 if(rls_rlsDynamicsRTC)
   set(RTC_NAME "rlsDynamicsRTC")
-  add_definitions(-DCHOREONOID)
+  add_definitions(-DRLSDYNAMICSRTC)
+  include_directories(${PROJECT_SOURCE_DIR}/include/rtc)
 
-  set(RTC_srcs ${sources} ${rlsDynamicsRTC_srcs})
+  add_subdirectory(rtc)
+
+  set(RTC_srcs ${sources} ${rlsDynamicsRTC_srcs} ${rtc_srcs})
 
   add_library(${RTC_NAME} ${LIB_TYPE} ${RTC_srcs})
   target_link_libraries(${RTC_NAME} ${LDFLAGS})

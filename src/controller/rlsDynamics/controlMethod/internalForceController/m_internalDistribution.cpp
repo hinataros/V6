@@ -1,22 +1,23 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::m_internalDistribution(const TreeModel::Info &info)
+void RLS::RlsDynamics::m_internalDistribution()
 {
   if(debug) DEBUG;
 
-  Vector2d recmp = (rX - drXDes/wX).head(2);
+  Vector2d recmp = (model->rX - des.drXDes/model->wX).head(2);
   MatrixXd Wecmpc = h_weight(recmp);
 
-  VectorXd cal_FcTildeRef = Bc.transpose()*cal_FRef - pInv(cal_PcM, Wecmpc)*(cal_dLCRef + cal_GC);
+  VectorXd cal_FcTildeRef =
+    Bc.transpose()*fb.cal_Ffb - pInv(cal_PcM, Wecmpc)*(cal_dLCRef + model->cal_GC);
   Vector6d cal_FcTildeHRef = cal_FcTildeRef.tail(6);
 
-  MatrixXd NH = N(cal_PcM).block(12,0,6,info.contact.c.all);
+  MatrixXd NH = N(cal_PcM).block(12,0,6,info.constraint.c.all);
 
   // cal_FcaBarRef = pInv(NH)*cal_FcTildeHRef;
 

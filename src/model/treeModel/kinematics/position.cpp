@@ -1,5 +1,5 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
@@ -12,8 +12,8 @@ void RLS::TreeModel::position()
   // initialize
   all.rC = Vector3d::Zero();
 
-  for(int i=0; i<info.linkNum; i++){
-    if(i!=info.rootNode){
+  for(int i=0; i<info->linkNum; i++){
+    if(i!=info->rootNode){
       link[i].R = link[link[i].parentNode].R*R(link[i].jointAxis, link[i].th);
       link[i].r = link[link[i].parentNode].r + link[link[i].parentNode].R*link[i].d;
     }

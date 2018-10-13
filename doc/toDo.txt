@@ -128,8 +128,7 @@ info.contact.c.allなどはstateではなくデフォルトにしたほうがい
 jacobian(offset有): jacobian(), TreeModel::update(), Controller::resize()
 jacobianはmodelクラスの外に出したほうがいい
 
-
-**** chmodel branch ****
+// ********************************
 readWorkのファイル分割
 transform()のオフセット
 bb_Rの計算位置
@@ -139,3 +138,6 @@ controller内のdt
 cal_Fは無くしたい
 drivenを設定しないとBcとかが初期化されないからエラーだす
 trajectoryでnumを0以外に設定した時にsequenceが複数設定されていなかったらコアダンプする．->「numで指定したsequenceが無い」っていうエラー文を出したい
+// ********************************
+
+worldModel.nをoutputのメンバにしてoutput起動時に計算するようにしたほうがいい

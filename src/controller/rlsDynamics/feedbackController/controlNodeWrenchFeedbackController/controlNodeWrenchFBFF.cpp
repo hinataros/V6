@@ -1,14 +1,14 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
-#include "rlsDynamics.hpp"
+#include "feedbackController.hpp"
 
-void RLS::RlsDynamics::controlNodeWrenchFBFF(const TreeModel &model)
+void RLS::FeedbackController::controlNodeWrenchFBFF()
 {
   if(debug) DEBUG;
 
-  cal_FRef = cal_FDes;
+  cal_Ffb = des->cal_FDes;
 }

@@ -1,14 +1,14 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::linearMomentum(const TreeModel::Info &info)
+void RLS::RlsDynamics::linearMomentum()
 {
   if(debug) DEBUG;
 
-  dpRef = M*dvCRef;
+  dpRef = model->M*fb.dvCfb;
 }

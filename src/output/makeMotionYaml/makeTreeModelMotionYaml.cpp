@@ -1,5 +1,5 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include <fstream>
@@ -8,11 +8,11 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::makeTreeModelMotionYaml(const Config &config, const TreeModel::Info &info)
+void RLS::Output::makeTreeModelMotionYaml(const int id)
 {
   if(debug) DEBUG;
 
-  string path = config.dir.link + "share/motion/" + info.name.body + "Motion.yaml";
+  string path = dir.motion + info->treeModel[id].name + "Motion.yaml";
 
   ofstream motionYaml(path.c_str());
   if(!motionYaml)
@@ -24,19 +24,19 @@ void RLS::Output::makeTreeModelMotionYaml(const Config &config, const TreeModel:
       << "-" << endl
       << " type: 'MultiValueSeq'" << endl
       << " content: 'JointPosition'" << endl
-      << " frameRate: " << 1/(config.clock.dt*config.cho.st) << endl
-      << " numParts: " << info.dof.joint << endl
+      << " frameRate: " << static_cast<int>(1/(worldModel->dt*cho.st)) << endl
+      << " numParts: " << info->treeModel[id].dof.joint << endl
       << " frames:" << endl << endl;
 
-    for(int i=0; i<config.clock.n+1; i+=config.cho.st){
+    for(int i=0; i<worldModel->n+1; i+=cho.st){
       motionYaml << "  - [";
 
-      for (int j=0; j<info.dof.joint-1; j++)
+      for (int j=0; j<info->treeModel[id].dof.joint-1; j++)
         motionYaml <<
           setprecision(6) << scientific <<
-          data.tm[i].th(j) << ", ";
+          data.treeModel[id].vec[i].th(j) << ", ";
 
-      motionYaml << data.tm[i].th(info.dof.joint-1) << "]" << endl;
+      motionYaml << data.treeModel[id].vec[i].th(info->treeModel[id].dof.joint-1) << "]" << endl;
     }
 
     Quaterniond quat;
@@ -48,21 +48,21 @@ void RLS::Output::makeTreeModelMotionYaml(const Config &config, const TreeModel:
       << "-" << endl
       << " type: 'MultiSE3Seq'" << endl
       << " content: 'LinkPosition'" << endl
-      << " frameRate: " << 1/(config.clock.dt*config.cho.st) << endl
+      << " frameRate: " << static_cast<int>(1/(worldModel->dt*cho.st)) << endl
       << " numParts: " << "1" << endl
       << " format: " << "XYZQWQXQYQZ" << endl
       << " frames:" << endl << endl;
 
-    for(int i=0; i<config.clock.n+1; i+=config.cho.st){
+    for(int i=0; i<worldModel->n+1; i+=cho.st){
       motionYaml << "  - [ [";
 
       for(int j=0; j<3; j++)
         motionYaml <<
           setprecision(6) << scientific <<
-          data.tm[i].rB(j) << ", ";
+          data.treeModel[id].vec[i].rB(j) << ", ";
 
       // **** calc Quaternion ****
-      R = data.tm[i].RB;
+      R = data.treeModel[id].vec[i].RB;
       double ang = (R(0,0)+R(1,1)+R(2,2)-1)/2;
 
       if(ang>1.)

@@ -152,7 +152,7 @@ void RLS::GpMaker::makeSet()
 
   string margin_set =
     "set lmargin 6.5\n"
-    "set rmargin 1\n"
+    "set rmargin 1.2\n"
     "set tmargin 1.2\n"
     "set bmargin 2.8\n";
 

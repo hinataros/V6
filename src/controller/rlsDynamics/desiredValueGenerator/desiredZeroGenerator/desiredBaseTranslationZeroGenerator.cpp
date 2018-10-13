@@ -1,16 +1,16 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
-#include "rlsDynamics.hpp"
+#include "desiredValueGenerator.hpp"
 
-void RLS::RlsDynamics::desiredBaseTranslationZeroGenerator(const double &t)
+void RLS::DesiredValueGenerator::desiredBaseTranslationZeroGenerator(const double &t)
 {
   if(debug) DEBUG;
 
-  rBDes = rB;
+  rBDes = model->rB;
   vBDes = Vector3d::Zero();
   dvBDes = Vector3d::Zero();
 }

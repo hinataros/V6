@@ -1,5 +1,5 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include <unistd.h>
@@ -21,6 +21,8 @@ void RLS::Config::readInitYaml()
 
   YAML::Node doc = YAML::LoadFile(path.c_str());
 
-  if(doc["Conf"])
-    conf = doc["Conf"].as<string>();
+  if(doc["Config"])
+    _init_config = doc["Config"].as<string>();
+
+  path_yaml.config = dir.link + "yaml/config/" + _init_config;
 }

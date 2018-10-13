@@ -1,7 +1,9 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
+#include "info.hpp"
+#include "worldModel.hpp"
 #include "treeModel.hpp"
 #include "rigidBodyModel.hpp"
 
@@ -9,19 +11,30 @@ namespace RLS{
   class Model{
   private:
   public:
-    TreeModel hoap2;
-    RigidBodyModel object;
+    WorldModel worldModel;
 
-    void readModel(Config&);
-    void deleteModel();
+    Info info;
+
+    TreeModel *treeModel;
+    RigidBodyModel *rigidBodyModel;
+
+    void initialize(const string&, const string&);
+    void finalize();
+    void initializeInfo();
+    void makeModel(const string&);
+    void setID();
+    void initialUpdate();
     void update();
 
     Model(){}
-    Model(Config& config){
-      readModel(config);
+    Model(const string &dir_share, const string &path_yaml_model){
+      initialize(dir_share, path_yaml_model);
     }
-    // ~Model(){
-    //   deleteNode(config);
-    // }
+
+#ifndef RLSDYNAMICSRTC
+    ~Model(){
+      finalize();
+    }
+#endif
   };
 }

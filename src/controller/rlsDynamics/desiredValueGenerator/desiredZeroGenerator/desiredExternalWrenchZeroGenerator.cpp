@@ -1,12 +1,12 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
-#include "rlsDynamics.hpp"
+#include "desiredValueGenerator.hpp"
 
-void RLS::RlsDynamics::desiredExternalWrenchZeroGenerator(const double &t)
+void RLS::DesiredValueGenerator::desiredExternalWrenchZeroGenerator(const double &t)
 {
   if(debug) DEBUG;
 

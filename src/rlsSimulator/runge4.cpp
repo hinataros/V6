@@ -1,38 +1,38 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
-#include "rlsDynamics.hpp"
+#include "controller.hpp"
 #include "output.hpp"
 #include "rlsSimulator.hpp"
 
-void RLS::RlsSimulator::runge4(const Config &config, Model &model, RlsDynamics &rlsDynamics, Output &output)
+void RLS::RlsSimulator::runge4(Model &model, Controller &controller, Output &output)
 {
   if(debug) DEBUG;
 
   // phase 1
-  linkEqs(config, model, rlsDynamics, output);
-  diffEqs(config, model, 0);
-  integrator(model, 0, config.clock.dt/2);
+  linkEqs(model, controller, output);
+  diffEqs(0, model);
+  integrator(0, model.worldModel.dt/2, model);
 
   // phase 2
-  t += config.clock.dt/2;
-  linkEqs(config, model, rlsDynamics);
-  diffEqs(config, model, 1);
-  integrator(model, 1, config.clock.dt/2);
+  t += model.worldModel.dt/2;
+  linkEqs(model, controller);
+  diffEqs(1, model);
+  integrator(1, model.worldModel.dt/2, model);
 
   // phase 3
-  linkEqs(config, model, rlsDynamics);
-  diffEqs(config, model, 2);
-  integrator(model, 2, config.clock.dt);
+  linkEqs(model, controller);
+  diffEqs(2, model);
+  integrator(2, model.worldModel.dt, model);
 
   // phase 4
-  t += config.clock.dt/2;
-  linkEqs(config, model, rlsDynamics);
-  diffEqs(config, model, 3);
+  t += model.worldModel.dt/2;
+  linkEqs(model, controller);
+  diffEqs(3, model);
 
   // update phase
-  update(config.clock);
+  update(model.info, model.worldModel.dt);
 }

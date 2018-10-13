@@ -49,11 +49,12 @@ option(rls_objectRTC "object controller RTC" OFF)
 option(rls_rlsSimulator "RLS simulator" OFF)
 option(rls_dTils "delete tilde file" OFF)
 
+option(rls_ext "use ext" OFF)
+
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
    # Mac OS X specific code
    SET(CMAKE_CXX_COMPILER "g++")
 endif (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-
 
 # Set up installation directories
 set(BIN_INSTALL_DIR "components/bin")

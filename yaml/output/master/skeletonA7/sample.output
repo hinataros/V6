@@ -1,0 +1,208 @@
+# @author Sho Miyahara 2018
+
+Result:
+  Composite data name: cmp
+  Individual data name: ind
+
+Gp:
+  Check: false
+  Sampling time: 10
+  Start time offset: 0.
+
+Tex:
+  Title: Simulation results
+  Layout:
+    -
+      file name: mix
+      caption: Mixed quasi values.
+      elements:
+        -
+          file name: comPos
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: tree model rC
+          y label: CoM pos. [mm]
+          unit: m
+          dimention: 3
+
+        -
+          file name: baseOrient
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: tree model xiB
+          y label: Base orient. [deg]
+          unit: RAD2DEG
+          dimention: 3
+    -
+      file name: eeTrans
+      caption: End effector translation values.
+      control node: 0
+      elements:
+        -
+          file name: eePos
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: tree model r
+          control node: 0
+          y label: EE pos. [mm]
+          unit: m
+          dimention: 3
+        -
+          file name: eeVel
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: tree model r
+          control node: 0
+          y label: EE vel. [m/s]
+          dimention: 3
+    -
+      file name: eeRot
+      caption: End effector rotation values.
+      control node: 0
+      elements:
+        -
+          file name: eeOrient
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: tree model xi
+          control node: 0
+          y label: EE orient. [deg]
+          unit: RAD2DEG
+          dimention: 3
+        -
+          file name: eeAngVel
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: tree model w
+          control node: 0
+          y label: EE ang. vel. [rad/s]
+          dimention: 3
+    -
+      file name: baseRotDes
+      caption: Desired base rotation values.
+      elements:
+        -
+          file name: baseOrientDes
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: xiBDes
+          y label: Des. base orient. [deg]
+          unit: RAD2DEG
+          dimention: 3
+        -
+          file name: baseAngVelDes
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: wBDes
+          y label: Des. base ang. vel. [rad/s]
+          dimention: 3
+        -
+          file name: baseAngAccDes
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: dwBDes
+          y label: Des. base ang. acc. [rad/s^2]
+          dimention: 3
+    -
+      file name: eeTransDes
+      caption: Desired end effector translation values.
+      control node: 0
+      elements:
+        -
+          file name: eePosDes
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: rDes
+          control node: 0
+          y label: EE des. pos. [mm]
+          unit: m
+          dimention: 3
+        -
+          file name: eeVelDes
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: vDes
+          control node: 0
+          y label: EE des. vel. [m/s]
+          dimention: 3
+        -
+          file name: eeAccDes
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: dvDes
+          control node: 0
+          y label: EE des. acc. [m/s^2]
+          dimention: 3
+    -
+      file name: eeRotDes
+      caption: Desired end effector rotation values.
+      control node: 0
+      elements:
+        -
+          file name: eeOrientDes
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: xiDes
+          control node: 0
+          y label: EE des. orient. [deg]
+          unit: RAD2DEG
+          dimention: 3
+        -
+          file name: eeAngVelDes
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: vDes
+          control node: 0
+          y label: EE des. ang. vel. [rad/s]
+          dimention: 3
+        -
+          file name: eeAngAccDes
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: dvDes
+          control node: 0
+          y label: EE des. ang. acc. [rad/s^2]
+          dimention: 3
+    -
+      use function: dcm
+    -
+      use function: sysMom
+    -
+      use function: localCop
+    -
+      use function: netCop
+    -
+      use function: stabilityIndex
+
+Choreonoid:
+  Sampling time: 10

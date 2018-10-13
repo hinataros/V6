@@ -1,41 +1,33 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
-#include "rlsDynamics.hpp"
+#include "feedbackController.hpp"
 
-void RLS::RlsDynamics::controlNodeAccelerationFBPI(const TreeModel &model)
+void RLS::FeedbackController::controlNodeAccelerationFBPI()
 {
   if(debug) DEBUG;
 
-  for(int i=0; i<model.info.controlNodeNum; i++){
-    // cal_VDes.segment(6*i, 6) <<
-    //   cal_VxiDes.segment(6*i, 3),
-    //   dxi2w(cal_VxiDes.segment(6*i+3, 3), cal_X.segment(6*i+3, 3));
-    // cal_dVDes.segment(6*i, 6) <<
-    //   cal_dVxiDes.segment(6*i, 3),
-    //   ddxi2dw(cal_dVxiDes.segment(6*i+3, 3), cal_X.segment(6*i+3, 3), w2dxi(cal_V.segment(6*i+3, 3), cal_X.segment(6*i+3, 3)));
-
-    cal_VDes.segment(6*i, 6) <<
-      cal_VxiDes.segment(6*i, 3),
-      dxi2w(cal_VxiDes.segment(6*i+3, 3), cal_XDes.segment(6*i+3, 3));
-    cal_dVDes.segment(6*i, 6) <<
-      cal_dVxiDes.segment(6*i, 3),
-      ddxi2dw(cal_dVxiDes.segment(6*i+3, 3), cal_XDes.segment(6*i+3, 3), cal_VxiDes.segment(6*i+3, 3));
+  for(int i=0; i<info->controlNodeNum; i++){
+    // cal_Ep.segment(6*i, 6) <<
+    //   des->cal_XDes.segment(6*i, 3) - model->cal_X.segment(6*i, 3),
+    //   0.5*(cross(model->bb_Rk.block(6*i,6*i,3,3).col(0))*xi2R(des->cal_XDes.segment(6*i+3, 3)).col(0)
+    //        + cross(model->bb_Rk.block(6*i,6*i,3,3).col(1))*xi2R(des->cal_XDes.segment(6*i+3, 3)).col(1)
+    //        + cross(model->bb_Rk.block(6*i,6*i,3,3).col(2))*xi2R(des->cal_XDes.segment(6*i+3, 3)).col(2));
 
     cal_Ep.segment(6*i, 6) <<
-      cal_XDes.segment(6*i, 3) - cal_X.segment(6*i, 3),
-      0.5*(cross(model.all.Rk.block(6*i,6*i,3,3).col(0))*xi2R(cal_XDes.segment(6*i+3, 3)).col(0)
-           + cross(model.all.Rk.block(6*i,6*i,3,3).col(1))*xi2R(cal_XDes.segment(6*i+3, 3)).col(1)
-           + cross(model.all.Rk.block(6*i,6*i,3,3).col(2))*xi2R(cal_XDes.segment(6*i+3, 3)).col(2));
+      des->cal_XDes.segment(6*i, 3) - model->cal_X.segment(6*i, 3),
+      0.5*(cross(xi2R(model->cal_X.segment(6*i+3, 3)).col(0))*xi2R(des->cal_XDes.segment(6*i+3, 3)).col(0)
+           + cross(xi2R(model->cal_X.segment(6*i+3, 3)).col(1))*xi2R(des->cal_XDes.segment(6*i+3, 3)).col(1)
+           + cross(xi2R(model->cal_X.segment(6*i+3, 3)).col(2))*xi2R(des->cal_XDes.segment(6*i+3, 3)).col(2));
   }
 
-  cal_Ev = cal_VDes - cal_V;
+  cal_Ev = des->cal_VDes - model->cal_V;
 
   // velocityController
-  cal_VRef = cal_VDes + Kpv*cal_Ep;
+  cal_Vfb = des->cal_VDes + Kpv*cal_Ep;
 
-  cal_dVRef = cal_dVDes + Kdv*cal_Ev + Kpv*cal_Ep;
+  cal_dVfb = des->cal_dVDes + Kdv*cal_Ev + Kpv*cal_Ep;
 }

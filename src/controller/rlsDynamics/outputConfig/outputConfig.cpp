@@ -1,21 +1,18 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::outputConfig(const TreeModel::Info &info)
+void RLS::RlsDynamics::outputConfig()
 {
   if(debug) DEBUG;
 
-  if(this->info.input=="velocity")
-    velocityOutputConfig(info);
-
-  else if(this->info.input=="acceleration")
-    accelerationOutputConfig(info);
-
-  else if(this->info.input=="torque")
-    torqueOutputConfig(info);
+  outputDesConfig();
+  outputErrConfig();
+  outputRefConfig();
+  outputIndexConfig();
+  // outputIndexPrintConfig();
 }

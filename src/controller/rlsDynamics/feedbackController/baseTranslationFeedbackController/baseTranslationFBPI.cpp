@@ -1,20 +1,20 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
-#include "rlsDynamics.hpp"
+#include "feedbackController.hpp"
 
-void RLS::RlsDynamics::baseTranslationFBPI(const TreeModel &model)
+void RLS::FeedbackController::baseTranslationFBPI()
 {
   if(debug) DEBUG;
 
-  erB = rBDes - model.link[model.info.rootNode].r;
-  evB = vBDes - model.link[model.info.rootNode].v;
+  erB = des->rBDes - model->rB;
+  evB = des->vBDes - model->vB;
 
   // velocityController
-  vBRef = vBDes + KpvB*erB;
+  vBfb = des->vBDes + KpvB*erB;
 
-  dvBRef = dvBDes + KdvB*evB + KpvB*erB;
+  dvBfb = des->dvBDes + KdvB*evB + KpvB*erB;
 }

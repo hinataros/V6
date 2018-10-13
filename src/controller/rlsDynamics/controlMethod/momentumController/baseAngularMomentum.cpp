@@ -1,16 +1,16 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::baseAngularMomentum(const TreeModel::Info &info)
+void RLS::RlsDynamics::baseAngularMomentum()
 {
   if(debug) DEBUG;
 
   dlBRef =
-    -M*cross(rB2C).transpose()*dvCRef + IC*dwBRef
-    -M*cross(drB2C).transpose()*wB + dIC*wB;
+    -model->M*cross(model->rB2C).transpose()*fb.dvCfb + model->IC*fb.dwBfb
+    -model->M*cross(model->drB2C).transpose()*model->wB + model->dIC*model->wB;
 }

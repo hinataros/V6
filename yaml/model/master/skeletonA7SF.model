@@ -1,0 +1,39 @@
+# @author Sho Miyahara 2018
+
+# Body name: master/skeletonW3A4prim
+# cnoid name: master/motion/skeletonW3A4
+# cnoid name: master/updownSkeletonA4
+# Body name: master/skeletonA7prim
+# cnoid name: master/skeletonA7
+# Body name: master/skeletonA4primZeff
+# cnoid name: master/zeff
+
+World model:
+  include:
+    type: cnoid
+    search: relative
+    path: &cnoid master/skeletonA7/wall.cnoid
+
+Tree model:
+  Name: skeletonA7SF
+  Dynamics calculation: true
+  Model parameter:
+    include:
+      type: body
+      search: relative
+      path: master/skeletonA7SFprim.body
+  Initial configuration:
+    include:
+      type: cnoid
+      search: relative
+      path: *cnoid
+  Control node:
+    - RLEGEE
+    - LLEGEE
+    - RARMEE
+    - LARMEE
+  Sensor node:
+    include:
+      type: cnoid
+      search: relative
+      path: *cnoid

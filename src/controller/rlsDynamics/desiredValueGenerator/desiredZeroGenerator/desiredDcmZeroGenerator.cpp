@@ -1,15 +1,15 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
-#include "rlsDynamics.hpp"
+#include "desiredValueGenerator.hpp"
 
-void RLS::RlsDynamics::desiredDcmZeroGenerator(const double &t)
+void RLS::DesiredValueGenerator::desiredDcmZeroGenerator(const double &t)
 {
   if(debug) DEBUG;
 
-  rXDes = rX;
+  rXDes = model->rX;
   drXDes = Vector3d::Zero();
 }

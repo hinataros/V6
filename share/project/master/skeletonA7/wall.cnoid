@@ -16,11 +16,11 @@ items:
       children: 
         - 
           id: 2
-          name: "master/skeletonA7prim"
+          name: "skeletonA7SF"
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "/home/smiyahara/Documents/rlsSimulator/share/model/master/skeletonA7prim.body"
+            modelFile: "/home/smiyahara/Documents/rlsSimulator/share/model/master/skeletonA7SFprim.body"
             currentBaseLink: "ROOT"
             rootPosition: [ 0, 0, 0.21019 ]
             rootAttitude: [ 
@@ -54,7 +54,7 @@ items:
                 isNoDelayMode: true
                 controllerOptions: ""
                 moduleName: "/home/smiyahara/Documents/rlsSimulator/build/bin/rlsDynamicsRTC.so"
-                confFileName: "/home/smiyahara/Documents/rlsSimulator/src/controller/rlsDynamics/RTC/rtcConfig/skeletonPort.conf"
+                confFileName: "/home/smiyahara/Documents/rlsSimulator/share/port/skeletonPort.conf"
                 configurationMode: "Use Configuration File"
                 AutoConnect: false
                 InstanceName: "skeleton"
@@ -260,7 +260,7 @@ views:
 toolbars: 
   "TimeBar": 
     minTime: 0
-    maxTime: 8
+    maxTime: 5
     frameRate: 1000
     playbackFrameRate: 10
     idleLoopDrivenMode: false

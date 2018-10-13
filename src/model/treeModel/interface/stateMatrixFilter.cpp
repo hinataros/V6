@@ -1,5 +1,5 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
@@ -13,24 +13,24 @@ MatrixXd RLS::TreeModel::stateMatrixFilter(bool row, bool col, MatrixXd A)
 
   if(row){
     if(col){
-      MatrixXd temp = MatrixXd::Zero(info.dof.joint,A.cols());
-      for(int i=1, j=0; i<info.linkNum; i++){
+      MatrixXd temp = MatrixXd::Zero(info->dof.joint,A.cols());
+      for(int i=1, j=0; i<info->linkNum; i++){
         if(link[i].active){
           temp.row(j) = A.row(i);
           j++;
         }
       }
 
-      x = MatrixXd::Zero(info.dof.joint,info.dof.joint);
-      for(int i=1, j=0; i<info.linkNum; i++){
+      x = MatrixXd::Zero(info->dof.joint,info->dof.joint);
+      for(int i=1, j=0; i<info->linkNum; i++){
         if(link[i].active){
           x.col(j) = temp.col(i);
           j++;
         }
       }
     }else{
-      x = MatrixXd::Zero(info.dof.joint,A.cols());
-      for(int i=1, j=0; i<info.linkNum; i++){
+      x = MatrixXd::Zero(info->dof.joint,A.cols());
+      for(int i=1, j=0; i<info->linkNum; i++){
         if(link[i].active){
           x.row(j) = A.row(i);
           j++;
@@ -39,8 +39,8 @@ MatrixXd RLS::TreeModel::stateMatrixFilter(bool row, bool col, MatrixXd A)
     }
   }else{
     if(col){
-      x = MatrixXd::Zero(A.rows(),info.dof.joint);
-      for(int i=1, j=0; i<info.linkNum; i++){
+      x = MatrixXd::Zero(A.rows(),info->dof.joint);
+      for(int i=1, j=0; i<info->linkNum; i++){
         if(link[i].active){
           x.col(j) = A.col(i);
           j++;

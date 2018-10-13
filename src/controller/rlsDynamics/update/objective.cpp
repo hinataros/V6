@@ -1,26 +1,25 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-int RLS::RlsDynamics::objective(const TreeModel::Info &info)
+void RLS::RlsDynamics::objective()
 {
   if(debug) DEBUG;
 
-  MatrixXd Fz = MatrixXd::Identity(2*info.controlNodeNum, 2*info.controlNodeNum);
+  MatrixXd Fz = MatrixXd::Identity(2*info.model.controlNodeNum, 2*info.model.controlNodeNum);
 
-  MatrixXd cal_S = MatrixXd::Zero(2*info.controlNodeNum,6*info.controlNodeNum);
-  for(int i=0; i<info.controlNodeNum; i++)
+  MatrixXd cal_S = MatrixXd::Zero(2*info.model.controlNodeNum,6*info.model.controlNodeNum);
+  for(int i=0; i<info.model.controlNodeNum; i++)
     cal_S.block(2*i,6*i+3,2,2) = bb_Spx;
 
-  for(int i=0; i<info.controlNodeNum; i++){
-    Fz.block(2*i,2*i,2,2) *= cal_F(6*i+2);
+  for(int i=0; i<info.model.controlNodeNum; i++){
+    Fz.block(2*i,2*i,2,2) *= model->cal_F(6*i+2);
   }
 
-  Pc = pInv(Bp.transpose()*Fz*Bp)*Bp.transpose()*cal_S*Bc;
-
-  return 0;
+  if((Bp.transpose()*Fz*Bp).determinant())
+    Pc = (Bp.transpose()*Fz*Bp).inverse()*Bp.transpose()*cal_S*Bc;
 }

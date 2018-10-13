@@ -1,5 +1,5 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include <fstream>
@@ -8,9 +8,10 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::makeMotionYaml(const Config &config, const TreeModel::Info &info)
+void RLS::Output::makeMotionYaml()
 {
   if(debug) DEBUG;
 
-  makeTreeModelMotionYaml(config, info);
+  for(int i=0; i<info->treeModelNum; i++)
+    makeTreeModelMotionYaml(i);
 }

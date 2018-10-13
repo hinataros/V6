@@ -8,14 +8,16 @@
 MatrixXd RLS::Common::B(int num, ...)
 {
   MatrixXd Bdiag = MatrixXd::Zero(num, num);
-  va_list ptr;
 
+  va_list ptr;
   va_start(ptr, num);
 
   int b=0;
   for(int i=0; i<num; i++)
     if(Bdiag(i, i) = va_arg(ptr, int))
       b++;
+
+  va_end(ptr);
 
   MatrixXd B = MatrixXd::Zero(num, b);
   int j=0;
@@ -24,8 +26,6 @@ MatrixXd RLS::Common::B(int num, ...)
       B.col(j) = Bdiag.col(i);
       j++;
     }
-
-  va_end(ptr);
 
   return B;
 }

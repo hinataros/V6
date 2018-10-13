@@ -1,33 +1,39 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
-#include "rlsDynamics.hpp"
+#include "controller.hpp"
 #include "output.hpp"
 #include "rlsSimulator.hpp"
 
-void RLS::RlsSimulator::diffEqs(const Config &config, Model &model, const int phase)
+void RLS::RlsSimulator::diffEqs(const int phase, Model &model)
 {
   if(debug) DEBUG;
 
-  if(config.controller.input=="velocity"){
-    k.vo[phase] = u.head(3) - cross(u.segment(3,3))*model.hoap2.link[model.hoap2.info.rootNode].r;
-    k.w[phase] = u.segment(3,3);
-    k.dth[phase] = u.tail(model.hoap2.info.dof.joint);
+  for(int i=0; i<model.info.treeModelNum; i++){
+    Vector3d rB = model.treeModel[i].link[model.info.treeModel[i].rootNode].r;
 
-    k.dvo[phase] = Vector3d::Zero();
-    k.dw[phase] = Vector3d::Zero();
-    k.ddth[phase] = VectorXd::Zero(model.hoap2.info.dof.joint);
+    if(this->config.controlInput[i]=="velocity"){
+      k[i].vo[phase] = u[i].head(3) - cross(u[i].segment(3,3))*rB;
+      k[i].w[phase] = u[i].segment(3,3);
+      k[i].dth[phase] = u[i].tail(model.info.treeModel[i].dof.joint);
 
-  }else{
-    if(config.controller.input=="acceleration"){
-      dvoB = u.head(3) - (cross(u.segment(3,3))*model.hoap2.link[model.hoap2.info.rootNode].r + cross(model.hoap2.link[model.hoap2.info.rootNode].w)*model.hoap2.link[model.hoap2.info.rootNode].v);
-      dwB = u.segment(3,3);
-      ddth = u.tail(model.hoap2.info.dof.joint);
-    }
-    // if(config.controller.input=="torque"){
+      k[i].dvo[phase] = Vector3d::Zero();
+      k[i].dw[phase] = Vector3d::Zero();
+      k[i].ddth[phase] = VectorXd::Zero(model.info.treeModel[i].dof.joint);
+
+    }else{
+      Vector3d vB = model.treeModel[i].link[model.info.treeModel[i].rootNode].v;
+      Vector3d wB = model.treeModel[i].link[model.info.treeModel[i].rootNode].w;
+
+      if(this->config.controlInput[i]=="acceleration"){
+        dvoB = u[i].head(3) - (cross(u[i].segment(3,3))*rB + cross(wB)*vB);
+        dwB = u[i].segment(3,3);
+        ddth = u[i].tail(model.info.treeModel[i].dof.joint);
+      }
+      // if(this->config.controlInput=="torque"){
       // lmp(config, model, u, controller.cal_Jc, controller.cal_dJc, controller.Bc);
       // forwardDynamics(config, model, u);
 
@@ -37,14 +43,20 @@ void RLS::RlsSimulator::diffEqs(const Config &config, Model &model, const int ph
       // dvoB = ddq.head(3) - (cross(ddq.segment(3,3))*model.hoap2.limb[0].node[0].r + cross(model.hoap2.limb[0].node[0].w)*model.hoap2.limb[0].node[0].v);
       // dwB = ddq.segment(3,3);
       // ddth = ddq.tail(info.dof.joint);
-    // }
+      // }
+      else{
+        dvoB = Vector3d::Zero();
+        dwB = Vector3d::Zero();
+        ddth = VectorXd::Zero(model.info.treeModel[i].dof.joint);
+      }
 
-    k.vo[phase] = model.hoap2.link[model.hoap2.info.rootNode].vo;
-    k.w[phase] = model.hoap2.link[model.hoap2.info.rootNode].w;
-    k.dth[phase] = model.hoap2.readJointStateVector("joint velocity");
+      k[i].vo[phase] = model.treeModel[i].link[model.info.treeModel[i].rootNode].vo;
+      k[i].w[phase] = wB;
+      k[i].dth[phase] = model.treeModel[i].readJointStateVector("joint velocity");
 
-    k.dvo[phase] = dvoB;
-    k.dw[phase] = dwB;
-    k.ddth[phase] = ddth;
+      k[i].dvo[phase] = dvoB;
+      k[i].dw[phase] = dwB;
+      k[i].ddth[phase] = ddth;
+    }
   }
 }

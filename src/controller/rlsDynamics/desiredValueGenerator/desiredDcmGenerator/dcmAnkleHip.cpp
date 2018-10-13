@@ -5,9 +5,9 @@
 #include "config.hpp"
 #include "info.hpp"
 #include "model.hpp"
-#include "rlsDynamics.hpp"
+#include "desiredValueGenerator.hpp"
 
-void RLS::RlsDynamics::dcmAnkleHip(Config &config, Info &info, Model &model, double &t)
+void RLS::DesiredValueGenerator::dcmAnkleHip(Config &config, Info &info, Model &model, double &t)
 {
   if(config.flag.debug) DEBUG;
 

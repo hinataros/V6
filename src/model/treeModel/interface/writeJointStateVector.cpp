@@ -1,5 +1,5 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
@@ -9,19 +9,19 @@ void RLS::TreeModel::writeJointStateVector(string state, VectorXd x)
 {
   if(debug) DEBUG;
 
-  if(info.dof.joint != x.size()){
+  if(info->dof.joint != x.size()){
     cout << "does not match joint state vector size..." << endl;
   }
 
   if(state=="joint angle"){
-    for(int i=1, j=0; i<info.linkNum; i++){
+    for(int i=1, j=0; i<info->linkNum; i++){
       if(link[i].active){
         link[i].th = x(j);
         j++;
       }
     }
   }else if(state=="joint velocity"){
-    for(int i=1, j=0; i<info.linkNum; i++){
+    for(int i=1, j=0; i<info->linkNum; i++){
       if(link[i].active){
          link[i].dth = x(j);
         j++;
@@ -29,7 +29,7 @@ void RLS::TreeModel::writeJointStateVector(string state, VectorXd x)
     }
 
   }else if(state=="rne joint acceleration"){
-    for(int i=1, j=0; i<info.linkNum; i++){
+    for(int i=1, j=0; i<info->linkNum; i++){
       if(link[i].active){
         link[i].ddth_rne = x(j);
         j++;

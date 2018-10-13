@@ -1,14 +1,14 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
-#include "rlsDynamics.hpp"
+#include "feedbackController.hpp"
 
-void RLS::RlsDynamics::comFBDcmControl(const TreeModel &model)
+void RLS::FeedbackController::comFBDcmControl()
 {
   if(debug) DEBUG;
 
-  dvCRef = wX*(drXRef - model.all.vC);
+  dvCfb = model->wX*(drXfb - model->vC);
 }

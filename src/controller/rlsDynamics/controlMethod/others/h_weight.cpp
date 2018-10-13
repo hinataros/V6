@@ -1,5 +1,5 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
@@ -29,7 +29,7 @@ MatrixXd RLS::RlsDynamics::h_weight(const Vector2d &rIndex)
 {
   if(debug) DEBUG;
 
-  VectorXd cal_Xc = Bc.transpose()*cal_X;
+  VectorXd cal_Xc = Bc.transpose()*model->cal_X;
   MatrixXd Wc = MatrixXd::Zero(cal_Xc.size(), cal_Xc.size());
 
   if(cal_Xc.size()==12){

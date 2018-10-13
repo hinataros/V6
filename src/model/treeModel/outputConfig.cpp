@@ -1,5 +1,5 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
@@ -9,37 +9,37 @@ void RLS::TreeModel::outputConfig()
 {
   if(debug) DEBUG;
 
-  tm_list.rB = link[info.rootNode].r;
-  tm_list.RB = link[info.rootNode].R;
-  tm_list.xiB = antiDiag(3,1.,1.,1.)*R2xi(link[info.rootNode].R);
-  tm_list.vB = link[info.rootNode].v;
-  tm_list.wB = link[info.rootNode].w;
-  tm_list.th = readJointStateVector("joint angle");
-  tm_list.dth = readJointStateVector("joint velocity");
+  outputList.rB = link[info->rootNode].r;
+  outputList.RB = link[info->rootNode].R;
+  outputList.xiB = antiDiag(3,1.,1.,1.)*R2xi(link[info->rootNode].R);
+  outputList.vB = link[info->rootNode].v;
+  outputList.wB = link[info->rootNode].w;
+  outputList.th = readJointStateVector("joint angle");
+  outputList.dth = readJointStateVector("joint velocity");
 
-  tm_list.rC = all.rC;
-  tm_list.vC = all.vC;
+  outputList.rC = all.rC;
+  outputList.vC = all.vC;
 
-  tm_list.p = all.p;
-  tm_list.lC = all.lC;
+  outputList.p = all.p;
+  outputList.lC = all.lC;
 
-  tm_list.r = readControlNodeValueVector("position");
-  tm_list.v = readControlNodeValueVector("velocity");
+  outputList.r = readControlNodeValueVector("position");
+  outputList.v = readControlNodeValueVector("velocity");
 
-  MatrixXd antiDiagMat = MatrixXd::Zero(3*info.controlNodeNum,3*info.controlNodeNum);
-  for(int i=0; i<info.controlNodeNum; i++)
+  MatrixXd antiDiagMat = MatrixXd::Zero(3*info->controlNodeNum,3*info->controlNodeNum);
+  for(int i=0; i<info->controlNodeNum; i++)
     antiDiagMat.block(3*i,3*i,3,3) = antiDiag(3,1.,1.,1.);
-  tm_list.xi = antiDiagMat*readControlNodeValueVector("orientation");
-  tm_list.w = readControlNodeValueVector("angular velocity");
-  tm_list.f = readControlNodeValueVector("force");
-  tm_list.n = readControlNodeValueVector("moment");
+  outputList.xi = antiDiagMat*readControlNodeValueVector("orientation");
+  outputList.w = readControlNodeValueVector("angular velocity");
+  outputList.f = readControlNodeValueVector("force");
+  outputList.n = readControlNodeValueVector("moment");
 
   // // smiyahara: サイズの初期化の変数がびみょ
   // int cur=0, temp=0;
-  // for(int i=0; i<info.value.node; i++){
+  // for(int i=0; i<info->value.node; i++){
   //   temp=0;
-  //   for(int j=0; j<info.limb[i].value; j++){
-  //     tm_list.posGifMatrix.col(cur+j) = limb[i].node[j].r;
+  //   for(int j=0; j<info->limb[i].value; j++){
+  //     outputList.posGifMatrix.col(cur+j) = limb[i].node[j].r;
   //     temp++;
   //   }
 

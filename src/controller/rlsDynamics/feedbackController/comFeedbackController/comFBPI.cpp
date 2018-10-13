@@ -1,20 +1,20 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
 #include "model.hpp"
-#include "rlsDynamics.hpp"
+#include "feedbackController.hpp"
 
-void RLS::RlsDynamics::comFBPI(const TreeModel &model)
+void RLS::FeedbackController::comFBPI()
 {
   if(debug) DEBUG;
 
-  erC = rCDes - model.all.rC;
-  evC = vCDes - model.all.vC;
+  erC = des->rCDes - model->rC;
+  evC = des->vCDes - model->vC;
 
   // velocityController
-  vCRef = vCDes + KpC*erC;
+  vCfb = des->vCDes + KpC*erC;
 
-  dvCRef = dvCDes + KdC*evC + KpC*erC;
+  dvCfb = des->dvCDes + KdC*evC + KpC*erC;
 }

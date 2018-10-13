@@ -10,7 +10,11 @@ void RLS::Output::pushBack(const double &t)
 {
   if(debug) DEBUG;
 
-  data.t.push_back(t);
-  data.tm.push_back(tm_temp);
-  data.dc.push_back(dc_temp);
+  data.time.push_back(t);
+
+  for(int i=0; i<info->treeModelNum; i++)
+    data.treeModel[i].vec.push_back(treeModelList_temp[i]);
+
+  for(int i=0; i<controllerNum; i++)
+    data.rlsDynamics[i].vec.push_back(rlsDynamicsList_temp[i]);
 }

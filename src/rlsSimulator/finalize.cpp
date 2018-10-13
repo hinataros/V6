@@ -4,15 +4,16 @@
 
 #include "config.hpp"
 #include "model.hpp"
-#include "rlsDynamics.hpp"
+#include "controller.hpp"
 #include "output.hpp"
 #include "rlsSimulator.hpp"
 
-void RLS::RlsSimulator::finalize(Model &model, RlsDynamics &rlsDynamics, Output &output)
+void RLS::RlsSimulator::finalize()
 {
   if(debug) DEBUG;
 
-  rlsDynamics.finalize();
-  output.finalize();
-  model.deleteModel();
+  delete[] this->config.controlInput;
+  delete[] k;
+  delete[] u;
+  delete[] state;
 }

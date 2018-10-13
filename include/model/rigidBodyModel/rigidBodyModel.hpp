@@ -1,16 +1,14 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
-#include "world.hpp"
-
 // #include "rigidBodyModelList.hpp"
+#include "info.hpp"
 
 namespace RLS{
-  class RigidBodyModel:
-    public World{
+  class RigidBodyModel{
   private:
-    void initialize();
+    int uniqueNum;
 
   public:
     double mO;
@@ -43,6 +41,8 @@ namespace RLS{
 
     Vector3d fO;
     Vector3d nO;
+
+    void initialize(const int&, RigidBodyModelInfo&);
 
     void readModel();
     void update();

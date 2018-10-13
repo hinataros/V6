@@ -4,13 +4,13 @@
 
 #include "config.hpp"
 #include "model.hpp"
-#include "rlsDynamics.hpp"
+#include "feedbackController.hpp"
 
-void RLS::RlsDynamics::dcmFBPI(const TreeModel &model)
+void RLS::FeedbackController::dcmFBPI()
 {
   if(debug) DEBUG;
 
-  eX = rXDes - rX;
+  eX = des->rXDes - model->rX;
 
-  drXRef = drXDes + KX*eX;
+  drXfb = des->drXDes + KX*eX;
 }

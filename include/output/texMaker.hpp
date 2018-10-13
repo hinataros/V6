@@ -25,7 +25,6 @@ namespace RLS{
 
     // interface maker
     string path_interface;
-    string name_model;
     string title;
     string name_cmp;
     string name_ind;
@@ -51,7 +50,6 @@ namespace RLS{
   public:
     // interface maker
     void setInterfacePath(string);
-    void setModelName(string);
     void setTitle(string);
     void setCmpName(string);
     void setIndName(string);

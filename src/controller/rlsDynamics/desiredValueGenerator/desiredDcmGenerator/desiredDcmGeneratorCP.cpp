@@ -4,9 +4,9 @@
 
 #include "config.hpp"
 #include "model.hpp"
-#include "rlsDynamics.hpp"
+#include "desiredValueGenerator.hpp"
 
-void RLS::RlsDynamics::desiredDcmGeneratorCP(const double &t)
+void RLS::DesiredValueGenerator::desiredDcmGeneratorCP(const double &t)
 {
   if(debug) DEBUG;
 

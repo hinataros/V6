@@ -5,9 +5,9 @@
 #include "config.hpp"
 #include "info.hpp"
 #include "model.hpp"
-#include "rlsDynamics.hpp"
+#include "feedbackController.hpp"
 
-void RLS::RlsDynamics::baseOrientationSequence(Config &config,Info &info, Model &model, double &t)
+void RLS::FeedbackController::baseOrientationSequence(Config &config,Info &info, Model &model, double &t)
 {
   if(config.flag.debug) DEBUG;
 
