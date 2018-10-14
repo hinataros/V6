@@ -26,7 +26,15 @@ Tex:
           y label: CoM pos. [mm]
           unit: m
           dimention: 3
-
+        -
+          file name: comVel
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: tree model vC
+          y label: CoM vel. [m/s]
+          dimention: 3
         -
           file name: baseOrient
           dat value:
@@ -37,6 +45,16 @@ Tex:
           y label: Base orient. [deg]
           unit: RAD2DEG
           dimention: 3
+        -
+          file name: baseAngVel
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: tree model wB
+          y label: Base ang. vel. [rad/s]
+          dimention: 3
+
     -
       file name: eeTrans
       caption: End effector translation values.
@@ -63,6 +81,33 @@ Tex:
           control node: 0
           y label: EE vel. [m/s]
           dimention: 3
+
+    -
+      file name: eeWrench
+      caption: End effector wrench values.
+      control node: 0
+      elements:
+        -
+          file name: eeForce
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: tree model f
+          control node: 0
+          y label: EE force [N]
+          dimention: 3
+        -
+          file name: eeMoment
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: tree model n
+          control node: 0
+          y label: EE moment [Nm]
+          dimention: 3
+
     -
       file name: eeRot
       caption: End effector rotation values.
@@ -89,6 +134,31 @@ Tex:
           control node: 0
           y label: EE ang. vel. [rad/s]
           dimention: 3
+
+    -
+      file name: dcmDes
+      caption: Desired DCM values.
+      elements:
+        -
+          file name: dcmPosDes
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: rXDes
+          y label: Des. DCM [mm]
+          unit: m
+          dimention: 3
+        -
+          file name: dcmVelDes
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: drXDes
+          y label: Des. DCM vel. [m/s]
+          dimention: 3
+
     -
       file name: baseRotDes
       caption: Desired base rotation values.
@@ -179,7 +249,7 @@ Tex:
             vertical:
               name: time
             horizontal:
-              name: vDes
+              name: wDes
           control node: 0
           y label: EE des. ang. vel. [rad/s]
           dimention: 3
@@ -189,10 +259,130 @@ Tex:
             vertical:
               name: time
             horizontal:
-              name: dvDes
+              name: dwDes
           control node: 0
           y label: EE des. ang. acc. [rad/s^2]
           dimention: 3
+
+    -
+      file name: dcmErr
+      caption: DCM error values.
+      elements:
+        -
+          file name: dcmErr
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: eX
+          y label: DCM err. [mm]
+          unit: m
+          dimention: 3
+
+    -
+      file name: baseRotErr
+      caption: Base rotation error values.
+      elements:
+        -
+          file name: baseOrientErr
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: eoB
+          y label: Base orient. err. [deg]
+          unit: RAD2DEG
+          dimention: 3
+        -
+          file name: baseAngVelErr
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: ewB
+          y label: Base ang. vel. err. [rad/s]
+          dimention: 3
+
+    -
+      file name: eeTransErr
+      caption: End effector translation error values.
+      control node: 0
+      elements:
+        -
+          file name: eePosErr
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: er
+          control node: 0
+          y label: EE pos. err. [mm]
+          unit: m
+          dimention: 3
+        -
+          file name: eeVelErr
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: ev
+          control node: 0
+          y label: EE vel. err. [m/s]
+          dimention: 3
+
+    -
+      file name: eeRotErr
+      caption: End effector rotation error values.
+      control node: 0
+      elements:
+        -
+          file name: eeOrientErr
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: eo
+          control node: 0
+          y label: EE orient. err. [rad]
+          unit: m
+          dimention: 3
+        -
+          file name: eeAngVelErr
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: ew
+          control node: 0
+          y label: EE ang. vel. err. [rad/s]
+          dimention: 3
+
+    -
+      file name: eeWrenchErr
+      caption: End effector wrench error values.
+      control node: 0
+      elements:
+        -
+          file name: eeForceErr
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: ef
+          control node: 0
+          y label: EE force err. [N]
+          dimention: 3
+        -
+          file name: eeMomentErr
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: en
+          control node: 0
+          y label: EE moment err. [Nm]
+          dimention: 3
+
     -
       use function: dcm
     -

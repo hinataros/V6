@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::rcMomRef(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::rcMomRef(GpMaker &gpMaker, TexMaker &texMaker)
 {
   if(debug) DEBUG;
 
@@ -14,7 +14,10 @@ void RLS::Output::rcMomRef(const Config &config, const TreeModel::Info &info, Gp
 
   reset();
   setFileName("rcLinMomRef");
-  makeDat("t-dpRef");
+
+  setVerticalDat("time");
+  setHorizontalDat("dpRef");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
@@ -27,7 +30,10 @@ void RLS::Output::rcMomRef(const Config &config, const TreeModel::Info &info, Gp
 
   reset();
   setFileName("rcAngMomRef");
-  makeDat("t-dlCRef");
+
+  setVerticalDat("time");
+  setHorizontalDat("dlCRef");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
@@ -38,7 +44,7 @@ void RLS::Output::rcMomRef(const Config &config, const TreeModel::Info &info, Gp
   texMaker.setName(file_name);
   texMaker.addMinipage();
 
-  texMaker.setTexName("rcSpatialMomRef");
+  texMaker.setTexName("rcMomRef");
   texMaker.setCaption("Rate of change of spatial momentum reference values.");
   texMaker.makeTex();
 }

@@ -11,7 +11,7 @@ set(srcs
   eeTrans.cpp
   eeRot.cpp
   eeWrench.cpp
-  spatialMom.cpp
+  sysMom.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" modelGraphConfig_srcs)

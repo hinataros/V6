@@ -6,6 +6,7 @@ set(srcs
   ref.cpp
   index.cpp
   # indexPrint.cpp
+  ext.cpp
   outputConfig.cpp
   )
 

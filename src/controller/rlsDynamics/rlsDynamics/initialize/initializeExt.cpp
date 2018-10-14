@@ -6,8 +6,11 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::resize()
+#include "_ext.hpp"
+
+void RLS::RlsDynamics::initializeExt()
 {
   if(debug) DEBUG;
 
+  ext = new Ext;
 }

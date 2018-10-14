@@ -2,6 +2,9 @@
    @author Sho Miyahara 2018
 */
 
+#ifndef MODEL_HPP_
+#define MODEL_HPP_
+
 #include "info.hpp"
 #include "worldModel.hpp"
 #include "treeModel.hpp"
@@ -38,3 +41,5 @@ namespace RLS{
 #endif
   };
 }
+
+#endif // MODEL_HPP_

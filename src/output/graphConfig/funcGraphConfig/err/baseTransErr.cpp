@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::baseTransErr(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::baseTransErr(GpMaker &gpMaker, TexMaker &texMaker)
 {
   if(debug) DEBUG;
 
@@ -14,7 +14,10 @@ void RLS::Output::baseTransErr(const Config &config, const TreeModel::Info &info
 
   reset();
   setFileName("basePosErr");
-  makeDat("t-erB");
+
+  setVerticalDat("time");
+  setHorizontalDat("erB");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
@@ -28,7 +31,10 @@ void RLS::Output::baseTransErr(const Config &config, const TreeModel::Info &info
 
   reset();
   setFileName("baseVelErr");
-  makeDat("t-evB");
+
+  setVerticalDat("time");
+  setHorizontalDat("evB");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);

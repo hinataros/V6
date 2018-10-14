@@ -6,20 +6,23 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::eeTransErr(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::eeTransErr(GpMaker &gpMaker, TexMaker &texMaker)
 {
   if(debug) DEBUG;
 
   texMaker.reset();
-  texMaker.setLimb(info.controlNodeNum);
+  texMaker.setLimb(info->treeModel[0].controlNodeNum);
 
   reset();
   setFileName("eePosErr");
-  makeDat("t-er");
+
+  setVerticalDat("time");
+  setHorizontalDat("er");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.controlNodeNum);
+  gpMaker.setLimb(info->treeModel[0].controlNodeNum);
   gpMaker.setYLabel("EE pos. err. [mm]");
   gpMaker.setUnit("m");
   gpMaker.setDimention(3);
@@ -30,11 +33,14 @@ void RLS::Output::eeTransErr(const Config &config, const TreeModel::Info &info, 
 
   reset();
   setFileName("eeVelErr");
-  makeDat("t-ev");
+
+  setVerticalDat("time");
+  setHorizontalDat("ev");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.controlNodeNum);
+  gpMaker.setLimb(info->treeModel[0].controlNodeNum);
   gpMaker.setYLabel("EE vel. err. [m/s]");
   gpMaker.setDimention(3);
   gpMaker.makeGp();

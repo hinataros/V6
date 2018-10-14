@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::extWrenchRef(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::extWrenchRef(GpMaker &gpMaker, TexMaker &texMaker)
 {
   if(debug) DEBUG;
 
@@ -14,7 +14,10 @@ void RLS::Output::extWrenchRef(const Config &config, const TreeModel::Info &info
 
   reset();
   setFileName("extForceRef");
-  makeDat("t-fextRef");
+
+  setVerticalDat("time");
+  setHorizontalDat("fextRef");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
@@ -27,7 +30,10 @@ void RLS::Output::extWrenchRef(const Config &config, const TreeModel::Info &info
 
   reset();
   setFileName("extMomentRef");
-  makeDat("t-nextRef");
+
+  setVerticalDat("time");
+  setHorizontalDat("nextRef");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);

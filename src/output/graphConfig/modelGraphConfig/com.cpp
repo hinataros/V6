@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::com(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::com(GpMaker &gpMaker, TexMaker &texMaker)
 {
   if(debug) DEBUG;
 
@@ -14,7 +14,10 @@ void RLS::Output::com(const Config &config, const TreeModel::Info &info, GpMaker
 
   reset();
   setFileName("comPos");
-  makeDat("t-rC");
+
+  setVerticalDat("time");
+  setHorizontalDat("tree model rC");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
@@ -28,7 +31,10 @@ void RLS::Output::com(const Config &config, const TreeModel::Info &info, GpMaker
 
   reset();
   setFileName("comVel");
-  makeDat("t-vC");
+
+  setVerticalDat("time");
+  setHorizontalDat("tree model vC");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);

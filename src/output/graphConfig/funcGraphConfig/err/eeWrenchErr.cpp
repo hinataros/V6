@@ -6,20 +6,23 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::eeWrenchErr(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::eeWrenchErr(GpMaker &gpMaker, TexMaker &texMaker)
 {
   if(debug) DEBUG;
 
   texMaker.reset();
-  texMaker.setLimb(info.controlNodeNum);
+  texMaker.setLimb(info->treeModel[0].controlNodeNum);
 
   reset();
   setFileName("eeForceErr");
-  makeDat("t-ef");
+
+  setVerticalDat("time");
+  setHorizontalDat("ef");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.controlNodeNum);
+  gpMaker.setLimb(info->treeModel[0].controlNodeNum);
   gpMaker.setYLabel("EE force err. [N]");
   gpMaker.setDimention(3);
   gpMaker.makeGp();
@@ -29,11 +32,14 @@ void RLS::Output::eeWrenchErr(const Config &config, const TreeModel::Info &info,
 
   reset();
   setFileName("eeMomentErr");
-  makeDat("t-en");
+
+  setVerticalDat("time");
+  setHorizontalDat("en");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.controlNodeNum);
+  gpMaker.setLimb(info->treeModel[0].controlNodeNum);
   gpMaker.setYLabel("EE moment err. [Nm]");
   gpMaker.setDimention(3);
   gpMaker.makeGp();

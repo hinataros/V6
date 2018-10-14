@@ -14,63 +14,71 @@ void RLS::Output::mix(GpMaker &gpMaker, TexMaker &texMaker)
 
   reset();
   setFileName("comPos");
-  setID(outputID);
 
   setVerticalDat("t");
-  setHorizontalDat("rC", id);
+  setHorizontalDat("tree model rC");
   makeDat();
 
-  // gpMaker.reset();
-  // gpMaker.setName(file_name);
-  // gpMaker.setYLabel("CoM pos. [mm]");
-  // gpMaker.setUnit("m");
-  // gpMaker.setDimention(3);
-  // gpMaker.makeGp();
+  gpMaker.reset();
+  gpMaker.setName(file_name);
+  gpMaker.setYLabel("CoM pos. [mm]");
+  gpMaker.setUnit("m");
+  gpMaker.setDimention(3);
+  gpMaker.makeGp();
 
-  // texMaker.setName(file_name);
-  // texMaker.addMinipage();
+  texMaker.setName(file_name);
+  texMaker.addMinipage();
 
-  // reset();
-  // setFileName("comVel");
-  // makeDat("t-vC");
+  reset();
+  setFileName("comVel");
 
-  // gpMaker.reset();
-  // gpMaker.setName(file_name);
-  // gpMaker.setYLabel("CoM vel. [m/s]");
-  // gpMaker.setDimention(3);
-  // gpMaker.makeGp();
+  setVerticalDat("time");
+  setHorizontalDat("tree model vC");
+  makeDat();
 
-  // texMaker.setName(file_name);
-  // texMaker.addMinipage();
+  gpMaker.reset();
+  gpMaker.setName(file_name);
+  gpMaker.setYLabel("CoM vel. [m/s]");
+  gpMaker.setDimention(3);
+  gpMaker.makeGp();
 
-  // reset();
-  // setFileName("baseOrient");
-  // makeDat("t-xiB");
+  texMaker.setName(file_name);
+  texMaker.addMinipage();
 
-  // gpMaker.reset();
-  // gpMaker.setName(file_name);
-  // gpMaker.setYLabel("Base orient. [deg]");
-  // gpMaker.setUnit("RAD2DEG");
-  // gpMaker.setDimention(3);
-  // gpMaker.makeGp();
+  reset();
+  setFileName("baseOrient");
 
-  // texMaker.setName(file_name);
-  // texMaker.addMinipage();
+  setVerticalDat("time");
+  setHorizontalDat("tree model xiB");
+  makeDat();
 
-  // reset();
-  // setFileName("baseAngVel");
-  // makeDat("t-wB");
+  gpMaker.reset();
+  gpMaker.setName(file_name);
+  gpMaker.setYLabel("Base orient. [deg]");
+  gpMaker.setUnit("RAD2DEG");
+  gpMaker.setDimention(3);
+  gpMaker.makeGp();
 
-  // gpMaker.reset();
-  // gpMaker.setName(file_name);
-  // gpMaker.setYLabel("Base ang. vel. [rad/s]");
-  // gpMaker.setDimention(3);
-  // gpMaker.makeGp();
+  texMaker.setName(file_name);
+  texMaker.addMinipage();
 
-  // texMaker.setName(file_name);
-  // texMaker.addMinipage();
+  reset();
+  setFileName("baseAngVel");
 
-  // texMaker.setTexName("mix");
-  // texMaker.setCaption("Mixed quasi values.");
-  // texMaker.makeTex();
+  setVerticalDat("time");
+  setHorizontalDat("tree model wB");
+  makeDat();
+
+  gpMaker.reset();
+  gpMaker.setName(file_name);
+  gpMaker.setYLabel("Base ang. vel. [rad/s]");
+  gpMaker.setDimention(3);
+  gpMaker.makeGp();
+
+  texMaker.setName(file_name);
+  texMaker.addMinipage();
+
+  texMaker.setTexName("mix");
+  texMaker.setCaption("Mixed quasi values.");
+  texMaker.makeTex();
 }

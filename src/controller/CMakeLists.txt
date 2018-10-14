@@ -6,9 +6,7 @@ add_subdirectory(solver)
 add_subdirectory(rlsDynamics)
 add_subdirectory(object)
 
-if(rls_ext)
-  add_subdirectory(ext)
-endif(rls_ext)
+add_subdirectory(ext)
 
 if(rls_rlsDynamicsRTC)
   set(rlsDynamicsRTC_srcs
@@ -16,6 +14,7 @@ if(rls_rlsDynamicsRTC)
     ${interpolation_srcs}
     ${solver_srcs}
     ${rlsDynamics_srcs}
+    ${extDat_srcs}
     ${ext_srcs}
     ${rlsDynamicsRTC_srcs}
     PARENT_SCOPE
@@ -41,10 +40,9 @@ if(rls_rlsSimulator)
     ${interpolation_srcs}
     ${solver_srcs}
     ${rlsDynamics_srcs}
+    ${extDat_srcs}
     ${ext_srcs}
     ${controller_srcs}
     PARENT_SCOPE
     )
 endif(rls_rlsSimulator)
-
-

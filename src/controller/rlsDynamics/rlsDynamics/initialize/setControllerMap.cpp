@@ -6,93 +6,100 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
+#include "_ext.hpp"
+
 void RLS::RlsDynamics::setControllerMap()
 {
   if(debug) DEBUG;
 
   // momentum controller
   // ****************************************************************
-  map_momentumController["default"] = &RLS::RlsDynamics::defaultController;
-  map_momentumController["baseMomentum"] = &RLS::RlsDynamics::baseMomentum;
-  map_momentumController["centroidalMomentum"] = &RLS::RlsDynamics::centroidalMomentum;
-  map_momentumController["centroidalDcmMomentum"] = &RLS::RlsDynamics::centroidalDcmMomentum;
-  map_momentumController["centroidalCmpMomentum"] = &RLS::RlsDynamics::centroidalCmpMomentum;
+  momentumController_map["default"] = &RLS::RlsDynamics::defaultController;
+  momentumController_map["baseMomentum"] = &RLS::RlsDynamics::baseMomentum;
+  momentumController_map["centroidalMomentum"] = &RLS::RlsDynamics::centroidalMomentum;
+  momentumController_map["centroidalDcmMomentum"] = &RLS::RlsDynamics::centroidalDcmMomentum;
+  momentumController_map["centroidalCmpMomentum"] = &RLS::RlsDynamics::centroidalCmpMomentum;
 
   // motion controller
-  map_motionController["default"] = &RLS::RlsDynamics::defaultConfigurationController;
+  motionController_map["default"] = &RLS::RlsDynamics::defaultConfigurationController;
 
   // operational space reference
   // ****************************************************************
   // velocity controller
-  map_operationalSpaceController["default"] = &RLS::RlsDynamics::defaultController;
-  map_operationalSpaceController["relativeVelocityBaseMap"] = &RLS::RlsDynamics::relativeVelocityBaseMap;
-  map_operationalSpaceController["relativeVelocityMixedMap"] = &RLS::RlsDynamics::relativeVelocityMixedMap;
+  operationalSpaceController_map["default"] = &RLS::RlsDynamics::defaultController;
+  operationalSpaceController_map["relativeVelocityBaseMap"] = &RLS::RlsDynamics::relativeVelocityBaseMap;
+  operationalSpaceController_map["relativeVelocityMixedMap"] = &RLS::RlsDynamics::relativeVelocityMixedMap;
 
   // acceleration controller
-  map_operationalSpaceController["decomposeEndEffectorAcceleration"] = &RLS::RlsDynamics::decomposeEndEffectorAcceleration;
-  map_operationalSpaceController["relativeAccelerationBaseMap"] = &RLS::RlsDynamics::relativeAccelerationBaseMap;
-  map_operationalSpaceController["relativeAccelerationMixedMap"] = &RLS::RlsDynamics::relativeAccelerationMixedMap;
-  map_operationalSpaceController["relativeAccelerationCentroidalMap"] = &RLS::RlsDynamics::relativeAccelerationCentroidalMap;
+  operationalSpaceController_map["decomposeEndEffectorAcceleration"] = &RLS::RlsDynamics::decomposeEndEffectorAcceleration;
+  operationalSpaceController_map["relativeAccelerationBaseMap"] = &RLS::RlsDynamics::relativeAccelerationBaseMap;
+  operationalSpaceController_map["relativeAccelerationMixedMap"] = &RLS::RlsDynamics::relativeAccelerationMixedMap;
+  operationalSpaceController_map["relativeAccelerationCentroidalMap"] = &RLS::RlsDynamics::relativeAccelerationCentroidalMap;
 
   // configuration space controller
   // ****************************************************************
   // velocity controller
-  map_motionController["baseVelocitySynergy"] = &RLS::RlsDynamics::baseVelocitySynergy;
-  map_motionController["mixedVelocitySynergy"] = &RLS::RlsDynamics::mixedVelocitySynergy;
+  motionController_map["baseVelocitySynergy"] = &RLS::RlsDynamics::baseVelocitySynergy;
+  motionController_map["mixedVelocitySynergy"] = &RLS::RlsDynamics::mixedVelocitySynergy;
 
   // acceleration controller
-  map_motionController["workAcceleration"] = &RLS::RlsDynamics::workAcceleration;
-  map_motionController["baseAccelerationSynergy"] = &RLS::RlsDynamics::baseAccelerationSynergy;
-  map_motionController["mixedAccelerationSynergy"] = &RLS::RlsDynamics::mixedAccelerationSynergy;
-  map_motionController["centroidalAccelerationSynergy"] = &RLS::RlsDynamics::centroidalAccelerationSynergy;
+  motionController_map["workAcceleration"] = &RLS::RlsDynamics::workAcceleration;
+  motionController_map["baseAccelerationSynergy"] = &RLS::RlsDynamics::baseAccelerationSynergy;
+  motionController_map["mixedAccelerationSynergy"] = &RLS::RlsDynamics::mixedAccelerationSynergy;
+  motionController_map["centroidalAccelerationSynergy"] = &RLS::RlsDynamics::centroidalAccelerationSynergy;
 
-  map_motionController["rest_cmlC"] = &RLS::RlsDynamics::rest_cmlC;
-  map_motionController["rest_clCm"] = &RLS::RlsDynamics::rest_clCm;
-  map_motionController["baseGeneralizedMomentum"] = &RLS::RlsDynamics::baseGeneralizedMomentum;
-  map_motionController["mixedGeneralizedMomentum"] = &RLS::RlsDynamics::mixedGeneralizedMomentum;
-  map_motionController["accelerationSolver"] = &RLS::RlsDynamics::accelerationSolver;
-  map_motionController["hogehogeMomentum"] = &RLS::RlsDynamics::hogehogeMomentum;
+  motionController_map["rest_cmlC"] = &RLS::RlsDynamics::rest_cmlC;
+  motionController_map["rest_clCm"] = &RLS::RlsDynamics::rest_clCm;
+  motionController_map["baseGeneralizedMomentum"] = &RLS::RlsDynamics::baseGeneralizedMomentum;
+  motionController_map["mixedGeneralizedMomentum"] = &RLS::RlsDynamics::mixedGeneralizedMomentum;
+  motionController_map["accelerationSolver"] = &RLS::RlsDynamics::accelerationSolver;
+  motionController_map["hogehogeMomentum"] = &RLS::RlsDynamics::hogehogeMomentum;
 
   // internal force controller
   // ****************************************************************
-  map_internalForceController["default"] = &RLS::RlsDynamics::defaultController;
-  map_internalForceController["m_internalDistribution"] = &RLS::RlsDynamics::m_internalDistribution;
+  internalForceController_map["default"] = &RLS::RlsDynamics::defaultController;
+  internalForceController_map["m_internalDistribution"] = &RLS::RlsDynamics::m_internalDistribution;
 
   // force controller
   // ****************************************************************
-  map_forceController["default"] = &RLS::RlsDynamics::defaultController;
-  map_forceController["baseDistribution"] = &RLS::RlsDynamics::baseDistribution;
-  map_forceController["centroidalDistribution"] = &RLS::RlsDynamics::centroidalDistribution;
-  map_forceController["centroidalDcmDistribution"] = &RLS::RlsDynamics::centroidalDcmDistribution;
-  map_forceController["centroidalEcmpDistribution"] = &RLS::RlsDynamics::centroidalEcmpDistribution;
-  map_forceController["handWrenchControlAndCentroidalEcmpDistribution"] = &RLS::RlsDynamics::handWrenchControlAndCentroidalEcmpDistribution;
+  forceController_map["default"] = &RLS::RlsDynamics::defaultController;
+  forceController_map["baseDistribution"] = &RLS::RlsDynamics::baseDistribution;
+  forceController_map["centroidalDistribution"] = &RLS::RlsDynamics::centroidalDistribution;
+  forceController_map["centroidalDcmDistribution"] = &RLS::RlsDynamics::centroidalDcmDistribution;
+  forceController_map["centroidalEcmpDistribution"] = &RLS::RlsDynamics::centroidalEcmpDistribution;
+  forceController_map["handWrenchControlAndCentroidalEcmpDistribution"] = &RLS::RlsDynamics::handWrenchControlAndCentroidalEcmpDistribution;
 
-  map_forceController["distributionSolver"] = &RLS::RlsDynamics::distributionSolver;
+  forceController_map["distributionSolver"] = &RLS::RlsDynamics::distributionSolver;
 
   // torque controller
   // ****************************************************************
-  map_torqueController["default"] = &RLS::RlsDynamics::defaultController;
-  map_torqueController["jointSpace"] = &RLS::RlsDynamics::jointSpace;
-  map_torqueController["staticControl"] = &RLS::RlsDynamics::staticControl;
-  map_torqueController["base"] = &RLS::RlsDynamics::base;
-  map_torqueController["mixed"] = &RLS::RlsDynamics::mixed;
-  map_torqueController["mixedmixed"] = &RLS::RlsDynamics::mixedmixed;
-  map_torqueController["crb"] = &RLS::RlsDynamics::crb;
-  map_torqueController["baseOpt"] = &RLS::RlsDynamics::baseOpt;
-  map_torqueController["mixedOpt"] = &RLS::RlsDynamics::mixedOpt;
-  map_torqueController["mixedmixedOpt"] = &RLS::RlsDynamics::mixedmixedOpt;
+  torqueController_map["default"] = &RLS::RlsDynamics::defaultController;
+  torqueController_map["jointSpace"] = &RLS::RlsDynamics::jointSpace;
+  torqueController_map["staticControl"] = &RLS::RlsDynamics::staticControl;
+  torqueController_map["base"] = &RLS::RlsDynamics::base;
+  torqueController_map["mixed"] = &RLS::RlsDynamics::mixed;
+  torqueController_map["mixedmixed"] = &RLS::RlsDynamics::mixedmixed;
+  torqueController_map["crb"] = &RLS::RlsDynamics::crb;
+  torqueController_map["baseOpt"] = &RLS::RlsDynamics::baseOpt;
+  torqueController_map["mixedOpt"] = &RLS::RlsDynamics::mixedOpt;
+  torqueController_map["mixedmixedOpt"] = &RLS::RlsDynamics::mixedmixedOpt;
 
   // inverse dynamics controller
   // ****************************************************************
-  map_inverseDynamicsController["default"] = &RLS::RlsDynamics::defaultJointController;
-  map_inverseDynamicsController["fullDynamicsController"] = &RLS::RlsDynamics::fullDynamicsController;
-  map_inverseDynamicsController["momentumInverseDynamicsController"] = &RLS::RlsDynamics::momentumInverseDynamicsController;
-  map_inverseDynamicsController["highGainController"] = &RLS::RlsDynamics::highGainController;
-  map_inverseDynamicsController["spatialDynamicsSolver"] = &RLS::RlsDynamics::spatialDynamicsSolver;
-  map_inverseDynamicsController["dlrSolver"] = &RLS::RlsDynamics::dlrSolver;
+  inverseDynamicsController_map["default"] = &RLS::RlsDynamics::defaultJointController;
+  inverseDynamicsController_map["fullDynamicsController"] = &RLS::RlsDynamics::fullDynamicsController;
+  inverseDynamicsController_map["momentumInverseDynamicsController"] = &RLS::RlsDynamics::momentumInverseDynamicsController;
+  inverseDynamicsController_map["highGainController"] = &RLS::RlsDynamics::highGainController;
+  inverseDynamicsController_map["spatialDynamicsSolver"] = &RLS::RlsDynamics::spatialDynamicsSolver;
+  inverseDynamicsController_map["dlrSolver"] = &RLS::RlsDynamics::dlrSolver;
 
-  map_externalWrenchController["default"] = &RLS::RlsDynamics::defaultController;
-  map_externalWrenchController["transformExternalWrench"] = &RLS::RlsDynamics::transformExternalWrench;
+  externalWrenchController_map["default"] = &RLS::RlsDynamics::defaultController;
+  externalWrenchController_map["transformExternalWrench"] = &RLS::RlsDynamics::transformExternalWrench;
 
-  // extWrapper.setControllerMap(this);
+  ext_momentumController_map["default"] = &RLS::Ext::defaultController;
+  ext_motionController_map["default"] = &RLS::Ext::defaultConfigurationController;
+  ext_forceController_map["default"] = &RLS::Ext::defaultController;
+  ext_torqueController_map["default"] = &RLS::Ext::defaultController;
+  ext_inverseDynamicsController_map["default"] = &RLS::Ext::defaultJointController;
+  ext_externalWrenchController_map["default"] = &RLS::Ext::defaultController;
 }

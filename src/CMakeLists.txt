@@ -1,4 +1,4 @@
-# @author Sho Miyahara 2017
+# @author Sho Miyahara 2018
 
 if(DEFINED OPENRTM_INCLUDE_DIRS)
   string(REGEX REPLACE "-I" ";"
@@ -48,10 +48,7 @@ include_directories(${PROJECT_SOURCE_DIR}/include/controller/object)
 
 include_directories(${PROJECT_SOURCE_DIR}/include/output)
 
-if(rls_ext)
-  add_definitions(-DEXT)
-  include_directories(${PROJECT_SOURCE_DIR}/src/controller/ext)
-endif(rls_ext)
+include_directories(${PROJECT_SOURCE_DIR}/src/controller/ext)
 
 include_directories(${OPENRTM_INCLUDE_DIRS})
 

@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::baseRot(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::baseRot(GpMaker &gpMaker, TexMaker &texMaker)
 {
   if(debug) DEBUG;
 
@@ -14,7 +14,10 @@ void RLS::Output::baseRot(const Config &config, const TreeModel::Info &info, GpM
 
   reset();
   setFileName("baseOrient");
-  makeDat("t-xiB");
+
+  setVerticalDat("time");
+  setHorizontalDat("tree model xiB");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
@@ -28,7 +31,10 @@ void RLS::Output::baseRot(const Config &config, const TreeModel::Info &info, GpM
 
   reset();
   setFileName("baseAngVel");
-  makeDat("t-wB");
+
+  setVerticalDat("time");
+  setHorizontalDat("tree model wB");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);

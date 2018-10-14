@@ -6,6 +6,8 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
+#include "_ext.hpp"
+
 VectorXd RLS::RlsDynamics::rlsDynamics(const double &t)
 {
   if(debug) DEBUG;
@@ -19,6 +21,7 @@ VectorXd RLS::RlsDynamics::rlsDynamics(const double &t)
 
   des.desiredValueGenerator(t);
   fb.feedbackController();
+  ext->trajectoryGenerator(this, t);
 
   controlMethod();
 

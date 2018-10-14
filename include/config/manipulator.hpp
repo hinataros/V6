@@ -2,6 +2,9 @@
    @author Sho Miyahara 2018
 */
 
+#ifndef MANIPULATOR_HPP_
+#define MANIPULATOR_HPP_
+
 class manip_warning{
   friend std::ostream& operator <<(std::ostream& ros, manip_warning manip){
     return manip(ros);
@@ -33,3 +36,4 @@ private:
     return ros << "\e[1m\e[31m" << manip_value << "\e[0m";
   }
 };
+#endif // MANIPULATOR_HPP_

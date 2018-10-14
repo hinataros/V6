@@ -2,6 +2,9 @@
    @author Sho Miyahara 2018
 */
 
+#ifndef RIGIDBODYMODEL_HPP_
+#define RIGIDBODYMODEL_HPP_
+
 // #include "rigidBodyModelList.hpp"
 #include "info.hpp"
 
@@ -48,3 +51,5 @@ namespace RLS{
     void update();
   };
 }
+
+#endif // RIGIDBODYMODEL_HPP_

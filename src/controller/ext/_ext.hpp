@@ -6,36 +6,59 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
+#include "_extList.hpp"
+
 namespace RLS{
-  class Ext{
+  class Ext:
+    public Interpolation{
   private:
+    double tw0;
+    double twf;
+
+    Vector3d des;
+
+    Vector3d hoge0;
+    Vector3d hogepreDes;
+    Vector3d hogef;
+
+    Vector3d hogeDes;
+    Vector3d dhogeDes;
+    Vector3d ddhogeDes;
+
     // // control method
     // // ******************************
-    // // operational space controller
-    // void relativeAccelerationCentroidalMap();
+    // motion controller
+    VectorXd testMotionController(RlsDynamics*);
 
-    // // configuration space acceleration controller
-    // VectorXd centroidalAccelerationSynergy();
+    // momentum controller
+    void testMomentumController(RlsDynamics*);
 
-    // // momentum controller
-    // void centroidalCmpMomentum();
+    // force controller
+    void testForceController(RlsDynamics*);
 
-    // // internal force controller
-    // void m_internalDistribution();
+    // torque controller
+    void testTorqueController(RlsDynamics*);
 
-    // // force controller
-    // void baseDistribution();
-
-    // // torque controller
-    // void crb();
-
-    // // inverse dynamics controller
-    // VectorXd fullDynamicsController();
+    // inverse dynamics controller
+    VectorXd testInverseDynamicsController(RlsDynamics*);
 
     // // external wrench controller
-    // void transformExternalWrench();
+    // void testExternalWrenchController(RlsDynamics*);
 
   public:
-    void setControllerMap(RlsDynamics*);
+    ExtList outputList;
+
+    void defaultController(RlsDynamics*);
+    VectorXd defaultJointController(RlsDynamics*);
+    VectorXd defaultConfigurationController(RlsDynamics*);
+
+    void initialize(RlsDynamics*);
+    void reset(RlsDynamics*, const double&);
+    void readController(RlsDynamics*);
+    void reconfigure(RlsDynamics*);
+    void update(RlsDynamics*);
+    void trajectoryGenerator(RlsDynamics*, const double&);
+    void output(RlsDynamics*);
+    void finalize(RlsDynamics*);
   };
 }

@@ -1,5 +1,5 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
@@ -17,4 +17,6 @@ void RLS::Output::pushBack(const double &t)
 
   for(int i=0; i<controllerNum; i++)
     data.rlsDynamics[i].vec.push_back(rlsDynamicsList_temp[i]);
+
+  data.ext.push_back(extList_temp);
 }

@@ -6,9 +6,14 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
+#include "_ext.hpp"
+
 void RLS::RlsDynamics::finalize()
 {
   if(debug) DEBUG;
+
+  ext->finalize(this);
+  delete ext;
 
   delete[] info.constraint.c.controlNode;
   delete[] info.constraint.m.controlNode;

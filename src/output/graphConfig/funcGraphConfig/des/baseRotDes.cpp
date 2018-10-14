@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::baseRotDes(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::baseRotDes(GpMaker &gpMaker, TexMaker &texMaker)
 {
   if(debug) DEBUG;
 
@@ -14,7 +14,10 @@ void RLS::Output::baseRotDes(const Config &config, const TreeModel::Info &info, 
 
   reset();
   setFileName("baseOrientDes");
-  makeDat("t-xiBDes");
+
+  setVerticalDat("time");
+  setHorizontalDat("xiBDes");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
@@ -28,7 +31,10 @@ void RLS::Output::baseRotDes(const Config &config, const TreeModel::Info &info, 
 
   reset();
   setFileName("baseAngVelDes");
-  makeDat("t-wBDes");
+
+  setVerticalDat("time");
+  setHorizontalDat("wBDes");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
@@ -41,7 +47,10 @@ void RLS::Output::baseRotDes(const Config &config, const TreeModel::Info &info, 
 
   reset();
   setFileName("baseAngAccDes");
-  makeDat("t-dwBDes");
+
+  setVerticalDat("time");
+  setHorizontalDat("dwBDes");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);

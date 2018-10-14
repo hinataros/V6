@@ -2,6 +2,9 @@
    @author Sho Miyahara 2018
 */
 
+#ifndef TREEMODEL_HPP_
+#define TREEMODEL_HPP_
+
 #include "yaml-cpp/yaml.h"
 #include "common.hpp"
 
@@ -179,3 +182,5 @@ namespace RLS{
     TreeModel(){}
   };
 }
+
+#endif // TREEMODEL_HPP_

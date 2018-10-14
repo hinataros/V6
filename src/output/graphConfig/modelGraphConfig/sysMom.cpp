@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::spatialMom(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::sysMom(GpMaker &gpMaker, TexMaker &texMaker)
 {
   if(debug) DEBUG;
 
@@ -14,7 +14,10 @@ void RLS::Output::spatialMom(const Config &config, const TreeModel::Info &info, 
 
   reset();
   setFileName("linMom");
-  makeDat("t-p");
+
+  setVerticalDat("time");
+  setHorizontalDat("tree model p");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
@@ -27,7 +30,10 @@ void RLS::Output::spatialMom(const Config &config, const TreeModel::Info &info, 
 
   reset();
   setFileName("angMom");
-  makeDat("t-lC");
+
+  setVerticalDat("time");
+  setHorizontalDat("tree model lC");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);

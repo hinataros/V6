@@ -25,6 +25,8 @@ void RLS::RlsSimulator::linkEqs(Model &model, Controller &controller, Output &ou
   for(int i=0; i<controller.controllerNum; i++)
     output.rlsDynamicsList_temp[i] = controller.rlsDynamics[i].outputList;
 
+  output.extList_temp = rlsDynamics[0].extList;
+
   output.pushBack(t);
 }
 

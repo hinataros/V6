@@ -6,20 +6,23 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::eeRotDes(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::eeRotDes(GpMaker &gpMaker, TexMaker &texMaker)
 {
   if(debug) DEBUG;
 
   texMaker.reset();
-  texMaker.setLimb(info.controlNodeNum);
+  texMaker.setLimb(info->treeModel[0].controlNodeNum);
 
   reset();
   setFileName("eeOrientDes");
-  makeDat("t-xiDes");
+
+  setVerticalDat("time");
+  setHorizontalDat("xiDes");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.controlNodeNum);
+  gpMaker.setLimb(info->treeModel[0].controlNodeNum);
   gpMaker.setYLabel("EE des. orient. [deg]");
   gpMaker.setUnit("RAD2DEG");
   gpMaker.setDimention(3);
@@ -30,11 +33,14 @@ void RLS::Output::eeRotDes(const Config &config, const TreeModel::Info &info, Gp
 
   reset();
   setFileName("eeAngVelDes");
-  makeDat("t-wDes");
+
+  setVerticalDat("time");
+  setHorizontalDat("wDes");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.controlNodeNum);
+  gpMaker.setLimb(info->treeModel[0].controlNodeNum);
   gpMaker.setYLabel("EE des. ang. vel. [rad/s]");
   gpMaker.setDimention(3);
   gpMaker.makeGp();
@@ -44,11 +50,14 @@ void RLS::Output::eeRotDes(const Config &config, const TreeModel::Info &info, Gp
 
   reset();
   setFileName("eeAngAccDes");
-  makeDat("t-dwDes");
+
+  setVerticalDat("time");
+  setHorizontalDat("dwDes");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.controlNodeNum);
+  gpMaker.setLimb(info->treeModel[0].controlNodeNum);
   gpMaker.setYLabel("EE des. ang. acc. [rad/s^2]");
   gpMaker.setDimention(3);
   gpMaker.makeGp();

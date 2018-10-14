@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::eeTrans(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::eeTrans(GpMaker &gpMaker, TexMaker &texMaker)
 {
   if(debug) DEBUG;
 
@@ -15,7 +15,10 @@ void RLS::Output::eeTrans(const Config &config, const TreeModel::Info &info, GpM
 
   reset();
   setFileName("eePos");
-  makeDat("t-r");
+
+  setVerticalDat("time");
+  setHorizontalDat("tree model r");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
@@ -30,7 +33,10 @@ void RLS::Output::eeTrans(const Config &config, const TreeModel::Info &info, GpM
 
   reset();
   setFileName("eeVel");
-  makeDat("t-v");
+
+  setVerticalDat("time");
+  setHorizontalDat("tree model v");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);

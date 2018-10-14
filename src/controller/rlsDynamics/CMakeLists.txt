@@ -10,8 +10,6 @@ add_subdirectory(update)
 add_subdirectory(controlMethod)
 add_subdirectory(outputConfig)
 
-# add_subdirectory(extWrapper)
-
 add_subdirectory(rlsDynamics)
 
 # set(srcs
@@ -32,7 +30,6 @@ set(rlsDynamics_srcs
   ${index_srcs}
   ${transform_srcs}
   ${outputConfig_srcs}
-  ${extWrapper_srcs}
   ${rlsDynamics_srcs}
   PARENT_SCOPE
   )

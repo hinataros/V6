@@ -1,5 +1,5 @@
 /**
-   @author Sho Miyahara 2018
+   @author Sho Miyahara 2017
 */
 
 #ifndef COMMON_HPP_

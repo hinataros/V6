@@ -54,13 +54,14 @@ void RLS::Output::setDat(ofstream& stream, int id, string dataName, int i)
   else if(dataName=="tree model lC")
     stream << data.treeModel[id].vec[i].lC.transpose();
 
-  // // controller
-  // else if(dataName=="t-rBDes")
-  //   stream << data.rlsDynamics[id].vec[i].rBDes.transpose();
-  // else if(dataName=="t-vBDes")
-  //   stream << data.rlsDynamics[id].vec[i].vBDes.transpose();
-  // else if(dataName=="t-dvBDes")
-  //   stream << data.rlsDynamics[id].vec[i].dvBDes.transpose();
+  // controller
+  // desired value
+  else if(dataName=="rBDes")
+    stream << data.rlsDynamics[id].vec[i].rBDes.transpose();
+  else if(dataName=="vBDes")
+    stream << data.rlsDynamics[id].vec[i].vBDes.transpose();
+  else if(dataName=="dvBDes")
+    stream << data.rlsDynamics[id].vec[i].dvBDes.transpose();
 
   else if(dataName=="xiBDes")
     stream << data.rlsDynamics[id].vec[i].xiBDes.transpose();
@@ -69,17 +70,17 @@ void RLS::Output::setDat(ofstream& stream, int id, string dataName, int i)
   else if(dataName=="dwBDes")
     stream << data.rlsDynamics[id].vec[i].dwBDes.transpose();
 
-  // else if(dataName=="t-rCDes")
-  //   stream << data.rlsDynamics[id].vec[i].rCDes.transpose();
-  // else if(dataName=="t-vCDes")
-  //   stream << data.rlsDynamics[id].vec[i].vCDes.transpose();
-  // else if(dataName=="t-dvCDes")
-  //   stream << data.rlsDynamics[id].vec[i].dvCDes.transpose();
+  else if(dataName=="rCDes")
+    stream << data.rlsDynamics[id].vec[i].rCDes.transpose();
+  else if(dataName=="vCDes")
+    stream << data.rlsDynamics[id].vec[i].vCDes.transpose();
+  else if(dataName=="dvCDes")
+    stream << data.rlsDynamics[id].vec[i].dvCDes.transpose();
 
-  // else if(dataName=="t-rXDes")
-  //   stream << data.rlsDynamics[id].vec[i].rXDes.transpose();
-  // else if(dataName=="t-drXDes")
-  //   stream << data.rlsDynamics[id].vec[i].drXDes.transpose();
+  else if(dataName=="rXDes")
+    stream << data.rlsDynamics[id].vec[i].rXDes.transpose();
+  else if(dataName=="drXDes")
+    stream << data.rlsDynamics[id].vec[i].drXDes.transpose();
 
   else if(dataName=="rDes")
     stream << data.rlsDynamics[id].vec[i].rDes.transpose();
@@ -95,78 +96,80 @@ void RLS::Output::setDat(ofstream& stream, int id, string dataName, int i)
   else if(dataName=="dwDes")
     stream << data.rlsDynamics[id].vec[i].dwDes.transpose();
 
-  // else if(dataName=="t-erB")
-  //   stream << data.rlsDynamics[id].vec[i].erB.transpose();
-  // else if(dataName=="t-evB")
-  //   stream << data.rlsDynamics[id].vec[i].evB.transpose();
-  // else if(dataName=="t-eoB")
-  //   stream << data.rlsDynamics[id].vec[i].eoB.transpose();
-  // else if(dataName=="t-ewB")
-  //   stream << data.rlsDynamics[id].vec[i].ewB.transpose();
+  // error
+  else if(dataName=="erB")
+    stream << data.rlsDynamics[id].vec[i].erB.transpose();
+  else if(dataName=="evB")
+    stream << data.rlsDynamics[id].vec[i].evB.transpose();
+  else if(dataName=="eoB")
+    stream << data.rlsDynamics[id].vec[i].eoB.transpose();
+  else if(dataName=="ewB")
+    stream << data.rlsDynamics[id].vec[i].ewB.transpose();
 
-  // else if(dataName=="t-erC")
-  //   stream << data.rlsDynamics[id].vec[i].erC.transpose();
-  // else if(dataName=="t-evC")
-  //   stream << data.rlsDynamics[id].vec[i].evC.transpose();
+  else if(dataName=="erC")
+    stream << data.rlsDynamics[id].vec[i].erC.transpose();
+  else if(dataName=="evC")
+    stream << data.rlsDynamics[id].vec[i].evC.transpose();
 
-  // else if(dataName=="t-eX")
-  //   stream << data.rlsDynamics[id].vec[i].eX.transpose();
+  else if(dataName=="eX")
+    stream << data.rlsDynamics[id].vec[i].eX.transpose();
 
-  // else if(dataName=="t-er")
-  //   stream << data.rlsDynamics[id].vec[i].er.transpose();
-  // else if(dataName=="t-ev")
-  //   stream << data.rlsDynamics[id].vec[i].ev.transpose();
+  else if(dataName=="er")
+    stream << data.rlsDynamics[id].vec[i].er.transpose();
+  else if(dataName=="ev")
+    stream << data.rlsDynamics[id].vec[i].ev.transpose();
 
-  // else if(dataName=="t-eo")
-  //   stream << data.rlsDynamics[id].vec[i].eo.transpose();
-  // else if(dataName=="t-ew")
-  //   stream << data.rlsDynamics[id].vec[i].ew.transpose();
+  else if(dataName=="eo")
+    stream << data.rlsDynamics[id].vec[i].eo.transpose();
+  else if(dataName=="ew")
+    stream << data.rlsDynamics[id].vec[i].ew.transpose();
 
-  // else if(dataName=="t-ef")
-  //   stream << data.rlsDynamics[id].vec[i].ef.transpose();
-  // else if(dataName=="t-en")
-  //   stream << data.rlsDynamics[id].vec[i].en.transpose();
+  else if(dataName=="ef")
+    stream << data.rlsDynamics[id].vec[i].ef.transpose();
+  else if(dataName=="en")
+    stream << data.rlsDynamics[id].vec[i].en.transpose();
 
-  // else if(dataName=="t-dvBRef")
+  // reference
+  // else if(dataName=="dvBRef")
   //   stream << data.rlsDynamics[id].vec[i].dvBRef.transpose();
-  // else if(dataName=="t-dwBRef")
+  // else if(dataName=="dwBRef")
   //   stream << data.rlsDynamics[id].vec[i].dwBRef.transpose();
-  // else if(dataName=="t-ddthRef")
+  // else if(dataName=="ddthRef")
   //   stream << data.rlsDynamics[id].vec[i].dthRef.transpose();
 
-  // else if(dataName=="t-dvCRef")
+  // else if(dataName=="dvCRef")
   //   stream << data.rlsDynamics[id].vec[i].dvCRef.transpose();
 
-  // else if(dataName=="t-dvBoptRef")
-  //   stream << data.rlsDynamics[id].vec[i].dvBoptRef.transpose();
-  // else if(dataName=="t-dwBoptRef")
-  //   stream << data.rlsDynamics[id].vec[i].dwBoptRef.transpose();
-  // else if(dataName=="t-ddthoptRef")
-  //   stream << data.rlsDynamics[id].vec[i].ddthoptRef.transpose();
+  else if(dataName=="dvBoptRef")
+    stream << data.rlsDynamics[id].vec[i].dvBoptRef.transpose();
+  else if(dataName=="dwBoptRef")
+    stream << data.rlsDynamics[id].vec[i].dwBoptRef.transpose();
+  else if(dataName=="ddthoptRef")
+    stream << data.rlsDynamics[id].vec[i].ddthoptRef.transpose();
 
-  // else if(dataName=="t-dvCoptRef")
-  //   stream << data.rlsDynamics[id].vec[i].dvCoptRef.transpose();
+  else if(dataName=="dvCoptRef")
+    stream << data.rlsDynamics[id].vec[i].dvCoptRef.transpose();
 
-  // else if(dataName=="t-dpRef")
-  //   stream << data.rlsDynamics[id].vec[i].dpRef.transpose();
-  // else if(dataName=="t-dlCRef")
-  //   stream << data.rlsDynamics[id].vec[i].dlCRef.transpose();
+  else if(dataName=="dpRef")
+    stream << data.rlsDynamics[id].vec[i].dpRef.transpose();
+  else if(dataName=="dlCRef")
+    stream << data.rlsDynamics[id].vec[i].dlCRef.transpose();
 
-  // else if(dataName=="t-dlBRef")
-  //   stream << data.rlsDynamics[id].vec[i].dlBRef.transpose();
+  else if(dataName=="dlBRef")
+    stream << data.rlsDynamics[id].vec[i].dlBRef.transpose();
 
-  // else if(dataName=="t-fRef")
-  //   stream << data.rlsDynamics[id].vec[i].fRef.transpose();
-  // else if(dataName=="t-nRef")
-  //   stream << data.rlsDynamics[id].vec[i].nRef.transpose();
+  else if(dataName=="fRef")
+    stream << data.rlsDynamics[id].vec[i].fRef.transpose();
+  else if(dataName=="nRef")
+    stream << data.rlsDynamics[id].vec[i].nRef.transpose();
 
-  // else if(dataName=="t-fextRef")
+  // else if(dataName=="fextRef")
   //   stream << data.rlsDynamics[id].vec[i].cal_FextRef.head(3).transpose();
-  // else if(dataName=="t-nextRef")
+  // else if(dataName=="nextRef")
   //   stream << data.rlsDynamics[id].vec[i].cal_FextRef.tail(3).transpose();
 
-  // else if(dataName=="t-tau")
-  //   stream << data.rlsDynamics[id].vec[i].tau.transpose();
+  else if(dataName=="tau")
+    stream << data.rlsDynamics[id].vec[i].tau.transpose();
 
   else if(dataName=="pCRB")
     stream << data.rlsDynamics[id].vec[i].pCRB.transpose();
@@ -199,9 +202,9 @@ void RLS::Output::setDat(ofstream& stream, int id, string dataName, int i)
   else if(dataName=="rp")
     stream << data.rlsDynamics[id].vec[i].rp.transpose();
 
-  // else if(dataName=="t-rcmpx")
+  // else if(dataName=="rcmpx")
   //   stream << data.rlsDynamics[id].vec[i].rcmp(0);
-  // else if(dataName=="t-rcmpy")
+  // else if(dataName=="rcmpy")
   //   stream << data.rlsDynamics[id].vec[i].rcmp(1);
 
   else if(dataName=="xStabilityIndex")
@@ -225,9 +228,9 @@ void RLS::Output::setDat(ofstream& stream, int id, string dataName, int i)
     stream << data.rlsDynamics[id].vec[i].rvrpRef.head(2).transpose();
 
   // // desired VRP
-  // else if(dataName=="t-vrpDesx")
+  // else if(dataName=="vrpDesx")
   //   stream << data.rlsDynamics[id].vec[i].rvrpDes(0);
-  // else if(dataName=="t-vrpDesy")
+  // else if(dataName=="vrpDesy")
   //   stream << data.rlsDynamics[id].vec[i].rvrpDes(1);
 
   // // foot print
@@ -243,6 +246,8 @@ void RLS::Output::setDat(ofstream& stream, int id, string dataName, int i)
   //     data.rlsDynamics[id].vec[i].indexPrintMatrix.transpose().row(3) <<
   //     data.rlsDynamics[id].vec[i].indexPrintMatrix.transpose().row(4);
 
-  else
-    cout << manip_error("not found: '" + dataName + "'") << endl;
+  else{
+    if(!setDat(stream, dataName, i))
+      cout << manip_error("not found: '" + dataName + "'") << endl;
+  }
 }

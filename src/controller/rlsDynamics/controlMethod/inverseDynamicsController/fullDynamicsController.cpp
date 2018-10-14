@@ -11,16 +11,28 @@ VectorXd RLS::RlsDynamics::fullDynamicsController()
   if(debug) DEBUG;
 
   // momentum control
-  (this->*momentumController_ptr)();
+  if(!extMomentumController)
+    (this->*momentumController_ptr)();
+  else
+    (ext->*ext_momentumController_ptr)(this);
 
   // motion control
-  (this->*motionController_ptr)();
+  if(!extMotionController)
+    (this->*motionController_ptr)();
+  else
+    (ext->*ext_motionController_ptr)(this);
 
   // force control
-  (this->*forceController_ptr)();
+  if(!extForceController)
+    (this->*forceController_ptr)();
+  else
+    (ext->*ext_forceController_ptr)(this);
 
   // torque control
-  (this->*torqueController_ptr)();
+  if(!extTorqueController)
+    (this->*torqueController_ptr)();
+  else
+    (ext->*ext_torqueController_ptr)(this);
 
   return tau;
 }

@@ -2,6 +2,9 @@
    @author Sho Miyahara 2018
 */
 
+#ifndef CONFIG_HPP_
+#define CONFIG_HPP_
+
 #include <iostream>
 #include <eigen3/Eigen/Dense>
 #include <iomanip>
@@ -68,3 +71,5 @@ namespace RLS{
     Config(int, char *[]);
   };
 }
+
+#endif // CONFIG_HPP_

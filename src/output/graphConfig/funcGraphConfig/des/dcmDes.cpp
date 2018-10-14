@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::dcmDes(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::dcmDes(GpMaker &gpMaker, TexMaker &texMaker)
 {
   if(debug) DEBUG;
 
@@ -14,7 +14,10 @@ void RLS::Output::dcmDes(const Config &config, const TreeModel::Info &info, GpMa
 
   reset();
   setFileName("dcmPosDes");
-  makeDat("t-rXDes");
+
+  setVerticalDat("time");
+  setHorizontalDat("rXDes");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
@@ -28,7 +31,10 @@ void RLS::Output::dcmDes(const Config &config, const TreeModel::Info &info, GpMa
 
   reset();
   setFileName("dcmVelDes");
-  makeDat("t-drXDes");
+
+  setVerticalDat("time");
+  setHorizontalDat("drXDes");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);

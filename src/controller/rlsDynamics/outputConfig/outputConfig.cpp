@@ -15,4 +15,6 @@ void RLS::RlsDynamics::outputConfig()
   outputRefConfig();
   outputIndexConfig();
   // outputIndexPrintConfig();
+
+  outputExtConfig();
 }

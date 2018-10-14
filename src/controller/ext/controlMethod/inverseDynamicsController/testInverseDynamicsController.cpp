@@ -2,25 +2,23 @@
    @author Sho Miyahara 2018
 */
 
-#include "config.hpp"
-#include "model.hpp"
-#include "rlsDynamics.hpp"
+#include "_ext.hpp"
 
-VectorXd RLS::RlsDynamics::testDynamicsController()
+VectorXd RLS::Ext::testInverseDynamicsController(RlsDynamics *io)
 {
   if(debug) DEBUG;
 
   // // momentum control
-  // (this->*momentumController_ptr)();
+  // (this->*momentumController_ptr)(io);
 
   // // motion control
-  // (this->*motionController_ptr)();
+  // (this->*motionController_ptr)(io);
 
   // // force control
-  // (this->*forceController_ptr)();
+  // (this->*forceController_ptr)(io);
 
   // // torque control
-  // (this->*torqueController_ptr)();
+  // (this->*torqueController_ptr)(io);
 
-  return tau;
+  return io->tau;
 }

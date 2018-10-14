@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::dcmErr(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::dcmErr(GpMaker &gpMaker, TexMaker &texMaker)
 {
   if(debug) DEBUG;
 
@@ -14,7 +14,10 @@ void RLS::Output::dcmErr(const Config &config, const TreeModel::Info &info, GpMa
 
   reset();
   setFileName("dcmErr");
-  makeDat("t-eX");
+
+  setVerticalDat("time");
+  setHorizontalDat("eX");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);

@@ -6,20 +6,23 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::eeRotErr(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::eeRotErr(GpMaker &gpMaker, TexMaker &texMaker)
 {
   if(debug) DEBUG;
 
   texMaker.reset();
-  texMaker.setLimb(info.controlNodeNum);
+  texMaker.setLimb(info->treeModel[0].controlNodeNum);
 
   reset();
   setFileName("eeOrientErr");
-  makeDat("t-eo");
+
+  setVerticalDat("time");
+  setHorizontalDat("eo");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.controlNodeNum);
+  gpMaker.setLimb(info->treeModel[0].controlNodeNum);
   gpMaker.setYLabel("EE orient. err. [rad]");
   gpMaker.setDimention(3);
   gpMaker.makeGp();
@@ -29,11 +32,14 @@ void RLS::Output::eeRotErr(const Config &config, const TreeModel::Info &info, Gp
 
   reset();
   setFileName("eeAngVelErr");
-  makeDat("t-ew");
+
+  setVerticalDat("time");
+  setHorizontalDat("ew");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.controlNodeNum);
+  gpMaker.setLimb(info->treeModel[0].controlNodeNum);
   gpMaker.setYLabel("EE ang. vel. err. [rad/s]");
   gpMaker.setDimention(3);
   gpMaker.makeGp();

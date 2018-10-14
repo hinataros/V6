@@ -6,6 +6,8 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
+#include "_ext.hpp"
+
 bool RLS::RlsDynamics::configurationManager(const double &t)
 {
   if(debug) DEBUG;
@@ -20,12 +22,10 @@ bool RLS::RlsDynamics::configurationManager(const double &t)
       state.num = temp;
 
       des.update(t);
+      ext->reset(this, t);
 
       yamlInfo.initialize("State", 0, state.num);
-
-      des.readController();
-      fb.readController();
-      readController();
+      allReadController();
 
       flag_state = true;
     }
@@ -37,12 +37,10 @@ bool RLS::RlsDynamics::configurationManager(const double &t)
         sequence[i].tw0 = t;
 
         des.update(t, i);
+        ext->reset(this, t);
 
         yamlInfo.initialize("Sequence", i, sequence[i].phase);
-
-        des.readController();
-        fb.readController();
-        readController();
+        allReadController();
 
         sequence[i].phase++;
 

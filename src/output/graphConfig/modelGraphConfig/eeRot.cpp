@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::eeRot(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::eeRot(GpMaker &gpMaker, TexMaker &texMaker)
 {
   if(debug) DEBUG;
 
@@ -15,7 +15,10 @@ void RLS::Output::eeRot(const Config &config, const TreeModel::Info &info, GpMak
 
   reset();
   setFileName("eeOrient");
-  makeDat("t-xi");
+
+  setVerticalDat("time");
+  setHorizontalDat("tree model xi");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
@@ -30,7 +33,10 @@ void RLS::Output::eeRot(const Config &config, const TreeModel::Info &info, GpMak
 
   reset();
   setFileName("eeAngVel");
-  makeDat("t-w");
+
+  setVerticalDat("time");
+  setHorizontalDat("tree model w");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);

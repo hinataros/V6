@@ -7,6 +7,12 @@
 
 namespace RLS{
   template<>
+  void RLS::YamlInfo::checkValue(bool &value, const string name)
+  {
+    if(localKey[key][name])
+      value = localKey[key][name].as<bool>();
+  }
+  template<>
   void RLS::YamlInfo::checkValue(double &value, const string name)
   {
     if(localKey[key][name])

@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::cmp(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::cmp(GpMaker &gpMaker, TexMaker &texMaker)
 {
   if(debug) DEBUG;
 
@@ -14,7 +14,10 @@ void RLS::Output::cmp(const Config &config, const TreeModel::Info &info, GpMaker
 
   reset();
   setFileName("cmpx");
-  makeDat("t-rcmpx");
+
+  setVerticalDat("time");
+  setHorizontalDat("rcmpx");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
@@ -30,7 +33,10 @@ void RLS::Output::cmp(const Config &config, const TreeModel::Info &info, GpMaker
 
   reset();
   setFileName("cmpy");
-  makeDat("t-rcmpy");
+
+  setVerticalDat("time");
+  setHorizontalDat("rcmpy");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);

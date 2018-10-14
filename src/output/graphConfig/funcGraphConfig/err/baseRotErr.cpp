@@ -6,15 +6,18 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::baseRotErr(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::baseRotErr(GpMaker &gpMaker, TexMaker &texMaker)
 {
   if(debug) DEBUG;
 
   texMaker.reset();
 
   reset();
-  setFileName("baseRotErr");
-  makeDat("t-eoB");
+  setFileName("baseOrientErr");
+
+  setVerticalDat("time");
+  setHorizontalDat("eoB");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
@@ -28,7 +31,10 @@ void RLS::Output::baseRotErr(const Config &config, const TreeModel::Info &info, 
 
   reset();
   setFileName("baseAngVelErr");
-  makeDat("t-ewB");
+
+  setVerticalDat("time");
+  setHorizontalDat("ewB");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);

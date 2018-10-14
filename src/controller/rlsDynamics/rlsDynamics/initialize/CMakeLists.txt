@@ -1,6 +1,7 @@
 # @author Sho Miyahara 2018
 
 set(srcs
+  initializeExt.cpp
   setConfig.cpp
   analysisYaml.cpp
   readWorkHeader.cpp

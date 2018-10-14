@@ -13,6 +13,19 @@ void RLS::RlsDynamics::readController()
   if(yamlInfo.key=="Sequence")
     yamlInfo.checkValue<double>(sequence[yamlInfo.sequence].twf, "twf");
 
+  yamlInfo.checkValue<bool>(extInverseDynamicsController,
+                              "Ext inverse dynamics controller");
+  yamlInfo.checkValue<bool>(extMotionController,
+                              "Ext motion controller");
+  yamlInfo.checkValue<bool>(extMomentumController,
+                              "Ext momentum controller");
+  yamlInfo.checkValue<bool>(extForceController,
+                              "Ext force controller");
+  yamlInfo.checkValue<bool>(extTorqueController,
+                              "Ext torque controller");
+  yamlInfo.checkValue<bool>(extExternalWrenchController,
+                              "Ext external wrench controller");
+
   yamlInfo.checkValue<string>(inverseDynamicsControllerName,
                               "Inverse dynamics controller");
   yamlInfo.checkValue<string>(operationalSpaceControllerName,
@@ -25,10 +38,8 @@ void RLS::RlsDynamics::readController()
                               "Internal force controller");
   yamlInfo.checkValue<string>(forceControllerName,
                               "Force controller");
-
   yamlInfo.checkValue<string>(torqueControllerName,
                               "Torque controller");
-
   yamlInfo.checkValue<string>(externalWrenchControllerName,
                               "External wrench controller");
 

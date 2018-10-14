@@ -10,7 +10,7 @@ void RLS::RlsDynamics::centroidalDcmDistribution()
 {
   if(debug) DEBUG;
 
-  (this->*internalForceController_ptr)();
+  // (this->*internalForceController_ptr)();
 
   MatrixXd WX = h_weight(model->rX.head(2));
 

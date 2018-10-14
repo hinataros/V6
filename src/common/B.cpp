@@ -13,9 +13,12 @@ MatrixXd RLS::Common::B(int num, ...)
   va_start(ptr, num);
 
   int b=0;
-  for(int i=0; i<num; i++)
-    if(Bdiag(i, i) = va_arg(ptr, int))
+  for(int i=0; i<num; i++){
+    Bdiag(i, i) = va_arg(ptr, int);
+
+    if(Bdiag(i, i))
       b++;
+  }
 
   va_end(ptr);
 

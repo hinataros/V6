@@ -6,6 +6,7 @@
 
 #include "treeModelList.hpp"
 #include "rlsDynamicsList.hpp"
+#include "_extList.hpp"
 #include "common.hpp"
 
 #include "gpMaker.hpp"
@@ -88,6 +89,7 @@ namespace RLS{
       vector<double> time;
       TreeModelData *treeModel;
       RlsDynamicsData *rlsDynamics;
+      vector<ExtList> ext;
     } data;
 
     string lzero3format(int i){
@@ -150,6 +152,7 @@ namespace RLS{
     void setHorizontalDat(string);
 
     void makeDat();
+    int setDat(ofstream&, string, int);
     void setDat(ofstream&, int, string, int);
 
     // // // smiyahara: どうにかしたい
@@ -244,6 +247,7 @@ namespace RLS{
     // // smiyahara: 要検討
     TreeModelList *treeModelList_temp;
     RlsDynamicsList *rlsDynamicsList_temp;
+    ExtList extList_temp;
 
     void initialize(const string&, const string&, Info&, const int&, const WorldModel &worldModel);
 

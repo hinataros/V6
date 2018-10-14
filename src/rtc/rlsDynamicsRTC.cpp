@@ -119,6 +119,7 @@ RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
     output.treeModelList_temp[i] = model.treeModel[i].outputList;
   for(int i=0; i<controllerNum; i++)
     output.rlsDynamicsList_temp[i] = rlsDynamics.outputList;
+  output.extList_temp = rlsDynamics.extList;
 
   output.pushBack(t);
 
@@ -156,6 +157,7 @@ RTC::ReturnCode_t RlsDynamicsRTC::onDeactivated(RTC::UniqueId ec_id)
     output.treeModelList_temp[i] = model.treeModel[i].outputList;
   for(int i=0; i<controllerNum; i++)
     output.rlsDynamicsList_temp[i] = rlsDynamics.outputList;
+  output.extList_temp = rlsDynamics.extList;
 
   output.pushBack(t);
 
@@ -194,6 +196,7 @@ RTC::ReturnCode_t RlsDynamicsRTC::onExecute(RTC::UniqueId ec_id)
     output.treeModelList_temp[i] = model.treeModel[i].outputList;
   for(int i=0; i<controllerNum; i++)
     output.rlsDynamicsList_temp[i] = rlsDynamics.outputList;
+  output.extList_temp = rlsDynamics.extList;
 
   output.pushBack(t);
 

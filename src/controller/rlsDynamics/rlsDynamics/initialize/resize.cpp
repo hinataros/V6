@@ -74,16 +74,18 @@ void RLS::RlsDynamics::resize()
   WF = MatrixXd::Zero(6*info.model.controlNodeNum, 6*info.model.controlNodeNum);
   WFmin = MatrixXd::Zero(6*info.model.controlNodeNum, 6*info.model.controlNodeNum);
 
-  // trigger flag
-  flagInit = true;
-  flagHip = false;
-  flagStay = false;
-
   // selective matrix for forward kinematics
   bb_ScB = Matrix6d::Zero();
 
   // // high gain control
   thDes = VectorXd::Zero(info.model.dof.joint);
+
+  extMotionController =
+    extMomentumController =
+    extForceController =
+    extTorqueController =
+    extInverseDynamicsController =
+    extExternalWrenchController = false;
 
   operationalSpaceControllerName =
     motionControllerName =

@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::mixedQuasiAccRef(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::mixedQuasiAccRef(GpMaker &gpMaker, TexMaker &texMaker)
 {
   if(debug) DEBUG;
 

@@ -6,6 +6,8 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
+#include "_ext.hpp"
+
 void RLS::RlsDynamics::reconfigure()
 {
   if(debug) DEBUG;
@@ -132,4 +134,6 @@ void RLS::RlsDynamics::reconfigure()
   // ******************************
   // Pc = MatrixXd::Zero(2*info.constraint.num,6*info.constraint.num);
   Pc = MatrixXd::Zero(2*BpDiag.diagonal().sum()/2,6*(BpDiag.diagonal().sum()/2));
+
+  ext->reconfigure(this);
 }

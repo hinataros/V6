@@ -6,9 +6,13 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
+#include "_ext.hpp"
+
 void RLS::RlsDynamics::initialize(const int &controllerID, const string &path_yaml_controller, Model &model)
 {
   if(debug) DEBUG;
+
+  initializeExt();
 
   setConfig(path_yaml_controller);
   analysisYaml(controllerID);
@@ -27,15 +31,12 @@ void RLS::RlsDynamics::initialize(const int &controllerID, const string &path_ya
 
   resize();
   setControllerMap();
+  ext->initialize(this);
 
   // read controller file
   // ********************************
   yamlInfo.initialize("Default", 0, 0);
-
-  des.readController();
-  fb.readController();
-  readController();
-  // ********************************
+  allReadController();
 
   initializeStateTrigger();
 

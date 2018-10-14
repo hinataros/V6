@@ -10,7 +10,7 @@ void RLS::RlsDynamics::centroidalEcmpDistribution()
 {
   if(debug) DEBUG;
 
-  // (this->*internalForceController_ptr)(info);
+  (this->*internalForceController_ptr)();
 
   Vector2d recmp = (model->rX - des.drXDes/model->wX).head(2);
   MatrixXd Wecmpc = h_weight(recmp);
