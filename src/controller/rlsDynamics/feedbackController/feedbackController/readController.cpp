@@ -14,10 +14,10 @@ void RLS::FeedbackController::readController()
                                "Base translation feedback controller");
   yamlInfo->checkValue<string>(baseOrientationFeedbackControllerName,
                                "Base orientation feedback controller");
-  yamlInfo->checkValue<string>(controlNodeAccelerationFeedbackControllerName,
-                               "Control node acceleration feedback controller");
-  yamlInfo->checkValue<string>(controlNodeWrenchFeedbackControllerName,
-                               "Control node wrench feedback controller");
+  yamlInfo->checkValue<string>(controlNodeMotionFeedbackControllerName,
+                               "Control node motion feedback controller");
+  yamlInfo->checkValue<string>(controlNodeForceFeedbackControllerName,
+                               "Control node force feedback controller");
   yamlInfo->checkValue<string>(comFeedbackControllerName,
                                "CoM feedback controller");
   yamlInfo->checkValue<string>(dcmFeedbackControllerName,

@@ -2,7 +2,8 @@
 
 set(srcs
   initialize.cpp
-  # readModel.cpp
+  resize.cpp
+  readModel.cpp
   update.cpp
   )
 

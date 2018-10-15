@@ -1,37 +1,42 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
-// #include "yaml-cpp/yaml.h"
+#include <sys/stat.h>
 
 #include "config.hpp"
 #include "rigidBodyModel.hpp"
 
-void RLS::RigidBodyModel::readModel()
+void RLS::RigidBodyModel::readModel(const string &dir_share, const string &path_yaml_model)
 {
   if(debug) DEBUG;
 
-  // YAML::Node doc = YAML::LoadFile(config.dir.model.c_str());
+  struct stat statFile;
+  if(stat(path_yaml_model.c_str(), &statFile)!=0)
+    cout << manip_error("RigidBodyModel::readModel() error...") << endl
+         << manip_error("no such file '"+path_yaml_model+"'") << endl;
 
-  initialize();
+  YAML::Node doc = YAML::LoadFile(path_yaml_model.c_str());
 
-  // for(int i=0; i<3; i++)
-  //   ag(i) = doc["World model"]["gravity"][i].as<double>();
+  if(!doc["Rigid body model"][uniqueNum])
+    doc_rigidBodyModel = doc["Rigid body model"];
+  else
+    doc_rigidBodyModel = doc["Rigid body model"][uniqueNum];
+
+  info->name = doc_rigidBodyModel["Name"].as<string>();
 
   // m = doc["Body model"]["Mass"][i][j].as<double>();
 
   // inertia matrix
-  // rR2C = doc["Body model"]["CoM"][i].as<double>();
-
-  // limb[i].node[j].Iw_C(0,0) = doc["Body model"]["Inertia matrix"][i][j][0].as<double>();
-  // limb[i].node[j].Iw_C(0,1) = doc["Body model"]["Inertia matrix"][i][j][1].as<double>();
-  // limb[i].node[j].Iw_C(0,2) = doc["Body model"]["Inertia matrix"][i][j][2].as<double>();
-  // limb[i].node[j].Iw_C(1,0) = doc["Body model"]["Inertia matrix"][i][j][3].as<double>();
-  // limb[i].node[j].Iw_C(1,1) = doc["Body model"]["Inertia matrix"][i][j][4].as<double>();
-  // limb[i].node[j].Iw_C(1,2) = doc["Body model"]["Inertia matrix"][i][j][5].as<double>();
-  // limb[i].node[j].Iw_C(2,0) = doc["Body model"]["Inertia matrix"][i][j][6].as<double>();
-  // limb[i].node[j].Iw_C(2,1) = doc["Body model"]["Inertia matrix"][i][j][7].as<double>();
-  // limb[i].node[j].Iw_C(2,2) = doc["Body model"]["Inertia matrix"][i][j][8].as<double>();
+  // Iw_C(0,0) = doc["Body model"]["Inertia matrix"][i][j][0].as<double>();
+  // Iw_C(0,1) = doc["Body model"]["Inertia matrix"][i][j][1].as<double>();
+  // Iw_C(0,2) = doc["Body model"]["Inertia matrix"][i][j][2].as<double>();
+  // Iw_C(1,0) = doc["Body model"]["Inertia matrix"][i][j][3].as<double>();
+  // Iw_C(1,1) = doc["Body model"]["Inertia matrix"][i][j][4].as<double>();
+  // Iw_C(1,2) = doc["Body model"]["Inertia matrix"][i][j][5].as<double>();
+  // Iw_C(2,0) = doc["Body model"]["Inertia matrix"][i][j][6].as<double>();
+  // Iw_C(2,1) = doc["Body model"]["Inertia matrix"][i][j][7].as<double>();
+  // Iw_C(2,2) = doc["Body model"]["Inertia matrix"][i][j][8].as<double>();
 
   // initial configuration
   // for(int i=0; i<6; i++){

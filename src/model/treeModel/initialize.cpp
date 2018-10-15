@@ -14,6 +14,7 @@ void RLS::TreeModel::initialize(const int &uniqueNum, TreeModelInfo &info, World
   this->info = &info;
   this->worldModel = &worldModel;
 
+  this->info->name = "default";
   this->info->rootNode = 0;
   this->info->linkNum = 0;
   this->info->controlNodeNum = 0;

@@ -158,47 +158,47 @@ namespace RLS{
     // // // smiyahara: どうにかしたい
     // // void makeGifDat(Config&, TreeModel::Info&);
 
-    // // tree model output
-    // // ********************************************
-    // void joint(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void baseTrans(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void baseRot(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void eeTrans(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void eeRot(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void eeWrench(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void com(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void mix(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void spatialMom(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
+    // tree model output
+    // ********************************************
+    void joint(GpMaker&, TexMaker&);
+    void baseTrans(GpMaker&, TexMaker&);
+    void baseRot(GpMaker&, TexMaker&);
+    void eeTrans(GpMaker&, TexMaker&);
+    void eeRot(GpMaker&, TexMaker&);
+    void eeWrench(GpMaker&, TexMaker&);
+    void com(GpMaker&, TexMaker&);
+    void mix(GpMaker&, TexMaker&);
+    void mom(GpMaker&, TexMaker&);
     // // gif
     // // ****************
-    // void allJointPos(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
+    // void allJointPos(GpMaker&, TexMaker&);
     // // ********************************************
 
-    // // ********************************************
-    // // des
-    // void baseTransDes(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void baseRotDes(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void comDes(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void dcmDes(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void eeTransDes(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void eeRotDes(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
+    // ********************************************
+    // des
+    void baseTransDes(GpMaker&, TexMaker&);
+    void baseRotDes(GpMaker&, TexMaker&);
+    void comDes(GpMaker&, TexMaker&);
+    void dcmDes(GpMaker&, TexMaker&);
+    void eeTransDes(GpMaker&, TexMaker&);
+    void eeRotDes(GpMaker&, TexMaker&);
 
-    // // err
-    // void baseTransErr(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void baseRotErr(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void comErr(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void dcmErr(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void eeTransErr(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void eeRotErr(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void eeWrenchErr(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
+    // err
+    void baseTransErr(GpMaker&, TexMaker&);
+    void baseRotErr(GpMaker&, TexMaker&);
+    void comErr(GpMaker&, TexMaker&);
+    void dcmErr(GpMaker&, TexMaker&);
+    void eeTransErr(GpMaker&, TexMaker&);
+    void eeRotErr(GpMaker&, TexMaker&);
+    void eeWrenchErr(GpMaker&, TexMaker&);
 
-    // // ref
-    // void mixedQuasiAccRef(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void mixedQuasiAccOptRef(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void rcMomRef(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void eeWrenchRef(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void extWrenchRef(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void jointTorque(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
+    // ref
+    void mixedQuasiAccRef(GpMaker&, TexMaker&);
+    void mixedQuasiAccOptRef(GpMaker&, TexMaker&);
+    void rcMomRef(GpMaker&, TexMaker&);
+    void eeWrenchRef(GpMaker&, TexMaker&);
+    void extWrenchRef(GpMaker&, TexMaker&);
+    void jointTorque(GpMaker&, TexMaker&);
 
     // index
     void dcm(GpMaker&, TexMaker&);
@@ -208,12 +208,12 @@ namespace RLS{
     void stabilityIndex(GpMaker&, TexMaker&);
 
     // // walking
-    // void localCop4walking(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void netCop4walking(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void cmp4walking(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void stabilityIndex4walking(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void vrpDes4walking(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
-    // void footPrint(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
+    // void localCop4walking(GpMaker&, TexMaker&);
+    // void netCop4walking(GpMaker&, TexMaker&);
+    // void cmp4walking(GpMaker&, TexMaker&);
+    // void stabilityIndex4walking(GpMaker&, TexMaker&);
+    // void vrpDes4walking(GpMaker&, TexMaker&);
+    // void footPrint(GpMaker&, TexMaker&);
     // // ********************************************
 
     map<string, void (RLS::Output::*)(GpMaker&, TexMaker&)>
@@ -222,15 +222,6 @@ namespace RLS{
     // // gif
     // void indexPrint(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
 
-    // // velocity
-    // void velocityGraphConfig(const Config&, const TreeModel::Info&);
-
-    // // acceleration
-    // void accelerationGraphConfig(const Config&, const TreeModel::Info&);
-
-    // //torque
-    // void masterGraphConfig(const Config&, const TreeModel::Info&);
-    // void torqueGraphConfig(const Config&, const TreeModel::Info&);
     void makeGraph();
 
     void runGnuplot();

@@ -11,32 +11,32 @@ void RLS::FeedbackController::setMap()
   if(debug) DEBUG;
 
   // base translation
-  map_baseTranslationFeedbackController["default"]
+  baseTranslationFeedbackController_map["default"]
     = &RLS::FeedbackController::baseTranslationFBPI;
 
   // base orientation
-  map_baseOrientationFeedbackController["default"]
+  baseOrientationFeedbackController_map["default"]
     = &RLS::FeedbackController::baseOrientationFBPI;
 
-  // control node acceleration
-  map_controlNodeAccelerationFeedbackController["default"]
-    = &RLS::FeedbackController::controlNodeAccelerationFBPI;
+  // control node motion
+  controlNodeMotionFeedbackController_map["default"]
+    = &RLS::FeedbackController::controlNodeMotionFBPI;
 
-  // control node wrench
-  map_controlNodeWrenchFeedbackController["default"]
-    = &RLS::FeedbackController::controlNodeWrenchFBFF;
+  // control node force
+  controlNodeForceFeedbackController_map["default"]
+    = &RLS::FeedbackController::controlNodeForceFBFF;
 
   // com
-  map_comFeedbackController["default"]
+  comFeedbackController_map["default"]
     = &RLS::FeedbackController::comFBPI;
-  map_comFeedbackController["dcmControl"]
+  comFeedbackController_map["dcmControl"]
     = &RLS::FeedbackController::comFBDcmControl;
 
   // dcm
-  map_dcmFeedbackController["default"]
+  dcmFeedbackController_map["default"]
     = &RLS::FeedbackController::dcmFBPI;
 
   // external wrench
-  map_externalWrenchFeedbackController["default"]
+  externalWrenchFeedbackController_map["default"]
     = &RLS::FeedbackController::externalWrenchFBFF;
 }

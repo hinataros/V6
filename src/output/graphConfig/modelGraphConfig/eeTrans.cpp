@@ -11,7 +11,7 @@ void RLS::Output::eeTrans(GpMaker &gpMaker, TexMaker &texMaker)
   if(debug) DEBUG;
 
   texMaker.reset();
-  texMaker.setLimb(info.controlNodeNum);
+  texMaker.setLimb(info->treeModel[0].controlNodeNum);
 
   reset();
   setFileName("eePos");
@@ -22,7 +22,7 @@ void RLS::Output::eeTrans(GpMaker &gpMaker, TexMaker &texMaker)
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.controlNodeNum);
+  gpMaker.setLimb(info->treeModel[0].controlNodeNum);
   gpMaker.setYLabel("EE pos. [mm]");
   gpMaker.setUnit("m");
   gpMaker.setDimention(3);
@@ -40,7 +40,7 @@ void RLS::Output::eeTrans(GpMaker &gpMaker, TexMaker &texMaker)
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.controlNodeNum);
+  gpMaker.setLimb(info->treeModel[0].controlNodeNum);
   gpMaker.setYLabel("EE vel. [m/s]");
   gpMaker.setDimention(3);
   gpMaker.makeGp();

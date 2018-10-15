@@ -195,16 +195,16 @@ namespace RLS{
     void (RLS::DesiredValueGenerator::*desiredExternalWrenchGenerator_ptr)(const double&)=0;
 
     map<string, void (RLS::DesiredValueGenerator::*)(const double&)>
-    map_desiredBaseTranslationGenerator,
-      map_desiredBaseOrientationGenerator,
-      map_desiredComGenerator,
-      map_desiredDcmGenerator,
-      map_desiredExternalWrenchGenerator;
+    desiredBaseTranslationGenerator_map,
+      desiredBaseOrientationGenerator_map,
+      desiredComGenerator_map,
+      desiredDcmGenerator_map,
+      desiredExternalWrenchGenerator_map;
 
     void (RLS::DesiredValueGenerator::**desiredControlNodeMotionGenerator_ptr)(const int&, const double&);
-    map<string, void (RLS::DesiredValueGenerator::*)(const int&, const double&)> *map_desiredControlNodeMotionGenerator;
+    map<string, void (RLS::DesiredValueGenerator::*)(const int&, const double&)> *desiredControlNodeMotionGenerator_map;
     void (RLS::DesiredValueGenerator::**desiredControlNodeForceGenerator_ptr)(const int&, const double&);
-    map<string, void (RLS::DesiredValueGenerator::*)(const int&, const double&)> *map_desiredControlNodeForceGenerator;
+    map<string, void (RLS::DesiredValueGenerator::*)(const int&, const double&)> *desiredControlNodeForceGenerator_map;
 
     void setModel(const TreeModelInfo&, const ControllerTreeModel&);
     void setYamlInfo(YamlInfo&);

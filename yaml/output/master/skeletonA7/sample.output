@@ -191,6 +191,7 @@ Tex:
               name: dwBDes
           y label: Des. base ang. acc. [rad/s^2]
           dimention: 3
+
     -
       file name: eeTransDes
       caption: Desired end effector translation values.
@@ -227,6 +228,7 @@ Tex:
           control node: 0
           y label: EE des. acc. [m/s^2]
           dimention: 3
+
     -
       file name: eeRotDes
       caption: Desired end effector rotation values.

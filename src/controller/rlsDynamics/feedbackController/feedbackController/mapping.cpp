@@ -10,11 +10,11 @@ void RLS::FeedbackController::mapping()
 {
   if(debug) DEBUG;
 
-  baseTranslationFeedbackController_ptr = map_baseTranslationFeedbackController[baseTranslationFeedbackControllerName];
-  baseOrientationFeedbackController_ptr = map_baseOrientationFeedbackController[baseOrientationFeedbackControllerName];
-  controlNodeAccelerationFeedbackController_ptr = map_controlNodeAccelerationFeedbackController[controlNodeAccelerationFeedbackControllerName];
-  controlNodeWrenchFeedbackController_ptr = map_controlNodeWrenchFeedbackController[controlNodeWrenchFeedbackControllerName];
-  comFeedbackController_ptr = map_comFeedbackController[comFeedbackControllerName];
-  dcmFeedbackController_ptr = map_dcmFeedbackController[dcmFeedbackControllerName];
-  externalWrenchFeedbackController_ptr = map_externalWrenchFeedbackController[externalWrenchFeedbackControllerName];
+  baseTranslationFeedbackController_ptr = baseTranslationFeedbackController_map[baseTranslationFeedbackControllerName];
+  baseOrientationFeedbackController_ptr = baseOrientationFeedbackController_map[baseOrientationFeedbackControllerName];
+  controlNodeMotionFeedbackController_ptr = controlNodeMotionFeedbackController_map[controlNodeMotionFeedbackControllerName];
+  controlNodeForceFeedbackController_ptr = controlNodeForceFeedbackController_map[controlNodeForceFeedbackControllerName];
+  comFeedbackController_ptr = comFeedbackController_map[comFeedbackControllerName];
+  dcmFeedbackController_ptr = dcmFeedbackController_map[dcmFeedbackControllerName];
+  externalWrenchFeedbackController_ptr = externalWrenchFeedbackController_map[externalWrenchFeedbackControllerName];
 }

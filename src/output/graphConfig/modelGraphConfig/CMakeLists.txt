@@ -1,6 +1,6 @@
 # @author Sho Miyahara 2018
 
-add_subdirectory(gif)
+# add_subdirectory(gif)
 
 set(srcs
   baseTrans.cpp
@@ -11,7 +11,7 @@ set(srcs
   eeTrans.cpp
   eeRot.cpp
   eeWrench.cpp
-  sysMom.cpp
+  mom.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" modelGraphConfig_srcs)

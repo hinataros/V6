@@ -11,39 +11,39 @@ void RLS::DesiredValueGenerator::setMap()
   if(debug) DEBUG;
 
   // base translation
-  map_desiredBaseTranslationGenerator["default"] = &RLS::DesiredValueGenerator::desiredBaseTranslationZeroGenerator;
-  map_desiredBaseTranslationGenerator["CP"] = &RLS::DesiredValueGenerator::desiredBaseTranslationGeneratorCP;
+  desiredBaseTranslationGenerator_map["default"] = &RLS::DesiredValueGenerator::desiredBaseTranslationZeroGenerator;
+  desiredBaseTranslationGenerator_map["CP"] = &RLS::DesiredValueGenerator::desiredBaseTranslationGeneratorCP;
 
   // base orientation
-  map_desiredBaseOrientationGenerator["default"] = &RLS::DesiredValueGenerator::desiredBaseOrientationZeroGenerator;
-  map_desiredBaseOrientationGenerator["CP"] = &RLS::DesiredValueGenerator::desiredBaseOrientationGeneratorCP;
+  desiredBaseOrientationGenerator_map["default"] = &RLS::DesiredValueGenerator::desiredBaseOrientationZeroGenerator;
+  desiredBaseOrientationGenerator_map["CP"] = &RLS::DesiredValueGenerator::desiredBaseOrientationGeneratorCP;
 
   // control node acceleration
-  map_desiredControlNodeMotionGenerator = new map<string, void (RLS::DesiredValueGenerator::*)(const int&, const double&)>[info->controlNodeNum];
+  desiredControlNodeMotionGenerator_map = new map<string, void (RLS::DesiredValueGenerator::*)(const int&, const double&)>[info->controlNodeNum];
   for(int i=0; i<info->controlNodeNum; i++){
-    map_desiredControlNodeMotionGenerator[i]["default"] = &RLS::DesiredValueGenerator::desiredControlNodeMotionZeroGenerator;
-    map_desiredControlNodeMotionGenerator[i]["CP"] = &RLS::DesiredValueGenerator::desiredControlNodeMotionGeneratorCP;
-    map_desiredControlNodeMotionGenerator[i]["CPabs"] = &RLS::DesiredValueGenerator::desiredControlNodeMotionGeneratorCPabs;
-    map_desiredControlNodeMotionGenerator[i]["walking"] = &RLS::DesiredValueGenerator::desiredControlNodeMotionGeneratorWalking;
+    desiredControlNodeMotionGenerator_map[i]["default"] = &RLS::DesiredValueGenerator::desiredControlNodeMotionZeroGenerator;
+    desiredControlNodeMotionGenerator_map[i]["CP"] = &RLS::DesiredValueGenerator::desiredControlNodeMotionGeneratorCP;
+    desiredControlNodeMotionGenerator_map[i]["CPabs"] = &RLS::DesiredValueGenerator::desiredControlNodeMotionGeneratorCPabs;
+    desiredControlNodeMotionGenerator_map[i]["walking"] = &RLS::DesiredValueGenerator::desiredControlNodeMotionGeneratorWalking;
   }
 
   // control node wrench
-  map_desiredControlNodeForceGenerator = new map<string, void (RLS::DesiredValueGenerator::*)(const int&, const double&)>[info->controlNodeNum];
+  desiredControlNodeForceGenerator_map = new map<string, void (RLS::DesiredValueGenerator::*)(const int&, const double&)>[info->controlNodeNum];
   for(int i=0; i<info->controlNodeNum; i++){
-    map_desiredControlNodeForceGenerator[i]["default"] = &RLS::DesiredValueGenerator::desiredControlNodeForceZeroGenerator;
-    map_desiredControlNodeForceGenerator[i]["CP"] = &RLS::DesiredValueGenerator::desiredControlNodeForceGeneratorCP;
+    desiredControlNodeForceGenerator_map[i]["default"] = &RLS::DesiredValueGenerator::desiredControlNodeForceZeroGenerator;
+    desiredControlNodeForceGenerator_map[i]["CP"] = &RLS::DesiredValueGenerator::desiredControlNodeForceGeneratorCP;
   }
 
   // com
-  map_desiredComGenerator["default"] = &RLS::DesiredValueGenerator::desiredComZeroGenerator;
-  map_desiredComGenerator["CP"] = &RLS::DesiredValueGenerator::desiredComGeneratorCP;
+  desiredComGenerator_map["default"] = &RLS::DesiredValueGenerator::desiredComZeroGenerator;
+  desiredComGenerator_map["CP"] = &RLS::DesiredValueGenerator::desiredComGeneratorCP;
 
   // dcm
-  map_desiredDcmGenerator["default"] = &RLS::DesiredValueGenerator::desiredDcmZeroGenerator;
-  map_desiredDcmGenerator["CP"] = &RLS::DesiredValueGenerator::desiredDcmGeneratorCP;
-  // map_desiredDcmGenerator["HTWalking"] = &RLS::DesiredValueGenerator::desiredDcmGeneratorHTWalking;
+  desiredDcmGenerator_map["default"] = &RLS::DesiredValueGenerator::desiredDcmZeroGenerator;
+  desiredDcmGenerator_map["CP"] = &RLS::DesiredValueGenerator::desiredDcmGeneratorCP;
+  // desiredDcmGenerator["HTWalking"] = &RLS::DesiredValueGenerator::desiredDcmGeneratorHTWalking;
 
   // external wrench
-  map_desiredExternalWrenchGenerator["default"] = &RLS::DesiredValueGenerator::desiredExternalWrenchZeroGenerator;
-  map_desiredExternalWrenchGenerator["CP"] = &RLS::DesiredValueGenerator::desiredExternalWrenchGeneratorCP;
+  desiredExternalWrenchGenerator_map["default"] = &RLS::DesiredValueGenerator::desiredExternalWrenchZeroGenerator;
+  desiredExternalWrenchGenerator_map["CP"] = &RLS::DesiredValueGenerator::desiredExternalWrenchGeneratorCP;
 }

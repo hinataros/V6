@@ -16,8 +16,8 @@ void RLS::DesiredValueGenerator::finalize()
   delete[] desiredControlNodeMotionGeneratorName;
   delete[] desiredControlNodeForceGeneratorNum;
   delete[] desiredControlNodeForceGeneratorName;
-  delete[] map_desiredControlNodeMotionGenerator;
-  delete[] map_desiredControlNodeForceGenerator;
+  delete[] desiredControlNodeMotionGenerator_map;
+  delete[] desiredControlNodeForceGenerator_map;
   free(desiredControlNodeMotionGenerator_ptr);
   free(desiredControlNodeForceGenerator_ptr);
 }

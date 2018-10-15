@@ -20,8 +20,8 @@ namespace RLS{
 
     string baseTranslationFeedbackControllerName;
     string baseOrientationFeedbackControllerName;
-    string controlNodeAccelerationFeedbackControllerName;
-    string controlNodeWrenchFeedbackControllerName;
+    string controlNodeMotionFeedbackControllerName;
+    string controlNodeForceFeedbackControllerName;
     string comFeedbackControllerName;
     string dcmFeedbackControllerName;
     string externalWrenchFeedbackControllerName;
@@ -46,11 +46,11 @@ namespace RLS{
     // base orientation
     void baseOrientationFBPI();
 
-    // control node acceleration
-    void controlNodeAccelerationFBPI();
+    // control node motion
+    void controlNodeMotionFBPI();
 
-    // control node wrench
-    void controlNodeWrenchFBFF();
+    // control node force
+    void controlNodeForceFBFF();
 
     // com
     void comFBPI();
@@ -67,20 +67,20 @@ namespace RLS{
     // select reference
     void (RLS::FeedbackController::*baseTranslationFeedbackController_ptr)()=0;
     void (RLS::FeedbackController::*baseOrientationFeedbackController_ptr)()=0;
-    void (RLS::FeedbackController::*controlNodeAccelerationFeedbackController_ptr)()=0;
-    void (RLS::FeedbackController::*controlNodeWrenchFeedbackController_ptr)()=0;
+    void (RLS::FeedbackController::*controlNodeMotionFeedbackController_ptr)()=0;
+    void (RLS::FeedbackController::*controlNodeForceFeedbackController_ptr)()=0;
     void (RLS::FeedbackController::*comFeedbackController_ptr)()=0;
     void (RLS::FeedbackController::*dcmFeedbackController_ptr)()=0;
     void (RLS::FeedbackController::*externalWrenchFeedbackController_ptr)()=0;
 
     map<string, void (RLS::FeedbackController::*)()>
-    map_baseTranslationFeedbackController,
-      map_baseOrientationFeedbackController,
-      map_controlNodeAccelerationFeedbackController,
-      map_controlNodeWrenchFeedbackController,
-      map_comFeedbackController,
-      map_dcmFeedbackController,
-      map_externalWrenchFeedbackController;
+    baseTranslationFeedbackController_map,
+      baseOrientationFeedbackController_map,
+      controlNodeMotionFeedbackController_map,
+      controlNodeForceFeedbackController_map,
+      comFeedbackController_map,
+      dcmFeedbackController_map,
+      externalWrenchFeedbackController_map;
 
     void setModel(const TreeModelInfo&, const ControllerTreeModel&, const DesiredValueGenerator&);
     void setYamlInfo(YamlInfo&);

@@ -1,11 +1,7 @@
 # @author Sho Miyahara 2018
 
-# add_subdirectory(velocityGraphConfig)
-# add_subdirectory(accelerationGraphConfig)
-# add_subdirectory(torqueGraphConfig)
-
 set(srcs
-  use_func.cpp
+  makeGraph.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" activate_srcs)

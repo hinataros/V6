@@ -11,7 +11,7 @@ void RLS::Output::eeWrench(GpMaker &gpMaker, TexMaker &texMaker)
   if(debug) DEBUG;
 
   texMaker.reset();
-  texMaker.setLimb(info.controlNodeNum);
+  texMaker.setLimb(info->treeModel[0].controlNodeNum);
 
   reset();
   setFileName("eeForce");
@@ -22,7 +22,7 @@ void RLS::Output::eeWrench(GpMaker &gpMaker, TexMaker &texMaker)
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.controlNodeNum);
+  gpMaker.setLimb(info->treeModel[0].controlNodeNum);
   gpMaker.setYLabel("EE force [N]");
   gpMaker.setDimention(3);
   gpMaker.makeGp();
@@ -39,7 +39,7 @@ void RLS::Output::eeWrench(GpMaker &gpMaker, TexMaker &texMaker)
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setLimb(info.controlNodeNum);
+  gpMaker.setLimb(info->treeModel[0].controlNodeNum);
   gpMaker.setYLabel("EE moment [Nm]");
   gpMaker.setDimention(3);
   gpMaker.makeGp();

@@ -1,0 +1,68 @@
+# @author Sho Miyahara 2018
+
+Controller:
+  Control model: skeletonA4
+  Input: torque
+  # Driven: mix
+  # Trigger: check contact
+
+  Default:
+    Inverse dynamics controller: fullDynamicsController
+
+    Operational space controller: decomposeEndEffectorAcceleration
+    Motion controller: mixedGeneralizedMomentum
+
+    Momentum controller: centroidalDcmMomentum
+    Force controller: centroidalEcmpDistribution
+
+    Torque controller: mixedmixedOpt
+
+    Desired DCM generator: {name: CP}
+    Desired base orientation generator: {name: CP}
+    Desired control node motion generator:
+      RARMEE: {num: 0, name: CP}
+      LARMEE: {num: 1, name: CP}
+
+    Bc:
+      RLEGEE: [1, 1, 1, 1, 1, 1]
+      LLEGEE: [1, 1, 1, 1, 1, 1]
+
+    Bm:
+      RARMEE: [1, 1, 1, 0, 0, 0]
+      LARMEE: [1, 1, 1, 0, 0, 0]
+
+    KX: 3.e+2
+
+    KpwB: 3.e+2
+    KdwB: 5.e+1
+
+    Kpv:
+      RARMEE: 3.e+3
+      LARMEE: 3.e+3
+    Kdv:
+      RARMEE: 5.e+2
+      LARMEE: 5.e+2
+
+    KDth: 1.e+2
+
+  State:
+    -
+
+  Sequence:
+    -
+      -
+        twf: 1.
+      -
+        twf: 1.
+        xiBf: [0., 0.52, 0.]
+      -
+        twf: 1.
+        cal_Xf:
+          RARMEE: [0., 0., 0.1, 0., 0., 0.]
+    -
+      -
+        twf: 1.
+      -
+        twf: 3.
+        cal_Xf:
+          LARMEE: [0.1, 0., 0.1, 0., 0., 0.]

@@ -9,20 +9,21 @@ void RLS::RigidBodyModel::resize()
 {
   if(debug) DEBUG;
 
-  mO = 0.;
-  rOC = Vector3d::Zero();
-  vOC = Vector3d::Zero();
+  m = 0.;
 
-  xiO0 = Vector3d::Zero();
-  rO0 = Vector3d::Zero();
-  wO0 = Vector3d::Zero();
-  vO0 = Vector3d::Zero();
+  xiR0 = Vector3d::Zero();
+  rR0 = Vector3d::Zero();
+  wR0 = Vector3d::Zero();
+  vR0 = Vector3d::Zero();
 
-  rO = Vector3d::Zero();
-  RO = Matrix3d::Zero();
-  vO = Vector3d::Zero();
-  wO = Vector3d::Zero();
+  rR = Vector3d::Zero();
+  RR = Matrix3d::Zero();
+  vR = Vector3d::Zero();
+  wR = Vector3d::Zero();
 
-  fO = Vector3d::Zero();
-  nO = Vector3d::Zero();
+  fR = Vector3d::Zero();
+  nR = Vector3d::Zero();
+
+  rC = Vector3d::Zero();
+  vC = Vector3d::Zero();
 }

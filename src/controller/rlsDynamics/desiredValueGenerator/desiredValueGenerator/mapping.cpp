@@ -10,15 +10,15 @@ void RLS::DesiredValueGenerator::mapping()
 {
   if(debug) DEBUG;
 
-  desiredBaseTranslationGenerator_ptr = map_desiredBaseTranslationGenerator[desiredBaseTranslationGeneratorName];
-  desiredBaseOrientationGenerator_ptr = map_desiredBaseOrientationGenerator[desiredBaseOrientationGeneratorName];
+  desiredBaseTranslationGenerator_ptr = desiredBaseTranslationGenerator_map[desiredBaseTranslationGeneratorName];
+  desiredBaseOrientationGenerator_ptr = desiredBaseOrientationGenerator_map[desiredBaseOrientationGeneratorName];
 
   for(int i=0; i<info->controlNodeNum; i++){
-    desiredControlNodeMotionGenerator_ptr[i] = map_desiredControlNodeMotionGenerator[i][desiredControlNodeMotionGeneratorName[i]];
-    desiredControlNodeForceGenerator_ptr[i] = map_desiredControlNodeForceGenerator[i][desiredControlNodeForceGeneratorName[i]];
+    desiredControlNodeMotionGenerator_ptr[i] = desiredControlNodeMotionGenerator_map[i][desiredControlNodeMotionGeneratorName[i]];
+    desiredControlNodeForceGenerator_ptr[i] = desiredControlNodeForceGenerator_map[i][desiredControlNodeForceGeneratorName[i]];
   }
 
-  desiredComGenerator_ptr = map_desiredComGenerator[desiredComGeneratorName];
-  desiredDcmGenerator_ptr = map_desiredDcmGenerator[desiredDcmGeneratorName];
-  desiredExternalWrenchGenerator_ptr = map_desiredExternalWrenchGenerator[desiredExternalWrenchGeneratorName];
+  desiredComGenerator_ptr = desiredComGenerator_map[desiredComGeneratorName];
+  desiredDcmGenerator_ptr = desiredDcmGenerator_map[desiredDcmGeneratorName];
+  desiredExternalWrenchGenerator_ptr = desiredExternalWrenchGenerator_map[desiredExternalWrenchGeneratorName];
 }

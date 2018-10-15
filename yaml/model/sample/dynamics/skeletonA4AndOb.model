@@ -1,0 +1,50 @@
+# @author Sho Miyahara 2018
+
+World model:
+  include:
+    type: cnoid
+    search: relative
+    path: &CNOID sample/dynamics/skeletonA4AndOb.cnoid
+
+Tree model:
+  Name: skeletonA4
+  Dynamics calculation: true
+  Model parameter:
+    include:
+      type: body
+      search: relative
+      path: skeleton/skeletonA4prim.body
+  Initial configuration:
+    include:
+      type: cnoid
+      search: relative
+      path: *CNOID
+  Control node:
+    - RLEGEE
+    - LLEGEE
+    - RARMEE
+    - LARMEE
+  Sensor node:
+    include:
+      type: cnoid
+      search: relative
+      path: *CNOID
+
+Rigid body model:
+  Name: object
+  Dynamics calculation: true
+  Model parameter:
+    include:
+      type: body
+      search: relative
+      path: object/box.body
+  Initial configuration:
+    include:
+      type: cnoid
+      search: relative
+      path: *CNOID
+  # Sensor node:
+  #   include:
+  #     type: cnoid
+  #     search: relative
+  #     path: *cnoid

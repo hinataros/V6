@@ -5,8 +5,8 @@ add_subdirectory(baseTranslationFeedbackController)
 add_subdirectory(baseOrientationFeedbackController)
 add_subdirectory(comFeedbackController)
 add_subdirectory(dcmFeedbackController)
-add_subdirectory(controlNodeAccelerationFeedbackController)
-add_subdirectory(controlNodeWrenchFeedbackController)
+add_subdirectory(controlNodeMotionFeedbackController)
+add_subdirectory(controlNodeForceFeedbackController)
 add_subdirectory(externalWrenchFeedbackController)
 add_subdirectory(feedbackController)
 
@@ -21,8 +21,8 @@ set(feedbackController_srcs
   ${baseOrientationFeedbackController_srcs}
   ${comFeedbackController_srcs}
   ${dcmFeedbackController_srcs}
-  ${controlNodeAccelerationFeedbackController_srcs}
-  ${controlNodeWrenchFeedbackController_srcs}
+  ${controlNodeMotionFeedbackController_srcs}
+  ${controlNodeForceFeedbackController_srcs}
   ${externalWrenchFeedbackController_srcs}
   ${feedbackController_srcs}
   PARENT_SCOPE

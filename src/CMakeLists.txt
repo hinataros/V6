@@ -95,7 +95,7 @@ if(rls_rlsDynamicsRTC)
 
   add_subdirectory(rtc)
 
-  set(RTC_srcs ${sources} ${rlsDynamicsRTC_srcs} ${rtc_srcs})
+  set(RTC_srcs ${sources} ${rlsDynamicsRTC_srcs} ${rlsDynamicsRTCCore_srcs})
 
   add_library(${RTC_NAME} ${LIB_TYPE} ${RTC_srcs})
   target_link_libraries(${RTC_NAME} ${LDFLAGS})

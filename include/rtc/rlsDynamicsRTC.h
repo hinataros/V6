@@ -64,7 +64,7 @@ class RlsDynamicsRTC: public RTC::DataFlowComponentBase
   Vector6d Fext;
 
   void setControlModelState(RLS::TreeModelInfo&, RLS::TreeModel&);
-  /* void readSharedData(RLS::RigidBodyModel&, const RLS::SharedData&); */
+  void readSharedData(RLS::Model&, const RLS::SharedData&);
   /* void writeSharedData(RLS::TreeModelList&, RLS::RlsDynamicsList&, RLS::SharedData&); */
   void writeInput();
 };

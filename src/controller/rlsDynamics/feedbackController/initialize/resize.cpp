@@ -54,8 +54,8 @@ void RLS::FeedbackController::resize()
 
   baseTranslationFeedbackControllerName
     = baseOrientationFeedbackControllerName
-    = controlNodeAccelerationFeedbackControllerName
-    = controlNodeWrenchFeedbackControllerName
+    = controlNodeMotionFeedbackControllerName
+    = controlNodeForceFeedbackControllerName
     = comFeedbackControllerName
     = dcmFeedbackControllerName
     = externalWrenchFeedbackControllerName

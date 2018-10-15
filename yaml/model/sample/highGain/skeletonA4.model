@@ -1,0 +1,31 @@
+# @author Sho Miyahara 2018
+
+World model:
+  include:
+    type: cnoid
+    search: relative
+    path: &CNOID sample/highGain/skeletonA4.cnoid
+
+Tree model:
+  Name: skeletonA4
+  Dynamics calculation: true
+  Model parameter:
+    include:
+      type: body
+      search: relative
+      path: skeleton/skeletonA4wRIprim.body
+  Initial configuration:
+    include:
+      type: cnoid
+      search: relative
+      path: *CNOID
+  Control node:
+    - RLEGEE
+    - LLEGEE
+    - RARMEE
+    - LARMEE
+  Sensor node:
+    include:
+      type: cnoid
+      search: relative
+      path: *CNOID

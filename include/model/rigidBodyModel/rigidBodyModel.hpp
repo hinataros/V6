@@ -5,49 +5,61 @@
 #ifndef RIGIDBODYMODEL_HPP_
 #define RIGIDBODYMODEL_HPP_
 
-// #include "rigidBodyModelList.hpp"
+#include "yaml-cpp/yaml.h"
+
 #include "info.hpp"
+#include "worldModel.hpp"
+
+// #include "rigidBodyModelList.hpp"
 
 namespace RLS{
   class RigidBodyModel{
   private:
+    YAML::Node doc_rigidBodyModel;
+
+    RigidBodyModelInfo *info;
+    WorldModel *worldModel;
+
     int uniqueNum;
 
+    void resize();
+
   public:
-    double mO;
-    Vector3d xiO0;
-    Vector3d rO0;
-    Vector3d wO0;
-    Vector3d vO0;// 今のところyamlから読むとき、B部のみが必要
+    double m;
+    Vector3d xiR0;
+    Vector3d rR0;
+    Vector3d wR0;
+    Vector3d vR0;// 今のところyamlから読むとき、B部のみが必要
 
     Matrix3d Iw_C;
     Matrix3d I;
 
-    Vector3d rO;
-    Vector3d rOC;
-    Matrix3d RO;
+    Vector3d rR;
+    Vector3d rC;
+    Matrix3d RR;
 
-    Vector3d vO;
-    Vector3d vOC;
-    Vector3d wO;
-    Vector3d vOo;
+    Vector3d vR;
+    Vector3d vC;
+    Vector3d wR;
+    Vector3d vRo;
 
     Vector3d p;
     Vector3d lC;
 
-    MatrixXd MO;
-    VectorXd cO;
-    VectorXd gO;
-    VectorXd bO;
+    MatrixXd M;
+    VectorXd c;
+    VectorXd g;
+    VectorXd b;
 
-    MatrixXd dMO;
+    MatrixXd dM;
 
-    Vector3d fO;
-    Vector3d nO;
+    Vector3d fR;
+    Vector3d nR;
 
-    void initialize(const int&, RigidBodyModelInfo&);
+    void initialize(const int&, RigidBodyModelInfo&, WorldModel&);
 
-    void readModel();
+    void readModel(const string&, const string&);
+
     void update();
   };
 }
