@@ -21,7 +21,7 @@ VectorXd RLS::RlsDynamics::rlsDynamics(const double &t)
 
   des.desiredValueGenerator(t);
   fb.feedbackController();
-  ext->trajectoryGenerator(this, t);
+  ext->every(this, t);
 
   controlMethod();
 

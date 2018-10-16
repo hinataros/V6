@@ -46,13 +46,7 @@ void RLS::Ext::reconfigure(RlsDynamics *io)
 
 }
 
-void RLS::Ext::update(RlsDynamics *io)
-{
-  if(debug) DEBUG;
-
-}
-
-void RLS::Ext::trajectoryGenerator(RlsDynamics *io, const double &t)
+void RLS::Ext::every(RlsDynamics *io, const double &t)
 {
   if(debug) DEBUG;
 

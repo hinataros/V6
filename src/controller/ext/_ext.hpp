@@ -56,8 +56,7 @@ namespace RLS{
     void reset(RlsDynamics*, const double&);
     void readController(RlsDynamics*);
     void reconfigure(RlsDynamics*);
-    void update(RlsDynamics*);
-    void trajectoryGenerator(RlsDynamics*, const double&);
+    void every(RlsDynamics*, const double&);
     void output(RlsDynamics*);
     void finalize(RlsDynamics*);
   };
