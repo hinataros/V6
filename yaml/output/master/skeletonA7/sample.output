@@ -7,7 +7,7 @@ Result:
 Gp:
   Check: false
   Sampling time: 10
-  Start time offset: 0.
+  Start time offset: 1.
 
 Tex:
   Title: Simulation results

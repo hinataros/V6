@@ -58,63 +58,65 @@ Controller:
     # KDlC: 5.e+1
     KDth: 1.e+2
 
-  State:
-    -
-      Inverse dynamics controller: default
-      Bc:
-        RLEGEE: [0, 0, 0, 0, 0, 0]
-        LLEGEE: [0, 0, 0, 0, 0, 0]
-        RARMEE: [0, 0, 0, 0, 0, 0]
-      Bm:
-        RLEGEE: [0, 0, 0, 0, 0, 0]
-        LLEGEE: [0, 0, 0, 0, 0, 0]
-        RARMEE: [0, 0, 0, 0, 0, 0]
-    -
-      Inverse dynamics controller: fullDynamicsController
-      Force controller: centroidalEcmpDistribution
-      Bc:
-        RLEGEE: [1, 1, 1, 1, 1, 1]
-        LLEGEE: [1, 1, 1, 1, 1, 1]
-        RARMEE: [0, 0, 0, 0, 0, 0]
-      Bm:
-        RLEGEE: [0, 0, 0, 0, 0, 0]
-        LLEGEE: [0, 0, 0, 0, 0, 0]
-        RARMEE: [0, 0, 0, 0, 0, 0]
-    -
-      Inverse dynamics controller: fullDynamicsController
-      Force controller: centroidalEcmpDistribution
-      Bc: &ls
-        RLEGEE: [0, 0, 0, 0, 0, 0]
-        LLEGEE: [1, 1, 1, 1, 1, 1]
-        RARMEE: [0, 0, 0, 0, 0, 0]
-      Bm: &rs
-        RLEGEE: [1, 1, 1, 1, 1, 1]
-        LLEGEE: [0, 0, 0, 0, 0, 0]
-        RARMEE: [0, 0, 0, 0, 0, 0]
-    -
-      Inverse dynamics controller: fullDynamicsController
-      Force controller: centroidalEcmpDistribution
-      Bc:
-        RLEGEE: [1, 1, 1, 1, 1, 1]
-        LLEGEE: [0, 0, 0, 0, 0, 0]
-        RARMEE: [1, 1, 1, 1, 1, 1]
-      Bm:
-        RLEGEE: [0, 0, 0, 0, 0, 0]
-        LLEGEE: [1, 1, 1, 1, 1, 1]
-        RARMEE: [0, 0, 0, 0, 0, 0]
-    -
-      Inverse dynamics controller: fullDynamicsController
-      Force controller: handWrenchControlAndCentroidalEcmpDistribution
-      Bc:
-        RLEGEE: [1, 1, 1, 1, 1, 1]
-        LLEGEE: [1, 1, 1, 1, 1, 1]
-        RARMEE: [1, 1, 1, 1, 1, 1]
-      Bm:
-        RLEGEE: [0, 0, 0, 0, 0, 0]
-        LLEGEE: [0, 0, 0, 0, 0, 0]
-        RARMEE: [0, 0, 0, 0, 0, 0]
+  # State:
+  #   -
+  #     Inverse dynamics controller: default
+  #     Bc:
+  #       RLEGEE: [0, 0, 0, 0, 0, 0]
+  #       LLEGEE: [0, 0, 0, 0, 0, 0]
+  #       RARMEE: [0, 0, 0, 0, 0, 0]
+  #     Bm:
+  #       RLEGEE: [0, 0, 0, 0, 0, 0]
+  #       LLEGEE: [0, 0, 0, 0, 0, 0]
+  #       RARMEE: [0, 0, 0, 0, 0, 0]
+  #   -
+  #     Inverse dynamics controller: fullDynamicsController
+  #     Force controller: centroidalEcmpDistribution
+  #     Bc:
+  #       RLEGEE: [1, 1, 1, 1, 1, 1]
+  #       LLEGEE: [1, 1, 1, 1, 1, 1]
+  #       RARMEE: [0, 0, 0, 0, 0, 0]
+  #     Bm:
+  #       RLEGEE: [0, 0, 0, 0, 0, 0]
+  #       LLEGEE: [0, 0, 0, 0, 0, 0]
+  #       RARMEE: [0, 0, 0, 0, 0, 0]
+  #   -
+  #     Inverse dynamics controller: fullDynamicsController
+  #     Force controller: centroidalEcmpDistribution
+  #     Bc: &ls
+  #       RLEGEE: [0, 0, 0, 0, 0, 0]
+  #       LLEGEE: [1, 1, 1, 1, 1, 1]
+  #       RARMEE: [0, 0, 0, 0, 0, 0]
+  #     Bm: &rs
+  #       RLEGEE: [1, 1, 1, 1, 1, 1]
+  #       LLEGEE: [0, 0, 0, 0, 0, 0]
+  #       RARMEE: [0, 0, 0, 0, 0, 0]
+  #   -
+  #     Inverse dynamics controller: fullDynamicsController
+  #     Force controller: centroidalEcmpDistribution
+  #     Bc:
+  #       RLEGEE: [1, 1, 1, 1, 1, 1]
+  #       LLEGEE: [0, 0, 0, 0, 0, 0]
+  #       RARMEE: [1, 1, 1, 1, 1, 1]
+  #     Bm:
+  #       RLEGEE: [0, 0, 0, 0, 0, 0]
+  #       LLEGEE: [1, 1, 1, 1, 1, 1]
+  #       RARMEE: [0, 0, 0, 0, 0, 0]
+  #   -
+  #     Inverse dynamics controller: fullDynamicsController
+  #     Force controller: handWrenchControlAndCentroidalEcmpDistribution
+  #     Bc:
+  #       RLEGEE: [1, 1, 1, 1, 1, 1]
+  #       LLEGEE: [1, 1, 1, 1, 1, 1]
+  #       RARMEE: [1, 1, 1, 1, 1, 1]
+  #     Bm:
+  #       RLEGEE: [0, 0, 0, 0, 0, 0]
+  #       LLEGEE: [0, 0, 0, 0, 0, 0]
+  #       RARMEE: [0, 0, 0, 0, 0, 0]
 
   Sequence:
+    -
+      twf: 1.
     -
       twf: 1.
       Bm:
@@ -125,11 +127,13 @@ Controller:
       #   RARMEE: [0.05, -0.20, 0.4, 0., -1.570796327, -1.570796327]
     -
       twf: 1.
+      # Internal force controller: m_internalDistribution
       Force controller: handWrenchControlAndCentroidalEcmpDistribution
       Bc:
         RARMEE: [1, 1, 1, 1, 1, 1]
       Bm:
         RARMEE: [0, 0, 0, 0, 0, 0]
+      rXf: [0.02, 0., 0.]
       cal_Ff:
         RARMEE: [-3., 0., 0., 0., 0., 0.]
       # cal_Ff:

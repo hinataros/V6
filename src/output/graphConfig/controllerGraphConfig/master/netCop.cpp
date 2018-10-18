@@ -51,9 +51,11 @@ void RLS::Output::netCop(GpMaker &gpMaker, TexMaker &texMaker)
 
   reset();
   setFileName("netCoP");
-  setDatNum(2);
-  setDatName(1, "rpw2k");
-  setDatName(2, "rp");
+  // setDatNum(2);
+  // setDatName(1, "rpw2k");
+  // setDatName(2, "rp");
+
+  setDat("rpw2k");
   makeDat();
 
   gpMaker.reset();
@@ -94,7 +96,7 @@ void RLS::Output::netCop(GpMaker &gpMaker, TexMaker &texMaker)
   foot_pos_lx = ankle_offset_x;
   gpMaker.add("set object "+to_string(ob)+" rect at first "+to_string(foot_pos_lx)+", "+to_string(foot_pos_ly)+" size "+to_string(foot_size_x)+", "+to_string(foot_size_y)+" fs empty border rgb 'black'"); ob++;
 
-  gpMaker.setDimention(6);
+  gpMaker.setDimention(4);
   gpMaker.makeGp();
 
   texMaker.setName(file_name);

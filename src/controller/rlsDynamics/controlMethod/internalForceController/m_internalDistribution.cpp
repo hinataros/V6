@@ -19,7 +19,7 @@ void RLS::RlsDynamics::m_internalDistribution()
 
   MatrixXd NH = N(cal_PcM).block(12,0,6,info.constraint.c.all);
 
-  // cal_FcaBarRef = pInv(NH)*cal_FcTildeHRef;
+  cal_FcaBarRef = pInv(NH)*cal_FcTildeHRef;
 
-  cal_FcaBarRef = pInv(NH, Wecmpc)*cal_FcTildeHRef;
+  // cal_FcaBarRef = pInv(NH, Wecmpc)*cal_FcTildeHRef;
 }

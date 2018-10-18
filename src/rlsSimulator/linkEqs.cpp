@@ -17,7 +17,7 @@ void RLS::RlsSimulator::linkEqs(Model &model, Controller &controller, Output &ou
   model.update();
 
   for(int i=0; i<controller.controllerNum; i++)
-    u[model.info.modelID[controller.rlsDynamics[i].info.controlModel.name]]
+    u[model.info.modelID[controller.rlsDynamics[i].info.model.name]]
       = controller.rlsDynamics[i].rlsDynamics(t);
 
   for(int i=0; i<model.info.treeModelNum; i++)
@@ -25,7 +25,7 @@ void RLS::RlsSimulator::linkEqs(Model &model, Controller &controller, Output &ou
   for(int i=0; i<controller.controllerNum; i++)
     output.rlsDynamicsList_temp[i] = controller.rlsDynamics[i].outputList;
 
-  output.extList_temp = rlsDynamics[0].extList;
+  output.extList_temp = controller.rlsDynamics[0].extList;
 
   output.pushBack(t);
 }
@@ -37,6 +37,6 @@ void RLS::RlsSimulator::linkEqs(Model &model, Controller &controller)
   model.update();
 
   for(int i=0; i<controller.controllerNum; i++)
-    u[model.info.modelID[controller.rlsDynamics[i].info.controlModel.name]]
+    u[model.info.modelID[controller.rlsDynamics[i].info.model.name]]
       = controller.rlsDynamics[i].rlsDynamics(t);
 }
