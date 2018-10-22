@@ -9,6 +9,7 @@ set(srcs
   resizeState.cpp
   setMap.cpp
   setInitialBoundary.cpp
+  initializeWalking.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" initialize_srcs)

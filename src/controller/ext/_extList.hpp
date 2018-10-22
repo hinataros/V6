@@ -8,7 +8,6 @@
 namespace RLS{
   class ExtList{
   public:
-    Vector3d hogeDes;
   };
 }
 

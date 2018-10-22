@@ -1,5 +1,5 @@
 /**
-   @author Sho Miyahara 2017
+   @author Sho Miyahara 2018
 */
 
 #include "config.hpp"
@@ -12,8 +12,8 @@ void RLS::DesiredValueGenerator::desiredControlNodeMotionGeneratorWalking(const 
 
   double tw0 = sequence[desiredControlNodeMotionGeneratorNum[controlNode]].tw0;
   double twf = sequence[desiredControlNodeMotionGeneratorNum[controlNode]].twf;
-  VectorXd initialDes = sequence[desiredControlNodeMotionGeneratorNum[controlNode]].cal_XpreDes;
-  VectorXd finalDes = sequence[desiredControlNodeMotionGeneratorNum[controlNode]].cal_Xf;
+  VectorXd initialDes = sequence[desiredControlNodeMotionGeneratorNum[controlNode]].cal_XpreDesabs;
+  VectorXd finalDes = sequence[desiredControlNodeMotionGeneratorNum[controlNode]].cal_Xfabs;
   VectorXd tdDes = sequence[desiredControlNodeMotionGeneratorNum[controlNode]].cal_Xtd;
 
   int start = 6*controlNode;
@@ -26,17 +26,15 @@ void RLS::DesiredValueGenerator::desiredControlNodeMotionGeneratorWalking(const 
       }
       else{
         if(round_cast(t-tw0, 3) == round_cast(twf/2, 3)){
-          initialDes(i)
-            = sequence[desiredControlNodeMotionGeneratorNum[controlNode]].cal_XpreDes(i) = finalDes(i);
-          finalDes(i)
-            = sequence[desiredControlNodeMotionGeneratorNum[controlNode]].cal_Xf(i) = tdDes(i);
+          initialDes(i) = sequence[desiredControlNodeMotionGeneratorNum[controlNode]].cal_XpreDesabs(i) = model->cal_X(i);
+          finalDes(i) = sequence[desiredControlNodeMotionGeneratorNum[controlNode]].cal_Xfabs(i) = tdDes(i);
         }
 
         des = makeSpline5(t-(tw0+twf/2), twf/2, initialDes(i), finalDes(i));
       }
     }
 
-    cal_XDes(i) = des(0) + cal_X0(i);
+    cal_XDes(i) = des(0);
     cal_VxiDes(i) = des(1);
     cal_dVxiDes(i) = des(2);
   }

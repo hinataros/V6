@@ -12,19 +12,6 @@ namespace RLS{
   class Ext:
     public Interpolation{
   private:
-    double tw0;
-    double twf;
-
-    Vector3d des;
-
-    Vector3d hoge0;
-    Vector3d hogepreDes;
-    Vector3d hogef;
-
-    Vector3d hogeDes;
-    Vector3d dhogeDes;
-    Vector3d ddhogeDes;
-
     // // control method
     // // ******************************
     // motion controller

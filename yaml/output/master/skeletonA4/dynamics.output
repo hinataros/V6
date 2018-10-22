@@ -77,7 +77,7 @@ Tex:
             vertical:
               name: time
             horizontal:
-              name: tree model r
+              name: tree model v
           control node: 0
           y label: EE vel. [m/s]
           dimention: 3
@@ -395,6 +395,39 @@ Tex:
       use function: netCop
     -
       use function: stabilityIndex
+
+    -
+      file name: vrpDes
+      caption: disired VRP values.
+      elements:
+        -
+          file name: vrpDesx
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: vrpDesx
+          y label: Des. VRP x [mm]
+          unit: m
+          dimention: 3
+        -
+          file name: vrpDesy
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: vrpDesy
+          y label: Des. VRP y [mm]
+          unit: m
+          dimention: 3
+        -
+          file name: vrpDes
+          dat value:
+            name: vrpDes
+          x label: Des. VRP x [mm]
+          y label: Des. VRP y [mm]
+          unit: m
+          dimention: 1
 
 Choreonoid:
   Sampling time: 10

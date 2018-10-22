@@ -33,6 +33,10 @@ namespace RLS{
     template <class T> void checkValue(T &value, const string);
     template <class T> void checkValue(T &value, const string, const string);
     template <class T> void checkValue(T &value, const string, const string, const string);
+
+    template <class T> void checkUserValue(T &value, const string);
+    template <class T> void checkUserValue(T &value, const string, const string);
+    template <class T> void checkUserValue(T &value, const string, const string, const string);
   };
 }
 

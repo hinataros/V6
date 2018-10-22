@@ -7,7 +7,7 @@ Result:
 Gp:
   Check: false
   Sampling time: 10
-  Start time offset: 0.
+  Start time offset: 1.
 
 Tex:
   Title: Simulation results
@@ -77,7 +77,7 @@ Tex:
             vertical:
               name: time
             horizontal:
-              name: tree model r
+              name: tree model v
           control node: 0
           y label: EE vel. [m/s]
           dimention: 3
@@ -386,84 +386,48 @@ Tex:
           dimention: 3
 
     -
-      file name: localCoP
-      caption: Local CoP values.
-      control node: 0
-      activate:
-        - true
-        - true
-        - false
-        - false
-      elements:
-        -
-          file name: localCoPx
-          dat value:
-            vertical:
-              name: time
-            horizontal:
-              name: rpkx
-          control node: 0
-          activate:
-            - true
-            - true
-            - false
-            - false
-          y label: EE CoP x [mm]
-          unit: m
-          dimention: 1
-          add:
-            - ["set yrange[-60:80]", "set object 1 rect from 0, -40 to 1e+3, 58 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder"]
-            - ["set yrange[-60:80]", "set object 1 rect from 0, -40 to 1e+3, 58 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder"]
-            - [""]
-            - [""]
-        -
-          file name: localCoPy
-          dat value:
-            vertical:
-              name: time
-            horizontal:
-              name: rpky
-          control node: 0
-          activate:
-            - true
-            - true
-            - false
-            - false
-          y label: EE CoP y [mm]
-          unit: m
-          dimention: 1
-          add:
-            - ["set yrange[-40:40]", "set object 1 rect from 0, -31.5 to 1e+3, 31.5 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder"]
-            - ["set yrange[-40:40]", "set object 1 rect from 0, -31.5 to 1e+3, 31.5 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder"]
-            - [""]
-            - [""]
+      use function: dcm
+    -
+      use function: sysMom
+    -
+      use function: localCop
+    -
+      use function: netCop
+    -
+      use function: stabilityIndex
 
     -
-      file name: stabilityIndex
-      caption: net CoP, gCoM, xCoM and eCMP values.
+      file name: vrpDes
+      caption: disired VRP values.
       elements:
         -
-          file name: xStabilityIndex
+          file name: vrpDesx
           dat value:
             vertical:
               name: time
             horizontal:
-              name: xStabilityIndex
-          y label: Stability index x [mm]
+              name: vrpDesx
+          y label: Des. VRP x [mm]
           unit: m
-          dimention: 4
-          add: ["set yrange[-80:80]", "set object 1 rect from 0, -40 to 1e+3, 58 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder"]
+          dimention: 3
         -
-          file name: yStabilityIndex
+          file name: vrpDesy
           dat value:
             vertical:
               name: time
             horizontal:
-              name: yStabilityIndex
-          y label: Stability index y [mm]
+              name: vrpDesy
+          y label: Des. VRP y [mm]
           unit: m
-          dimention: 4
-          add: ["set yrange[-80:80]", "set object 1 rect from 0, (39-31.5) to 1e+3, (39+31.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder", "set object 2 rect from 0, (-39+31.5) to 1e+3, (-39-31.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder"]
+          dimention: 3
+        -
+          file name: vrpDes
+          dat value:
+            name: vrpDes
+          x label: Des. VRP x [mm]
+          y label: Des. VRP y [mm]
+          unit: m
+          dimention: 1
 
 Choreonoid:
   Sampling time: 10

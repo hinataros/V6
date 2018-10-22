@@ -144,11 +144,11 @@ items:
             isEditable: false
         - 
           id: 4
-          name: "master/skeletonA4prim"
+          name: "skeletonA4SF"
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "/home/smiyahara/Documents/rlsSimulator/share/model/master/skeletonA4prim.body"
+            modelFile: "/home/smiyahara/Documents/rlsSimulator/share/model/master/skeletonA4SFprim.body"
             currentBaseLink: "ROOT"
             rootPosition: *POS363
             rootAttitude: [ 
@@ -176,7 +176,7 @@ items:
                 isNoDelayMode: true
                 controllerOptions: ""
                 moduleName: "/home/smiyahara/Documents/rlsSimulator/build/bin/rlsDynamicsRTC.so"
-                confFileName: "/home/smiyahara/Documents/rlsSimulator/src/controller/rlsDynamics/RTC/rtcConfig/skeletonPort.conf"
+                confFileName: "/home/smiyahara/Documents/rlsSimulator/share/port/skeletonPort.conf"
                 configurationMode: "Use Configuration File"
                 AutoConnect: false
                 InstanceName: "skeleton"
@@ -311,7 +311,7 @@ views:
 toolbars: 
   "TimeBar": 
     minTime: 0
-    maxTime: 4
+    maxTime: 5
     frameRate: 1000
     playbackFrameRate: 10
     idleLoopDrivenMode: false

@@ -41,7 +41,7 @@ void RLS::DesiredValueGenerator::setMap()
   // dcm
   desiredDcmGenerator_map["default"] = &RLS::DesiredValueGenerator::desiredDcmZeroGenerator;
   desiredDcmGenerator_map["CP"] = &RLS::DesiredValueGenerator::desiredDcmGeneratorCP;
-  // desiredDcmGenerator["HTWalking"] = &RLS::DesiredValueGenerator::desiredDcmGeneratorHTWalking;
+  desiredDcmGenerator_map["HTWalking"] = &RLS::DesiredValueGenerator::dcmHTWalking;
 
   // external wrench
   desiredExternalWrenchGenerator_map["default"] = &RLS::DesiredValueGenerator::desiredExternalWrenchZeroGenerator;

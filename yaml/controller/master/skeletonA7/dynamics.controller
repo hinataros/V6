@@ -1,7 +1,7 @@
 # @author Sho Miyahara 2018
 
 Controller:
-  Control model: skeletonA4SF
+  Control model: skeletonA7SF
   Input: torque
   # Driven: mix
   # Trigger: check contact
@@ -51,8 +51,8 @@ Controller:
     # kthHinit: &kthHinit 5.e+0
     KDth:
       [0.,0.,0.,0.,0.,0., 0.,0.,0.,0.,0.,0.,
-      *kDthH, *kDthH, *kDthH, *kDthH,
-      *kDthH, *kDthH, *kDthH, *kDthH]
+      *kDthH, *kDthH, *kDthH, *kDthH, *kDthH, *kDthH, *kDthH,
+      *kDthH, *kDthH, *kDthH, *kDthH, *kDthH, *kDthH, *kDthH]
     # Kthinit:
     #   - [0.,0.,0.,0.,0.,0.]
     #   - [0.,0.,0.,0.,0.,0.]

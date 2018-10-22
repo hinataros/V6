@@ -25,8 +25,7 @@ void RLS::RlsDynamics::outputDesConfig()
   outputList.rXDes = des.rXDes;
   outputList.drXDes = des.drXDes;
 
-  outputList.rvrpDes =
-    model->rX - des.drXDes/model->wX;
+  outputList.rvrpDes = des.rXDes - des.drXDes/model->wX;
 
   outputList.rDes = outputList.vDes = outputList.dvDes
     = outputList.xiDes = outputList.wDes = outputList.dwDes

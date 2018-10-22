@@ -24,7 +24,7 @@ void RLS::RlsDynamics::initialize(const int &controllerID, const string &path_ya
   this->worldModel = controllerModel.worldModel;
   this->model = &controllerModel.treeModel[this->info.controlModelID];
 
-  des.initialize(this->info.model, *this->model, yamlInfo);
+  des.initialize(*this->worldModel, this->info.model, *this->model, yamlInfo);
   fb.initialize(this->info.model, *this->model, yamlInfo, des);
 
   initializeConstraintInfo();

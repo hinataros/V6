@@ -16,4 +16,7 @@ void RLS::ControllerModel::initialize(Model &model)
 
   for(int i=0; i<model.info.treeModelNum; i++)
     treeModel[i].initialize(model.worldModel, model.info.treeModel[i], model.treeModel[i]);
+
+  // initial update
+  update();
 }

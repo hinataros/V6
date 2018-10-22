@@ -6,11 +6,11 @@
 #include "model.hpp"
 #include "desiredValueGenerator.hpp"
 
-void RLS::DesiredValueGenerator::initialize(const TreeModelInfo &info, const ControllerTreeModel &model, YamlInfo &yamlInfo)
+void RLS::DesiredValueGenerator::initialize(const WorldModel &worldModel, const TreeModelInfo &info, const ControllerTreeModel &model, YamlInfo &yamlInfo)
 {
   if(debug) DEBUG;
 
-  setModel(info, model);
+  setModel(worldModel, info, model);
   setYamlInfo(yamlInfo);
 
   resize();
@@ -20,4 +20,7 @@ void RLS::DesiredValueGenerator::initialize(const TreeModelInfo &info, const Con
   setMap();
 
   setInitialBoundary();
+
+  if(this->yamlInfo->doc.controllerKey["Walking"])
+    initializeWalking();
 }

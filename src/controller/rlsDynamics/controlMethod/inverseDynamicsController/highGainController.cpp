@@ -10,7 +10,10 @@ VectorXd RLS::RlsDynamics::highGainController()
 {
   if(debug) DEBUG;
 
-  (this->*motionController_ptr)();
+  if(!extMotionController)
+    (this->*motionController_ptr)();
+  else
+    (ext->*ext_motionController_ptr)(this);
 
   thDes += dthRef*worldModel->dt;
 

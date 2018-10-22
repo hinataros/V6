@@ -70,4 +70,8 @@ void RLS::DesiredValueGenerator::resize()
     (void (RLS::DesiredValueGenerator::**)(const int&, const double&))malloc(sizeof(void (RLS::DesiredValueGenerator::*)(const int&, const double&))*info->controlNodeNum);
   desiredControlNodeForceGenerator_ptr =
     (void (RLS::DesiredValueGenerator::**)(const int&, const double&))malloc(sizeof(void (RLS::DesiredValueGenerator::*)(const int&, const double&))*info->controlNodeNum);
+
+  // // EE reference
+  // referenceSequence = 1;
+  // cal_Xtd = VectorXd::Zero(6*info->controlNodeNum);
 }

@@ -41,6 +41,10 @@ void RLS::Output::makeGraph()
 
       if(doc_layout[i]["control node"])
         texMaker.setLimb(info->treeModel[doc_layout[i]["control node"].as<int>()].controlNodeNum);
+      if(doc_layout[i]["activate"])
+        if(doc_layout[i]["activate"].size())
+          for(unsigned j=0; j<doc_layout[i]["activate"].size(); j++)
+            texMaker.setLimbNum(j+1, doc_layout[i]["activate"][j].as<bool>());
 
       // ******************************** ********************************
       for(unsigned j=0; j<doc_layout[i]["elements"].size(); j++){
@@ -102,6 +106,10 @@ void RLS::Output::makeGraph()
 
         if(doc_elements["control node"])
           gpMaker.setLimb(info->treeModel[doc_elements["control node"].as<int>()].controlNodeNum);
+        if(doc_elements["activate"])
+          if(doc_elements["activate"].size())
+            for(unsigned k=0; k<doc_elements["activate"].size(); k++)
+              gpMaker.setLimbNum(k+1, doc_elements["activate"][k].as<bool>());
 
         if(doc_elements["x label"])
           gpMaker.setXLabel(doc_elements["x label"].as<string>());
@@ -113,6 +121,49 @@ void RLS::Output::makeGraph()
 
         if(doc_elements["dimention"])
           gpMaker.setDimention(doc_elements["dimention"].as<int>());
+
+        if(doc_elements["scale"]){
+          if(doc_elements["scale"].size()){
+            for(unsigned k=0; k<doc_elements["scale"].size(); k++)
+              gpMaker.setScale(k+1, doc_elements["scale"][k].as<int>());
+          }
+          else{
+            gpMaker.setScale(doc_elements["scale"].as<int>());
+          }
+        }
+
+        if(doc_elements["redef"]){
+          if(doc_elements["redef"].size()){
+            for(unsigned k=0; k<doc_elements["redef"].size(); k++){
+              gpMaker.redef(doc_elements["redef"][k].as<string>());
+            }
+          }
+          else{
+            gpMaker.redef(doc_elements["redef"].as<string>());
+          }
+        }
+
+        if(doc_elements["add"]){
+          if(doc_elements["add"].size()){
+            for(unsigned k=0; k<doc_elements["add"].size(); k++){
+              if(doc_elements["add"][k]){
+                if(doc_elements["add"][k].size()){
+                  for(unsigned l=0; l<doc_elements["add"][k].size(); l++)
+                    gpMaker.add(k+1, doc_elements["add"][k][l].as<string>());
+                }
+                else{
+                  gpMaker.add(doc_elements["add"][k].as<string>());
+                }
+              }
+              else{
+                gpMaker.add(k+1, doc_elements["add"][k].as<string>());
+              }
+            }
+          }
+          else{
+            gpMaker.add(doc_elements["add"].as<string>());
+          }
+        }
 
         gpMaker.makeGp();
 

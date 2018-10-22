@@ -32,7 +32,10 @@ MatrixXd RLS::RlsDynamics::h_weight(const Vector2d &rIndex)
   VectorXd cal_Xc = Bc.transpose()*model->cal_X;
   MatrixXd Wc = MatrixXd::Zero(cal_Xc.size(), cal_Xc.size());
 
-  if(cal_Xc.size()==12){
+  if(cal_Xc.size()==6){
+    Wc = MatrixXd::Identity(6, 6);
+  }
+  else if(cal_Xc.size()==12){
     Vector2d r1 = cal_Xc.segment(0,2);
     Vector2d r2 = cal_Xc.segment(6,2);
     Vector2d Dr = r1 - r2;

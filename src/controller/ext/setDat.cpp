@@ -10,12 +10,10 @@
 
 int RLS::Output::setDat(ofstream& stream, string dataName, int i)
 {
-  if(dataName=="hogeDes")
-    stream << data.ext[i].hogeDes.transpose();
-  // else if(dataName=="dhogeDes")
-  //   stream << data.ext[i].dhogeDes.transpose();
-  else
-    return 0;
+  // if(dataName=="")
+  // //   stream << data.ext[i].hoge.transpose();
+  // else
+  //   return 0;
 
   return 1;
 }

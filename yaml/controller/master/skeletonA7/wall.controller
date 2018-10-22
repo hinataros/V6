@@ -12,16 +12,17 @@ Controller:
     Operational space controller: decomposeEndEffectorAcceleration
     Motion controller: mixedGeneralizedMomentum
 
-    Momentum controller: centroidalDcmMomentum
-    Force controller: centroidalEcmpDistribution
+    # Momentum controller: centroidalDcmMomentum
+    # Force controller: centroidalEcmpDistribution
 
-    # Momentum controller: centroidalMomentum
-    # Force controller: centroidalDistribution
+    Momentum controller: centroidalMomentum
+    Force controller: centroidalDistribution
 
-    Torque controller: mixedOpt
-    # Torque controller: mixedmixedOpt
+    # Torque controller: mixedOpt
+    Torque controller: mixedmixedOpt
 
-    Desired DCM generator: {name: CP}
+    # Desired DCM generator: {name: CP}
+    Desired DCM generator: {name: HTWalking}
     Desired base orientation generator: {name: CP}
 
     Desired control node motion generator:
@@ -117,25 +118,25 @@ Controller:
   Sequence:
     -
       twf: 1.
-    -
-      twf: 1.
-      Bm:
-        RARMEE: [1, 1, 1, 1, 1, 1]
-      cal_Xfabs:
-        RARMEE: [0.15, -0.0995, 0.3, 0., -1.570796327, 0.]
-      # cal_Xfabs:
-      #   RARMEE: [0.05, -0.20, 0.4, 0., -1.570796327, -1.570796327]
-    -
-      twf: 1.
-      # Internal force controller: m_internalDistribution
-      Force controller: handWrenchControlAndCentroidalEcmpDistribution
-      Bc:
-        RARMEE: [1, 1, 1, 1, 1, 1]
-      Bm:
-        RARMEE: [0, 0, 0, 0, 0, 0]
-      rXf: [0.02, 0., 0.]
-      cal_Ff:
-        RARMEE: [-3., 0., 0., 0., 0., 0.]
+    # -
+    #   twf: 1.
+    #   Bm:
+    #     RARMEE: [1, 1, 1, 1, 1, 1]
+    #   cal_Xfabs:
+    #     RARMEE: [0.15, -0.0995, 0.3, 0., -1.570796327, 0.]
+    #   # cal_Xfabs:
+    #   #   RARMEE: [0.05, -0.20, 0.4, 0., -1.570796327, -1.570796327]
+    # -
+    #   twf: 1.
+    #   # Internal force controller: m_internalDistribution
+    #   Force controller: handWrenchControlAndCentroidalEcmpDistribution
+    #   Bc:
+    #     RARMEE: [1, 1, 1, 1, 1, 1]
+    #   Bm:
+    #     RARMEE: [0, 0, 0, 0, 0, 0]
+    #   rXf: [0.02, 0., 0.]
+    #   cal_Ff:
+    #     RARMEE: [-3., 0., 0., 0., 0., 0.]
       # cal_Ff:
       #   RARMEE: [-3., -3., 0., 0., 0., 0.]
       # cal_Ff:

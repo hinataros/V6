@@ -228,10 +228,12 @@ void RLS::Output::setDat(ofstream& stream, int id, string dataName, int i)
     stream << data.rlsDynamics[id].vec[i].rvrpRef.head(2).transpose();
 
   // // desired VRP
-  // else if(dataName=="vrpDesx")
-  //   stream << data.rlsDynamics[id].vec[i].rvrpDes(0);
-  // else if(dataName=="vrpDesy")
-  //   stream << data.rlsDynamics[id].vec[i].rvrpDes(1);
+  else if(dataName=="vrpDesx")
+    stream << data.rlsDynamics[id].vec[i].rvrpDes(0);
+  else if(dataName=="vrpDesy")
+    stream << data.rlsDynamics[id].vec[i].rvrpDes(1);
+  else if(dataName=="vrpDes")
+    stream << data.rlsDynamics[id].vec[i].rvrpDes.head(2).transpose();
 
   // // foot print
   // else if(dataName=="foot print")

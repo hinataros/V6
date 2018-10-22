@@ -10,14 +10,19 @@
 #include "interpolation.hpp"
 #include "controllerTreeModel.hpp"
 
+#include "walking.hpp"
+
 namespace RLS{
   class DesiredValueGenerator:
     public Interpolation{
   private:
+    const WorldModel *worldModel;
     const TreeModelInfo *info;
     const ControllerTreeModel *model;
 
     YamlInfo *yamlInfo;
+
+    Walking walking;
 
     // boundary
     // ******************************
@@ -98,56 +103,6 @@ namespace RLS{
       VectorXd cal_Xtd;
     } *sequence;
 
-    // // dcmWalkiing
-    // // ******************************
-    // int phaseDS;
-    // bool flagDS;
-
-    // int stepNum;
-    // int stepPhase;
-    // double tstep0;
-    // double tstep;
-    // double tDS0;
-
-    // VectorXd dT;
-    // MatrixXd rf;
-    // MatrixXd rvrpd;
-
-    // MatrixXd rXeos;
-
-    // // double sopport
-    // VectorXd dtDS;
-    // VectorXd alphDS;
-    // VectorXd dtDSini;
-    // VectorXd dtDSend;
-
-    // MatrixXd rXiniDS;
-    // MatrixXd rXeoDS;
-    // MatrixXd drXiniDS;
-    // MatrixXd drXeoDS;
-    // MatrixXd ddrXiniDS;
-    // MatrixXd ddrXeoDS;
-
-    // // HT
-    // // ****************
-    // VectorXd alphaHT;
-    // VectorXd dtHT;
-    // VectorXd dtTH;
-
-    // MatrixXd rfT;
-    // MatrixXd rfH;
-
-    // MatrixXd rXHT;
-    // MatrixXd rXTH;
-
-    // MatrixXd rvrpTd;
-    // MatrixXd rvrpHd;
-
-    // // polynomial
-    // bool initial_walking;
-    // int support;
-    // double tphasef;
-
     // // EE reference
     // int referenceSequence;
     // VectorXd cal_Xtd;
@@ -181,7 +136,7 @@ namespace RLS{
     // dcm
     void desiredDcmZeroGenerator(const double&);
     void desiredDcmGeneratorCP(const double&);
-    void desiredDcmGeneratorHTWalking(const double&);
+    void dcmHTWalking(const double&);
 
     // external wrench
     void desiredExternalWrenchZeroGenerator(const double&);
@@ -206,7 +161,7 @@ namespace RLS{
     void (RLS::DesiredValueGenerator::**desiredControlNodeForceGenerator_ptr)(const int&, const double&);
     map<string, void (RLS::DesiredValueGenerator::*)(const int&, const double&)> *desiredControlNodeForceGenerator_map;
 
-    void setModel(const TreeModelInfo&, const ControllerTreeModel&);
+    void setModel(const WorldModel&, const TreeModelInfo&, const ControllerTreeModel&);
     void setYamlInfo(YamlInfo&);
 
     void resize();
@@ -214,6 +169,7 @@ namespace RLS{
     void resizeState();
     void setMap();
     void setInitialBoundary();
+    void initializeWalking();
 
   public:
     Vector3d rBDes;
@@ -245,7 +201,7 @@ namespace RLS{
 
     Vector6d cal_FextDes;
 
-    void initialize(const TreeModelInfo&, const ControllerTreeModel&, YamlInfo&);
+    void initialize(const WorldModel&, const TreeModelInfo&, const ControllerTreeModel&, YamlInfo&);
     void finalize();
 
     void readController();
