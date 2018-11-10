@@ -27,8 +27,15 @@ int RLS::RlsDynamics::checkContact(const double &t)
       return 3;
   }
   else{
-    return 4;
+    if(contactFlag[0]==true&&contactFlag[1]==true)
+      return 4;
+
+    if(contactFlag[0]==false&&contactFlag[1]==true)
+      return 5;
+    if(contactFlag[0]==true&&contactFlag[1]==false)
+      return 6;
   }
 
   return 0;
 }
+

@@ -163,12 +163,14 @@ namespace RLS{
 
     TreeModelList outputList;
 
-    VectorXd readJointStateVector(string);
-    void writeJointStateVector(string, VectorXd);
-    VectorXd readSensorNodeValueVector(string);
-    void writeSensorNodeValueVector(string, VectorXd);
+    VectorXd readJointState(string);
+    void writeJointState(string, VectorXd);
+    VectorXd readSensorNodeValue(string);
+    template <class T> T readSensorNodeValue(const int, const string);
+    void writeSensorNodeValue(string, VectorXd);
     MatrixXd stateMatrixFilter(bool, bool, MatrixXd);
-    VectorXd readControlNodeValueVector(string);
+    VectorXd readControlNodeValue(string);
+    template <class T> T readControlNodeValue(const int, const string);
 
     void initialize(const int&, TreeModelInfo&, WorldModel&);
     void finalize();

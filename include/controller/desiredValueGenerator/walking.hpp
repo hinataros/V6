@@ -42,6 +42,7 @@ namespace RLS{
       double offset;
       double toe;
       double heel;
+      double tstab;
     } ht_config;
 
     int stepNum;
@@ -83,6 +84,22 @@ namespace RLS{
     MatrixXd rvrpTd;
     MatrixXd rvrpHd;
 
+    // ext HT
+    Vector3d fext;
+
+    MatrixXd rXiniDSBar;
+    MatrixXd rXeoDSBar;
+    MatrixXd drXiniDSBar;
+    MatrixXd drXeoDSBar;
+    MatrixXd ddrXiniDSBar;
+    MatrixXd ddrXeoDSBar;
+
+    MatrixXd rXHTBar;
+    MatrixXd rXTHBar;
+
+    MatrixXd rvrpTdBar;
+    MatrixXd rvrpHdBar;
+
     // polynomial
     bool initial_walking;
     int support;
@@ -95,6 +112,8 @@ namespace RLS{
   public:
     Vector3d rXDes;
     Vector3d drXDes;
+    Vector3d rXBarDes;
+    Vector3d drXBarDes;
 
     void setModel(const ControllerTreeModel&);
     void setYamlInfo(YamlInfo&);
@@ -107,9 +126,14 @@ namespace RLS{
     void setStartValue(const Vector3d&);
     void setFinishValue(const Vector3d&);
 
+    void setExtForce(const Vector3d&);
+
     void createHTTrajectory();
+    void createExtHTTrajectory();
 
     void ht(const double&);
+    void extht(const double&);
+    void eht(const double&);
 
     void initialize();
     void finalize();

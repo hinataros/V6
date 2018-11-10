@@ -16,4 +16,8 @@ void RLS::Output::setMap()
   map_use_function["localCop"] = &RLS::Output::localCop;
   map_use_function["netCop"] = &RLS::Output::netCop;
   map_use_function["stabilityIndex"] = &RLS::Output::stabilityIndex;
+
+  // walking
+  map_use_function["vrpDes4walking"] = &RLS::Output::vrpDes4walking;
+  map_use_function["vrpBarDes4walking"] = &RLS::Output::vrpBarDes4walking;
 }

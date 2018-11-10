@@ -82,6 +82,51 @@ void RLS::Output::setDat(ofstream& stream, int id, string dataName, int i)
   else if(dataName=="drXDes")
     stream << data.rlsDynamics[id].vec[i].drXDes.transpose();
 
+  else if(dataName=="rXDesx")
+    stream << data.rlsDynamics[id].vec[i].rXDes(0);
+  else if(dataName=="rXDesy")
+    stream << data.rlsDynamics[id].vec[i].rXDes(1);
+  else if(dataName=="rexDes")
+    stream << data.rlsDynamics[id].vec[i].rXDes.head(2).transpose();
+  else if(dataName=="drexDes")
+    stream << data.rlsDynamics[id].vec[i].drXDes.head(2).transpose();
+
+  // desired VRP
+  else if(dataName=="rvrpDes")
+    stream << data.rlsDynamics[id].vec[i].rvrpDes.transpose();
+
+  else if(dataName=="rvrpDesx")
+    stream << data.rlsDynamics[id].vec[i].rvrpDes(0);
+  else if(dataName=="rvrpDesy")
+    stream << data.rlsDynamics[id].vec[i].rvrpDes(1);
+  else if(dataName=="recmpDes")
+    stream << data.rlsDynamics[id].vec[i].rvrpDes.head(2).transpose();
+
+  else if(dataName=="rXBarDes")
+    stream << data.rlsDynamics[id].vec[i].rXBarDes.transpose();
+  else if(dataName=="drXBarDes")
+    stream << data.rlsDynamics[id].vec[i].drXBarDes.transpose();
+
+  else if(dataName=="rXBarDesx")
+    stream << data.rlsDynamics[id].vec[i].rXBarDes(0);
+  else if(dataName=="rXBarDesy")
+    stream << data.rlsDynamics[id].vec[i].rXBarDes(1);
+  else if(dataName=="rexBarDes")
+    stream << data.rlsDynamics[id].vec[i].rXBarDes.head(2).transpose();
+  else if(dataName=="drexBarDes")
+    stream << data.rlsDynamics[id].vec[i].drXBarDes.head(2).transpose();
+
+  // desired VRP
+  else if(dataName=="rvrpBarDes")
+    stream << data.rlsDynamics[id].vec[i].rvrpBarDes.transpose();
+
+  else if(dataName=="rvrpBarDesx")
+    stream << data.rlsDynamics[id].vec[i].rvrpBarDes(0);
+  else if(dataName=="rvrpBarDesy")
+    stream << data.rlsDynamics[id].vec[i].rvrpBarDes(1);
+  else if(dataName=="recmpBarDes")
+    stream << data.rlsDynamics[id].vec[i].rvrpBarDes.head(2).transpose();
+
   else if(dataName=="rDes")
     stream << data.rlsDynamics[id].vec[i].rDes.transpose();
   else if(dataName=="vDes")
@@ -171,6 +216,15 @@ void RLS::Output::setDat(ofstream& stream, int id, string dataName, int i)
   else if(dataName=="tau")
     stream << data.rlsDynamics[id].vec[i].tau.transpose();
 
+  else if(dataName=="quatB")
+    stream << data.rlsDynamics[id].vec[i].quatB.transpose();
+  else if(dataName=="quatBDes")
+    stream << data.rlsDynamics[id].vec[i].quatBDes.transpose();
+  else if(dataName=="quat")
+    stream << data.rlsDynamics[id].vec[i].quat.transpose();
+  else if(dataName=="quatDes")
+    stream << data.rlsDynamics[id].vec[i].quatDes.transpose();
+
   else if(dataName=="pCRB")
     stream << data.rlsDynamics[id].vec[i].pCRB.transpose();
   else if(dataName=="lCRB")
@@ -212,13 +266,15 @@ void RLS::Output::setDat(ofstream& stream, int id, string dataName, int i)
       data.treeModel[id].vec[i].rC(0) << " " <<
       data.rlsDynamics[id].vec[i].rp(0) << " " <<
       data.rlsDynamics[id].vec[i].rX(0) << " " <<
-      data.rlsDynamics[id].vec[i].rvrpRef(0);
+      data.rlsDynamics[id].vec[i].rvrpRef(0) << " " <<
+      data.rlsDynamics[id].vec[i].rvrpBarDes(0);
   else if(dataName=="yStabilityIndex")
     stream <<
       data.treeModel[id].vec[i].rC(1) << " " <<
       data.rlsDynamics[id].vec[i].rp(1) << " " <<
       data.rlsDynamics[id].vec[i].rX(1) << " " <<
-      data.rlsDynamics[id].vec[i].rvrpRef(1);
+      data.rlsDynamics[id].vec[i].rvrpRef(1) << " " <<
+      data.rlsDynamics[id].vec[i].rvrpBarDes(1);
 
   else if(dataName=="gCoM")
     stream << data.treeModel[id].vec[i].rC.head(2).transpose();
@@ -226,14 +282,6 @@ void RLS::Output::setDat(ofstream& stream, int id, string dataName, int i)
     stream << data.rlsDynamics[id].vec[i].rX.head(2).transpose();
   else if(dataName=="eCMPRef")
     stream << data.rlsDynamics[id].vec[i].rvrpRef.head(2).transpose();
-
-  // // desired VRP
-  else if(dataName=="vrpDesx")
-    stream << data.rlsDynamics[id].vec[i].rvrpDes(0);
-  else if(dataName=="vrpDesy")
-    stream << data.rlsDynamics[id].vec[i].rvrpDes(1);
-  else if(dataName=="vrpDes")
-    stream << data.rlsDynamics[id].vec[i].rvrpDes.head(2).transpose();
 
   // // foot print
   // else if(dataName=="foot print")

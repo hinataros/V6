@@ -5,6 +5,7 @@ add_subdirectory(rename)
 add_subdirectory(index)
 
 set(srcs
+  finalize.cpp
   contactCoordinate.cpp
   transform.cpp
   update.cpp

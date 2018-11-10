@@ -2,9 +2,8 @@
 
 set(srcs
   initializeExt.cpp
-  setConfig.cpp
-  analysisYaml.cpp
-  readWorkHeader.cpp
+  setDefaultConfig.cpp
+  readControllerHeader.cpp
   setModelInfo.cpp
   initializeConstraintInfo.cpp
   resize.cpp

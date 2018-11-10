@@ -3,9 +3,9 @@
 add_subdirectory(des)
 add_subdirectory(err)
 add_subdirectory(ref)
-add_subdirectory(index)
-# add_subdirectory(master)
-# add_subdirectory(walking)
+# add_subdirectory(index)
+add_subdirectory(master)
+add_subdirectory(walking)
 
 # add_subdirectory(gif)
 

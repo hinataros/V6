@@ -8,31 +8,32 @@
 # Body name: master/skeletonA4primZeff
 # cnoid name: master/zeff
 
-World model:
+world model:
   include:
     type: cnoid
     search: relative
+    # path: &cnoid master/skeletonA7/standup.cnoid
     path: &cnoid master/skeletonA7/wall.cnoid
 
-Tree model:
-  Name: skeletonA7SF
-  Dynamics calculation: true
-  Model parameter:
+tree model:
+  name: skeletonA7SF
+  dynamics calculation: true
+  model parameter:
     include:
       type: body
       search: relative
       path: master/skeletonA7SFprim.body
-  Initial configuration:
+  initial configuration:
     include:
       type: cnoid
       search: relative
       path: *cnoid
-  Control node:
+  control node:
     - RLEGEE
     - LLEGEE
     - RARMEE
     - LARMEE
-  Sensor node:
+  sensor node:
     include:
       type: cnoid
       search: relative

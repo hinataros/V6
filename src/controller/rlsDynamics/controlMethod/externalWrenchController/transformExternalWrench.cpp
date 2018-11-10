@@ -15,7 +15,7 @@ void RLS::RlsDynamics::transformExternalWrench()
     0., 0., 0.145;
 
   Vector3d rW2P = Vector3d::Zero();
-  rW2P = model->cal_XB.head(3) + model->RB*rB2P;
+  rW2P = model->rB + model->RB*rB2P;
 
   // rW2P <<
   //   0., -0.039, 0.;

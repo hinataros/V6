@@ -40,18 +40,6 @@ links:
                 rotation: *X
                 geometry: { type: Capsule, radius: 0.0025, height: 0.015 }
                 appearance: *bodyColor
-              -
-                type: Shape
-                translation: [ 0.017, 0, 0.03 ]
-                rotation: &Z [ 0, 0, 1, 90 ]
-                geometry: { type: Capsule, radius: 0.0025, height: 0.034 }
-                appearance: *bodyColor
-              -
-                type: Shape
-                translation: [ 0.034, 0, 0.03375 ]
-                rotation: *X
-                geometry: { type: Capsule, radius: 0.0025, height: 0.0075 }
-                appearance: *bodyColor
 
               # Head1
               # translation: [ -0.034, 0.0, 0.09 ]
@@ -69,72 +57,13 @@ links:
                 translation: [ 0.0, 0.0, 0.227 ]
                 geometry: { type: Sphere, radius: 0.027 }
                 appearance: *bodyColor
-
-              # waist1
-              # translation: [ 0.034, 0, 0.055 ]
               -
                 type: Shape
-                translation: [ 0.034, 0, 0.0375]
+                # translation: [ 0.0, 0.0, 0.11875 ]
+                translation: [ 0.0, 0.0, 0.10625 ]
                 rotation: *X
-                geometry: &jointShape
-                  {type: Cylinder, radius: 0.005, height: 0.01}
-                appearance: &jointColor
-                  material: {diffuseColor: [ 0, 0, 0 ]}
-              -
-                type: Shape
-                translation: [ 0.034, 0.0, 0.04125 ]
-                rotation: *X
-                geometry: { type: Capsule, radius: 0.0025, height: 0.0075 }
-                appearance: *bodyColor
-              -
-                type: Shape
-                translation: [ 0.034, -0.00875, 0.045 ]
-                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
-                appearance: *bodyColor
-              -
-                type: Shape
-                translation: [ 0.034, -0.0175, 0.05 ]
-                rotation: *X
-                geometry: { type: Capsule, radius: 0.0025, height: 0.01 }
-                appearance: *bodyColor
-              -
-                type: Shape
-                translation: [ 0.034, -0.00875, 0.055 ]
-                geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
-                appearance: *bodyColor
-
-              # waist2
-              # translation: [ 0.034, 0, 0.055 ]
-              -
-                type: Shape
-                translation: [ 0.034, 0, 0.055 ]
-                geometry: *jointShape
-                appearance: *jointColor
-              -
-                type: Shape
-                translation: [ 0.02475, 0.0, 0.055 ]
-                rotation: *Z
-                geometry: { type: Capsule, radius: 0.0025, height: 0.0185 }
-                appearance: *bodyColor
-              # torso
-              # translation: [ 0.034, 0, 0.055 ]
-              -
-                type: Shape
-                rotation: *Z
-                translation: [ 0.0155, 0, 0.055 ]
-                geometry: *jointShape
-                appearance: *jointColor
-              -
-                type: Shape
-                translation: [ 0.00775, 0.0, 0.055 ]
-                rotation: *Z
-                geometry: { type: Capsule, radius: 0.0025, height: 0.0155 }
-                appearance: *bodyColor
-              -
-                type: Shape
-                translation: [ 0.0, 0.0, 0.11875 ]
-                rotation: *X
-                geometry: { type: Capsule, radius: 0.0025, height: 0.1275 }
+                # geometry: { type: Capsule, radius: 0.0025, height: 0.1275 }
+                geometry: { type: Capsule, radius: 0.0025, height: 0.1525 }
                 appearance: *bodyColor
               -
                 type: Shape
@@ -170,12 +99,14 @@ links:
                 type: Shape
                 rotation: *X
                 translation: [ 0, 0, 0.015 ]
-                geometry: *jointShape
-                appearance: *jointColor
+                geometry: &jointShape
+                  {type: Cylinder, radius: 0.005, height: 0.01}
+                appearance: &jointColor
+                  material: {diffuseColor: [ 0, 0, 0 ]}
               -
                 type: Shape
                 translation: [ 0.01375, 0.0, 0.015 ]
-                rotation: *Z
+                rotation: &Z [ 0, 0, 1, 90 ]
                 geometry: { type: Capsule, radius: 0.0025, height: 0.0275 }
                 appearance: *bodyColor
               -

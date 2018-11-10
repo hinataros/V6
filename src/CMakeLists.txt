@@ -28,6 +28,8 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 # include_directories(${OPENRTM_INCLUDE_DIRS})
 # include_directories(${OMNIORB_INCLUDE_DIRS})
 
+include_directories(${PROJECT_SOURCE_DIR}/include/common)
+
 include_directories(${PROJECT_SOURCE_DIR}/include/config)
 
 include_directories(${PROJECT_SOURCE_DIR}/include/model)
@@ -76,12 +78,16 @@ if(rls_thirdparty_QuadProgpp)
 endif()
 
 add_subdirectory(common)
+
+add_subdirectory(quaternion)
+
 add_subdirectory(config)
 add_subdirectory(model)
 add_subdirectory(output)
 set(sources
-  ${config_srcs}
   ${common_srcs}
+  ${quaternion_srcs}
+  ${config_srcs}
   ${model_srcs}
   ${output_srcs}
   )

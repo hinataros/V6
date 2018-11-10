@@ -55,12 +55,12 @@ void RlsDynamicsRTC::setControlModelState(RLS::TreeModelInfo &info, RLS::TreeMod
   for(unsigned i=0; i<m_angVel.data.length(); i++)
     dth(i) = m_angVel.data[i];
 
-  model.writeJointStateVector("joint angle", th);
-  model.writeJointStateVector("joint velocity", dth);
+  model.writeJointState("joint angle", th);
+  model.writeJointState("joint velocity", dth);
 
   VectorXd FTsensor = VectorXd(m_eeForce.data.length());
   for(int i=0; i<m_eeForce.data.length(); i++)
     FTsensor(i) = m_eeForce.data[i];
 
-  model.writeSensorNodeValueVector("force torque sensor", FTsensor);
+  model.writeSensorNodeValue("force torque sensor", FTsensor);
 }

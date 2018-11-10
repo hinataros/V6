@@ -1,12 +1,12 @@
 # @author Sho Miyahara 2018
 
-Controller:
-  Control model: skeletonA4
-  Input: torque
-  # Driven: mix
-  # Trigger: check contact
+controller:
+  control model: skeletonA4
+  input: torque
+  # driven: mix
+  # trigger: check contact
 
-  Default:
+  default:
     Inverse dynamics controller: fullDynamicsController
 
     Operational space controller: decomposeEndEffectorAcceleration
@@ -45,10 +45,10 @@ Controller:
 
     KDth: 1.e+2
 
-  State:
+  state:
     -
 
-  Sequence:
+  sequence:
     -
       -
         twf: 1.

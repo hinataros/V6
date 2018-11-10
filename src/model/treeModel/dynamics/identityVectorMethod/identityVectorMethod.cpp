@@ -14,7 +14,7 @@ void RLS::TreeModel::identityVectorMethod()
 
   link[info->rootNode].dv_rne = ddq.head(3);
   link[info->rootNode].dw_rne = ddq.segment(3,3);
-  writeJointStateVector("rne joint acceleration", ddq.tail(info->dof.joint));
+  writeJointState("rne joint acceleration", ddq.tail(info->dof.joint));
 
   all.b = recursiveNewtonEuler();
 
@@ -23,7 +23,7 @@ void RLS::TreeModel::identityVectorMethod()
 
     link[info->rootNode].dv_rne = ddq.head(3);
     link[info->rootNode].dw_rne = ddq.segment(3,3);
-    writeJointStateVector("rne joint acceleration", ddq.tail(info->dof.joint));
+    writeJointState("rne joint acceleration", ddq.tail(info->dof.joint));
 
     all.M.col(i) = recursiveNewtonEuler() - all.b;
 

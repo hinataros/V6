@@ -1,0 +1,36 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+angleUnit: degree
+name: sideWall
+
+links:
+  -
+    name: ROOT
+  -
+    name: SIDEWALL
+    parent: ROOT
+    rotation: [ 0, 0, 1, 90 ]
+    translation: [0., -0.005, 0.]
+    material: Ice
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          Shape: &WallShape
+            geometry:
+              type: Box
+              size: [ 0.01, 0.5, 0.2 ]
+            appearance:
+              material:
+                diffuseColor: [ 0, 1, 0 ]
+                transparency: 0.4
+      -
+        type: Collision
+        elements:
+          Shape: *WallShape

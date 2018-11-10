@@ -12,7 +12,7 @@ void RLS::RlsDynamics::centroidalEcmpDistribution()
 
   (this->*internalForceController_ptr)();
 
-  Vector2d recmp = (model->rX - des.drXDes/model->wX).head(2);
+  Vector2d recmp = (des.rXDes - des.drXDes/model->wX).head(2);
   MatrixXd Wecmpc = h_weight(recmp);
 
   cal_FcBarRef = pInv(cal_PcM, Wecmpc)*(cal_dLCRef + model->cal_GC) + N(cal_PcM)*cal_FcaBarRef;

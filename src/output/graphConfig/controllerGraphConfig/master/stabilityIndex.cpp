@@ -41,7 +41,7 @@ void RLS::Output::stabilityIndex(GpMaker &gpMaker, TexMaker &texMaker)
   // // zeff
   // gpMaker.add("set object 1 rect from 0, ("+to_string(x_offset_bottom)+") to 1e+3, "+to_string(x_offset_top+x_length_top)+" behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");
 
-  gpMaker.setDimention(4);
+  gpMaker.setDimention(5);
   gpMaker.makeGp();
 
   texMaker.setName(file_name);
@@ -64,7 +64,7 @@ void RLS::Output::stabilityIndex(GpMaker &gpMaker, TexMaker &texMaker)
   // gpMaker.add("set object 1 rect from 0, (39-0.5) to 1e+3, (39+0.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");
   gpMaker.add("set object 2 rect from 0, (-"+to_string(y_length)+") to 1e+3, (-39-"+to_string(y_length)+") behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder");
 
-  gpMaker.setDimention(4);
+  gpMaker.setDimention(5);
   gpMaker.makeGp();
 
   texMaker.setName(file_name);
@@ -72,11 +72,12 @@ void RLS::Output::stabilityIndex(GpMaker &gpMaker, TexMaker &texMaker)
 
   reset();
   setFileName("stabilityIndex");
-  setDatNum(4);
+  setDatNum(5);
   setDatName(1, "gCoM");
   setDatName(2, "rp");
   setDatName(3, "xCoM");
   setDatName(4, "eCMPRef");
+  setDatName(5, "recmpBarDes");
   makeDat();
 
   gpMaker.reset();

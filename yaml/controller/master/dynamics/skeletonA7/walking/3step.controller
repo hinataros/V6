@@ -1,0 +1,189 @@
+# @author Sho Miyahara 2018
+
+controller:
+  control model: skeletonA7SF
+  input: torque
+  driven: mix
+  trigger: check contact
+
+  default:
+    control method:
+      inverse dynamics controller: fullDynamicsController
+      operational space controller: decomposeEndEffectorAcceleration
+      motion controller: mixedGeneralizedMomentum
+      force controller: centroidalEcmpDistribution
+      momentum controller: centroidalDcmMomentum
+      # force controller: centroidalDistribution
+      # momentum controller: centroidalMomentum
+      torque controller: mixedOpt
+      # torque controller: mixedmixedOpt
+
+    desired value generator:
+      DCM: {name: HTWalking}
+      base rotation: {name: CP}
+      control node translation:
+        RLEGEE: {name: swing}
+        LLEGEE: {name: swing}
+
+    KX: 3.e+2
+    KpwB: 3.e+2
+    KdwB: 5.e+1
+
+    Kpv:
+      # RLEGEE: 5.e+3
+      # LLEGEE: 5.e+3
+      RLEGEE: 5.e+2
+      LLEGEE: 5.e+2
+    Kpw:
+      # RLEGEE: 5.e+3
+      # LLEGEE: 5.e+3
+      RLEGEE: 5.e+2
+      LLEGEE: 5.e+2
+    Kdv:
+      # RLEGEE: 5.e+2
+      # LLEGEE: 5.e+2
+      RLEGEE: 5.e+1
+      LLEGEE: 5.e+1
+    Kdw:
+      # RLEGEE: 5.e+2
+      # LLEGEE: 5.e+2
+      RLEGEE: 5.e+1
+      LLEGEE: 5.e+1
+
+    # KDlC: 1.e+1
+    # KDth: 1.e+2
+    kDth: &kDthH 5.e+1
+    # kDth: &kDthH 2.e+1
+
+    # kthHinit: &kthHinit 0.
+    kthHinit: &kthHinit 3.e+2
+    KDth:
+      [0.,0.,0.,0.,0.,0., 0.,0.,0.,0.,0.,0.,
+      *kDthH, *kDthH, *kDthH, *kDthH, *kDthH, *kDthH, *kDthH,
+      *kDthH, *kDthH, *kDthH, *kDthH, *kDthH, *kDthH, *kDthH]
+    Kthinit:
+      [0.,0.,0.,0.,0.,0., 0.,0.,0.,0.,0.,0.,
+      *kthHinit, *kthHinit, *kthHinit, *kthHinit, *kthHinit, *kthHinit, *kthHinit,
+      *kthHinit, *kthHinit, *kthHinit, *kthHinit, *kthHinit, *kthHinit, *kthHinit]
+    Bc: &ds
+      RLEGEE: [1, 1, 1, 1, 1, 1]
+      LLEGEE: [1, 1, 1, 1, 1, 1]
+    Bm: &zs
+      RLEGEE: [0, 0, 0, 0, 0, 0]
+      LLEGEE: [0, 0, 0, 0, 0, 0]
+
+  state:
+    -
+      control method:
+        inverse dynamics controller: default
+      Bc: *zs
+      Bm: *zs
+    -
+      control method:
+        inverse dynamics controller: fullDynamicsController
+
+      Bc: *ds
+      Bm: *zs
+
+    -
+      control method:
+        inverse dynamics controller: fullDynamicsController
+      Bc: &ls
+        RLEGEE: [0, 0, 0, 0, 0, 0]
+        LLEGEE: [1, 1, 1, 1, 1, 1]
+      Bm: &rs
+        RLEGEE: [1, 1, 1, 1, 1, 1]
+        LLEGEE: [0, 0, 0, 0, 0, 0]
+    -
+      control method:
+        inverse dynamics controller: fullDynamicsController
+      Bc: *rs
+      Bm: *ls
+
+  walking:
+    stepNum: 6
+
+    # test straight walk
+    dtstep: 0.8
+    dtDSstep: 0.4
+    alphaDSstep: 0.5
+    alphaHTstep: 0.5
+    offset: 0.01
+    toe: 0.025
+    heel: -0.015
+
+    tstab: &tstab 1.
+
+    twf: &tinitial 0.6
+    twf: &tswingleg 0.4
+    twf: &tds 0.4
+
+    # # test straight walk
+    # dtstep: .6
+    # dtDSstep: 0.3
+    # alphaDSstep: 0.5
+    # alphaHTstep: 0.5
+    # offset: 0.01
+    # toe: 0.025
+    # heel: -0.015
+
+    # # twf: &tinitial 0.3
+    # # twf: &tswingleg 0.4
+    # # twf: &tds 0.1
+    # twf: &tinitial 0.45
+    # twf: &tswingleg 0.3
+    # twf: &tds 0.3
+
+    height: &height 0.02
+
+    length: &steplength1 0.08
+    length: &steplength2 0.16
+    length: &steplength3 0.24
+
+  foot print:
+    rfabs: &footPrint1
+      LLEGEE: [*steplength1, 0.039, *height]
+    rfabs: &footPrint2
+      RLEGEE: [*steplength2, -0.039, *height]
+    rfabs: &footPrint3
+      LLEGEE: [*steplength3, 0.039, *height]
+    rfabs: &footPrint4
+      RLEGEE: [*steplength3, -0.039, *height]
+  # ****************************************************************
+
+  sequence:
+    -
+      twf: *tstab
+    -
+      twf: *tinitial
+    -
+      twf: *tswingleg
+      Bc: *rs
+      Bm: *ls
+      rfabs: *footPrint1
+    -
+      twf: *tds
+    # 1 step
+    -
+      twf: *tswingleg
+      Bc: *ls
+      Bm: *rs
+      rfabs: *footPrint2
+    -
+      twf: *tds
+    # 2 step
+    -
+      twf: *tswingleg
+      Bc: *rs
+      Bm: *ls
+      rfabs: *footPrint3
+    -
+      twf: *tds
+    # 3 step
+    -
+      twf: *tswingleg
+      Bc: *ls
+      Bm: *rs
+      rfabs: *footPrint4
+    -
+      twf: *tds

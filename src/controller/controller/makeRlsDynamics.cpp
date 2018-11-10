@@ -13,6 +13,8 @@ void RLS::Controller::makeRlsDynamics(const string &path_yaml_controller)
 {
   if(debug) DEBUG;
 
+  string controllerKeyName = "controller";
+
   struct stat statFile;
   if(stat(path_yaml_controller.c_str(), &statFile)!=0)
     cout << manip_error("Controller::makeController() error...") << endl
@@ -20,9 +22,9 @@ void RLS::Controller::makeRlsDynamics(const string &path_yaml_controller)
 
   YAML::Node doc = YAML::LoadFile(path_yaml_controller.c_str());
 
-  if(doc["Controller"][0])
-    controllerNum = doc["Controller"].size();
-  else if(doc["Controller"])
+  if(doc[controllerKeyName][0])
+    controllerNum = doc[controllerKeyName].size();
+  else if(doc[controllerKeyName])
     controllerNum = 1;
 
   rlsDynamics = new RlsDynamics[controllerNum];

@@ -1,12 +1,12 @@
 # @author Sho Miyahara 2018
 
-Controller:
-  Control model: skeletonA4
-  Input: velocity
+controller:
+  control model: skeletonA4
+  input: velocity
   # Driven: mix
   # Trigger: check contact
 
-  Default:
+  default:
     Desired base orientation generator: {name: CP}
     Desired control node acceleration generator:
       RARMEE: {num: 0, name: CP}
@@ -31,10 +31,10 @@ Controller:
       RARMEE: 10.
       LARMEE: 10.
 
-  State:
+  state:
     -
 
-  Sequence:
+  sequence:
     -
       -
         twf: 1.

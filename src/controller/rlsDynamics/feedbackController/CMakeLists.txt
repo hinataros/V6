@@ -1,14 +1,15 @@
 # @author Sho Miyahara 2018
 
-add_subdirectory(initialize)
-add_subdirectory(baseTranslationFeedbackController)
-add_subdirectory(baseOrientationFeedbackController)
-add_subdirectory(comFeedbackController)
-add_subdirectory(dcmFeedbackController)
-add_subdirectory(controlNodeMotionFeedbackController)
-add_subdirectory(controlNodeForceFeedbackController)
-add_subdirectory(externalWrenchFeedbackController)
-add_subdirectory(feedbackController)
+add_subdirectory(_initialize)
+add_subdirectory(baseTranslation)
+add_subdirectory(baseRotation)
+add_subdirectory(com)
+add_subdirectory(dcm)
+add_subdirectory(controlNodeMotion)
+add_subdirectory(controlNodeForce)
+add_subdirectory(externalWrench)
+add_subdirectory(others)
+add_subdirectory(_feedbackController)
 
 # set(srcs
 #   )
@@ -17,13 +18,14 @@ add_subdirectory(feedbackController)
 
 set(feedbackController_srcs
   ${initialize_srcs}
-  ${baseTranslationFeedbackController_srcs}
-  ${baseOrientationFeedbackController_srcs}
-  ${comFeedbackController_srcs}
-  ${dcmFeedbackController_srcs}
-  ${controlNodeMotionFeedbackController_srcs}
-  ${controlNodeForceFeedbackController_srcs}
-  ${externalWrenchFeedbackController_srcs}
+  ${baseTranslation_srcs}
+  ${baseRotation_srcs}
+  ${com_srcs}
+  ${dcm_srcs}
+  ${controlNodeMotion_srcs}
+  ${controlNodeForce_srcs}
+  ${externalWrench_srcs}
+  ${others_srcs}
   ${feedbackController_srcs}
   PARENT_SCOPE
   )

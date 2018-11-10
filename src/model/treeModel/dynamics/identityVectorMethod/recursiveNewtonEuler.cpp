@@ -47,5 +47,5 @@ VectorXd RLS::TreeModel::recursiveNewtonEuler()
   for(int i=0; i<info->linkNum; i++)
     link[i].tau_rne = link[i].sw.transpose()*link[i].n_rne;
 
-  return (VectorXd(info->dof.all)<<link[info->rootNode].f_rne,link[info->rootNode].n_rne,readJointStateVector("rne torque")).finished();
+  return (VectorXd(info->dof.all)<<link[info->rootNode].f_rne,link[info->rootNode].n_rne,readJointState("rne torque")).finished();
 }

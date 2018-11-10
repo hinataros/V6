@@ -80,6 +80,13 @@ void RLS::RlsDynamics::resize()
   // // high gain control
   thDes = VectorXd::Zero(info.model.dof.joint);
 
+  sequence = new Sequence[yamlInfo.sequenceNum];
+  for(int i=0; i<yamlInfo.sequenceNum; i++){
+    sequence[i].phase = 0;
+    sequence[i].tw0 = 0.;
+    sequence[i].twf = 0.;
+  }
+
   extMotionController =
     extMomentumController =
     extForceController =

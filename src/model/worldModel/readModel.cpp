@@ -12,6 +12,8 @@ void RLS::WorldModel::readModel(const string &path_yaml_model)
 {
   if(debug) DEBUG;
 
+  string worldModelKeyName = "world model";
+
   struct stat statFile;
   if(stat(path_yaml_model.c_str(), &statFile)!=0)
     cout << manip_error("WorldModel::readModel() error...") << endl
@@ -19,22 +21,22 @@ void RLS::WorldModel::readModel(const string &path_yaml_model)
 
   YAML::Node doc = YAML::LoadFile(path_yaml_model.c_str());
 
-  if(doc["World model"]){
-    if(doc["World model"]["include"]){
-      if(doc["World model"]["include"]["type"])
-        include.type = doc["World model"]["include"]["type"].as<string>();
+  if(doc[worldModelKeyName]){
+    if(doc[worldModelKeyName]["include"]){
+      if(doc[worldModelKeyName]["include"]["type"])
+        include.type = doc[worldModelKeyName]["include"]["type"].as<string>();
       else
         cout << manip_error("WorldModel::readModel() error...") << endl
              << manip_error("Please set a 'type' key") << endl;
 
-      if(doc["World model"]["include"]["search"])
-        include.search = doc["World model"]["include"]["search"].as<string>();
+      if(doc[worldModelKeyName]["include"]["search"])
+        include.search = doc[worldModelKeyName]["include"]["search"].as<string>();
       else
         cout << manip_error("WorldModel::readModel() error...") << endl
              << manip_error("Please set a 'search' key") << endl;
 
-      if(doc["World model"]["include"]["path"])
-        include.read = doc["World model"]["include"]["path"].as<string>();
+      if(doc[worldModelKeyName]["include"]["path"])
+        include.read = doc[worldModelKeyName]["include"]["path"].as<string>();
       else
         cout << manip_error("WorldModel::readModel() error...") << endl
              << manip_error("Please set a 'path' key") << endl;
@@ -50,16 +52,16 @@ void RLS::WorldModel::readModel(const string &path_yaml_model)
     }
 
     else{
-      if(doc["WorldModel"]["Start time"])
-        t0 = doc["WorldModel"]["Start time"].as<double>();
-      if(doc["WorldModel"]["Finish time"])
-        tf = doc["WorldModel"]["Finish time"].as<double>();
-      if(doc["WorldModel"]["Frame rate"])
-        dt = 1./doc["WorldModel"]["Frame rate"].as<int>();
+      if(doc[worldModelKeyName]["start time"])
+        t0 = doc[worldModelKeyName]["start time"].as<double>();
+      if(doc[worldModelKeyName]["finish time"])
+        tf = doc[worldModelKeyName]["finish time"].as<double>();
+      if(doc[worldModelKeyName]["frame rate"])
+        dt = 1./doc[worldModelKeyName]["frame rate"].as<int>();
 
-      if(doc["WorldModel"]["Gravity"])
+      if(doc[worldModelKeyName]["gravity"])
         for(int i=0; i<3; i++)
-          ag(i) = doc["WorldModel"]["Gravity"][i].as<double>();
+          ag(i) = doc[worldModelKeyName]["gravity"][i].as<double>();
     }
   }
 

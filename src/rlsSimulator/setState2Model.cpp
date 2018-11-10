@@ -20,7 +20,7 @@ void RLS::RlsSimulator::setState2Model(Model &model)
     model.treeModel[i].link[rootNode].vo = state[i].voB;
     model.treeModel[i].link[rootNode].w = state[i].wB;
 
-    model.treeModel[i].writeJointStateVector("joint angle", state[i].th);
-    model.treeModel[i].writeJointStateVector("joint velocity", state[i].dth);
+    model.treeModel[i].writeJointState("joint angle", state[i].th);
+    model.treeModel[i].writeJointState("joint velocity", state[i].dth);
   }
 }

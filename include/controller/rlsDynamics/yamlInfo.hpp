@@ -28,15 +28,24 @@ namespace RLS{
       YAML::Node stateKey;
     } doc;
 
-    void initialize(const string&, const int&, const int&);
+    string controllerKeyName;
+    string defaultKeyName;
+    string sequenceKeyName;
+    string stateKeyName;
 
-    template <class T> void checkValue(T &value, const string);
-    template <class T> void checkValue(T &value, const string, const string);
-    template <class T> void checkValue(T &value, const string, const string, const string);
+    string angleUnit;
 
-    template <class T> void checkUserValue(T &value, const string);
-    template <class T> void checkUserValue(T &value, const string, const string);
-    template <class T> void checkUserValue(T &value, const string, const string, const string);
+    void reset(const string&, const int&, const int&);
+    void initialize(const string&, const int&);
+
+    template <class T> bool checkValue(T &value, const string);
+    template <class T> bool checkValue(T &value, const string, const string);
+    template <class T> bool checkValue(T &value, const string, const string, const string);
+    template <class T> bool checkValue(T &value, const string, const string, const string, const string);
+
+    template <class T> bool checkUserValue(T &value, const string);
+    template <class T> bool checkUserValue(T &value, const string, const string);
+    template <class T> bool checkUserValue(T &value, const string, const string, const string);
   };
 }
 

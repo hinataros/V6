@@ -1,0 +1,362 @@
+# @author Sho Miyahara 2018
+
+result:
+  composite data name: cmp
+  individual data name: ind
+
+gp:
+  check: false
+  sampling time: 10
+  start time offset: 0.
+
+tex:
+  title: Simulation results
+  layout:
+    -
+      file name: mix
+      caption: Mixed quasi values.
+      elements:
+        -
+          file name: comPos
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: tree model rC
+          y label: CoM pos. [mm]
+          unit: m
+          dimention: 3
+        -
+          file name: comVel
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: tree model vC
+          y label: CoM vel. [m/s]
+          dimention: 3
+        -
+          file name: baseOrient
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: tree model xiB
+          y label: Base orient. [deg]
+          unit: RAD2DEG
+          dimention: 3
+        -
+          file name: baseAngVel
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: tree model wB
+          y label: Base ang. vel. [rad/s]
+          dimention: 3
+
+    -
+      file name: eeTrans
+      caption: End effector translation values.
+      control node: 0
+      elements:
+        -
+          file name: eePos
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: tree model r
+          control node: 0
+          y label: EE pos. [mm]
+          unit: m
+          dimention: 3
+        -
+          file name: eeVel
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: tree model v
+          control node: 0
+          y label: EE vel. [m/s]
+          dimention: 3
+
+    -
+      file name: eeRot
+      caption: End effector rotation values.
+      control node: 0
+      elements:
+        -
+          file name: eeOrient
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: tree model xi
+          control node: 0
+          y label: EE orient. [deg]
+          unit: RAD2DEG
+          dimention: 3
+        -
+          file name: eeAngVel
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: tree model w
+          control node: 0
+          y label: EE ang. vel. [rad/s]
+          dimention: 3
+
+    -
+      file name: baseRotDes
+      caption: Desired base rotation values.
+      elements:
+        -
+          file name: baseOrientDes
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: xiBDes
+          y label: Des. base orient. [deg]
+          unit: RAD2DEG
+          dimention: 3
+        -
+          file name: baseAngVelDes
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: wBDes
+          y label: Des. base ang. vel. [rad/s]
+          dimention: 3
+        -
+          file name: baseAngAccDes
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: dwBDes
+          y label: Des. base ang. acc. [rad/s^2]
+          dimention: 3
+
+    -
+      file name: eeTransDes
+      caption: Desired end effector translation values.
+      control node: 0
+      elements:
+        -
+          file name: eePosDes
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: rDes
+          control node: 0
+          y label: EE des. pos. [mm]
+          unit: m
+          dimention: 3
+        -
+          file name: eeVelDes
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: vDes
+          control node: 0
+          y label: EE des. vel. [m/s]
+          dimention: 3
+        -
+          file name: eeAccDes
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: dvDes
+          control node: 0
+          y label: EE des. acc. [m/s^2]
+          dimention: 3
+
+    -
+      file name: eeRotDes
+      caption: Desired end effector rotation values.
+      control node: 0
+      elements:
+        -
+          file name: eeOrientDes
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: xiDes
+          control node: 0
+          y label: EE des. orient. [deg]
+          unit: RAD2DEG
+          dimention: 3
+        -
+          file name: eeAngVelDes
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: wDes
+          control node: 0
+          y label: EE des. ang. vel. [rad/s]
+          dimention: 3
+        -
+          file name: eeAngAccDes
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: dwDes
+          control node: 0
+          y label: EE des. ang. acc. [rad/s^2]
+          dimention: 3
+
+    -
+      file name: baseRotErr
+      caption: Base rotation error values.
+      elements:
+        -
+          file name: baseOrientErr
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: eoB
+          y label: Base orient. err. [deg]
+          unit: RAD2DEG
+          dimention: 3
+        -
+          file name: baseAngVelErr
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: ewB
+          y label: Base ang. vel. err. [rad/s]
+          dimention: 3
+
+    -
+      file name: eeTransErr
+      caption: End effector translation error values.
+      control node: 0
+      elements:
+        -
+          file name: eePosErr
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: er
+          control node: 0
+          y label: EE pos. err. [mm]
+          unit: m
+          dimention: 3
+        -
+          file name: eeVelErr
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: ev
+          control node: 0
+          y label: EE vel. err. [m/s]
+          dimention: 3
+
+    -
+      file name: eeRotErr
+      caption: End effector rotation error values.
+      control node: 0
+      elements:
+        -
+          file name: eeOrientErr
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: eo
+          control node: 0
+          y label: EE orient. err. [rad]
+          unit: RAD2DEG
+          dimention: 3
+        -
+          file name: eeAngVelErr
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: ew
+          control node: 0
+          y label: EE ang. vel. err. [rad/s]
+          dimention: 3
+
+    -
+      use function: sysMom
+
+    -
+      use function: vrpDes4walking
+    -
+      use function: vrpBarDes4walking
+    -
+      file name: eeQuaternion
+      caption: End effector quaternion values.
+      control node: 0
+      elements:
+        -
+          file name: eeQuaternion
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: quat
+          control node: 0
+          y label: EE quaternion. [rad]
+          dimention: 4
+    -
+      file name: eeQuaternionDes
+      caption: Desired end effector quaternion values.
+      control node: 0
+      elements:
+        -
+          file name: eeQuaternionDes
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: quatDes
+          control node: 0
+          y label: EE des. quaternion. [rad]
+          dimention: 4
+    -
+      file name: baseQuaternion
+      caption: Base quaternion values.
+      elements:
+        -
+          file name: baseQuaternion
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: quatB
+          y label: base quaternion. [rad]
+          dimention: 4
+    -
+      file name: baseQuaternionDes
+      caption: Desired base quaternion values.
+      elements:
+        -
+          file name: baseQuaternionDes
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: quatBDes
+          y label: base des. quaternion. [rad]
+          dimention: 4
+
+choreonoid:
+  sampling time: 10

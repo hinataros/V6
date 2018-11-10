@@ -1,4 +1,5 @@
 /**
+
    @author Sho Miyahara 2018
 */
 
@@ -22,10 +23,12 @@ void RLS::RlsDynamics::handWrenchControlAndCentroidalEcmpDistribution()
   VectorXd cal_FFcBarRef;
   if(info.constraint.c.controlNode[info.model.controlNodeID["RLEGEE"]]==6&&
      info.constraint.c.controlNode[info.model.controlNodeID["LLEGEE"]]==6){
-    Vector2d rFr = getControlNodeVector(model->cal_X,"all","RLEGEE").head(2);
-    Vector2d rFl = getControlNodeVector(model->cal_X,"all","LLEGEE").head(2);
+    Vector2d rFr = model->r[info.model.controlNodeID["RLEGEE"]].head(2);
+    Vector2d rFl = model->r[info.model.controlNodeID["LLEGEE"]].head(2);
 
-    Vector2d recmp = (model->rX - des.drXDes/model->wX).head(2);
+    Vector3d rextHDes = -(bb_CcMH*cal_FHcBarRef).head(3)/(model->M*model->wX*model->wX);
+    Vector3d rvrpBar = (des.rXDes - des.drXDes/model->wX) - rextHDes;
+    Vector2d recmp = (rvrpBar).head(2);
 
     MatrixXd WecmpF = h_weight(recmp, rFr, rFl);
 

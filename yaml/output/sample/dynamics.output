@@ -1,17 +1,17 @@
 # @author Sho Miyahara 2018
 
-Result:
-  Composite data name: cmp
-  Individual data name: ind
+result:
+  composite data name: cmp
+  individual data name: ind
 
-Gp:
-  Check: false
-  Sampling time: 10
-  Start time offset: 0.
+gp:
+  check: false
+  sampling time: 10
+  start time offset: 0.
 
-Tex:
-  Title: Simulation results
-  Layout:
+tex:
+  title: Simulation results
+  layout:
     -
       file name: mix
       caption: Mixed quasi values.
@@ -465,5 +465,5 @@ Tex:
           dimention: 4
           add: ["set yrange[-80:80]", "set object 1 rect from 0, (39-31.5) to 1e+3, (39+31.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder", "set object 2 rect from 0, (-39+31.5) to 1e+3, (-39-31.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder"]
 
-Choreonoid:
-  Sampling time: 10
+choreonoid:
+  sampling time: 10

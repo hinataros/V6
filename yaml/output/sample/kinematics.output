@@ -1,17 +1,17 @@
 # @author Sho Miyahara 2018
 
-Result:
-  Composite data name: cmp
-  Individual data name: ind
+result:
+  composite data name: cmp
+  individual data name: ind
 
-Gp:
-  Check: false
-  Sampling time: 10
-  Start time offset: 0.
+gp:
+  check: false
+  sampling time: 10
+  start time offset: 0.
 
-Tex:
-  Title: Simulation results
-  Layout:
+tex:
+  title: Simulation results
+  layout:
     -
       file name: mix
       caption: Mixed quasi values.
@@ -52,34 +52,30 @@ Tex:
           unit: RAD2DEG
           dimention: 3
 
-Gif:
-  Sampling time: 100
-  Link color: grey
-  Joint color: black
-  Out:
-    Terminal: true
-    Dir: true
-  Plane:
+gif:
+  sampling time: 100
+  link color: grey
+  joint color: black
+  out:
+    terminal: true
+    dir: true
+  plane:
     y-z:
-      Flag: true
       x min: -0.5
       x max: 0.5
       y min: -0.5
       y max: 0.5
     x-z:
-      Flag: true
       x min: -0.5
       x max: 0.5
       y min: -0.5
       y max: 0.5
     x-y:
-      Flag: true
       x min: -0.5
       x max: 0.5
       y min: -0.5
       y max: 0.5
     3D:
-      Flag: false
       x min: -0.5
       x max: 0.5
       y min: -0.5
@@ -87,5 +83,5 @@ Gif:
       z min: -0.5
       z max: 0.5
 
-Choreonoid:
-  Sampling time: 10
+choreonoid:
+  sampling time: 10

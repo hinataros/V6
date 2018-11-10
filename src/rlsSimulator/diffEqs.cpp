@@ -52,7 +52,7 @@ void RLS::RlsSimulator::diffEqs(const int phase, Model &model)
 
       k[i].vo[phase] = model.treeModel[i].link[model.info.treeModel[i].rootNode].vo;
       k[i].w[phase] = wB;
-      k[i].dth[phase] = model.treeModel[i].readJointStateVector("joint velocity");
+      k[i].dth[phase] = model.treeModel[i].readJointState("joint velocity");
 
       k[i].dvo[phase] = dvoB;
       k[i].dw[phase] = dwB;

@@ -36,11 +36,12 @@ namespace RLS{
     // initial value
     // ******************************
     VectorXd th0;
-    Vector3d rC0;
     Vector3d rB0;
-    Vector3d xiB0;
+    Matrix3d RB0;
+    Vector3d *r0;
+    Matrix3d *R0;
+    Vector3d rC0;
     Vector3d rX0;
-    VectorXd cal_X0;
     Vector6d cal_FB0;
 
     VectorXd rpk0;
@@ -52,22 +53,21 @@ namespace RLS{
 
     Vector3d rB;
     Matrix3d RB;
-    Vector3d xiB;
     Vector3d vB;
     Vector3d wB;
 
     Vector3d rC;
     Vector3d vC;
 
-    Vector6d cal_XB;
     Vector6d cal_VB;
     Vector6d cal_VM;
     Vector6d cal_VC;
-    VectorXd cal_X;
+    Vector3d *r;
+    Matrix3d *R;
     VectorXd cal_V;
     VectorXd cal_F;
 
-    VectorXd cal_Xsensor;
+    Vector3d *rsensor;
     VectorXd cal_Fsensor;
 
     VectorXd dq;
@@ -160,6 +160,7 @@ namespace RLS{
     // ******************************
 
     void initialize(const WorldModel&, const TreeModelInfo&, TreeModel&);
+    void finalize();
     void update();
   };
 }

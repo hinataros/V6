@@ -11,11 +11,18 @@ void RLS::ControllerTreeModel::resize()
   if(debug) DEBUG;
 
   th0 = VectorXd::Zero(info->dof.joint);
-  rC0 = Vector3d::Zero();
   rB0 = Vector3d::Zero();
-  xiB0 = Vector3d::Zero();
+  RB0 = Matrix3d::Zero();
+  r0 = new Vector3d[info->controlNodeNum];
+  R0 = new Matrix3d[info->controlNodeNum];
+
+  for(int i=0; i<info->controlNodeNum; i++){
+    r0[i] = Vector3d::Zero();
+    R0[i] = Matrix3d::Zero();
+  }
+
+  rC0 = Vector3d::Zero();
   rX0 = Vector3d::Zero();
-  cal_X0 = VectorXd::Zero(6*info->controlNodeNum);
   cal_FB0 = Vector6d::Zero();
 
   rpk0 = VectorXd::Zero(2*info->controlNodeNum);
@@ -25,22 +32,31 @@ void RLS::ControllerTreeModel::resize()
 
   rB = Vector3d::Zero();
   RB = Matrix3d::Zero();
-  xiB = Vector3d::Zero();
   vB = Vector3d::Zero();
   wB = Vector3d::Zero();
 
   rC = Vector3d::Zero();
   vC = Vector3d::Zero();
 
-  cal_XB = Vector6d::Zero();
   cal_VB = Vector6d::Zero();
   cal_VM = Vector6d::Zero();
   cal_VC = Vector6d::Zero();
-  cal_X = VectorXd::Zero(6*info->controlNodeNum);
+
+  r = new Vector3d[info->controlNodeNum];
+  R = new Matrix3d[info->controlNodeNum];
+
+  for(int i=0; i<info->controlNodeNum; i++){
+    r[i] = Vector3d::Zero();
+    R[i] = Matrix3d::Zero();
+  }
+
   cal_V = VectorXd::Zero(6*info->controlNodeNum);
   cal_F = VectorXd::Zero(6*info->controlNodeNum);
 
-  cal_Xsensor = VectorXd::Zero(6*info->sensorNodeNum);
+  rsensor = new Vector3d[info->sensorNodeNum];
+  for(int i=0; i<info->sensorNodeNum; i++){
+    rsensor[i] = Vector3d::Zero();
+  }
   cal_Fsensor = VectorXd::Zero(6*info->sensorNodeNum);
 
   dq = VectorXd::Zero(info->dof.all);
@@ -50,8 +66,6 @@ void RLS::ControllerTreeModel::resize()
   ag = Vector3d::Zero();
 
   bb_Rk = MatrixXd::Zero(6*info->controlNodeNum, 6*info->controlNodeNum);
-
-  // diff
   bb_dRk = MatrixXd::Zero(6*info->controlNodeNum, 6*info->controlNodeNum);
 
   bb_TB2k = MatrixXd::Zero(6*info->controlNodeNum, 6);

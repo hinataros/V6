@@ -11,6 +11,8 @@ void RLS::RigidBodyModel::readModel(const string &dir_share, const string &path_
 {
   if(debug) DEBUG;
 
+  string rigidBodyModelKeyName = "rigid body model";
+
   struct stat statFile;
   if(stat(path_yaml_model.c_str(), &statFile)!=0)
     cout << manip_error("RigidBodyModel::readModel() error...") << endl
@@ -18,12 +20,12 @@ void RLS::RigidBodyModel::readModel(const string &dir_share, const string &path_
 
   YAML::Node doc = YAML::LoadFile(path_yaml_model.c_str());
 
-  if(!doc["Rigid body model"][uniqueNum])
-    doc_rigidBodyModel = doc["Rigid body model"];
+  if(!doc[rigidBodyModelKeyName][uniqueNum])
+    doc_rigidBodyModel = doc[rigidBodyModelKeyName];
   else
-    doc_rigidBodyModel = doc["Rigid body model"][uniqueNum];
+    doc_rigidBodyModel = doc[rigidBodyModelKeyName][uniqueNum];
 
-  info->name = doc_rigidBodyModel["Name"].as<string>();
+  info->name = doc_rigidBodyModel["name"].as<string>();
 
   // m = doc["Body model"]["Mass"][i][j].as<double>();
 

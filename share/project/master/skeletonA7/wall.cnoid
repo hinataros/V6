@@ -114,19 +114,19 @@ items:
             oldAccelSensorMode: false
         - 
           id: 6
-          name: "Wall"
+          name: "sideWall"
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "/home/smiyahara/Documents/rlsSimulator/share/model/object/wall.body"
+            modelFile: "/home/smiyahara/Documents/rlsSimulator/share/model/object/sideWall.body"
             currentBaseLink: "ROOT"
-            rootPosition: [ 0.155, -0.0995, 0.3 ]
+            rootPosition: [ 0.2, -0.2, 0.4 ]
             rootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
               0, 0, 1 ]
             jointPositions: [  ]
-            initialRootPosition: [ 0.155, -0.0995, 0.3 ]
+            initialRootPosition: [ 0.2, -0.2, 0.4 ]
             initialRootAttitude: [ 
               1, 0, 0, 
               0, 1, 0, 
@@ -198,9 +198,9 @@ views:
           fieldOfView: 0.698132
           near: 0.01
           far: 100
-          eye: [ -0.0354947542, 1.80943447, 0.226650142 ]
-          direction: [ -1.2246468e-16, -1, -6.123234e-17 ]
-          up: [ -7.49879891e-33, -6.123234e-17, 1 ]
+          eye: [ 1.23051242, 1.12822354, 0.734597913 ]
+          direction: [ -0.719909836, -0.632424822, -0.285952219 ]
+          up: [ -0.214830295, -0.188723649, 0.958243877 ]
         - 
           camera: [ System, Orthographic ]
           isCurrent: true
@@ -352,7 +352,7 @@ viewAreas:
     contents: 
       type: splitter
       orientation: horizontal
-      sizes: [ 198, 1716 ]
+      sizes: [ 202, 1712 ]
       children: 
         - 
           type: splitter
@@ -370,7 +370,7 @@ viewAreas:
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 804, 119 ]
+          sizes: [ 811, 112 ]
           children: 
             - 
               type: pane

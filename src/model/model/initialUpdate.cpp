@@ -16,8 +16,8 @@ void RLS::Model::initialUpdate()
     treeModel[i].link[rootNode].R = treeModel[i].link[rootNode].R0;
     treeModel[i].link[rootNode].vo = treeModel[i].link[rootNode].vo0;
     treeModel[i].link[rootNode].w = treeModel[i].link[rootNode].w0;
-    treeModel[i].writeJointStateVector("joint angle", treeModel[i].readJointStateVector("initial joint angle"));
-    treeModel[i].writeJointStateVector("joint velocity", treeModel[i].readJointStateVector("initial joint velocity"));
+    treeModel[i].writeJointState("joint angle", treeModel[i].readJointState("initial joint angle"));
+    treeModel[i].writeJointState("joint velocity", treeModel[i].readJointState("initial joint velocity"));
   }
 
   update();

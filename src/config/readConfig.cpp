@@ -12,6 +12,12 @@ void RLS::Config::readConfig()
 {
   if(debug) DEBUG;
 
+  string executionKeyName = "execution";
+  string modelKeyName = "model";
+  string controllerKeyName = "controller";
+  string outputKeyName = "output";
+  string rlsSimulatorKeyName = "rlsSimulator";
+
   cout << "config: " << _init_config << endl;
 
   struct stat statFile;
@@ -22,39 +28,39 @@ void RLS::Config::readConfig()
   YAML::Node doc = YAML::LoadFile(path_yaml.config.c_str());
 
   // execution config
-  if(doc["Execution"]){
-    if(doc["Execution"]["Shared memory"])
-      shm.flag = doc["Execution"]["Shared memory"].as<bool>();
+  if(doc[executionKeyName]){
+    if(doc[executionKeyName]["shared memory"])
+      shm.flag = doc[executionKeyName]["shared memory"].as<bool>();
 
     if(option!="-d")
-      if(doc["Execution"]["Debug mode"])
-        debug = doc["Execution"]["Debug mode"].as<bool>();
+      if(doc[executionKeyName]["debug mode"])
+        debug = doc[executionKeyName]["debug mode"].as<bool>();
   }
 
   // model config
-  if(doc["Model"])
-    read.model = doc["Model"].as<string>();
+  if(doc[modelKeyName])
+    read.model = doc[modelKeyName].as<string>();
   else
     cout << manip_error("Config::readConfig() error...") << endl
          << manip_error("no model file") << endl;
 
   // controller config
-  if(doc["Controller"])
-    read.controller = doc["Controller"].as<string>();
+  if(doc[controllerKeyName])
+    read.controller = doc[controllerKeyName].as<string>();
   else
     cout << manip_error("Config::readConfig() error...") << endl
          << manip_error("no controller file") << endl;
 
   // output config
-  if(doc["Output"])
-    read.output = doc["Output"].as<string>();
+  if(doc[outputKeyName])
+    read.output = doc[outputKeyName].as<string>();
   else
     cout << manip_error("Config::readConfig() error...") << endl
          << manip_error("no output file") << endl;
 
   // rlsSimulator config
-  if(doc["RlsSimulator"])
-    read.rlsSimulator = doc["RlsSimulator"].as<string>();
+  if(doc[rlsSimulatorKeyName])
+    read.rlsSimulator = doc[rlsSimulatorKeyName].as<string>();
   else
     cout << manip_warning("Config::readConfig(): warning: ")
          << manip_warning("no rlsSimulator file") << endl;

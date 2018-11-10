@@ -12,6 +12,9 @@ void RLS::Model::makeModel(const string &path_yaml_model)
 {
   if(debug) DEBUG;
 
+  string treeModelKeyName = "tree model";
+  string rigidBodyModelKeyName = "rigid body model";
+
   struct stat statFile;
   if(stat(path_yaml_model.c_str(), &statFile)!=0)
     cout << manip_error("WorldModel::readModel() error...") << endl
@@ -19,17 +22,17 @@ void RLS::Model::makeModel(const string &path_yaml_model)
 
   YAML::Node doc = YAML::LoadFile(path_yaml_model.c_str());
 
-  if(doc["Tree model"][0])
-    info.treeModelNum = doc["Tree model"].size();
-  else if(doc["Tree model"])
+  if(doc[treeModelKeyName][0])
+    info.treeModelNum = doc[treeModelKeyName].size();
+  else if(doc[treeModelKeyName])
     info.treeModelNum = 1;
 
   info.treeModel = new TreeModelInfo[info.treeModelNum];
   treeModel = new TreeModel[info.treeModelNum];
 
-  if(doc["Rigid body model"][0])
-    info.rigidBodyModelNum = doc["Rigid body model"].size();
-  else if(doc["Rigid body model"])
+  if(doc[rigidBodyModelKeyName][0])
+    info.rigidBodyModelNum = doc[rigidBodyModelKeyName].size();
+  else if(doc[rigidBodyModelKeyName])
     info.rigidBodyModelNum = 1;
 
   info.rigidBodyModel = new RigidBodyModelInfo[info.rigidBodyModelNum];

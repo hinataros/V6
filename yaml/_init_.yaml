@@ -1,6 +1,8 @@
 # @author Sho Miyahara 2018
 
-Config: sample/dynamics.config
-# Config: sample/highGain.config
-# Config: sample/dynamicsShOb.config
-# Config: sample/kinematics.config
+# config: master/skeletonA7/kinematics.config
+config: master/skeletonA7/dynamics.config
+# config: sample/dynamics.config
+# config: sample/highGain.config
+# config: sample/dynamicsShOb.config
+# config: sample/kinematics.config

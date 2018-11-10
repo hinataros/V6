@@ -24,7 +24,7 @@ bool RLS::RlsDynamics::configurationManager(const double &t)
       des.update(t);
       ext->reset(this, t);
 
-      yamlInfo.initialize("State", 0, state.num);
+      yamlInfo.reset(yamlInfo.stateKeyName, 0, state.num);
       allReadController();
 
       flag_state = true;
@@ -39,7 +39,7 @@ bool RLS::RlsDynamics::configurationManager(const double &t)
         des.update(t, i);
         ext->reset(this, t);
 
-        yamlInfo.initialize("Sequence", i, sequence[i].phase);
+        yamlInfo.reset(yamlInfo.sequenceKeyName, i, sequence[i].phase);
         allReadController();
 
         sequence[i].phase++;

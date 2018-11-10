@@ -10,38 +10,40 @@ void RLS::RlsDynamics::readController()
 {
   if(debug) DEBUG;
 
-  if(yamlInfo.key=="Sequence")
+  if(yamlInfo.key==yamlInfo.sequenceKeyName)
     yamlInfo.checkValue<double>(sequence[yamlInfo.sequence].twf, "twf");
 
-  yamlInfo.checkValue<bool>(extInverseDynamicsController,
-                              "Ext inverse dynamics controller");
-  yamlInfo.checkValue<bool>(extMotionController,
-                              "Ext motion controller");
-  yamlInfo.checkValue<bool>(extMomentumController,
-                              "Ext momentum controller");
-  yamlInfo.checkValue<bool>(extForceController,
-                              "Ext force controller");
-  yamlInfo.checkValue<bool>(extTorqueController,
-                              "Ext torque controller");
-  yamlInfo.checkValue<bool>(extExternalWrenchController,
-                              "Ext external wrench controller");
+  string controlMethodKeyName = "control method";
 
-  yamlInfo.checkValue<string>(inverseDynamicsControllerName,
-                              "Inverse dynamics controller");
-  yamlInfo.checkValue<string>(operationalSpaceControllerName,
-                              "Operational space controller");
-  yamlInfo.checkValue<string>(motionControllerName,
-                              "Motion controller");
-  yamlInfo.checkValue<string>(momentumControllerName,
-                              "Momentum controller");
-  yamlInfo.checkValue<string>(internalForceControllerName,
-                              "Internal force controller");
-  yamlInfo.checkValue<string>(forceControllerName,
-                              "Force controller");
-  yamlInfo.checkValue<string>(torqueControllerName,
-                              "Torque controller");
-  yamlInfo.checkValue<string>(externalWrenchControllerName,
-                              "External wrench controller");
+  yamlInfo.checkValue<bool>(extInverseDynamicsController, controlMethodKeyName,
+                            "ext inverse dynamics controller");
+  yamlInfo.checkValue<bool>(extMotionController, controlMethodKeyName,
+                            "ext motion controller");
+  yamlInfo.checkValue<bool>(extMomentumController, controlMethodKeyName,
+                            "ext momentum controller");
+  yamlInfo.checkValue<bool>(extForceController, controlMethodKeyName,
+                            "ext force controller");
+  yamlInfo.checkValue<bool>(extTorqueController, controlMethodKeyName,
+                            "ext torque controller");
+  yamlInfo.checkValue<bool>(extExternalWrenchController, controlMethodKeyName,
+                            "ext external wrench controller");
+
+  yamlInfo.checkValue<string>(inverseDynamicsControllerName, controlMethodKeyName,
+                              "inverse dynamics controller");
+  yamlInfo.checkValue<string>(operationalSpaceControllerName, controlMethodKeyName,
+                              "operational space controller");
+  yamlInfo.checkValue<string>(motionControllerName, controlMethodKeyName,
+                              "motion controller");
+  yamlInfo.checkValue<string>(momentumControllerName, controlMethodKeyName,
+                              "momentum controller");
+  yamlInfo.checkValue<string>(internalForceControllerName, controlMethodKeyName,
+                              "internal force controller");
+  yamlInfo.checkValue<string>(forceControllerName, controlMethodKeyName,
+                              "force controller");
+  yamlInfo.checkValue<string>(torqueControllerName, controlMethodKeyName,
+                              "torque controller");
+  yamlInfo.checkValue<string>(externalWrenchControllerName, controlMethodKeyName,
+                              "external wrench controller");
 
   yamlInfo.checkValue<Matrix2d>(Kpp, "Kpp");
 

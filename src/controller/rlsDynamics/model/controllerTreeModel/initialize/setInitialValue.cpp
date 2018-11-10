@@ -10,15 +10,18 @@ void RLS::ControllerTreeModel::setInitialValue()
 {
   if(debug) DEBUG;
 
-  th0 = model->readJointStateVector("joint angle");
+  th0 = model->readJointState("joint angle");
+
+  rB0 = model->link[info->rootNode].r;
+  RB0 = model->link[info->rootNode].R;
+
+  for(int i=0; i<info->controlNodeNum; i++){
+    r0[i] = model->readControlNodeValue<Vector3d>(i,"position");
+    R0[i] = model->readControlNodeValue<Matrix3d>(i,"orientation");
+  }
 
   rC0 = model->all.rC;
-  rB0 = model->link[info->rootNode].r;
-  xiB0 = R2xi(model->link[info->rootNode].R);
-
   rX0 = model->all.rC + sqrt(model->all.rC(2)/abs(worldModel->ag(2)))*model->all.vC;
-
-  cal_X0 = model->readControlNodeValueVector("6D position");
 
   cal_FB0 <<
     model->link[info->rootNode].f,

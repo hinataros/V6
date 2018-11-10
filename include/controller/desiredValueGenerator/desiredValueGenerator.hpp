@@ -7,6 +7,8 @@
 
 #include "yamlInfo.hpp"
 
+#include "quaternion.hpp"
+
 #include "interpolation.hpp"
 #include "controllerTreeModel.hpp"
 
@@ -24,23 +26,6 @@ namespace RLS{
 
     Walking walking;
 
-    // boundary
-    // ******************************
-    Vector3d rC0;
-
-    Vector3d rB0;
-    Vector3d xiB0;
-
-    Vector3d rX0;
-
-    VectorXd cal_X0;
-
-    Vector6d cal_Fext0;
-
-    Vector3d des;
-
-    // previous state
-    // ******************************
     struct State{
       int num;
 
@@ -59,113 +44,142 @@ namespace RLS{
 
     // trajectory
     // ******************************
-    string desiredBaseTranslationGeneratorName;
-    string desiredBaseOrientationGeneratorName;
-    string *desiredControlNodeMotionGeneratorName;
-    string *desiredControlNodeForceGeneratorName;
-    string desiredComGeneratorName;
-    string desiredDcmGeneratorName;
-    string desiredExternalWrenchGeneratorName;
+    string baseTranslationName;
+    string baseRotationName;
+    string *controlNodeTranslationName;
+    string *controlNodeRotationName;
+    string *controlNodeForceName;
+    string *controlNodeMomentName;
+    string comName;
+    string dcmName;
+    string externalWrenchName;
 
-    int desiredBaseTranslationGeneratorNum;
-    int desiredBaseOrientationGeneratorNum;
-    int *desiredControlNodeMotionGeneratorNum;
-    int *desiredControlNodeForceGeneratorNum;
-    int desiredComGeneratorNum;
-    int desiredDcmGeneratorNum;
-    int desiredExternalWrenchGeneratorNum;
+    int baseTranslationNum;
+    int baseRotationNum;
+    int *controlNodeTranslationNum;
+    int *controlNodeRotationNum;
+    int *controlNodeForceNum;
+    int *controlNodeMomentNum;
+    int comNum;
+    int dcmNum;
+    int externalWrenchNum;
 
-    struct Sequence{
-      int phase;
-      double tw0;
-      double twf;
+    double *tw0;
+    double *twf;
 
-      Vector3d rBf;
-      Vector3d rBpreDes;
-      Vector3d xiBf;
-      Vector3d xiBpreDes;
-      VectorXd cal_Xf;
-      VectorXd cal_XpreDes;
-      VectorXd cal_Xfabs;
-      VectorXd cal_XpreDesabs;
+    Quaternion4d dqBDes;
+    Quaternion4d ddqBDes;
 
-      Vector3d rCf;
-      Vector3d rCpreDes;
-      Vector3d rXf;
-      Vector3d rXpreDes;
+    Quaternion4d *dqDes;
+    Quaternion4d *ddqDes;
 
-      VectorXd cal_Ff;
-      VectorXd cal_FpreDes;
+    Vector3d rB0;
+    Quaternion4d qB0;
+    Vector3d *r0;
+    Quaternion4d *q0;
+    Vector3d rC0;
+    Vector3d rX0;
+    Vector6d cal_Fext0;
 
-      Vector6d cal_Fextf;
-      Vector6d cal_FextpreDes;
+    Vector3d rBpreDes;
+    Quaternion4d qBpreDes;
+    Vector3d *rpreDes;
+    Vector3d *rpreDesabs;
+    Quaternion4d *qpreDes;
+    Quaternion4d *qpreDesabs;
+    Vector3d *fpreDes;
+    Vector3d *npreDes;
+    Vector3d rCpreDes;
+    Vector3d rXpreDes;
 
-      VectorXd cal_Xtd;
-    } *sequence;
+    Vector3d rBf;
+    Vector3d xiBf;
+    Quaternion4d qBf;
+    Vector3d *rf;
+    Vector3d *rfabs;
+    Vector3d *xif;
+    Vector3d *xifabs;
+    Quaternion4d *qf;
+    Quaternion4d *qfabs;
+    Vector3d *ff;
+    Vector3d *nf;
+    Vector3d rCf;
+    Vector3d rXf;
 
-    // // EE reference
-    // int referenceSequence;
-    // VectorXd cal_Xtd;
-    // // ****************
+    Vector6d cal_Fextf;
+    Vector6d cal_FextpreDes;
 
+    Vector3d *rtd;
 
     // desired value  generator
     // ******************************
     // base translation
-    void desiredBaseTranslationZeroGenerator(const double&);
-    void desiredBaseTranslationGeneratorCP(const double&);
+    void baseTranslationDefault(const double&);
+    void baseTranslationCP(const double&);
 
-    // base orientation
-    void desiredBaseOrientationZeroGenerator(const double&);
-    void desiredBaseOrientationGeneratorCP(const double&);
+    // base rotation
+    void baseRotationDefault(const double&);
+    void baseRotationCP(const double&);
 
-    // control node acceleration
-    void desiredControlNodeMotionZeroGenerator(const int&, const double&);
-    void desiredControlNodeMotionGeneratorCP(const int&, const double&);
-    void desiredControlNodeMotionGeneratorCPabs(const int&, const double&);
-    void desiredControlNodeMotionGeneratorWalking(const int&, const double&);
+    // control node translation
+    void controlNodeTranslationDefault(const int&, const double&);
+    void controlNodeTranslationCP(const int&, const double&);
+    void controlNodeTranslationCPabs(const int&, const double&);
+    void controlNodeTranslationSwing(const int&, const double&);
 
-    // control node wrench
-    void desiredControlNodeForceZeroGenerator(const int&, const double&);
-    void desiredControlNodeForceGeneratorCP(const int&, const double&);
+    // control node rotation
+    void controlNodeRotationDefault(const int&, const double&);
+    void controlNodeRotationCP(const int&, const double&);
+    void controlNodeRotationCPabs(const int&, const double&);
+
+    // control node force
+    void controlNodeForceDefault(const int&, const double&);
+    void controlNodeForceCP(const int&, const double&);
+
+    // control node moment
+    void controlNodeMomentDefault(const int&, const double&);
+    void controlNodeMomentCP(const int&, const double&);
 
     // com
-    void desiredComZeroGenerator(const double&);
-    void desiredComGeneratorCP(const double&);
+    void comDefault(const double&);
+    void comCP(const double&);
 
     // dcm
-    void desiredDcmZeroGenerator(const double&);
-    void desiredDcmGeneratorCP(const double&);
+    void dcmDefault(const double&);
+    void dcmCP(const double&);
     void dcmHTWalking(const double&);
 
     // external wrench
-    void desiredExternalWrenchZeroGenerator(const double&);
-    void desiredExternalWrenchGeneratorCP(const double&);
+    void externalWrenchDefault(const double&);
+    void externalWrenchCP(const double&);
 
     // select desired value generator
-    void (RLS::DesiredValueGenerator::*desiredBaseTranslationGenerator_ptr)(const double&)=0;
-    void (RLS::DesiredValueGenerator::*desiredBaseOrientationGenerator_ptr)(const double&)=0;
-    void (RLS::DesiredValueGenerator::*desiredComGenerator_ptr)(const double&)=0;
-    void (RLS::DesiredValueGenerator::*desiredDcmGenerator_ptr)(const double&)=0;
-    void (RLS::DesiredValueGenerator::*desiredExternalWrenchGenerator_ptr)(const double&)=0;
+    void (RLS::DesiredValueGenerator::*baseTranslation_ptr)(const double&)=0;
+    void (RLS::DesiredValueGenerator::*baseRotation_ptr)(const double&)=0;
+    void (RLS::DesiredValueGenerator::*com_ptr)(const double&)=0;
+    void (RLS::DesiredValueGenerator::*dcm_ptr)(const double&)=0;
+    void (RLS::DesiredValueGenerator::*externalWrench_ptr)(const double&)=0;
 
-    map<string, void (RLS::DesiredValueGenerator::*)(const double&)>
-    desiredBaseTranslationGenerator_map,
-      desiredBaseOrientationGenerator_map,
-      desiredComGenerator_map,
-      desiredDcmGenerator_map,
-      desiredExternalWrenchGenerator_map;
+    void (RLS::DesiredValueGenerator::**controlNodeTranslation_ptr)(const int&, const double&);
+    void (RLS::DesiredValueGenerator::**controlNodeRotation_ptr)(const int&, const double&);
+    void (RLS::DesiredValueGenerator::**controlNodeForce_ptr)(const int&, const double&);
+    void (RLS::DesiredValueGenerator::**controlNodeMoment_ptr)(const int&, const double&);
 
-    void (RLS::DesiredValueGenerator::**desiredControlNodeMotionGenerator_ptr)(const int&, const double&);
-    map<string, void (RLS::DesiredValueGenerator::*)(const int&, const double&)> *desiredControlNodeMotionGenerator_map;
-    void (RLS::DesiredValueGenerator::**desiredControlNodeForceGenerator_ptr)(const int&, const double&);
-    map<string, void (RLS::DesiredValueGenerator::*)(const int&, const double&)> *desiredControlNodeForceGenerator_map;
+    map<string, void (RLS::DesiredValueGenerator::*)(const double&)> baseTranslation_map;
+    map<string, void (RLS::DesiredValueGenerator::*)(const double&)> baseRotation_map;
+    map<string, void (RLS::DesiredValueGenerator::*)(const double&)> com_map;
+    map<string, void (RLS::DesiredValueGenerator::*)(const double&)> dcm_map;
+    map<string, void (RLS::DesiredValueGenerator::*)(const double&)> externalWrench_map;
+
+    map<string, void (RLS::DesiredValueGenerator::*)(const int&, const double&)> *controlNodeTranslation_map;
+    map<string, void (RLS::DesiredValueGenerator::*)(const int&, const double&)> *controlNodeRotation_map;
+    map<string, void (RLS::DesiredValueGenerator::*)(const int&, const double&)> *controlNodeForce_map;
+    map<string, void (RLS::DesiredValueGenerator::*)(const int&, const double&)> *controlNodeMoment_map;
 
     void setModel(const WorldModel&, const TreeModelInfo&, const ControllerTreeModel&);
     void setYamlInfo(YamlInfo&);
 
     void resize();
-    void resizeSequence();
     void resizeState();
     void setMap();
     void setInitialBoundary();
@@ -176,10 +190,8 @@ namespace RLS{
     Vector3d vBDes;
     Vector3d dvBDes;
 
-    Vector3d xiBDes;
-    Vector3d dxiBDes;
-    Vector3d ddxiBDes;
     Matrix3d RBDes;
+    Quaternion4d qBDes;
     Vector3d wBDes;
     Vector3d dwBDes;
 
@@ -189,11 +201,12 @@ namespace RLS{
 
     Vector3d rXDes;
     Vector3d drXDes;
+    Vector3d rXBarDes;
+    Vector3d drXBarDes;
 
-    VectorXd cal_XDes;
-    VectorXd cal_VxiDes;
-    VectorXd cal_dVxiDes;
-
+    Vector3d *rDes;
+    Matrix3d *RDes;
+    Quaternion4d *qDes;
     VectorXd cal_VDes;
     VectorXd cal_dVDes;
 

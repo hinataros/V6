@@ -1,31 +1,35 @@
 # @author Sho Miyahara 2018
 
-add_subdirectory(initialize)
-add_subdirectory(desiredBaseTranslationGenerator)
-add_subdirectory(desiredBaseOrientationGenerator)
-add_subdirectory(desiredControlNodeMotionGenerator)
-add_subdirectory(desiredControlNodeForceGenerator)
-add_subdirectory(desiredComGenerator)
-add_subdirectory(desiredDcmGenerator)
-add_subdirectory(desiredExternalWrenchGenerator)
-add_subdirectory(desiredZeroGenerator)
-add_subdirectory(desiredValueGenerator)
+add_subdirectory(_initialize)
+add_subdirectory(baseTranslation)
+add_subdirectory(baseRotation)
+add_subdirectory(controlNodeTranslation)
+add_subdirectory(controlNodeRotation)
+add_subdirectory(controlNodeForce)
+add_subdirectory(controlNodeMoment)
+add_subdirectory(com)
+add_subdirectory(dcm)
+add_subdirectory(externalWrench)
+add_subdirectory(default)
+add_subdirectory(_desiredValueGenerator)
 
 # set(srcs
 #   )
 
-# MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" desiredValueGenerator_srcs)
+# MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" Value_srcs)
 
 set(desiredValueGenerator_srcs
   ${initialize_srcs}
-  ${desiredBaseTranslationGenerator_srcs}
-  ${desiredBaseOrientationGenerator_srcs}
-  ${desiredControlNodeMotionGenerator_srcs}
-  ${desiredControlNodeForceGenerator_srcs}
-  ${desiredComGenerator_srcs}
-  ${desiredDcmGenerator_srcs}
-  ${desiredExternalWrenchGenerator_srcs}
-  ${desiredZeroGenerator_srcs}
+  ${baseTranslation_srcs}
+  ${baseRotation_srcs}
+  ${controlNodeTranslation_srcs}
+  ${controlNodeRotation_srcs}
+  ${controlNodeForce_srcs}
+  ${controlNodeMoment_srcs}
+  ${com_srcs}
+  ${dcm_srcs}
+  ${externalWrench_srcs}
+  ${default_srcs}
   ${desiredValueGenerator_srcs}
   PARENT_SCOPE
   )

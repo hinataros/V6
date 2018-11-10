@@ -18,13 +18,13 @@ namespace RLS{
 
     const DesiredValueGenerator *des;
 
-    string baseTranslationFeedbackControllerName;
-    string baseOrientationFeedbackControllerName;
-    string controlNodeMotionFeedbackControllerName;
-    string controlNodeForceFeedbackControllerName;
-    string comFeedbackControllerName;
-    string dcmFeedbackControllerName;
-    string externalWrenchFeedbackControllerName;
+    string baseTranslationName;
+    string baseRotationName;
+    string controlNodeMotionName;
+    string controlNodeForceName;
+    string comName;
+    string dcmName;
+    string externalWrenchName;
 
     Matrix3d KpC;
     Matrix3d KdC;
@@ -41,46 +41,47 @@ namespace RLS{
     MatrixXd Kdv;
 
     // base translation
-    void baseTranslationFBPI();
+    void baseTranslationPI();
 
-    // base orientation
-    void baseOrientationFBPI();
+    // base rotation
+    void baseRotationPI();
 
     // control node motion
-    void controlNodeMotionFBPI();
+    void controlNodeMotionPI();
 
     // control node force
-    void controlNodeForceFBFF();
+    void controlNodeForceFF();
 
     // com
-    void comFBPI();
-    void comFBDcmControl();
+    void comPI();
+    void comDcmControl();
 
     // dcm
-    void dcmFBPI();
+    void dcmPI();
+    void dcmExt();
 
     // external wrench
-    void externalWrenchFBFF();
+    void externalWrenchFF();
 
     void spatialFeedbackController();
 
     // select reference
-    void (RLS::FeedbackController::*baseTranslationFeedbackController_ptr)()=0;
-    void (RLS::FeedbackController::*baseOrientationFeedbackController_ptr)()=0;
-    void (RLS::FeedbackController::*controlNodeMotionFeedbackController_ptr)()=0;
-    void (RLS::FeedbackController::*controlNodeForceFeedbackController_ptr)()=0;
-    void (RLS::FeedbackController::*comFeedbackController_ptr)()=0;
-    void (RLS::FeedbackController::*dcmFeedbackController_ptr)()=0;
-    void (RLS::FeedbackController::*externalWrenchFeedbackController_ptr)()=0;
+    void (RLS::FeedbackController::*baseTranslation_ptr)()=0;
+    void (RLS::FeedbackController::*baseRotation_ptr)()=0;
+    void (RLS::FeedbackController::*controlNodeMotion_ptr)()=0;
+    void (RLS::FeedbackController::*controlNodeForce_ptr)()=0;
+    void (RLS::FeedbackController::*com_ptr)()=0;
+    void (RLS::FeedbackController::*dcm_ptr)()=0;
+    void (RLS::FeedbackController::*externalWrench_ptr)()=0;
 
     map<string, void (RLS::FeedbackController::*)()>
-    baseTranslationFeedbackController_map,
-      baseOrientationFeedbackController_map,
-      controlNodeMotionFeedbackController_map,
-      controlNodeForceFeedbackController_map,
-      comFeedbackController_map,
-      dcmFeedbackController_map,
-      externalWrenchFeedbackController_map;
+    baseTranslation_map,
+      baseRotation_map,
+      controlNodeMotion_map,
+      controlNodeForce_map,
+      com_map,
+      dcm_map,
+      externalWrench_map;
 
     void setModel(const TreeModelInfo&, const ControllerTreeModel&, const DesiredValueGenerator&);
     void setYamlInfo(YamlInfo&);
@@ -89,6 +90,8 @@ namespace RLS{
     void setMap();
 
     void stack();
+
+    Vector3d orientationError(const Matrix3d&, const Matrix3d&);
 
   public:
     Vector3d erC;

@@ -13,11 +13,11 @@ void RLS::RlsDynamics::initialize(const int &controllerID, const string &path_ya
   if(debug) DEBUG;
 
   initializeExt();
+  setDefaultConfig();
 
-  setConfig(path_yaml_controller);
-  analysisYaml(controllerID);
+  yamlInfo.initialize(path_yaml_controller, controllerID);
 
-  readWorkHeader();
+  readControllerHeader();
   setModelInfo(model.info);
 
   controllerModel.initialize(model);
@@ -35,7 +35,7 @@ void RLS::RlsDynamics::initialize(const int &controllerID, const string &path_ya
 
   // read controller file
   // ********************************
-  yamlInfo.initialize("Default", 0, 0);
+  yamlInfo.reset(yamlInfo.defaultKeyName, 0, 0);
   allReadController();
 
   initializeStateTrigger();

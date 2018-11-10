@@ -1,17 +1,17 @@
 # @author Sho Miyahara 2018
 
-Result:
-  Composite data name: cmp
-  Individual data name: ind
+result:
+  composite data name: cmp
+  individual data name: ind
 
-Gp:
-  Check: false
-  Sampling time: 10
-  Start time offset: 1.
+gp:
+  check: false
+  sampling time: 10
+  start time offset: 0.
 
-Tex:
-  Title: Simulation results
-  Layout:
+tex:
+  title: Simulation results
+  layout:
     -
       file name: mix
       caption: Mixed quasi values.
@@ -83,32 +83,6 @@ Tex:
           dimention: 3
 
     -
-      file name: eeWrench
-      caption: End effector wrench values.
-      control node: 0
-      elements:
-        -
-          file name: eeForce
-          dat value:
-            vertical:
-              name: time
-            horizontal:
-              name: tree model f
-          control node: 0
-          y label: EE force [N]
-          dimention: 3
-        -
-          file name: eeMoment
-          dat value:
-            vertical:
-              name: time
-            horizontal:
-              name: tree model n
-          control node: 0
-          y label: EE moment [Nm]
-          dimention: 3
-
-    -
       file name: eeRot
       caption: End effector rotation values.
       control node: 0
@@ -133,6 +107,32 @@ Tex:
               name: tree model w
           control node: 0
           y label: EE ang. vel. [rad/s]
+          dimention: 3
+
+    -
+      file name: eeWrench
+      caption: End effector wrench values.
+      control node: 0
+      elements:
+        -
+          file name: eeForce
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: tree model f
+          control node: 0
+          y label: EE force [N]
+          dimention: 3
+        -
+          file name: eeMoment
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: tree model n
+          control node: 0
+          y label: EE moment [Nm]
           dimention: 3
 
     -
@@ -346,7 +346,7 @@ Tex:
               name: eo
           control node: 0
           y label: EE orient. err. [rad]
-          unit: m
+          unit: RAD2DEG
           dimention: 3
         -
           file name: eeAngVelErr
@@ -397,37 +397,65 @@ Tex:
       use function: stabilityIndex
 
     -
-      file name: vrpDes
-      caption: disired VRP values.
+      use function: vrpDes4walking
+    -
+      use function: vrpBarDes4walking
+    -
+      file name: eeQuaternion
+      caption: End effector quaternion values.
+      control node: 0
       elements:
         -
-          file name: vrpDesx
+          file name: eeQuaternion
           dat value:
             vertical:
               name: time
             horizontal:
-              name: vrpDesx
-          y label: Des. VRP x [mm]
-          unit: m
-          dimention: 3
+              name: quat
+          control node: 0
+          y label: EE quaternion. [rad]
+          dimention: 4
+    -
+      file name: eeQuaternionDes
+      caption: Desired end effector quaternion values.
+      control node: 0
+      elements:
         -
-          file name: vrpDesy
+          file name: eeQuaternionDes
           dat value:
             vertical:
               name: time
             horizontal:
-              name: vrpDesy
-          y label: Des. VRP y [mm]
-          unit: m
-          dimention: 3
+              name: quatDes
+          control node: 0
+          y label: EE des. quaternion. [rad]
+          dimention: 4
+    -
+      file name: baseQuaternion
+      caption: Base quaternion values.
+      elements:
         -
-          file name: vrpDes
+          file name: baseQuaternion
           dat value:
-            name: vrpDes
-          x label: Des. VRP x [mm]
-          y label: Des. VRP y [mm]
-          unit: m
-          dimention: 1
+            vertical:
+              name: time
+            horizontal:
+              name: quatB
+          y label: base quaternion. [rad]
+          dimention: 4
+    -
+      file name: baseQuaternionDes
+      caption: Desired base quaternion values.
+      elements:
+        -
+          file name: baseQuaternionDes
+          dat value:
+            vertical:
+              name: time
+            horizontal:
+              name: quatBDes
+          y label: base des. quaternion. [rad]
+          dimention: 4
 
-Choreonoid:
-  Sampling time: 10
+choreonoid:
+  sampling time: 10

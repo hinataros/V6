@@ -30,7 +30,7 @@ void RLS::RlsSimulator::initialParameter(Model &model)
     state[i].wB = model.treeModel[i].link[rootNode].w0;
 
     // 関節の初期状態
-    state[i].th = model.treeModel[i].readJointStateVector("initial joint angle");
-    state[i].dth = model.treeModel[i].readJointStateVector("initial joint velocity");
+    state[i].th = model.treeModel[i].readJointState("initial joint angle");
+    state[i].dth = model.treeModel[i].readJointState("initial joint velocity");
   }
 }

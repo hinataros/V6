@@ -19,10 +19,11 @@ void RLS::Config::readInitYaml()
     cout << manip_error("Config::readInitYaml() error...") << endl
          << manip_error("no such file '"+path+"'") << endl;
 
+  string configKeyName = "config";
   YAML::Node doc = YAML::LoadFile(path.c_str());
 
-  if(doc["Config"])
-    _init_config = doc["Config"].as<string>();
+  if(doc[configKeyName])
+    _init_config = doc[configKeyName].as<string>();
 
   path_yaml.config = dir.link + "yaml/config/" + _init_config;
 }

@@ -5,6 +5,7 @@ add_subdirectory(checkUserValue)
 
 set(srcs
   initialize.cpp
+  reset.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" yamlInfo_srcs)

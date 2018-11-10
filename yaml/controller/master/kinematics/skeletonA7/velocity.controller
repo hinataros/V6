@@ -1,0 +1,80 @@
+# @author Sho Miyahara 2018
+
+angle unit: degree
+
+controller:
+  control model: skeletonA7
+  input: velocity
+  # driven: mix
+  # trigger: check contact
+
+  default:
+    # ******** control method ********
+    control method:
+      operational space controller: relativeVelocityBaseMap
+      motion controller: baseVelocitySynergy
+
+    # ******** desired value generator ********
+    desired value generator:
+      base translation: {name: CP}
+      base rotation: {num: 0, name: CP}
+      control node translation:
+        RARMEE: {num: 1, name: CP}
+        LARMEE: {num: 2, name: CP}
+      control node rotation:
+        RARMEE: {num: 1, name: CPabs}
+        # RARMEE: {num: 1, name: CPabs}
+        LARMEE: {num: 2, name: CPabs}
+
+    # feedback controller:
+    #   DCM: ext
+
+    # ******** initial gain config ********
+    KpvB: 3.e+2
+    # KpwB: 3.e+2
+
+    Kpv:
+      RARMEE: 1.e+2
+      LARMEE: 1.e+2
+
+    # KDlC: 1.e+1
+    # KDth: 1.e+2
+    kDth: &kDthH 1.e+2
+    # kthHinit: &kthHinit 5.e+0
+    # KDth:
+    #   [0.,0.,0.,0.,0.,0., 0.,0.,0.,0.,0.,0.,
+    #   *kDthH, *kDthH, *kDthH, *kDthH, *kDthH, *kDthH, *kDthH,
+    #   *kDthH, *kDthH, *kDthH, *kDthH, *kDthH, *kDthH, *kDthH]
+    # Kthinit:
+    #   - [0.,0.,0.,0.,0.,0.]
+    #   - [0.,0.,0.,0.,0.,0.]
+    #   - [*kthHinit, *kthHinit, *kthHinit, *kthHinit]
+    #   - [*kthHinit, *kthHinit, *kthHinit, *kthHinit]
+
+    Bc:
+      RLEGEE: [1, 1, 1, 1, 1, 1]
+      LLEGEE: [1, 1, 1, 1, 1, 1]
+    Bm:
+      RARMEE: [1, 1, 1, 1, 1, 1]
+      LARMEE: [1, 1, 1, 1, 1, 1]
+
+  sequence:
+    -
+      -
+        twf: 1.
+        # xiBf: [0., 5., 0.]
+    -
+      -
+        twf: 1.
+        # rf:
+        #   RARMEE: [0., 0., 0.1]
+        xifabs:
+          RARMEE: [0., 45., 0.]
+    -
+      -
+        twf: 1.
+        # rf:
+        #   LARMEE: [0., 0., 0.]
+        xifabs:
+          LARMEE: [60., -30., 0.]
+

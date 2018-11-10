@@ -1,0 +1,31 @@
+# @author Sho Miyahara 2018
+
+world model:
+  include:
+    type: cnoid
+    search: relative
+    path: &cnoid master/motion/skeletonA7.cnoid
+
+tree model:
+  name: skeletonA7
+  dynamics calculation: false
+  model parameter:
+    include:
+      type: body
+      search: relative
+      path: skeleton/skeletonA7prim.body
+  initial configuration:
+    include:
+      type: cnoid
+      search: relative
+      path: *cnoid
+  control node:
+    - RLEGEE
+    - LLEGEE
+    - RARMEE
+    - LARMEE
+  sensor node:
+    include:
+      type: cnoid
+      search: relative
+      path: *cnoid

@@ -1,33 +1,44 @@
 # @author Sho Miyahara 2018
 
-Controller:
-  Control model: skeletonA7SF
-  Input: torque
-  # Driven: mix
-  # Trigger: check contact
+angle unit: degree
 
-  Default:
-    Inverse dynamics controller: fullDynamicsController
+controller:
+  control model: skeletonA7SF
+  input: torque
+  # driven: mix
+  # trigger: check contact
 
-    Operational space controller: decomposeEndEffectorAcceleration
-    Motion controller: mixedGeneralizedMomentum
+  default:
+    # ******** control method ********
+    control method:
+      inverse dynamics controller: fullDynamicsController
+      operational space controller: decomposeEndEffectorAcceleration
+      motion controller: mixedGeneralizedMomentum
 
-    Force controller: centroidalEcmpDistribution
-    Momentum controller: centroidalDcmMomentum
+      momentum controller: centroidalDcmMomentum
+      force controller: centroidalEcmpDistribution
 
-    # Force controller: centroidalDistribution
-    # Momentum controller: centroidalMomentum
+      # Force controller: centroidalDistribution
+      # Momentum controller: centroidalMomentum
 
-    Torque controller: mixedOpt
-    # Torque controller: mixedmixedOpt
+      torque controller: mixedOpt
 
-    Desired DCM generator: {name: CP}
-    Desired base orientation generator: {name: CP}
+    # ******** desired value generator ********
+    desired value generator:
+      DCM: {name: CP}
+      base rotation: {num: 0, name: CP}
+      control node translation:
+        RARMEE: {num: 1, name: CP}
+        LARMEE: {num: 2, name: CP}
+      control node rotation:
+        RARMEE: {num: 1, name: CPabs}
+        # RARMEE: {num: 1, name: CPabs}
+        LARMEE: {num: 2, name: CPabs}
 
-    # Desired control node motion generator:
-    #   RLEGEE: {name: walking}
-    #   LLEGEE: {name: walking}
+    # feedback controller:
+    #   DCM: ext
 
+    # ******** initial gain config ********
     KX: 3.e+2
     KpC: 3.e+2
     KdC: 5.e+1
@@ -35,15 +46,15 @@ Controller:
     KdwB: 5.e+1
 
     Kpv:
-      # RLEGEE: 5.e+3
-      # LLEGEE: 5.e+3
-      RLEGEE: 5.e+2
-      LLEGEE: 5.e+2
+      # RARMEE: 5.e+3
+      # LARMEE: 5.e+3
+      RARMEE: 5.e+2
+      LARMEE: 5.e+2
     Kdv:
-      # RLEGEE: 5.e+2
-      # LLEGEE: 5.e+2
-      RLEGEE: 5.e+1
-      LLEGEE: 5.e+1
+      # RARMEE: 5.e+2
+      # LARMEE: 5.e+2
+      RARMEE: 5.e+1
+      LARMEE: 5.e+1
 
     # KDlC: 1.e+1
     # KDth: 1.e+2
@@ -58,16 +69,31 @@ Controller:
     #   - [0.,0.,0.,0.,0.,0.]
     #   - [*kthHinit, *kthHinit, *kthHinit, *kthHinit]
     #   - [*kthHinit, *kthHinit, *kthHinit, *kthHinit]
-    Bc: &ds
+
+    Bc:
       RLEGEE: [1, 1, 1, 1, 1, 1]
       LLEGEE: [1, 1, 1, 1, 1, 1]
-    Bm: &zs
-      RLEGEE: [0, 0, 0, 0, 0, 0]
-      LLEGEE: [0, 0, 0, 0, 0, 0]
+    Bm:
+      RARMEE: [1, 1, 1, 1, 1, 1]
+      LARMEE: [1, 1, 1, 1, 1, 1]
 
-  Sequence:
+  sequence:
     -
-      twf: 1.
+      -
+        twf: 1.
+        # xiBf: [0., 5., 0.]
     -
-      twf: 1.
-      xiBf: [0., 0.52, 0.]
+      -
+        twf: 1.
+        rf:
+          RARMEE: [0., 0., 0.1]
+        xifabs:
+          RARMEE: [0., -90., 0.]
+    -
+      -
+        twf: 1.
+        rf:
+          LARMEE: [0., 0., 0.]
+        xifabs:
+          LARMEE: [30., 30., 30.]
+

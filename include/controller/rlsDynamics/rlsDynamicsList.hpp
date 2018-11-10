@@ -22,8 +22,11 @@ namespace RLS{
 
     Vector3d rXDes;
     Vector3d drXDes;
-
     Vector3d rvrpDes;
+
+    Vector3d rXBarDes;
+    Vector3d drXBarDes;
+    Vector3d rvrpBarDes;
 
     VectorXd rDes;
     VectorXd vDes;
@@ -85,6 +88,11 @@ namespace RLS{
     Vector6d cal_Fextfb;
 
     VectorXd tau;
+
+    Vector4d quatB;
+    Vector4d quatBDes;
+    VectorXd quat;
+    VectorXd quatDes;
 
     Vector3d pCRB;
     Vector3d lCRB;

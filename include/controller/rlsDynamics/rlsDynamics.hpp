@@ -46,10 +46,9 @@ namespace RLS{
 
     void initializeExt();
     void setModelInfo(Info&);
-    void setConfig(const string&);
-    void analysisYaml(const int&);
+    void setDefaultConfig();
 
-    void readWorkHeader();
+    void readControllerHeader();
     void initializeConstraintInfo();
     void resize();
     void setControllerMap();
@@ -415,7 +414,6 @@ namespace RLS{
     // ******************************
 
     struct Config{
-      string path_yaml_controller;
       string controlModel;
       int controlNodeNum;
       string input;

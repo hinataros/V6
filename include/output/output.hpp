@@ -212,7 +212,8 @@ namespace RLS{
     // void netCop4walking(GpMaker&, TexMaker&);
     // void cmp4walking(GpMaker&, TexMaker&);
     // void stabilityIndex4walking(GpMaker&, TexMaker&);
-    // void vrpDes4walking(GpMaker&, TexMaker&);
+    void vrpDes4walking(GpMaker&, TexMaker&);
+    void vrpBarDes4walking(GpMaker&, TexMaker&);
     // void footPrint(GpMaker&, TexMaker&);
     // // ********************************************
 

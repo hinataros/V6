@@ -22,18 +22,18 @@ void RLS::RlsSimulator::readRlsSimulator(const string &path_yaml_rlsSimulator, c
 
   YAML::Node doc = YAML::LoadFile(path_yaml_rlsSimulator.c_str());
 
-  if(doc["Config"][0]){
-    if(info.treeModelNum==doc["Config"].size()){
+  if(doc["config"][0]){
+    if(info.treeModelNum==doc["config"].size()){
       for(int i=0; i<info.treeModelNum; i++)
-        this->config.controlInput[i] = doc["Config"][i]["Control input"].as<string>();
+        this->config.controlInput[i] = doc["config"][i]["control input"].as<string>();
     }
     else{
       cout << manip_error("RlsSimulator::readRlsSimulator() error...") << endl
            << manip_error("does not match model number") << endl;
     }
   }
-  else if(doc["Config"]){
+  else if(doc["config"]){
     for(int i=0; i<info.treeModelNum; i++)
-      this->config.controlInput[i] = doc["Config"]["Control input"].as<string>();
+      this->config.controlInput[i] = doc["config"]["control input"].as<string>();
   }
 }

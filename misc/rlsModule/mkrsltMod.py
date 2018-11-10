@@ -9,7 +9,7 @@ import config
 from check_superuserMod import check_superuser
 
 from resultMod import make_result
-from resultMod import remove_sub_result
+from resultMod import remove_sub_result_tree
 from resultMod import remove_result_tree
 
 def mkrslt():
@@ -20,13 +20,14 @@ def mkrslt():
     parser = ArgumentParser(usage=usage)
     parser.add_argument("cmp", type=str,
                            help="composite result name")
+    parser.add_argument("-i", "--i", required=True, nargs="*")
+
     parser.add_argument("-re", "--re",
                            action="store_true",
-                           help="remove")
+                           help="cmp directory remove")
     parser.add_argument("-re0", "--re0",
                            action="store_true",
-                           help="remove")
-    parser.add_argument("-i", "--i", required=True, nargs="*")
+                           help="result directory remove")
 
     args = parser.parse_args()
 
@@ -36,7 +37,7 @@ def mkrslt():
             return -1
 
     if args.re:
-        remove_sub_result(args.cmp, args.i)
+        remove_sub_result_tree(args.cmp)
 
     make_result(args.cmp, args.i)
 

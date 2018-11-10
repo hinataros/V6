@@ -1,12 +1,12 @@
 # @author Sho Miyahara 2018
 
 set(srcs
-  readJointStateVector.cpp
-  writeJointStateVector.cpp
-  readSensorNodeValueVector.cpp
-  writeSensorNodeValueVector.cpp
+  readJointState.cpp
+  writeJointState.cpp
+  readSensorNodeValue.cpp
+  writeSensorNodeValue.cpp
   stateMatrixFilter.cpp
-  readControlNodeValueVector.cpp
+  readControlNodeValue.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" interface_srcs)

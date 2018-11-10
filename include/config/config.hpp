@@ -20,6 +20,7 @@ extern bool debug;
 using namespace std;
 
 using namespace Eigen;
+
 typedef Eigen::Matrix<int, 6, 1> Vector6i;
 typedef Eigen::Matrix<double, 6, 1> Vector6d;
 typedef Eigen::Matrix<int, 6, 6> Matrix6i;
