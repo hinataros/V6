@@ -139,6 +139,7 @@ namespace RLS{
     VectorXd mixedGeneralizedMomentum();
     VectorXd accelerationSolver();
     VectorXd hogehogeMomentum();
+    VectorXd rcamd();
 
     // velocity dumper
     VectorXd ddthD();
@@ -147,13 +148,13 @@ namespace RLS{
 
     // momentum controller
     void linearMomentum();
-    void dcmMomentum();
+    void vrpMomentum();
     void centroidalAngularMomentum();
     void baseAngularMomentum();
     void baseMomentum();
-    void baseDcmMomentum();
+    void baseVrpMomentum();
     void centroidalMomentum();
-    void centroidalDcmMomentum();
+    void centroidalVrpMomentum();
     void centroidalCmpMomentum();
 
     // internal force controller

@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::dcmMomentum()
+void RLS::RlsDynamics::vrpMomentum()
 {
   if(debug) DEBUG;
 

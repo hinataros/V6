@@ -165,32 +165,7 @@ controller:
         LLEGEE: [0, 0, 0, 0, 0, 0]
         RARMEE: [0, 1, 0, 1, 0, 1]
       Bm:
-        RLEGEE: [0, 0, 0, 0, 0, 0]
-        LLEGEE: [1, 1, 1, 1, 1, 1]
-        RARMEE: [1, 0, 1, 0, 1, 0]
-
-  walking:
-    stepNum: 6
-
-    # test straight walk
-    dtstep: 1.
-    dtDSstep: .5
-
-    twf: &tinitial 0.75
-    twf: &tswingleg .5
-    twf: &tds .5
-
-    # # test straight walk
-    # dtstep: 0.8
-    # dtDSstep: 0.4
-    # twf: &tinitial 0.6
-    # twf: &tswingleg 0.4
-    # twf: &tds 0.4
-
-    alphaDSstep: 0.5
-    alphaHTstep: 0.5
-    offset: 0.01
-    toe: 0.025
+        RLEGEE: [0, 0, 0, 0, 0, 0]    toe: 0.025
     heel: -0.015
 
     tstab: &tstab 1.
@@ -274,23 +249,19 @@ controller:
         Bm:
           RARMEE: [1, 0, 1, 0, 1, 0]
         rfabs:
-          RARMEE: [0.15, -0.1995, 0.45]
+          RARMEE: [0.2, -0.1995, 0.45]
         ff:
-          RARMEE: [0., 1., 0.]
+          RARMEE: [0., 2., 0.]
       -
-        twf: 0.8
+        twf: 1.
         rfabs:
-          RARMEE: [0.2, -0.1995, 0.35]
+          RARMEE: [0.25, -0.1995, 0.35]
       -
-        twf: 0.8
+        twf: .5
         rfabs:
-          RARMEE: [0.25, -0.1995, 0.45x]
+          RARMEE: [0.3, -0.1995, 0.4]
       -
-        twf: 0.8
-        rfabs:
-          RARMEE: [0.3,5 -0.1995, 0.4]
-      -
-        twf: 0.8
+        twf: .5
         ff:
           RARMEE: [0., 0., 0.]
       -

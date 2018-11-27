@@ -87,18 +87,8 @@ namespace RLS{
     // ext HT
     Vector3d fext;
 
-    MatrixXd rXiniDSBar;
-    MatrixXd rXeoDSBar;
-    MatrixXd drXiniDSBar;
-    MatrixXd drXeoDSBar;
-    MatrixXd ddrXiniDSBar;
-    MatrixXd ddrXeoDSBar;
-
-    MatrixXd rXHTBar;
-    MatrixXd rXTHBar;
-
-    MatrixXd rvrpTdBar;
-    MatrixXd rvrpHdBar;
+    MatrixXd rndvrpTd;
+    MatrixXd rndvrpHd;
 
     // polynomial
     bool initial_walking;
@@ -132,7 +122,6 @@ namespace RLS{
     void createExtHTTrajectory();
 
     void ht(const double&);
-    void extht(const double&);
     void eht(const double&);
 
     void initialize();

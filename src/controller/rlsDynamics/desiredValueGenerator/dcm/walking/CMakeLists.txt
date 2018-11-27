@@ -14,7 +14,6 @@ set(srcs
   setBoundary.cpp
   setExtForce.cpp
   ht.cpp
-  extht.cpp
   eht.cpp
   )
 

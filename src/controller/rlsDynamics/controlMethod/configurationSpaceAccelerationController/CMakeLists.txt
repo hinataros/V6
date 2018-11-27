@@ -14,6 +14,7 @@ set(srcs
   mixedGeneralizedMomentum.cpp
   accelerationSolver.cpp
   hogehogeMomentum.cpp
+  rcamd.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" configurationSpaceAccelerationController_srcs)

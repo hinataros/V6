@@ -13,4 +13,5 @@ void RLS::RlsDynamics::decomposeEndEffectorAcceleration()
   // cal_dVcBarRef =
 
   cal_dVmBarRef = Bm.transpose()*fb.cal_dVfb;
+  // cal_dVmBarRef = Bm.transpose()*fb.cal_dVfb + dBm.transpose()*model->cal_V
 }

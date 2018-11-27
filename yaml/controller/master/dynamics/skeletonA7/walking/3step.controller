@@ -10,7 +10,8 @@ controller:
     control method:
       inverse dynamics controller: fullDynamicsController
       operational space controller: decomposeEndEffectorAcceleration
-      motion controller: mixedGeneralizedMomentum
+      # motion controller: mixedGeneralizedMomentum
+      motion controller: rcamd
       force controller: centroidalEcmpDistribution
       momentum controller: centroidalDcmMomentum
       # force controller: centroidalDistribution
@@ -26,7 +27,7 @@ controller:
         LLEGEE: {name: swing}
 
     KX: 3.e+2
-    KpwB: 3.e+2
+    # KpwB: 3.e+2
     KdwB: 5.e+1
 
     Kpv:
@@ -50,13 +51,13 @@ controller:
       RLEGEE: 5.e+1
       LLEGEE: 5.e+1
 
-    # KDlC: 1.e+1
+    KDlC: 1.e+2
     # KDth: 1.e+2
-    kDth: &kDthH 5.e+1
+    kDth: &kDthH 1.e+1
     # kDth: &kDthH 2.e+1
 
-    # kthHinit: &kthHinit 0.
-    kthHinit: &kthHinit 3.e+2
+    kthHinit: &kthHinit 0.
+    # kthHinit: &kthHinit 1.e+2
     KDth:
       [0.,0.,0.,0.,0.,0., 0.,0.,0.,0.,0.,0.,
       *kDthH, *kDthH, *kDthH, *kDthH, *kDthH, *kDthH, *kDthH,
@@ -103,9 +104,26 @@ controller:
   walking:
     stepNum: 6
 
-    # test straight walk
-    dtstep: 0.8
-    dtDSstep: 0.4
+    # # test straight walk
+
+    dtstep: 2.
+    dtDSstep: 1.
+    twf: &tinitial 1.5
+    twf: &tswingleg 1.
+    twf: &tds 1.
+    # dtstep: 0.8
+    # dtDSstep: 0.4
+    # twf: &tinitial 0.6
+    # twf: &tswingleg 0.4
+    # twf: &tds 0.4
+
+    # dtstep: .5
+    # dtDSstep: 0.1
+
+    # twf: &tinitial 0.3
+    # twf: &tswingleg 0.4
+    # twf: &tds 0.1
+
     alphaDSstep: 0.5
     alphaHTstep: 0.5
     offset: 0.01
@@ -114,13 +132,7 @@ controller:
 
     tstab: &tstab 1.
 
-    twf: &tinitial 0.6
-    twf: &tswingleg 0.4
-    twf: &tds 0.4
-
     # # test straight walk
-    # dtstep: .6
-    # dtDSstep: 0.3
     # alphaDSstep: 0.5
     # alphaHTstep: 0.5
     # offset: 0.01

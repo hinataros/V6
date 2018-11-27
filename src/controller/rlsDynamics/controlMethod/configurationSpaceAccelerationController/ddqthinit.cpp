@@ -13,4 +13,5 @@ VectorXd RLS::RlsDynamics::ddqthinit()
   VectorXd ddthinit = -KDth*model->dth + Kthinit*(model->th0 - model->th);
 
   return (VectorXd(info.model.dof.all)<<Vector6d::Zero(), ddthinit).finished();
+  // return (VectorXd(info.model.dof.all)<<Vector3d::Zero(), fb.dwBfb, ddthinit).finished();
 }

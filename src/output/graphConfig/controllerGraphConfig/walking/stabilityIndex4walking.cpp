@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "output.hpp"
 
-void RLS::Output::stabilityIndex4walking(const Config &config, const TreeModel::Info &info, GpMaker &gpMaker, TexMaker &texMaker)
+void RLS::Output::stabilityIndex4walking(GpMaker &gpMaker, TexMaker &texMaker)
 {
   if(debug) DEBUG;
 
@@ -22,11 +22,13 @@ void RLS::Output::stabilityIndex4walking(const Config &config, const TreeModel::
 
   reset();
   setFileName("xStabilityIndex");
-  makeDat("t-xStabilityIndex");
+  setVerticalDat("time");
+  setHorizontalDat("xStabilityIndex");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setYLabel("Stability index x [mm]");
+  gpMaker.setYLabel("Stability indicator x [mm]");
   gpMaker.setUnit("m");
   // gpMaker.setScale(-2);
 
@@ -36,7 +38,7 @@ void RLS::Output::stabilityIndex4walking(const Config &config, const TreeModel::
 
   // updown walk
   // gpMaker.add("set ytics 300");
-  gpMaker.add("set yrange[-30:750]");
+  gpMaker.add("set yrange[-30:300]");
 
   int ob = 1;
 
@@ -47,12 +49,12 @@ void RLS::Output::stabilityIndex4walking(const Config &config, const TreeModel::
   // double dtDSini = 0.06;
 
   // straight walk
-  int num = 6;
-  int step = 100*scale;
+  int num = 3;
+  int step = 80*scale;
 
-  double dtstep = 0.5;
-  double dtDSstep = 0.1;
-  double dtDSini = 0.05;
+  double dtstep = 1.;
+  double dtDSstep = 0.5;
+  double dtDSini = 0.25;
 
   // // toe off straight walk
   // int num = 6;
@@ -120,11 +122,13 @@ void RLS::Output::stabilityIndex4walking(const Config &config, const TreeModel::
 
   reset();
   setFileName("yStabilityIndex");
-  makeDat("t-yStabilityIndex");
+  setVerticalDat("time");
+  setHorizontalDat("yStabilityIndex");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setYLabel("Stability index y [mm]");
+  gpMaker.setYLabel("Stability indicator y [mm]");
   gpMaker.setUnit("m");
 
   gpMaker.add("set yrange[-70:70]");
@@ -178,19 +182,24 @@ void RLS::Output::stabilityIndex4walking(const Config &config, const TreeModel::
 
   reset();
   setFileName("stabilityIndex");
-  makeDat("yStabilityIndex-xStabilityIndex");
+  setDatNum(4);
+  setDatName(1, "gCoM");
+  setDatName(2, "rndecmpDes");
+  setDatName(3, "xCoM");
+  setDatName(4, "eCMPRef");
+  makeDat();
 
   gpMaker.reset();
   gpMaker.setName(file_name);
   gpMaker.setXLabel("x [mm]");
   gpMaker.setYLabel("y [mm]");
   gpMaker.setUnit("m");
-  gpMaker.redef("XLABEL_OFFSET_Y = -1");
+  gpMaker.redef("XLABEL_OFFSET_Y = -0.4");
   gpMaker.redef("YLABEL_OFFSET_X = -0.25");
-  gpMaker.add("set xtics 300");
+  gpMaker.add("set xtics 100");
   gpMaker.add("set ytics 60");
-  gpMaker.add("set size ratio "+to_string(140./750));
-  gpMaker.add("set xrange[-30:750]");
+  gpMaker.add("set size ratio "+to_string(140./300));
+  gpMaker.add("set xrange[-30:300]");
   gpMaker.add("set yrange[-70:70]");
 
   double ankle_offset_x = 6.;

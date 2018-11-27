@@ -18,5 +18,5 @@ void RLS::DesiredValueGenerator::initializeWalking()
   walking.setComPosition(model->rC0);
 
   walking.createHTTrajectory();
-  // walking.createExtHTTrajectory();
+  walking.createExtHTTrajectory();
 }

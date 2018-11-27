@@ -396,6 +396,8 @@ tex:
     -
       use function: stabilityIndex
 
+    # -
+    #   use function: stabilityIndex4walking
     -
       use function: vrpDes4walking
     -

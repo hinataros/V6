@@ -24,9 +24,7 @@ namespace RLS{
     Vector3d drXDes;
     Vector3d rvrpDes;
 
-    Vector3d rXBarDes;
-    Vector3d drXBarDes;
-    Vector3d rvrpBarDes;
+    Vector3d rndvrpDes;
 
     VectorXd rDes;
     VectorXd vDes;

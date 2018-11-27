@@ -74,7 +74,6 @@ namespace RLS{
     VectorXd dqM;
 
     double M;
-    Vector3d ag;
 
     MatrixXd bb_Rk;
     MatrixXd bb_dRk;

@@ -27,17 +27,21 @@ void RLS::RlsDynamics::outputDesConfig()
 
   outputList.rvrpDes = des.rXDes - des.drXDes/model->wX;
 
-  outputList.rXBarDes = des.rXBarDes;
-  outputList.drXBarDes = des.drXBarDes;
-
   // outputList.rvrpBarDes = des.rXBarDes - des.drXBarDes/model->wX;
-  outputList.rvrpBarDes = des.rXDes - des.drXDes/model->wX;
+  outputList.rndvrpDes = des.rXDes - des.drXDes/model->wX;
   if(info.constraint.c.controlNode[info.model.controlNodeID["RARMEE"]]>0){
     MatrixXd bb_CcMH = getControlNodeMatrix(cal_PcM,false,true,"c","RARMEE");
     VectorXd cal_FHcBarRef = getControlNodeVector(Bc.transpose()*fb.cal_Ffb,"c","RARMEE");
-    Vector3d rextHDes = -(bb_CcMH*cal_FHcBarRef).head(3)/(model->M*model->wX*model->wX);
 
-    outputList.rvrpBarDes -= rextHDes;
+    Vector3d st(0.,0.,1.);
+    Matrix3d St = diag(3, 1.,1.,0.);
+    MatrixXd TX = MatrixXd::Zero(3,6);
+    TX.block(0,0,3,3) = (1/(model->M*model->wX*model->wX))*St;
+    TX.block(0,3,3,3) = -(1/(model->M*abs(worldModel->ag(2))))*cross(st);
+
+    Vector3d rextHDes = TX*bb_CcMH*cal_FHcBarRef;
+
+    outputList.rndvrpDes += rextHDes;
   }
 
   outputList.rDes = outputList.vDes = outputList.dvDes

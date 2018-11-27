@@ -3,12 +3,12 @@
 set(srcs
   linearMomentum.cpp
   centroidalAngularMomentum.cpp
-  dcmMomentum.cpp
+  vrpMomentum.cpp
   baseAngularMomentum.cpp
   baseMomentum.cpp
-  baseDcmMomentum.cpp
+  baseVrpMomentum.cpp
   centroidalMomentum.cpp
-  centroidalDcmMomentum.cpp
+  centroidalVrpMomentum.cpp
   centroidalCmpMomentum.cpp
   )
 

@@ -201,8 +201,6 @@ namespace RLS{
 
     Vector3d rXDes;
     Vector3d drXDes;
-    Vector3d rXBarDes;
-    Vector3d drXBarDes;
 
     Vector3d *rDes;
     Matrix3d *RDes;

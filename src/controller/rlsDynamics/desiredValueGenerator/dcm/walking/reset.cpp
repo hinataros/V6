@@ -44,16 +44,6 @@ void RLS::Walking::reset()
   rvrpHd = MatrixXd::Zero(3,ht_config.stepNum+1);
 
   // ext HT
-  rXiniDSBar = MatrixXd::Zero(3,ht_config.stepNum+1);
-  rXeoDSBar = MatrixXd::Zero(3,ht_config.stepNum+1);
-  drXiniDSBar = MatrixXd::Zero(3,ht_config.stepNum+1);
-  drXeoDSBar = MatrixXd::Zero(3,ht_config.stepNum+1);
-  ddrXiniDSBar = MatrixXd::Zero(3,ht_config.stepNum+1);
-  ddrXeoDSBar = MatrixXd::Zero(3,ht_config.stepNum+1);
-
-  rXHTBar = MatrixXd::Zero(3,ht_config.stepNum+1);
-  rXTHBar = MatrixXd::Zero(3,ht_config.stepNum+1);
-
-  rvrpTdBar = MatrixXd::Zero(3,ht_config.stepNum+1);
-  rvrpHdBar = MatrixXd::Zero(3,ht_config.stepNum+1);
+  rndvrpTd = MatrixXd::Zero(3,ht_config.stepNum+1);
+  rndvrpHd = MatrixXd::Zero(3,ht_config.stepNum+1);
 }

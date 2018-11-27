@@ -15,16 +15,16 @@ void RLS::DesiredValueGenerator::dcmHTWalking(const double &t)
   walking.setStartValue(rXpreDes);
   walking.setFinishValue(rXf);
 
-  // walking.setExtForce(cal_FDes.segment(12,3));
+  // walking.ht(t);
 
-  walking.ht(t);
+  if(cal_FDes.segment(12,3).norm()==0.)
+    walking.ht(t);
+  else{
+    walking.setExtForce(cal_FDes.segment(12,3));
+
+    walking.eht(t);
+  }
 
   rXDes = walking.rXDes;
   drXDes = walking.drXDes;
-
-  // walking.extht(t);
-  // walking.eht(t);
-
-  // rXBarDes = walking.rXBarDes;
-  // drXBarDes = walking.drXBarDes;
 }

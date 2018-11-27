@@ -27,7 +27,7 @@ void RLS::Output::stabilityIndex(GpMaker &gpMaker, TexMaker &texMaker)
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setYLabel("Stability index x [mm]");
+  gpMaker.setYLabel("Stability indicator x [mm]");
   gpMaker.setUnit("m");
   gpMaker.add("set yrange[-80:80]");
 
@@ -55,7 +55,7 @@ void RLS::Output::stabilityIndex(GpMaker &gpMaker, TexMaker &texMaker)
 
   gpMaker.reset();
   gpMaker.setName(file_name);
-  gpMaker.setYLabel("Stability index y [mm]");
+  gpMaker.setYLabel("Stability indicator y [mm]");
   gpMaker.setUnit("m");
 
   gpMaker.add("set yrange[-70:70]");
@@ -77,7 +77,7 @@ void RLS::Output::stabilityIndex(GpMaker &gpMaker, TexMaker &texMaker)
   setDatName(2, "rp");
   setDatName(3, "xCoM");
   setDatName(4, "eCMPRef");
-  setDatName(5, "recmpBarDes");
+  setDatName(5, "rndecmpDes");
   makeDat();
 
   gpMaker.reset();

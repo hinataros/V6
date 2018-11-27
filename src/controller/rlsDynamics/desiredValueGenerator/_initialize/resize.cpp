@@ -26,7 +26,6 @@ void RLS::DesiredValueGenerator::resize()
   wBDes = dwBDes = Vector3d::Zero();
 
   rXDes = drXDes = Vector3d::Zero();
-  rXBarDes = drXBarDes = Vector3d::Zero();
 
   rDes = new Vector3d[info->controlNodeNum];
 

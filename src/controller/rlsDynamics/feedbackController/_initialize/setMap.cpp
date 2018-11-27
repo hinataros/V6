@@ -35,8 +35,6 @@ void RLS::FeedbackController::setMap()
   // dcm
   dcm_map["default"]
     = &RLS::FeedbackController::dcmPI;
-  dcm_map["ext"]
-    = &RLS::FeedbackController::dcmExt;
 
   // external wrench
   externalWrench_map["default"]

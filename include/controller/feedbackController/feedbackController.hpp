@@ -58,7 +58,6 @@ namespace RLS{
 
     // dcm
     void dcmPI();
-    void dcmExt();
 
     // external wrench
     void externalWrenchFF();

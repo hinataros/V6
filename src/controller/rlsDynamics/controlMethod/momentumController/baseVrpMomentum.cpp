@@ -6,14 +6,14 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-void RLS::RlsDynamics::centroidalDcmMomentum()
+void RLS::RlsDynamics::baseVrpMomentum()
 {
   if(debug) DEBUG;
 
-  dcmMomentum();
-  centroidalAngularMomentum();
+  vrpMomentum();
+  baseAngularMomentum();
 
-  cal_dLCRef <<
+  cal_dLBRef <<
     dpRef,
-    dlCRef;
+    dlBRef;
 }

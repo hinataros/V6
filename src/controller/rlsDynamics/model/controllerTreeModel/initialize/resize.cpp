@@ -63,7 +63,6 @@ void RLS::ControllerTreeModel::resize()
   dqM = VectorXd::Zero(info->dof.all);
 
   M = 0.;
-  ag = Vector3d::Zero();
 
   bb_Rk = MatrixXd::Zero(6*info->controlNodeNum, 6*info->controlNodeNum);
   bb_dRk = MatrixXd::Zero(6*info->controlNodeNum, 6*info->controlNodeNum);

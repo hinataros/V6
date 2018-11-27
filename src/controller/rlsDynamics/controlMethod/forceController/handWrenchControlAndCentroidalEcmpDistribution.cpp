@@ -26,9 +26,18 @@ void RLS::RlsDynamics::handWrenchControlAndCentroidalEcmpDistribution()
     Vector2d rFr = model->r[info.model.controlNodeID["RLEGEE"]].head(2);
     Vector2d rFl = model->r[info.model.controlNodeID["LLEGEE"]].head(2);
 
-    Vector3d rextHDes = -(bb_CcMH*cal_FHcBarRef).head(3)/(model->M*model->wX*model->wX);
-    Vector3d rvrpBar = (des.rXDes - des.drXDes/model->wX) - rextHDes;
-    Vector2d recmp = (rvrpBar).head(2);
+    Vector3d st(0.,0.,1.);
+    Matrix3d St = diag(3, 1.,1.,0.);
+    MatrixXd TX = MatrixXd::Zero(3,6);
+    TX.block(0,0,3,3) = (1/(model->M*model->wX*model->wX))*St;
+    TX.block(0,3,3,3) = -(1/(model->M*abs(worldModel->ag(2))))*cross(st);
+
+    Vector3d rextHDes = TX*bb_CcMH*cal_FHcBarRef;
+    Vector3d rvrpDes = des.rXDes - des.drXDes/model->wX;
+    Vector3d rndvrpDes = rvrpDes + rextHDes;
+
+    // Vector2d recmp = (rvrpDes).head(2);
+    Vector2d recmp = (rndvrpDes).head(2);
 
     MatrixXd WecmpF = h_weight(recmp, rFr, rFl);
 

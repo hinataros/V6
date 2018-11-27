@@ -16,8 +16,9 @@ void RLS::RlsDynamics::setControllerMap()
   // ****************************************************************
   momentumController_map["default"] = &RLS::RlsDynamics::defaultController;
   momentumController_map["baseMomentum"] = &RLS::RlsDynamics::baseMomentum;
+  momentumController_map["baseVrpMomentum"] = &RLS::RlsDynamics::baseVrpMomentum;
   momentumController_map["centroidalMomentum"] = &RLS::RlsDynamics::centroidalMomentum;
-  momentumController_map["centroidalDcmMomentum"] = &RLS::RlsDynamics::centroidalDcmMomentum;
+  momentumController_map["centroidalVrpMomentum"] = &RLS::RlsDynamics::centroidalVrpMomentum;
   momentumController_map["centroidalCmpMomentum"] = &RLS::RlsDynamics::centroidalCmpMomentum;
 
   // motion controller
@@ -54,6 +55,7 @@ void RLS::RlsDynamics::setControllerMap()
   motionController_map["mixedGeneralizedMomentum"] = &RLS::RlsDynamics::mixedGeneralizedMomentum;
   motionController_map["accelerationSolver"] = &RLS::RlsDynamics::accelerationSolver;
   motionController_map["hogehogeMomentum"] = &RLS::RlsDynamics::hogehogeMomentum;
+  motionController_map["rcamd"] = &RLS::RlsDynamics::rcamd;
 
   // internal force controller
   // ****************************************************************
