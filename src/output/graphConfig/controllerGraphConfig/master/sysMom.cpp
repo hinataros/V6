@@ -14,8 +14,8 @@ void RLS::Output::sysMom(GpMaker &gpMaker, TexMaker &texMaker)
 
   reset();
   setFileName("pCRB");
-  setVerticalDat("time");
-  setHorizontalDat("pCRB");
+
+  setTimeDependentDat("pCRB");
   makeDat();
 
   gpMaker.reset();
@@ -29,8 +29,8 @@ void RLS::Output::sysMom(GpMaker &gpMaker, TexMaker &texMaker)
 
   reset();
   setFileName("lCRB");
-  setVerticalDat("time");
-  setHorizontalDat("lCRB");
+
+  setTimeDependentDat("lCRB");
   makeDat();
 
   gpMaker.reset();
@@ -44,8 +44,8 @@ void RLS::Output::sysMom(GpMaker &gpMaker, TexMaker &texMaker)
 
   reset();
   setFileName("pCth");
-  setVerticalDat("time");
-  setHorizontalDat("pCth");
+
+  setTimeDependentDat("pCth");
   makeDat();
 
   gpMaker.reset();
@@ -59,8 +59,8 @@ void RLS::Output::sysMom(GpMaker &gpMaker, TexMaker &texMaker)
 
   reset();
   setFileName("lCth");
-  setVerticalDat("time");
-  setHorizontalDat("lCth");
+
+  setTimeDependentDat("lCth");
   makeDat();
 
   gpMaker.reset();
@@ -74,8 +74,8 @@ void RLS::Output::sysMom(GpMaker &gpMaker, TexMaker &texMaker)
 
   reset();
   setFileName("psys");
-  setVerticalDat("time");
-  setHorizontalDat("psys");
+
+  setTimeDependentDat("psys");
   makeDat();
 
   gpMaker.reset();
@@ -89,8 +89,8 @@ void RLS::Output::sysMom(GpMaker &gpMaker, TexMaker &texMaker)
 
   reset();
   setFileName("lCsys");
-  setVerticalDat("time");
-  setHorizontalDat("lCsys");
+
+  setTimeDependentDat("lCsys");
   makeDat();
 
   gpMaker.reset();

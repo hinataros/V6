@@ -11,6 +11,7 @@
 
 #include "interpolation.hpp"
 #include "controllerTreeModel.hpp"
+#include "constraintModel.hpp"
 
 #include "walking.hpp"
 
@@ -21,6 +22,7 @@ namespace RLS{
     const WorldModel *worldModel;
     const TreeModelInfo *info;
     const ControllerTreeModel *model;
+    ConstraintModel *constraintModel;
 
     YamlInfo *yamlInfo;
 
@@ -176,7 +178,7 @@ namespace RLS{
     map<string, void (RLS::DesiredValueGenerator::*)(const int&, const double&)> *controlNodeForce_map;
     map<string, void (RLS::DesiredValueGenerator::*)(const int&, const double&)> *controlNodeMoment_map;
 
-    void setModel(const WorldModel&, const TreeModelInfo&, const ControllerTreeModel&);
+    void setModel(const WorldModel&, const TreeModelInfo&, const ControllerTreeModel&, ConstraintModel&);
     void setYamlInfo(YamlInfo&);
 
     void resize();
@@ -212,7 +214,7 @@ namespace RLS{
 
     Vector6d cal_FextDes;
 
-    void initialize(const WorldModel&, const TreeModelInfo&, const ControllerTreeModel&, YamlInfo&);
+    void initialize(const WorldModel&, const TreeModelInfo&, const ControllerTreeModel&, ConstraintModel&, YamlInfo&);
     void finalize();
 
     void readController();

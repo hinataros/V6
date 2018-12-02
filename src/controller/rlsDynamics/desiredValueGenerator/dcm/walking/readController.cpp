@@ -12,8 +12,6 @@ void RLS::Walking::readController()
 
   string walkingKeyName = "walking";
 
-  yamlInfo->checkUserValue<int>(ht_config.stepNum, walkingKeyName, "stepNum");
-
   yamlInfo->checkUserValue<double>(ht_config.dtstep, walkingKeyName, "dtstep");
   yamlInfo->checkUserValue<double>(ht_config.dtDSstep, walkingKeyName, "dtDSstep");
   yamlInfo->checkUserValue<double>(ht_config.alphaDSstep, walkingKeyName, "alphaDSstep");
@@ -23,4 +21,9 @@ void RLS::Walking::readController()
   yamlInfo->checkUserValue<double>(ht_config.heel, walkingKeyName, "heel");
 
   yamlInfo->checkUserValue<double>(ht_config.tstab, walkingKeyName, "tstab");
+
+  vwpNum = yamlInfo->checkUserSize(walkingKeyName, "vrp waypoint");
+  vwp = new Vector3d[vwpNum];
+  for(int i=0; i<vwpNum; i++)
+    yamlInfo->checkUserValue<Vector3d>(vwp[i], walkingKeyName, "vrp waypoint", i);
 }

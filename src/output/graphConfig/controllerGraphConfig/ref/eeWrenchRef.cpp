@@ -18,8 +18,7 @@ void RLS::Output::eeWrenchRef(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("eeForceRef");
 
-  setVerticalDat("time");
-  setHorizontalDat("fRef");
+  setTimeDependentDat("fRef");
   makeDat();
 
   gpMaker.reset();
@@ -37,8 +36,7 @@ void RLS::Output::eeWrenchRef(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("eeMomentRef");
 
-  setVerticalDat("time");
-  setHorizontalDat("nRef");
+  setTimeDependentDat("nRef");
   makeDat();
 
   gpMaker.reset();

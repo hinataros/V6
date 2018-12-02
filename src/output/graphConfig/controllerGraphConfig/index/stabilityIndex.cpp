@@ -18,8 +18,8 @@ void RLS::Output::stabilityIndex(GpMaker &gpMaker, TexMaker &texMaker)
 
   reset();
   setFileName("xStabilityIndex");
-  setVerticalDat("time");
-  setHorizontalDat("xStabilityIndex");
+
+  setTimeDependentDat("xStabilityIndex");
   makeDat();
 
   gpMaker.reset();
@@ -41,8 +41,8 @@ void RLS::Output::stabilityIndex(GpMaker &gpMaker, TexMaker &texMaker)
 
   reset();
   setFileName("yStabilityIndex");
-  setVerticalDat("time");
-  setHorizontalDat("yStabilityIndex");
+
+  setTimeDependentDat("yStabilityIndex");
   makeDat();
 
   gpMaker.reset();
@@ -62,6 +62,7 @@ void RLS::Output::stabilityIndex(GpMaker &gpMaker, TexMaker &texMaker)
 
   reset();
   setFileName("stabilityIndex");
+
   setDatNum(4);
   setDatName(1, "gCoM");
   setDatName(2, "rp");

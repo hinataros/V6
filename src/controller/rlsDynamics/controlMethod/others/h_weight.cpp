@@ -29,15 +29,15 @@ MatrixXd RLS::RlsDynamics::h_weight(const Vector2d &rIndex)
 {
   if(debug) DEBUG;
 
-  MatrixXd Wc = MatrixXd::Zero(info.constraint.c.all, info.constraint.c.all);
+  MatrixXd Wc = MatrixXd::Zero(info.constraint->c.all, info.constraint->c.all);
 
-  if(info.constraint.c.all==6){
+  if(info.constraint->c.all==6){
     Wc = MatrixXd::Identity(6, 6);
   }
-  else if(info.constraint.c.all==12){
+  else if(info.constraint->c.all==12){
     Vector2d r[2];
     for(int i=0, j=0; i<info.model.controlNodeNum; i++){
-      if(info.constraint.c.controlNode[i]==6){
+      if(info.constraint->c.controlNode[i]==6){
         r[j] = model->r[i].head(2);
         j++;
       }
@@ -51,10 +51,10 @@ MatrixXd RLS::RlsDynamics::h_weight(const Vector2d &rIndex)
     Wc.block(6*0,6*0, 6,6) = w1z*Matrix6d::Identity();
     Wc.block(6*1,6*1, 6,6) = w2z*Matrix6d::Identity();
   }
-  else if(info.constraint.c.all==18){
+  else if(info.constraint->c.all==18){
     Vector2d r[3];
     for(int i=0, j=0; i<info.model.controlNodeNum; i++){
-      if(info.constraint.c.controlNode[i]==6){
+      if(info.constraint->c.controlNode[i]==6){
         r[j] = model->r[i].head(2);
         j++;
       }

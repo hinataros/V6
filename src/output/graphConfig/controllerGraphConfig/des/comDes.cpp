@@ -15,8 +15,7 @@ void RLS::Output::comDes(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("comPosDes");
 
-  setVerticalDat("time");
-  setHorizontalDat("rCDes");
+  setTimeDependentDat("rCDes");
   makeDat();
 
   gpMaker.reset();
@@ -32,8 +31,7 @@ void RLS::Output::comDes(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("comVelDes");
 
-  setVerticalDat("time");
-  setHorizontalDat("vCDes");
+  setTimeDependentDat("vCDes");
   makeDat();
 
   gpMaker.reset();
@@ -48,8 +46,7 @@ void RLS::Output::comDes(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("comAccDes");
 
-  setVerticalDat("time");
-  setHorizontalDat("dvCDes");
+  setTimeDependentDat("dvCDes");
   makeDat();
 
   gpMaker.reset();

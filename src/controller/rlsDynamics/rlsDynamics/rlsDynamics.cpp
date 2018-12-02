@@ -14,10 +14,13 @@ VectorXd RLS::RlsDynamics::rlsDynamics(const double &t)
 
   controllerModel.update();
 
-  if(configurationManager(t))
+  if(configurationManager(t)){
+    constraintModel.reconfigure();
     reconfigure();
+    ext->reconfigure(this);
+  }
 
-  update();
+  constraintModel.update();
 
   des.desiredValueGenerator(t);
   fb.feedbackController();

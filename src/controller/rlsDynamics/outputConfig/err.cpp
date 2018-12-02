@@ -32,7 +32,7 @@ void RLS::RlsDynamics::outputErrConfig()
     outputList.ev.segment(3*i, 3) = fb.cal_Ev.segment(6*i, 3);
     outputList.ew.segment(3*i, 3) = fb.cal_Ev.segment(6*i+3, 3);
 
-    outputList.ef.segment(3*i, 3) = (Bc_k*cal_FcBarRef - model->cal_F).segment(6*i, 3);
-    outputList.en.segment(3*i, 3) = (Bc_k*cal_FcBarRef - model->cal_F).segment(6*i+3, 3);
+    outputList.ef.segment(3*i, 3) = (constraintModel.Bc_k*cal_FcBarRef - model->cal_F).segment(6*i, 3);
+    outputList.en.segment(3*i, 3) = (constraintModel.Bc_k*cal_FcBarRef - model->cal_F).segment(6*i+3, 3);
   }
 }

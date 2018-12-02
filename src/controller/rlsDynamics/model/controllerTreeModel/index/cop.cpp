@@ -17,9 +17,9 @@ void RLS::ControllerTreeModel::cop()
   for(int i=0; i<info->sensorNodeNum; i++){
     cal_Fk = cal_Fsensor.segment(6*i, 6);
 
-    // foot net CoP
-    if(i==2||i==3)
-      cal_Fk = Vector6d::Zero();
+    // // foot net CoP
+    // if(i==2||i==3)
+    //   cal_Fk = Vector6d::Zero();
 
     if(cal_Fk(2) != 0.){
       rpk.segment(2*i, 2) <<

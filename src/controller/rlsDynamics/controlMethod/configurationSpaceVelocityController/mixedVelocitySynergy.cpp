@@ -13,11 +13,11 @@ VectorXd RLS::RlsDynamics::mixedVelocitySynergy()
   (this->*operationalSpaceController_ptr)();
 
   // constraint
-  VectorXd dthcRef = pInv(cal_JcM)*cal_VcMBarRef;
+  VectorXd dthcRef = pInv(constraintModel.cal_JcM)*cal_VcMBarRef;
 
   // mobility
-  MatrixXd cal_JmMBar = cal_JmM*N(cal_JcM);
-  VectorXd cal_VmMTildeRef = cal_VmMBarRef - cal_JmM*dthcRef;
+  MatrixXd cal_JmMBar = constraintModel.cal_JmM*N(constraintModel.cal_JcM);
+  VectorXd cal_VmMTildeRef = cal_VmMBarRef - constraintModel.cal_JmM*dthcRef;
 
   VectorXd dthmRef = pInv(cal_JmMBar)*cal_VmMTildeRef;
 
@@ -31,8 +31,8 @@ VectorXd RLS::RlsDynamics::mixedVelocitySynergy()
 
   VectorXd dqcRef = VectorXd::Zero(info.model.dof.all);
   dqcRef <<
-    bb_ScB.topLeftCorner(3,3)*(fb.vCfb + cross(model->rB2C)*fb.wBfb - model->JB2C*dthRef),
-    bb_ScB.bottomRightCorner(3,3)*fb.wBfb,
+    constraintModel.bb_ScB.topLeftCorner(3,3)*(fb.vCfb + cross(model->rB2C)*fb.wBfb - model->JB2C*dthRef),
+    constraintModel.bb_ScB.bottomRightCorner(3,3)*fb.wBfb,
     dthRef;
 
   return dqcRef;

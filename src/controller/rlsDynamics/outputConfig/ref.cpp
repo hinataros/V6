@@ -34,8 +34,8 @@ void RLS::RlsDynamics::outputRefConfig()
   outputList.fRef = outputList.nRef
     = VectorXd::Zero(3*info.model.controlNodeNum);
   for(int i=0; i<info.model.controlNodeNum; i++){
-    outputList.fRef.segment(3*i, 3) = (Bc_k*cal_FcBarRef).segment(6*i, 3);
-    outputList.nRef.segment(3*i, 3) = (Bc_k*cal_FcBarRef).segment(6*i+3, 3);
+    outputList.fRef.segment(3*i, 3) = (constraintModel.Bc_k*cal_FcBarRef).segment(6*i, 3);
+    outputList.nRef.segment(3*i, 3) = (constraintModel.Bc_k*cal_FcBarRef).segment(6*i+3, 3);
   }
 
   outputList.cal_Fextfb = fb.cal_Fextfb;

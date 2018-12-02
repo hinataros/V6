@@ -13,24 +13,24 @@ void RLS::RlsDynamics::handWrenchControlAndCentroidalEcmpDistribution()
 
   // (this->*internalForceController_ptr)(info);
 
-  VectorXd cal_FHcBarRef = getControlNodeVector(Bc.transpose()*fb.cal_Ffb,"c","RARMEE");
+  VectorXd cal_FHcBarRef = constraintModel.getControlNodeVector(constraintModel.Bc.transpose()*fb.cal_Ffb,"c","RARMEE");
+  MatrixXd bb_CcMH = constraintModel.getControlNodeMatrix(constraintModel.cal_PcM,false,true,"c","RARMEE");
 
-  MatrixXd bb_CcMH = getControlNodeMatrix(cal_PcM,false,true,"c","RARMEE");
   VectorXd cal_FCextRef = cal_dLCRef + model->cal_GC - bb_CcMH*cal_FHcBarRef;
 
-  MatrixXd bb_CcMF = getControlNodeMatrix(cal_PcM,false,true,"c",2,"RLEGEE","LLEGEE");
+  MatrixXd bb_CcMF = constraintModel.getControlNodeMatrix(constraintModel.cal_PcM,false,true,"c",2,"RLEGEE","LLEGEE");
 
   VectorXd cal_FFcBarRef;
-  if(info.constraint.c.controlNode[info.model.controlNodeID["RLEGEE"]]==6&&
-     info.constraint.c.controlNode[info.model.controlNodeID["LLEGEE"]]==6){
+  if(info.constraint->c.controlNode[info.model.controlNodeID["RLEGEE"]]==6&&
+     info.constraint->c.controlNode[info.model.controlNodeID["LLEGEE"]]==6){
     Vector2d rFr = model->r[info.model.controlNodeID["RLEGEE"]].head(2);
     Vector2d rFl = model->r[info.model.controlNodeID["LLEGEE"]].head(2);
 
-    Vector3d st(0.,0.,1.);
+    Vector3d ez(0.,0.,1.);
     Matrix3d St = diag(3, 1.,1.,0.);
     MatrixXd TX = MatrixXd::Zero(3,6);
     TX.block(0,0,3,3) = (1/(model->M*model->wX*model->wX))*St;
-    TX.block(0,3,3,3) = -(1/(model->M*abs(worldModel->ag(2))))*cross(st);
+    TX.block(0,3,3,3) = -(1/(model->M*abs(worldModel->ag(2))))*cross(ez);
 
     Vector3d rextHDes = TX*bb_CcMH*cal_FHcBarRef;
     Vector3d rvrpDes = des.rXDes - des.drXDes/model->wX;

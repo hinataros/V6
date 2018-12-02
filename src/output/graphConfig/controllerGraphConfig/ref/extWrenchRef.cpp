@@ -15,8 +15,7 @@ void RLS::Output::extWrenchRef(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("extForceRef");
 
-  setVerticalDat("time");
-  setHorizontalDat("fextRef");
+  setTimeDependentDat("fextRef");
   makeDat();
 
   gpMaker.reset();
@@ -31,8 +30,7 @@ void RLS::Output::extWrenchRef(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("extMomentRef");
 
-  setVerticalDat("time");
-  setHorizontalDat("nextRef");
+  setTimeDependentDat("nextRef");
   makeDat();
 
   gpMaker.reset();

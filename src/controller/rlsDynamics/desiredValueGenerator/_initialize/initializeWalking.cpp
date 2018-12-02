@@ -16,7 +16,7 @@ void RLS::DesiredValueGenerator::initializeWalking()
 
   walking.setInitialDcmPosition(model->rX0);
   walking.setComPosition(model->rC0);
+  walking.setNaturalFrequency(model->wX);
 
   walking.createHTTrajectory();
-  walking.createExtHTTrajectory();
 }

@@ -16,8 +16,7 @@ void RLS::Output::eeRot(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("eeOrient");
 
-  setVerticalDat("time");
-  setHorizontalDat("tree model xi");
+  setTimeDependentDat("tree model xi");
   makeDat();
 
   gpMaker.reset();
@@ -34,8 +33,7 @@ void RLS::Output::eeRot(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("eeAngVel");
 
-  setVerticalDat("time");
-  setHorizontalDat("tree model w");
+  setTimeDependentDat("tree model w");
   makeDat();
 
   gpMaker.reset();

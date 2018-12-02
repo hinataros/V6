@@ -8,16 +8,24 @@
 
 int RLS::RlsDynamics::stateTrigger(const double &t)
 {
-  return (this->*customTrigger_ptr)(t);
+  if(debug) DEBUG;
+
+  if(!extStateTrigger)
+    return (this->*stateTrigger_ptr)(t);
+  else
+    return (ext->*ext_stateTrigger_ptr)(this, t);
 }
 
 bool RLS::RlsDynamics::sequenceTrigger(const double &t, const int &sequenceNum)
 {
-  int tint = round_cast(t, 3);
-  int tfint = round_cast(worldModel->tf, 3);
-  int tsumint = round_cast(sequence[sequenceNum].twf, 3) + round_cast(sequence[sequenceNum].tw0, 3);
+  if(debug) DEBUG;
 
-  if(tint==tsumint&&tint<=tfint)
+  int tint = round_cast(t, 3);
+  int tsumint = round_cast(sequence[sequenceNum].twf, 3) + round_cast(sequence[sequenceNum].tw0, 3);
+  // int tfint = round_cast(worldModel->tf, 3);
+
+  if(tint==tsumint)
+  // if(tint==tsumint&&tint<=tfint)
     return true;
 
   return false;

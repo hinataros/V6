@@ -14,7 +14,7 @@ void RLS::RlsDynamics::mixedmixedOpt()
   MthHatBar <<
     model->HMth.transpose(), model->MthC;
 
-  tau = MthHatBar*ddqMoptRef + model->cthC + model->gth - cal_Jc.transpose()*cal_FcBarRef;
+  tau = MthHatBar*ddqMoptRef + model->cthC + model->gth - constraintModel.cal_Jc.transpose()*cal_FcBarRef;
 
   // MatrixXd A = MatrixXd::Zero(info.model.dof.joint, 3+info.model.dof.joint);
   // A <<

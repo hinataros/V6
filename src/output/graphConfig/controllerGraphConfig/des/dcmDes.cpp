@@ -15,8 +15,7 @@ void RLS::Output::dcmDes(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("dcmPosDes");
 
-  setVerticalDat("time");
-  setHorizontalDat("rXDes");
+  setTimeDependentDat("rXDes");
   makeDat();
 
   gpMaker.reset();
@@ -32,8 +31,7 @@ void RLS::Output::dcmDes(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("dcmVelDes");
 
-  setVerticalDat("time");
-  setHorizontalDat("drXDes");
+  setTimeDependentDat("drXDes");
   makeDat();
 
   gpMaker.reset();

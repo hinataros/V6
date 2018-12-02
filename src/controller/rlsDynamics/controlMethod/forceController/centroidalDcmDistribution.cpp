@@ -14,5 +14,7 @@ void RLS::RlsDynamics::centroidalDcmDistribution()
 
   MatrixXd WX = h_weight(model->rX.head(2));
 
-  cal_FcBarRef = pInv(cal_PcM, WX)*(cal_dLCRef + model->cal_GC) + N(cal_PcM)*cal_FcaBarRef;
+  cal_FcBarRef =
+    pInv(constraintModel.cal_PcM, WX)*(cal_dLCRef + model->cal_GC)
+    + N(constraintModel.cal_PcM)*cal_FcaBarRef;
 }

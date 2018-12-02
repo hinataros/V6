@@ -23,12 +23,10 @@ void RLS::Output::vrpDes4walking(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("vrpDesx");
 
-  setVerticalDat("time");
-  setHorizontalDatNum(4);
-  setHorizontalDatName(1, "rXDesx");
-  setHorizontalDatName(2, "rXBarDesx");
-  setHorizontalDatName(3, "rvrpDesx");
-  setHorizontalDatName(4, "rvrpBarDesx");
+  setTimeDependentDatNum(3);
+  setTimeDependentDatName(1, "rXDesx");
+  setTimeDependentDatName(2, "rvrpDesx");
+  setTimeDependentDatName(3, "rndvrpDesx");
   makeDat();
 
   gpMaker.reset();
@@ -121,7 +119,7 @@ void RLS::Output::vrpDes4walking(GpMaker &gpMaker, TexMaker &texMaker)
   }
   // *********************************
 
-  gpMaker.setDimention(4);
+  gpMaker.setDimention(3);
   gpMaker.makeGp();
 
   texMaker.setName(file_name);
@@ -130,12 +128,10 @@ void RLS::Output::vrpDes4walking(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("vrpDesy");
 
-  setVerticalDat("time");
-  setHorizontalDatNum(4);
-  setHorizontalDatName(1, "rXDesy");
-  setHorizontalDatName(2, "rXBarDesy");
-  setHorizontalDatName(3, "rvrpDesy");
-  setHorizontalDatName(4, "rvrpBarDesy");
+  setTimeDependentDatNum(3);
+  setTimeDependentDatName(1, "rXDesy");
+  setTimeDependentDatName(2, "rvrpDesy");
+  setTimeDependentDatName(3, "rndvrpDesy");
   makeDat();
 
   gpMaker.reset();
@@ -186,7 +182,7 @@ void RLS::Output::vrpDes4walking(GpMaker &gpMaker, TexMaker &texMaker)
   }
   // *********************************
 
-  gpMaker.setDimention(4);
+  gpMaker.setDimention(3);
   gpMaker.makeGp();
 
   texMaker.setName(file_name);
@@ -195,11 +191,10 @@ void RLS::Output::vrpDes4walking(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("vrpDes");
 
-  setDatNum(4);
+  setDatNum(3);
   setDatName(1, "rexDes");
-  setDatName(2, "rexBarDes");
-  setDatName(3, "recmpDes");
-  setDatName(4, "recmpBarDes");
+  setDatName(2, "recmpDes");
+  setDatName(3, "rndecmpDes");
   makeDat();
 
   gpMaker.reset();
@@ -251,7 +246,7 @@ void RLS::Output::vrpDes4walking(GpMaker &gpMaker, TexMaker &texMaker)
     gpMaker.add("set object "+to_string(ob)+" rect at first "+to_string(foot_pos_lx)+", "+to_string(foot_pos_ly)+" size "+to_string(foot_size_x)+", "+to_string(foot_size_y)+" fs empty border rgb 'black'"); ob++;
   }
 
-  gpMaker.setDimention(4);
+  gpMaker.setDimention(3);
   gpMaker.makeGp();
 
   texMaker.setName(file_name);

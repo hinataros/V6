@@ -10,5 +10,5 @@ void RLS::RlsDynamics::crb()
 {
   if(debug) DEBUG;
 
-  tau = model->MthHat*ddthRef + model->cthHat - cal_JcHat.transpose()*cal_FcBarRef;
+  tau = model->MthHat*ddthRef + model->cthHat - constraintModel.cal_JcHat.transpose()*cal_FcBarRef;
 }

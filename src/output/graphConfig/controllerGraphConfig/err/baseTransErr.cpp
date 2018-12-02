@@ -15,8 +15,7 @@ void RLS::Output::baseTransErr(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("basePosErr");
 
-  setVerticalDat("time");
-  setHorizontalDat("erB");
+  setTimeDependentDat("erB");
   makeDat();
 
   gpMaker.reset();
@@ -32,8 +31,7 @@ void RLS::Output::baseTransErr(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("baseVelErr");
 
-  setVerticalDat("time");
-  setHorizontalDat("evB");
+  setTimeDependentDat("evB");
   makeDat();
 
   gpMaker.reset();

@@ -52,17 +52,17 @@ void RLS::RlsDynamics::readController()
   for(int i=0; i<info.model.controlNodeNum; i++){
     string name = info.model.controlNode[i].name;
 
-    Matrix6i temp6i = Bc_kDiag.block(6*i,6*i,6,6);
+    Matrix6i temp6i = constraintModel.Bc_kDiag.block(6*i,6*i,6,6);
     yamlInfo.checkValue<Matrix6i>(temp6i, "Bc", name);
-    Bc_kDiag.block(6*i,6*i,6,6) = temp6i;
+    constraintModel.Bc_kDiag.block(6*i,6*i,6,6) = temp6i;
 
-    temp6i = Bm_kDiag.block(6*i,6*i,6,6);
+    temp6i = constraintModel.Bm_kDiag.block(6*i,6*i,6,6);
     yamlInfo.checkValue<Matrix6i>(temp6i, "Bm", name);
-    Bm_kDiag.block(6*i,6*i,6,6) = temp6i;
+    constraintModel.Bm_kDiag.block(6*i,6*i,6,6) = temp6i;
 
-    Matrix2i temp2i = BpDiag.block(2*i,2*i,2,2);
+    Matrix2i temp2i = constraintModel.BpDiag.block(2*i,2*i,2,2);
     yamlInfo.checkValue<Matrix2i>(temp2i, "Bp", name);
-    BpDiag.block(2*i,2*i,2,2) = temp2i;
+    constraintModel.BpDiag.block(2*i,2*i,2,2) = temp2i;
   }
 
   yamlInfo.checkValue<MatrixXd>(KDth, "KDth");

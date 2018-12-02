@@ -15,8 +15,7 @@ void RLS::Output::mom(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("linMom");
 
-  setVerticalDat("time");
-  setHorizontalDat("tree model p");
+  setTimeDependentDat("tree model p");
   makeDat();
 
   gpMaker.reset();
@@ -31,8 +30,7 @@ void RLS::Output::mom(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("angMom");
 
-  setVerticalDat("time");
-  setHorizontalDat("tree model lC");
+  setTimeDependentDat("tree model lC");
   makeDat();
 
   gpMaker.reset();

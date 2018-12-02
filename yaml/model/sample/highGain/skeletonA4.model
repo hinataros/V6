@@ -4,7 +4,7 @@ world model:
   include:
     type: cnoid
     search: relative
-    path: &CNOID sample/highGain/skeletonA4.cnoid
+    path: &CNOID sample/highGain/skeletonA4/standup.cnoid
 
 tree model:
   name: skeletonA4

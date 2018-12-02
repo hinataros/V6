@@ -15,8 +15,7 @@ void RLS::Output::cmp(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("cmpx");
 
-  setVerticalDat("time");
-  setHorizontalDat("rcmpx");
+  setTimeDependentDat("rcmpx");
   makeDat();
 
   gpMaker.reset();
@@ -34,8 +33,7 @@ void RLS::Output::cmp(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("cmpy");
 
-  setVerticalDat("time");
-  setHorizontalDat("rcmpy");
+  setTimeDependentDat("rcmpy");
   makeDat();
 
   gpMaker.reset();

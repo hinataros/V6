@@ -15,8 +15,7 @@ void RLS::Output::baseTrans(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("basePos");
 
-  setVerticalDat("time");
-  setHorizontalDat("tree model rB");
+  setTimeDependentDat("tree model rB");
   makeDat();
 
   gpMaker.reset();
@@ -32,8 +31,7 @@ void RLS::Output::baseTrans(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("baseVel");
 
-  setVerticalDat("time");
-  setHorizontalDat("tree model vB");
+  setTimeDependentDat("tree model vB");
   makeDat();
 
   gpMaker.reset();

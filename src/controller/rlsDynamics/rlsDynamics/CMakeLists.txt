@@ -4,6 +4,7 @@ add_subdirectory(initialize)
 
 set(srcs
   finalize.cpp
+  reconfigure.cpp
   rlsDynamics.cpp
   )
 

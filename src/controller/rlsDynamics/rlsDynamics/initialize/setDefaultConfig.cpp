@@ -16,4 +16,6 @@ void RLS::RlsDynamics::setDefaultConfig()
   config.input = "no input";
   config.driven = "flow";
   config.trigger = "default";
+
+  extStateTrigger = false;
 }

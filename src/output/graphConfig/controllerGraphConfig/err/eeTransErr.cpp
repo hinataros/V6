@@ -16,8 +16,7 @@ void RLS::Output::eeTransErr(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("eePosErr");
 
-  setVerticalDat("time");
-  setHorizontalDat("er");
+  setTimeDependentDat("er");
   makeDat();
 
   gpMaker.reset();
@@ -34,8 +33,7 @@ void RLS::Output::eeTransErr(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("eeVelErr");
 
-  setVerticalDat("time");
-  setHorizontalDat("ev");
+  setTimeDependentDat("ev");
   makeDat();
 
   gpMaker.reset();

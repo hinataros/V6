@@ -5,7 +5,7 @@ set(srcs
   setDefaultConfig.cpp
   readControllerHeader.cpp
   setModelInfo.cpp
-  initializeConstraintInfo.cpp
+  setConstraintInfo.cpp
   resize.cpp
   setControllerMap.cpp
   stateTrigger.cpp

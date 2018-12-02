@@ -15,8 +15,7 @@ void RLS::Output::baseRotErr(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("baseOrientErr");
 
-  setVerticalDat("time");
-  setHorizontalDat("eoB");
+  setTimeDependentDat("eoB");
   makeDat();
 
   gpMaker.reset();
@@ -32,8 +31,7 @@ void RLS::Output::baseRotErr(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("baseAngVelErr");
 
-  setVerticalDat("time");
-  setHorizontalDat("ewB");
+  setTimeDependentDat("ewB");
   makeDat();
 
   gpMaker.reset();

@@ -6,7 +6,6 @@ set(srcs
   # cmp4walking.cpp
   stabilityIndex4walking.cpp
   vrpDes4walking.cpp
-  vrpBarDes4walking.cpp
   # footPrint.cpp
   )
 

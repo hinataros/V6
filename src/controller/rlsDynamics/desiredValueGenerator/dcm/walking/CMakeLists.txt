@@ -1,6 +1,7 @@
 # @author Sho Miyahara 2018
 
 set(srcs
+  finalize.cpp
   setModel.cpp
   setYamlInfo.cpp
   initialize.cpp
@@ -8,11 +9,11 @@ set(srcs
   readController.cpp
   reset.cpp
   createHTTrajectory.cpp
-  createExtHTTrajectory.cpp
   setInitialDcmPosition.cpp
   setComPosition.cpp
+  setNaturalFrequency.cpp
   setBoundary.cpp
-  setExtForce.cpp
+  setExt.cpp
   ht.cpp
   eht.cpp
   )

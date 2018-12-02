@@ -16,8 +16,7 @@ void RLS::Output::eeWrenchErr(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("eeForceErr");
 
-  setVerticalDat("time");
-  setHorizontalDat("ef");
+  setTimeDependentDat("ef");
   makeDat();
 
   gpMaker.reset();
@@ -33,8 +32,7 @@ void RLS::Output::eeWrenchErr(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("eeMomentErr");
 
-  setVerticalDat("time");
-  setHorizontalDat("en");
+  setTimeDependentDat("en");
   makeDat();
 
   gpMaker.reset();

@@ -25,8 +25,7 @@ void RLS::Output::localCop(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("localCoPx");
 
-  setVerticalDat("time");
-  setHorizontalDat("rpkx");
+  setTimeDependentDat("rpkx");
   makeDat();
 
   gpMaker.reset();
@@ -51,8 +50,7 @@ void RLS::Output::localCop(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("localCoPy");
 
-  setVerticalDat("time");
-  setHorizontalDat("rpky");
+  setTimeDependentDat("rpky");
   makeDat();
 
   gpMaker.reset();

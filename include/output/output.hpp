@@ -117,16 +117,11 @@ namespace RLS{
     int dataNum;
     int st;
 
-    bool planeFlag;
-
-    int planeNum;
-    int verticalNum;
-    int horizontalNum;
-
+    int datNum;
     struct Dat{
       vector<int> id;
       vector<string> dataName;
-    } plane, vertical, horizontal;
+    } dat;
 
     // dat maker
     void reset();
@@ -135,28 +130,24 @@ namespace RLS{
     void setDataNum(int);
     void setST(int);
 
-    // plane dat
+    // ****************
     void setDatNum(int);
     void setDatID(int, int);
     void setDatName(int, string);
     void setDat(string);
-    // vertical dat
-    void setVerticalDatNum(int);
-    void setVerticalDatID(int, int);
-    void setVerticalDatName(int, string);
-    void setVerticalDat(string);
-    // horizontal dat
-    void setHorizontalDatNum(int);
-    void setHorizontalDatID(int, int);
-    void setHorizontalDatName(int, string);
-    void setHorizontalDat(string);
+
+    // ****************
+    void setTimeDependentDatNum(int);
+    void setTimeDependentDatID(int, int);
+    void setTimeDependentDatName(int, string);
+    void setTimeDependentDat(string);
 
     void makeDat();
     int setDat(ofstream&, string, int);
     void setDat(ofstream&, int, string, int);
 
-    // // // smiyahara: どうにかしたい
-    // // void makeGifDat(Config&, TreeModel::Info&);
+    // // smiyahara: どうにかしたい
+    // void makeGifDat(Config&, TreeModel::Info&);
 
     // tree model output
     // ********************************************
@@ -213,7 +204,6 @@ namespace RLS{
     // void cmp4walking(GpMaker&, TexMaker&);
     void stabilityIndex4walking(GpMaker&, TexMaker&);
     void vrpDes4walking(GpMaker&, TexMaker&);
-    void vrpBarDes4walking(GpMaker&, TexMaker&);
     // void footPrint(GpMaker&, TexMaker&);
     // // ********************************************
 

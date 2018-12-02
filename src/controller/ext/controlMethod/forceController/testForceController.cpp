@@ -8,5 +8,5 @@ void RLS::Ext::testForceController(RlsDynamics *io)
 {
   if(debug) DEBUG;
 
-  io->cal_FcBarRef = pInv(io->cal_PcM)*(io->cal_dLCRef + io->model->cal_GC);
+  io->cal_FcBarRef = pInv(io->constraintModel.cal_PcM)*(io->cal_dLCRef + io->model->cal_GC);
 }

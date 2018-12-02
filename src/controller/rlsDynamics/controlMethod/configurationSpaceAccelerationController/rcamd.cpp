@@ -14,7 +14,7 @@ VectorXd RLS::RlsDynamics::rcamd()
 
   // 1st
   // ****************************************************************
-  VectorXd ddqcRef = pInv(JcM)*(-dJcM*model->dqM);
+  VectorXd ddqcRef = pInv(constraintModel.JcM)*(-constraintModel.dJcM*model->dqM);
 
   // // // 2nd
   // // // ****************************************************************
@@ -44,19 +44,19 @@ VectorXd RLS::RlsDynamics::rcamd()
 
   // 2nd
   // ****************************************************************
-  MatrixXd cal_AMBar = model->cal_AM*N(JcM);
+  MatrixXd cal_AMBar = model->cal_AM*N(constraintModel.JcM);
   Vector6d cal_dLCBarRef = cal_dLCRef - model->cal_dAM*model->dqM;
   VectorXd ddqlRef = pInv(cal_AMBar)*(cal_dLCBarRef - model->cal_AM*ddqcRef);
 
   // 3rd
   // ****************************************************************
-  MatrixXd JmMBar = JmM*N(JcM)*N(cal_AMBar);
-  VectorXd cal_dVmTildeRef = cal_dVmBarRef - dJmM*model->dqM;
-  VectorXd ddqmRef = pInv(JmMBar)*(cal_dVmTildeRef - JmM*(ddqcRef + ddqlRef));
+  MatrixXd JmMBar = constraintModel.JmM*N(constraintModel.JcM)*N(cal_AMBar);
+  VectorXd cal_dVmTildeRef = cal_dVmBarRef - constraintModel.dJmM*model->dqM;
+  VectorXd ddqmRef = pInv(JmMBar)*(cal_dVmTildeRef - constraintModel.JmM*(ddqcRef + ddqlRef));
 
   // 4th
   // ****************************************************************
-  VectorXd ddqnRef = N(JcM)*N(cal_AMBar)*N(JmMBar)*ddqthinit();
+  VectorXd ddqnRef = N(constraintModel.JcM)*N(cal_AMBar)*N(JmMBar)*ddqthinit();
 
   // ****************************************************************
   ddqMoptRef = ddqcRef + ddqlRef + ddqmRef + ddqnRef;

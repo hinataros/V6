@@ -141,3 +141,5 @@ trajectoryでnumを0以外に設定した時にsequenceが複数設定されて�
 // ********************************
 
 worldModel.nをoutputのメンバにしてoutput起動時に計算するようにしたほうがいい
+
+TreeModelInfoのmapのせいでconstにできない

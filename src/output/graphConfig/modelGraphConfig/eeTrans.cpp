@@ -16,8 +16,7 @@ void RLS::Output::eeTrans(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("eePos");
 
-  setVerticalDat("time");
-  setHorizontalDat("tree model r");
+  setTimeDependentDat("tree model r");
   makeDat();
 
   gpMaker.reset();
@@ -34,8 +33,7 @@ void RLS::Output::eeTrans(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("eeVel");
 
-  setVerticalDat("time");
-  setHorizontalDat("tree model v");
+  setTimeDependentDat("tree model v");
   makeDat();
 
   gpMaker.reset();

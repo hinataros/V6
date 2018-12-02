@@ -7,6 +7,8 @@ endif()
 
 option(rls_thirdparty_yaml-cpp "link yaml-cpp library" OFF)
 option(rls_thirdparty_yaml-cpp_compile "compile yaml-cpp library" OFF)
+option(rls_thirdparty_quaternion "link quaternion library" OFF)
+option(rls_thirdparty_quaternion_compile "compile quaternion library" OFF)
 option(rls_thirdparty_QuadProgpp "link QuadProg++ library" OFF)
 option(rls_thirdparty_QuadProgpp_compile "compile QuadProg++ library" OFF)
 option(rls_thirdparty_QuadProgpp_sample "compile QuadProg++ sample program" OFF)
@@ -42,6 +44,8 @@ if(STATIC_LIBS)
 else(STATIC_LIBS)
     set(LIB_TYPE SHARED)
 endif(STATIC_LIBS)
+
+option(rls_admin "rlsSimulator administrator" OFF)
 
 option(rls_OpenRTM "open RTM" OFF)
 option(rls_rlsDynamicsRTC "dynamics controller RTC" OFF)

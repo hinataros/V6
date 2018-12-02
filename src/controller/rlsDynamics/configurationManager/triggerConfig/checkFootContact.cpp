@@ -8,6 +8,8 @@
 
 int RLS::RlsDynamics::checkFootContact(const double &t)
 {
+  if(debug) DEBUG;
+
   bool contactFlag[info.model.controlNodeNum];
 
   for(int i=0; i<info.model.controlNodeNum; i++){

@@ -1,8 +1,12 @@
 # @author Sho Miyahara 2018
 
-# config: master/skeletonA7/kinematics.config
-config: master/skeletonA7/dynamics.config
-# config: sample/dynamics.config
-# config: sample/highGain.config
-# config: sample/dynamicsShOb.config
-# config: sample/kinematics.config
+config: sample/dynamics/skeletonA4/test.config
+# config: sample/dynamics/skeletonA4/walking.config
+# config: sample/highGain/skeletonA4/test.config
+# config: sample/kinematics/skeletonA4/test.config
+
+# config: sample/dynamics/skeletonA7/test.config
+# config: sample/dynamics/skeletonA7/wallCleaning.config
+# config: sample/highGain/skeletonA7/test.config
+# config: sample/kinematics/skeletonA7/test.config
+

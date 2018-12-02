@@ -15,8 +15,7 @@ void RLS::Output::mix(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("comPos");
 
-  setVerticalDat("t");
-  setHorizontalDat("tree model rC");
+  setTimeDependentDat("tree model rC");
   makeDat();
 
   gpMaker.reset();
@@ -32,8 +31,7 @@ void RLS::Output::mix(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("comVel");
 
-  setVerticalDat("time");
-  setHorizontalDat("tree model vC");
+  setTimeDependentDat("tree model vC");
   makeDat();
 
   gpMaker.reset();
@@ -48,8 +46,7 @@ void RLS::Output::mix(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("baseOrient");
 
-  setVerticalDat("time");
-  setHorizontalDat("tree model xiB");
+  setTimeDependentDat("tree model xiB");
   makeDat();
 
   gpMaker.reset();
@@ -65,8 +62,7 @@ void RLS::Output::mix(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("baseAngVel");
 
-  setVerticalDat("time");
-  setHorizontalDat("tree model wB");
+  setTimeDependentDat("tree model wB");
   makeDat();
 
   gpMaker.reset();

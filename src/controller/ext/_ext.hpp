@@ -12,8 +12,11 @@ namespace RLS{
   class Ext:
     public Interpolation{
   private:
-    // // control method
-    // // ******************************
+    // state trigger
+    // ******************************
+
+    // control method
+    // ******************************
     // motion controller
     VectorXd testMotionController(RlsDynamics*);
 
@@ -34,6 +37,8 @@ namespace RLS{
 
   public:
     ExtList outputList;
+
+    int defaultStateTrigger(RlsDynamics*, const double&);
 
     void defaultController(RlsDynamics*);
     VectorXd defaultJointController(RlsDynamics*);

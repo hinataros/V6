@@ -15,14 +15,12 @@ void RLS::RlsDynamics::finalize()
   ext->finalize(this);
   delete ext;
 
-  delete[] info.constraint.c.controlNode;
-  delete[] info.constraint.m.controlNode;
-
   delete[] yamlInfo.doc.sequenceKey;
 
   delete[] sequence;
   // delete[] rkk;
 
   des.finalize();
+  constraintModel.finalize();
   controllerModel.finalize();
 }

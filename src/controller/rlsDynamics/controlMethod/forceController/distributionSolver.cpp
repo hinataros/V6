@@ -30,13 +30,13 @@ void RLS::RlsDynamics::distributionSolver()
   // mix
   // ************************************************************************
   // VectorXd rpkDes = VectorXd::Zero(2*info.constraint.num);
-  VectorXd rpkDes = VectorXd::Zero(2*BpDiag.diagonal().sum()/2);
+  VectorXd rpkDes = VectorXd::Zero(2*constraintModel.BpDiag.diagonal().sum()/2);
 
-  MatrixXd G = Bc.transpose()*WF*Bc + Pc.transpose()*Bp.transpose()*Wp*Bp*Pc;
+  MatrixXd G = constraintModel.Bc.transpose()*WF*constraintModel.Bc + constraintModel.Pc.transpose()*constraintModel.Bp.transpose()*Wp*constraintModel.Bp*constraintModel.Pc;
 
-  VectorXd g = -rpkDes.transpose()*Bp.transpose()*Wp*Bp*Pc;
+  VectorXd g = -rpkDes.transpose()*constraintModel.Bp.transpose()*Wp*constraintModel.Bp*constraintModel.Pc;
 
-  MatrixXd CE = cal_PcM;
+  MatrixXd CE = constraintModel.cal_PcM;
   VectorXd ce = cal_dLCRef + model->cal_GC;
 
   // ************************************************************************

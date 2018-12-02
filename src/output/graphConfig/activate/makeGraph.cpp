@@ -54,49 +54,35 @@ void RLS::Output::makeGraph()
 
         setFileName(doc_elements["file name"].as<string>());
 
-        if(doc_elements["dat value"]["name"]){
-          setDat(doc_elements["dat value"]["name"].as<string>());
+        if(doc_elements["time-dependent dat"]){
+          YAML::Node doc_dat = doc_elements["time-dependent dat"];
+
+          if(doc_dat["name"])
+            setTimeDependentDat(doc_dat["name"].as<string>());
+          else{
+            if(doc_dat[0]){
+              setTimeDependentDatNum(doc_dat.size());
+              for(unsigned k=0; k<doc_dat.size(); k++){
+                if(doc_dat[k]["name"])
+                  setTimeDependentDatName(k+1, doc_dat[k]["name"].as<string>());
+              }
+            }
+          }
         }
-        else{
-          // ******************************** vertical ********************************
-          if(doc_elements["dat value"]["vertical"]){
-            YAML::Node doc_vertical = doc_elements["dat value"]["vertical"];
+        else if(doc_elements["dat"]){
+          YAML::Node doc_dat = doc_elements["dat"];
 
-            if(doc_vertical["name"]){
-              setVerticalDat(doc_vertical["name"].as<string>());
-            }
-            else{
-              if(doc_vertical[0]){
-                setVerticalDatNum(doc_vertical.size());
-
-                for(unsigned k=0; k<doc_vertical.size(); k++){
-                  if(doc_vertical[k]["name"])
-                    setVerticalDatName(k, doc_vertical[k]["name"].as<string>());
-                }
+          if(doc_dat["name"])
+            setDat(doc_dat["name"].as<string>());
+          else{
+            if(doc_dat[0]){
+              setDatNum(doc_dat.size());
+              for(unsigned k=0; k<doc_dat.size(); k++){
+                if(doc_dat[k]["name"])
+                  setDatName(k+1, doc_dat[k]["name"].as<string>());
               }
             }
           }
-          // ******************************** vertical ********************************
-
-          // ******************************** horizontal ********************************
-          if(doc_elements["dat value"]["horizontal"]){
-            YAML::Node doc_horizontal = doc_elements["dat value"]["horizontal"];
-
-            if(doc_horizontal["name"]){
-              setHorizontalDat(doc_horizontal["name"].as<string>());
-            }
-            else{
-              if(doc_horizontal[0]){
-                setHorizontalDatNum(doc_horizontal.size());
-
-                for(unsigned k=0; k<doc_horizontal.size(); k++){
-                  if(doc_horizontal[k]["name"])
-                    setHorizontalDatName(k, doc_horizontal[k]["name"].as<string>());
-                }
-              }
-            }
-          }
-          // ******************************** horizontal ********************************
         }
 
         makeDat();

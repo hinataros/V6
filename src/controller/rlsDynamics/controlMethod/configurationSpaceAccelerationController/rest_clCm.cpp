@@ -13,27 +13,32 @@ VectorXd RLS::RlsDynamics::rest_clCm()
   (this->*operationalSpaceController_ptr)();
 
   // constraint
-  VectorXd hcth = cal_dPcM.transpose()*model->cal_VM + cal_dJcM*model->dth;
-  VectorXd ddthcRef = pInv(cal_JcM)*(cal_dVcMBarRef - hcth);
+  VectorXd hcth =
+    constraintModel.cal_dPcM.transpose()*model->cal_VM
+    + constraintModel.cal_dJcM*model->dth;
+  VectorXd ddthcRef = pInv(constraintModel.cal_JcM)*(cal_dVcMBarRef - hcth);
 
   // angular momentum
-  MatrixXd HCBar = model->HC*N(cal_JcM);
+  MatrixXd HCBar = model->HC*N(constraintModel.cal_JcM);
   // VectorXd dlCDRef = -KDlC*model.hoap2.all.lC;
   VectorXd dlCthRef = dlCRef - model->IC*fb.dwBfb;
   VectorXd dlCTildeRef = dlCthRef - model->HC*ddthcRef;
 
-  VectorXd ddthlCRef = N(cal_JcM)*pInv(HCBar)*(dlCTildeRef - model->cmm);
+  VectorXd ddthlCRef = N(constraintModel.cal_JcM)*pInv(HCBar)*(dlCTildeRef - model->cmm);
 
   // mobility
-  MatrixXd cal_JmMBar = cal_JmM*N(cal_JcM)*N(HCBar);
-  VectorXd cal_dVmTildeRef = cal_dVmMBarRef - cal_JmM*ddthlCRef;
+  MatrixXd cal_JmMBar = constraintModel.cal_JmM*N(constraintModel.cal_JcM)*N(HCBar);
+  VectorXd cal_dVmTildeRef = cal_dVmMBarRef - constraintModel.cal_JmM*ddthlCRef;
 
-  VectorXd hmth = -dBm.transpose()*model->cal_V + cal_dPmM.transpose()*model->cal_VM + cal_dJmM*model->dth;
+  VectorXd hmth =
+    -constraintModel.dBm.transpose()*model->cal_V
+    + constraintModel.cal_dPmM.transpose()*model->cal_VM
+    + constraintModel.cal_dJmM*model->dth;
 
-  VectorXd ddthmRef = N(cal_JcM)*N(HCBar)*pInv(cal_JmMBar)*(cal_dVmTildeRef - hmth);
+  VectorXd ddthmRef = N(constraintModel.cal_JcM)*N(HCBar)*pInv(cal_JmMBar)*(cal_dVmTildeRef - hmth);
 
   // redundancy
-  VectorXd ddthnRef = N(cal_JcM)*N(HCBar)*N(cal_JmMBar)*ddthD();
+  VectorXd ddthnRef = N(constraintModel.cal_JcM)*N(HCBar)*N(cal_JmMBar)*ddthD();
 
   ddthRef = ddthcRef + ddthlCRef + ddthmRef + ddthnRef;
 

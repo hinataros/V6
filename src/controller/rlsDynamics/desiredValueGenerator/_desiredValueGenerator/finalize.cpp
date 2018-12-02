@@ -10,6 +10,8 @@ void RLS::DesiredValueGenerator::finalize()
 {
   if(debug) DEBUG;
 
+  walking.finalize();
+
   delete[] rDes;
   delete[] qDes;
   delete[] dqDes;

@@ -14,8 +14,8 @@ void RLS::Output::netCop(GpMaker &gpMaker, TexMaker &texMaker)
 
   reset();
   setFileName("netCoPx");
-  setVerticalDat("time");
-  setHorizontalDat("rpx");
+
+  setTimeDependentDat("rpx");
   makeDat();
 
   gpMaker.reset();
@@ -32,8 +32,8 @@ void RLS::Output::netCop(GpMaker &gpMaker, TexMaker &texMaker)
 
   reset();
   setFileName("netCoPy");
-  setVerticalDat("time");
-  setHorizontalDat("rpy");
+
+  setTimeDependentDat("rpy");
   makeDat();
 
   gpMaker.reset();
@@ -51,6 +51,7 @@ void RLS::Output::netCop(GpMaker &gpMaker, TexMaker &texMaker)
 
   reset();
   setFileName("netCoP");
+
   setDatNum(2);
   setDatName(1, "rpw2k");
   setDatName(2, "rp");

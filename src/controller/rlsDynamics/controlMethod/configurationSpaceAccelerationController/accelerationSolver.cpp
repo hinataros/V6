@@ -39,16 +39,16 @@ VectorXd RLS::RlsDynamics::accelerationSolver()
   MatrixXd G = model->cal_AM.transpose()*Wdh*model->cal_AM + Wq;
   VectorXd g = -(cal_dLCRef - model->cal_CM).transpose()*Wdh*model->cal_AM;
 
-  int ceNum = info.constraint.c.all + info.constraint.m.all;
+  int ceNum = info.constraint->c.all + info.constraint->m.all;
   MatrixXd CE = MatrixXd::Zero(ceNum,info.model.dof.all);
   CE <<
-    JcM,
-    JmM;
+    constraintModel.JcM,
+    constraintModel.JmM;
 
-  VectorXd dVmBarRef = cal_dVmBarRef + dBm.transpose()*model->cal_V - dJmM*model->dqM;
+  VectorXd dVmBarRef = cal_dVmBarRef + constraintModel.dBm.transpose()*model->cal_V - constraintModel.dJmM*model->dqM;
   VectorXd ce = VectorXd::Zero(ceNum);
   ce <<
-    -dJcM*model->dqM,
+    -constraintModel.dJcM*model->dqM,
     dVmBarRef;
   // *********************************************************************************
   // if(info.model.sim.state)

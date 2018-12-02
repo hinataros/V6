@@ -17,12 +17,7 @@ void RLS::RlsDynamics::resize()
   cal_Sp = MatrixXd::Zero(2, 6);
   cal_Sp.block(0,3,2,2) = bb_Spx;
 
-  Bc_kDiag = MatrixXi::Zero(6*info.model.controlNodeNum, 6*info.model.controlNodeNum);
-  Bm_kDiag = MatrixXi::Zero(6*info.model.controlNodeNum, 6*info.model.controlNodeNum);
-
-  BpDiag = MatrixXi::Zero(2*info.model.controlNodeNum, 2*info.model.controlNodeNum);
-
-  //   // transform offset
+  // transform offset
   // rkk = new Vector3d[cnn];
 
   // for(int i=0; i<cnn; i++)
@@ -73,9 +68,6 @@ void RLS::RlsDynamics::resize()
   Wp = MatrixXd::Zero(2*info.model.controlNodeNum, 2*info.model.controlNodeNum);
   WF = MatrixXd::Zero(6*info.model.controlNodeNum, 6*info.model.controlNodeNum);
   WFmin = MatrixXd::Zero(6*info.model.controlNodeNum, 6*info.model.controlNodeNum);
-
-  // selective matrix for forward kinematics
-  bb_ScB = Matrix6d::Zero();
 
   // // high gain control
   thDes = VectorXd::Zero(info.model.dof.joint);

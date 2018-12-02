@@ -34,7 +34,7 @@ namespace RLS{
     bool flagDS;
 
     struct HT_config{
-      int stepNum;
+      int convergenceNum;
       double dtstep;
       double dtDSstep;
       double alphaDSstep;
@@ -45,11 +45,15 @@ namespace RLS{
       double tstab;
     } ht_config;
 
-    int stepNum;
+    int convergencePhaseNum;
+    int vwpNum;
+
     int stepPhase;
     double tstep0;
     double tstep;
     double tDS0;
+
+    Vector3d *vwp;
 
     VectorXd dT;
     MatrixXd rf;
@@ -85,7 +89,7 @@ namespace RLS{
     MatrixXd rvrpHd;
 
     // ext HT
-    Vector3d fext;
+    Vector3d rext;
 
     MatrixXd rndvrpTd;
     MatrixXd rndvrpHd;
@@ -108,18 +112,18 @@ namespace RLS{
     void setModel(const ControllerTreeModel&);
     void setYamlInfo(YamlInfo&);
 
-    void setComPosition(const Vector3d&);
     void setInitialDcmPosition(const Vector3d&);
+    void setComPosition(const Vector3d&);
+    void setNaturalFrequency(const double&);
 
     void setStartTime(const double&);
     void setFinishTime(const double&);
     void setStartValue(const Vector3d&);
     void setFinishValue(const Vector3d&);
 
-    void setExtForce(const Vector3d&);
+    void setExt(const Vector3d&);
 
     void createHTTrajectory();
-    void createExtHTTrajectory();
 
     void ht(const double&);
     void eht(const double&);

@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "desiredValueGenerator.hpp"
 
-void RLS::DesiredValueGenerator::setModel(const WorldModel &worldModel, const TreeModelInfo &info, const ControllerTreeModel &model)
+void RLS::DesiredValueGenerator::setModel(const WorldModel &worldModel, const TreeModelInfo &info, const ControllerTreeModel &model, ConstraintModel &constraintModel)
 {
   if(debug) DEBUG;
 
@@ -14,4 +14,6 @@ void RLS::DesiredValueGenerator::setModel(const WorldModel &worldModel, const Tr
 
   this->info = &info;
   this->model = &model;
+
+  this->constraintModel = &constraintModel;
 }

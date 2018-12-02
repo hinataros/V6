@@ -12,8 +12,10 @@
 
 #include "yamlInfo.hpp"
 
-#include "rlsDynamicsInfo.hpp"
 #include "controllerModel.hpp"
+#include "constraintModel.hpp"
+#include "rlsDynamicsInfo.hpp"
+
 #include "desiredValueGenerator.hpp"
 #include "feedbackController.hpp"
 #include "rlsDynamicsList.hpp"
@@ -41,11 +43,9 @@ namespace RLS{
       double twf;
     } *sequence;
 
-    // selective matrix for forward kinematics
-    Matrix6d bb_ScB;
-
     void initializeExt();
     void setModelInfo(Info&);
+    void setConstraintInfo(ConstraintInfo&);
     void setDefaultConfig();
 
     void readControllerHeader();
@@ -56,37 +56,31 @@ namespace RLS{
     void initializeStateTrigger();
     void localInitialize();
 
-    // // // state transition
+    // state transition
     void updateSequence(const double&, const int&);
     void mapping();
 
-    // triggre config
-    int noTrigger(const double&);
+    // state trigger
+    // ******************************
+    bool extStateTrigger;
+
+    // trigger config
+    int defaultStateTrigger(const double&);
     int checkFootContact(const double&);
     int checkContact(const double&);
 
-    // select trigger
-    int (RLS::RlsDynamics::*customTrigger_ptr)(const double&)=0;
-    map<string, int (RLS::RlsDynamics::*)(const double&)> map_customTrigger;
+    // state trigger
+    int (RLS::RlsDynamics::*stateTrigger_ptr)(const double&)=0;
+    map<string, int (RLS::RlsDynamics::*)(const double&)> stateTrigger_map;
 
     int stateTrigger(const double&);
     bool sequenceTrigger(const double&, const int&);
 
     bool configurationManager(const double&);
+    void reconfigure();
 
     void allReadController();
     void readController();
-
-    void reconfigure();
-
-    // update
-    // ******************************
-    void decompose();
-    void objective();
-    void rename();
-    void update();
-
-    // ******************************
 
     // control method
     // ******************************
@@ -138,7 +132,6 @@ namespace RLS{
     VectorXd baseGeneralizedMomentum();
     VectorXd mixedGeneralizedMomentum();
     VectorXd accelerationSolver();
-    VectorXd hogehogeMomentum();
     VectorXd rcamd();
 
     // velocity dumper
@@ -231,79 +224,15 @@ namespace RLS{
 
     const WorldModel *worldModel;
     const ControllerTreeModel *model;
+    ConstraintModel constraintModel;
 
     YamlInfo yamlInfo;
 
     DesiredValueGenerator des;
     FeedbackController fb;
 
-    MatrixXi Bc_kDiag;
-    MatrixXd Bc_k;
-
-    MatrixXi Bm_kDiag;
-    MatrixXd Bm_k;
-
-    MatrixXi BpDiag;
-    MatrixXd Bp;
-
     // // transform offset
     // Vector3d *rkk;
-
-    // jacobian
-    // ******************************
-    MatrixXd Bc;
-    MatrixXd Bm;
-    MatrixXd cal_Pc;
-    MatrixXd cal_Pm;
-    MatrixXd cal_Jc;
-    MatrixXd cal_Jm;
-
-    MatrixXd Jc;
-    MatrixXd Jm;
-    MatrixXd dJc;
-    MatrixXd dJm;
-
-    // diff
-    MatrixXd dBc;
-    MatrixXd dBm;
-    MatrixXd cal_dPc;
-    MatrixXd cal_dPm;
-    MatrixXd cal_dJc;
-    MatrixXd cal_dJm;
-
-    // ******************************
-    MatrixXd Pcf;
-    MatrixXd Pmf;
-    MatrixXd PcMm;
-    MatrixXd cal_PcM;
-    MatrixXd cal_PmM;
-    MatrixXd cal_JcM;
-    MatrixXd cal_JmM;
-
-    MatrixXd JcM;
-    MatrixXd JmM;
-    MatrixXd dJcM;
-    MatrixXd dJmM;
-
-    // diff
-    MatrixXd dPcf;
-    MatrixXd dPmf;
-    MatrixXd dPcMm;
-    MatrixXd cal_dPcM;
-    MatrixXd cal_dPmM;
-    MatrixXd cal_dJcM;
-    MatrixXd cal_dJmM;
-
-    MatrixXd cal_JcHat;
-    MatrixXd cal_JmHat;
-    MatrixXd cal_dJcHat;
-    MatrixXd cal_dJmHat;
-
-    // ******************************
-
-    // objective
-    // ******************************
-    MatrixXd Pc;
 
     // index
     // ******************************
@@ -391,14 +320,14 @@ namespace RLS{
     VectorXd tau;
 
     // others
-    VectorXd getControlNodeVector(const VectorXd, const string, const string);
-    VectorXd getControlNodeVector(const VectorXd, const string, const int, ...);
-    MatrixXd getControlNodeMatrix(const MatrixXd, const bool, const bool, const string, const string);
-    MatrixXd getControlNodeMatrix(const MatrixXd, const bool, const bool, const string, const int, ...);
     Vector2d F2rp(const Vector6d&);
     MatrixXd h_weight(const Vector2d&);
     MatrixXd h_weight(const Vector2d&, const Vector2d&, const Vector2d&);
 
+    // ext
+    // ********************************
+    int (RLS::Ext::*ext_stateTrigger_ptr)(RlsDynamics*, const double&)=0;
+    map<string, int (RLS::Ext::*)(RlsDynamics*, const double&)> ext_stateTrigger_map;
 
     VectorXd (RLS::Ext::*ext_motionController_ptr)(RlsDynamics*)=0;
     map<string, VectorXd (RLS::Ext::*)(RlsDynamics*)> ext_motionController_map;

@@ -15,8 +15,7 @@ void RLS::Output::dcm(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("dcm");
 
-  setVerticalDat("time");
-  setHorizontalDat("rX");
+  setTimeDependentDat("rX");
   makeDat();
 
   gpMaker.reset();

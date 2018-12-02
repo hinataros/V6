@@ -15,8 +15,7 @@ void RLS::Output::rcMomRef(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("rcLinMomRef");
 
-  setVerticalDat("time");
-  setHorizontalDat("dpRef");
+  setTimeDependentDat("dpRef");
   makeDat();
 
   gpMaker.reset();
@@ -31,8 +30,7 @@ void RLS::Output::rcMomRef(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("rcAngMomRef");
 
-  setVerticalDat("time");
-  setHorizontalDat("dlCRef");
+  setTimeDependentDat("dlCRef");
   makeDat();
 
   gpMaker.reset();

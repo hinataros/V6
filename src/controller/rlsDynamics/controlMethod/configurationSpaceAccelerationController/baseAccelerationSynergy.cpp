@@ -13,19 +13,26 @@ VectorXd RLS::RlsDynamics::baseAccelerationSynergy()
   (this->*operationalSpaceController_ptr)();
 
   // constraint
-  VectorXd ddthcRef = pInv(cal_Jc)*cal_dVcBBarRef;
+  VectorXd ddthcRef = pInv(constraintModel.cal_Jc)*cal_dVcBBarRef;
 
   // mobility
-  MatrixXd cal_JmBar = cal_Jm*N(cal_Jc);
+  MatrixXd cal_JmBar = constraintModel.cal_Jm*N(constraintModel.cal_Jc);
 
-  VectorXd cal_dVmTildeRef = cal_dVmBBarRef - cal_Jm*ddthcRef;
+  VectorXd cal_dVmTildeRef = cal_dVmBBarRef - constraintModel.cal_Jm*ddthcRef;
   VectorXd ddthmRef = pInv(cal_JmBar)*cal_dVmTildeRef;
 
   // nonlinear
-  VectorXd hc = cal_dPc.transpose()*model->cal_VB + cal_dJc*model->dth;
-  VectorXd hm = -dBm.transpose()*model->cal_V + cal_dPm.transpose()*model->cal_VB + cal_dJm*model->dth;
+  VectorXd hc =
+    constraintModel.cal_dPc.transpose()*model->cal_VB
+    + constraintModel.cal_dJc*model->dth;
+  VectorXd hm =
+    -constraintModel.dBm.transpose()*model->cal_V
+    + constraintModel.cal_dPm.transpose()*model->cal_VB
+    + constraintModel.cal_dJm*model->dth;
 
-  VectorXd h = pInv(cal_Jc)*hc + pInv(cal_JmBar)*(hm - cal_Jm*pInv(cal_Jc)*hc);
+  VectorXd h =
+    pInv(constraintModel.cal_Jc)*hc +
+    pInv(cal_JmBar)*(hm - constraintModel.cal_Jm*pInv(constraintModel.cal_Jc)*hc);
 
   ddthRef = ddthcRef + ddthmRef - h;
 

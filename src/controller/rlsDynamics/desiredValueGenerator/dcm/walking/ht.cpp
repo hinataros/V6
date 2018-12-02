@@ -10,7 +10,7 @@ void RLS::Walking::ht(const double &t)
 {
   if(debug) DEBUG;
 
-  double tf = ht_config.tstab + ht_config.dtstep*(1.-ht_config.alphaHTstep) + ht_config.dtstep*(ht_config.stepNum-1);
+  double tf = ht_config.tstab + ht_config.dtstep*(1.-ht_config.alphaHTstep) + ht_config.dtstep*(ht_config.convergenceNum-1);
 
   double twalk = t - ht_config.tstab;
   if(round_cast(t, 3)<round_cast(ht_config.tstab, 3)){
@@ -116,7 +116,7 @@ void RLS::Walking::ht(const double &t)
     }
   }
   else{
-    rXDes = rXHT.col(ht_config.stepNum);
-    drXDes = wX*(rXDes - rXHT.col(ht_config.stepNum));
+    rXDes = rXHT.col(ht_config.convergenceNum);
+    drXDes = wX*(rXDes - rXHT.col(ht_config.convergenceNum));
   }
 }

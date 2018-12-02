@@ -43,6 +43,7 @@ include_directories(${PROJECT_SOURCE_DIR}/include/solver)
 include_directories(${PROJECT_SOURCE_DIR}/include/controller)
 include_directories(${PROJECT_SOURCE_DIR}/include/controller/sharedMemory)
 include_directories(${PROJECT_SOURCE_DIR}/include/controller/controllerModel)
+include_directories(${PROJECT_SOURCE_DIR}/include/controller/constraintModel)
 include_directories(${PROJECT_SOURCE_DIR}/include/controller/desiredValueGenerator)
 include_directories(${PROJECT_SOURCE_DIR}/include/controller/feedbackController)
 include_directories(${PROJECT_SOURCE_DIR}/include/controller/rlsDynamics)
@@ -70,6 +71,12 @@ if(rls_thirdparty_yaml-cpp)
   set(LDFLAGS yaml-cpp)
 endif()
 
+if(rls_thirdparty_quaternion)
+  include_directories(${PROJECT_SOURCE_DIR}/thirdparty/quaternion/include)
+  link_directories(${CMAKE_BINARY_DIR}/thirdparty/quaternion)
+  set(LDFLAGS ${LDFLAGS} quaternion)
+endif()
+
 if(rls_thirdparty_QuadProgpp)
   add_definitions(-DQUADPROGPP)
   include_directories(${PROJECT_SOURCE_DIR}/thirdparty/QuadProgpp/src)
@@ -79,14 +86,11 @@ endif()
 
 add_subdirectory(common)
 
-add_subdirectory(quaternion)
-
 add_subdirectory(config)
 add_subdirectory(model)
 add_subdirectory(output)
 set(sources
   ${common_srcs}
-  ${quaternion_srcs}
   ${config_srcs}
   ${model_srcs}
   ${output_srcs}

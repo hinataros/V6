@@ -54,7 +54,6 @@ void RLS::RlsDynamics::setControllerMap()
   motionController_map["baseGeneralizedMomentum"] = &RLS::RlsDynamics::baseGeneralizedMomentum;
   motionController_map["mixedGeneralizedMomentum"] = &RLS::RlsDynamics::mixedGeneralizedMomentum;
   motionController_map["accelerationSolver"] = &RLS::RlsDynamics::accelerationSolver;
-  motionController_map["hogehogeMomentum"] = &RLS::RlsDynamics::hogehogeMomentum;
   motionController_map["rcamd"] = &RLS::RlsDynamics::rcamd;
 
   // internal force controller

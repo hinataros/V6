@@ -12,25 +12,25 @@ VectorXd RLS::RlsDynamics::mixedGeneralizedMomentum()
 
   (this->*operationalSpaceController_ptr)();
 
-  MatrixXd ACBar = MatrixXd::Zero(6+info.constraint.c.all, info.model.dof.all);
+  MatrixXd ACBar = MatrixXd::Zero(6+info.constraint->c.all, info.model.dof.all);
   ACBar <<
     model->cal_AM,
-    JcM;
+    constraintModel.JcM;
 
-  MatrixXd dACBar = MatrixXd::Zero(6+info.constraint.c.all, info.model.dof.all);
+  MatrixXd dACBar = MatrixXd::Zero(6+info.constraint->c.all, info.model.dof.all);
   dACBar <<
     model->cal_dAM,
-    dJcM;
+    constraintModel.dJcM;
 
-  VectorXd cal_dLCBarRef = VectorXd::Zero(6+info.constraint.c.all);
+  VectorXd cal_dLCBarRef = VectorXd::Zero(6+info.constraint->c.all);
   cal_dLCBarRef.head(6) = cal_dLCRef;
 
   VectorXd ddqLCRef = pInv(ACBar)*(cal_dLCBarRef - dACBar*model->dqM);
 
-  MatrixXd JmMBar = JmM*N(ACBar);
+  MatrixXd JmMBar = constraintModel.JmM*N(ACBar);
 
-  VectorXd dVmBarRef = cal_dVmBarRef + dBm.transpose()*model->cal_V;
-  VectorXd dVmTildeRef = dVmBarRef - dJmM*model->dqM - JmM*ddqLCRef;
+  VectorXd dVmBarRef = cal_dVmBarRef + constraintModel.dBm.transpose()*model->cal_V;
+  VectorXd dVmTildeRef = dVmBarRef - constraintModel.dJmM*model->dqM - constraintModel.JmM*ddqLCRef;
 
   VectorXd ddqmRef = N(ACBar)*pInv(JmMBar)*dVmTildeRef;
 

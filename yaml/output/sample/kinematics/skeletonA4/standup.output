@@ -1,0 +1,85 @@
+# @author Sho Miyahara 2018
+
+result:
+  composite data name: cmp
+  individual data name: ind
+
+gp:
+  check: false
+  sampling time: 10
+  start time offset: 0.
+
+tex:
+  title: Simulation results
+  layout:
+    -
+      file name: base
+      caption: Base values.
+      elements:
+        -
+          file name: basePos
+          time-dependent dat:
+            name: tree model rB
+          y label: Base pos. [mm]
+          unit: m
+          dimention: 3
+
+        -
+          file name: baseOrient
+          time-dependent dat:
+            name: tree model xiB
+          y label: Base orient. [deg]
+          unit: RAD2DEG
+          dimention: 3
+    -
+      file name: baseDes
+      caption: Desired base values.
+      elements:
+        -
+          file name: basePosDes
+          time-dependent dat:
+            name: rBDes
+          y label: Des. base pos. [mm]
+          unit: m
+          dimention: 3
+        -
+          file name: baseOrientDes
+          time-dependent dat:
+            name: xiBDes
+          y label: Des. base orient. [deg]
+          unit: RAD2DEG
+          dimention: 3
+
+gif:
+  sampling time: 100
+  link color: grey
+  joint color: black
+  out:
+    terminal: true
+    dir: true
+  plane:
+    y-z:
+      x min: -0.5
+      x max: 0.5
+      y min: -0.5
+      y max: 0.5
+    x-z:
+      x min: -0.5
+      x max: 0.5
+      y min: -0.5
+      y max: 0.5
+    x-y:
+      x min: -0.5
+      x max: 0.5
+      y min: -0.5
+      y max: 0.5
+    3D:
+      x min: -0.5
+      x max: 0.5
+      y min: -0.5
+      y max: 0.5
+      z min: -0.5
+      z max: 0.5
+
+choreonoid:
+  sampling time: 10

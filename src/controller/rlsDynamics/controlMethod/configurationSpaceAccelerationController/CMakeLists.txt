@@ -13,7 +13,6 @@ set(srcs
   baseGeneralizedMomentum.cpp
   mixedGeneralizedMomentum.cpp
   accelerationSolver.cpp
-  hogehogeMomentum.cpp
   rcamd.cpp
   )
 

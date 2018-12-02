@@ -142,10 +142,9 @@ links:
                 rotation: [ 1, 0, 0, 0 ]
                 geometry: { type: Capsule, radius: 0.0025, height: 0.159 }
                 appearance: *bodyColor
-
-          -
-            type: Collision
-            elements: *ROOT
+          # -
+          #   type: Collision
+          #   elements: *ROOT
   -
     name: RLEG1
     parent: ROOT
@@ -185,9 +184,9 @@ links:
                 rotation: *X
                 geometry: { type: Capsule, radius: 0.0025, height: 0.015 }
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *RLEG1
+          # -
+          #   type: Collision
+          #   elements: *RLEG1
   -
     name: RLEG2
     parent: RLEG1
@@ -236,9 +235,9 @@ links:
                 translation: [ 0.0, -0.00875, 0 ]
                 geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *RLEG2
+          # -
+          #   type: Collision
+          #   elements: *RLEG2
   -
     name: RLEG3
     parent: RLEG2
@@ -285,9 +284,9 @@ links:
                 translation: [ 0, -0.00875, -0.1 ]
                 geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *RLEG3
+          # -
+          #   type: Collision
+          #   elements: *RLEG3
   -
     name: RLEG4
     parent: RLEG3
@@ -330,9 +329,9 @@ links:
                 rotation: *X
                 geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *RLEG4
+          # -
+          #   type: Collision
+          #   elements: *RLEG4
   -
     name: RLEG5
     parent: RLEG4
@@ -381,9 +380,9 @@ links:
                 rotation: *Z
                 geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *RLEG5
+          # -
+          #   type: Collision
+          #   elements: *RLEG5
   -
     name: RLEG6
     parent: RLEG5
@@ -415,9 +414,9 @@ links:
                 rotation: *X
                 geometry: { type: Capsule, radius: 0.0025, height: 0.027 }
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *RLEG6
+          # -
+          #   type: Collision
+          #   elements: *RLEG6
   -
     name: RLEGEE
     parent: RLEG6
@@ -431,7 +430,6 @@ links:
             rotation: &Y [ 0, 1, 0, 90 ]
             translation: [ 0.009, 0.0, 0.005 ]
             geometry: &FOOT { type: Box, size: [ 0.01, 0.063, 0.098 ] }
-            # geometry: &FOOT { type: Box, size: [ 0.01, 0.042, 0.0653 ] }
             appearance: *bodyColor
       -
         type: Collision
@@ -479,9 +477,9 @@ links:
                 rotation: *X
                 geometry: { type: Capsule, radius: 0.0025, height: 0.015 }
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *LLEG1
+          # -
+          #   type: Collision
+          #   elements: *LLEG1
   -
     name: LLEG2
     parent: LLEG1
@@ -532,9 +530,9 @@ links:
                 translation: [ 0, 0.00875, 0 ]
                 geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *LLEG2
+          # -
+          #   type: Collision
+          #   elements: *LLEG2
   -
     name: LLEG3
     parent: LLEG2
@@ -583,9 +581,9 @@ links:
                 translation: [ 0.0, 0.00875, -0.1 ]
                 geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *LLEG3
+          # -
+          #   type: Collision
+          #   elements: *LLEG3
   -
     name: LLEG4
     parent: LLEG3
@@ -628,9 +626,9 @@ links:
                 rotation: *X
                 geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *LLEG4
+          # -
+          #   type: Collision
+          #   elements: *LLEG4
   -
     name: LLEG5
     parent: LLEG4
@@ -679,9 +677,9 @@ links:
                 rotation: *Z
                 geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *LLEG5
+          # -
+          #   type: Collision
+          #   elements: *LLEG5
   -
     name: LLEG6
     parent: LLEG5
@@ -715,9 +713,9 @@ links:
                 rotation: *X
                 geometry: { type: Capsule, radius: 0.0025, height: 0.027 }
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *LLEG6
+          # -
+          #   type: Collision
+          #   elements: *LLEG6
   -
     name: LLEGEE
     parent: LLEG6
@@ -781,9 +779,9 @@ links:
                 rotation: *X
                 geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *RARM1
+          # -
+          #   type: Collision
+          #   elements: *RARM1
   -
     name: RARM2
     parent: RARM1
@@ -815,9 +813,9 @@ links:
                 rotation: *Z
                 geometry: { type: Capsule, radius: 0.0025, height: 0.02 }
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *RARM2
+          # -
+          #   type: Collision
+          #   elements: *RARM2
   -
     name: RARM3
     parent: RARM2
@@ -867,9 +865,9 @@ links:
                 rotation: *Z
                 geometry: { type: Capsule, radius: 0.0025, height: 0.066 }
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *RARM3
+          # -
+          #   type: Collision
+          #   elements: *RARM3
   -
     name: RARM4
     parent: RARM3
@@ -916,9 +914,9 @@ links:
                 rotation: *Z
                 geometry: { type: Capsule, radius: 0.0025, height: 0.08725}
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *RARM4
+          # -
+          #   type: Collision
+          #   elements: *RARM4
   -
     name: RARM5
     parent: RARM4
@@ -956,9 +954,9 @@ links:
                 rotation: *Z
                 geometry: { type: Capsule, radius: 0.0025, height: 0.0125}
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *RARM5
+          # -
+          #   type: Collision
+          #   elements: *RARM5
   -
     name: RARM6
     parent: RARM5
@@ -994,9 +992,9 @@ links:
                 rotation: *Z
                 geometry: { type: Capsule, radius: 0.0025, height: 0.0125}
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *RARM6
+          # -
+          #   type: Collision
+          #   elements: *RARM6
   -
     name: RARM7
     parent: RARM6
@@ -1028,9 +1026,9 @@ links:
                 rotation: *Z
                 geometry: { type: Capsule, radius: 0.0025, height: 0.01 }
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *RARM7
+          # -
+          #   type: Collision
+          #   elements: *RARM7
   -
     name: RARMEE
     parent: RARM7
@@ -1095,9 +1093,9 @@ links:
                 rotation: *X
                 geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *LARM1
+          # -
+          #   type: Collision
+          #   elements: *LARM1
   -
     name: LARM2
     parent: LARM1
@@ -1128,9 +1126,9 @@ links:
                 rotation: *Z
                 geometry: { type: Capsule, radius: 0.0025, height: 0.02 }
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *LARM2
+          # -
+          #   type: Collision
+          #   elements: *LARM2
   -
     name: LARM3
     parent: LARM2
@@ -1180,9 +1178,9 @@ links:
                 rotation: *Z
                 geometry: { type: Capsule, radius: 0.0025, height: 0.066 }
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *LARM3
+          # -
+          #   type: Collision
+          #   elements: *LARM3
   -
     name: LARM4
     parent: LARM3
@@ -1229,9 +1227,9 @@ links:
                 rotation: *Z
                 geometry: { type: Capsule, radius: 0.0025, height: 0.08725}
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *LARM4
+          # -
+          #   type: Collision
+          #   elements: *LARM4
   -
     name: LARM5
     parent: LARM4
@@ -1269,9 +1267,9 @@ links:
                 rotation: *Z
                 geometry: { type: Capsule, radius: 0.0025, height: 0.0125}
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *LARM5
+          # -
+          #   type: Collision
+          #   elements: *LARM5
   -
     name: LARM6
     parent: LARM5
@@ -1307,9 +1305,9 @@ links:
                 rotation: *Z
                 geometry: { type: Capsule, radius: 0.0025, height: 0.0125 }
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *LARM6
+          # -
+          #   type: Collision
+          #   elements: *LARM6
   -
     name: LARM7
     parent: LARM6
@@ -1341,9 +1339,9 @@ links:
                 rotation: [ 0, 0, 1, 90 ]
                 geometry: { type: Capsule, radius: 0.0025, height: 0.01 }
                 appearance: *bodyColor
-          -
-            type: Collision
-            elements: *LARM7
+          # -
+          #   type: Collision
+          #   elements: *LARM7
   -
     name: LARMEE
     parent: LARM7

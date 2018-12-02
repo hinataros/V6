@@ -15,8 +15,7 @@ void RLS::Output::comErr(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("comErr");
 
-  setVerticalDat("time");
-  setHorizontalDat("erC");
+  setTimeDependentDat("erC");
   makeDat();
 
   gpMaker.reset();
@@ -32,8 +31,7 @@ void RLS::Output::comErr(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("comVelErr");
 
-  setVerticalDat("time");
-  setHorizontalDat("evC");
+  setTimeDependentDat("evC");
   makeDat();
 
   gpMaker.reset();

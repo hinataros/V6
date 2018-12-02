@@ -11,7 +11,7 @@ VectorXd RLS::RlsDynamics::workAcceleration()
   if(debug) DEBUG;
 
   // mobility
-  ddthRef = pInv(cal_Jm)*(cal_dVmBarRef - cal_dJm*model->dth);
+  ddthRef = pInv(constraintModel.cal_Jm)*(cal_dVmBarRef - constraintModel.cal_dJm*model->dth);
 
   ddqBRef <<
     fb.cal_dVBfb,

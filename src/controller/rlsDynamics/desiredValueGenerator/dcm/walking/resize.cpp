@@ -29,7 +29,7 @@ void RLS::Walking::resize()
   rXpreDes = Vector3d::Zero();
   rXf = Vector3d::Zero();
 
-  ht_config.stepNum = 0;
+  ht_config.convergenceNum = 0;
   ht_config.dtstep = 0.;
   ht_config.dtDSstep = 0.;
   ht_config.alphaDSstep = 0.;
@@ -40,10 +40,12 @@ void RLS::Walking::resize()
 
   ht_config.tstab = 0.;
 
+  vwpNum = 0;
+  convergencePhaseNum = 1;
+
   phaseDS = 0;
   flagDS = true;
 
-  stepNum = 0;
   stepPhase = 0;
   tstep0 = 0.;
   tstep = 0.;
@@ -55,5 +57,5 @@ void RLS::Walking::resize()
   support = 0;
 
   // ext HT
-  fext = Vector3d::Zero();
+  rext = Vector3d::Zero();
 }

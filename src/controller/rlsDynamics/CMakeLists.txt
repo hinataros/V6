@@ -1,12 +1,12 @@
 # @author Sho Miyahara 2018
 
 add_subdirectory(model)
+add_subdirectory(constraintModel)
 add_subdirectory(yamlInfo)
 add_subdirectory(configurationManager)
 add_subdirectory(desiredValueGenerator)
 add_subdirectory(feedbackController)
 add_subdirectory(readController)
-add_subdirectory(update)
 add_subdirectory(controlMethod)
 add_subdirectory(outputConfig)
 
@@ -20,12 +20,12 @@ add_subdirectory(rlsDynamics)
 set(rlsDynamics_srcs
   ${initialize_srcs}
   ${model_srcs}
+  ${constraintModel_srcs}
   ${yamlInfo_srcs}
   ${configurationManager_srcs}
   ${desiredValueGenerator_srcs}
   ${feedbackController_srcs}
   ${readController_srcs}
-  ${update_srcs}
   ${controlMethod_srcs}
   ${index_srcs}
   ${transform_srcs}

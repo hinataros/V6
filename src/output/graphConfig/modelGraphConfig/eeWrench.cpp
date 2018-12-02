@@ -16,8 +16,7 @@ void RLS::Output::eeWrench(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("eeForce");
 
-  setVerticalDat("time");
-  setHorizontalDat("tree model f");
+  setTimeDependentDat("tree model f");
   makeDat();
 
   gpMaker.reset();
@@ -33,8 +32,7 @@ void RLS::Output::eeWrench(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("eeMoment");
 
-  setVerticalDat("time");
-  setHorizontalDat("tree model n");
+  setTimeDependentDat("tree model n");
   makeDat();
 
   gpMaker.reset();

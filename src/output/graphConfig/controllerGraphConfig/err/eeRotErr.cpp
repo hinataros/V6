@@ -16,8 +16,7 @@ void RLS::Output::eeRotErr(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("eeOrientErr");
 
-  setVerticalDat("time");
-  setHorizontalDat("eo");
+  setTimeDependentDat("eo");
   makeDat();
 
   gpMaker.reset();
@@ -33,8 +32,7 @@ void RLS::Output::eeRotErr(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("eeAngVelErr");
 
-  setVerticalDat("time");
-  setHorizontalDat("ew");
+  setTimeDependentDat("ew");
   makeDat();
 
   gpMaker.reset();

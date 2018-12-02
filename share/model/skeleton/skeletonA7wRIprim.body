@@ -941,6 +941,7 @@ links:
     jointId: 16
     jointType: revolute
     jointAxis: X
+    rotorInertia: 0.0187
     translation: [ 0.1097, 0, 0 ]
     elements:
       -
@@ -981,6 +982,7 @@ links:
     jointId: 17
     jointType: revolute
     jointAxis: Y
+    rotorInertia: 0.0187
     elements:
       -
         type: RigidBody
@@ -1019,6 +1021,7 @@ links:
     jointId: 18
     jointType: revolute
     jointAxis: X
+    rotorInertia: 0.0187
     elements:
       -
         type: RigidBody
@@ -1257,6 +1260,7 @@ links:
     jointId: 23
     jointType: revolute
     jointAxis: X
+    rotorInertia: 0.0187
     translation: [ 0.1097, 0, 0 ]
     elements:
       -
@@ -1297,6 +1301,7 @@ links:
     jointId: 24
     jointType: revolute
     jointAxis: Y
+    rotorInertia: 0.0187
     elements:
       -
         type: RigidBody
@@ -1335,6 +1340,7 @@ links:
     jointId: 25
     jointType: revolute
     jointAxis: X
+    rotorInertia: 0.0187
     elements:
       -
         type: RigidBody

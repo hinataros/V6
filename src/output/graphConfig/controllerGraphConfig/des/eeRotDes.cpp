@@ -16,8 +16,7 @@ void RLS::Output::eeRotDes(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("eeOrientDes");
 
-  setVerticalDat("time");
-  setHorizontalDat("xiDes");
+  setTimeDependentDat("xiDes");
   makeDat();
 
   gpMaker.reset();
@@ -34,8 +33,7 @@ void RLS::Output::eeRotDes(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("eeAngVelDes");
 
-  setVerticalDat("time");
-  setHorizontalDat("wDes");
+  setTimeDependentDat("wDes");
   makeDat();
 
   gpMaker.reset();
@@ -51,8 +49,7 @@ void RLS::Output::eeRotDes(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("eeAngAccDes");
 
-  setVerticalDat("time");
-  setHorizontalDat("dwDes");
+  setTimeDependentDat("dwDes");
   makeDat();
 
   gpMaker.reset();

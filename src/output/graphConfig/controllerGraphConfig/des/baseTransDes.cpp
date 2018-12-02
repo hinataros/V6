@@ -15,8 +15,7 @@ void RLS::Output::baseTransDes(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("basePosDes");
 
-  setVerticalDat("time");
-  setHorizontalDat("rBDes");
+  setTimeDependentDat("rBDes");
   makeDat();
 
   gpMaker.reset();
@@ -32,8 +31,7 @@ void RLS::Output::baseTransDes(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("baseVelDes");
 
-  setVerticalDat("time");
-  setHorizontalDat("vBDes");
+  setTimeDependentDat("vBDes");
   makeDat();
 
   gpMaker.reset();
@@ -48,8 +46,7 @@ void RLS::Output::baseTransDes(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("baseAccDes");
 
-  setVerticalDat("time");
-  setHorizontalDat("dvBDes");
+  setTimeDependentDat("dvBDes");
   makeDat();
 
   gpMaker.reset();
