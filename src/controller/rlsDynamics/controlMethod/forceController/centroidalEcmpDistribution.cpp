@@ -15,6 +15,8 @@ void RLS::RlsDynamics::centroidalEcmpDistribution()
   Vector2d recmp = (des.rXDes - des.drXDes/model->wX).head(2);
   MatrixXd Wecmpc = h_weight(recmp);
 
+  cal_FcaBarRef = VectorXd::Zero(info.constraint->c.all);
+
   cal_FcBarRef =
     pInv(constraintModel.cal_PcM, Wecmpc)*(cal_dLCRef + model->cal_GC)
     + N(constraintModel.cal_PcM)*cal_FcaBarRef;

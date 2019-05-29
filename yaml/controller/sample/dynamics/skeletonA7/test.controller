@@ -23,10 +23,10 @@ controller:
       base rotation: {name: CP}
       control node translation:
         RARMEE: {num: 0, name: CP}
-        LARMEE: {num: 1, name: CP}
+        LARMEE: {num: 0, name: CP}
       control node rotation:
         RARMEE: {num: 0, name: CP}
-        LARMEE: {num: 1, name: CP}
+        LARMEE: {num: 0, name: CP}
 
     Bc:
       RLEGEE: [1, 1, 1, 1, 1, 1]
@@ -48,6 +48,9 @@ controller:
       RARMEE: 5.e+1
       LARMEE: 5.e+1
 
+    # Kpw:
+    #   RARMEE: 0.
+    #   LARMEE: 0.
     Kpw:
       RARMEE: 3.e+2
       LARMEE: 3.e+2
@@ -65,18 +68,18 @@ controller:
       -
         twf: 1.
       -
+        twf: 3.
+        rf:
+          LARMEE: [0.1, 0., 0.1]
+        xif:
+          LARMEE: [0., 60., 90.]
+    -
+      -
+        twf: 1.
+      -
         twf: 2.
         xiBf: [0., 30., 0.]
       -
         twf: 1.
         rf:
           RARMEE: [0., 0., 0.1]
-    -
-      -
-        twf: 1.
-      -
-        twf: 3.
-        rf:
-          LARMEE: [0.1, 0., 0.1]
-        xif:
-          LARMEE: [0., 60., 90.]

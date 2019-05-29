@@ -6,6 +6,7 @@
 #define SOLVER_HPP_
 
 #include "quadProgpp.hpp"
+#include "convexSolver.hpp"
 
 namespace RLS{
   class Solver:

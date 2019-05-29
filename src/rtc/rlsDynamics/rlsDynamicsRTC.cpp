@@ -103,7 +103,6 @@ RTC::ReturnCode_t RlsDynamicsRTC::onActivated(RTC::UniqueId ec_id)
   model.update();
   tau = rlsDynamics.rlsDynamics(t);
   Fext = rlsDynamics.virtualInput;
-
   // if(config.shm.flag){
   //   writeSharedData(model.hoap2.tm_list, rlsDynamics.dc_list, sharedData);
   //   sharedMemory.putData(&sharedData);
@@ -152,6 +151,7 @@ RTC::ReturnCode_t RlsDynamicsRTC::onDeactivated(RTC::UniqueId ec_id)
   for(int i=0; i<controllerNum; i++)
     output.rlsDynamicsList_temp[i] = rlsDynamics.outputList;
   output.extList_temp = rlsDynamics.extList;
+  output.footPrintList_op = rlsDynamics.footPrintList; // amiyata
 
   output.pushBack(t);
 

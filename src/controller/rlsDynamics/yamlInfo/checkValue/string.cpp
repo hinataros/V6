@@ -120,4 +120,22 @@ namespace RLS{
 
     return true;
   }
+  template<>
+  bool RLS::YamlInfo::checkValue(MatrixXi &value, const string name)
+  {
+    unsigned size = value.diagonal().size();
+
+    if(localKey[key][name]){
+      if(localKey[key][name].size()==0)
+        for(unsigned i=0; i<size; i++)
+          value(i,i) = localKey[key][name].as<int>();
+
+      if(localKey[key][name].size()==size)
+        for(unsigned i=0; i<size; i++)
+          value(i,i) = localKey[key][name][i].as<int>();
+    }else
+      return false;
+
+    return true;
+  }
 }

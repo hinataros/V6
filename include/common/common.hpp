@@ -31,6 +31,8 @@ namespace RLS{
     MatrixXd dpInv(MatrixXd, MatrixXd);
     MatrixXd dN(MatrixXd, MatrixXd);
 
+    Matrix3d inverse3d(Matrix3d); // amiyata
+
     Vector3d R2xi(Matrix3d);
     Matrix3d xi2R(Vector3d);
     Vector3d dxi2w(Vector3d, Vector3d);

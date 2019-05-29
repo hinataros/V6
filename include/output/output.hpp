@@ -229,6 +229,7 @@ namespace RLS{
     // // smiyahara: 要検討
     TreeModelList *treeModelList_temp;
     RlsDynamicsList *rlsDynamicsList_temp;
+    vector<Vector3d> footPrintList_op; //amiyata
     ExtList extList_temp;
 
     void initialize(const string&, const string&, Info&, const int&, const WorldModel &worldModel);

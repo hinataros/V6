@@ -58,6 +58,7 @@ include_directories(${OPENRTM_INCLUDE_DIRS})
 add_definitions(${OPENRTM_CFLAGS})
 add_definitions(${OMNIORB_CFLAGS})
 add_definitions("-O2 -MMD -MP -Wall -Wextra -std=c++11")
+add_definitions("-Wno-unused-parameter -Wno-unused-variable -Wno-unused-but-set-variable -Wno-ignored-qualifiers")
 
 # MAP_ADD_STR(comp_hdrs "../" comp_headers)
 

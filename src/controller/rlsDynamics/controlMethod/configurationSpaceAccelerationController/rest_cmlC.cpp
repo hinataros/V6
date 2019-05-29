@@ -38,9 +38,11 @@ VectorXd RLS::RlsDynamics::rest_cmlC()
   VectorXd ddthlCRef = N(constraintModel.cal_JcM)*N(cal_JmMBar)*pInv(HCBar)*(dlCTildeRef - model->cmm);
 
   // redundancy
-  VectorXd ddthnRef = N(constraintModel.cal_JcM)*N(cal_JmMBar)*N(HCBar)*ddthD();
+  // VectorXd ddthnRef = N(constraintModel.cal_JcM)*N(cal_JmMBar)*N(HCBar)*ddthD();
+  VectorXd ddthnRef = N(constraintModel.cal_JcM)*N(cal_JmMBar)*ddthD();
 
-  ddthRef = ddthcRef + ddthmRef + ddthlCRef + ddthnRef;
+  // ddthRef = ddthcRef + ddthmRef + ddthlCRef + ddthnRef;
+  ddthRef = ddthcRef + ddthmRef + ddthnRef;
 
   ddqMRef <<
     fb.cal_dVMfb,

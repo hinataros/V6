@@ -40,11 +40,14 @@ namespace RLS{
     MatrixXd Kpv;
     MatrixXd Kdv;
 
+    Matrix3d KDwC; //amiyata
+
     // base translation
     void baseTranslationPI();
 
     // base rotation
     void baseRotationPI();
+    void baseRotationCentroidalAngularDamping(); //amiyata
 
     // control node motion
     void controlNodeMotionPI();

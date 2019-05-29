@@ -38,6 +38,8 @@ void RLS::FeedbackController::readController()
 
   yamlInfo->checkValue<Matrix3d>(KX, "KX");
 
+  yamlInfo->checkValue<Matrix3d>(KDwC, "KDwC"); // amiyata
+
   for(int i=0; i<info->controlNodeNum; i++){
     string name = info->controlNode[i].name;
 

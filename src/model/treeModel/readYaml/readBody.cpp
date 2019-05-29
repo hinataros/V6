@@ -81,6 +81,74 @@ void RLS::TreeModel::readBody()
         sensorName.push_back(link[i].name);
       }
     }
+
+    // amiyata get foot size
+    link[i].eeSize = MatrixXd::Zero(0,0);
+    string EEnames[4] = {"RLEGEE", "LLEGEE", "RARMEE", "LARMEE"};
+
+    for(int ee=0; ee<4; ee++) {
+      if(link[i].name == EEnames[ee]) {
+        string typeBox;
+        try{
+          typeBox = doc["links"][i]["elements"][0]["elements"][0]["geometry"]["type"].as<string>();
+        }catch(...){typeBox = "non";}
+        if(typeBox != "Box"){
+          // cout << "EE not bo or primitive!" << endl;
+          break;
+        }
+
+        Vector3d trans, box;
+        Vector3i rot=Vector3i::Zero();
+        double rotate=0.;
+        try{
+          rotate = doc["links"][i]["elements"][0]["elements"][0]["rotation"][3].as<double>();
+        }catch(...){rotate = 0.;}
+        for(int sq=0; sq<3; sq++){
+          try{
+            trans(sq) = doc["links"][i]["elements"][0]["elements"][0]["translation"][sq].as<double>();
+          }catch(...){trans=Vector3d::Zero();}
+          try{
+            rot(sq) = doc["links"][i]["elements"][0]["elements"][0]["rotation"][sq].as<int>();
+          }catch(...){rot << 1,0,0;}
+          try{
+            box(sq) = doc["links"][i]["elements"][0]["elements"][0]["geometry"]["size"][sq].as<double>();
+          }catch(...){box=Vector3d::Zero();}
+        }
+
+        // generate rotation matrix
+        Matrix3d Ree = Matrix3d::Identity();
+        // MatrixXd exR = MatrixXd::Zero(5,5);
+        // exR(2,2) = 1.;
+        // exR(1,0) = exR(1,3) = exR(4,3) = sin(rotate*DEG2RAD);
+        // exR(0,1) = exR(3,1) = exR(3,4) = -sin(rotate*DEG2RAD);
+        // exR(0,0) = exR(1,1) = exR(3,3) = exR(4,4) = cos(rotate*DEG2RAD);
+        // for(int el=0; el<3; el++)
+        //   if(rot(el))
+        //     Ree = exR.block(2-el,2-el, 3,3);
+        if(rot(0))
+          Ree = R("x", rotate*DEG2RAD);
+        else if(rot(1))
+          Ree = R("y", rotate*DEG2RAD);
+        else if(rot(2))
+          Ree = R("z", rotate*DEG2RAD);
+
+        //    y
+        // 3 --- 0
+        // |Front|
+        // |     | x
+        // |(Leg)|
+        // 2 --- 1
+        //
+        link[i].eeSize = MatrixXd::Zero(4,2);
+        link[i].eeSize <<
+          trans(0) + (Ree*box)(0)/2., trans(1) + (Ree*box)(1)/2.,
+          trans(0) - (Ree*box)(0)/2., trans(1) + (Ree*box)(1)/2.,
+          trans(0) - (Ree*box)(0)/2., trans(1) - (Ree*box)(1)/2.,
+          trans(0) + (Ree*box)(0)/2., trans(1) - (Ree*box)(1)/2.;
+      }
+    }
+    // *** amiyata
+
   }
 
   info->sensorNodeNum = sensor.size();

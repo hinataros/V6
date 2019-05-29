@@ -7,6 +7,9 @@ set(srcs
   centroidalEcmpDistribution.cpp
   handWrenchControlAndCentroidalEcmpDistribution.cpp
   distributionSolver.cpp
+  centroidalEcmpInternalDistribution.cpp
+  bwcDistribution.cpp
+  CRBWCbaseDistribution.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" forceController_srcs)

@@ -7,6 +7,7 @@
 #define RAD2DEG 180. * M_1_PI
 
 #define o(x) cout << #x << ":" << endl << setprecision(6) << scientific << x << endl
+#define so(x) cout << #x << ":" << x.rows() << " × " << x.cols() << endl
 #define gc cout << endl << "Please hit any key to continue !!" << endl; getchar()
 
 #define DEBUG cout << "************************************************" << endl \

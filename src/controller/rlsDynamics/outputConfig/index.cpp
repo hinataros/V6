@@ -16,8 +16,15 @@ void RLS::RlsDynamics::outputIndexConfig()
   outputList.pCth = Vector3d::Zero();
   outputList.lCth = model->HC*model->dth;
 
+  if(model->dth.rows() == 20) {
+    outputList.lCthF = model->HC.block(0,0, 3,12) * model->dth.segment(0,12);
+    outputList.lCthH = model->HC.block(0,12, 3,8) * model->dth.segment(12,8);
+  }
+
   outputList.p = model->M*model->vC;
   outputList.lC = model->IC*model->wB + model->HC*model->dth;
+
+  outputList.wC = model->wB + model->IC.inverse()*model->HC*model->dth;
 
   // cop
   outputList.rp = model->rp;
@@ -36,6 +43,9 @@ void RLS::RlsDynamics::outputIndexConfig()
     outputList.rpkx(i) = model->rpk(2*i);
     outputList.rpky(i) = model->rpk(2*i+1);
   }
+
+  outputList.th = model->th;
+  outputList.dth = model->dth;
 
   // cmp
   outputList.rcmp = model->rcmp;

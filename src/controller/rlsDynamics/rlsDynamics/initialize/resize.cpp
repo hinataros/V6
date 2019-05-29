@@ -51,7 +51,10 @@ void RLS::RlsDynamics::resize()
   Kpp = Matrix2d::Zero();
 
   KDlC = Matrix3d::Zero();
+  KDwC = Matrix3d::Zero();
   KDth = MatrixXd::Zero(info.model.dof.joint, info.model.dof.joint);
+  KDdthH = MatrixXd::Zero(info.model.dof.joint, info.model.dof.joint);
+  KDlCH = MatrixXd::Zero(3,3);
   Kthinit = MatrixXd::Zero(info.model.dof.joint, info.model.dof.joint);
 
   // high gain control
@@ -71,6 +74,14 @@ void RLS::RlsDynamics::resize()
 
   // // high gain control
   thDes = VectorXd::Zero(info.model.dof.joint);
+
+  // amiyata
+  BwB_Diag = MatrixXi::Zero(3,3);
+  BLC_Diag = MatrixXi::Zero(6,6);
+  BwC_Diag = MatrixXi::Zero(3,3);
+
+  // amiyata rkk
+  rkk = VectorXd::Zero(3*info.model.controlNodeNum);
 
   sequence = new Sequence[yamlInfo.sequenceNum];
   for(int i=0; i<yamlInfo.sequenceNum; i++){

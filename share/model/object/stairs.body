@@ -4,7 +4,7 @@ name: Stairs
 
 height: &height 0.02
 height: &-height -0.02
-width: &width 0.07
+width: &width 0.08
 
 links:
   -
@@ -13,7 +13,7 @@ links:
   -
     name: 1STEP
     parent: ROOT
-    translation: [ 0.075, 0.039, -0.005 ]
+    translation: [ 0.089, 0.039, -0.005 ]
   -
     name: 2STEP
     parent: 1STEP
@@ -32,7 +32,7 @@ links:
           Shape: &FloorBody
             geometry:
               type: Box
-              size: [ 0.1, 0.1, 0.01 ]
+              size: [ 0.11, 0.09, 0.01 ]
             appearance:
               material:
                 diffuseColor: [ 1, 0, 0 ]

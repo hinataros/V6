@@ -107,4 +107,25 @@ void RLS::ConstraintModel::reconfigure()
   // ******************************
   // Pc = MatrixXd::Zero(2*info.constraint.num,6*info.constraint.num);
   Pc = MatrixXd::Zero(2*BpDiag.diagonal().sum()/2,6*(BpDiag.diagonal().sum()/2));
+
+  // umekage CWC
+  contactLimbs = VectorXi::Zero(info.model->controlNodeNum);
+  int FCNum=0, limbNum=0;
+
+  for(int i=0; i<info.model->controlNodeNum; i++) {
+    if(info.constraint.c.controlNode[i]==6){
+      limbNum ++;
+      FCNum+=2;
+      contactLimbs(i) = 1;
+    }
+    else if(info.constraint.c.controlNode[i]==3){
+      limbNum ++;
+      FCNum++;
+      contactLimbs(i) = 1;
+    }
+  }
+  V_cwc = MatrixXd::Zero(6*limbNum, 4*2*FCNum);
+
+  // umekage CWC
+  V_cwc = compute_CWC_span();
 }

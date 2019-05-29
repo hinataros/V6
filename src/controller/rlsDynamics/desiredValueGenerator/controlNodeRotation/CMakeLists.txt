@@ -3,6 +3,7 @@
 set(srcs
   controlNodeRotationCP.cpp
   controlNodeRotationCPabs.cpp
+  controlNodeRotationCurCP.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" controlNodeRotation_srcs)

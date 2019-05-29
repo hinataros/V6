@@ -19,6 +19,7 @@ namespace RLS{
     void finalize();
 
     void update();
+    void update(VectorXd&); //amiyata rkk
 
     // ControllerModel(const Info &info){
     //   initialize(info);

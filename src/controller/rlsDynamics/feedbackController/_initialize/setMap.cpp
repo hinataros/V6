@@ -17,6 +17,7 @@ void RLS::FeedbackController::setMap()
   // base orientation
   baseRotation_map["default"]
     = &RLS::FeedbackController::baseRotationPI;
+  baseRotation_map["wCDamp"] = &RLS::FeedbackController::baseRotationCentroidalAngularDamping;
 
   // control node motion
   controlNodeMotion_map["default"]

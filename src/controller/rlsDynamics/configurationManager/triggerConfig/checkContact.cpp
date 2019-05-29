@@ -10,12 +10,14 @@ int RLS::RlsDynamics::checkContact(const double &t)
 {
   if(debug) DEBUG;
 
-  bool contactFlag[info.model.controlNodeNum];
+  // bool contactFlag[info.model.controlNodeNum]; //amiyata staticへ
 
   for(int i=0; i<info.model.controlNodeNum; i++){
-    if(model->cal_F(6*i+2)!=0.)
+    if(model->cal_F(6*i+2)!=0.) {
+      if(contactFlag[i]==false && i < 2)
+        footPrintList.push_back(model->r[i]);
       contactFlag[i] = true;
-    else
+    } else
       contactFlag[i] = false;
   }
 
@@ -40,4 +42,3 @@ int RLS::RlsDynamics::checkContact(const double &t)
 
   return 0;
 }
-

@@ -13,7 +13,10 @@ controller:
       inverse dynamics controller: fullDynamicsController
       operational space controller: decomposeEndEffectorAcceleration
       motion controller: mixedGeneralizedMomentum
+      # motion controller: mGDAM
       force controller: centroidalEcmpDistribution
+      # force controller: CRBWCbaseDistribution
+      # force controller: centroidalDcmDistribution
       momentum controller: centroidalVrpMomentum
       torque controller: mixedOpt
 
@@ -23,6 +26,9 @@ controller:
       control node translation:
         RLEGEE: {name: swing}
         LLEGEE: {name: swing}
+
+    feedback controller:
+      CoM: dcmControl
 
     KX: 3.e+2
     KpwB: 3.e+2
@@ -48,6 +54,10 @@ controller:
       [0.,0.,0.,0.,0.,0., 0.,0.,0.,0.,0.,0.,
       *kDthH, *kDthH, *kDthH, *kDthH,
       *kDthH, *kDthH, *kDthH, *kDthH]
+    # KDth:
+    #   [0.,0.,0.,0.,0.,0., 0.,0.,0.,0.,0.,0.,
+    #   *kDthH, *kDthH, *kDthH, *kDthH,
+    #   *kDthH, *kDthH, *kDthH, *kDthH]
     Kthinit:
       [0.,0.,0.,0.,0.,0., 0.,0.,0.,0.,0.,0.,
       *kthHinit, *kthHinit, *kthHinit, *kthHinit,
@@ -59,6 +69,10 @@ controller:
     Bm: &zs
       RLEGEE: [0, 0, 0, 0, 0, 0]
       LLEGEE: [0, 0, 0, 0, 0, 0]
+
+
+    BwB: [1, 1, 1]
+    BLC: [1, 1, 1, 0, 0, 0]
 
   state:
     -
@@ -102,17 +116,41 @@ controller:
       - [*steplength3, 0.039, 0.]
       - [*steplength3, 0., 0.]
 
-    dtstep: .4
-    dtDSstep: &tds 0.1
+    dtstep: .5
+    dtDSstep: &tds 0.2
 
-    twf: &tinitial 0.25
+    twf: &tinitial 0.35
     twf: &tswingleg 0.3
+
+    # dtstep: .4
+    # dtDSstep: &tds 0.1
+    #
+    # twf: &tinitial 0.25
+    # twf: &tswingleg 0.3
+    # dtstep: .5
+    # dtDSstep: &tds .03
+    #
+    # twf: &tinitial 0.265 #0.26で何故かできる
+    # twf: &tswingleg 0.47
+    # dtstep: .5
+    # dtDSstep: &tds .0501 #.5でコアダンプバグ
+    #
+    # twf: &tinitial 0.27 #0.26で何故かできる
+    # twf: &tswingleg 0.45
 
     alphaDSstep: 0.5
     alphaHTstep: 0.5
     offset: 0.01
+    # offset: 0.025
     toe: 0.025
     heel: -0.015
+
+    # alphaDSstep: 0.4
+    # alphaHTstep: 0.6
+    # offset: 0.015
+    # # offset: 0.025
+    # toe: 0.025
+    # heel: 0.
 
     tstab: &tstab 1.
 

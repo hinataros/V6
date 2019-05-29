@@ -59,7 +59,7 @@ void RlsDynamicsRTC::setControlModelState(RLS::TreeModelInfo &info, RLS::TreeMod
   model.writeJointState("joint velocity", dth);
 
   VectorXd FTsensor = VectorXd(m_eeForce.data.length());
-  for(int i=0; i<m_eeForce.data.length(); i++)
+  for(int i=0; i<(signed int)m_eeForce.data.length(); i++)
     FTsensor(i) = m_eeForce.data[i];
 
   model.writeSensorNodeValue("force torque sensor", FTsensor);

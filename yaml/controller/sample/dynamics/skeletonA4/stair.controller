@@ -1,0 +1,370 @@
+# @author Sho Miyahara 2018
+
+angle unit: degree
+
+controller:
+  control model: skeletonA4
+  input: torque
+  driven: mix
+  trigger: check contact
+
+  default:
+    control method:
+      inverse dynamics controller: fullDynamicsController
+      operational space controller: decomposeEndEffectorAcceleration
+      force controller: centroidalEcmpDistribution
+      torque controller: mixedOpt
+      motion controller: mixedGeneralizedMomentum
+      momentum controller: centroidalVrpMomentum
+      # motion controller: wBMGM
+      # motion controller: DivMGM
+      # motion controller: mBADM
+      # momentum controller: centroidalVrpMomentumDamping
+      # momentum controller: CoPReferredCAM
+
+    desired value generator:
+      DCM: {name: HTWalking}
+      base rotation: {name: CP}
+      # base rotation: {name: Swing}
+      control node translation:
+        RLEGEE: {name: swing}
+        LLEGEE: {name: swing}
+
+    feedback controller:
+      CoM: dcmControl
+
+    KX: 3.e+2
+    KpwB: 3.e+1
+    KdwB: 5.e+1
+
+    Kpv:
+      RLEGEE: 5.e+2
+      LLEGEE: 5.e+2
+    Kpw:
+      RLEGEE: 5.e+2
+      LLEGEE: 5.e+2
+    Kdv:
+      RLEGEE: 5.e+1
+      LLEGEE: 5.e+1
+    Kdw:
+      RLEGEE: 5.e+1
+      LLEGEE: 5.e+1
+
+    kDth: &kDthH 1.e+2
+    kthHinit: &kthHinit 1.e+2
+
+    KDth:
+      [0.,0.,0.,0.,0.,0., 0.,0.,0.,0.,0.,0.,
+      *kDthH, *kDthH, *kDthH, *kDthH,
+      *kDthH, *kDthH, *kDthH, *kDthH]
+    Kthinit:
+      [0.,0.,0.,0.,0.,0., 0.,0.,0.,0.,0.,0.,
+      *kthHinit, *kthHinit, *kthHinit, *kthHinit,
+      *kthHinit, *kthHinit, *kthHinit, *kthHinit]
+
+    Bc: &ds
+      RLEGEE: [1, 1, 1, 1, 1, 1]
+      LLEGEE: [1, 1, 1, 1, 1, 1]
+    Bm: &zs
+      RLEGEE: [0, 0, 0, 0, 0, 0]
+      LLEGEE: [0, 0, 0, 0, 0, 0]
+
+  state:
+    -
+      control method:
+        inverse dynamics controller: default
+      Bc: *zs
+      Bm: *zs
+    -
+      control method:
+        inverse dynamics controller: fullDynamicsController
+
+      Bc: *ds
+      Bm: *zs
+
+    -
+      control method:
+        inverse dynamics controller: fullDynamicsController
+      Bc: &ls
+        RLEGEE: [0, 0, 0, 0, 0, 0]
+        LLEGEE: [1, 1, 1, 1, 1, 1]
+      Bm: &rs
+        RLEGEE: [1, 1, 1, 1, 1, 1]
+        LLEGEE: [0, 0, 0, 0, 0, 0]
+    -
+      control method:
+        inverse dynamics controller: fullDynamicsController
+      Bc: *rs
+      Bm: *ls
+
+  walking:
+    height: &height 0.025
+
+    length: &steplength1 0.08
+    length: &steplength2 0.16
+    length: &steplength3 0.24
+    length: &steplength4 0.32
+    length: &steplength5 0.40
+    length: &steplength6 0.48
+    length: &steplength7 0.56
+    length: &steplength8 0.64
+    length: &steplength9 0.72
+    length: &steplength10 0.80
+    length: &steplength11 0.88
+    length: &steplength12 0.96
+    length: &steplength13 1.04
+    length: &steplength14 1.12
+    length: &steplength15 1.20
+
+    vrp waypoint:
+      - [0., -0.039, 0.]
+      - [*steplength1, 0.039, 0.]
+      - [*steplength2, -0.039, 0.02]
+      - [*steplength3, 0.039, 0.04]
+      - [*steplength4, -0.039, 0.06]
+      - [*steplength5, 0.039, 0.08]
+      - [*steplength6, -0.039, 0.10]
+      - [*steplength7, 0.039, 0.12]
+      - [*steplength8, -0.039, 0.12]
+      - [*steplength9, 0.039, 0.10]
+      - [*steplength10, -0.039, 0.08]
+      - [*steplength11, 0.039, 0.06]
+      - [*steplength12, -0.039, 0.04]
+      - [*steplength13, 0.039, 0.02]
+      - [*steplength14, -0.039, 0.]
+      - [*steplength15, 0.039, 0.]
+      - [*steplength15, 0., 0.]
+
+    dtstep: .9
+    dtDSstep: &tds .2
+
+    twf: &tinitial .55
+    twf: &tswingleg .7
+
+    # dtstep: .4 # def
+    # dtDSstep: &tds 0.1
+    #
+    # twf: &tinitial 0.25
+    # twf: &tswingleg 0.3
+
+    alphaDSstep: 0.5
+    alphaHTstep: 0.5
+    offset: 0.01
+    toe: 0.025
+    heel: -0.015
+
+    tstab: &tstab 1.
+
+  swing leg:
+    rfabs: &swingLeg1
+      LLEGEE: [*steplength1, 0.039, 0.02]
+    rfabs: &swingLeg2
+      RLEGEE: [*steplength2, -0.039, 0.025]
+    rfabs: &swingLeg3
+      LLEGEE: [*steplength3, 0.039, 0.045]
+    rfabs: &swingLeg4
+      RLEGEE: [*steplength4, -0.039, 0.065]
+    rfabs: &swingLeg5
+      LLEGEE: [*steplength5, 0.039, 0.085]
+    rfabs: &swingLeg6
+      RLEGEE: [*steplength6, -0.039, 0.105]
+    rfabs: &swingLeg7
+      LLEGEE: [*steplength7, 0.039, 0.125]
+    rfabs: &swingLeg8
+      RLEGEE: [*steplength8, -0.039, 0.125]
+    rfabs: &swingLeg9
+      LLEGEE: [*steplength9, 0.039, 0.125]
+    rfabs: &swingLeg10
+      RLEGEE: [*steplength10, -0.039, 0.125]
+    rfabs: &swingLeg11
+      LLEGEE: [*steplength11, 0.039, 0.105]
+    rfabs: &swingLeg12
+      RLEGEE: [*steplength12, -0.039, 0.085]
+    rfabs: &swingLeg13
+      LLEGEE: [*steplength13, 0.039, 0.065]
+    rfabs: &swingLeg14
+      RLEGEE: [*steplength14, -0.039, 0.045]
+    rfabs: &swingLeg15
+      LLEGEE: [*steplength15, 0.039, 0.025]
+    rfabs: &swingLeg16
+      RLEGEE: [*steplength15, -0.039, 0.02]
+
+  sequence:
+    -
+      twf: *tstab
+    -
+      twf: *tinitial
+
+    # 1 step
+    -
+      twf: *tswingleg
+      Bc: *rs
+      Bm: *ls
+      rfabs: *swingLeg1
+    -
+      twf: *tds
+
+    # 2 step
+    -
+      twf: *tswingleg
+      Bc: *ls
+      Bm: *rs
+      rfabs: *swingLeg2
+      rtd:
+        RLEGEE: [0., 0., 0.02]
+    -
+      twf: *tds
+
+    # 3 step
+    -
+      twf: *tswingleg
+      Bc: *rs
+      Bm: *ls
+      rfabs: *swingLeg3
+      rtd:
+        LLEGEE: [0., 0., 0.04]
+    -
+      twf: *tds
+
+    # 4 step
+    -
+      twf: *tswingleg
+      Bc: *ls
+      Bm: *rs
+      rfabs: *swingLeg4
+      rtd:
+        RLEGEE: [0., 0., 0.06]
+    -
+      twf: *tds
+
+    # 5 step
+    -
+      twf: *tswingleg
+      Bc: *rs
+      Bm: *ls
+      rfabs: *swingLeg5
+      rtd:
+        LLEGEE: [0., 0., 0.08]
+    -
+      twf: *tds
+
+    # 6 step
+    -
+      twf: *tswingleg
+      Bc: *ls
+      Bm: *rs
+      rfabs: *swingLeg6
+      rtd:
+        RLEGEE: [0., 0., 0.10]
+    -
+      twf: *tds
+
+    # 7 step
+    -
+      twf: *tswingleg
+      Bc: *rs
+      Bm: *ls
+      rfabs: *swingLeg7
+      rtd:
+        LLEGEE: [0., 0., 0.12]
+    -
+      twf: *tds
+
+    # 8 step
+    -
+      twf: *tswingleg
+      Bc: *ls
+      Bm: *rs
+      rfabs: *swingLeg8
+      rtd:
+        RLEGEE: [0., 0., 0.12]
+    -
+      twf: *tds
+
+    # 9 step
+    -
+      twf: *tswingleg
+      Bc: *rs
+      Bm: *ls
+      rfabs: *swingLeg9
+      rtd:
+        LLEGEE: [0., 0., 0.10]
+    -
+      twf: *tds
+
+    # 10 step
+    -
+      twf: *tswingleg
+      Bc: *ls
+      Bm: *rs
+      rfabs: *swingLeg10
+      rtd:
+        RLEGEE: [0., 0., 0.08]
+    -
+      twf: *tds
+
+    # 11 step
+    -
+      twf: *tswingleg
+      Bc: *rs
+      Bm: *ls
+      rfabs: *swingLeg11
+      rtd:
+        LLEGEE: [0., 0., 0.06]
+    -
+      twf: *tds
+
+    # 12 step
+    -
+      twf: *tswingleg
+      Bc: *ls
+      Bm: *rs
+      rfabs: *swingLeg12
+      rtd:
+        RLEGEE: [0., 0., 0.04]
+    -
+      twf: *tds
+
+    # 13 step
+    -
+      twf: *tswingleg
+      Bc: *rs
+      Bm: *ls
+      rfabs: *swingLeg13
+      rtd:
+        LLEGEE: [0., 0., 0.02]
+    -
+      twf: *tds
+
+    # 14 step
+    -
+      twf: *tswingleg
+      Bc: *ls
+      Bm: *rs
+      rfabs: *swingLeg14
+      rtd:
+        RLEGEE: [0., 0., 0.]
+    -
+      twf: *tds
+
+    # 15 step
+    -
+      twf: *tswingleg
+      Bc: *rs
+      Bm: *ls
+      rfabs: *swingLeg15
+      rtd:
+        LLEGEE: [0., 0., 0.]
+    -
+      twf: *tds
+
+    # 15 step
+    -
+      twf: *tswingleg
+      Bc: *ls
+      Bm: *rs
+      rfabs: *swingLeg16
+      rtd:
+        RLEGEE: [0., 0., 0.]
+    -
+      twf: *tds

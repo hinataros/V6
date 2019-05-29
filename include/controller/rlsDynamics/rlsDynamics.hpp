@@ -131,8 +131,15 @@ namespace RLS{
     VectorXd rest_clCm();
     VectorXd baseGeneralizedMomentum();
     VectorXd mixedGeneralizedMomentum();
+    VectorXd mixedBaseAngularDecomposedMomentum();
+    VectorXd mixedBaseAngularDistributedMomentum(); //amiyata
+    VectorXd mixedGeneralizedDeltaAngularMomentum(); //amiyata
+    VectorXd mixedGeneralizedDeltaOmegaAcceleration(); //amiyata
     VectorXd accelerationSolver();
     VectorXd rcamd();
+    VectorXd mixedRelativeAngularJointAcceleration(); //amiyata
+    VectorXd mixedAccelerationSynergyStacked(); //amiyata
+    VectorXd RNS_Macc(); //amiyata
 
     // velocity dumper
     VectorXd ddthD();
@@ -148,7 +155,12 @@ namespace RLS{
     void baseVrpMomentum();
     void centroidalMomentum();
     void centroidalVrpMomentum();
+    void centroidalVrpMomentumDamping();
+    void centroidalVrpRNS();
     void centroidalCmpMomentum();
+    void centroidalAngularMomentumDamping(); // amiyata
+    void reactionNullSpaceMomentum(); // amiyata
+    void deltaMomentum(); // amiyata
 
     // internal force controller
     void m_internalDistribution();
@@ -158,7 +170,10 @@ namespace RLS{
     void centroidalDistribution();
     void centroidalDcmDistribution();
     void centroidalEcmpDistribution();
+    void centroidalEcmpInternalDistribution(); // amiyata
     void handWrenchControlAndCentroidalEcmpDistribution();
+    void bwcDistribution(); // umekage
+    void CRBWCbaseDistribution(); // umekage
 
     void distributionSolver();
 
@@ -219,6 +234,11 @@ namespace RLS{
 
     void outputConfig();
 
+    // umekage convex solver
+    MatrixXd compute_BWC_span(MatrixXd&);
+
+    bool *contactFlag; //amiyata footprintを足接触切替時に保存したいので保存
+
   public:
     ControllerInfo info;
 
@@ -231,8 +251,8 @@ namespace RLS{
     DesiredValueGenerator des;
     FeedbackController fb;
 
-    // // transform offset
-    // Vector3d *rkk;
+    // transform offset
+    VectorXd rkk;
 
     // index
     // ******************************
@@ -301,8 +321,20 @@ namespace RLS{
     Matrix2d Kpp;
 
     Matrix3d KDlC;
+    Matrix3d KDwC;
     MatrixXd KDth;
     MatrixXd Kthinit;
+    MatrixXd KDdthH; //amiyata
+    MatrixXd KDlCH; //amiyata
+
+    // amiyata  contrrol basis matrix
+    MatrixXi BwB_Diag;
+    MatrixXd BwB;
+    MatrixXi BwC_Diag;
+    MatrixXd BwC, BwCAut;
+    MatrixXi BLC_Diag;
+    MatrixXd BLC, BLCAut;
+    int pcD, lCcD, wBcD, wCcD;
 
     // high gain control
     MatrixXd KpHG;
@@ -362,6 +394,8 @@ namespace RLS{
 
     ExtList extList;
     RlsDynamicsList outputList;
+
+    vector<Vector3d> footPrintList; //amiyata
 
     RlsDynamics(){}
     // RlsDynamics(const int controllerID, const string &path_yaml_controller, Info &info){

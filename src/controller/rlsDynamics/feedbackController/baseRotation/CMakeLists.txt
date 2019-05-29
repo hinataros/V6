@@ -3,6 +3,7 @@
 set(srcs
   baseRotationPI.cpp
   # baseRotationAnkleHip.cpp
+  baseRotationCentroidalAngularDamping.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" baseRotation_srcs)

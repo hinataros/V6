@@ -10,6 +10,7 @@ set(srcs
   comDefault.cpp
   dcmDefault.cpp
   externalWrenchDefault.cpp
+  zeroToOneSpline.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" default_srcs)

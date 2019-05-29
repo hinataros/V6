@@ -11,5 +11,4 @@ void RLS::RlsDynamics::centroidalAngularMomentum()
   if(debug) DEBUG;
 
   dlCRef = model->IC*fb.dwBfb + model->IC*model->wB;
-  // dlCRef = - KDlC*(model->IC*model->wB + model->HC*model->dth);
 }

@@ -1,0 +1,235 @@
+# @author Sho Miyahara 2018
+
+angle unit: degree
+
+controller:
+  control model: skeletonA4
+  input: torque
+  driven: mix
+  trigger: check contact
+
+  default:
+    control method:
+      inverse dynamics controller: fullDynamicsController
+
+      operational space controller: decomposeEndEffectorAcceleration
+      # operational space controller: relativeAccelerationMixedMap
+
+      motion controller: mixedGeneralizedMomentum
+      # motion controller: mixedAccelerationSynergy
+
+      # force controller: centroidalEcmpDistribution
+      force controller: CRBWCbaseDistribution
+
+      # motion controller: mBADM
+      # motion controller: mBADistM
+      # motion controller: mGDwA
+      # motion controller: mRAA
+      # motion controller: mGDAM
+
+      momentum controller: centroidalVrpMomentum
+      # momentum controller: centroidalVrpMomentumDamping
+      # momentum controller: centroidalVrpRNS
+
+      torque controller: mixedOpt
+
+    desired value generator:
+      DCM: {name: CP}
+      CoM: {name: CP}
+      base rotation: {name: CP}
+      control node translation:
+        RLEGEE: {name: CP}
+        LLEGEE: {name: CP}
+      control node rotation:
+        RLEGEE: {name: CP}
+        LLEGEE: {name: CP}
+        # LLEGEE: {name: swing}
+
+    # feedback controller:
+    #   CoM: dcmControl
+      # base rotation: wCDamp
+
+    KX: 3.e+2
+    KpwB: 3.e+2
+    KdwB: 5.e+1
+    KpC: 3.e+2
+    KdC: 5.e+1
+
+    Kpv:
+      RLEGEE: 5.e+2
+      LLEGEE: 5.e+2
+    Kpw:
+      RLEGEE: 5.e+2
+      LLEGEE: 5.e+2
+    Kdv:
+      RLEGEE: 5.e+1
+      LLEGEE: 5.e+1
+    Kdw:
+      RLEGEE: 5.e+1
+      LLEGEE: 5.e+1
+
+    kDth: &kDthH 1.e+3
+    kthHinit: &kthHinit 1.e+2
+
+    KDth:
+      [0.,0.,0.,0.,0.,0., 0.,0.,0.,0.,0.,0.,
+      *kDthH, *kDthH, *kDthH, *kDthH,
+      *kDthH, *kDthH, *kDthH, *kDthH]
+    Kthinit:
+      [0.,0.,0.,0.,0.,0., 0.,0.,0.,0.,0.,0.,
+      *kthHinit, *kthHinit, *kthHinit, *kthHinit,
+      *kthHinit, *kthHinit, *kthHinit, *kthHinit]
+    Kthinit:
+      [0.,0.,0.,0.,0.,0., 0.,0.,0.,0.,0.,0.,
+      *kthHinit, *kthHinit, *kthHinit, *kthHinit,
+      *kthHinit, *kthHinit, *kthHinit, *kthHinit]
+
+    kDdth: &kDdthH 10
+    KDdthH:
+      [0. ,0. ,0. ,0. ,0. ,0. ,
+      0. ,0. ,0. ,0. ,0. ,0. ,
+      *kDdthH, *kDdthH, *kDdthH, *kDdthH,
+      *kDdthH, *kDdthH, *kDdthH, *kDdthH]
+
+    Bc: &ds
+      RLEGEE: [1, 1, 1, 1, 1, 1]
+      LLEGEE: [1, 1, 1, 1, 1, 1]
+    Bm: &zs
+      RLEGEE: [0, 0, 0, 0, 0, 0]
+      LLEGEE: [0, 0, 0, 0, 0, 0]
+
+    Bctf: &lst
+      RLEGEE: [1, 1, 1, 1, 1, 1]
+      LLEGEE: [1, 1, 1, 0, 0, 0]
+    Bmtf: &rst
+      RLEGEE: [1, 1, 1, 0, 0, 0]
+      LLEGEE: [1, 1, 1, 1, 1, 1]
+
+    KDlC: 100
+
+  state:
+    -
+      control method:
+        inverse dynamics controller: default
+      Bc: *zs
+      Bm: *zs
+    -
+      control method:
+        inverse dynamics controller: fullDynamicsController
+      Bc: *ds
+      Bm: *zs
+
+    -
+      control method:
+        inverse dynamics controller: fullDynamicsController
+      Bc: &ls
+        RLEGEE: [0, 0, 0, 0, 0, 0]
+        LLEGEE: [1, 1, 1, 1, 1, 1]
+      Bm: &rs
+        RLEGEE: [1, 1, 1, 1, 1, 1]
+        LLEGEE: [0, 0, 0, 0, 0, 0]
+    -
+      control method:
+        inverse dynamics controller: fullDynamicsController
+      Bc: *rs
+      Bm: *ls
+
+  sequence:
+    -
+      twf: 1.
+
+    -
+      twf: .5
+      rXf: [0.0, -0.035, 0.]
+    #   # rkk:
+    #   #   LLEGEE: [0.058, 0., 0.]
+    #     # LLEGEE: [0.038666, 0., 0.]
+    #
+    # -
+    #   twf: .5
+    #   Bc: *rs
+    #   Bm: *ls
+    #   rf:
+    #     LLEGEE: [0., 0., 0.02]
+    # -
+    #   twf: .5
+    #   # rXf: [0.025, -0.02, 0.]
+    #   xif:
+    #     LLEGEE: [0., 0., -90.]
+    # -
+    #   twf: .5
+
+      # rXf: [-0.025, -0.038, -0.02]
+    #
+    # -
+    #   twf: .5
+    #   Bc: *rs
+    #   Bm: *ls
+    #
+    #   rfabs:
+    #     LLEGEE: [-0.12, 0.02, 0.02]
+    #
+    # -
+    #   twf: .5
+    #   rXf: [-0.02, -0.02, -0.02]
+    #
+    # -
+    #   twf: .5
+    # -
+    #   twf: .5
+    #   Bc: *lst
+    #   rkk:
+    #     # LLEGEE: [0.058, 0., 0.]
+    #     LLEGEE: [0.038666, 0., 0.]
+    #
+    # -
+    #   twf: .5
+      # rXf: [-0.01, -0.02, -0.02]
+
+
+    # - # 足振り
+    #   twf: 1.5
+    #   Bc: *rs
+    #   Bm: *ls
+    #   rf:
+    #     LLEGEE: [0., 0., 0.02]
+    # -
+    #   twf: 0.2
+    #   rf:
+    #     LLEGEE: [0.020, 0., 0.02]
+    # -
+    #   twf: 0.2
+    #   rf:
+    #     LLEGEE: [-0.020, 0., 0.02]
+    # -
+    #   twf: 0.2
+    #   rf:
+    #     LLEGEE: [0.020, 0., 0.02]
+    # -
+    #   twf: 0.2
+    #   rf:
+    #     LLEGEE: [-0.020, 0., 0.02]
+    # -
+    #   twf: 0.2
+    #   rf:
+    #     LLEGEE: [0., 0., 0.02]
+    # -
+    #   twf: 0.2
+    #   rf:
+    #     LLEGEE: [0., 0.020, 0.02]
+    # -
+    #   twf: 0.2
+    #   rf:
+    #     LLEGEE: [0., -0.020, 0.02]
+    # -
+    #   twf: 0.2
+    #   rf:
+    #     LLEGEE: [0., 0.020, 0.02]
+    # -
+    #   twf: 0.2
+    #   rf:
+    #     LLEGEE: [0., -0.020, 0.02]
+    # -
+    #   twf: 0.2
+    #   rf:
+    #     LLEGEE: [0., 0., 0.02]

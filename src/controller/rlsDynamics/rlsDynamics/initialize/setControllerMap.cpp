@@ -19,7 +19,10 @@ void RLS::RlsDynamics::setControllerMap()
   momentumController_map["baseVrpMomentum"] = &RLS::RlsDynamics::baseVrpMomentum;
   momentumController_map["centroidalMomentum"] = &RLS::RlsDynamics::centroidalMomentum;
   momentumController_map["centroidalVrpMomentum"] = &RLS::RlsDynamics::centroidalVrpMomentum;
+  momentumController_map["centroidalVrpMomentumDamping"] = &RLS::RlsDynamics::centroidalVrpMomentumDamping;
+  momentumController_map["centroidalVrpRNS"] = &RLS::RlsDynamics::centroidalVrpRNS;
   momentumController_map["centroidalCmpMomentum"] = &RLS::RlsDynamics::centroidalCmpMomentum;
+  momentumController_map["deltaMomentum"] = &RLS::RlsDynamics::deltaMomentum;
 
   // motion controller
   motionController_map["default"] = &RLS::RlsDynamics::defaultConfigurationController;
@@ -53,8 +56,15 @@ void RLS::RlsDynamics::setControllerMap()
   motionController_map["rest_clCm"] = &RLS::RlsDynamics::rest_clCm;
   motionController_map["baseGeneralizedMomentum"] = &RLS::RlsDynamics::baseGeneralizedMomentum;
   motionController_map["mixedGeneralizedMomentum"] = &RLS::RlsDynamics::mixedGeneralizedMomentum;
+  motionController_map["mBADM"] = &RLS::RlsDynamics::mixedBaseAngularDecomposedMomentum;
+  motionController_map["mBADistM"] = &RLS::RlsDynamics::mixedBaseAngularDistributedMomentum; //amiyata
+  motionController_map["mGDAM"] = &RLS::RlsDynamics::mixedGeneralizedDeltaAngularMomentum; //amiyata
+  motionController_map["mGDwA"] = &RLS::RlsDynamics::mixedGeneralizedDeltaOmegaAcceleration; //amiyata
   motionController_map["accelerationSolver"] = &RLS::RlsDynamics::accelerationSolver;
   motionController_map["rcamd"] = &RLS::RlsDynamics::rcamd;
+  motionController_map["mRAA"] = &RLS::RlsDynamics::mixedRelativeAngularJointAcceleration; //amiyata
+  motionController_map["mASS"] = &RLS::RlsDynamics::mixedAccelerationSynergyStacked; //amiyata
+  motionController_map["RNS_Macc"] = &RLS::RlsDynamics::RNS_Macc; //amiyata
 
   // internal force controller
   // ****************************************************************
@@ -68,7 +78,11 @@ void RLS::RlsDynamics::setControllerMap()
   forceController_map["centroidalDistribution"] = &RLS::RlsDynamics::centroidalDistribution;
   forceController_map["centroidalDcmDistribution"] = &RLS::RlsDynamics::centroidalDcmDistribution;
   forceController_map["centroidalEcmpDistribution"] = &RLS::RlsDynamics::centroidalEcmpDistribution;
+  forceController_map["centroidalEcmpInternalDistribution"] = &RLS::RlsDynamics::centroidalEcmpInternalDistribution;
   forceController_map["handWrenchControlAndCentroidalEcmpDistribution"] = &RLS::RlsDynamics::handWrenchControlAndCentroidalEcmpDistribution;
+  forceController_map["bwcDistribution"] = &RLS::RlsDynamics::bwcDistribution;
+  forceController_map["CRBWCbaseDistribution"] = &RLS::RlsDynamics::CRBWCbaseDistribution;
+
 
   forceController_map["distributionSolver"] = &RLS::RlsDynamics::distributionSolver;
 

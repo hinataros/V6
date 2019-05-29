@@ -159,6 +159,10 @@ namespace RLS{
       Vector3d f_rne;
       Vector3d n_rne;
       double tau_rne;
+
+      // amiyata umekage endeffector size
+      MatrixXd eeSize;
+
     } *link;
 
     TreeModelList outputList;
@@ -178,6 +182,7 @@ namespace RLS{
     void readModel(const string&, const string&);
 
     void transformMatrix();
+    void transformMatrix(VectorXd&);
 
     void update();
 

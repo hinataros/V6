@@ -5,6 +5,7 @@ set(srcs
   rename.cpp
   objective.cpp
   update.cpp
+  computeCWC.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" update_srcs)

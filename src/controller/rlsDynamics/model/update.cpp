@@ -13,3 +13,11 @@ void RLS::ControllerModel::update()
   for(int i=0; i<info->treeModelNum; i++)
     treeModel[i].update();
 }
+
+void RLS::ControllerModel::update(VectorXd &offset)
+{
+  if(debug) DEBUG;
+
+  for(int i=0; i<info->treeModelNum; i++)
+    treeModel[i].update(offset);
+}

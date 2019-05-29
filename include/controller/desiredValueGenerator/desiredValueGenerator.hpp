@@ -28,21 +28,21 @@ namespace RLS{
 
     Walking walking;
 
-    struct State{
-      int num;
-
-      Vector3d rBpreDes;
-      Vector3d vBpreDes;
-      Vector3d xiBpreDes;
-      Vector3d dxiBpreDes;
-      Vector3d rCpreDes;
-      VectorXd cal_XpreDes;
-      VectorXd cal_VpreDes;
-
-      Vector3d vCpreDes;
-      Vector3d rXpreDes;
-      Vector3d drXpreDes;
-    } state;
+    // struct State{
+    //   int num;
+    //
+    //   Vector3d rBpreDes;
+    //   Vector3d vBpreDes;
+    //   Vector3d xiBpreDes;
+    //   Vector3d dxiBpreDes;
+    //   Vector3d rCpreDes;
+    //   VectorXd cal_XpreDes;
+    //   VectorXd cal_VpreDes;
+    //
+    //   Vector3d vCpreDes;
+    //   Vector3d rXpreDes;
+    //   Vector3d drXpreDes;
+    // } state; // amiyata
 
     // trajectory
     // ******************************
@@ -94,6 +94,18 @@ namespace RLS{
     Vector3d rCpreDes;
     Vector3d rXpreDes;
 
+    // amiyata 前回の最終値
+    Vector3d rBfinCur;
+    Quaternion4d qBfinCur;
+    Vector3d *rfinCur;
+    Vector3d *rfinCurabs;
+    Quaternion4d *qfinCur;
+    Quaternion4d *qfinCurabs;
+    Vector3d *ffinCur;
+    Vector3d *nfinCur;
+    Vector3d rCfinCur;
+    Vector3d rXfinCur;
+
     Vector3d rBf;
     Vector3d xiBf;
     Quaternion4d qBf;
@@ -133,6 +145,7 @@ namespace RLS{
     void controlNodeRotationDefault(const int&, const double&);
     void controlNodeRotationCP(const int&, const double&);
     void controlNodeRotationCPabs(const int&, const double&);
+    void controlNodeRotationCurCP(const int&, const double&); // amiyata
 
     // control node force
     void controlNodeForceDefault(const int&, const double&);
@@ -154,6 +167,9 @@ namespace RLS{
     // external wrench
     void externalWrenchDefault(const double&);
     void externalWrenchCP(const double&);
+
+    // unit Spline
+    void zeroToOneSpline(const int&, const double&);
 
     // select desired value generator
     void (RLS::DesiredValueGenerator::*baseTranslation_ptr)(const double&)=0;
@@ -182,7 +198,7 @@ namespace RLS{
     void setYamlInfo(YamlInfo&);
 
     void resize();
-    void resizeState();
+    // void resizeState(); // amiyata state使ってない
     void setMap();
     void setInitialBoundary();
     void initializeWalking();
@@ -213,6 +229,8 @@ namespace RLS{
     VectorXd cal_FDes;
 
     Vector6d cal_FextDes;
+
+    Vector3d zeroToOne; // amiyata
 
     void initialize(const WorldModel&, const TreeModelInfo&, const ControllerTreeModel&, ConstraintModel&, YamlInfo&);
     void finalize();

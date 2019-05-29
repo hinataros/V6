@@ -48,6 +48,7 @@ void RLS::RlsDynamics::readController()
   yamlInfo.checkValue<Matrix2d>(Kpp, "Kpp");
 
   yamlInfo.checkValue<Matrix3d>(KDlC, "KDlC");
+  yamlInfo.checkValue<Matrix3d>(KDwC, "KDwC"); // amiyata
 
   for(int i=0; i<info.model.controlNodeNum; i++){
     string name = info.model.controlNode[i].name;
@@ -66,6 +67,8 @@ void RLS::RlsDynamics::readController()
   }
 
   yamlInfo.checkValue<MatrixXd>(KDth, "KDth");
+  yamlInfo.checkValue<MatrixXd>(KDdthH, "KDdthH"); //amiyata
+  yamlInfo.checkValue<MatrixXd>(KDlCH, "KDlCH"); //amiyata
   yamlInfo.checkValue<MatrixXd>(Kthinit, "Kthinit");
 
   // high gain control
@@ -83,9 +86,16 @@ void RLS::RlsDynamics::readController()
   // Wdh = updateValue<Matrix6d>(doc, multi, node, num, phase, "Wdh", Wdh);
 
   // // transform offset
-  // if(multiSequence){
-  //   if(!checkNode(doc, node, num, phase, name))
-  //     for(int i=0; i<controlNodeNum; i++)
-  //       rkk[i] = readVector<VectorXd>(doc, node, seq, "rkk", i, 3);
-}
+  for(int i=0; i<info.model.controlNodeNum; i++) {
+    string name = info.model.controlNode[i].name;
+    Vector3d temp3d = rkk.segment(3*i, 3);
+    yamlInfo.checkValue<Vector3d>(temp3d, "rkk", name);
+    rkk.segment(3*i, 3) = temp3d;
+    // rkk = readVector<VectorXd>(doc, node, seq, "rkk", i, 3);
+  }
 
+  //amyata
+  yamlInfo.checkValue<MatrixXi>(BwB_Diag, "BwB");
+  yamlInfo.checkValue<MatrixXi>(BLC_Diag, "BLC");
+  yamlInfo.checkValue<MatrixXi>(BwC_Diag, "BwC");
+}

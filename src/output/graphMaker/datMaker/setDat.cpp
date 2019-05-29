@@ -43,7 +43,6 @@ void RLS::Output::setDat(ofstream& stream, int id, string dataName, int i)
   else if(dataName=="tree model vC")
     stream << data.treeModel[id].vec[i].vC.transpose();
 
-
   else if(dataName=="tree model f")
     stream << data.treeModel[id].vec[i].f.transpose();
   else if(dataName=="tree model n")
@@ -76,6 +75,8 @@ void RLS::Output::setDat(ofstream& stream, int id, string dataName, int i)
     stream << data.rlsDynamics[id].vec[i].vCDes.transpose();
   else if(dataName=="dvCDes")
     stream << data.rlsDynamics[id].vec[i].dvCDes.transpose();
+  else if(dataName=="dvCRef")
+    stream << data.rlsDynamics[id].vec[i].dvCfb.transpose();
 
   else if(dataName=="rXDes")
     stream << data.rlsDynamics[id].vec[i].rXDes.transpose();
@@ -201,6 +202,23 @@ void RLS::Output::setDat(ofstream& stream, int id, string dataName, int i)
 
   else if(dataName=="tau")
     stream << data.rlsDynamics[id].vec[i].tau.transpose();
+  // amiyata limbs torque 4DoF only
+  else if(dataName=="tauRLAnk")
+    stream << data.rlsDynamics[id].vec[i].tau(5) << " " << // ankle only
+    data.rlsDynamics[id].vec[i].tau(4);
+  else if(dataName=="tauLLAnk")
+    stream << data.rlsDynamics[id].vec[i].tau(11) << " " <<
+    data.rlsDynamics[id].vec[i].tau(10);
+  else if(dataName=="tauAnk1")
+    stream << data.rlsDynamics[id].vec[i].tau(5) << " " <<
+    data.rlsDynamics[id].vec[i].tau(11);
+  else if(dataName=="tauAnk2")
+    stream << data.rlsDynamics[id].vec[i].tau(4) << " " <<
+    data.rlsDynamics[id].vec[i].tau(10);
+  else if(dataName=="tauRA")
+    stream << data.rlsDynamics[id].vec[i].tau.segment(12,4).transpose();
+  else if(dataName=="tauLA")
+    stream << data.rlsDynamics[id].vec[i].tau.segment(16,4).transpose();
 
   else if(dataName=="quatB")
     stream << data.rlsDynamics[id].vec[i].quatB.transpose();
@@ -223,6 +241,12 @@ void RLS::Output::setDat(ofstream& stream, int id, string dataName, int i)
     stream << data.rlsDynamics[id].vec[i].p.transpose();
   else if(dataName=="lCsys")
     stream << data.rlsDynamics[id].vec[i].lC.transpose();
+  else if(dataName=="wC")
+    stream << data.rlsDynamics[id].vec[i].wC.transpose();
+  else if(dataName=="lCthH")
+    stream << data.rlsDynamics[id].vec[i].lCthH.transpose();
+  else if(dataName=="lCthF")
+    stream << data.rlsDynamics[id].vec[i].lCthF.transpose();
 
   else if(dataName=="rX")
     stream << data.rlsDynamics[id].vec[i].rX.transpose();
@@ -261,6 +285,16 @@ void RLS::Output::setDat(ofstream& stream, int id, string dataName, int i)
       data.rlsDynamics[id].vec[i].rX(1) << " " <<
       data.rlsDynamics[id].vec[i].rvrpRef(1) << " " <<
       data.rlsDynamics[id].vec[i].rndvrpDes(1);
+  else if(dataName=="xStabilityIndexNC")
+    stream <<
+      data.rlsDynamics[id].vec[i].rp(0) << " " <<
+      data.rlsDynamics[id].vec[i].rX(0) << " " <<
+      data.rlsDynamics[id].vec[i].rvrpRef(0);
+  else if(dataName=="yStabilityIndexNC")
+    stream <<
+      data.rlsDynamics[id].vec[i].rp(1) << " " <<
+      data.rlsDynamics[id].vec[i].rX(1) << " " <<
+      data.rlsDynamics[id].vec[i].rvrpRef(1);
 
   else if(dataName=="gCoM")
     stream << data.treeModel[id].vec[i].rC.head(2).transpose();
@@ -268,6 +302,14 @@ void RLS::Output::setDat(ofstream& stream, int id, string dataName, int i)
     stream << data.rlsDynamics[id].vec[i].rX.head(2).transpose();
   else if(dataName=="eCMPRef")
     stream << data.rlsDynamics[id].vec[i].rvrpRef.head(2).transpose();
+  else if(dataName=="thArmR")
+    stream << data.rlsDynamics[id].vec[i].th.segment(12, 4).transpose();
+  else if(dataName=="thArmL")
+    stream << data.rlsDynamics[id].vec[i].th.segment(12+4, 4).transpose();
+  else if(dataName=="thArmVelR")
+    stream << data.rlsDynamics[id].vec[i].dth.segment(12, 4).transpose();
+  else if(dataName=="thArmVelL")
+    stream << data.rlsDynamics[id].vec[i].dth.segment(12+4, 4).transpose();
 
   // // foot print
   // else if(dataName=="foot print")

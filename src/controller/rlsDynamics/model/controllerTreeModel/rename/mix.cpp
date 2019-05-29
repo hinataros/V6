@@ -17,12 +17,16 @@ void RLS::ControllerTreeModel::mix()
   HC = model->all.MM.block(3,6,3,info->dof.joint);
   cal_AM = model->all.MM.block(0,0,6,info->dof.all);
 
+  Jw = IC.inverse() * HC; // amiyata
+
   MthC = model->all.MM.block(6,6,info->dof.joint,info->dof.joint);
 
   // diff inertia
   cal_dAM = model->all.dMM.block(0,0,6,info->dof.all);
   dIC = model->all.dMM.block(3,3,3,3);
   dHC = model->all.dMM.block(3,6,3,info->dof.joint);
+
+  dJw = (-IC.inverse()*dIC*IC.inverse()) * HC + IC.inverse() * dHC; // amiyata
 
   // nonlinear
   cmm = dIC*wB + dHC*dth;

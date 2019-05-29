@@ -11,7 +11,7 @@
 void RLS::RlsDynamics::outputExtConfig()
 {
   if(debug) DEBUG;
-
+  
   ext->output(this);
   extList = ext->outputList;
 }

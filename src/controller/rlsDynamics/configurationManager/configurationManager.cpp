@@ -17,8 +17,11 @@ bool RLS::RlsDynamics::configurationManager(const double &t)
   if(config.driven=="event"||config.driven=="mix"){
     // １ステップ目は初期化
     int temp = stateTrigger(t);
+    // if(t>2.7 && t<2.8) temp=1;
 
     if(temp!=state.num){
+      // o(temp);
+      // gc;
       state.num = temp;
 
       des.update(t);

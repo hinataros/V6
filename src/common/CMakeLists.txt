@@ -21,6 +21,7 @@ set(srcs
   round_cast.cpp
   dpInv.cpp
   dN.cpp
+  inverse3d.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" common_srcs)

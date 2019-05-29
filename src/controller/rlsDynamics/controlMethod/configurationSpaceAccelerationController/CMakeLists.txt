@@ -12,8 +12,15 @@ set(srcs
   rest_clCm.cpp
   baseGeneralizedMomentum.cpp
   mixedGeneralizedMomentum.cpp
+  mixedBaseAngularDecomposedMomentum.cpp
+  mixedBaseAngularDistributedMomentum.cpp
+  mixedGeneralizedDeltaAngularMomentum.cpp
+  mixedGeneralizedDeltaOmegaAcceleration.cpp
   accelerationSolver.cpp
   rcamd.cpp
+  mixedRelativeAngularJointAcceleration.cpp
+  mixedAccelerationSynergyStacked.cpp
+  RNS_Macc.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" configurationSpaceAccelerationController_srcs)

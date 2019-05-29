@@ -33,6 +33,8 @@ void RLS::ControllerTreeModel::state()
   vB = model->link[info->rootNode].v;
   wB = model->link[info->rootNode].w;
 
+  wC = wB + Jw*dth; //amiyata
+
   cal_VB <<
     vB,
     wB;
@@ -54,5 +56,5 @@ void RLS::ControllerTreeModel::state()
 
   cal_VC <<
     vC,
-    wB + IC.inverse()*HC*dth;
+    wC; //amiyata modified
 }

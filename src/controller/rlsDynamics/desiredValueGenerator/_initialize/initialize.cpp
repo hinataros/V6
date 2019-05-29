@@ -14,7 +14,7 @@ void RLS::DesiredValueGenerator::initialize(const WorldModel &worldModel, const 
   setYamlInfo(yamlInfo);
 
   resize();
-  resizeState();
+  // resizeState();
 
   setMap();
 

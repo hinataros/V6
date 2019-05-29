@@ -5,6 +5,8 @@ world model:
     type: cnoid
     search: relative
     path: &CNOID sample/dynamics/skeletonA4/standup.cnoid
+    # path: &CNOID sample/dynamics/skeletonA4/roughStep.cnoid
+    # path: &CNOID sample/dynamics/skeletonA4/stair.cnoid
 
 tree model:
   name: skeletonA4

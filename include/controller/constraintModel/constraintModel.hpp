@@ -19,6 +19,10 @@ namespace RLS{
     void initializeConstraintInfo();
     void resize();
 
+    // umekage convex solvers
+    MatrixXd compute_FC_span(string);
+    MatrixXd compute_CWC_span();
+
   public:
     struct Info{
       ConstraintInfo constraint;
@@ -84,6 +88,10 @@ namespace RLS{
     MatrixXd cal_JmHat;
     MatrixXd cal_dJcHat;
     MatrixXd cal_dJmHat;
+
+    // umekage CWC matrix
+    VectorXi contactLimbs;
+    MatrixXd V_cwc;
 
     // selective matrix for forward kinematics
     Matrix6d bb_ScB;

@@ -5,7 +5,7 @@ set(srcs
   setModel.cpp
   setYamlInfo.cpp
   resize.cpp
-  resizeState.cpp
+  # resizeState.cpp
   setMap.cpp
   setInitialBoundary.cpp
   initializeWalking.cpp
