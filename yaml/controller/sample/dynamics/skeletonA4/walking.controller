@@ -116,17 +116,17 @@ controller:
       - [*steplength3, 0.039, 0.]
       - [*steplength3, 0., 0.]
 
-    dtstep: .5
-    dtDSstep: &tds 0.2
-
-    twf: &tinitial 0.35
-    twf: &tswingleg 0.3
-
-    # dtstep: .4
-    # dtDSstep: &tds 0.1
+    # dtstep: .5
+    # dtDSstep: &tds 0.2
     #
-    # twf: &tinitial 0.25
+    # twf: &tinitial 0.35
     # twf: &tswingleg 0.3
+
+    dtstep: .4
+    dtDSstep: &tds 0.1
+
+    twf: &tinitial 0.25
+    twf: &tswingleg 0.3
     # dtstep: .5
     # dtDSstep: &tds .03
     #

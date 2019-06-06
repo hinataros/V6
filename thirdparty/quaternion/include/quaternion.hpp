@@ -16,8 +16,11 @@ namespace RLS{
 
     Quaternion4d operator=(Quaternion4d);
     Quaternion4d operator+(Quaternion4d);
+    Quaternion4d operator-(Quaternion4d);
     Quaternion4d operator*(Quaternion4d);
     Quaternion4d operator*=(Quaternion4d);
+    Quaternion4d operator/(Quaternion4d);
+    Quaternion4d operator/=(Quaternion4d);
 
     static Quaternion4d Zero();
     static Quaternion4d Identity();

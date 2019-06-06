@@ -33,30 +33,43 @@ links:
         elements:
           -
             type: Visual
-            elements: &ROOT
-              -
-                type: Visual
-                resource:
-                  uri: "./parts/HOAP-2/dae/ROOT.dae"
-              -
-                type: Visual
-                translation: [0.034, 0, 0.055]
-                resource:
-                  uri: "./parts/HOAP-2/dae/BODYwithoutFT.dae"
-              -
-                type: Visual
-                translation: [ 0.0, 0.0, 0.19 ]
-                resource:
-                  uri: "./parts/HOAP-2/dae/neck.dae"
-              -
-                type: Visual
-                translation: [ 0.008, 0.0, 0.22 ]
-                resource: &HEAD2
-                  uri: "./parts/HOAP-2/dae/HEADball.dae"
+            resource:
+              uri: "./parts/HOAP-2/dae/ROOT.dae"
+          -
+            type: Visual
+            translation: [0.034, 0, 0.055]
+            resource:
+              uri: "./parts/HOAP-2/dae/BODYwithoutFT.dae"
+          -
+            type: Visual
+            translation: [ 0.0, 0.0, 0.19 ]
+            resource:
+              uri: "./parts/HOAP-2/dae/neck.dae"
+          -
+            type: Visual
+            translation: [ 0.008, 0.0, 0.22 ]
+            resource:
+              uri: "./parts/HOAP-2/dae/HEADball.dae"
 
           -
             type: Collision
-            resource: *ROOT
+            resource:
+              uri: "./parts/HOAP-2/dae/ROOT.dae"
+          -
+            type: Collision
+            translation: [0.034, 0, 0.055]
+            resource:
+              uri: "./parts/HOAP-2/dae/BODYwithoutFT.dae"
+          -
+            type: Collision
+            translation: [ 0.0, 0.0, 0.19 ]
+            resource:
+              uri: "./parts/HOAP-2/dae/neck.dae"
+          -
+            type: Collision
+            translation: [ 0.008, 0.0, 0.22 ]
+            resource:
+              uri: "./parts/HOAP-2/dae/HEADball.dae"
   -
     name: RLEG1
     parent: ROOT
@@ -174,8 +187,8 @@ links:
         -4.08202e-07, -7.20727e-08, 5.94587e-05]
         elements:
           -
-             type: Visual
-             resource: &RLEG5
+            type: Visual
+            resource: &RLEG5
               uri: "./parts/HOAP-2/dae/Rleg5.dae"
           -
             type: Collision
@@ -199,8 +212,10 @@ links:
         elements:
           -
             type: Visual
+            translation: [ 0.00843, 0.0, 0.0 ]
             resource: &RLEG6
-             uri: "./parts/HOAP-2/dae/oldankle.dae"
+              # uri: "./parts/HOAP-2/dae/oldankle.dae"
+              uri: "./parts/HOAP-2/dae/ankle.dae"
           # -
           #   type: Collision
           #   elements:
@@ -213,29 +228,59 @@ links:
           #       translation: [ 0, 0, -0.0135 ]
           #       rotation: *X
           #       geometry: { type: Capsule, radius: 0.0025, height: 0.027 }
-
   -
     name: RLEGEE
     parent: RLEG6
-    # translation: [ 0.0, 0.0, 0.0 ]
     translation: [ 0.0, 0.0, -0.0370 ]
     elements:
       -
-        type: Visual
-        elements: &RLEGEE
+        type: RigidBody
+        elements:
           -
-            type: Shape
-            rotation: *Y
-            translation: [ 0.009, 0.0, 0.005 ]
-            geometry: { type: Box, size: [ 0.01, 0.063, 0.098 ] }
-            appearance: *bodyColor
-      -
-        type: Collision
-        elements: *RLEGEE
-      -
-        type: ForceSensor
-        name: RFForceSensor
-        id: 0
+            type: Visual
+            translation: [ 0.01115035, 0.0, 0.01011803 ]
+            resource: &RLEGEE
+              uri: "./parts/HOAP-2/dae/foot.dae"
+          -
+            type: Collision
+            # translation: [ 0.01115035, 0.0, 0.01011803 ]
+            # resource: *RLEGEE
+            elements:
+            -
+              type: Shape
+              rotation: *Y
+              translation: [ 0.009, 0.0, 0.005 ]
+              geometry: { type: Box, size: [ 0.01, 0.063, 0.098 ] }
+              appearance: *bodyColor
+          -
+            type: ForceSensor
+            name: RFForceSensor
+            id: 0
+  # -
+  #   name: RLEGEE ## primitive
+  #   parent: RLEG6
+  #   # translation: [ 0.0, 0.0, 0.0 ]
+  #   translation: [ 0.0, 0.0, -0.0370 ]
+  #   elements:
+  #     -
+  #       type: Visual
+  #       resource: &RLEGEE
+  #        uri: "./parts/HOAP-2/dae/foot.dae"
+  #       # elements: &RLEGEE
+  #       #   -
+  #       #     type: Shape
+  #       #     rotation: *Y
+  #       #     translation: [ 0.009, 0.0, 0.005 ]
+  #       #     geometry: { type: Box, size: [ 0.01, 0.063, 0.098 ] }
+  #       #     appearance: *bodyColor
+  #     -
+  #       type: Collision
+  #       elements: *RLEGEE
+  #     -
+  #       type: ForceSensor
+  #       name: RFForceSensor
+  #       id: 0
+
   -
     name: LLEG1
     parent: ROOT
@@ -384,8 +429,10 @@ links:
         elements:
           -
             type: Visual
+            translation: [ 0.00843, 0.0, 0.0 ]
             resource: &LLEG6
-              uri: "./parts/HOAP-2/dae/oldankle.dae"
+              uri: "./parts/HOAP-2/dae/ankle.dae"
+              # uri: "./parts/HOAP-2/dae/oldankle.dae"
           # -
           #   type: Collision
           #   elements:
@@ -406,21 +453,29 @@ links:
     translation: [ 0.0, 0.0, -0.0370 ]
     elements:
       -
-        type: Visual
-        elements: &LLEGEE
+        type: RigidBody
+        elements:
           -
-            type: Shape
-            translation: [ 0.009, 0, 0.005 ]
-            rotation: *Y
-            geometry: { type: Box, size: [ 0.01, 0.063, 0.098 ] }
-            appearance: *bodyColor
-      -
-        type: Collision
-        elements: *LLEGEE
-      -
-        type: ForceSensor
-        name: LFForceSensor
-        id: 1
+            type: Visual
+            translation: [ 0.01115035, 0.0, 0.01011803 ]
+            resource: &LLEGEE
+              uri: "./parts/HOAP-2/dae/foot.dae"
+
+          -
+            type: Collision
+            # translation: [ 0.01115035, 0.0, 0.01011803 ]
+            # resource: *LLEGEE
+            elements:
+              -
+                type: Shape
+                translation: [ 0.009, 0, 0.005 ]
+                rotation: *Y
+                geometry: { type: Box, size: [ 0.01, 0.063, 0.098 ] }
+                appearance: *bodyColor
+          -
+            type: ForceSensor
+            name: LFForceSensor
+            id: 1
   -
     name: RARM1
     parent: ROOT

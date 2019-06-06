@@ -128,4 +128,6 @@ void RLS::ConstraintModel::reconfigure()
 
   // umekage CWC
   V_cwc = compute_CWC_span();
+  // o(V_cwc);
+  // gc;
 }

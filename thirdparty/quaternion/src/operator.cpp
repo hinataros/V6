@@ -20,6 +20,14 @@ RLS::Quaternion4d RLS::Quaternion4d::operator+(RLS::Quaternion4d q)
   return *this;
 }
 
+RLS::Quaternion4d RLS::Quaternion4d::operator-(RLS::Quaternion4d q)
+{
+  w -= q.w;
+  v -= q.v;
+
+  return *this;
+}
+
 RLS::Quaternion4d RLS::Quaternion4d::operator*(RLS::Quaternion4d q)
 {
   Quaternion4d re = Zero();
@@ -33,6 +41,25 @@ RLS::Quaternion4d RLS::Quaternion4d::operator*(RLS::Quaternion4d q)
 RLS::Quaternion4d RLS::Quaternion4d::operator*=(RLS::Quaternion4d q)
 {
   *this = *this*q;
+
+  return *this;
+}
+
+RLS::Quaternion4d RLS::Quaternion4d::operator/(RLS::Quaternion4d q)
+{
+  Quaternion4d re = Zero();
+
+  re.w = q.w;
+  re.v = -q.v; //共役
+
+  *this *= re;
+
+  return *this;
+}
+
+RLS::Quaternion4d RLS::Quaternion4d::operator/=(RLS::Quaternion4d q)
+{
+  *this = *this/q;
 
   return *this;
 }

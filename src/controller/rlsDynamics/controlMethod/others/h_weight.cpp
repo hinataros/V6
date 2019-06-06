@@ -54,21 +54,6 @@ MatrixXd RLS::RlsDynamics::h_weight(const Vector2d &rIndex)
     Wc.block(0,0, c0,c0) = w1z*Matrix6d::Identity();
     Wc.block(c0,c0, c1,c1) = w2z*Matrix6d::Identity();
   }
-  else if(info.constraint->c.all==9){
-    Vector2d r[2];
-    for(int i=0, j=0; i<info.model.controlNodeNum; i++){
-        r[j] = model->r[i].head(2);
-        j++;
-    }
-
-    Vector2d Dr = r[0] - r[1];
-
-    double w1z = abs(Dr.transpose()*(rIndex - r[0]));
-    double w2z = abs(Dr.transpose()*(rIndex - r[1]));
-
-    Wc.block(6*0,6*0, 3,3) = w1z*Matrix3d::Identity();
-    Wc.block(3*1,3*1, 6,6) = w2z*Matrix6d::Identity();
-  }
   else if(info.constraint->c.all==18){
     Vector2d r[3];
     for(int i=0, j=0; i<info.model.controlNodeNum; i++){
@@ -102,6 +87,21 @@ MatrixXd RLS::RlsDynamics::h_weight(const Vector2d &rIndex)
     Wc.block(6*0,6*0, 6,6) = ((w1z+w2z)/w2z)*w12z*Matrix6d::Identity();
     Wc.block(6*1,6*1, 6,6) = ((w1z+w2z)/w1z)*w12z*Matrix6d::Identity();
     Wc.block(6*2,6*2, 6,6) = w3z*Matrix6d::Identity();
+  } else {
+    Vector2d r[2];
+    for(int i=0, j=0; i<info.model.controlNodeNum; i++){
+        r[j] = model->r[i].head(2);
+        j++;
+    }
+
+    Vector2d Dr = r[0] - r[1];
+
+    double w1z = abs(Dr.transpose()*(rIndex - r[0]));
+    double w2z = abs(Dr.transpose()*(rIndex - r[1]));
+
+    int rc = info.constraint->c.controlNode[0], lc = info.constraint->c.controlNode[1];
+    Wc.block(0,0, rc,rc) = w1z*MatrixXd::Identity(rc,rc);
+    Wc.block(rc,rc, lc,lc) = w2z*MatrixXd::Identity(lc,lc);
   }
 
   return Wc;

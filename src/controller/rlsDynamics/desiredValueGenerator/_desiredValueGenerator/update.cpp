@@ -32,7 +32,7 @@ void RLS::DesiredValueGenerator::update(const double &t, const int &num)
 
   if(baseTranslationNum==num){
     rBpreDes = rBf;
-    rBfinCur = model->rB;
+    rBfinCur = model->rB - rB0;
   }
 
   if(baseRotationNum==num){
@@ -43,15 +43,15 @@ void RLS::DesiredValueGenerator::update(const double &t, const int &num)
   for(int i=0; i<info->controlNodeNum; i++){
     if(controlNodeTranslationNum[i]==num){
       rpreDes[i] = rf[i];
-      rfinCur[i] = model->r[i];
+      rfinCur[i] = model->r[i] - r0[i];
       rpreDesabs[i] = rfabs[i];
-      rfinCurabs[i] = model->r[i] + r0[i];
+      rfinCurabs[i] = model->r[i];
     }
     if(controlNodeRotationNum[i]==num){
       qpreDes[i] = qf[i];
-      qfinCur[i] = Quaternion4d::R2q(model->R[i]);
+      qfinCur[i] = Quaternion4d::R2q(model->R[i]) / q0[i];
       qpreDesabs[i] = qfabs[i];
-      qfinCurabs[i] = Quaternion4d::R2q(model->R[i]) + q0[i];
+      qfinCurabs[i] = Quaternion4d::R2q(model->R[i]);
 
     }
 
@@ -67,11 +67,11 @@ void RLS::DesiredValueGenerator::update(const double &t, const int &num)
 
   if(comNum==num){
     rCpreDes = rCf;
-    rCfinCur = model->rC;
+    rCfinCur = model->rC - rC0;
   }
   if(dcmNum==num){
     rXpreDes = rXf;
-    rXfinCur = model->rX;
+    rXfinCur = model->rX - rX0;
   }
 
   if(externalWrenchNum==num) {

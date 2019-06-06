@@ -15,19 +15,19 @@ void RLS::DesiredValueGenerator::controlNodeTranslationSwing(const int &controlN
 
   Vector3d des = Vector3d::Zero();
   for(int i=0; i<3; i++){
-    des = makeSpline5(t-t0, tf, rpreDesabs[controlNode](i), rfabs[controlNode](i));
+    des = makeSpline5(t-t0, tf, rfinCurabs[controlNode](i), rfabs[controlNode](i));
 
     if(i==2){
       if(round_cast(t-t0, 3)<round_cast(tf/2, 3)){
-        des = makeSpline5(t-t0, tf/2, rpreDesabs[controlNode](i), rfabs[controlNode](i));
+        des = makeSpline5(t-t0, tf/2, rfinCurabs[controlNode](i), rfabs[controlNode](i));
       }
       else{
         if(round_cast(t-t0, 3) == round_cast(tf/2, 3)){
-          rpreDesabs[controlNode](i) = model->r[controlNode](i);
+          rfinCurabs[controlNode](i) = model->r[controlNode](i);
           rfabs[controlNode](i) = rtd[controlNode](i);
         }
 
-        des = makeSpline5(t-(t0+tf/2), tf/2, rpreDesabs[controlNode](i), rfabs[controlNode](i));
+        des = makeSpline5(t-(t0+tf/2), tf/2, rfinCurabs[controlNode](i), rfabs[controlNode](i));
       }
     }
 

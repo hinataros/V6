@@ -81,9 +81,16 @@ void RLS::TreeModel::readBody()
         sensorName.push_back(link[i].name);
       }
     }
+    if(doc["links"][i]["elements"][0]["elements"][forceSensorNode]["type"]){ // amiyata 肉付きに対応
+      if(doc["links"][i]["elements"][0]["elements"][forceSensorNode]["type"].as<string>()=="ForceSensor"){
+        sensor.push_back(i);
+        sensorName.push_back(link[i].name);
+      }
+    }
 
     // amiyata get foot size
     link[i].eeSize = MatrixXd::Zero(0,0);
+    bool primF=true;
     string EEnames[4] = {"RLEGEE", "LLEGEE", "RARMEE", "LARMEE"};
 
     for(int ee=0; ee<4; ee++) {
@@ -91,28 +98,52 @@ void RLS::TreeModel::readBody()
         string typeBox;
         try{
           typeBox = doc["links"][i]["elements"][0]["elements"][0]["geometry"]["type"].as<string>();
-        }catch(...){typeBox = "non";}
+        }catch(...){typeBox = "non"; primF=false;}
+
+        if(typeBox == "non"){
+          try{
+            typeBox = doc["links"][i]["elements"][0]["elements"][1]["elements"][0]["geometry"]["type"].as<string>();
+          }catch(...){typeBox = "non";}
+        }
+
         if(typeBox != "Box"){
-          // cout << "EE not bo or primitive!" << endl;
+          // cout << "EE not box or primitive!" << endl;
           break;
         }
 
         Vector3d trans, box;
         Vector3i rot=Vector3i::Zero();
         double rotate=0.;
-        try{
-          rotate = doc["links"][i]["elements"][0]["elements"][0]["rotation"][3].as<double>();
-        }catch(...){rotate = 0.;}
-        for(int sq=0; sq<3; sq++){
+        if(primF){
           try{
-            trans(sq) = doc["links"][i]["elements"][0]["elements"][0]["translation"][sq].as<double>();
-          }catch(...){trans=Vector3d::Zero();}
+            rotate = doc["links"][i]["elements"][0]["elements"][0]["rotation"][3].as<double>();
+          }catch(...){rotate = 0.;}
+          for(int sq=0; sq<3; sq++){
+            try{
+              trans(sq) = doc["links"][i]["elements"][0]["elements"][0]["translation"][sq].as<double>();
+            }catch(...){trans=Vector3d::Zero();}
+            try{
+              rot(sq) = doc["links"][i]["elements"][0]["elements"][0]["rotation"][sq].as<int>();
+            }catch(...){rot << 1,0,0;}
+            try{
+              box(sq) = doc["links"][i]["elements"][0]["elements"][0]["geometry"]["size"][sq].as<double>();
+            }catch(...){box=Vector3d::Zero();}
+          }
+        } else {
           try{
-            rot(sq) = doc["links"][i]["elements"][0]["elements"][0]["rotation"][sq].as<int>();
-          }catch(...){rot << 1,0,0;}
-          try{
-            box(sq) = doc["links"][i]["elements"][0]["elements"][0]["geometry"]["size"][sq].as<double>();
-          }catch(...){box=Vector3d::Zero();}
+            rotate = doc["links"][i]["elements"][0]["elements"][1]["elements"][0]["rotation"][3].as<double>();
+          }catch(...){rotate = 0.;}
+          for(int sq=0; sq<3; sq++){
+            try{
+              trans(sq) = doc["links"][i]["elements"][0]["elements"][1]["elements"][0]["translation"][sq].as<double>();
+            }catch(...){trans=Vector3d::Zero();}
+            try{
+              rot(sq) = doc["links"][i]["elements"][0]["elements"][1]["elements"][0]["rotation"][sq].as<int>();
+            }catch(...){rot << 1,0,0;}
+            try{
+              box(sq) = doc["links"][i]["elements"][0]["elements"][1]["elements"][0]["geometry"]["size"][sq].as<double>();
+            }catch(...){box=Vector3d::Zero();}
+          }
         }
 
         // generate rotation matrix
@@ -145,10 +176,10 @@ void RLS::TreeModel::readBody()
           trans(0) - (Ree*box)(0)/2., trans(1) + (Ree*box)(1)/2.,
           trans(0) - (Ree*box)(0)/2., trans(1) - (Ree*box)(1)/2.,
           trans(0) + (Ree*box)(0)/2., trans(1) - (Ree*box)(1)/2.;
+        // o(link[i].eeSize);
       }
     }
     // *** amiyata
-
   }
 
   info->sensorNodeNum = sensor.size();

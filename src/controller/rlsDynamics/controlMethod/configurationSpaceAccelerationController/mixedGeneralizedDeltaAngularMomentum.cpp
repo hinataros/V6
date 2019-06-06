@@ -61,7 +61,8 @@ VectorXd RLS::RlsDynamics::mixedGeneralizedDeltaAngularMomentum()
     NM,
     dJP;
 
-  ddqMoptRef = pInv(AM) * (AMRef - dAM * model->dqM) + N(AM) * ddqthD();
+  // ddqMoptRef = pInv(AM) * (AMRef - dAM * model->dqM) + N(AM) * ddqthD();
+  ddqMoptRef = pInv(AM) * (AMRef - dAM * model->dqM) + N(AM) * ddqthinit();
   ddthRef = ddqMoptRef.segment(6, j);
 
   VectorXd cal_dLCBarOpt = model->cal_AM*ddqMoptRef + model->cal_dAM*model->dqM;

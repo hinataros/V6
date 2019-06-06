@@ -18,8 +18,8 @@ controller:
       motion controller: mixedGeneralizedMomentum
       # motion controller: mixedAccelerationSynergy
 
-      # force controller: centroidalEcmpDistribution
-      force controller: CRBWCbaseDistribution
+      force controller: centroidalEcmpDistribution
+      # force controller: CRBWCbaseDistribution
 
       # motion controller: mBADM
       # motion controller: mBADistM
@@ -140,22 +140,34 @@ controller:
 
     -
       twf: .5
-      rXf: [0.0, -0.035, 0.]
+      rXf: [0.0, -0.039, 0.]
     #   # rkk:
     #   #   LLEGEE: [0.058, 0., 0.]
     #     # LLEGEE: [0.038666, 0., 0.]
     #
+
     # -
     #   twf: .5
     #   Bc: *rs
     #   Bm: *ls
     #   rf:
-    #     LLEGEE: [0., 0., 0.02]
+    #     LLEGEE: [0., 0., 0.04]
+    # -
+    #   twf: .3
+    #   xif:
+    #     LLEGEE: [0., 0., -45.]
+    # -
+    #   twf: .3
     # -
     #   twf: .5
-    #   # rXf: [0.025, -0.02, 0.]
     #   xif:
-    #     LLEGEE: [0., 0., -90.]
+    #     LLEGEE: [0., 30., -30.]
+    # -
+    #   twf: .3
+    # -
+    #   twf: .5
+    #   xif:
+    #     LLEGEE: [15., 45., 15.]
     # -
     #   twf: .5
 

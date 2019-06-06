@@ -9,8 +9,8 @@
 
 MatrixXd RLS::ConstraintModel::compute_FC_span(string _link_name) {
 
-  // double mu = 0.5;
-  double mu = 0.2;
+  double mu = 0.5;
+  // double mu = 0.2;
   double qq = sqrt(1*1+mu*mu);
 
   MatrixXd S0 = MatrixXd::Zero(12, 16);
@@ -34,13 +34,15 @@ MatrixXd RLS::ConstraintModel::compute_FC_span(string _link_name) {
   MatrixXd CM  = MatrixXd::Zero(6, 12);
   Vector3d Lengths = Vector3d::Zero();
   for (int i=0; i<4; i++) {
+    if(model->model->link[info.model->controlNode[info.model->controlNodeID[_link_name]].num].eeSize.rows() == 0){
+      cout << "constraintModel::compute_FC_span: eeSize desn't have any data!" << endl;
+      break;
+    }
+
     Lengths <<
       model->model->link[info.model->controlNode[info.model->controlNodeID[_link_name]].num].eeSize(i, 0),
       model->model->link[info.model->controlNode[info.model->controlNodeID[_link_name]].num].eeSize(i, 1),
       0.0;
-      // link.length_x[i],
-      // link.length_y[i],
-      // 0.0;
 
     CM.block(0,3*i,3,3) = MatrixXd::Identity(3,3);
     CM.block(3,3*i,3,3) = -cross(Lengths);
@@ -54,11 +56,13 @@ MatrixXd RLS::ConstraintModel::compute_FC_span(string _link_name) {
 MatrixXd RLS::ConstraintModel::compute_CWC_span() {
 
   MatrixXd V = MatrixXd::Zero(6*(int)contactLimbs.sum(), 16*(int)contactLimbs.sum());
+  // o(contactLimbs);
 
-  for (int i=0,rc=0; i<(int)contactLimbs.sum(); i++) {
+  for (int i=0,rc=0; i<(int)contactLimbs.size(); i++) {
     if(contactLimbs(i)) {
       V.block(6*rc,16*rc, 6,16) = compute_FC_span(info.model->controlNode[i].name);
       rc++;
+      // o(V);
     }
   }
 

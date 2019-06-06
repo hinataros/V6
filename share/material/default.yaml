@@ -2,6 +2,8 @@ materials:
   -
     name: Default
   -
+    name: Body
+  -
     name: Ground
   -
     name: Ice
@@ -9,6 +11,12 @@ materials:
 contactMaterials:
   -
     materials: [ Default, Default ]
+    friction: 10.
+  -
+    materials: [ Body, Ground ]
+    friction: 10.
+  -
+    materials: [ Default, Ground ]
     friction: 10.
   -
     materials: [ Default, Ice ]

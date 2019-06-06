@@ -31,7 +31,7 @@ void RLS::RlsDynamics::centroidalEcmpInternalDistribution()
     if(model->r[0](0) > model->r[1](0))
       cal_FcaBarRef = des.zeroToOne(0)*pInv(N(constraintModel.cal_PcM).block(6,0, 6,12))*(LMomZero);
     else
-      cal_FcaBarRef = des.zeroToOne(0)*pInv(N(constraintModel.cal_PcM).block(6,0, 6,12))*(LMomZero);
+      cal_FcaBarRef = des.zeroToOne(0)*pInv(N(constraintModel.cal_PcM).block(0,0, 6,12))*(RMomZero);
 
     cal_FcBarRef =
       pInv(constraintModel.cal_PcM, Wecmpc)*(cal_dLCRef + model->cal_GC)
