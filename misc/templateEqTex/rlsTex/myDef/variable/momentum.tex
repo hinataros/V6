@@ -1,0 +1,67 @@
+
+\newcommand{\bmp}{
+  \bm p
+}
+
+\newcommand{\bmlB}{
+  \bm l_B
+}
+
+\NewDocumentCommand\mcalLB{o o}
+{
+  \expTwoTThrT{\mcal L_B}%
+  {\bbmat{\bmp\\\bmlB}}%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\bmlC}{
+  \bm l_C
+}
+
+\NewDocumentCommand\mcalLC{o o}
+{
+  \expTwoTThrT{\mcal L_C}%
+  {\bbmat{\bmp\\\bmlC}}%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\dbmp}{
+  \dbm p
+}
+
+\newcommand{\dbmlB}{
+  \dbm l_B
+}
+
+\NewDocumentCommand\dmcalLB{o o}
+{
+  \expTwoTThrT{\dmcal L_B}%
+  {\bbmat{\dbmp\\\dbmlB}}%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\dbmlC}{
+  \dbm l_C
+}
+\newcommand{\dtilbmlC}{
+  \dtilbm l_C
+}
+
+\NewDocumentCommand\dmcalLC{o o}
+{
+  \expTwoTThrT{\dmcal L_C}%
+  {\bbmat{\dbmp\\\dbmlC}}%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}

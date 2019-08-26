@@ -1,6 +1,6 @@
 # @author Sho Miyahara 2018
 
-add_subdirectory(model)
+add_subdirectory(controllerModel)
 add_subdirectory(constraintModel)
 add_subdirectory(yamlInfo)
 add_subdirectory(configurationManager)
@@ -19,7 +19,7 @@ add_subdirectory(rlsDynamics)
 
 set(rlsDynamics_srcs
   ${initialize_srcs}
-  ${model_srcs}
+  ${controllerModel_srcs}
   ${constraintModel_srcs}
   ${yamlInfo_srcs}
   ${configurationManager_srcs}

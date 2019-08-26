@@ -1,0 +1,27 @@
+\newcommand{\bmJ}{
+  \bm J
+}
+\newcommand{\bmJm}{
+  \bm J_m
+}
+
+\newcommand{\bmmcalJ}{
+  \bmmcal J
+}
+\newcommand{\bmmcalJc}{
+  \bmmcal J_{\!\!c}
+}
+\newcommand{\bmmcalJm}{
+  \bmmcal J_{\!\!m}
+}
+
+\NewDocumentCommand\bmJc{o o}
+{
+  \expTwoTThrT{\bm J_{\!c}}%
+  {\bbmat{\mbbCc^T&\bmmcalJc}}%
+  {\bbmat{\mbbCc\\\bmmcalJc^T}}%
+  {\bbmat{\mbbCcf^T&\mbbCcm^T&\bmmcalJc}}%
+  {\bbmat{\mbbCcf\\\mbbCcm\\\bmmcalJc^T}}%
+  [#1][#2]
+}
+

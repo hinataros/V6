@@ -11,4 +11,5 @@ void RLS::RlsDynamics::linearMomentum()
   if(debug) DEBUG;
 
   dpRef = model->M*fb.dvCfb;
+  des.rvrpCalc = 1;
 }

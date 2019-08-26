@@ -3,6 +3,9 @@
 result:
   composite data name: cmp
   individual data name: ind
+  # individual data name: do8mm
+  # individual data name: do0mm
+  # individual data name: toeoff
 
 gp:
   check: false
@@ -342,25 +345,47 @@ tex:
         -
           file name: CoupAngMom
           time-dependent dat:
-            name: lCth
+            name: lTh
           y label: Coup. ang. mom. [Nms]
           dimention: 3
     -
-      file name: CoupAngMomLimd
+      file name: CoupAngMomLimb
       caption: Coupling angular momentum of limbs.
       control node: 0
       elements:
         -
           file name: CoupAngMomFoot
           time-dependent dat:
-            name: lCthF
+            name: lThF
           y label: Coup. ang. mom. F [Nms]
           dimention: 3
         -
           file name: CoupAngMomHand
           time-dependent dat:
-            name: lCthH
+            name: lThH
           y label: Coup. ang. mom. H [Nms]
+    -
+      file name: RCAngMomRef
+      caption: Various R. C. angular momentum ref.
+      control node: 0
+      elements:
+        -
+          file name: sysRCAngMomRef
+          time-dependent dat:
+            name: dlCRef
+          y label: Sys. R.C. ang. mom. ref. [Nm]
+          dimention: 3
+        -
+          file name: CRBRCAngMomRef
+          time-dependent dat:
+            name: dlCRBRef
+          y label: CRB R.C. ang. mom. ref. [Nm]
+          dimention: 3
+        -
+          file name: CoupRCAngMomRef
+          time-dependent dat:
+            name: dlThRef
+          y label: Coup. R.C. ang. mom. ref. [Nm]
           dimention: 3
     -
       file name: localCoP
@@ -476,24 +501,24 @@ tex:
           y label: Stability index x [mm]
           unit: m
           dimention: 4
-          add: ["set object 1 rect from 0, (0-28.57) to 0.3, (0+41.43) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
-          "set object 2 rect from 0.3, (0-28.57) to 0.7, (0+41.43) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
-          "set object 3 rect from 0.7, (0-28.57) to 0.8, (80+41.43) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
-          "set object 4 rect from 0.8, (80-28.57) to 1.2, (80+41.43) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
-          "set object 5 rect from 1.2, (80-28.57) to 1.3, (160+41.43) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
-          "set object 6 rect from 1.3, (160-28.57) to 1.7, (160+41.43) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
-          "set object 7 rect from 1.7, (160-28.57) to 1.8, (240+41.43) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
-          "set object 8 rect from 1.8, (240-28.57) to 2.2, (240+41.43) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
-          "set object 9 rect from 2.2, (240-28.57) to 2.3, (320+41.43) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
-          "set object 10 rect from 2.3, (320-28.57) to 2.7, (320+41.43) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
-          "set object 11 rect from 2.7, (320-28.57) to 2.8, (400+41.43) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
-          "set object 12 rect from 2.8, (400-28.57) to 3.2, (400+41.43) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
-          "set object 13 rect from 3.2, (400-28.57) to 3.3, (480+41.43) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
-          "set object 14 rect from 3.3, (480-28.57) to 3.7, (480+41.43) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
-          "set object 15 rect from 3.7, (480-28.57) to 3.8, (560+41.43) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
-          "set object 16 rect from 3.8, (560-28.57) to 4.2, (560+41.43) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
-          "set object 17 rect from 4.2, (560-28.57) to 6.0, (560+41.43) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder"
-          ]
+          # add: ["set object 1 rect from 0, (0-28.57) to 0.3, (0+41.43) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
+          # "set object 2 rect from 0.3, (0-28.57) to 0.7, (0+41.43) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
+          # "set object 3 rect from 0.7, (0-28.57) to 0.8, (80+41.43) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
+          # "set object 4 rect from 0.8, (80-28.57) to 1.2, (80+41.43) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
+          # "set object 5 rect from 1.2, (80-28.57) to 1.3, (160+41.43) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
+          # "set object 6 rect from 1.3, (160-28.57) to 1.7, (160+41.43) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
+          # "set object 7 rect from 1.7, (160-28.57) to 1.8, (240+41.43) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
+          # "set object 8 rect from 1.8, (240-28.57) to 2.2, (240+41.43) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
+          # "set object 9 rect from 2.2, (240-28.57) to 2.3, (320+41.43) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
+          # "set object 10 rect from 2.3, (320-28.57) to 2.7, (320+41.43) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
+          # "set object 11 rect from 2.7, (320-28.57) to 2.8, (400+41.43) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
+          # "set object 12 rect from 2.8, (400-28.57) to 3.2, (400+41.43) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
+          # "set object 13 rect from 3.2, (400-28.57) to 3.3, (480+41.43) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
+          # "set object 14 rect from 3.3, (480-28.57) to 3.7, (480+41.43) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
+          # "set object 15 rect from 3.7, (480-28.57) to 3.8, (560+41.43) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
+          # "set object 16 rect from 3.8, (560-28.57) to 4.2, (560+41.43) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
+          # "set object 17 rect from 4.2, (560-28.57) to 6.0, (560+41.43) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder"
+          # ]
         -
           file name: yStabilityIndex
           time-dependent dat:
@@ -502,25 +527,25 @@ tex:
           unit: m
           dimention: 4
           # add: ["set yrange[-80:80]", "set object 1 rect from 0, (39-31.5) to 1e+3, (39+31.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder", "set object 2 rect from 0, (-39+31.5) to 1e+3, (-39-31.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder"]
-          add: ["set yrange[-80:80]",
-          "set object 1 rect from 0, (-39-22.5) to 0.3, (39+22.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
-          "set object 2 rect from 0.3, (-39-22.5) to 0.7, (-39+22.5) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
-          "set object 3 rect from 0.7, (-39-22.5) to 0.8, (39+22.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
-          "set object 4 rect from 0.8, (39-22.5) to 1.2, (39+22.5) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
-          "set object 5 rect from 1.2, (-39-22.5) to 1.3, (39+22.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
-          "set object 6 rect from 1.3, (-39-22.5) to 1.7, (-39+22.5) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
-          "set object 7 rect from 1.7, (-39-22.5) to 1.8, (39+22.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
-          "set object 8 rect from 1.8, (39-22.5) to 2.2, (39+22.5) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
-          "set object 9 rect from 2.2, (-39-22.5) to 2.3, (39+22.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
-          "set object 10 rect from 2.3, (-39-22.5) to 2.7, (-39+22.5) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
-          "set object 11 rect from 2.7, (-39-22.5) to 2.8, (39+22.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
-          "set object 12 rect from 2.8, (39-22.5) to 3.2, (39+22.5) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
-          "set object 13 rect from 3.2, (-39-22.5) to 3.3, (39+22.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
-          "set object 14 rect from 3.3, (-39-22.5) to 3.7, (-39+22.5) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
-          "set object 15 rect from 3.7, (-39-22.5) to 3.8, (39+22.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
-          "set object 16 rect from 3.8, (39-22.5) to 4.2, (39+22.5) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
-          "set object 17 rect from 4.2, (-39-22.5) to 6.0, (39+22.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder"
-          ]
+          # add: ["set yrange[-80:80]",
+          # "set object 1 rect from 0, (-39-22.5) to 0.3, (39+22.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
+          # "set object 2 rect from 0.3, (-39-22.5) to 0.7, (-39+22.5) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
+          # "set object 3 rect from 0.7, (-39-22.5) to 0.8, (39+22.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
+          # "set object 4 rect from 0.8, (39-22.5) to 1.2, (39+22.5) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
+          # "set object 5 rect from 1.2, (-39-22.5) to 1.3, (39+22.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
+          # "set object 6 rect from 1.3, (-39-22.5) to 1.7, (-39+22.5) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
+          # "set object 7 rect from 1.7, (-39-22.5) to 1.8, (39+22.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
+          # "set object 8 rect from 1.8, (39-22.5) to 2.2, (39+22.5) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
+          # "set object 9 rect from 2.2, (-39-22.5) to 2.3, (39+22.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
+          # "set object 10 rect from 2.3, (-39-22.5) to 2.7, (-39+22.5) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
+          # "set object 11 rect from 2.7, (-39-22.5) to 2.8, (39+22.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
+          # "set object 12 rect from 2.8, (39-22.5) to 3.2, (39+22.5) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
+          # "set object 13 rect from 3.2, (-39-22.5) to 3.3, (39+22.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
+          # "set object 14 rect from 3.3, (-39-22.5) to 3.7, (-39+22.5) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
+          # "set object 15 rect from 3.7, (-39-22.5) to 3.8, (39+22.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
+          # "set object 16 rect from 3.8, (39-22.5) to 4.2, (39+22.5) behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
+          # "set object 17 rect from 4.2, (-39-22.5) to 6.0, (39+22.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder"
+          # ]
 
     -
       file name: Armth
@@ -562,10 +587,17 @@ tex:
           # add: ["set yrange [-600:800]"] #temp
 
     -
-      file name: eeMomRef
-      caption: End effector moment reference.
+      file name: eeWrenchRef
+      caption: End effector wrench reference.
       control node: 0
       elements:
+        -
+          file name: eeForceRef
+          time-dependent dat:
+            name: fRef
+          control node: 0
+          y label: EE force ref. [N]
+          dimention: 3
         -
           file name: eeMomRef
           time-dependent dat:
@@ -573,6 +605,28 @@ tex:
           control node: 0
           y label: EE. mom. ref. [Nm]
           dimention: 3
+
+    -
+      file name: comDes
+      caption: Desired CoM values.
+      elements:
+        -
+          file name: comPosDes
+          time-dependent dat:
+            name: rCDes
+          y label: Des. CoM [mm]
+          unit: m
+          dimention: 3
+        -
+          file name: comVelDes
+          time-dependent dat:
+            name: vCDes
+          y label: Des. CoM vel. [m/s]
+          dimention: 3
+
+    -
+      use function: stabilityIndex4walking
+
 
 choreonoid:
   sampling time: 10

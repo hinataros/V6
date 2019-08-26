@@ -40,7 +40,8 @@ void RLS::DesiredValueGenerator::finalize()
   delete[] ff;
   delete[] nf;
 
-  delete[] rtd;
+  // delete[] rtd;
+  delete[] rAp; // amiyata
 
   delete[] controlNodeTranslationNum;
   delete[] controlNodeTranslationName;
@@ -54,6 +55,12 @@ void RLS::DesiredValueGenerator::finalize()
   delete[] controlNodeRotation_map;
   delete[] controlNodeForce_map;
   delete[] controlNodeMoment_map;
+  // amiyata
+  delete[] controlNodeTranslationSpec;
+  delete[] controlNodeRotationSpec;
+  delete[] controlNodeForceSpec;
+  delete[] controlNodeMomentSpec;
+
   free(controlNodeTranslation_ptr);
   free(controlNodeRotation_ptr);
   free(controlNodeForce_ptr);

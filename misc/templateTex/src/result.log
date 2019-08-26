@@ -4200,32 +4200,32 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 Package epstopdf Info: Source file: </usr/local/etc/rls/user/1000/rlsSimulator/
-sl/result/0712/eps/straight_walk/048_lCth.eps>
+sl/result/0712/eps/straight_walk/048_lTh.eps>
 (epstopdf)                    date: 2018-07-09 21:06:59
 (epstopdf)                    size: 35441 bytes
 (epstopdf)             Output file: </usr/local/etc/rls/user/1000/rlsSimulator/
-sl/result/0712/eps/straight_walk/048_lCth-eps-converted-to.pdf>
+sl/result/0712/eps/straight_walk/048_lTh-eps-converted-to.pdf>
 (epstopdf)             Command: <repstopdf --outfile=/usr/local/etc/rls/user/10
-00/rlsSimulator/sl/result/0712/eps/straight_walk/048_lCth-eps-converted-to.pdf 
+00/rlsSimulator/sl/result/0712/eps/straight_walk/048_lTh-eps-converted-to.pdf 
 /usr/local/etc/rls/user/1000/rlsSimulator/sl/result/0712/eps/straight_walk/048_
-lCth.eps>
+lTh.eps>
 (epstopdf)             \includegraphics on input line 20.
 runsystem(repstopdf --outfile=/usr/local/etc/rls/user/1000/rlsSimulator/sl/resu
-lt/0712/eps/straight_walk/048_lCth-eps-converted-to.pdf /usr/local/etc/rls/user
-/1000/rlsSimulator/sl/result/0712/eps/straight_walk/048_lCth.eps)...executed sa
+lt/0712/eps/straight_walk/048_lTh-eps-converted-to.pdf /usr/local/etc/rls/user
+/1000/rlsSimulator/sl/result/0712/eps/straight_walk/048_lTh.eps)...executed sa
 fely (allowed).
 
 Package epstopdf Info: Result file: </usr/local/etc/rls/user/1000/rlsSimulator/
-sl/result/0712/eps/straight_walk/048_lCth-eps-converted-to.pdf>.
+sl/result/0712/eps/straight_walk/048_lTh-eps-converted-to.pdf>.
 
 ! Package pdftex.def Error: File `/usr/local/etc/rls/user/1000/rlsSimulator/sl/
-result/0712/eps/straight_walk/048_lCth-eps-converted-to.pdf' not found.
+result/0712/eps/straight_walk/048_lTh-eps-converted-to.pdf' not found.
 
 See the pdftex.def package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.20 ...esult/0712/eps/straight_walk/048_lCth.eps}
+l.20 ...esult/0712/eps/straight_walk/048_lTh.eps}
                                                   
 Using draft setting for this image.
 Try typing  <return>  to proceed.

@@ -20,7 +20,7 @@ void RLS::DesiredValueGenerator::initialize(const WorldModel &worldModel, const 
 
   setInitialBoundary();
 
-  string walkingKeyName = "walking";
-  if(this->yamlInfo->doc.controllerKey[walkingKeyName])
-    initializeWalking();
+  // string walkingKeyName = "walking";
+  // if(this->yamlInfo->doc.controllerKey[walkingKeyName])
+  initializeWalking();
 }

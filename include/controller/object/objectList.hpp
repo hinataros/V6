@@ -46,7 +46,7 @@ namespace RLS{
     Vector3d pCRB;
     Vector3d lCRB;
     Vector3d pCth;
-    Vector3d lCth;
+    Vector3d lTh;
     Vector3d p;
     Vector3d lC;
   };

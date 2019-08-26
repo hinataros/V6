@@ -12,9 +12,20 @@ void RLS::RlsDynamics::allReadController()
 {
   if(debug) DEBUG;
 
-  des.readController();
-  fb.readController();
-  readController();
+  if(!extractor.readFlag){
+    des.readController();
+    fb.readController();
+    readController(extractor.controllers.controlMethod);
+    
+    extractor.readFlag = true;
+  } else {
+    des.readController();
+    fb.readController();
+    readController();
+  }
+
+  // amiyata controllerだけ独立
+  readParameter();
+
   ext->readController(this);
 }
-

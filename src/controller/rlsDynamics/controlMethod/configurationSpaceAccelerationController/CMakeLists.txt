@@ -12,6 +12,7 @@ set(srcs
   rest_clCm.cpp
   baseGeneralizedMomentum.cpp
   mixedGeneralizedMomentum.cpp
+  mixedGeneralizedMomentumStacked.cpp
   mixedBaseAngularDecomposedMomentum.cpp
   mixedBaseAngularDistributedMomentum.cpp
   mixedGeneralizedDeltaAngularMomentum.cpp

@@ -1,0 +1,30 @@
+\NewDocumentCommand\mbbCPk{o o}
+{
+  \expTwoTThrT{\mbbC_P\pbmqk}%
+  {\bbmat{\mbbCc\pbmqk&\mbbCm\pbmqk}}%
+  {\bbmat{\mbbCc^T\pbmqk\\\mbbCm^T\pbmqk}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\NewDocumentCommand\mbbCP{o o}
+{
+  \expTwoTThrT{\mbbC_P}%
+  {\bbmat{\mbbCc&\mbbCm}}%
+  {\bbmat{\mbbCc^T\\\mbbCm^T}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\NewDocumentCommand\mbbCPC{o o}
+{
+  \expTwoTThrT{\mbbC_{PC}}%
+  {\bbmat{\hmbbCc&\mbbCmC}}%
+  {\bbmat{\hmbbCc^T\\\mbbCmC^T}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+

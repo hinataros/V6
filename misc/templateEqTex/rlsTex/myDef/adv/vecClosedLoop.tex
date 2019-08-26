@@ -1,0 +1,83 @@
+\NewDocumentCommand\vecClosedLoop{m o o o}
+{
+  \ifthenelse{\equal{exp}{#2}}
+  {
+    \twoV{#1}{}{c}{m}[exp][#3][#4]
+  }
+  {
+    \twoV{#1}{#2}{}{}[][][#3]
+  }
+}
+
+\NewDocumentCommand\twoV{m m m m o o o}
+{
+  \ifthenelse{\equal{exp}{#5}}
+  {
+    \ifthenelse{\equal{r}{#6} \OR \equal{l}{#6}}
+    {
+      \ifthenelse{\equal{r}{#6}}
+      {
+        \IfValueTF{#7}
+        {
+          \ifthenelse{\NOT \equal{}{#7}}
+          {
+            \bbmat{
+              (\notation{#1}[][][#3])^{#7}\\
+              (\notation{#1}[][][#4])^{#7}
+            }
+          }
+          {
+            \bbmat{
+              \notation{#1}[][][#3]\\
+              \notation{#1}[][][#4]
+            }
+          }
+        }
+        {
+          \bbmat{
+            \notation{#1}[][][#3]\\
+            \notation{#1}[][][#4]
+          }
+        }
+      }
+      {
+        \IfValueTF{#7}
+        {
+          \ifthenelse{\NOT \equal{}{#7}}
+          {
+            \bbmat{
+              (\notation{#1}[][][#3])^{#7} & (\notation{#1}[][][#4])^{#7}\\
+            }
+          }
+          {
+            \bbmat{
+              \notation{#1}[][][#3] & \notation{#1}[][][#4]\\
+            }
+          }
+        }
+        {
+          \bbmat{
+            \notation{#1}[][][#3] & \notation{#1}[][][#4]\\
+          }
+        }
+      }
+    }
+    {
+    }
+  }
+  {
+    \IfValueTF{#7}
+    {
+      \ifthenelse{\NOT \equal{}{#7}}
+      {
+        (\notation{#1}[][][#2])^{#7}
+      }
+      {
+        \notation{#1}[][][#2]
+      }
+    }
+    {
+      \notation{#1}[][][#2]
+    }
+  }
+}

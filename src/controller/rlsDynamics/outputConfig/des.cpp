@@ -25,7 +25,12 @@ void RLS::RlsDynamics::outputDesConfig()
   outputList.rXDes = des.rXDes;
   outputList.drXDes = des.drXDes;
 
-  outputList.rvrpDes = des.rXDes - des.drXDes/model->wX;
+  if(des.rvrpCalc==1){
+    outputList.rvrpDes = des.rCDes - des.dvCDes/(model->wX*model->wX);
+  }
+  else{
+    outputList.rvrpDes = des.rXDes - des.drXDes/model->wX;
+  }
 
   // outputList.rvrpBarDes = des.rXBarDes - des.drXBarDes/model->wX;
   outputList.rndvrpDes = des.rXDes - des.drXDes/model->wX;

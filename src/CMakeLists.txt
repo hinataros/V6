@@ -39,6 +39,7 @@ include_directories(${PROJECT_SOURCE_DIR}/include/model/rigidBodyModel)
 
 include_directories(${PROJECT_SOURCE_DIR}/include/interpolation)
 include_directories(${PROJECT_SOURCE_DIR}/include/solver)
+include_directories(${PROJECT_SOURCE_DIR}/include/solver/costFunctions)
 
 include_directories(${PROJECT_SOURCE_DIR}/include/controller)
 include_directories(${PROJECT_SOURCE_DIR}/include/controller/sharedMemory)
@@ -83,6 +84,13 @@ if(rls_thirdparty_QuadProgpp)
   include_directories(${PROJECT_SOURCE_DIR}/thirdparty/QuadProgpp/src)
   link_directories(${CMAKE_BINARY_DIR}/thirdparty/QuadProgpp/src)
   set(LDFLAGS ${LDFLAGS} quadprog)
+endif()
+
+if(rls_thirdparty_cfsqp)
+  add_definitions(-DCFSQP_LINK)
+  include_directories(${PROJECT_SOURCE_DIR}/thirdparty/cfsqp)
+  link_directories(${CMAKE_BINARY_DIR}/thirdparty/cfsqp)
+  set(LDFLAGS ${LDFLAGS} cfsqp)
 endif()
 
 add_subdirectory(common)

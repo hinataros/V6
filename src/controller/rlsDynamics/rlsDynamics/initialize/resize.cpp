@@ -17,12 +17,6 @@ void RLS::RlsDynamics::resize()
   cal_Sp = MatrixXd::Zero(2, 6);
   cal_Sp.block(0,3,2,2) = bb_Spx;
 
-  // transform offset
-  // rkk = new Vector3d[cnn];
-
-  // for(int i=0; i<cnn; i++)
-  //   rkk[i] = Vector3d::Zero();
-
   dthRef = VectorXd::Zero(info.model.dof.joint);
   dqBRef = VectorXd::Zero(info.model.dof.all);
   dqMRef = VectorXd::Zero(info.model.dof.all);
@@ -61,16 +55,16 @@ void RLS::RlsDynamics::resize()
   KpHG = MatrixXd::Zero(info.model.dof.joint, info.model.dof.joint);
   KdHG = MatrixXd::Zero(info.model.dof.joint, info.model.dof.joint);
 
-  // optimization weight
-  Wdh = Matrix6d::Zero();
-  Wm = MatrixXd::Zero(6*info.model.controlNodeNum, 6*info.model.controlNodeNum);
-  WJ = MatrixXd::Zero(6*info.model.controlNodeNum, 6*info.model.controlNodeNum);
+  // optimization weight // 2019/07/05 amiyata weightはデフォルトで1.0
+  Wdh = Matrix6d::Identity();
+  Wm = MatrixXd::Identity(6*info.model.controlNodeNum, 6*info.model.controlNodeNum);
+  WJ = MatrixXd::Identity(6*info.model.controlNodeNum, 6*info.model.controlNodeNum);
 
-  Wth = MatrixXd::Zero(info.model.dof.joint, info.model.dof.joint);
+  Wth = MatrixXd::Identity(info.model.dof.joint, info.model.dof.joint);
   // smiyahara: 接触点の個数を数えたい
-  Wp = MatrixXd::Zero(2*info.model.controlNodeNum, 2*info.model.controlNodeNum);
-  WF = MatrixXd::Zero(6*info.model.controlNodeNum, 6*info.model.controlNodeNum);
-  WFmin = MatrixXd::Zero(6*info.model.controlNodeNum, 6*info.model.controlNodeNum);
+  Wp = MatrixXd::Identity(2*info.model.controlNodeNum, 2*info.model.controlNodeNum);
+  WF = MatrixXd::Identity(6*info.model.controlNodeNum, 6*info.model.controlNodeNum);
+  WFmin = MatrixXd::Identity(6*info.model.controlNodeNum, 6*info.model.controlNodeNum);
 
   // // high gain control
   thDes = VectorXd::Zero(info.model.dof.joint);
@@ -83,9 +77,11 @@ void RLS::RlsDynamics::resize()
   // amiyata rkk
   rkk = VectorXd::Zero(3*info.model.controlNodeNum);
 
+  distOffset = Vector2d::Zero();
+
   sequence = new Sequence[yamlInfo.sequenceNum];
   for(int i=0; i<yamlInfo.sequenceNum; i++){
-    sequence[i].phase = 0;
+    sequence[i].phase = -1; // 初期phaseがややこしい
     sequence[i].tw0 = 0.;
     sequence[i].twf = 0.;
   }
@@ -106,4 +102,7 @@ void RLS::RlsDynamics::resize()
     inverseDynamicsControllerName = "default";
 
   externalWrenchControllerName = "default";
+
+  // amiyata
+  extractor.resize();
 }

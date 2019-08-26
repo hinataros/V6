@@ -151,7 +151,7 @@ RTC::ReturnCode_t RlsDynamicsRTC::onDeactivated(RTC::UniqueId ec_id)
   for(int i=0; i<controllerNum; i++)
     output.rlsDynamicsList_temp[i] = rlsDynamics.outputList;
   output.extList_temp = rlsDynamics.extList;
-  output.footPrintList_op = rlsDynamics.footPrintList; // amiyata
+  output.extractor = rlsDynamics.extractor; // amiyata
 
   output.pushBack(t);
 

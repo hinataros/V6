@@ -1,0 +1,344 @@
+%% skew symetric matrix
+\newcommand{\bmrola}[1]{
+  \bm r_{\ola{#1}}
+}
+\newcommand{\dbmrola}[1]{
+  \dbm r_{\ola{#1}}
+}
+
+\newcommand{\ssmbmrola}[1]{
+  \ssm{\bmrola{#1}}
+}
+
+\newcommand{\ssmdbmrola}[1]{
+  \ssm{\dbmrola{#1}}
+}
+
+\NewDocumentCommand\bmmcalT{m o o}
+{
+  \expTwoTThrT{\notation{\bmmcal T}[][\ola{#1}]}%
+  {\bbmat{\bm E_3&-\ssmbmrola{#1}}}%
+  {\bbmat{\bm E_3\\-\ssmbmrola{#1}^T}}%
+  {error}%
+  {error}%
+  [#2][#3]
+}
+
+\NewDocumentCommand\mbbT{m o o}
+{
+  \expTwoTThrT{\notation{\mbb T}[][\ola{#1}]}%
+  {
+    \bbmat{
+      \bm E_3 & -\ssmbmrola{#1}\\
+      \bm 0 & \bm E_3
+    }
+  }%
+  {
+    \bbmat{
+      \bm E_3 & \bm 0\\
+      -\ssmbmrola{#1}^T & \bm E_3
+    }
+  }%
+  {error}%
+  {error}%
+  [#2][#3]
+}
+
+\NewDocumentCommand\dbmmcalT{m o o}
+{
+  \expTwoTThrT{\notation{\dbmmcal T}[][\ola{#1}]}%
+  {\bbmat{\bm 0_3&-\ssmdbmrola{#1}}}%
+  {\bbmat{\bm 0_3\\-\ssmdbmrola{#1}^T}}%
+  {error}%
+  {error}%
+  [#2][#3]
+}
+
+\NewDocumentCommand\dmbbT{m o o}
+{
+  \expTwoTThrT{\notation{\dmbb T}[][\ola{#1}]}%
+  {
+    \bbmat{
+      \bm 0_3 & -\ssmdbmrola{#1}\\
+      \bm 0 & \bm 0_3
+    }
+  }%
+  {
+    \bbmat{
+      \bm 0_3 & \bm 0\\
+      -\ssmdbmrola{#1}^T & \bm 0_3
+    }
+  }%
+  {error}%
+  {error}%
+  [#2][#3]
+}
+
+\NewDocumentCommand\bmTolaMB{o o}
+{
+  \expTwoTThrT{\notation{\bm T}[][\ola{MB}]}%
+  {
+    \bbmat{
+      \mbbT{CB} & \bmmcalJolaCB\\
+      \bm 0& \bm E_n
+    }
+  }%
+  {
+    \bbmat{
+      \mbbT{CB}^T & \bm 0\\
+      \bmmcalJolaCB^T & \bm E_n
+    }
+  }%
+  {
+    \bbmat{
+      \bm E_3 & -\ssmbmrola{CB} & \bmJolaCB\\
+      \bm 0 & \bm E_3 & \bm 0\\
+      \bm 0 & \bm 0 & \bm E_n
+    }
+  }%
+  {
+    \bbmat{
+      \bm E_3 & \bm 0 & \bm 0\\
+      -\ssmbmrola{CB}^T & \bm E_3 & \bm 0\\
+      \bmJolaCB^T & \bm 0 & \bm E_n
+    }
+  }%
+  [#1][#2]
+}
+
+\NewDocumentCommand\bmTolaBM{o o}
+{
+  \expTwoTThrT{\notation{\bm T}[][\ola{BM}]}%
+  {
+    \bbmat{
+      \mbbT{BC} & -\bmmcalJolaCB\\
+      \bm 0 & \bm E_n
+    }
+  }%
+  {
+    \bbmat{
+      \mbbT{BC}^T & \bm 0\\
+      -\bmmcalJolaCB^T & \bm E_n
+    }
+  }%
+  {
+    \bbmat{
+      \bm E_3 & -\ssmbmrola{BC} & -\bmJolaCB\\
+      \bm 0 & \bm E_3 & \bm 0\\
+      \bm 0 & \bm 0 & \bm E_n
+    }
+  }%
+  {
+    \bbmat{
+      \bm E_3 & \bm 0 & \bm 0\\
+      -\ssmbmrola{BC}^T & \bm E_3 & \bm 0\\
+      -\bmJolaCB^T & \bm 0 & \bm E_n
+    }
+  }%
+  [#1][#2]
+}
+
+\NewDocumentCommand\dbmTolaMB{o o}
+{
+  \expTwoTThrT{\notation{\dbm T}[][\ola{MB}]}%
+  {
+    \bbmat{
+      \dmbbT{CB} & \dbmmcalJolaCB\\
+      \bm 0& \bm 0
+    }
+  }%
+  {
+    \bbmat{
+      \dmbbT{CB}^T & \bm 0\\
+      \dbmmcalJolaCB^T & \bm 0
+    }
+  }%
+  {
+    \bbmat{
+      \bm 0 & -\ssmdbmrola{CB} & \dbmJolaCB\\
+      \bm 0 & \bm 0 & \bm 0\\
+      \bm 0 & \bm 0 & \bm 0
+    }
+  }%
+  {
+    \bbmat{
+      \bm 0 & \bm 0 & \bm 0\\
+      -\ssmdbmrola{CB}^T & \bm 0 & \bm 0\\
+      \dbmJolaCB^T & \bm 0 & \bm 0
+    }
+  }%
+  [#1][#2]
+}
+
+\NewDocumentCommand\dbmTolaBM{o o}
+{
+  \expTwoTThrT{\notation{\dbm T}[][\ola{BM}]}%
+  {
+    \bbmat{
+      \dmbbT{BC} & -\dbmmcalJolaCB\\
+      \bm 0 & \bm 0
+    }
+  }%
+  {
+    \bbmat{
+      \dmbbT{BC}^T & \bm 0\\
+      -\dbmmcalJolaCB^T & \bm 0
+    }
+  }%
+  {
+    \bbmat{
+      \bm 0 & -\ssmdbmrola{BC} & -\dbmJolaCB\\
+      \bm 0 & \bm 0 & \bm 0\\
+      \bm 0 & \bm 0 & \bm 0
+    }
+  }%
+  {
+    \bbmat{
+      \bm 0 & \bm 0 & \bm 0\\
+      -\ssmdbmrola{BC}^T & \bm 0 & \bm 0\\
+      -\dbmJolaCB^T & \bm 0 & \bm 0
+    }
+  }%
+  [#1][#2]
+}
+
+\NewDocumentCommand\bmTolaCB{o o}
+{
+  \expTwoTThrT{\notation{\bm T}[][\ola{CB}]}%
+  {
+    \bbmat{
+      \mbbT{CB} & \bmmcalJth\\
+      \bm 0& \bm E_n
+    }
+  }%
+  {
+    \bbmat{
+      \mbbT{CB}^T & \bm 0\\
+      \bmmcalJth^T & \bm E_n
+    }
+  }%
+  {
+    \bbmat{
+      \bm E_3 & -\ssmbmrola{CB} & \bmJolaCB\\
+      \bm 0 & \bm E_3 & \bmJw\\
+      \bm 0 & \bm 0 & \bm E_n
+    }
+  }%
+  {
+    \bbmat{
+      \bm E_3 & \bm 0 & \bm 0\\
+      -\ssmbmrola{CB}^T & \bm E_3 & \bm 0\\
+      \bmJolaCB^T & \bmJw^T & \bm E_n
+    }
+  }%
+  [#1][#2]
+}
+
+\NewDocumentCommand\dbmTolaCB{o o}
+{
+  \expTwoTThrT{\notation{\dbm T}[][\ola{CB}]}%
+  {
+    \bbmat{
+      \dmbbT{CB} & \dbmmcalJth\\
+      \bm 0& \bm 0_n
+    }
+  }%
+  {
+    \bbmat{
+      \dmbbT{CB}^T & \bm 0\\
+      \dbmmcalJth^T & \bm 0_n
+    }
+  }%
+  {
+    \bbmat{
+      \bm 0_3 & -\ssmdbmrola{CB} & \dbmJolaCB\\
+      \bm 0 & \bm 0_3 & \dbmJw\\
+      \bm 0 & \bm 0 & \bm 0_n
+    }
+  }%
+  {
+    \bbmat{
+      \bm 0_3 & \bm 0 & \bm 0\\
+      -\ssmdbmrola{CB}^T & \bm 0_3 & \bm 0\\
+      \dbmJolaCB^T & \dbmJw^T & \bm 0_n
+    }
+  }%
+  [#1][#2]
+}
+
+\NewDocumentCommand\bmTolaBC{o o}
+{
+  \expTwoTThrT{\notation{\bm T}[][\ola{BC}]}%
+  {
+    \bbmat{
+      \mbbT{BC} & -\tilbmmcalJth\\
+      \bm 0& \bm E_n
+    }
+  }%
+  {
+    \bbmat{
+      \mbbT{BC}^T & \bm 0\\
+      -\tilbmmcalJth^T & \bm E_n
+    }
+  }%
+  {
+    \bbmat{
+      \bm E_3 & -\ssmbmrola{BC} & -\tilbmJolaCB\\
+      \bm 0 & \bm E_3 & -\bmJw\\
+      \bm 0 & \bm 0 & \bm E_n
+    }
+  }%
+  {
+    \bbmat{
+      \bm E_3 & \bm 0 & \bm 0\\
+      -\ssmbmrola{BC}^T & \bm E_3 & \bm 0\\
+      -\tilbmJolaCB^T & -\bmJw^T & \bm E_n
+    }
+  }%
+  [#1][#2]
+}
+
+
+
+%Rotate amiyata
+
+\NewDocumentCommand\mbbR{o m o o}
+{
+  \IfValueTF{#1}
+  {
+    \expTwoTThrT{\notation{\mbb R}[#1][#2]}%
+    {
+      \bbmat{
+        ^{#1}\bm R_{#2} & \bm 0_3\\
+        \bm 0_3 & ^{#1}\bm R_{#2}
+      }
+    }%
+    {
+      \bbmat{
+        ^{#2}\bm R_{#1} & \bm 0_3\\
+        \bm 0_3 & \bm R
+      }
+    }%
+    {error}%
+    {error}%
+    [#3][#4]
+  }
+  {
+    \expTwoTThrT{\mbb R_{#2}}%
+    {
+      \bbmat{
+        \bm R_{#2} & \bm 0_3\\
+        \bm 0_3 & \bm R_{#2}
+      }
+    }%
+    {
+      \bbmat{
+        ^{#2}\bm R & \bm 0_3\\
+        \bm 0_3 & {#2}\bm R
+      }
+    }%
+    {error}%
+    {error}%
+    [#3][#4]
+  }
+}

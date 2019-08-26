@@ -14,11 +14,11 @@ void RLS::RlsDynamics::outputIndexConfig()
   outputList.lCRB = model->IC*model->wB;
 
   outputList.pCth = Vector3d::Zero();
-  outputList.lCth = model->HC*model->dth;
+  outputList.lTh = model->HC*model->dth;
 
   if(model->dth.rows() == 20) {
-    outputList.lCthF = model->HC.block(0,0, 3,12) * model->dth.segment(0,12);
-    outputList.lCthH = model->HC.block(0,12, 3,8) * model->dth.segment(12,8);
+    outputList.lThF = model->HC.block(0,0, 3,12) * model->dth.segment(0,12);
+    outputList.lThH = model->HC.block(0,12, 3,8) * model->dth.segment(12,8);
   }
 
   outputList.p = model->M*model->vC;

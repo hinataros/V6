@@ -40,7 +40,12 @@ namespace RLS{
     Matrix3d w2dR(Vector3d, Matrix3d);
     Vector3d ddxi2dw(Vector3d, Vector3d, Vector3d);
 
+    VectorXd arrayd2Vector(int, double*); //amiyata
+    double sign(double); //amiyata
+
     int round_cast(double, int);
+
+    bool nanCheck(VectorXd);
 
   public:
   };

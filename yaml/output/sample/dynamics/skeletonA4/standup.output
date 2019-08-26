@@ -3,6 +3,7 @@
 result:
   composite data name: cmp
   individual data name: ind
+  # individual data name: els
 
 gp:
   check: false

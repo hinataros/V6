@@ -1,0 +1,39 @@
+\NewDocumentCommand\genTwoD{m m m o o o o}
+{
+  \ifthenelse{\equal{exp}{#5}}
+  {
+    \ifthenelse{\equal{r}{#6} \OR \equal{l}{#6}}
+    {
+      \ifthenelse{\equal{r}{#6}}
+      {
+        \bbmat{
+          \notation{#2}[][#4][#7]\\
+          \notation{#3}[][][#7]
+        }
+      }
+      {
+        \bbmat{
+          \notation{#2}[][#4][#7] & \notation{#3}[][][#7]\\
+        }
+      }
+    }
+    {
+      error
+    }
+  }
+  {
+    \ifthenelse{\equal{s}{#5}}
+    {
+      \notation{#2}[][#4]
+    }
+    {
+      \ifthenelse{\equal{j}{#5}}
+      {
+        \notation{#3}[][#4]
+      }
+      {
+        \notation{#1}[][#4]
+      }
+    }
+  }
+}

@@ -11,6 +11,8 @@ set(srcs
   stateTrigger.cpp
   localInitialize.cpp
   initialize.cpp
+  extractorResize.cpp
+  stateScanner.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" initialize_srcs)

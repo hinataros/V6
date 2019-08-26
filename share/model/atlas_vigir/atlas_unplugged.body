@@ -1,0 +1,683 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+angleUnit: degree
+name: atlas_v3
+
+links:
+  -
+    name: PELVIS
+    jointType: free
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ -0.033399523752442269, 9.0017796333846672e-05, 0.12598499525362158 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &PELVIS
+              -
+                type: Resource
+                uri: "meshes_unplugged/pelvis.dae"
+  -
+    name: R_UGLUT
+    parent: PELVIS
+    jointId: 0
+    jointType: revolute
+    jointAxis: Z
+    translation: [ 0, -0.089, 0 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ -0.033399523752442269, 9.0017796333846672e-05, 0.12598499525362158 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &R_UGLUT
+              -
+                type: Resource
+                uri: "meshes_unplugged/r_uglut.dae"
+  -
+    name: R_LGLUT
+    parent: R_UGLUT
+    jointId: 1
+    jointType: revolute
+    jointAxis: X
+    translation: [ 0, 0, 0 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ -0.033399523752442269, 9.0017796333846672e-05, 0.12598499525362158 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &R_LGLUT
+              -
+                type: Resource
+                uri: "meshes_unplugged/r_lglut.dae"
+  -
+    name: R_ULEG
+    parent: R_LGLUT
+    jointId: 2
+    jointType: revolute
+    jointAxis: Y
+    translation: [ 0.05, -0.0225, -0.066 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ -0.033399523752442269, 9.0017796333846672e-05, 0.12598499525362158 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &R_ULEG
+              -
+                type: Resource
+                uri: "meshes_unplugged/r_uleg.dae"
+          # -
+          #   type: Collision
+          #   elements: *PELVIS
+  -
+    name: R_LLEG
+    parent: R_ULEG
+    jointId: 3
+    jointType: revolute
+    jointAxis: Y
+    translation: [ -0.05, 0, -0.374 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ -0.033399523752442269, 9.0017796333846672e-05, 0.12598499525362158 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &R_LLEG
+              -
+                type: Resource
+                uri: "meshes_unplugged/r_lleg.dae"
+  -
+    name: R_TALUS
+    parent: R_LLEG
+    jointId: 4
+    jointType: revolute
+    jointAxis: Y
+    translation: [ 0, 0, -0.422 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ -0.033399523752442269, 9.0017796333846672e-05, 0.12598499525362158 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &R_TALUS
+              -
+                type: Resource
+                uri: "meshes_unplugged/r_talus.dae"
+  -
+    name: R_FOOT
+    parent: R_TALUS
+    jointId: 5
+    jointType: revolute
+    jointAxis: X
+    translation: [ 0, 0, 0 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ -0.033399523752442269, 9.0017796333846672e-05, 0.12598499525362158 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &R_FOOT
+              -
+                type: Resource
+                uri: "meshes_unplugged/r_foot.dae"
+          -
+            type: Collision
+            elements: *R_FOOT
+  -
+    name: L_UGLUT
+    parent: PELVIS
+    jointId: 6
+    jointType: revolute
+    jointAxis: Z
+    translation: [ 0, 0.089, 0 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ -0.033399523752442269, 9.0017796333846672e-05, 0.12598499525362158 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &L_UGLUT
+              -
+                type: Resource
+                uri: "meshes_unplugged/l_uglut.dae"
+  -
+    name: L_LGLUT
+    parent: L_UGLUT
+    jointId: 7
+    jointType: revolute
+    jointAxis: X
+    translation: [ 0, 0, 0 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ -0.033399523752442269, 9.0017796333846672e-05, 0.12598499525362158 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &L_LGLUT
+              -
+                type: Resource
+                uri: "meshes_unplugged/l_lglut.dae"
+  -
+    name: L_ULEG
+    parent: L_LGLUT
+    jointId: 8
+    jointType: revolute
+    jointAxis: Y
+    translation: [ 0.05, 0.0225, -0.066 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ -0.033399523752442269, 9.0017796333846672e-05, 0.12598499525362158 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &L_ULEG
+              -
+                type: Resource
+                uri: "meshes_unplugged/l_uleg.dae"
+  -
+    name: L_LLEG
+    parent: L_ULEG
+    jointId: 9
+    jointType: revolute
+    jointAxis: Y
+    translation: [ -0.05, 0, -0.374 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ -0.033399523752442269, 9.0017796333846672e-05, 0.12598499525362158 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &L_LLEG
+              -
+                type: Resource
+                uri: "meshes_unplugged/l_lleg.dae"
+  -
+    name: L_TALUS
+    parent: L_LLEG
+    jointId: 10
+    jointType: revolute
+    jointAxis: Y
+    translation: [ 0, 0, -0.422 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ -0.033399523752442269, 9.0017796333846672e-05, 0.12598499525362158 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &L_TALUS
+              -
+                type: Resource
+                uri: "meshes_unplugged/l_talus.dae"
+  -
+    name: L_FOOT
+    parent: L_TALUS
+    jointId: 11
+    jointType: revolute
+    jointAxis: X
+    translation: [ 0, 0, 0 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ -0.033399523752442269, 9.0017796333846672e-05, 0.12598499525362158 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &L_FOOT
+              -
+                type: Resource
+                uri: "meshes_unplugged/l_foot.dae"
+          -
+            type: Collision
+            elements: *L_FOOT
+  -
+    name: LTORSO
+    parent: PELVIS
+    jointId: 12
+    jointType: revolute
+    jointAxis: Z
+    translation: [ -0.0125, 0, 0 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ -0.033399523752442269, 9.0017796333846672e-05, 0.12598499525362158 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &LTORSO
+              -
+                type: Resource
+                uri: "meshes_unplugged/ltorso.dae"
+  -
+    name: MTORSO
+    parent: LTORSO
+    jointId: 13
+    jointType: revolute
+    jointAxis: Y
+    translation: [ 0, 0, 0.162 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ -0.033399523752442269, 9.0017796333846672e-05, 0.12598499525362158 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &MTORSO
+              -
+                type: Resource
+                uri: "meshes_unplugged/mtorso.dae"
+  -
+    name: UTORSO
+    parent: MTORSO
+    jointId: 14
+    jointType: revolute
+    jointAxis: X
+    translation: [ 0, 0, 0.05 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ -0.033399523752442269, 9.0017796333846672e-05, 0.12598499525362158 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &UTORSO
+              -
+                type: Resource
+                uri: "meshes_unplugged/utorso.dae"
+              -
+                type: Resource
+                uri: "meshes_unplugged/utorso_pack.dae"
+  -
+    name: R_CLAV
+    parent: UTORSO
+    jointId: 15
+    jointType: revolute
+    jointAxis: Z
+    translation: [ 0.1406, -0.2036, 0.4776 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ -0.033399523752442269, 9.0017796333846672e-05, 0.12598499525362158 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &R_CLAV
+              -
+                type: Resource
+                translation: [ 0, 0.048, -0.45 ]
+                uri: "meshes_unplugged/r_clav.dae"
+  -
+    name: R_SCAP
+    parent: R_CLAV
+    jointId: 16
+    jointType: revolute
+    jointAxis: X
+    translation: [ 0, -0.0981, -0.2511 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ 0.0, 0.0, 0.0 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &R_SCAP
+              -
+                type: Resource
+                uri: "meshes_unplugged/r_scap.dae"
+  -
+    name: R_UARM
+    parent: R_SCAP
+    jointId: 17
+    jointType: revolute
+    jointAxis: Y
+    translation: [ 0, -0.187, 0.016 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ 0.0, 0.0, 0.0 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &R_UARM
+              -
+                type: Resource
+                uri: "meshes_unplugged/r_uarm.dae"
+  -
+    name: R_LARM
+    parent: R_UARM
+    jointId: 18
+    jointType: revolute
+    jointAxis: X
+    translation: [ 0, -0.119, 0.0092 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ 0.0, 0.0, 0.0 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &R_LARM
+              -
+                type: Resource
+                uri: "meshes_unplugged/r_larm.dae"
+  -
+    name: R_FARM
+    parent: R_LARM
+    jointId: 19
+    jointType: revolute
+    jointAxis: Y
+    translation: [ 0, -0.187, -0.0092 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ 0.0, 0.0, 0.0 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &R_FARM
+              -
+                type: Resource
+                uri: "meshes_unplugged/r_farm.dae"
+  -
+    name: R_HAND
+    parent: R_FARM
+    jointId: 20
+    jointType: revolute
+    jointAxis: X
+    translation: [ 0, -0.119, 0.0092 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ 0.0, 0.0, 0.0 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &R_HAND
+              -
+                type: Resource
+                uri: "meshes_unplugged/r_hand.dae"
+  -
+    name: L_CLAV
+    parent: UTORSO
+    jointId: 21
+    jointType: revolute
+    jointAxis: Z
+    translation: [ 0.1406, 0.2036, 0.4776 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ -0.033399523752442269, 9.0017796333846672e-05, 0.12598499525362158 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &L_CLAV
+              -
+                type: Resource
+                translation: [ 0, -0.048, -0.45 ]
+                uri: "meshes_unplugged/l_clav.dae"
+  -
+    name: L_SCAP
+    parent: L_CLAV
+    jointId: 22
+    jointType: revolute
+    jointAxis: X
+    translation: [ 0, 0.0981, -0.2511 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ 0.0, 0.0, 0.0 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &L_SCAP
+              -
+                type: Resource
+                uri: "meshes_unplugged/l_scap.dae"
+  -
+    name: L_UARM
+    parent: L_SCAP
+    jointId: 23
+    jointType: revolute
+    jointAxis: Y
+    translation: [ 0, 0.187, 0.016 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ 0.0, 0.0, 0.0 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &L_UARM
+              -
+                type: Resource
+                uri: "meshes_unplugged/l_uarm.dae"
+  -
+    name: L_LARM
+    parent: L_UARM
+    jointId: 24
+    jointType: revolute
+    jointAxis: X
+    translation: [ 0, 0.119, 0.0092 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ 0.0, 0.0, 0.0 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &L_LARM
+              -
+                type: Resource
+                uri: "meshes_unplugged/l_larm.dae"
+  -
+    name: L_FARM
+    parent: L_LARM
+    jointId: 25
+    jointType: revolute
+    jointAxis: Y
+    translation: [ 0, 0.187, -0.0092 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ 0.0, 0.0, 0.0 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &L_FARM
+              -
+                type: Resource
+                uri: "meshes_unplugged/l_farm.dae"
+  -
+    name: L_HAND
+    parent: L_FARM
+    jointId: 26
+    jointType: revolute
+    jointAxis: X
+    translation: [ 0, 0.119, 0.0092 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &L_HAND
+              -
+                type: Resource
+                uri: "meshes_unplugged/l_hand.dae"
+  -
+    name: HEAD
+    parent: UTORSO
+    jointId: 27
+    jointType: revolute
+    jointAxis: Y
+    translation: [ 0.2546, 0, 0.6215 ]
+    elements:
+      -
+        type: RigidBody
+        mass: 2.1792978
+        centerOfMass: [ 0.0, 0.0, 0.0 ]
+        inertia: [
+        0.0295574, -4.37461e-5, 0.0176377,
+        -4.37461e-5, 0.0456095, 4.46169e-5,
+        0.0176377, 4.46169e-05, 0.0222955 ]
+        elements:
+          -
+            type: Visual
+            elements: &HEAD
+              -
+                type: Resource
+                uri: "meshes_unplugged/head.dae"

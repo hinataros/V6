@@ -23,7 +23,7 @@ void RLS::RlsSimulator::readRlsSimulator(const string &path_yaml_rlsSimulator, c
   YAML::Node doc = YAML::LoadFile(path_yaml_rlsSimulator.c_str());
 
   if(doc["config"][0]){
-    if(info.treeModelNum==doc["config"].size()){
+    if(info.treeModelNum==(int)doc["config"].size()){
       for(int i=0; i<info.treeModelNum; i++)
         this->config.controlInput[i] = doc["config"][i]["control input"].as<string>();
     }

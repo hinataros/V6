@@ -1,0 +1,32 @@
+\newcommand{\dbmIC}{
+  \dbm I_C
+}
+
+\NewDocumentCommand\dmbbMC{o o}
+{
+  \expTwoTThrT{\dmbb M_C}%
+  {
+  \bbmat{
+    \bm 0&\bm 0\\
+    \bm 0&\dbmIC
+    }
+  }%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\dbmHC}{
+  \dbm H_C
+}
+
+\NewDocumentCommand\dbmmcalHMth{o o}
+{
+  \expTwoTThrT{\dbmmcal H_{\!M\theta}}%
+  {\bbmat{\bm 0\\\dbmHC}}%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}

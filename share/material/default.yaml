@@ -14,7 +14,7 @@ contactMaterials:
     friction: 10.
   -
     materials: [ Body, Ground ]
-    friction: 10.
+    friction: 100.
   -
     materials: [ Default, Ground ]
     friction: 10.

@@ -1,0 +1,63 @@
+\newcommand{\bmmcalJcM}{
+  \bmmcal J_{\!\!cM}
+}
+\newcommand{\bmmcalJmM}{
+  \bmmcal J_{\!\!mM}
+}
+
+\NewDocumentCommand\bmJcM{o o}
+{
+  \expTwoTThrT{\bm J_{\!c\!M}}%
+  {\bbmat{\bmCc^T&\bmmcalJcM}}%
+  {\bbmat{\bmCc\\\bmmcalJcM^T}}%
+  {\bbmat{\bmCcf^T\\\bmCcCm^T\\\bmmcalJcM}}%
+  {\bbmat{\bmCcf\\\bmCcCm\\\bmmcalJcM^T}}%
+  [#1][#2]
+}
+% \NewDocumentCommand\bmJcM{o o}
+% {
+%   \expTwoTThrT{\bm J_{\!c\!M}}%
+%   {\bbmat{\mbbCcC^T&\bmmcalJcM}}%
+%   {\bbmat{\mbbCcC\\\bmmcalJcM^T}}%
+%   {\bbmat{\bmCcf^T\\\bmCcCm^T\\\bmmcalJcM}}%
+%   {\bbmat{\bmCcf\\\bmCcCm\\\bmmcalJcM^T}}%
+%   [#1][#2]
+% }
+
+\NewDocumentCommand\bmJmM{o o}
+{
+  \expTwoTThrT{\bm J_{\!m\!M}}%
+  {\bbmat{\mbCm^T&\bmmcalJmM}}%
+  {\bbmat{\mbCm\\\bmmcalJmM^T}}%
+  {\bbmat{\mbCmf^T\\\mbCmm^T\\\bmmcalJmM}}%
+  {\bbmat{\mbCmf\\\mbCmm\\\bmmcalJmM^T}}%
+  [#1][#2]
+}
+% \NewDocumentCommand\bmJmM{o o}
+% {
+%   \expTwoTThrT{\bm J_{\!m\!M}}%
+%   {\bbmat{\mbbCmC^T&\bmmcalJmM}}%
+%   {\bbmat{\mbbCmC\\\bmmcalJmM^T}}%
+%   {\bbmat{\mbbCmCf^T\\\mbbCmCm^T\\\bmmcalJmM}}%
+%   {\bbmat{\mbbCmCf\\\mbbCmCm\\\bmmcalJmM^T}}%
+%   [#1][#2]
+% }
+
+\NewDocumentCommand\dbmJcM{o o}
+{
+  \expTwoTThrT{\dbm J_{\!c\!M}}%
+  {\bbmat{\dmbbCmC^T&\dbmmcalJcM}}%
+  {\bbmat{\dmbbCmC\\\dbmmcalJcM^T}}%
+  {\bbmat{\dmbbCmCf^T\\\dmbbCmCm^T\\\dbmmcalJcM}}%
+  {\bbmat{\dmbbCmCf\\\dmbbCmCm\\\dbmmcalJcM^T}}%
+  [#1][#2]
+}
+\NewDocumentCommand\dbmJmM{o o}
+{
+  \expTwoTThrT{\dbm J_{\!m\!M}}%
+  {\bbmat{\dmbbCmC^T&\dbmmcalJmM}}%
+  {\bbmat{\dmbbCmC\\\dbmmcalJmM^T}}%
+  {\bbmat{\dmbbCmCf^T\\\dmbbCmCm^T\\\dbmmcalJmM}}%
+  {\bbmat{\dmbbCmCf\\\dmbbCmCm\\\dbmmcalJmM^T}}%
+  [#1][#2]
+}

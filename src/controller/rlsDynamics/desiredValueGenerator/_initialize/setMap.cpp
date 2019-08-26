@@ -26,6 +26,7 @@ void RLS::DesiredValueGenerator::setMap()
     controlNodeTranslation_map[i]["CP"] = &RLS::DesiredValueGenerator::controlNodeTranslationCP;
     controlNodeTranslation_map[i]["CPabs"] = &RLS::DesiredValueGenerator::controlNodeTranslationCPabs;
     controlNodeTranslation_map[i]["swing"] = &RLS::DesiredValueGenerator::controlNodeTranslationSwing;
+    controlNodeTranslation_map[i]["swingabs"] = &RLS::DesiredValueGenerator::controlNodeTranslationSwingabs;
   }
 
   // control node rotation
@@ -57,11 +58,14 @@ void RLS::DesiredValueGenerator::setMap()
   // com
   com_map["default"] = &RLS::DesiredValueGenerator::comDefault;
   com_map["CP"] = &RLS::DesiredValueGenerator::comCP;
+  com_map["HTWalking"] = &RLS::DesiredValueGenerator::comHTWalking;
 
   // dcm
   dcm_map["default"] = &RLS::DesiredValueGenerator::dcmDefault;
   dcm_map["CP"] = &RLS::DesiredValueGenerator::dcmCP;
+  dcm_map["CPabs"] = &RLS::DesiredValueGenerator::dcmCPabs;
   dcm_map["HTWalking"] = &RLS::DesiredValueGenerator::dcmHTWalking;
+  dcm_map["VRPWalking"] = &RLS::DesiredValueGenerator::dcmvrpHTWalking;
 
   // external wrench
   externalWrench_map["default"] = &RLS::DesiredValueGenerator::externalWrenchDefault;

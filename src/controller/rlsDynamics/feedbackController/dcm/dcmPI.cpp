@@ -11,6 +11,8 @@ void RLS::FeedbackController::dcmPI()
   if(debug) DEBUG;
 
   eX = des->rXDes - model->rX;
+  eXt = des->rXDes - model->rXt; // amiyata
 
   drXfb = des->drXDes + KX*eX;
+  drXtfb = des->drXDes + KX*eXt; // amiyata
 }

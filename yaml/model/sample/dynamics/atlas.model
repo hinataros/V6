@@ -1,0 +1,33 @@
+# @author Sho Miyahara 2018
+
+world model:
+  include:
+    type: cnoid
+    search: relative
+    path: &CNOID sample/dynamics/atlas/standup.cnoid
+
+tree model:
+  name: atlas_v3_simple_shapes
+  dynamics calculation: true
+  model parameter:
+    include:
+      type: body
+      search: relative
+      path: atlas_vigir/atlas_description/body/atlas_v3_simple_shapes.body
+  initial configuration:
+    include:
+      type: cnoid
+      search: relative
+      path: *CNOID
+  control node:
+    - RLEGEE
+    - LLEGEE
+    - UTORSO
+    - R_HAND
+    - L_HAND
+    - HEAD
+  sensor node:
+    include:
+      type: cnoid
+      search: relative
+      path: *CNOID

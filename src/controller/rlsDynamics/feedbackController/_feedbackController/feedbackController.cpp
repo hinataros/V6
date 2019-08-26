@@ -14,8 +14,8 @@ void RLS::FeedbackController::feedbackController()
   (this->*baseRotation_ptr)();
   (this->*controlNodeMotion_ptr)();
   (this->*controlNodeForce_ptr)();
-  (this->*com_ptr)();
   (this->*dcm_ptr)();
+  (this->*com_ptr)();
   (this->*externalWrench_ptr)();
 
   stack();

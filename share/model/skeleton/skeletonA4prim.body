@@ -432,6 +432,7 @@ links:
             translation: [ 0.009, 0.0, 0.005 ]
             geometry: { type: Box, size: [ 0.01, 0.063, 0.098 ] }
             appearance: *bodyColor
+            material: Body
       -
         type: Collision
         elements: *RLEGEE
@@ -731,6 +732,7 @@ links:
             rotation: *Y
             geometry: { type: Box, size: [ 0.01, 0.063, 0.098 ] }
             appearance: *bodyColor
+            material: Body
       -
         type: Collision
         elements: *RLEGEE

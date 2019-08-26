@@ -1,0 +1,60 @@
+%% end effector
+\NewDocumentCommand\mcalVp{o o o}
+{
+  \vecClosedLoop{\notation{\mcal V}}[#1][#2][#3]
+}
+
+\NewDocumentCommand\obmcalVp{o o o}
+{
+  \vecClosedLoop{\notation{\obmcal V}}[#1][#2][#3]
+}
+
+\NewDocumentCommand\tilmcalVp{o o o}
+{
+  \vecClosedLoop{\notation{\tilmcal F}}[#1][#2][#3]
+}
+
+\NewDocumentCommand\mcalFp{o o o}
+{
+  \vecClosedLoop{\notation{\mcal F}}[#1][#2][#3]
+}
+
+\NewDocumentCommand\obmcalFp{o o o}
+{
+  \vecClosedLoop{\notation{\obmcal F}}[#1][#2][#3]
+}
+
+% basis
+\NewDocumentCommand\mbbBp{o o o o o}
+{
+  \matClosedLoop{\notation{\mbb B}}[#1][#2][#3][#4][#5]
+}
+
+%% Jacobian
+\NewDocumentCommand\bmJp{o o o o o}
+{
+  \matClosedLoop{\notation{\bm J}}[#1][#2][#3][#4][#5]
+}
+\NewDocumentCommand\dbmJp{o o o o o}
+{
+  \matClosedLoop{\notation{\dbm J}}[#1][#2][#3][#4][#5]
+}
+\NewDocumentCommand\bmmcalJp{o o o o o}
+{
+  \matClosedLoop{\notation{\bmmcal J}}[#1][#2][#3][#4][#5]
+}
+\NewDocumentCommand\obbmmcalJp{o o o o o}
+{
+  \matClosedLoop{\notation{\obbmmcal J}}[#1][#2][#3][#4][#5]
+}
+
+%% contactmap
+\NewDocumentCommand\mbbCp{o o o o o}
+{
+  \matClosedLoop{\notation{\mbb C}}[#1][#2][#3][#4][#5]
+}
+
+\NewDocumentCommand\hmbbCp{o o o o o}
+{
+  \matClosedLoop{\notation{\hmbb C}}[#1][#2][#3][#4][#5]
+}

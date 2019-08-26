@@ -9,6 +9,7 @@ links:
       -
         type: RigidBody
         mass: 1.0
+        material: Ground
         centerOfMass: [ 0, 0, 0 ]
         inertia: [
         1, 0, 0,

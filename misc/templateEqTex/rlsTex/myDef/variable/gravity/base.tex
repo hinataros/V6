@@ -1,0 +1,33 @@
+\newcommand{\bmag}{
+  {\bm a_g}
+}
+
+\newcommand{\bmgf}{
+  \bm g_f
+}
+\newcommand{\bmgm}{
+  \bm g_m
+}
+\NewDocumentCommand\mcalGB{o o}
+{
+  \expTwoTThrT{\mcal G_B}%
+  {\bbmat{\bmgf\\\bmgm}}%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\bmgth}{
+  \bm g_\theta
+}
+
+\NewDocumentCommand\bmg{o o}
+{
+  \expTwoTThrT{\bm g}%
+  {\bbmat{\mcalGB\\\bmgth}}%
+  {error}%
+  {\bbmat{\bmgf\\\bmgm\\\bmgth}}%
+  {error}%
+  [#1][#2]
+}

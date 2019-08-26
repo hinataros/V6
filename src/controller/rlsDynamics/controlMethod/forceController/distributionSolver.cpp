@@ -39,7 +39,15 @@ void RLS::RlsDynamics::distributionSolver()
   MatrixXd CE = constraintModel.cal_PcM;
   VectorXd ce = cal_dLCRef + model->cal_GC;
 
+  MatrixXd CI = MatrixXd::Zero(info.constraint->c.all,info.constraint->c.all);
+  VectorXd ci = VectorXd::Zero(info.constraint->c.all);
+  for(int i=0; i<info.constraint->c.all; i+=6){
+    CI(i+2,i+2) = 1;
+    ci(i+2) = 1.e-3;
+  }
+
   // ************************************************************************
 
   QuadProgpp::solver(G, g, "e", CE, ce, cal_FcBarRef);
+  CFSQP::solver(G, g, "e", CE, ce, cal_FcBarRef);
 }

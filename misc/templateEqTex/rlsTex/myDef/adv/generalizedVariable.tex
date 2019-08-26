@@ -1,0 +1,93 @@
+\NewDocumentCommand\bmq{o o o o o}
+{
+  \ifthenelse{\equal{exp}{#2}}
+  {
+    \ifthenelse{\equal{2}{#3}}
+    {
+      \genTwoD{\bm q}{\mcal V}{\bm \theta}[#1][exp][#4][#5]
+    }
+    {
+      \ifthenelse{\equal{3}{#3}}
+      {
+        \genThrD{\bm q}{\bm v}{\bm \omega}{\bm \theta}[#1][exp][#4][#5]
+      }
+      {
+        \notation{\bm q}[][#1]
+      }
+    }
+  }
+  {
+    \ifthenelse{\equal{s}{#2}}
+    {
+      \notation{\mcal V}[][#1]
+    }
+    {
+      \ifthenelse{\equal{t}{#2}}
+      {
+        \notation{\bm v}[][#1]
+      }
+      {
+        \ifthenelse{\equal{r}{#2}}
+        {
+          \notation{\bm \omega}[][#1]
+        }
+        {
+          \ifthenelse{\equal{j}{#2}}
+          {
+            \notation{\bm \theta}[][#1]
+          }
+          {
+            \notation{\bm q}[][#1]
+          }
+        }
+      }
+    }
+  }
+}
+
+\NewDocumentCommand\dbmq{o o o o o}
+{
+  \ifthenelse{\equal{exp}{#2}}
+  {
+    \ifthenelse{\equal{2}{#3}}
+    {
+      \genTwoD{\dbm q}{\dmcal V}{\dbm \theta}[#1][exp][#4][#5]
+    }
+    {
+      \ifthenelse{\equal{3}{#3}}
+      {
+        \genThrD{\dbm q}{\dbm v}{\dbm \omega}{\dbm \theta}[#1][exp][#4][#5]
+      }
+      {
+        \notation{\dbm q}[][#1]
+      }
+    }
+  }
+  {
+    \ifthenelse{\equal{s}{#2}}
+    {
+      \notation{\dmcal V}[][#1]
+    }
+    {
+      \ifthenelse{\equal{t}{#2}}
+      {
+        \notation{\dbm v}[][#1]
+      }
+      {
+        \ifthenelse{\equal{r}{#2}}
+        {
+          \notation{\dbm \omega}[][#1]
+        }
+        {
+          \ifthenelse{\equal{j}{#2}}
+          {
+            \notation{\dbm \theta}[][#1]
+          }
+          {
+            \notation{\dbm q}[][#1]
+          }
+        }
+      }
+    }
+  }
+}

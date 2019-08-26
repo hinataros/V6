@@ -25,6 +25,7 @@ def make_result(arg_cmp, arg_ind):
                 shutil.rmtree(os.path.join(dir_result, arg_cmp, "gp", arg_ind[i]))
                 shutil.rmtree(os.path.join(dir_result, arg_cmp, "gif", arg_ind[i]))
                 shutil.rmtree(os.path.join(dir_result, arg_cmp, "pdf", "src", arg_ind[i]))
+                shutil.rmtree(os.path.join(dir_result, arg_cmp, "eq", "src", arg_ind[i])) # amiyata
                 shutil.rmtree(os.path.join(dir_result, arg_cmp, "movie", arg_ind[i]))
                 print("'{}' deleted...".format(arg_ind[i]))
             else:
@@ -37,6 +38,7 @@ def make_result(arg_cmp, arg_ind):
         os.makedirs(os.path.join(dir_result, arg_cmp, "gp", arg_ind[i], "src"), exist_ok=True)
         os.makedirs(os.path.join(dir_result, arg_cmp, "gif", arg_ind[i]), exist_ok=True)
         os.makedirs(os.path.join(dir_result, arg_cmp, "pdf", "src", arg_ind[i]), exist_ok=True)
+        os.makedirs(os.path.join(dir_result, arg_cmp, "eq", "src", arg_ind[i]), exist_ok=True) # amiyata
         os.makedirs(os.path.join(dir_result, arg_cmp, "movie", arg_ind[i], "src"), exist_ok=True)
 
 def remove_sub_result(arg_cmp, arg_ind):

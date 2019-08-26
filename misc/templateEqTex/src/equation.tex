@@ -1,0 +1,54 @@
+% Class file
+\documentclass[11pt,a4paper]{jsarticle}
+% -----------------------------------------------------------------------
+
+\def\user{1000}
+\def\rlsSimulator{/usr/local/etc/rls/user/\user/rlsSimulator}
+\input{\rlsSimulator/name}
+
+\def\rlsTex{\rlsSimulator/sl/misc/templateEqTex/rlsTex}
+\input{\rlsTex/setup/meeting}
+
+\def\result{\rlsSimulator/sl/result}
+\input{\result/interface/simInfo}
+
+\def\srces{\rlsSimulator/sl/misc/templateEqTex/src/mod}
+
+\graphicspath{{\srces/fig/}}
+
+\renewcommand{\meetingtitle}{Equations}
+\renewcommand{\meetingauthor}{\name}
+% -----------------------------------------------------------------------
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\header
+
+\section{緒言}
+シミュレーション使用した制御式をここにまとめる．
+
+
+\input{\result/\cmp/eq/src/\ind/controller}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ======================================================
+% .................How to Hyper link....................
+% \href{URL}{\cite{name}}
+
+% ======================================================
+\newpage
+%% reference
+\bibliographystyle{junsrt}
+\input{\rlsbib/wrapper/humanoid}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\end{document}
+%
+%
+%
+Local Variables:
+mode: japanese-latex
+TeX-master: t
+End:

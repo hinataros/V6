@@ -1,0 +1,19 @@
+\NewDocumentCommand\mcalGC{o o}
+{
+  \expTwoTThrT{\mcal G_C}%
+  {\bbmat{\bmgf\\\bm 0}}%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\NewDocumentCommand\bmgC{o o}
+{
+  \expTwoTThrT{\bm g_C}%
+  {\bbmat{\mcalGC\\\bm 0}}%
+  {error}%
+  {\bbmat{\bmgf\\\bm 0\\\bm 0}}%
+  {error}%
+  [#1][#2]
+}

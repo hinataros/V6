@@ -18,8 +18,9 @@ void RLS::RlsDynamics::controlMethod()
   }
 
   else if(config.input=="torque"){
-    if(!extInverseDynamicsController)
+    if(!extInverseDynamicsController){
       input = (this->*inverseDynamicsController_ptr)();
+    }
     else
       input = (ext->*ext_inverseDynamicsController_ptr)(this);
   }

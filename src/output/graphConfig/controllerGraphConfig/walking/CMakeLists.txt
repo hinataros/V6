@@ -5,6 +5,7 @@ set(srcs
   # netCop4walking.cpp
   # cmp4walking.cpp
   stabilityIndex4walking.cpp
+  stabilityIndex4walkingDes.cpp
   vrpDes4walking.cpp
   # footPrint.cpp
   )

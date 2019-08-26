@@ -97,10 +97,13 @@ namespace RLS{
     Vector3d pCRB;
     Vector3d lCRB;
     Vector3d pCth;
-    Vector3d lCth;
+    Vector3d lTh;
     Vector3d p;
     Vector3d lC;
     Vector3d wC; //amiyata
+    Vector3d dlCRBRef;
+    Vector3d dlThRef;
+
 
     Vector2d rp;
     VectorXd rpw2k;
@@ -112,9 +115,9 @@ namespace RLS{
 
     Vector3d rX;
 
-    Vector3d lCthH; //amiyata
-    Vector3d lCthF;
-    
+    Vector3d lThH; //amiyata
+    Vector3d lThF;
+
     // gif
     // index print
     MatrixXd indexPrintMatrix;

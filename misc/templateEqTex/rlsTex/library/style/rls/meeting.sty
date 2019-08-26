@@ -1,0 +1,94 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% meeting.sty
+%
+% Style file for research notation in English
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Page styles
+%% Reset default margin
+\setlength{\voffset}{0truein}
+\setlength{\hoffset}{-1truein}
+%
+%% Space between top of paper
+%% and top of header region
+\setlength{\topmargin}{-10truemm}
+%
+%% left space of odd page
+\setlength{\oddsidemargin}{20truemm}
+%
+%% Height of header region
+\setlength{\headheight}{10truemm}
+%
+%% Space between bottom of header region
+%% and top of body text region
+\setlength{\headsep}{-\headheight}
+%
+%% Height of body text region
+\setlength{\textheight}{250truemm}
+%
+%% Width of body text region
+\setlength{\textwidth}{170truemm}
+%
+%% Space between top of body text region
+%% and top of first line
+\setlength{\topskip}{14truept}
+%
+%% Space between columns
+%% (for two-column layout)
+\setlength{\columnsep}{8truemm}
+%
+%
+% Header
+%
+% \newcommand{\create}{Creation date}
+\newcommand{\lastupdate}{\today}
+% \newcommand{\ourgroup}{Our group name}
+\newcommand{\meetingtitle}{Title}
+\newcommand{\meetingauthor}{Author name}
+% %
+% % date
+\newcommand{\update}{
+  \begin{flushright}
+     \begin{tabular}{r l}
+%       creation date: & \create\\
+       Last update: \lastupdate\\
+    \end{tabular}
+  \end{flushright}
+}
+% %
+% % group
+% \newcommand{\groupwrapper}{
+%   \begin{flushleft}
+%     \ourgroup
+%     % Humanoid Robot Group Meeting
+%     % Dynamics Group Meeting
+%   \end{flushleft}
+% }
+%
+% title
+\newcommand{\titlewrapper}{
+  \begin{center}
+    \LARGE{
+      \meetingtitle
+    }
+  \end{center}
+}
+%
+% author
+\newcommand{\authorwrapper}{
+    \begin{flushright}
+      \meetingauthor
+    \end{flushright}
+}
+%
+% header
+\newcommand{\header}{
+  \update
+  % \vspace{-4em}
+  % \groupwrapper
+  \vspace{1.0truecm}
+  \titlewrapper
+  \vspace{0.5truecm}
+  \authorwrapper
+}

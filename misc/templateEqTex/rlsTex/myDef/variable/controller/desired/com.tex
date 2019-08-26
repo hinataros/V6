@@ -1,0 +1,25 @@
+\newcommand{\bmvCDes}{
+  \bm v_C^{des}
+}
+\NewDocumentCommand\mcalVMDes{o o}
+{
+  \expTwoTThrT{\mcal V_M^{des}}%
+  {\bbmat{\bmvCDes\\\bmwBDes}}%
+  {\bbmat{\bmvCDes^T&\bmwBDes^T}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\dbmvCDes}{
+  \dbm v_C^{des}
+}
+\NewDocumentCommand\dmcalVMDes{o o}
+{
+  \expTwoTThrT{\dmcal V_M^{des}}%
+  {\bbmat{\dbmvCDes\\\dbmwBDes}}%
+  {\bbmat{\dbmvCDes^T&\dbmwBDes^T}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}

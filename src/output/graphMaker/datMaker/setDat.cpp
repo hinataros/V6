@@ -186,6 +186,11 @@ void RLS::Output::setDat(ofstream& stream, int id, string dataName, int i)
     stream << data.rlsDynamics[id].vec[i].dpRef.transpose();
   else if(dataName=="dlCRef")
     stream << data.rlsDynamics[id].vec[i].dlCRef.transpose();
+  // amiyata
+  else if(dataName=="dlCRBRef")
+    stream << data.rlsDynamics[id].vec[i].dlCRBRef.transpose();
+  else if(dataName=="dlThRef")
+    stream << data.rlsDynamics[id].vec[i].dlThRef.transpose();
 
   else if(dataName=="dlBRef")
     stream << data.rlsDynamics[id].vec[i].dlBRef.transpose();
@@ -235,18 +240,18 @@ void RLS::Output::setDat(ofstream& stream, int id, string dataName, int i)
     stream << data.rlsDynamics[id].vec[i].lCRB.transpose();
   else if(dataName=="pCth")
     stream << data.rlsDynamics[id].vec[i].pCth.transpose();
-  else if(dataName=="lCth")
-    stream << data.rlsDynamics[id].vec[i].lCth.transpose();
+  else if(dataName=="lTh")
+    stream << data.rlsDynamics[id].vec[i].lTh.transpose();
   else if(dataName=="psys")
     stream << data.rlsDynamics[id].vec[i].p.transpose();
   else if(dataName=="lCsys")
     stream << data.rlsDynamics[id].vec[i].lC.transpose();
   else if(dataName=="wC")
     stream << data.rlsDynamics[id].vec[i].wC.transpose();
-  else if(dataName=="lCthH")
-    stream << data.rlsDynamics[id].vec[i].lCthH.transpose();
-  else if(dataName=="lCthF")
-    stream << data.rlsDynamics[id].vec[i].lCthF.transpose();
+  else if(dataName=="lThH")
+    stream << data.rlsDynamics[id].vec[i].lThH.transpose();
+  else if(dataName=="lThF")
+    stream << data.rlsDynamics[id].vec[i].lThF.transpose();
 
   else if(dataName=="rX")
     stream << data.rlsDynamics[id].vec[i].rX.transpose();
@@ -298,10 +303,16 @@ void RLS::Output::setDat(ofstream& stream, int id, string dataName, int i)
 
   else if(dataName=="gCoM")
     stream << data.treeModel[id].vec[i].rC.head(2).transpose();
+  else if(dataName=="gCoMDes")
+    stream << data.rlsDynamics[id].vec[i].rCDes.head(2).transpose();
   else if(dataName=="xCoM")
     stream << data.rlsDynamics[id].vec[i].rX.head(2).transpose();
+  else if(dataName=="xCoMDes")
+    stream << data.rlsDynamics[id].vec[i].rXDes.head(2).transpose();
   else if(dataName=="eCMPRef")
     stream << data.rlsDynamics[id].vec[i].rvrpRef.head(2).transpose();
+  else if(dataName=="eCMPDes")
+    stream << data.rlsDynamics[id].vec[i].rvrpDes.head(2).transpose();
   else if(dataName=="thArmR")
     stream << data.rlsDynamics[id].vec[i].th.segment(12, 4).transpose();
   else if(dataName=="thArmL")

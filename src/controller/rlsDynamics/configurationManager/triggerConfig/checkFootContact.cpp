@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-int RLS::RlsDynamics::checkFootContact(const double &t)
+int RLS::RlsDynamics::checkFootContact(const double &t, const struct State &state)
 {
   if(debug) DEBUG;
 

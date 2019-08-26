@@ -2,6 +2,10 @@
 
 set(srcs
   string.cpp
+  intString.cpp
+  intStringString.cpp
+  stringIntString.cpp
+  stringIntStringString.cpp
   stringString.cpp
   stringStringString.cpp
   stringStringStringString.cpp

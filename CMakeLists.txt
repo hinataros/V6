@@ -12,6 +12,8 @@ option(rls_thirdparty_quaternion_compile "compile quaternion library" OFF)
 option(rls_thirdparty_QuadProgpp "link QuadProg++ library" OFF)
 option(rls_thirdparty_QuadProgpp_compile "compile QuadProg++ library" OFF)
 option(rls_thirdparty_QuadProgpp_sample "compile QuadProg++ sample program" OFF)
+option(rls_thirdparty_cfsqp "link CFSQP library" OFF)
+option(rls_thirdparty_cfsqp_compile "compile CFSQP library" OFF)
 
 add_subdirectory(thirdparty)
 

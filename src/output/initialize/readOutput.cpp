@@ -18,6 +18,7 @@ void RLS::Output::readOutput(const string &path_yaml_output)
   string texKeyName = "tex";
   string gifKeyName = "gif";
   string choreonoidKeyName = "choreonoid";
+  string equationKeyName = "equation";
 
   struct stat statFile;
   if(stat(path_yaml_output.c_str(), &statFile)!=0)
@@ -129,5 +130,20 @@ void RLS::Output::readOutput(const string &path_yaml_output)
 
     if(doc[choreonoidKeyName]["sampling time"])
       cho.st = doc[choreonoidKeyName]["sampling time"].as<int>();
+  }
+
+  // amiyata equation tex
+  if(doc[equationKeyName]){
+    eq.flag = true;
+
+    eq.controlMethod = true;
+    eq.desiredValueGenerator = eq.feedbackController = false;
+
+    if(doc[equationKeyName]["control method"])
+      eq.controlMethod = doc[equationKeyName]["control method"].as<bool>();
+    if(doc[equationKeyName]["desired value generator"])
+      eq.desiredValueGenerator = doc[equationKeyName]["desired value generator"].as<bool>();
+    if(doc[equationKeyName]["feedback controller"])
+      eq.feedbackController = doc[equationKeyName]["feedback controller"].as<bool>();
   }
 }

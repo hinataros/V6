@@ -3,6 +3,7 @@
 set(srcs
   readController.cpp
   allReadController.cpp
+  readParameter.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" readController_srcs)

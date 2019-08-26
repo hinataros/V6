@@ -1,0 +1,29 @@
+\newcommand{\bmrCErr}{
+  \bm r_C^{err}
+}
+
+\newcommand{\bmvCErr}{
+  \bm v_C^{err}
+}
+\NewDocumentCommand\mcalVMErr{o o}
+{
+  \expTwoTThrT{\mcal V_M^{err}}%
+  {\bbmat{\bmvCErr\\\bmwBErr}}%
+  {\bbmat{\bmvCErr^T&\bmwBErr^T}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\dbmvCErr}{
+  \dbm v_C^{err}
+}
+\NewDocumentCommand\dmcalVMErr{o o}
+{
+  \expTwoTThrT{\dmcal V_M^{err}}%
+  {\bbmat{\dbmvCErr\\\dbmwBErr}}%
+  {\bbmat{\dbmvCErr^T&\dbmwBErr^T}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}

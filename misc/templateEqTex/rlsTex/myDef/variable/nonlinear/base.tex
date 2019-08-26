@@ -1,0 +1,41 @@
+\newcommand{\bmcf}{
+  \bm c_f
+}
+\newcommand{\bmcm}{
+  \bm c_m
+}
+
+\NewDocumentCommand\mcalCB{o o}
+{
+  \expTwoTThrT{\mcal C_B}%
+  {\bbmat{\bmcf\\\bmcm}}%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\NewDocumentCommand\mcalPB{o o}
+{
+  \expTwoTThrT{\mcal P_B}%
+  {\bbmat{\bm 0\\-\ssmdbmrola{BC}^T\bmp}}%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\bmcth}{
+  \bm c_\theta
+}
+
+\NewDocumentCommand\bmc{o o}
+{
+  \expTwoTThrT{\bm c}%
+  {\bbmat{\mcalCB\\\bmcth}}%
+  {error}%
+  {\bbmat{\bmcf\\\bmcm\\\bmcth}}%
+  {error}%
+  [#1][#2]
+}
+

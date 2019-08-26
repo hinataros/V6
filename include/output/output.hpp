@@ -6,6 +6,7 @@
 
 #include "treeModelList.hpp"
 #include "rlsDynamicsList.hpp"
+#include "rlsDynamicsExtractor.hpp"
 #include "_extList.hpp"
 #include "common.hpp"
 
@@ -66,6 +67,12 @@ namespace RLS{
       int st;
     } cho;
 
+    // amiyata
+    struct Equation{
+      bool flag;
+      bool controlMethod, desiredValueGenerator, feedbackController;
+    } eq;
+
     struct Dir{
       string interface;
       string result;
@@ -76,6 +83,7 @@ namespace RLS{
       Result gp;
       Result pdf;
       Result gif;
+      Result eq; // amiyata
     } dir;
 
     struct TreeModelData{
@@ -203,6 +211,7 @@ namespace RLS{
     // void netCop4walking(GpMaker&, TexMaker&);
     // void cmp4walking(GpMaker&, TexMaker&);
     void stabilityIndex4walking(GpMaker&, TexMaker&);
+    void stabilityIndex4walkingDes(GpMaker&, TexMaker&);
     void vrpDes4walking(GpMaker&, TexMaker&);
     // void footPrint(GpMaker&, TexMaker&);
     // // ********************************************
@@ -216,9 +225,13 @@ namespace RLS{
     void makeGraph();
 
     void runGnuplot();
+    void dirCheck(); // amiyata
 
     void makeMotionYaml();
     void makeTreeModelMotionYaml(const int);
+
+    //
+    void makeEquationTex();
 
     // // int setPlane(string);
     // // void makeGif2D(const Config&, const TreeModel::Info&, string, string, string);
@@ -229,7 +242,8 @@ namespace RLS{
     // // smiyahara: 要検討
     TreeModelList *treeModelList_temp;
     RlsDynamicsList *rlsDynamicsList_temp;
-    vector<Vector3d> footPrintList_op; //amiyata
+    RlsDynamicsExtractor extractor; // amiyata
+    // vector<Vector3d> footPrintList_op; //amiyata
     ExtList extList_temp;
 
     void initialize(const string&, const string&, Info&, const int&, const WorldModel &worldModel);

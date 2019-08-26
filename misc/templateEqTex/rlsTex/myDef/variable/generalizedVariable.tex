@@ -1,0 +1,82 @@
+\newcommand{\bmq}{
+  \bm q
+}
+
+\NewDocumentCommand\dbmq{o o}
+{
+  \expTwoTThrT{\dbm q}%
+  {\bbmat{\mcalVB\\\dbmth}}%
+  {\bbmat{\mcalVB^T&\dbmth^T}}%
+  {\bbmat{\bmvB\\\bmwB\\\dbmth}}%
+  {\bbmat{\bmvB^T&\bmwB^T&\dbmth^T}}%
+  [#1][#2]
+}
+
+\NewDocumentCommand\dbmqM{o o}
+{
+  \expTwoTThrT{\dbm q_M}%
+  {\bbmat{\mcalVM\\\dbmth}}%
+  {\bbmat{\mcalVM^T&\dbmth^T}}%
+  {\bbmat{\bmvC\\\bmwB\\\dbmth}}%
+  {\bbmat{\bmvC^T&\bmwB^T&\dbmth^T}}%
+  [#1][#2]
+}
+
+\NewDocumentCommand\dbmqC{o o}
+{
+  \expTwoTThrT{\dbm q_C}%
+  {\bbmat{\mcalVC\\\dbmth}}%
+  {\bbmat{\mcalVC^T&\dbmth^T}}%
+  {\bbmat{\bmvC\\\bmwC\\\dbmth}}%
+  {\bbmat{\bmvC^T&\bmwC^T&\dbmth^T}}%
+  [#1][#2]
+}
+
+\NewDocumentCommand\ddbmq{o o}
+{
+  \expTwoTThrT{\ddbm q}%
+  {\bbmat{\dmcalVB\\\ddbmth}}%
+  {\bbmat{\dmcalVB^T&\ddbmth^T}}%
+  {\bbmat{\dbmvB\\\dbmwB\\\ddbmth}}%
+  {\bbmat{\dbmvB^T&\dbmwB^T&\ddbmth^T}}%
+  [#1][#2]
+}
+
+\NewDocumentCommand\ddbmqM{o o}
+{
+  \expTwoTThrT{\ddbm q_M}%
+  {\bbmat{\dmcalVM\\\ddbmth}}%
+  {\bbmat{\dmcalVM^T&\ddbmth^T}}%
+  {\bbmat{\dbmvC\\\dbmwB\\\ddbmth}}%
+  {\bbmat{\dbmvC^T&\dbmwB^T&\ddbmth^T}}%
+  [#1][#2]
+}
+
+\NewDocumentCommand\ddbmqC{o o}
+{
+  \expTwoTThrT{\ddbm q_C}%
+  {\bbmat{\dmcalVC\\\ddbmth}}%
+  {\bbmat{\dmcalVC^T&\ddbmth^T}}%
+  {\bbmat{\dbmvC\\\dbmwC\\\ddbmth}}%
+  {\bbmat{\dbmvC^T&\dbmwC^T&\ddbmth^T}}%
+  [#1][#2]
+}
+
+\NewDocumentCommand\bmQ{o o}
+{
+  \expTwoTThrT{\bm Q}%
+  {\bbmat{\bm 0\\\bmtau}}%
+  {error}%
+  {\bbmat{\bm 0\\\bm 0\\\bmtau}}%
+  {error}%
+  [#1][#2]
+}
+\NewDocumentCommand\bmQG{o o}
+{
+  \expTwoTThrT{\bm Q}%
+  {\bbmat{\mcalGC\\\bmtau}}%
+  {error}%
+  {\bbmat{\bm g\\\bm 0\\\bmtau}}%
+  {error}%
+  [#1][#2]
+}

@@ -1,0 +1,52 @@
+\newcommand{\mbbB}{
+  \mbb B
+}
+
+\newcommand{\mbbBcf}{
+  \mbb B_{c_f}
+}
+\newcommand{\mbbBcm}{
+  \mbb B_{c_m}
+}
+
+% amiyata
+\NewDocumentCommand\mbbBn{m o o o}
+{
+  \IfValueTF{#2}
+  {
+    \expTwoTThrT{\mbb B_{#1}^{#2}}%
+    {\bbmat{\mbbB_{{#1}_f}^{#2}\\ \mbbB_{#1_m}^{#2}}}%
+    {\bbmat{(\mbbB_{#1_f}^{#2})^T & (\mbbB_{#1_m}^{#2})^T} }%
+    {error}%
+    {error}%
+    [#3][#4]
+  }
+  {
+    \expTwoTThrT{\mbb B_{#1}}%
+    {\bbmat{\mbbB_{{#1}_f}\\\mbbB_{#1_m}}}%
+    {\bbmat{\mbbB_{#1_f}^T&\mbbB_{#1_m}^T}}%
+    {error}%
+    {error}%
+    [#3][#4]
+  }
+}
+
+\NewDocumentCommand\mbbBck{o o}
+{
+  \expTwoTThrT{\mbb B_c\pbmqk}%
+  {\bbmat{\mbbBcf\pbmqk\\\mbbBcm\pbmqk}}%
+  {\bbmat{\mbbBcf^T\pbmqk&\mbbBcm^T\pbmqk}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\NewDocumentCommand\mbbBc{o o}
+{
+  \expTwoTThrT{\mbb B_c}%
+  {\bbmat{\mbbBcf\\\mbbBcm}}%
+  {\bbmat{\mbbBcf^T&\mbbBcm^T}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}

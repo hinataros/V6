@@ -35,10 +35,17 @@ namespace RLS{
 
     string angleUnit;
 
-    void reset(const string&, const int&, const int&);
+    // void reset(const string&, const int&, const int&);
+    // amiyata
+    void reset();
+    void reset(YAML::Node);
     void initialize(const string&, const int&);
 
+    YAML::Node docDist(); // amiyata
+
     int checkUserSize(const string, const string);
+    int checkSize(const string); // amiyata
+    int checkSize(const string, const string); // amiyata
 
     template <class T> bool checkValue(T &value, const string);
     template <class T> bool checkValue(T &value, const string, const string);
@@ -49,6 +56,12 @@ namespace RLS{
     template <class T> bool checkUserValue(T &value, const string, const string);
     template <class T> bool checkUserValue(T &value, const string, const string, const int);
     template <class T> bool checkUserValue(T &value, const string, const string, const string);
+
+    // amiyata
+    template <class T> bool checkValue(T &value, const int, const string);
+    template <class T> bool checkValue(T &value, const int, const string, const string);
+    template <class T> bool checkValue(T &value, const string, const int, const string);
+    template <class T> bool checkValue(T &value, const string, const int, const string, const string);
   };
 }
 

@@ -30,7 +30,7 @@ namespace RLS{
 
     void setModel(const WorldModel&, const TreeModelInfo&, TreeModel&);
     void resize();
-    void setInitialValue();
+    // void setInitialValue();
 
   public:
     TreeModel *model; // amiyata linkが欲しい
@@ -162,14 +162,17 @@ namespace RLS{
     Vector2d rcmp;
 
     // dcm
-    double wX;
-    Vector3d rX;
+    double wX, wXt;
+    double dwXt; // amiyata
+    Vector3d rX, rXt;
     // ******************************
 
     void initialize(const WorldModel&, const TreeModelInfo&, TreeModel&);
     void finalize();
     void update();
     void update(VectorXd&); //amiyata rkk
+    void setInitialValue(); // amiyata for sequence reset
+
   };
 }
 

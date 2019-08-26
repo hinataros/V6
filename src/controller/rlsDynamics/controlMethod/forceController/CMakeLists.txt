@@ -10,6 +10,7 @@ set(srcs
   centroidalEcmpInternalDistribution.cpp
   bwcDistribution.cpp
   CRBWCbaseDistribution.cpp
+  centroidalEcmpDistributionwXt.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" forceController_srcs)

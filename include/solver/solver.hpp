@@ -7,10 +7,12 @@
 
 #include "quadProgpp.hpp"
 #include "convexSolver.hpp"
+#include "cfsqp.hpp"
 
 namespace RLS{
   class Solver:
-    public QuadProgpp{
+    public QuadProgpp,
+    public CFSQP{
   public:
   };
 }

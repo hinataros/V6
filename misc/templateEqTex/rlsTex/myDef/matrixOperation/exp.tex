@@ -1,0 +1,28 @@
+\NewDocumentCommand\expTwoTThrT{m m m m m o o}
+{
+  \ifthenelse{\equal{exp3}{#6}}
+  {
+    \ifthenelse{\equal{T}{#7}}
+    {
+      #5
+    }
+    {
+      #4
+    }
+  }
+  {
+    \ifthenelse{\equal{exp2}{#6}}
+    {
+      \ifthenelse{\equal{T}{#7}}
+      {
+        #3
+      }
+      {
+        #2
+      }
+    }
+    {
+      #1
+    }
+  }
+}

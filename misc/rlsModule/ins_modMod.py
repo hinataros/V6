@@ -46,6 +46,8 @@ def install_module():
     os.symlink(os.path.join(dir_rlsmod, "rwhoMod.py"), os.path.join(config.RLS_DIR, "bin", "rwho"))
     os.symlink(os.path.join(dir_rlsmod, "prdMod.py"), os.path.join(config.RLS_DIR, "bin", "prd"))
 
+    os.symlink(os.path.join(dir_rlsmod, "eqtexMod.py"), os.path.join(config.RLS_DIR, "bin", "eqtex"))
+
     print("installed module...")
 
 if __name__ == "__main__":

@@ -20,6 +20,7 @@ void RLS::RlsDynamics::setControllerMap()
   momentumController_map["centroidalMomentum"] = &RLS::RlsDynamics::centroidalMomentum;
   momentumController_map["centroidalVrpMomentum"] = &RLS::RlsDynamics::centroidalVrpMomentum;
   momentumController_map["centroidalVrpMomentumDamping"] = &RLS::RlsDynamics::centroidalVrpMomentumDamping;
+  momentumController_map["centroidalVrpMomentumTV"] = &RLS::RlsDynamics::centroidalVrpMomentumTV;
   momentumController_map["centroidalVrpRNS"] = &RLS::RlsDynamics::centroidalVrpRNS;
   momentumController_map["centroidalCmpMomentum"] = &RLS::RlsDynamics::centroidalCmpMomentum;
   momentumController_map["deltaMomentum"] = &RLS::RlsDynamics::deltaMomentum;
@@ -65,6 +66,7 @@ void RLS::RlsDynamics::setControllerMap()
   motionController_map["mRAA"] = &RLS::RlsDynamics::mixedRelativeAngularJointAcceleration; //amiyata
   motionController_map["mASS"] = &RLS::RlsDynamics::mixedAccelerationSynergyStacked; //amiyata
   motionController_map["RNS_Macc"] = &RLS::RlsDynamics::RNS_Macc; //amiyata
+  motionController_map["mixedGeneralizedMomentumStacked"] = &RLS::RlsDynamics::mixedGeneralizedMomentumStacked; //amiyata
 
   // internal force controller
   // ****************************************************************
@@ -79,6 +81,7 @@ void RLS::RlsDynamics::setControllerMap()
   forceController_map["centroidalDcmDistribution"] = &RLS::RlsDynamics::centroidalDcmDistribution;
   forceController_map["centroidalEcmpDistribution"] = &RLS::RlsDynamics::centroidalEcmpDistribution;
   forceController_map["centroidalEcmpInternalDistribution"] = &RLS::RlsDynamics::centroidalEcmpInternalDistribution;
+  forceController_map["centroidalEcmpDistributionwXt"] = &RLS::RlsDynamics::centroidalEcmpDistributionwXt;
   forceController_map["handWrenchControlAndCentroidalEcmpDistribution"] = &RLS::RlsDynamics::handWrenchControlAndCentroidalEcmpDistribution;
   forceController_map["bwcDistribution"] = &RLS::RlsDynamics::bwcDistribution;
   forceController_map["CRBWCbaseDistribution"] = &RLS::RlsDynamics::CRBWCbaseDistribution;

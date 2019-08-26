@@ -10,6 +10,7 @@
 #include <iomanip>
 
 #include <limits>
+#include <time.h>
 // setprecision(numeric_limits<double>::max_digits10)
 
 #include "manipulator.hpp"

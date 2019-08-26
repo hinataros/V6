@@ -1,0 +1,277 @@
+\newcommand{\eqRef}[1]{
+  (\ref{eq:#1})
+}
+\renewcommand{\figurename}{Fig.\ }
+\newcommand{\figRefNum}[1]{
+  \ref{fig:#1}
+}
+\newcommand{\figRef}[1]{
+  Fig.~\ref{fig:#1}
+}
+
+%% \newcommand{\subFigRefChar}[1]{
+%%   \!\!\!(\subref{fig:#1})
+%% }
+%% \newcommand{\subFigRef}[2]{
+%%   Fig.~\ref{fig:#1}(\subref{fig:#2})
+%% }
+
+\renewcommand{\tablename}{Table }
+\newcommand{\tabRef}[1]{
+  Table~\ref{#1}
+}
+\newcommand{\tbRef}[1]{
+  {Table\ \ref{tab:#1}}
+}
+\newcommand{\figsRef}[2]{
+  {Fig.\ \ref{fig:#1}}$\sim$\ref{fig:#2}
+}
+\newcommand{\secRef}[1]{
+  {\ref{sec:#1}}章 % amiyata
+  % {\ref{sec:#1}}
+}
+\newcommand{\appRef}[1]{
+  {付録\ref{app:#1}}章 % amiyata
+  % {付録\ref{app:#1}}
+}
+\newcommand{\ssecRef}[1]{
+  {\ref{ssec:#1}}節 % amiyata 
+  % {\ref{ssec:#1}}
+}
+
+\newcommand{\applb}[1]{
+  \label{app:#1}
+}
+\newcommand{\pr}{
+  \protect
+}
+
+\newcommand{\nt}{
+  \notag
+}
+
+\newcommand{\hl}{
+  \hline
+}
+\newcommand{\hhl}{
+  \hline\hline
+}
+
+\newcommand{\adj}{
+  \mrm{adj}
+}
+\newcommand{\diag}{
+  \mrm{diag}
+}
+
+\NewDocumentCommand\iR{m o}
+{
+  \IfNoValueTF{#2}
+  {
+    \in \Re^{{#1}}
+  }
+  {
+    \in \Re^{#1\times#2}
+  }
+}
+
+\newcommand{\bal}[2][]{
+  \ifthenelse{\equal{}{#1}}{
+    \begin{align}
+      #2
+    \end{align}
+  }
+  {
+    \begin{align}\label{eq:#1}
+      #2
+    \end{align}
+  }
+}
+
+
+% \NewDocumentCommand\bfig{m o m m}
+% {
+%   \begin{figure}[#1]
+%     #3
+%     \caption{#4}
+%     \IfValueT{#2}{\label{fig:#2}}
+%   \end{figure}
+% }
+% amiyata modify fig自体をminipageしたい時にキャプションが邪魔
+\NewDocumentCommand\bfig{m o m o}
+{
+  \begin{figure}[#1]
+    #3
+    \IfValueT{#4}{\caption{#4}}
+    \IfValueT{#2}{\label{fig:#2}}
+  \end{figure}
+}
+\NewDocumentCommand\bfigf{m o m o}
+{
+  \begin{figure*}[#1]
+    #3
+    \IfValueT{#4}{\caption{#4}}
+    \IfValueT{#2}{\label{fig:#2}}
+  \end{figure*}
+}
+
+%% \NewDocumentCommand\fig{m o m m}
+%% {
+%%   \setcounter{figCount}{\value{figure}}
+%%   \stepcounter{figCount}
+
+%%   \begin{figure}[#1]
+%%     #3
+%%     \caption{#4}
+%%     \IfValueT{#2}{\label{fig:#2}}
+%%   \end{figure}
+%% }
+
+% \NewDocumentCommand\bmpsc{m m o m}
+% {
+%   \begin{minipage}[#1]{#2\linewidth}
+%     #4
+%     \vspace{-6mm}
+%     \subcaption{}
+%     \IfValueT{#3}{\label{fig:#3}}
+%   \end{minipage}
+% }
+%amiaya modify 上記と同状況でキャプションを出したい
+\NewDocumentCommand\bmpsc{m m o m o}
+{
+  \begin{minipage}[#1]{#2\linewidth}
+    #4
+    % \vspace{-6mm}
+    \IfValueTF{#5}{\caption{#5}}{\subcaption{}}
+    \IfValueT{#3}{\label{fig:#3}}
+  \end{minipage}
+}
+
+\NewDocumentCommand\bmpnsc{m m o m}
+{
+  \begin{minipage}[#1]{#2\linewidth}
+    #4
+    \IfValueT{#3}{\label{fig:#3}}
+  \end{minipage}
+}
+
+\NewDocumentCommand\ig{o m m}
+{
+  \centering
+  \IfValueTF{#1}{
+    \ifthenelse{\equal{w}{#1}}
+    {
+      \includegraphics[width=#2]{%
+        #3%
+      }
+    }
+    {
+      \ifthenelse{\equal{h}{#1}}
+      {
+        \includegraphics[height=#2]{%
+          #3%
+        }
+      }
+      {
+        \ifthenelse{\equal{s}{#1}}
+        {
+          \includegraphics[scale=#2]{%
+            #3%
+          }
+        }
+        {
+          size option error!
+        }
+      }
+    }
+  } %T
+  {
+    \includegraphics[width=#2\linewidth]{%
+      #3%
+    }
+  }
+}
+
+% \NewDocumentCommand\ig{m o}
+% {
+%   \centering
+%   \includegraphics[width=#1\linewidth]{%
+%     \figDir//chapter\arabic{chapter}/fig\arabic{chapter}.\arabic{figCount}#2.eps%
+%   }
+% }
+
+%% \NewDocumentCommand\ig{m m}
+%% {
+%%   \centering
+%%   \includegraphics[width=#1\linewidth]{%
+%%     \figDir//chapter\arabic{chapter}/section\arabic{section}/subsection\arabic{subsection}/#2%
+%%   }
+%% }
+
+\newcommand{\bmat}[1]{ % amiyata
+  \begin{matrix}
+    #1
+  \end{matrix}
+}
+
+\newcommand{\bbmat}[1]{
+  \begin{bmatrix}
+    #1
+  \end{bmatrix}
+}
+
+\NewDocumentCommand\btb{m o m o}
+{
+  \begin{table}[#1]
+    \IfValueT{#4}{\caption{#4}}
+    \centering
+    #3
+    \IfValueT{#2}{\label{tab:#2}}
+  \end{table}
+}
+
+\NewDocumentCommand\btbl{m m}
+{
+  \begin{tabular}{#1}
+    #2
+  \end{tabular}
+}
+
+\newcommand{\bcss}[1]{
+  \begin{cases}
+    #1
+  \end{cases}
+}
+
+\newcommand{\bit}[1]{
+  \begin{itemize}
+    #1
+  \end{itemize}
+}
+
+\newcommand{\benum}[1]{
+  \begin{enumerate}
+    #1
+  \end{enumerate}
+}
+
+\newcommand{\ssm}[1]{
+  [#1^\times]
+}
+
+\newcommand{\ola}[1]{
+  \protect\overleftarrow{#1}
+}
+\newcommand{\ora}[1]{
+  \protect\overleftarrow{#1}
+}
+
+\newcommand{\sectionl}[2]{
+  \section{#1} \label{sec:#2}
+}
+\newcommand{\ssectionl}[2]{
+  \subsection{#1} \label{ssec:#2}
+}
+\newcommand{\sssectionl}[2]{
+  \subsubsection{#1} \label{sssec:#2}
+}

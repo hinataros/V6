@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-int RLS::RlsDynamics::checkContact(const double &t)
+int RLS::RlsDynamics::checkContact(const double &t, const struct State &state)
 {
   if(debug) DEBUG;
 
@@ -14,8 +14,9 @@ int RLS::RlsDynamics::checkContact(const double &t)
 
   for(int i=0; i<info.model.controlNodeNum; i++){
     if(model->cal_F(6*i+2)!=0.) {
-      if(contactFlag[i]==false && i < 2)
-        footPrintList.push_back(model->r[i]);
+      if(contactFlag[i]==false && i < 2){
+        extractor.footPrintList.push_back(model->r[i]);
+      }
       contactFlag[i] = true;
     } else
       contactFlag[i] = false;

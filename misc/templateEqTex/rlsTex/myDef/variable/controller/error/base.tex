@@ -1,0 +1,35 @@
+\newcommand{\bmeOB}{
+  \bm e_{O_B}
+}
+
+\newcommand{\bmvBErr}{
+  \bm v_B^{err}
+}
+\newcommand{\bmwBErr}{
+  \bm \omega_B^{err}
+}
+\NewDocumentCommand\mcalVBErr{o o}
+{
+  \expTwoTThrT{\mcal V_B^{err}}%
+  {\bbmat{\bmvBErr\\\bmwBErr}}%
+  {\bbmat{\bmvBErr^T&\bmwBErr^T}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\dbmvBErr}{
+  \dbm v_B^{err}
+}
+\newcommand{\dbmwBErr}{
+  \dbm \omega_B^{err}
+}
+\NewDocumentCommand\dmcalVBErr{o o}
+{
+  \expTwoTThrT{\dmcal V_B^{err}}%
+  {\bbmat{\dbmvBErr\\\dbmwBErr}}%
+  {\bbmat{\dbmvBErr^T&\dbmwBErr^T}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}

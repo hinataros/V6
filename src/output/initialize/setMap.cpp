@@ -20,4 +20,5 @@ void RLS::Output::setMap()
   // walking
   map_use_function["vrpDes4walking"] = &RLS::Output::vrpDes4walking;
   map_use_function["stabilityIndex4walking"] = &RLS::Output::stabilityIndex4walking;
+  map_use_function["stabilityIndex4walkingDes"] = &RLS::Output::stabilityIndex4walkingDes;
 }

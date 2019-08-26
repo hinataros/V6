@@ -1,0 +1,25 @@
+\newcommand{\bmvCRef}{
+  \bm v_C^{ref}
+}
+\NewDocumentCommand\mcalVMRef{o o}
+{
+  \expTwoTThrT{\mcal V_M^{ref}}%
+  {\bbmat{\bmvCRef\\\bmwBRef}}%
+  {\bbmat{\bmvCRef^T&\bmwBRef^T}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\dbmvCRef}{
+  \dbm v_C^{ref}
+}
+\NewDocumentCommand\dmcalVMRef{o o}
+{
+  \expTwoTThrT{\dmcal V_M^{ref}}%
+  {\bbmat{\dbmvCRef\\\dbmwBRef}}%
+  {\bbmat{\dbmvCRef^T&\dbmwBRef^T}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}

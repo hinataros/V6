@@ -12,53 +12,13 @@ bool RLS::RlsDynamics::configurationManager(const double &t)
 {
   if(debug) DEBUG;
 
-  bool flag_configuration=false, flag_state = false, flag_sequence = false;
-
-  if(config.driven=="event"||config.driven=="mix"){
-    // １ステップ目は初期化
-    int temp = stateTrigger(t);
-    // if(t>2.7 && t<2.8) temp=1;
-
-    if(temp!=state.num){
-      // o(temp);
-      // gc;
-      state.num = temp;
-
-      des.update(t);
-      ext->reset(this, t);
-
-      yamlInfo.reset(yamlInfo.stateKeyName, 0, state.num);
-      allReadController();
-
-      flag_state = true;
-    }
-  }
-
-  if(config.driven=="flow"||config.driven=="mix"){
-    for(int i=0; i<yamlInfo.sequenceNum; i++){
-      if(sequenceTrigger(t, i)){
-        sequence[i].tw0 = t;
-
-        des.update(t, i);
-        ext->reset(this, t);
-
-        yamlInfo.reset(yamlInfo.sequenceKeyName, i, sequence[i].phase);
-        allReadController();
-
-        sequence[i].phase++;
-
-        flag_sequence = true;
-      }
-    }
-  }
-
-  if(flag_state||flag_sequence){
+  if(stateTrigger(t, topState)){
     des.mapping();
     fb.mapping();
     mapping();
 
-    flag_configuration = true;
+    return true;
   }
 
-  return flag_configuration;
+  return false;
 }

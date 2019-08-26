@@ -1,0 +1,105 @@
+\usepackage[dvipdfmx]{graphicx}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{here}
+
+\usepackage{bm}
+\usepackage{url}
+\usepackage{array}
+\usepackage{ascmac}
+\usepackage[mathscr]{eucal}
+\usepackage{graphics}
+\usepackage[nobreak]{cite}
+
+% \usepackage[notref,color]{showkeys}
+
+\bibliographystyle{\rlsTex/library/bst/IEEEtran}
+
+\AtBeginDvi{\special{pdf:tounicode EUC-UCS2}}
+
+\usepackage{\rlsTex/library/style/cancel}
+%% \usepackage{multirow}
+
+\usepackage{xparse}
+\usepackage{ifthen}
+\usepackage{\rlsTex/package/caption/subcaption}
+%% \usepackage{\rlsTex/package/arrayjobx/arrayjobx}
+
+%% **** input myDef ****
+\input{\rlsTex/myDef/common/_init_}
+\input{\rlsTex/myDef/matrixOperation/_init_}
+\input{\rlsTex/myDef/variable/_init_}
+
+\input{\rlsTex/myDef/thesis/_init_}
+
+\input{\rlsTex/myDef/bib/_init_}
+
+% Changing points from default setting of the class
+\setlength{\textwidth}{152mm}
+\setlength{\textheight}{222mm}
+\setlength{\headheight}{10mm}
+\setlength{\topmargin}{0mm}
+\setlength{\oddsidemargin}{8mm}
+\setlength{\evensidemargin}{0mm}
+\newfont{\bg}{cmr10 scaled\magstep4}
+
+\kanjiskip=2pt plus 1pt minus 1pt
+
+\newcommand{\addThanks}{
+  \newpage
+  \chapter*{謝辞}
+  \addcontentsline{toc}{chapter}{謝辞}
+  \input{src/others/thanks}
+}
+
+\newcommand{\addReference}{
+  \newpage
+  \renewcommand{\bibname}{参考文献}
+  \input{src/others/ref}
+}
+\newcommand{\addResults}{
+  \newpage
+  \renewcommand{\bibname}{研究成果}
+  \input{src/others/results}
+}
+
+\newcommand{\addAppendix}{
+  \input{src/appendix/main}
+}
+
+\newcommand{\thesisHeader}{
+  % Date
+  \date{
+    % \vspace{1em}
+    \dateofsubmission
+  }
+
+  \baselineskip=1.6em
+  \parindent=12pt
+
+  % Make title of this paper.
+  \maketitle
+  \thispagestyle{empty}
+  %
+  % Make the reverse page of the title (this front page).
+  \cleardoublepage
+  %
+  % Set page style.
+  % "empty"     : Don't show page numbers
+  % "headings"  : Set header in each page
+  % "plain"     : Page number only
+  % "myheadings": Use myheadings
+  %
+  \pagestyle{headings}
+  %
+  % Set page number
+  \setcounter{page}{1}
+  %
+  % Make table of contents based on "***.toc".
+  \tableofcontents
+  %
+  % Make List of figures and tables.
+  \listoffigures
+  \listoftables
+}

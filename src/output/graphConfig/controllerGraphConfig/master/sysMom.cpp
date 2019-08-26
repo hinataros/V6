@@ -58,9 +58,9 @@ void RLS::Output::sysMom(GpMaker &gpMaker, TexMaker &texMaker)
   texMaker.addMinipage();
 
   reset();
-  setFileName("lCth");
+  setFileName("lTh");
 
-  setTimeDependentDat("lCth");
+  setTimeDependentDat("lTh");
   makeDat();
 
   gpMaker.reset();

@@ -1,0 +1,26 @@
+\newcommand{\mbbBmf}{
+  \mbb B_{m_f}
+}
+\newcommand{\mbbBmm}{
+  \mbb B_{m_m}
+}
+
+\NewDocumentCommand\mbbBmk{o o}
+{
+  \expTwoTThrT{\mbb B_m\pbmqk}%
+  {\bbmat{\mbbBmf\pbmqk\\\mbbBmm\pbmqk}}%
+  {\bbmat{\mbbBmf^T\pbmqk&\mbbBmm^T\pbmqk}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\NewDocumentCommand\mbbBm{o o}
+{
+  \expTwoTThrT{\mbb B_m}%
+  {\bbmat{\mbbBmf\\\mbbBmm}}%
+  {\bbmat{\mbbBmf^T&\mbbBmm^T}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}

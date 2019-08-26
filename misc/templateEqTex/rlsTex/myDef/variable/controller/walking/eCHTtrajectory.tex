@@ -1,0 +1,65 @@
+\NewDocumentCommand\bmrvrppDes{o}
+{
+  \IfNoValueTF{#1}
+  {
+    \bm r_{\!vrp,p}^{des}
+  }
+  {
+    \bm r_{\!vrp,p}^{des,#1}
+  }
+}
+
+\NewDocumentCommand\bmrecmppDes{o}
+{
+  \IfNoValueTF{#1}
+  {
+    \bm r_{\!ecmp,p}^{des}
+  }
+  {
+    \bm r_{\!ecmp,p}^{des,#1}
+  }
+}
+
+\NewDocumentCommand\bmrndecmpTDes{o}
+{
+  \IfNoValueTF{#1}
+  {
+    \bm r_{\!ndecmp,T}^{des}
+  }
+  {
+    \bm r_{\!ndecmp,T}^{des,#1}
+  }
+}
+\NewDocumentCommand\bmrndecmpHDes{o}
+{
+  \IfNoValueTF{#1}
+  {
+    \bm r_{\!ndecmp,H}^{des}
+  }
+  {
+    \bm r_{\!ndecmp,H}^{des,#1}
+  }
+}
+
+\NewDocumentCommand\bmrndvrpTDes{o}
+{
+  \IfNoValueTF{#1}
+  {
+    \bm r_{\!ndvrp,T}^{des}
+  }
+  {
+    \bm r_{\!ndvrp,T}^{des,#1}
+    %% \bm r_{\!ndvrp,T,#1}^{des}
+  }
+}
+\NewDocumentCommand\bmrndvrpHDes{o}
+{
+  \IfNoValueTF{#1}
+  {
+    \bm r_{\!ndvrp,H}^{des}
+  }
+  {
+    \bm r_{\!ndvrp,H}^{des,#1}
+    %% \bm r_{\!ndvrp,T,#1}^{des}
+  }
+}

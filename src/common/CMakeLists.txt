@@ -22,6 +22,9 @@ set(srcs
   dpInv.cpp
   dN.cpp
   inverse3d.cpp
+  nanCheck.cpp
+  arrayd2Vector.cpp
+  sign.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" common_srcs)

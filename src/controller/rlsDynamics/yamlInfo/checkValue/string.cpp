@@ -38,6 +38,20 @@ namespace RLS{
   }
 
   template<>
+  bool RLS::YamlInfo::checkValue(Vector2d &value, const string name)
+  {
+    unsigned size = 2;
+
+    if(localKey[key][name]){
+      if(localKey[key][name].size()==size)
+        for(unsigned i=0; i<size; i++)
+          value(i) = localKey[key][name][i].as<double>();
+    }else
+      return false;
+
+    return true;
+  }
+  template<>
   bool RLS::YamlInfo::checkValue(Vector3d &value, const string name)
   {
     unsigned size = 3;
@@ -88,6 +102,24 @@ namespace RLS{
   bool RLS::YamlInfo::checkValue(Matrix3d &value, const string name)
   {
     unsigned size = 3;
+
+    if(localKey[key][name]){
+      if(localKey[key][name].size()==0)
+        for(unsigned i=0; i<size; i++)
+          value(i,i) = localKey[key][name].as<double>();
+
+      if(localKey[key][name].size()==size)
+        for(unsigned i=0; i<size; i++)
+          value(i,i) = localKey[key][name][i].as<double>();
+    }else
+      return false;
+
+    return true;
+  }
+  template<>
+  bool RLS::YamlInfo::checkValue(Matrix6d &value, const string name)
+  {
+    unsigned size = 6;
 
     if(localKey[key][name]){
       if(localKey[key][name].size()==0)

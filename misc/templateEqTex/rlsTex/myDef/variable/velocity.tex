@@ -1,0 +1,161 @@
+\newcommand{\bmv}{
+  \bm v
+}
+\newcommand{\bmw}{
+  \bm \omega
+}
+\NewDocumentCommand\mcalV{o o}
+{
+  \expTwoTThrT{\mcal V}%
+  {\bbmat{\bmv\\\bmw}}%
+  {\bbmat{\bmv^T&\bmw^T}^T}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\bmvR}{
+  \bm v_R
+}
+\newcommand{\bmwR}{
+  \bm \omega_R
+}
+\NewDocumentCommand\mcalVR{o o}
+{
+  \expTwoTThrT{\mcal V_R}%
+  {\bbmat{\bmvR\\\bmwR}}%
+  {\bbmat{\bmvR^T&\bmwR^T}^T}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\bmvB}{
+  \bm v_B
+}
+\newcommand{\bmwB}{
+  \bm \omega_B
+}
+\NewDocumentCommand\mcalVB{o o}
+{
+  \expTwoTThrT{\mcal V_B}%
+  {\bbmat{\bmvB\\\bmwB}}%
+  {\bbmat{\bmvB^T&\bmwB^T}^T}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\bmvC}{
+  \bm v_C
+}
+\NewDocumentCommand\mcalVM{o o}
+{
+  \expTwoTThrT{\mcal V_M}%
+  {\bbmat{\bmvC\\\bmwB}}%
+  {\bbmat{\bmvC^T&\bmwB^T}^T}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\bmwC}{
+  \bm \omega_C
+}
+\NewDocumentCommand\mcalVC{o o}
+{
+  \expTwoTThrT{\mcal V_C}%
+  {\bbmat{\bmvC\\\bmwC}}%
+  {\bbmat{\bmvC^T&\bmwC^T}^T}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\dbmvB}{
+  \dbm v_B
+}
+\newcommand{\dbmwB}{
+  \dbm \omega_B
+}
+\NewDocumentCommand\dmcalVB{o o}
+{
+  \expTwoTThrT{\dmcal V_B}%
+  {\bbmat{\dbmvB\\\dbmwB}}%
+  {\bbmat{\dbmvB^T&\dbmwB^T}^T}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\dbmvC}{
+  \dbm v_C
+}
+\NewDocumentCommand\dmcalVM{o o}
+{
+  \expTwoTThrT{\dmcal V_M}%
+  {\bbmat{\dbmvC\\\dbmwB}}%
+  {\bbmat{\dbmvC^T&\dbmwB^T}^T}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\dbmwC}{
+  \dbm \omega_C
+}
+
+% amiyata deltaOmega
+
+\newcommand{\bmDw}{
+  \Delta \bm \omega
+}
+\newcommand{\dbmDw}{
+  \Delta \dbm \omega
+}
+
+\NewDocumentCommand\dmcalVC{o o}
+{
+  \expTwoTThrT{\dmcal V_C}%
+  {\bbmat{\dbmvC\\\dbmwC}}%
+  {\bbmat{\dbmvC^T&\dbmwC^T}^T}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\dbmv}{
+  \dbm v
+}
+\newcommand{\dbmw}{
+  \dbm \omega
+}
+\NewDocumentCommand\dmcalV{o o}
+{
+  \expTwoTThrT{\dmcal V}%
+  {\bbmat{\dbmv\\\dbmw}}%
+  {\bbmat{\dbmv^T&\dbmw^T}^T}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\obmcalV}{
+  \obmcal V
+}
+\newcommand{\obmcalVc}{
+  \obmcal V^c
+}
+\newcommand{\obmcalVm}{
+  \obmcal V^m
+}
+
+\newcommand{\tilmcalV}{
+  \tilmcal V
+}
+\newcommand{\tilmcalVc}{
+  \tilmcal V^c
+}
+\newcommand{\tilmcalVm}{
+  \tilmcal V^m
+}

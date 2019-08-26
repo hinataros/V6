@@ -11,4 +11,5 @@ void RLS::DesiredValueGenerator::setYamlInfo(YamlInfo &yamlInfo)
   if(debug) DEBUG;
 
   this->yamlInfo = &yamlInfo;
+  walking.setYamlInfo(yamlInfo); // amiyata
 }

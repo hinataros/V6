@@ -1,0 +1,42 @@
+\newcommand{\dbmIB}{
+  \dbm I_B
+}
+
+\NewDocumentCommand\dmbbMB{o o}
+{
+  \expTwoTThrT{\dmbb M_B}%
+  {\bbmat{\bm 0&-m_t\ssmdbmrola{CB}\\-m_t\ssmdbmrola{CB}^T&\dbmIB}}%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\dbmHB}{
+  \dbm H_B
+}
+
+\NewDocumentCommand\dbmmcalHBth{o o}
+{
+  \expTwoTThrT{\dbmmcal H_{\!B\theta}}%
+  {\bbmat{m_t\dbmJolaCB\\\dbmHB}}%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\NewDocumentCommand\dbmmcalAB{o o}
+{
+  \expTwoTThrT{\dbmmcal A_B}%
+  {\bbmat{\dmbbMB&\dbmmcalHBth}}%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\dbmMth}{
+  \dbm M_\theta
+}
+

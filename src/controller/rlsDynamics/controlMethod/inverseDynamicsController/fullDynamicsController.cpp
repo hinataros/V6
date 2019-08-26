@@ -35,5 +35,10 @@ VectorXd RLS::RlsDynamics::fullDynamicsController()
   else
     (ext->*ext_torqueController_ptr)(this);
 
+  // o(cal_dVmBarRef);
+  // o(ddqMoptRef);
+  // o(cal_FcBarRef);
+  // o(tau);
+
   return tau;
 }

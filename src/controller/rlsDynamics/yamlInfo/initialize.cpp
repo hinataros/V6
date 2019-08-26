@@ -32,24 +32,26 @@ void RLS::YamlInfo::initialize(const string &path_yaml_controller, const int &co
 
   this->doc.defaultKey = this->doc.controllerKey[defaultKeyName];
 
-  if(this->doc.controllerKey[sequenceKeyName][0].size()){
-    if(this->doc.controllerKey[sequenceKeyName][0][0].size()){
-      sequenceNum = this->doc.controllerKey[sequenceKeyName].size();
-      this->doc.sequenceKey = new YAML::Node[sequenceNum];
+  // o(this->doc.defaultKey);
 
-      for(int i=0; i<sequenceNum; i++)
-        this->doc.sequenceKey[i] = this->doc.controllerKey[sequenceKeyName][i];
-    }
-    else{
-      sequenceNum = 1;
-      this->doc.sequenceKey = new YAML::Node[1];
-      this->doc.sequenceKey[0] = this->doc.controllerKey[sequenceKeyName];
-    }
-  }
-  else{
-    this->doc.sequenceKey = new YAML::Node[0];
-  }
-
-  if(this->doc.controllerKey[stateKeyName][0])
-    this->doc.stateKey = this->doc.controllerKey[stateKeyName];
+  // if(this->doc.controllerKey[sequenceKeyName][0].size()){
+  //   if(this->doc.controllerKey[sequenceKeyName][0][0].size()){
+  //     sequenceNum = this->doc.controllerKey[sequenceKeyName].size();
+  //     this->doc.sequenceKey = new YAML::Node[sequenceNum];
+  //
+  //     for(int i=0; i<sequenceNum; i++)
+  //       this->doc.sequenceKey[i] = this->doc.controllerKey[sequenceKeyName][i];
+  //   }
+  //   else{
+  //     sequenceNum = 1;
+  //     this->doc.sequenceKey = new YAML::Node[1];
+  //     this->doc.sequenceKey[0] = this->doc.controllerKey[sequenceKeyName];
+  //   }
+  // }
+  // else{
+  //   this->doc.sequenceKey = new YAML::Node[0];
+  // }
+  //
+  // if(this->doc.controllerKey[stateKeyName][0])
+  //   this->doc.stateKey = this->doc.controllerKey[stateKeyName];
 }

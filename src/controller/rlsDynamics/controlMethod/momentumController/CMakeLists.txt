@@ -9,6 +9,7 @@ set(srcs
   centroidalMomentum.cpp
   centroidalVrpMomentum.cpp
   centroidalVrpMomentumDamping.cpp
+  centroidalVrpMomentumTV.cpp
   centroidalVrpRNS.cpp
   centroidalCmpMomentum.cpp
   deltaMomentum.cpp

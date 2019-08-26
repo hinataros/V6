@@ -1,0 +1,29 @@
+% Baselink
+\newcommand{\bmrB}{
+  \bm r_B
+}
+
+\newcommand{\dbmrB}{
+  \dbm r_B
+}
+
+\newcommand{\ddbmrB}{
+  \ddbm r_B
+}
+
+% Centroidal
+\newcommand{\bmrC}{
+  \bm r_C
+}
+
+\newcommand{\dbmrC}{
+  \dbm r_C
+}
+
+\newcommand{\ddbmrC}{
+  \ddbm r_C
+}
+
+\NewDocumentCommand\bmr{m o o}{
+  \supsub{\bm r}{#1}[#2][#3]
+}

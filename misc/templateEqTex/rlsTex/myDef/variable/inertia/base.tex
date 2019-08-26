@@ -1,0 +1,76 @@
+\newcommand{\mtE}{
+  M\bm E_3
+}
+
+\newcommand{\bmIB}{
+  \bm I_B
+}
+
+\NewDocumentCommand\mbbMB{o o}
+{
+  \expTwoTThrT{\mbb M_B}%
+  {
+  \bbmat{
+    \mtE&-m_t\ssmbmrola{CB}\\
+    -m_t\ssmbmrola{CB}^T&\bmIB
+    }
+  }%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\bmHB}{
+  \bm H_B
+}
+
+\NewDocumentCommand\bmmcalHBth{o o}
+{
+  \expTwoTThrT{\bmmcal H_{\!B\theta}}%
+  {\bbmat{m_t\bmJolaCB\\\bmHB}}%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\NewDocumentCommand\bmmcalAB{o o}
+{
+  \expTwoTThrT{\bmmcal A_B}%
+  {\bbmat{\mbbMB&\bmmcalHBth}}%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\bmMth}{
+  \bm M_\theta
+}
+
+\NewDocumentCommand\bmM{o o}
+{
+  \expTwoTThrT{\bm M}%
+  {
+    \bbmat{
+      \mbbMB & \bmmcalHBth\\
+      \bmmcalHBth^T & \bmMth
+    }
+  }%
+  {
+    error
+  }%
+  {
+    \bbmat{
+      \mtE & -m_t\ssmbmrola{CB} & m_t\bmJolaCB\\
+      -m_t\ssmbmrola{CB}^T & \bmIB & \bmHB\\
+      m_t\bmJolaCB^T & \bmHB^T & \bmMth
+    }
+  }%
+  {
+    error
+  }%
+  [#1][#2]
+}
+

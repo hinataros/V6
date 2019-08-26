@@ -1,0 +1,87 @@
+\newcommand{\bmpRef}{
+  \bm p^{ref}
+}
+
+\newcommand{\bmlBRef}{
+  \bm l_B^{ref}
+}
+
+\NewDocumentCommand\mcalLBRef{o o}
+{
+  \expTwoTThrT{\mcal L_B^{ref}}%
+  {\bbmat{\bmpRef\\\bmlBRef}}%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\dbmpRef}{
+  \dbm p^{ref}
+}
+
+\newcommand{\dbmlBRef}{
+  \dbm l_B^{ref}
+}
+
+\NewDocumentCommand\dmcalLBRef{o o}
+{
+  \expTwoTThrT{\dmcal L_B^{ref}}%
+  {\bbmat{\dbmpRef\\\dbmlBRef}}%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\bmlCRef}{
+  \bm l_C^{ref}
+}
+
+\NewDocumentCommand\mcalLCRef{o o}
+{
+  \expTwoTThrT{\mcal L_C^{ref}}%
+  {\bbmat{\bmpRef\\\bmlCRef}}%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\dbmlCRef}{
+  \dbm l_C^{ref}
+}
+
+\NewDocumentCommand\dmcalLCRef{o o}
+{
+  \expTwoTThrT{\dmcal L_C^{ref}}%
+  {\bbmat{\dbmpRef\\\dbmlCRef}}%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\NewDocumentCommand\dobmcalLCRef{o o}
+{
+  \expTwoTThrT{\dobmcal L{}^{ref}_C}%
+  {\bbmat{\dmcalLCRef\\\bm 0}}%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\dtilbmlCRef}{
+  \dtilbm l_C^{ref}
+}
+
+\NewDocumentCommand\dtilmcalLCRef{o o}
+{
+  \expTwoTThrT{\dtilmcal L{}^{ref}_C}%
+  {\bbmat{ \dbmpRef \\ \dtilbmlCRef}}%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}

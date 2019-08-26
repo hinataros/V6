@@ -24,10 +24,19 @@ void RLS::RlsDynamics::outputRefConfig()
   outputList.dwBoptRef = ddqMoptRef.segment(3,3);
   outputList.ddthoptRef = ddqMoptRef.tail(info.model.dof.joint);
 
-  outputList.rvrpRef = model->rX - fb.drXfb/model->wX;
+  if(des.rvrpCalc==1){
+    outputList.rvrpRef = model->rC - fb.dvCfb/(model->wX*model->wX);
+  }
+  else{
+    outputList.rvrpRef = model->rX - fb.drXfb/model->wX;
+  }
 
   outputList.dpRef = dpRef;
   outputList.dlCRef = dlCRef;
+
+  // amiyata
+  outputList.dlCRBRef = model->dIC*model->wB + model->IC*fb.dwBfb;
+  outputList.dlThRef = model->dHC*model->dth + model->HC*ddthRef;
 
   outputList.dlBRef = dlBRef;
 

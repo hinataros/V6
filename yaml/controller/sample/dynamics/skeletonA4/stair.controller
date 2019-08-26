@@ -20,7 +20,6 @@ controller:
       # motion controller: DivMGM
       # motion controller: mBADM
       # momentum controller: centroidalVrpMomentumDamping
-      # momentum controller: CoPReferredCAM
 
     desired value generator:
       DCM: {name: HTWalking}

@@ -12,6 +12,8 @@ void RLS::Output::output()
 {
   if(debug) DEBUG;
 
+  dirCheck(); // amiyata
+
   if(tex.flag){
     TexMaker interfaceMaker;
     interfaceMaker.setInterfacePath(dir.interface);
@@ -43,6 +45,10 @@ void RLS::Output::output()
 
   if(cho.flag)
     makeMotionYaml();
+
+  // amiyata
+  if(eq.flag)
+    makeEquationTex();
 
   // // if(config.gif.flag){
   // //   makeGifDat(config, model);

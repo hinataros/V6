@@ -17,9 +17,12 @@ void RLS::DesiredValueGenerator::dcmHTWalking(const double &t)
 
   // walking.ht(t);
 
-  if(constraintModel->getControlNodeVector(cal_FDes,"all","RARMEE").norm()==0.)
-    walking.ht(t);
-  else{
+  if(constraintModel->getControlNodeVector(cal_FDes,"all","RARMEE").norm()==0.){
+    if(!walking.oscF)
+      walking.ht(t);
+    else
+      walking.htOscillate(t);
+  }else{
     VectorXd cal_FHcBarRef = constraintModel->getControlNodeVector(constraintModel->Bc.transpose()*cal_FDes,"c","RARMEE");
     MatrixXd bb_CcMH = constraintModel->getControlNodeMatrix(constraintModel->cal_PcM,false,true,"c","RARMEE");
 

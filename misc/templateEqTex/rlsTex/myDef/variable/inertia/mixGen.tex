@@ -1,0 +1,66 @@
+\NewDocumentCommand\bmmcalAM{o o}
+{
+  \expTwoTThrT{\bmmcal A_M}%
+  {\bbmat{\mbbMC&\bmmcalHMth}}%
+  {error}%
+  {
+    \bbmat{
+      M\bm E_3 & \bm 0 & \bm 0\\
+      \bm 0 & \bmIC & \bmHC
+    }
+  }%
+  {error}%
+  [#1][#2]
+}
+
+\NewDocumentCommand\dbmmcalAM{o o}
+{
+  \expTwoTThrT{\dbmmcal A_M}%
+  {\bbmat{\dmbbMC&\dbmmcalHMth}}%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\bmMthM}{
+  \bm M_{\theta\!M}
+}
+\newcommand{\dbmMthM}{
+  \dbm M_{\theta\!M}
+}
+
+\NewDocumentCommand\bmAthM{o o}
+{
+  \expTwoTThrT{\bm M_{\theta\!M}}%
+  {\bbmat{\bmmcalHMth^T&\bmMthM}}%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\NewDocumentCommand\bmMM{o o}
+{
+  \expTwoTThrT{\bm M_M}%
+  {
+    \bbmat{
+      \mbbMC & \bmmcalHMth\\
+      \bmmcalHMth^T & \bmMthM
+    }
+  }%
+  {
+    error
+  }%
+  {
+    \bbmat{
+      \mtE & \bm 0 & \bm 0\\
+      \bm 0 & \bmIC & \bmHC\\
+      \bm 0 & \bmHC^T & \bmMthM
+    }
+  }%
+  {
+    error
+  }%
+  [#1][#2]
+}

@@ -1,0 +1,31 @@
+\newcommand{\bmvBDes}{
+  \bm v_B^{des}
+}
+\newcommand{\bmwBDes}{
+  \bm \omega_B^{des}
+}
+\NewDocumentCommand\mcalVBDes{o o}
+{
+  \expTwoTThrT{\mcal V_B^{des}}%
+  {\bbmat{\bmvBDes\\\bmwBDes}}%
+  {\bbmat{\bmvBDes^T&\bmwBDes^T}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\dbmvBDes}{
+  \dbm v_B^{des}
+}
+\newcommand{\dbmwBDes}{
+  \dbm \omega_B^{des}
+}
+\NewDocumentCommand\dmcalVBDes{o o}
+{
+  \expTwoTThrT{\dmcal V_B^{des}}%
+  {\bbmat{\dbmvBDes\\\dbmwBDes}}%
+  {\bbmat{\dbmvBDes^T&\dbmwBDes^T}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}

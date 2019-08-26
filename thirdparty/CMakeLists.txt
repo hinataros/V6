@@ -9,3 +9,7 @@ endif()
 if(rls_thirdparty_QuadProgpp_compile)
   add_subdirectory(QuadProgpp)
 endif()
+
+if(rls_thirdparty_cfsqp_compile)
+  add_subdirectory(cfsqp)
+endif()

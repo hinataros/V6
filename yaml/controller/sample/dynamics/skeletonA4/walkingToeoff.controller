@@ -139,13 +139,20 @@ controller:
     height: &height 0.02
 
     ## 0.105
-    length: &steplength1 0.105
-    length: &steplength2 0.21
-    length: &steplength3 0.315
-    length: &steplength4 0.42
-    length: &steplength5 0.525
-    length: &steplength6 0.63
-    length: &steplength7 0.735
+    # length: &steplength1 0.105
+    # length: &steplength2 0.21
+    # length: &steplength3 0.315
+    # length: &steplength4 0.42
+    # length: &steplength5 0.525
+    # length: &steplength6 0.63
+    # length: &steplength7 0.735
+    length: &steplength1 0.115
+    length: &steplength2 0.23
+    length: &steplength3 0.345
+    length: &steplength4 0.46
+    length: &steplength5 0.575
+    length: &steplength6 0.69
+    length: &steplength7 0.805
     ## 0.09
     # length: &steplength1 0.09
     # length: &steplength2 0.18
@@ -194,22 +201,22 @@ controller:
     # extJac: &vecToe 0.058
 
     # ## 0.105 (arm swing)
-    dtstep: .67
-    dtDSstep: 0.25
-
-    twf: &tinitial 0.42
-    twf: &tswingleg 0.42
-
-    twf: &tds 0.1
-    twf: &tho 0.15
-
-    alphaDSstep: 0.4
-    alphaHTstep: 0.6
-    offset: 0.015
-    toe: 0.042
-    heel: 0.0
-
-    extJac: &vecToe 0.058
+    # dtstep: .67
+    # dtDSstep: 0.25
+    #
+    # twf: &tinitial 0.42
+    # twf: &tswingleg 0.42
+    #
+    # twf: &tds 0.1
+    # twf: &tho 0.15
+    #
+    # alphaDSstep: 0.4
+    # alphaHTstep: 0.6
+    # offset: 0.015
+    # toe: 0.042
+    # heel: 0.0
+    #
+    # extJac: &vecToe 0.058
 # # ==================
 
 # # SmallFoot(x=70 y=45) suc param =====
@@ -284,22 +291,22 @@ controller:
     # extJac: &vecToe 0.04
 # # ==================
 # test param =====
-    # dtstep: 0.5
-    # dtDSstep: 0.2
-    #
-    # twf: &tinitial 0.35
-    # twf: &tswingleg 0.3
-    #
-    # twf: &tds 0.05
-    # twf: &tho 0.15
-    #
-    # alphaDSstep: 0.4
-    # alphaHTstep: 0.6
-    # offset: 0.015
-    # toe: 0.025
-    # heel: -0.0
-    #
-    # extJac: &vecToe 0.025
+    dtstep: 0.5
+    dtDSstep: 0.1
+
+    twf: &tinitial 0.3
+    twf: &tswingleg 0.4
+
+    twf: &tds 0.02
+    twf: &tho 0.08
+
+    alphaDSstep: 0.4
+    alphaHTstep: 0.6
+    offset: 0.01
+    toe: 0.025
+    heel: -0.015
+
+    extJac: &vecToe 0.058
 # ==================
 
     rkkZ: &rNN
@@ -322,7 +329,7 @@ controller:
     rfabs: &swingLeg3
       LLEGEE: [*steplength3, 0.039, *height]
     rfabs: &swingLeg4
-      # RLEGEE: [*steplength3, -0.039, *height]
+    #   RLEGEE: [*steplength3, -0.039, *height]
       RLEGEE: [*steplength4, -0.039, *height]
     rfabs: &swingLeg5
       LLEGEE: [*steplength5, 0.039, *height]

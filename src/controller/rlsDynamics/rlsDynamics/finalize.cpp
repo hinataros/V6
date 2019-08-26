@@ -17,6 +17,7 @@ void RLS::RlsDynamics::finalize()
 
   delete[] yamlInfo.doc.sequenceKey;
 
+  delete[] topState.st_ptr_in; // amiyata
   delete[] sequence;
   // delete[] rkk;
 

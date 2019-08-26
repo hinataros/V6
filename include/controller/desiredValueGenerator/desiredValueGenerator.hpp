@@ -66,6 +66,16 @@ namespace RLS{
     int dcmNum;
     int externalWrenchNum;
 
+    bool baseTranslationSpec;
+    bool baseRotationSpec;
+    bool *controlNodeTranslationSpec;
+    bool *controlNodeRotationSpec;
+    bool *controlNodeForceSpec;
+    bool *controlNodeMomentSpec;
+    bool comSpec;
+    bool dcmSpec;
+    bool externalWrenchSpec;
+
     double *tw0;
     double *twf;
 
@@ -93,6 +103,7 @@ namespace RLS{
     Vector3d *npreDes;
     Vector3d rCpreDes;
     Vector3d rXpreDes;
+    Vector3d rXpreDesabs;
 
     // amiyata 前回の最終値
     Vector3d rBfinCur;
@@ -105,6 +116,7 @@ namespace RLS{
     Vector3d *nfinCur;
     Vector3d rCfinCur;
     Vector3d rXfinCur;
+    Vector3d rXfinCurabs;
 
     Vector3d rBf;
     Vector3d xiBf;
@@ -119,11 +131,13 @@ namespace RLS{
     Vector3d *nf;
     Vector3d rCf;
     Vector3d rXf;
+    Vector3d rXfabs;
 
     Vector6d cal_Fextf;
     Vector6d cal_FextpreDes;
 
-    Vector3d *rtd;
+    // Vector3d *rtd; // amiyata
+    double *rAp;
 
     // desired value  generator
     // ******************************
@@ -140,6 +154,7 @@ namespace RLS{
     void controlNodeTranslationCP(const int&, const double&);
     void controlNodeTranslationCPabs(const int&, const double&);
     void controlNodeTranslationSwing(const int&, const double&);
+    void controlNodeTranslationSwingabs(const int&, const double&); // amiyata
 
     // control node rotation
     void controlNodeRotationDefault(const int&, const double&);
@@ -158,11 +173,14 @@ namespace RLS{
     // com
     void comDefault(const double&);
     void comCP(const double&);
+    void comHTWalking(const double&); // amiyata
 
     // dcm
     void dcmDefault(const double&);
     void dcmCP(const double&);
+    void dcmCPabs(const double&); // amiyata
     void dcmHTWalking(const double&);
+    void dcmvrpHTWalking(const double&); // amiyata
 
     // external wrench
     void externalWrenchDefault(const double&);
@@ -200,7 +218,7 @@ namespace RLS{
     void resize();
     // void resizeState(); // amiyata state使ってない
     void setMap();
-    void setInitialBoundary();
+    // void setInitialBoundary();
     void initializeWalking();
 
   public:
@@ -237,9 +255,15 @@ namespace RLS{
 
     void readController();
     void update(const double&);
+    void updatePres(); // amiyata
     void update(const double&, const int&);
     void mapping();
     void desiredValueGenerator(const double&);
+
+    void setInitialBoundary(); // amiyata for sequence reset
+    void resetWalking(const double&); // amiyata for sequence reset
+
+    int rvrpCalc; // rvrpの計算方法が制御法によって違う
 
     // ~DesiredValueGenerator(){
     //   finalize();

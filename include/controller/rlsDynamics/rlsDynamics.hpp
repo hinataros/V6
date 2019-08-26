@@ -19,6 +19,7 @@
 #include "desiredValueGenerator.hpp"
 #include "feedbackController.hpp"
 #include "rlsDynamicsList.hpp"
+#include "rlsDynamicsExtractor.hpp" //amiyata
 #include "_extList.hpp"
 
 namespace RLS{
@@ -34,14 +35,23 @@ namespace RLS{
     Ext *ext;
 
     struct State{
-      int num;
-    } state;
+      struct State *st_ptr_in; // recursive state
+      int fork; // state nums
+      // string mode; // state or sequence
+      string trigger; // trigger config sellect
+      YAML::Node doc; // load whole of phase yaml
+      int condition; // current state num
+      int sequenceID; // sequence identifier for sequence trigger
+      bool ext; // nursing for ext
+    } topState;
 
     struct Sequence{
       int phase;
       double tw0;
       double twf;
     } *sequence;
+
+    int seqNum;
 
     void initializeExt();
     void setModelInfo(Info&);
@@ -56,6 +66,9 @@ namespace RLS{
     void initializeStateTrigger();
     void localInitialize();
 
+    void stateScanner(struct State&); // amiyata
+    void statePrinter(struct State&, int fork=0, int nest=0); // amiyata
+
     // state transition
     void updateSequence(const double&, const int&);
     void mapping();
@@ -65,22 +78,28 @@ namespace RLS{
     bool extStateTrigger;
 
     // trigger config
-    int defaultStateTrigger(const double&);
-    int checkFootContact(const double&);
-    int checkContact(const double&);
+    int defaultStateTrigger(const double&, const struct State&);
+    int checkFootContact(const double&, const struct State&);
+    int checkContact(const double&, const struct State&);
+    int sequenceTrigger(const double&, const struct State&); // amiyata
+    int continuousSequence(const double&, const struct State&); // amiyata
 
     // state trigger
-    int (RLS::RlsDynamics::*stateTrigger_ptr)(const double&)=0;
-    map<string, int (RLS::RlsDynamics::*)(const double&)> stateTrigger_map;
+    // int (RLS::RlsDynamics::*stateTrigger_ptr)(const double&, const int)=0;
+    map<string, int (RLS::RlsDynamics::*)(const double&, const struct State&)> stateTrigger_map;
 
-    int stateTrigger(const double&);
-    bool sequenceTrigger(const double&, const int&);
+    // int stateTrigger(const double&);
+    // bool sequenceTrigger(const double&, const int&);
+    bool stateTrigger(const double&, struct State&); // amiyata
 
     bool configurationManager(const double&);
     void reconfigure();
 
     void allReadController();
     void readController();
+
+    void readController(vector<string>&);
+    void readParameter(); // amiyata
 
     // control method
     // ******************************
@@ -131,6 +150,7 @@ namespace RLS{
     VectorXd rest_clCm();
     VectorXd baseGeneralizedMomentum();
     VectorXd mixedGeneralizedMomentum();
+    VectorXd mixedGeneralizedMomentumStacked();
     VectorXd mixedBaseAngularDecomposedMomentum();
     VectorXd mixedBaseAngularDistributedMomentum(); //amiyata
     VectorXd mixedGeneralizedDeltaAngularMomentum(); //amiyata
@@ -149,6 +169,8 @@ namespace RLS{
     // momentum controller
     void linearMomentum();
     void vrpMomentum();
+    void vrpZcomMomentum(); // amiyata
+    void vrpMomentumwXt(); // amiyata
     void centroidalAngularMomentum();
     void baseAngularMomentum();
     void baseMomentum();
@@ -156,6 +178,7 @@ namespace RLS{
     void centroidalMomentum();
     void centroidalVrpMomentum();
     void centroidalVrpMomentumDamping();
+    void centroidalVrpMomentumTV(); // amiyata
     void centroidalVrpRNS();
     void centroidalCmpMomentum();
     void centroidalAngularMomentumDamping(); // amiyata
@@ -171,6 +194,7 @@ namespace RLS{
     void centroidalDcmDistribution();
     void centroidalEcmpDistribution();
     void centroidalEcmpInternalDistribution(); // amiyata
+    void centroidalEcmpDistributionwXt(); // amiyata
     void handWrenchControlAndCentroidalEcmpDistribution();
     void bwcDistribution(); // umekage
     void CRBWCbaseDistribution(); // umekage
@@ -238,6 +262,8 @@ namespace RLS{
     MatrixXd compute_BWC_span(MatrixXd&);
 
     bool *contactFlag; //amiyata footprintを足接触切替時に保存したいので保存
+
+    Vector2d distOffset; // amiyata 分配用 足首からのオフセット
 
   public:
     ControllerInfo info;
@@ -358,7 +384,7 @@ namespace RLS{
 
     // ext
     // ********************************
-    int (RLS::Ext::*ext_stateTrigger_ptr)(RlsDynamics*, const double&)=0;
+    // int (RLS::Ext::*ext_stateTrigger_ptr)(RlsDynamics*, const double&)=0;
     map<string, int (RLS::Ext::*)(RlsDynamics*, const double&)> ext_stateTrigger_map;
 
     VectorXd (RLS::Ext::*ext_motionController_ptr)(RlsDynamics*)=0;
@@ -379,8 +405,8 @@ namespace RLS{
       string controlModel;
       int controlNodeNum;
       string input;
-      string driven;
-      string trigger;
+      // string driven; // amiyata 世の中みんなstate
+      // string trigger; // amiyata どんなところにもtrigger
     } config;
 
     // smiyahara: 要検討(とりあえず外乱のみを考慮し"6"にしといた)
@@ -395,7 +421,8 @@ namespace RLS{
     ExtList extList;
     RlsDynamicsList outputList;
 
-    vector<Vector3d> footPrintList; //amiyata
+    RlsDynamicsExtractor extractor; // amiyata
+    // vector<Vector3d> footPrintList; //amiyata
 
     RlsDynamics(){}
     // RlsDynamics(const int controllerID, const string &path_yaml_controller, Info &info){

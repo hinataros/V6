@@ -1,0 +1,27 @@
+\newcommand{\bmcmM}{
+  \bm c_{m\!M}
+}
+
+\NewDocumentCommand\mcalCM{o o}
+{
+  \expTwoTThrT{\mcal C_M}%
+  {\bbmat{\bm 0\\\bmcmM}}%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\bmcthM}{
+  \bm c_{\theta\!M}
+}
+
+\NewDocumentCommand\bmcM{o o}
+{
+  \expTwoTThrT{\bm c_M}%
+  {\bbmat{\mcalCM\\\bmcthM}}%
+  {error}%
+  {\bbmat{\bm 0\\\bmcm\\\bmcthM}}%
+  {error}%
+  [#1][#2]
+}

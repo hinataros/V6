@@ -21,6 +21,8 @@ namespace RLS{
     void update();
     void update(VectorXd&); //amiyata rkk
 
+    void originReset(VectorXd &offset); // amiyata
+
     // ControllerModel(const Info &info){
     //   initialize(info);
     // }

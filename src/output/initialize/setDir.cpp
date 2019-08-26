@@ -22,10 +22,12 @@ void RLS::Output::setDir(const string &dir_link)
   dir.eps.cmp = dir.cmp + "eps/";
   dir.pdf.cmp = dir.cmp + "pdf/";
   dir.gif.cmp = dir.cmp + "gif/";
+  dir.eq.cmp = dir.cmp + "eq/";
 
   dir.dat.ind = dir.dat.cmp + result.ind+"/";
   dir.gp.ind = dir.gp.cmp + result.ind+"/";
   dir.eps.ind = dir.eps.cmp + result.ind+"/";
   dir.gif.ind = dir.gif.cmp + result.ind+"/";
   dir.pdf.ind = dir.pdf.cmp + "src/" + result.ind+"/";
+  dir.eq.ind = dir.eq.cmp + "src/" + result.ind+"/";
 }

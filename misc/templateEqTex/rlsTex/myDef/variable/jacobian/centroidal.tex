@@ -1,0 +1,65 @@
+\newcommand{\bmJolaCB}{
+  \bm J_{\ola{CB}}
+}
+\NewDocumentCommand\bmmcalJolaCB{o o}
+{
+  \expTwoTThrT{\bmmcal J_{\ola{CB}}}%
+  {\bbmat{\bmJolaCB\\\bm 0}}%
+  {\bbmat{\bmJolaCB^T&\bm 0}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\dbmJolaCB}{
+  \dbm J_{\ola{CB}}
+}
+\NewDocumentCommand\dbmmcalJolaCB{o o}
+{
+  \expTwoTThrT{\dbmmcal J_{\ola{CB}}}%
+  {\bbmat{\dbmJolaCB\\\bm 0}}%
+  {\bbmat{\dbmJolaCB^T&\bm 0}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\bmJw}{
+  \bm J_\omega
+}
+\NewDocumentCommand\bmmcalJth{o o}
+{
+  \expTwoTThrT{\bmmcal J_{\!\theta}}%
+  {\bbmat{\bmJolaCB\\\bmJw}}%
+  {\bbmat{\bmJolaCB^T&\bmJw^T}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\dbmJw}{
+  \dbm J_\omega
+}
+\NewDocumentCommand\dbmmcalJth{o o}
+{
+  \expTwoTThrT{\dbmmcal J_{\!\theta}}%
+  {\bbmat{\dbmJolaCB\\\dbmJw}}%
+  {\bbmat{\dbmJolaCB^T&\dbmJw^T}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\tilbmJolaCB}{
+  \tilbm J_{\ola{CB}}
+}
+
+\NewDocumentCommand\tilbmmcalJth{o o}
+{
+  \expTwoTThrT{\tilbmmcal J_{\!\theta}}%
+  {\bbmat{\tilbmJolaCB\\\bmJw}}%
+  {\bbmat{\tilbmJolaCB^T&\bmJw^T}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}

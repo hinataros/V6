@@ -62,12 +62,14 @@ void RLS::DesiredValueGenerator::resize()
   qBpreDes = Quaternion4d::Zero();
   rCpreDes = Vector3d::Zero();
   rXpreDes = Vector3d::Zero();
+  rXpreDesabs = Vector3d::Zero();
   cal_FextpreDes = Vector6d::Zero();
   // amiyata
   rBfinCur = Vector3d::Zero();
   qBfinCur = Quaternion4d::Zero();
   rCfinCur = Vector3d::Zero();
   rXfinCur = Vector3d::Zero();
+  rXfinCurabs = Vector3d::Zero();
   // cal_FextfinCur = Vector6d::Zero();
 
   rBf = Vector3d::Zero();
@@ -101,7 +103,8 @@ void RLS::DesiredValueGenerator::resize()
   ff = new Vector3d[info->controlNodeNum];
   nf = new Vector3d[info->controlNodeNum];
 
-  rtd = new Vector3d[info->controlNodeNum];
+  // rtd = new Vector3d[info->controlNodeNum];
+  rAp = new double[info->controlNodeNum];
 
   for(int i=0; i<info->controlNodeNum; i++){
     rpreDes[i] = Vector3d::Zero();
@@ -127,7 +130,8 @@ void RLS::DesiredValueGenerator::resize()
     ff[i] = Vector3d::Zero();
     nf[i] = Vector3d::Zero();
 
-    rtd[i] = Vector3d::Zero();
+    // rtd[i] = Vector3d::Zero(); // amiyata
+    rAp[i] = 0.;
   }
 
   baseTranslationNum = 0;
@@ -143,6 +147,18 @@ void RLS::DesiredValueGenerator::resize()
   controlNodeForceName = new string[info->controlNodeNum];
   controlNodeMomentName = new string[info->controlNodeNum];
 
+  //amiyata
+  baseTranslationSpec = false;
+  baseRotationSpec = false;
+  comSpec = false;
+  dcmSpec = false;
+  externalWrenchSpec = false;
+
+  controlNodeTranslationSpec = new bool[info->controlNodeNum];
+  controlNodeRotationSpec = new bool[info->controlNodeNum];
+  controlNodeForceSpec = new bool[info->controlNodeNum];
+  controlNodeMomentSpec = new bool[info->controlNodeNum];
+
   for(int i=0; i<info->controlNodeNum; i++){
     controlNodeTranslationNum[i] = 0;
     controlNodeRotationNum[i] = 0;
@@ -153,6 +169,11 @@ void RLS::DesiredValueGenerator::resize()
     controlNodeRotationName[i] = "default";
     controlNodeForceName[i] = "default";
     controlNodeMomentName[i] = "default";
+
+    controlNodeTranslationSpec[i] = false;
+    controlNodeRotationSpec[i] = false;
+    controlNodeForceSpec[i] = false;
+    controlNodeMomentSpec[i] = false;
   }
 
   comNum = 0;

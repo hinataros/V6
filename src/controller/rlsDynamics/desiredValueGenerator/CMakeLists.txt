@@ -12,6 +12,7 @@ add_subdirectory(dcm)
 add_subdirectory(externalWrench)
 add_subdirectory(default)
 add_subdirectory(_desiredValueGenerator)
+add_subdirectory(walking)
 
 # set(srcs
 #   )
@@ -31,5 +32,6 @@ set(desiredValueGenerator_srcs
   ${externalWrench_srcs}
   ${default_srcs}
   ${desiredValueGenerator_srcs}
+  ${walking_srcs}
   PARENT_SCOPE
   )

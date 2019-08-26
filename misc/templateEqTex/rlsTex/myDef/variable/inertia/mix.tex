@@ -1,0 +1,42 @@
+\newcommand{\bmIC}{
+  \bm I_C
+}
+
+\NewDocumentCommand\mbbMC{o o}
+{
+  \expTwoTThrT{\mbb M_C}%
+  {
+  \bbmat{
+    \mtE&\bm 0\\
+    \bm 0&\bmIC
+    }
+  }%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\bmHC}{
+  \bm H_C
+}
+
+\NewDocumentCommand\bmHCM{o o}
+{
+  \expTwoTThrT{\bm H_{\!CM}}%
+  {\bbmat{\bm 0\\\bmHC}}%
+  {[\bm 0^T ~ \bmHC^T]^T}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\NewDocumentCommand\bmmcalHMth{o o}
+{
+  \expTwoTThrT{\bmmcal H_{\!M\theta}}%
+  {\bbmat{\bm 0\\\bmHC}}%
+  {error}%
+  {error}%
+  {error}%
+  [#1][#2]
+}

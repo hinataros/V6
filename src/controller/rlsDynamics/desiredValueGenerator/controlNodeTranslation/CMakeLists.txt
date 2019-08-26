@@ -4,7 +4,7 @@ set(srcs
   controlNodeTranslationCP.cpp
   controlNodeTranslationCPabs.cpp
   controlNodeTranslationSwing.cpp
-  # controlNodeTranslationWalkingToeoff.cpp
+  controlNodeTranslationSwingabs.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" controlNodeTranslation_srcs)

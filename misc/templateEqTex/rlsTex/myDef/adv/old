@@ -1,0 +1,402 @@
+% \def\notationOld#1#2#3#4#5#6{
+%   \ifthenelse{\equal{}{#4}}{
+%     \ifthenelse{\equal{}{#6}}{
+%       {#3{#2{#1}}}_{#5}
+%     }
+%     {
+%       {#3{#2{#1}}}_{#5}^{#6}
+%     }
+%   }
+%   {
+%     \ifthenelse{\equal{}{#6}}{
+%       {}^{#4}{#3{#2{#1}}}_{#5}
+%     }
+%     {
+%       {^{#4}{#3{#2{#1}}}_{#5}^{#6}}
+%     }
+%   }
+% }
+% \newcommand{\notation}[4]{
+%   \ifthenelse{\equal{}{#2}}{
+%     \ifthenelse{\equal{}{#4}}{
+%       \ifthenelse{\equal{}{#3}}
+%       {
+%         {#1}
+%       }
+%       {
+%         {#1}_{#3}
+%       }
+%     }
+%     {
+%       \ifthenelse{\equal{}{#3}}
+%       {
+%         {#1}^{#4}
+%       }
+%       {
+%         {#1}_{#3}^{#4}
+%       }
+%     }
+%   }
+%   {
+%     \ifthenelse{\equal{}{#4}}{
+%       \ifthenelse{\equal{}{#3}}
+%       {
+%         {}^{#2}{#1}
+%       }
+%       {
+%         {}^{#2}{#1}_{#3}
+%       }
+%     }
+%     {
+%       \ifthenelse{\equal{}{#3}}
+%       {
+%         {}^{#2}{#1}^{#4}
+%       }
+%       {
+%         {^{#2}{#1}_{#3}^{#4}}
+%       }
+%     }
+%   }
+% }
+
+% \NewDocumentCommand\decMCM{m o o o}
+% {
+%   \IfNoValueTF{#4}
+%   {
+%     \ifthenelse{\equal{exp}{#2}}
+%     {
+%       \IfValueTF{#3}
+%       {
+%         \ifthenelse{\NOT \equal{T}{#3}}
+%         {
+%           \bbmat{
+%             \notation{#1}{}{c}{}(#3)\\
+%             \notation{#1}{}{m}{}(#3)
+%           }
+%         }
+%         {
+%           \bbmat{
+%             \notation{#1}{}{c}{T} & \notation{#1}{}{m}{T}\\
+%           }^T
+%         }
+%       }
+%       {
+%         \bbmat{
+%           \notation{#1}{}{c}{}\\
+%           \notation{#1}{}{m}{}
+%         }
+%       }
+%     }
+%     {
+%       \ifthenelse{\equal{c}{#2} \OR \equal{m}{#2}}
+%       {
+%         \IfValueTF{#3}
+%         {
+%           \notation{#1}{}{#2}{}(#3)
+%         }
+%         {
+%           \notation{#1}{}{#2}{}
+%         }
+%       }
+%       {
+%         \IfValueTF{#3}
+%         {
+%           \notation{#1}{}{}{}(#3)
+%         }
+%         {
+%           \notation{#1}{}{}{}
+%         }
+%       }
+%     }
+%   }
+%   {
+%     \ifthenelse{\equal{exp}{#2}}
+%     {
+%       \ifthenelse{\equal{T}{#3}}
+%       {
+%         \bbmat{
+%           \notation{#1}{}{c}{T}(#4) & \notation{#1}{}{m}{T}(#4)\\
+%         }^T
+%       }
+%       {
+%         error
+%       }
+%     }
+%     {
+%       \notation{#1}{}{#2}{#3}(#4)
+%     }
+%   }
+% }
+
+% \NewDocumentCommand\decCFCM{m o o o}
+% {
+%   \IfNoValueTF{#4}
+%   {
+%     \ifthenelse{\equal{exp}{#2}}
+%     {
+%       \IfValueTF{#3}
+%       {
+%         \ifthenelse{\NOT \equal{T}{#3}}
+%         {
+%           \bbmat{
+%             \notation{#1}{}{c_f}{}(#3)\\
+%             \notation{#1}{}{c_m}{}(#3)
+%           }
+%         }
+%         {
+%           \bbmat{
+%             \notation{#1}{}{c_f}{T} & \notation{#1}{}{c_m}{T}\\
+%           }^T
+%         }
+%       }
+%       {
+%         \bbmat{
+%           \notation{#1}{}{c_f}{}\\
+%           \notation{#1}{}{c_m}{}
+%         }
+%       }
+%     }
+%     {
+%       \ifthenelse{\equal{f}{#2} \OR \equal{m}{#2}}
+%       {
+%         \IfValueTF{#3}
+%         {
+%           \notation{#1}{}{c_{#2}}{}(#3)
+%         }
+%         {
+%           \notation{#1}{}{c_{#2}}{}
+%         }
+%       }
+%       {
+%         \IfValueTF{#3}
+%         {
+%           \notation{#1}{}{c}{}(#3)
+%         }
+%         {
+%           \notation{#1}{}{c}{}
+%         }
+%       }
+%     }
+%   }
+%   {
+%     \ifthenelse{\equal{exp}{#2}}
+%     {
+%       \ifthenelse{\equal{T}{#3}}
+%       {
+%         \bbmat{
+%           \notation{#1}{}{c_f}{T}(#4) & \notation{#1}{}{c_m}{T}(#4)\\
+%         }^T
+%       }
+%       {
+%         error
+%       }
+%     }
+%     {
+%       \notation{#1}{}{c_#2}{#3}(#4)
+%     }
+%   }
+% }
+
+% \NewDocumentCommand\decMFMM{m o o o}
+% {
+%   \IfNoValueTF{#4}
+%   {
+%     \ifthenelse{\equal{exp}{#2}}
+%     {
+%       \IfValueTF{#3}
+%       {
+%         \ifthenelse{\NOT \equal{T}{#3}}
+%         {
+%           \bbmat{
+%             \notation{#1}{}{m_f}{}(#3)\\
+%             \notation{#1}{}{m_m}{}(#3)
+%           }
+%         }
+%         {
+%           \bbmat{
+%             \notation{#1}{}{m_f}{T} & \notation{#1}{}{m_m}{T}\\
+%           }^T
+%         }
+%       }
+%       {
+%         \bbmat{
+%           \notation{#1}{}{m_f}{}\\
+%           \notation{#1}{}{m_m}{}
+%         }
+%       }
+%     }
+%     {
+%       \ifthenelse{\equal{f}{#2} \OR \equal{m}{#2}}
+%       {
+%         \IfValueTF{#3}
+%         {
+%           \notation{#1}{}{m_{#2}}{}(#3)
+%         }
+%         {
+%           \notation{#1}{}{m_{#2}}{}
+%         }
+%       }
+%       {
+%         \IfValueTF{#3}
+%         {
+%           \notation{#1}{}{c}{}(#3)
+%         }
+%         {
+%           \notation{#1}{}{c}{}
+%         }
+%       }
+%     }
+%   }
+%   {
+%     \ifthenelse{\equal{exp}{#2}}
+%     {
+%       \ifthenelse{\equal{T}{#3}}
+%       {
+%         \bbmat{
+%           \notation{#1}{}{m_f}{T}(#4) & \notation{#1}{}{m_m}{T}(#4)\\
+%         }^T
+%       }
+%       {
+%         error
+%       }
+%     }
+%     {
+%       \notation{#1}{}{m_#2}{#3}(#4)
+%     }
+%   }
+% }
+
+% \NewDocumentCommand\decMCM{m o o}
+% {
+%   \ifthenelse{\equal{exp}{#2}}
+%   {
+%     \ifthenelse{\NOT \equal{T}{#3}}
+%     {
+%       \bbmat{
+%         \notation{#1}{}{c}{}\\
+%         \notation{#1}{}{m}{}
+%       }
+%     }
+%     {
+%       \bbmat{
+%         \notation{#1}{}{c}{T} & \notation{#1}{}{m}{T}\\
+%       }^T
+%     }
+%   }
+%   {
+%     \ifthenelse{\equal{c}{#2} \OR \equal{m}{#2}}
+%     {
+%       \notation{#1}{}{#2}{}
+%     }
+%     {
+%       \notation{#1}{}{}{}
+%     }
+%   }
+% }
+
+% \NewDocumentCommand\decCFCM{m o o}
+% {
+%   \ifthenelse{\equal{exp}{#2}}
+%   {
+%     \ifthenelse{\NOT \equal{T}{#3}}
+%     {
+%       \bbmat{
+%         \notation{#1}{}{c_f}{}\\
+%         \notation{#1}{}{c_m}{}
+%       }
+%     }
+%     {
+%       \bbmat{
+%         \notation{#1}{}{c_f}{T} & \notation{#1}{}{c_m}{T}
+%       }^T
+%     }
+%   }
+%   {
+%     \ifthenelse{\equal{f}{#2} \OR \equal{m}{#2}}
+%     {
+%       \notation{#1}{}{c_{#2}}{}{}
+%     }
+%     {
+%       \notation{#1}{}{c}{}
+%     }
+%   }
+% }
+
+% \NewDocumentCommand\decMFMM{m o o}
+% {
+%   \ifthenelse{\equal{exp}{#2}}
+%   {
+%     \ifthenelse{\NOT \equal{T}{#3}}
+%     {
+%       \bbmat{
+%         \notation{#1}{}{m_f}{}\\
+%         \notation{#1}{}{m_m}{}
+%       }
+%     }
+%     {
+%       \bbmat{
+%         \notation{#1}{}{m_f}{T} & \notation{#1}{}{m_m}{T}
+%       }^T
+%     }
+%   }
+%   {
+%     \ifthenelse{\equal{f}{#2} \OR \equal{m}{#2}}
+%     {
+%       \notation{#1}{}{m_{#2}}{}{}
+%     }
+%     {
+%       \notation{#1}{}{m}{}
+%     }
+%   }
+% }
+
+% \NewDocumentCommand\matCM{m o o o o}
+% {
+%   \ifthenelse{\equal{exp}{#2}}
+%   {
+%     \ifthenelse{\equal{r}{#3} \OR \equal{l}{#3}}
+%     {
+%       \ifthenelse{\equal{r}{#3}}
+%       {
+%         \IfValueTF{#5}
+%         {
+%           \bbmat{
+%             \notation{#1}[][c][#4]#5\\
+%             \notation{#1}[][m][#4]#5
+%           }
+%         }
+%         {
+%           \bbmat{
+%             \notation{#1}[][c][#4]\\
+%             \notation{#1}[][m][#4]
+%           }
+%         }
+%       }
+%       {
+%         \IfValueTF{#5}
+%         {
+%           \bbmat{
+%             \notation{#1}[][c][#4]#5 & \notation{#1}[][m][#4]#5\\
+%           }
+%         }
+%         {
+%           \bbmat{
+%             \notation{#1}[][c][#4] & \notation{#1}[][m][#4]\\
+%           }
+%         }
+%       }
+%     }
+%     {
+%       error
+%     }
+%   }
+%   {
+%     \ifthenelse{\equal{c}{#2} \OR \equal{m}{#2}}
+%     {
+%       \notation{#1}[][#2]
+%     }
+%     {
+%       \notation{#1}
+%     }
+%   }
+% }

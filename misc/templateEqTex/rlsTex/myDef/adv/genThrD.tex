@@ -1,0 +1,46 @@
+\NewDocumentCommand\genThrD{m m m m o o o o}
+{
+  \ifthenelse{\equal{exp}{#6}}
+  {
+    \ifthenelse{\equal{r}{#7} \OR \equal{l}{#7}}
+    {
+      \ifthenelse{\equal{r}{#7}}
+      {
+        \bbmat{
+          \notation{#2}[][#5][#8]\\
+          \notation{#3}[][#5][#8]\\
+          \notation{#4}[][][#8]
+        }
+      }
+      {
+        \bbmat{
+          \notation{#2}[][#5][#8] & \notation{#3}[][#5][#8] & \notation{#4}[][][#8]\\
+        }
+      }
+    }
+    {
+      error
+    }
+  }
+  {
+    \ifthenelse{\equal{t}{#6}}
+    {
+      \notation{#2}[][#5]
+    }
+    {
+      \ifthenelse{\equal{r}{#6}}
+      {
+        \notation{#3}[][#5]
+      }
+      {
+        \ifthenelse{\equal{j}{#6}}
+        {
+          \notation{#4}[][#5]
+        }
+        {
+          \notation{#1}[][#5]
+        }
+      }
+    }
+  }
+}

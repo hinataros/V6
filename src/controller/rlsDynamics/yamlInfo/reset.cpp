@@ -5,31 +5,27 @@
 #include "config.hpp"
 #include "yamlInfo.hpp"
 
-void RLS::YamlInfo::reset(const string &key, const int &sequence, const int &phase)
+void RLS::YamlInfo::reset()
 {
+  if(debug) DEBUG;
+
   string defaultKeyName = "default";
-  string sequenceKeyName = "sequence";
+
+  this->key = defaultKeyName;
+  localKey[defaultKeyName] = doc.defaultKey;
+}
+
+void RLS::YamlInfo::reset(YAML::Node doc)
+{
+  if(debug) DEBUG;
+
   string stateKeyName = "state";
 
-  this->key = key;
+  this->key = stateKeyName;
 
   // smiyahara: YAML::Nodeの謎の挙動のせい
   YAML::Node temp;
 
-  if(key==defaultKeyName){
-    localKey[defaultKeyName] = doc.defaultKey;
-  }
-  else if(key==sequenceKeyName){
-    this->sequence = sequence;
-    temp[phase] = doc.sequenceKey[sequence][phase];
-    localKey[sequenceKeyName] = temp[phase];
-  }
-  else if(key==stateKeyName){
-    this->state = phase;
-    temp[phase] = doc.stateKey[phase];
-    localKey[stateKeyName] = temp[phase];
-  }
-  else{
-    cout << manip_error("no such '"+key+"' key") << endl;
-  }
+  temp[0] = doc;
+  localKey[stateKeyName] = temp[0];
 }

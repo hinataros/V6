@@ -1,0 +1,19 @@
+\NewDocumentCommand\mbbBPk{o o}
+{
+  \expTwoTThrT{\mbbB_P\pbmqk}%
+  {\bbmat{\mbbBc\pbmqk&\mbbBm\pbmqk}}%
+  {\bbmat{\mbbBc^T\pbmqk\\\mbbBm^T\pbmqk}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\NewDocumentCommand\mbbBP{o o}
+{
+  \expTwoTThrT{\mbbB_P}%
+  {\bbmat{\mbbBc&\mbbBm}}%
+  {\bbmat{\mbbBc^T\\\mbbBm^T}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}

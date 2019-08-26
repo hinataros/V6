@@ -20,8 +20,8 @@ void RLS::DesiredValueGenerator::desiredValueGenerator(const double &t)
     (this->*controlNodeMoment_ptr[i])(i, t);
   }
 
-  (this->*com_ptr)(t);
   (this->*dcm_ptr)(t);
+  (this->*com_ptr)(t);
   (this->*externalWrench_ptr)(t);
 
   zeroToOneSpline(comNum, t); // amiyata

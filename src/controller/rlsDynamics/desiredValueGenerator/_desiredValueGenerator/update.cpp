@@ -72,10 +72,36 @@ void RLS::DesiredValueGenerator::update(const double &t, const int &num)
   if(dcmNum==num){
     rXpreDes = rXf;
     rXfinCur = model->rX - rX0;
+    rXpreDesabs = rXfabs;
+    rXfinCurabs = model->rX;
   }
 
   if(externalWrenchNum==num) {
     cal_FextpreDes = cal_Fextf;
     // cal_FextfinCur = model->cal_Fext; //そんなものはない
   }
+
+  rXfabs = model->rX; // amiyata
+}
+
+
+void RLS::DesiredValueGenerator::updatePres() // amiyata
+{
+  if(debug) DEBUG;
+
+  rBpreDes = Vector3d::Zero();
+  qBpreDes = Quaternion4d::Zero();
+
+  for(int i=0; i<info->controlNodeNum; i++){
+    rpreDes[i] = Vector3d::Zero();
+    qpreDes[i] = Quaternion4d::Zero();
+
+    fpreDes[i] = Vector3d::Zero();
+    npreDes[i] = Vector3d::Zero();
+  }
+
+  rCpreDes = Vector3d::Zero();
+  rXpreDes = Vector3d::Zero();
+
+  cal_FextpreDes = cal_Fextf;
 }

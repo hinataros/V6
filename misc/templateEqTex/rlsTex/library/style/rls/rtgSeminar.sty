@@ -1,0 +1,173 @@
+%
+\setlength{\voffset}{-1truein}
+\addtolength{\voffset}{22truemm}
+% 2002/2/6 begin
+\addtolength{\voffset}{-3truemm}
+% 2002/2/6 end
+\setlength{\topmargin}{0truein}
+% 
+\setlength{\headheight}{24truemm}
+% 
+\setlength{\headsep}{-\headheight}
+% 
+\setlength{\topskip}{14truept}
+% 
+\setlength{\textheight}{254mm}
+% 
+% 
+\setlength{\hoffset}{-1truein}
+\setlength{\oddsidemargin}{20truemm}
+% 
+\setlength{\columnsep}{8mm}
+% 
+\setlength{\textwidth}{170mm}
+% 
+\newlength{\figurewidth}
+\setlength{\figurewidth}{\textwidth}
+\addtolength{\figurewidth}{-\columnsep}
+\setlength{\figurewidth}{0.5\figurewidth}
+% 
+\renewcommand{\baselinestretch}{0.87}
+
+\if@twocolumn
+\renewcommand{\section}{%
+  \@startsection{section}{1}{\z@}%
+  {0.05\Cvs}{0.05\Cvs}%
+  %% {\normalfont\large\headfont\raggedright}}
+  {\bf\normalsize\headfont\raggedright}}
+\else
+\renewcommand{\section}{%
+  \if@slide\clearpage\fi
+  \@startsection{section}{1}{\z@}%
+  {\Cvs \@plus.5\Cdp \@minus.2\Cdp}%
+  {.5\Cvs \@plus.3\Cdp}%
+  {\normalfont\Large\headfont\raggedright}}
+\fi
+% 
+% \setlength{\abovecaptionskip}{0\p@}
+% 
+\def\textfraction{.08}
+\def\topfraction{.9}
+\def\floatpagefraction{.99}
+\def\dbltopfraction{.9}
+\def\dblfloatpagefraction{.99}
+\def\floatsep{2pt}
+\def\textfloatsep{2pt}
+\def\intextsep{2pt}
+\def\intextsep{2pt}
+\def\topnumber{10}
+\def\bottomnumber{10}
+\def\totalnumber{10}
+% 
+\renewcommand{\figurename}{Fig.\ }
+\renewcommand{\tablename}{Table }
+% 
+\pagestyle{empty}
+% 
+\newcommand{\mpjtitle}{The Japanese Title of Your Thesis}
+\newcommand{\mpetitle}{The English Title of Your Thesis}
+\newcommand{\mpabstract}{This is a template file of the entitled thesis.%
+  An English abstract should appear here.}
+\newcommand{\mpkeywords}{Keywords should appear here.}
+% 
+% \newcommand{\mpsupervisor}{Your supervisor}
+\newcommand{\mpauthor}{Your ID and your name}
+\newcommand{\mpeauthor}{Your ID and your name in English}
+\newcommand{\mpcode}{Your code}
+% 
+% Master thesis title
+\newcommand{\mtitle}{
+  \twocolumn[
+  \begin{flushright} 
+    \small
+    {指導 金宮~好和 教授 \\
+      佐藤~大祐 准教授}
+  \end{flushright}
+  \begin{flushleft}
+    \vspace*{-14truemm}
+    % \vspace*{-13.0mm}
+    \hspace*{-3.0mm}
+    \begin{minipage}{50truemm}
+      \noindent\footnotesize%
+      % 研究室名とコード番号
+      \baselineskip=9pt
+      RLS研究室\\
+      第\@seminum 回ロボティクスセミナー資料 \\  
+      資料番号 \@memonum \\
+      \西暦\@date
+    \end{minipage}
+  \end{flushleft}
+  
+  \vspace*{3truept}
+  \centering
+  % \hspace*{35truemm}
+  \begin{minipage}{155truemm}
+    \large \bf
+    \begin{center}
+      \baselineskip=15pt
+      % Japanese title
+      \mpjtitle
+    \end{center}
+  \end{minipage}
+  \vspace*{-0.7truemm}
+  \begin{center}
+    % \large
+    % \bf
+    \baselineskip=16pt
+    \mpauthor\\
+    % Author
+  \end{center}
+  \vspace*{-1truemm}
+  \begin{center}
+    \begin{minipage}{155mm}
+      \centering
+      \large \bf
+      % English title
+      \baselineskip=15pt
+      \mpetitle
+    \end{minipage}
+    \vspace*{0mm}
+    \begin{center}
+      { %\large
+        % Author
+        \mpeauthor
+      }
+    \end{center}
+    % \vspace*{-10pt}
+    \vspace*{-1truemm}
+    \begin{center}
+      \begin{minipage}{155mm}
+        \centering
+        %%ABSTRACT %\\
+        % \vspace*{0truemm}
+        \begin{flushleft}
+          \baselineskip=11pt
+          % \hspace*{2em}
+          \mpabstract
+        \end{flushleft}
+      \end{minipage} % \\
+      \vspace{1truemm}
+      % \begin{minipage}{15cm}  
+      %   \setlength{\parindent}{1em}
+      %   \begin{flushleft}
+      %     %     \small
+      %     \noindent
+      %     %     {\bf Key words:}
+      %     %     Keywords
+      %     %     \mpkeywords
+      %   \end{flushleft}
+      % \end{minipage}
+    \end{center}
+  \end{center}
+  ]
+}
+
+\def\seminum#1{\gdef\@seminum{#1}}
+\gdef\@seminum{}
+\def\memonum#1{\gdef\@memonum{#1}}
+\gdef\@memonum{}
+
+%% Local Variables:
+%% mode: japanese-latex
+%% TeX-master: "template"
+%% End:

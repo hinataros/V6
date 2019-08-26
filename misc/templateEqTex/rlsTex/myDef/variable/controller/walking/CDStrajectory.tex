@@ -1,0 +1,101 @@
+\NewDocumentCommand\bmrfDes{o}
+{
+  \IfNoValueTF{#1}
+  {
+    \bm r_{\!f}^{des}
+  }
+  {
+    \bm r_{\!f}^{des,#1}
+    %% \bm r_{\!f,#1}^{des}
+  }
+}
+
+\NewDocumentCommand\bmrXDes{o}
+{
+  \IfNoValueTF{#1}
+  {
+    \bm r_{\!X}^{des}
+  }
+  {
+    \bm r_{\!X}^{des,#1}
+    %% \bm r_{X,#1}^{des}
+  }
+}
+
+\NewDocumentCommand\dbmrXDes{o}
+{
+  \IfNoValueTF{#1}
+  {
+    \dbm r_{\!X}^{des}
+  }
+  {
+    \dbm r_{\!X}^{des,#1}
+    %% \dbm r_{\!X,#1}^{des}
+  }
+}
+
+\NewDocumentCommand\bmrXiniDSDes{o}
+{
+  \IfNoValueTF{#1}
+  {
+    \bm r_{\!X,D\!S^{init}}^{des}
+    %% \bm r_{XiniDS}^{des}
+  }
+  {
+    \bm r_{\!X,D\!S^{init}}^{des,#1}
+    %% \bm r_{XiniDS}^{des,#1}
+    %% \bm r_{XiniDS,#1}^{des}
+  }
+}
+\NewDocumentCommand\dbmrXiniDSDes{o}
+{
+  \IfNoValueTF{#1}
+  {
+    \dbm r_{\!X,D\!S^{init}}^{des}
+    %% \dbm r_{XiniDS}^{des}
+  }
+  {
+    \dbm r_{\!X,D\!S^{init}}^{des,#1}
+    %% \dbm r_{XiniDS}^{des,#1}
+    %% \dbm r_{XiniDS,#1}^{des}
+  }
+}
+
+\NewDocumentCommand\bmrXendDSDes{o}
+{
+  \IfNoValueTF{#1}
+  {
+    \bm r_{\!X,D\!S^{end}}^{des}
+    %% \bm r_{XendDS}^{des}
+  }
+  {
+    \bm r_{\!X,D\!S^{end}}^{des,#1}
+    %% \bm r_{XendDS}^{des,#1}
+    %% \bm r_{XendDS,#1}^{des}
+  }
+}
+\NewDocumentCommand\dbmrXendDSDes{o}
+{
+  \IfNoValueTF{#1}
+  {
+    \dbm r_{\!X,D\!S^{end}}^{des}
+    %% \dbm r_{XendDS}^{des}
+  }
+  {
+    \dbm r_{\!X,D\!S^{end}}^{des,#1}
+    %% \dbm r_{XendDS}^{des,#1}
+    %% \dbm r_{XendDS,#1}^{des}
+  }
+}
+
+\NewDocumentCommand\bmrvrpDes{o}
+{
+  \IfNoValueTF{#1}
+  {
+    \bm r_{\!vrp}^{des}
+  }
+  {
+    \bm r_{\!vrp}^{des,#1}
+    %% \bm r_{\!vrp,#1}^{des}
+  }
+}

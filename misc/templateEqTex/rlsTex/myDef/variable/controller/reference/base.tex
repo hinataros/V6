@@ -1,0 +1,31 @@
+\newcommand{\bmvBRef}{
+  \bm v_B^{ref}
+}
+\newcommand{\bmwBRef}{
+  \bm \omega_B^{ref}
+}
+\NewDocumentCommand\mcalVBRef{o o}
+{
+  \expTwoTThrT{\mcal V_B^{ref}}%
+  {\bbmat{\bmvBRef\\\bmwBRef}}%
+  {\bbmat{\bmvBRef^T&\bmwBRef^T}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\dbmvBRef}{
+  \dbm v_B^{ref}
+}
+\newcommand{\dbmwBRef}{
+  \dbm \omega_B^{ref}
+}
+\NewDocumentCommand\dmcalVBRef{o o}
+{
+  \expTwoTThrT{\dmcal V_B^{ref}}%
+  {\bbmat{\dbmvBRef\\\dbmwBRef}}%
+  {\bbmat{\dbmvBRef^T&\dbmwBRef^T}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}

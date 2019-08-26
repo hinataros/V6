@@ -1,0 +1,68 @@
+\newcommand{\mbbCcf}{
+  \mbb C_{\!c_f}
+}
+\newcommand{\mbbCcCm}{
+  \mbb C_{\!cC_m}
+}
+% \newcommand{\bmCcf}{
+%   \bm C_{\!c_f}
+% }
+% \newcommand{\bmCcm}{
+%   \bm C_{\!c_m}
+% }
+% 6軸フルサイズではないのでボルドに修正
+% \newcommand{\bmCcf}{
+%   \bm C_{\!c_f}
+% } % もうあった
+\newcommand{\bmCcCm}{
+  \bm C_{\!cC_m}
+}
+\NewDocumentCommand\mbbCcCk{o o}
+{
+  \expTwoTThrT{\mbb C_{cC}\pbmqk}%
+  {\bbmat{\bmCcf\pbmqk\\\bmCcCm\pbmqk}}%
+  {\bbmat{\bmCcf^T\pbmqk&\bmCcCm^T\pbmqk}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+\NewDocumentCommand\mbbCcC{o o}
+{
+  \expTwoTThrT{\mbb C_{cC}}%
+  {\bbmat{\bmCcf\\\bmCcCm}}%
+  {\bbmat{\bmCcf^T&\bmCcCm^T}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+\NewDocumentCommand\bmCc{o o}
+{
+  \expTwoTThrT{\bm C_{c}}%
+  {\bbmat{\bmCcf\\\bmCcm}}%
+  {\bbmat{\bmCcf^T&\bmCcm^T}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+
+\newcommand{\mbbCmCm}{
+  \mbb C_{\!mC_m}
+}
+\NewDocumentCommand\mbbCmCk{o o}
+{
+  \expTwoTThrT{\mbb C_{mC}\pbmqk}%
+  {\bbmat{\mbbCmf\pbmqk\\\mbbCmCm\pbmqk}}%
+  {\bbmat{\mbbCmf^T\pbmqk&\mbbCmCm^T\pbmqk}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}
+\NewDocumentCommand\mbbCmC{o o}
+{
+  \expTwoTThrT{\mbb C_{mC}}%
+  {\bbmat{\mbbCmf\\\mbbCmCm}}%
+  {\bbmat{\mbbCmf^T&\mbbCmCm^T}}%
+  {error}%
+  {error}%
+  [#1][#2]
+}

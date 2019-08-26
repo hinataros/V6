@@ -106,6 +106,7 @@ namespace RLS{
     Vector3d ewB;
 
     Vector3d eX;
+    Vector3d eXt; // amiyata
 
     VectorXd cal_Ep;
     VectorXd cal_Ev;
@@ -131,6 +132,7 @@ namespace RLS{
     Vector6d cal_dVCfb;
 
     Vector3d drXfb;
+    Vector3d drXtfb; // amiyata
 
     VectorXd cal_Ffb;
 

@@ -1,0 +1,28 @@
+\newcommand{\hbmMth}{
+  \hbm M_\theta
+}
+
+\NewDocumentCommand\bmMC{o o}
+{
+  \expTwoTThrT{\bm M_C}%
+  {
+    \bbmat{
+      \mbbMC & \bm 0\\
+      \bm 0 & \hbmMth
+    }
+  }%
+  {
+    error
+  }%
+  {
+    \bbmat{
+      \mtE & \bm 0 & \bm 0\\
+      \bm 0 & \bmIC & \bm 0\\
+      \bm 0 & \bm 0 & \hbmMth
+    }
+  }%
+  {
+    error
+  }%
+  [#1][#2]
+}

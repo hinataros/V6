@@ -13,4 +13,6 @@ void RLS::RlsDynamics::vrpMomentum()
   Vector3d rvrpRef = model->rX - fb.drXfb/model->wX;
 
   dpRef = model->M*model->wX*model->wX*(model->rC - rvrpRef);
+
+  des.rvrpCalc = 0;
 }

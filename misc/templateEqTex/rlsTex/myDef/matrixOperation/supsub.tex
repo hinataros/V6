@@ -1,0 +1,52 @@
+\NewDocumentCommand\supsub{m m o o}
+{
+  \IfValueTF{#4}
+  {
+    \ifthenelse{\NOT \equal{}{#4}}
+    {
+      \IfValueTF{#3}
+      {
+        \ifthenelse{\NOT \equal{}{#3}}
+        {
+          {#1}_{#2,#3}^{#4}
+        }
+        {
+          {#1}_{#2}^{#4}
+        }
+      }
+      {
+        {#1}_{#2}^{#4}
+      }
+    }
+    {
+      \IfValueTF{#3}
+      {
+        \ifthenelse{\NOT \equal{}{#3}}
+        {
+          {#1}_{#2,#3}
+        }
+        {
+          {#1}_{#2}
+        }
+      }
+      {
+        {#1}_{#2}
+      }
+    }
+  }
+  {
+    \IfValueTF{#3}
+    {
+      \ifthenelse{\NOT \equal{}{#3}}
+      {
+        {#1}_{#2,#3}
+      }
+      {
+        {#1}_{#2}
+      }
+    }
+    {
+      {#1}_{#2}
+    }
+  }
+}

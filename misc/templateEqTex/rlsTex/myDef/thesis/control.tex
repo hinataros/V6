@@ -1,0 +1,114 @@
+% \newcounter{chNum}
+
+\newcounter{ch}
+\newcounter{sec}
+\newcounter{subsec}
+\newcounter{app}
+\newcounter{appsec}
+
+\newcounter{figCount}
+
+\def\chDir#1{src/chapter.#1}
+\def\secDir#1#2{\chDir{#1}/section.#2}
+\def\subsecDir#1#2#3{\secDir{#1}{#2}/subsection.#3}
+
+\newcommand{\chTex}[1]{
+  \chDir{#1}/main
+}
+\newcommand{\secTex}[2]{
+  \chDir{#1}/section.#2
+}
+\newcommand{\secTexDir}[2]{
+  \secDir{#1}{#2}/main
+}
+\newcommand{\subsecTex}[3]{
+  \secDir{#1}{#2}/subsection.#3
+}
+\newcommand{\subsecTexDir}[3]{
+  \subsecDir{#1}{#2}{#3}/main
+}
+
+\newcommand{\addChapterDir}[1]{
+  \input{\chTex{#1}}
+}
+\newcommand{\chapterLoop}[1]{
+  \setcounter{ch}{1}
+  \whiledo{\value{ch}=#1 \OR \value{ch}<#1}{
+    \addChapterDir{\arabic{ch}}
+    \refstepcounter{ch}
+    \newpage
+  }
+}
+
+\newcommand{\addSection}[2][\arabic{chapter}]{
+  \input{\secTex{#1}{#2}}
+}
+\newcommand{\sectionLoop}[1]{
+  \setcounter{sec}{1}
+  \whiledo{\value{sec}=#1 \OR \value{sec}<#1}{
+     \addSection{\arabic{sec}}
+     \refstepcounter{sec}
+  }
+}
+\newcommand{\sectionLoopDir}[1]{
+  \setcounter{sec}{1}
+  \whiledo{\value{sec}=#1 \OR \value{sec}<#1}{
+     \input{\secTexDir{\arabic{chapter}}{\arabic{sec}}}
+     \refstepcounter{sec}
+  }
+}
+
+\newcommand{\subsectionLoop}[1]{
+  \setcounter{subsec}{1}
+  \whiledo{\value{subsec}=#1 \OR \value{subsec}<#1}{
+     \input{\subsecTex{\arabic{chapter}}{\arabic{section}}{\arabic{subsec}}}
+     \refstepcounter{subsec}
+  }
+}
+
+\newcommand{\subsectionLoopDir}[1]{
+  \setcounter{subsec}{1}
+  \whiledo{\value{subsec}=#1 \OR \value{subsec}<#1}{
+     \input{\subsecTexDir{\arabic{chapter}}{\arabic{section}}{\arabic{subsec}}}
+     \refstepcounter{subsec}
+  }
+}
+
+\def\appDir{src/appendix}
+\def\appChDir#1{src/appendix/chapter.#1}
+
+\newcommand{\appTex}[1]{
+  \appDir/chapter.#1
+}
+\newcommand{\appChTex}[1]{
+  \appChDir#1/main
+}
+\newcommand{\appSecTex}[2]{
+  \appChDir{#1}/section.#2
+}
+
+\newcommand{\appendixChapterLoop}[1]{
+  \setcounter{app}{1}
+  \whiledo{\value{app}=#1 \OR \value{app}<#1}{
+    \input{\appTex{\arabic{app}}}
+    \refstepcounter{app}
+    \newpage
+  }
+}
+
+\newcommand{\appendixChapterLoopDir}[1]{
+  \setcounter{app}{1}
+  \whiledo{\value{app}=#1 \OR \value{app}<#1}{
+    \input{\appChTex{\arabic{app}}}
+    \refstepcounter{app}
+    \newpage
+  }
+}
+
+\newcommand{\appendixSectionLoop}[1]{
+  \setcounter{appsec}{1}
+  \whiledo{\value{appsec}=#1 \OR \value{appsec}<#1}{
+    \input{\appSecTex{\arabic{app}}{\arabic{appsec}}}
+    \refstepcounter{appsec}
+  }
+}

@@ -15,9 +15,11 @@ controller:
       motion controller: mixedGeneralizedMomentum
       # motion controller: mGDAM
       force controller: centroidalEcmpDistribution
+      # force controller: centroidalEcmpDistributionwXt
       # force controller: CRBWCbaseDistribution
       # force controller: centroidalDcmDistribution
       momentum controller: centroidalVrpMomentum
+      # momentum controller: centroidalVrpMomentumTV
       torque controller: mixedOpt
 
     desired value generator:
@@ -70,9 +72,11 @@ controller:
       RLEGEE: [0, 0, 0, 0, 0, 0]
       LLEGEE: [0, 0, 0, 0, 0, 0]
 
-
     BwB: [1, 1, 1]
-    BLC: [1, 1, 1, 0, 0, 0]
+    BLC: [1, 1, 1, 0, 0, 1]
+
+    # distribution offset: [0., 0.008]
+
 
   state:
     -
@@ -104,10 +108,14 @@ controller:
 
   walking:
     height: &height 0.02
+    # oscillation: 0.023
 
     length: &steplength1 0.08
     length: &steplength2 0.16
     length: &steplength3 0.24
+    # length: &steplength1 0.1
+    # length: &steplength2 0.2
+    # length: &steplength3 0.3
 
     vrp waypoint:
       - [0., -0.039, 0.]
@@ -122,11 +130,13 @@ controller:
     # twf: &tinitial 0.35
     # twf: &tswingleg 0.3
 
-    dtstep: .4
-    dtDSstep: &tds 0.1
+    dtstep: 1.5
+    dtDSstep: &tds 0.4
 
-    twf: &tinitial 0.25
-    twf: &tswingleg 0.3
+    twf: &tinitial 0.95
+    twf: &tswingleg 1.1
+
+
     # dtstep: .5
     # dtDSstep: &tds .03
     #
@@ -201,3 +211,5 @@ controller:
       rfabs: *swingLeg4
     -
       twf: *tds
+      control method:
+        motion controller: mixedGeneralizedMomentum
