@@ -8,6 +8,7 @@
 
 // #include "postureGenerator.hpp"
 #include "costFunctionQPpp.hpp"
+// #include "comWayOpt.hpp"
 
 
 namespace RLS{
@@ -30,9 +31,16 @@ namespace RLS{
     CFSQP();
     ~CFSQP();
 
+    // postureGenerator
     // void solver(postureGenerator&, VectorXd&);
+
+    // pseudoQPpp
     void solver(MatrixXd&, VectorXd&, VectorXd&);
     void solver(MatrixXd&, VectorXd&, string, MatrixXd&, VectorXd&, VectorXd&);
     void solver(MatrixXd&, VectorXd&, MatrixXd&, VectorXd&, MatrixXd&, VectorXd&, VectorXd&);
+
+    // comWayOpt
+    void solver(MatrixXd, MatrixXd, int, double, double, VectorXd&);
+
   };
 }

@@ -61,4 +61,6 @@ void RLS::Walking::resetMat()
 
   Cp = MatrixXd::Zero(ht_config.ipDim*2, ht_config.ipDim*2);
   Cm = MatrixXd::Zero(ht_config.ipDim*2, ht_config.ipDim*2);
+
+  vwpOpt = MatrixXd::Zero(3, ht_config.convergenceNum);
 }

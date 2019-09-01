@@ -10,10 +10,11 @@ controller:
     control method:
       inverse dynamics controller: fullDynamicsController
       operational space controller: decomposeEndEffectorAcceleration
-      motion controller: mixedGeneralizedMomentum
-      # motion controller: mGDAM
+      # motion controller: mixedGeneralizedMomentum
+      motion controller: mGDAM
       force controller: centroidalEcmpDistribution
-      momentum controller: centroidalVrpMomentum
+      # momentum controller: centroidalVrpMomentum
+      momentum controller: centroidalVrpMomentumDamping
       # momentum controller: centroidalMomentum
       torque controller: mixedOpt
 
@@ -68,6 +69,8 @@ controller:
     Bm: &zs
       RLEGEE: [0, 0, 0, 0, 0, 0]
       LLEGEE: [0, 0, 0, 0, 0, 0]
+
+    KDlC: 100
 
     BwB: [1, 1, 1]
     BLC: [1, 1, 1, 0, 0, 1]
@@ -156,7 +159,8 @@ controller:
 
       test: state1 & seq0
       walking:
-        ipDim: 2
+        ipDim: 3
+        time optimization: true
 
         dtstep: &tss 0.5
         dtDSstep: &tds 0.2
@@ -177,52 +181,68 @@ controller:
           twf: *tstab
         -
           test: seq0-1
-          twf: *tss
+          # twf: *tswingleg
+          tld: true
           rf: *swingLeg0 # for vrp way point calculation
+        -
+          test: seq0-1.5
+          # twf: *tds
+          tld: true
         # 1 step
         -
           test: seq0-2
-          twf: *tswingleg
+          # twf: *tswingleg
+          tld: true
           Bc: *rs
           Bm: *ls
           rf: *swingLeg1
             # LLEGEE: [*steplength1, 0., 0.]
         -
           test: seq0-3
-          twf: *tds
+          # twf: *tds
+          tld: true
         # 2 step
         -
           test: seq0-4
-          twf: *tswingleg
+          # twf: *tswingleg
+          tld: true
           Bc: *ls
           Bm: *rs
           rf: *swingLeg2
         -
           test: seq0-5
-          twf: *tds
+          # twf: *tds
+          tld: true
         # 3 step
         -
           test: seq0-6
-          twf: *tswingleg
+          # twf: *tswingleg
+          tld: true
           Bc: *rs
           Bm: *ls
           rf: *swingLeg3
         -
           test: seq0-7
-          twf: *tds
+          # twf: *tds
+          tld: true
         # 4 step
         -
           test: seq0-8
-          twf: *tswingleg
+          # twf: *tswingleg
+          tld: true
           Bc: *ls
           Bm: *rs
           rXfabs: [*steplength3, 0., 0.] # for vwp calc
           rf: *swingLeg4
         -
           test: seq0-9
-          twf: *tds
+          # twf: *tds
+          tld: true
         -
           test: seq0-10
           twf: 100.
+          Bc: *ds
+          Bm: *zs
           control method:
+            motion controller: mixedGeneralizedMomentum
             momentum controller: centroidalVrpMomentum

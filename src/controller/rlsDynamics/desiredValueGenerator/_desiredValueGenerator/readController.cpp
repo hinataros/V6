@@ -51,7 +51,12 @@ void RLS::DesiredValueGenerator::readController()
   }
 
   if(yamlInfo->sequence >= 0) { // amiyata
-    yamlInfo->checkValue<double>(twf[yamlInfo->sequence], "twf");
+    bool tLoad = false;
+    yamlInfo->checkValue<bool>(tLoad, "tld");
+    if(tLoad)
+      twf[yamlInfo->sequence] = walking.Topt(yamlInfo->sequenceState);
+    else
+      yamlInfo->checkValue<double>(twf[yamlInfo->sequence], "twf");
 
     if(yamlInfo->checkValue<Vector3d>(rBf, "rBf"))
       baseTranslationNum = yamlInfo->sequence;

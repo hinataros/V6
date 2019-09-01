@@ -1,6 +1,8 @@
 #include "config.hpp"
 #include "common.hpp"
 
+#include "walkingFunction.hpp"
+#include "comWayOpt.hpp"
 #include "cfsqp.hpp"
 
 // #include <functional>
@@ -95,4 +97,32 @@ void RLS::CFSQP::solver(MatrixXd& G, VectorXd& g0, MatrixXd& CE, VectorXd& ce0, 
     Ejudgement(CE, ce0, xRet);
   if(CI.rows() != 0)
     Ijudgement(CI, ci0, xRet);
+}
+
+// comWayOpt
+void RLS::CFSQP::solver(MatrixXd vwp, MatrixXd fwp, int ipDim, double wX, double init, VectorXd &xRet)
+{
+  nparam = vwp.cols() - 1;
+  nineqn = 0; //非線形拘束
+  nineq = nparam;
+  neqn = 0; //非線形拘束
+  neq = 0;
+
+  // comWayOpt cost;
+  comWayOpt cost(vwp, fwp, ipDim, wX);
+  // cost.configuration(vwp, fwp, ipDim, wX);
+  configuration();
+  // cost.initialSearcher(nparam, x, init);
+  cost.initialSearcher(nparam, x);
+
+  #ifdef CFSQP_LINK
+    cfsqpspace::cfsqp(nparam,nf,nfsr,nineqn,nineq,neqn,neq,ncsrl,ncsrn,mesh_pts,
+      mode,iprint,miter,&inform,bigbnd,eps,epsneq,udelta,bl,bu,x,f,g,lambda,
+      cost.objection,cost.constraint,cost.gradientObjection,cost.gradientConstraint,cd);
+  #endif
+
+  xRet = arrayd2Vector(nparam, x);
+
+  o(xRet);
+  gc;
 }

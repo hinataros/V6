@@ -23,6 +23,7 @@ set(srcs
   setWayPoint.cpp
   createVRPTrajectory.cpp
   htVRP.cpp
+  createVRPTrajTopt.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" walking_srcs)

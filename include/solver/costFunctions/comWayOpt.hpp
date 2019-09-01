@@ -1,7 +1,5 @@
 
-#include "walkingFunction.hpp"
-
-#define CFSQP_DEBUG 0
+#define CWO_DEBUG 0
 
 
 namespace RLS{
@@ -20,21 +18,20 @@ namespace RLS{
     static MatrixXd calcDwp(VectorXd);
     static MatrixXd calcCwp(VectorXd, MatrixXd);
     static MatrixXd calcdTnDwp(int, VectorXd, MatrixXd);
-    static VectorXd calcdTnCwp(int, VectorXd, MatrixXd, MatrixXd, MatrixXd);
+    static MatrixXd calcdTnCwp(int, VectorXd, MatrixXd, MatrixXd, MatrixXd);
 
     static WalkingFunction wf;
 
   public:
-    int nparam, ni, ne;
+    // int nparam, ni, ne;
 
     comWayOpt(MatrixXd, MatrixXd, int, double);
     comWayOpt();
     ~comWayOpt();
 
     // void configuration();
-    void initialSearcher(double*);
-
-    void makeCoef(double*, double*, double*);
+    void initialSearcher(int, double*, double);
+    void initialSearcher(int, double*);
 
     static void objection(int, int, double*, double*, void*);
     static void gradientObjection(int, int, double*, double*, void (*dummy)(int, int, double*, double*, void*), void*);

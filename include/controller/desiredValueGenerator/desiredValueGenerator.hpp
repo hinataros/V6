@@ -76,8 +76,8 @@ namespace RLS{
     bool dcmSpec;
     bool externalWrenchSpec;
 
-    double *tw0;
-    double *twf;
+    // double *tw0;
+    // double *twf; // amiyata
 
     Quaternion4d dqBDes;
     Quaternion4d ddqBDes;
@@ -249,6 +249,9 @@ namespace RLS{
     Vector6d cal_FextDes;
 
     Vector3d zeroToOne; // amiyata
+
+    double *tw0;
+    double *twf; // amiyata
 
     void initialize(const WorldModel&, const TreeModelInfo&, const ControllerTreeModel&, ConstraintModel&, YamlInfo&);
     void finalize();

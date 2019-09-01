@@ -7,7 +7,14 @@
 
 MatrixXd RLS::Common::pInv(MatrixXd A)
 {
-  return A.transpose()*(A*A.transpose()).inverse();
+  if(A.rows() < A.cols()) // right pseudo
+    return A.transpose()*(A*A.transpose()).inverse();
+
+  if(A.rows() > A.cols()) // left pseudo
+    return (A.transpose()*A).inverse()*A.transpose();
+
+  // square
+  return A.inverse();
 }
 
 MatrixXd RLS::Common::pInv(MatrixXd A, MatrixXd W)

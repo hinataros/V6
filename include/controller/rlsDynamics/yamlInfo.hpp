@@ -19,6 +19,7 @@ namespace RLS{
 
     string key;
     int sequence;
+    int sequenceState;
     int state;
 
     struct Doc{

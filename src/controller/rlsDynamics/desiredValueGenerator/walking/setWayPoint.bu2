@@ -14,20 +14,19 @@ void RLS::Walking::setWayPoint()
   rf.col(0) = rCw0;
   rf.col(0)(2) = 0.; // reset height
 
-  //for opt
-  vwpOpt.col(0) = rf.col(0);
+  Vector3d RvrpOffset = Vector3d::Zero(), LvrpOffset = Vector3d::Zero();
+  RvrpOffset(2) = -ht_config.offset;
+  LvrpOffset(2) =  ht_config.offset;
 
   for(int i=1; i<vwpNum+1; i++){
     rf.col(i) = vwp[i-1].head(3);
-    vwpOpt.col(i) = vwp[i-1].head(3);
-
 
     if(i<vwpNum){
       // first waypoint is right foot
       if(i%2==0)
-        rf.col(i)(1) -= ht_config.offset;
+        rf.col(i) += xi2R(vwp[i-1].tail(3)).transpose()*RvrpOffset;
       else
-        rf.col(i)(1) += ht_config.offset;
+        rf.col(i) += xi2R(vwp[i-1].tail(3)).transpose()*LvrpOffset;
     }
   }
 
@@ -52,30 +51,25 @@ void RLS::Walking::setWayPoint()
     }
     else if(i==ht_config.convergenceNum-2){
       rvrpTd.col(i) = rf.col(i) + Dzvrp;
-      rvrpHd.col(i) = rf.col(i) + heelOffset + Dzvrp;
+      rvrpHd.col(i) = rf.col(i) + xi2R(vwp[i-1].tail(3)).transpose()*heelOffset + Dzvrp;
     }
     else if(i==1){
-      rvrpTd.col(i) = rf.col(i) + toeOffset + Dzvrp;
+      rvrpTd.col(i) = rf.col(i) + xi2R(vwp[i-1].tail(3)).transpose()*toeOffset + Dzvrp;
       rvrpHd.col(i) = rf.col(i) + Dzvrp;
     }
     else{
-      rvrpTd.col(i) = rf.col(i) + toeOffset + Dzvrp;
-      rvrpHd.col(i) = rf.col(i) + heelOffset + Dzvrp;
+      rvrpTd.col(i) = rf.col(i) + xi2R(vwp[i-1].tail(3)).transpose()*toeOffset + Dzvrp;
+      rvrpHd.col(i) = rf.col(i) + xi2R(vwp[i-1].tail(3)).transpose()*heelOffset + Dzvrp;
     }
   }
 
   rvrpHd.col(0) = rf.col(0) + Dzvrp;
-  rvrpTd.col(0) = Vector3d::Zero();
   // rvrpTd.col(0) is not calculated
 
-  for(int i=1; i<vwpNum+1; i++){
-    rvrpTd.col(i) = xi2R(vwp[i-1].tail(3)).transpose() * rvrpTd.col(i);
-    rvrpHd.col(i) = xi2R(vwp[i-1].tail(3)).transpose() * rvrpHd.col(i);
-  }
-
-  // 補正
-  for(int i=0; i<ht_config.convergenceNum; i++)
-    vwpOpt.col(i) += Dzvrp;
+  // for(int i=1; i<vwpNum+1; i++){
+  //   rvrpTd.col(i) = xi2R(vwp[i-1].tail(3)).transpose() * rvrpTd.col(i);
+  //   rvrpHd.col(i) = xi2R(vwp[i-1].tail(3)).transpose() * rvrpHd.col(i);
+  // }
 
   // o(rvrpTd);
   // o(rvrpHd);

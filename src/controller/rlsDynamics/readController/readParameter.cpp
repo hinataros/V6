@@ -10,8 +10,14 @@ void RLS::RlsDynamics::readParameter()
 {
   if(debug) DEBUG;
 
-  if(yamlInfo.sequence >= 0)
-    yamlInfo.checkValue<double>(sequence[yamlInfo.sequence].twf, "twf");
+  if(yamlInfo.sequence >= 0){
+    bool tLoad = false;
+    yamlInfo.checkValue<bool>(tLoad, "tld"); // amiyata
+    if(tLoad)
+      sequence[yamlInfo.sequence].twf = des.twf[yamlInfo.sequence];
+    else
+      yamlInfo.checkValue<double>(sequence[yamlInfo.sequence].twf, "twf");
+  }
 
   yamlInfo.checkValue<Vector2d>(distOffset, "distribution offset");
 

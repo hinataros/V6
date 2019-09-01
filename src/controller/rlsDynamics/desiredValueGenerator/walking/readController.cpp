@@ -20,14 +20,13 @@ void RLS::Walking::readController()
   yamlInfo->checkValue<double>(ht_config.toe, walkingKeyName, "toe");
   yamlInfo->checkValue<double>(ht_config.heel, walkingKeyName, "heel");
   // amiyata ****
-  if(yamlInfo->checkValue<double>(ht_config.zOsc, walkingKeyName, "oscillation")){
+  if(yamlInfo->checkValue<double>(ht_config.zOsc, walkingKeyName, "oscillation"))
     oscF = true;
-  } else {
-    oscF = false;
-  }
   yamlInfo->checkValue<int>(ht_config.ipDim, walkingKeyName, "ipDim");
 
   yamlInfo->checkValue<double>(ht_config.tstab, walkingKeyName, "tstab");
+
+  yamlInfo->checkValue<bool>(ToptimF, walkingKeyName, "time optimization");
 
   // ***************************************************** // amiyata vrp way point abolition
   string sequenceKeyName = "sequence"; // load from sequence
@@ -41,6 +40,7 @@ void RLS::Walking::readController()
   // yamlInfo->checkValue<Vector3d>(rtemp, sequenceKeyName, 2, "rf", "LLEGEE");
   // o(rtemp);
 
+  // read vrp way point
   for(int i=0; i<yamlInfo->checkSize(sequenceKeyName); i++){
     vwpTemp = Vector6d::Zero();
     // if(yamlInfo->checkValue<Vector3d>(rtemp, i, "rXf") || yamlInfo->checkValue<Vector3d>(rtemp, i, "rCf")){

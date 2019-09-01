@@ -73,4 +73,6 @@ void RLS::Walking::resize()
 
   // amiyata
   convT = 0.;
+  ToptimF = false;
+  oscF = false;
 }

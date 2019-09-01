@@ -66,6 +66,7 @@ bool RLS::RlsDynamics::stateTrigger(const double &t, struct State &state)
         sequence[state.sequenceID].phase = tempCondition;
         des.update(t, state.sequenceID);
         yamlInfo.sequence = state.sequenceID;
+        yamlInfo.sequenceState = tempCondition;
         // for walking
         if(state.doc["walking"] && state.condition < 0){
           yamlInfo.reset(state.doc);

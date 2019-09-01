@@ -1,4 +1,6 @@
 // amiyata
+#ifndef WALKING_FUNCTION_HPP
+#define WALKING_FUNCTION_HPP
 
 namespace RLS{
   class WalkingFunction{
@@ -24,3 +26,5 @@ namespace RLS{
     MatrixXd makedtMat(int, double);
   };
 }
+
+#endif

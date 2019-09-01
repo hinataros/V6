@@ -15,7 +15,7 @@ VectorXd RLS::RlsDynamics::rlsDynamics(const double &t)
   // controllerModel.update();
   controllerModel.update(rkk); //amiyata rkk
 
-  if(configurationManager(t)){
+  if(configurationManager(t)) {
     constraintModel.reconfigure();
     reconfigure();
     ext->reconfigure(this);
@@ -28,7 +28,7 @@ VectorXd RLS::RlsDynamics::rlsDynamics(const double &t)
   ext->every(this, t);
 
   controlMethod();
-  // if(t>6.99){gc;}
+  // if(t>3.45){gc;}
 
   outputConfig();
 

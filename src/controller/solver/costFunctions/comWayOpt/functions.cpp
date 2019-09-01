@@ -1,12 +1,14 @@
 #include "config.hpp"
 #include "common.hpp"
 
+#include "walkingFunction.hpp"
 #include "comWayOpt.hpp"
 
 
 MatrixXd RLS::comWayOpt::calcDwp(VectorXd T)
 {
-  if(CFSQP_DEBUG) DEBUG;
+  if(CWO_DEBUG) DEBUG;
+  // cout << "calcDwp" << endl;
 
   MatrixXd dwp = MatrixXd::Zero(3, rCnum);
 
@@ -48,7 +50,8 @@ MatrixXd RLS::comWayOpt::calcDwp(VectorXd T)
 
 MatrixXd RLS::comWayOpt::calcCwp(VectorXd T, MatrixXd dwp)
 {
-  if(CFSQP_DEBUG) DEBUG;
+  if(CWO_DEBUG) DEBUG;
+  // cout << "calcCwp" << endl;
 
   MatrixXd cwp = MatrixXd::Zero(3, rCnum);
 
@@ -79,7 +82,8 @@ MatrixXd RLS::comWayOpt::calcCwp(VectorXd T, MatrixXd dwp)
 // dTnDwp(i)はdwp(i)をT(num)で微分したもの
 MatrixXd RLS::comWayOpt::calcdTnDwp(int num, VectorXd T, MatrixXd dwp)
 {
-  if(CFSQP_DEBUG) DEBUG;
+  if(CWO_DEBUG) DEBUG;
+  // cout << "calcdTnDwp" << endl;
 
   MatrixXd dTnDwp = MatrixXd::Zero(3,rCnum);
 
@@ -104,10 +108,10 @@ MatrixXd RLS::comWayOpt::calcdTnDwp(int num, VectorXd T, MatrixXd dwp)
     MatrixXd c_X = cT1*p0T1 - cT0*p1T0;
     VectorXd dT0rvrp1 = ( (wX*expwXT0*dwp.col(0).transpose() + (dT0cT0*p0T1+cT1*dT1p0T1)*vwp.col(1).transpose() + (dT0cT0*p0T0+cT0*dT0p0T0)*vwp.col(0).transpose()) / c_X(0,0) ).transpose();
 
-    dTnDwp.col(1).transpose() = (wf.maketMat(1, ipDim*2, 0) - wf.maketMat(1, ipDim*2, T(1)))*Cp*(p0T1*dT0rvrp1);
+    dTnDwp.col(1).transpose() = (wf.maketMat(1, ipDim*2, 0) - wf.maketMat(1, ipDim*2, T(1)))*Cp*(p0T1*dT0rvrp1.transpose());
   }
   else{
-    for(int i=num; i>0; i++){
+    for(int i=num; i>0; i--){
       if(i==num){
         if(num==1){
           MatrixXd pfT1 = wf.findPolyParam(0., T(1), wf.makePosBoundary(ipDim, 0., 1.));
@@ -150,9 +154,10 @@ MatrixXd RLS::comWayOpt::calcdTnDwp(int num, VectorXd T, MatrixXd dwp)
 }
 
 // dTnCwp(i)はcwp(i+1)をT(num)で微分したもの
-VectorXd RLS::comWayOpt::calcdTnCwp(int num, VectorXd T, MatrixXd cwp, MatrixXd dwp, MatrixXd dTnDwp)
+MatrixXd RLS::comWayOpt::calcdTnCwp(int num, VectorXd T, MatrixXd cwp, MatrixXd dwp, MatrixXd dTnDwp)
 {
-  if(CFSQP_DEBUG) DEBUG;
+  if(CWO_DEBUG) DEBUG;
+  // cout << "calcdTnCwp" << endl;
 
   MatrixXd dTnCwp = MatrixXd::Zero(3,rCnum);
 
@@ -212,7 +217,7 @@ VectorXd RLS::comWayOpt::calcdTnCwp(int num, VectorXd T, MatrixXd cwp, MatrixXd 
       Pv = wf.findPolyParam(0., T(i-1), wf.makePosBoundary(ipDim, vwp.col(i-1), vwp.col(i)));
 
       if(i==1) // d/dT0 rC^1
-        dPv = dT0p0T0*vwp.col(0).transpose() + dT0p1T0*vwp.col(1).transpose() + p1T0*dT0rvrp1;
+        dPv = dT0p0T0*vwp.col(0).transpose() + dT0p1T0*vwp.col(1).transpose() + p1T0*dT0rvrp1.transpose();
       else if(i==2) // d/dT1 rC^2
         dPv = dT1p0T1*vwp.col(1).transpose() + p0T1*dT1rvrp1.transpose() + dT1p1T1*vwp.col(2).transpose();
       else

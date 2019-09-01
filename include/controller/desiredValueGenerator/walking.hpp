@@ -2,6 +2,7 @@
    @author Sho Miyahara 2018
 */
 
+#include "solver.hpp"
 #include "yamlInfo.hpp"
 
 #include "interpolation.hpp"
@@ -12,6 +13,7 @@
 namespace RLS{
   class Walking:
     public Interpolation,
+    public Solver,
     public WalkingFunction{
   private:
     const ControllerTreeModel *model;
@@ -64,6 +66,7 @@ namespace RLS{
 
     // Vector3d *vwp; // amiyata
     vector<Vector6d> vwp;
+    MatrixXd vwpOpt; // for opt
 
     VectorXd dT;
     MatrixXd rf;
@@ -138,7 +141,9 @@ namespace RLS{
     Vector3d drCDes;
     Vector3d ddrCDes;
 
-    bool oscF;
+    bool oscF, ToptimF;
+
+    VectorXd Topt;
 
     void setModel(const ControllerTreeModel&);
     void setYamlInfo(YamlInfo&);
@@ -161,6 +166,7 @@ namespace RLS{
 
     // amiyata
     void createVRPTrajectory();
+    void createVRPTrajTopt();
 
     void ht(const double&);
     void htVRP(const double&); // amiyata

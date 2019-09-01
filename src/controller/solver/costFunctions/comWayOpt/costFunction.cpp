@@ -1,6 +1,7 @@
 #include "config.hpp"
 #include "common.hpp"
 
+#include "walkingFunction.hpp"
 #include "comWayOpt.hpp"
 
 
@@ -10,20 +11,24 @@ namespace RLS{ // staticクラスメンバ変数は別に定義し直さない�
   VectorXd comWayOpt::comDes;
   MatrixXd comWayOpt::vwp,  comWayOpt::Cp, comWayOpt::Cm;
   MatrixXd comWayOpt::WT, comWayOpt::WC, comWayOpt::WV;
+
+  WalkingFunction comWayOpt::wf; // 嘘だろ
 }
 
 VectorXd a2v(int, double*);
 
 void RLS::comWayOpt::objection(int nparam, int j, double *x, double *fj, void *cd)
 {
-  if(CFSQP_DEBUG) DEBUG;
+  if(CWO_DEBUG) DEBUG;
 
   VectorXd X = a2v(nparam, x);
+  // cout << "obj" << endl;
+  // o(X);
 
   MatrixXd comWP = calcCwp(X, calcDwp(X));
-  VectorXd cwp = VectorXd::Zero(3*rCnum);
-  for(int i=0; i<rCnum; i++)
-    cwp.segment(i*3, 3) = cwp.col(i);
+  VectorXd cwp = VectorXd::Zero(3*Tnum);
+  for(int i=1; i<rCnum; i++) // rC(0)はいらない
+    cwp.segment((i-1)*3, 3) = comWP.col(i);
 
   VectorXd ans = 0.5 * X.head(Tnum).transpose() * WT * X.head(Tnum) + 0.5 * (cwp - comDes).transpose() * WC * (cwp - comDes);
   *fj = ans(0);
@@ -33,13 +38,16 @@ void RLS::comWayOpt::objection(int nparam, int j, double *x, double *fj, void *c
 
 void RLS::comWayOpt::gradientObjection(int nparam, int j, double *x, double *gradfj, void (*dummy)(int, int, double*, double*, void*), void *cd)
 {
-  if(CFSQP_DEBUG) DEBUG;
+  if(CWO_DEBUG) DEBUG;
+  // cout << "gradobj" << endl;
+
   int i,k;
 
   VectorXd X = a2v(nparam, x);
   VectorXd ans;
+
   for(i=0; i<nparam; i++)
-    gradfj[i] = WT(i) + X(i);
+    gradfj[i] = WT(i,i)*X(i);
 
   MatrixXd dwp = calcDwp(X);
   MatrixXd cwp = calcCwp(X, dwp);
@@ -65,19 +73,23 @@ void RLS::comWayOpt::gradientObjection(int nparam, int j, double *x, double *gra
 
 void RLS::comWayOpt::constraint(int nparam, int j, double *x, double *gj, void *cd)
 {
-  if(CFSQP_DEBUG) DEBUG;
+  if(CWO_DEBUG) DEBUG;
 
-  *gj = -x[j];  //<= 0
+  *gj = -x[j-1];  //<= 0
 
   return;
 }
 
 void RLS::comWayOpt::gradientConstraint(int nparam, int j, double *x, double *gradgj, void (*dummy)(int, int, double*, double*, void*), void *cd)
 {
-  if(CFSQP_DEBUG) DEBUG;
+  if(CWO_DEBUG) DEBUG;
 
-  for(int i=0; i<nparam; i++)
-    gradgj[i] = -1;
+  for(int i=0; i<nparam; i++){
+    if(i==(j-1))
+      gradgj[i] = -1;
+    else
+    gradgj[i] = 0;
+  }
 
   return;
 }

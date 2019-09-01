@@ -23,12 +23,12 @@ void RLS::Output::stabilityIndex4walking(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("stabilityIndex");
 
-  setDatNum(4);
+  setDatNum(3);
   setDatName(1, "gCoM");
   // setDatName(2, "rndecmpDes");
-  setDatName(2, "rp");
-  setDatName(3, "xCoM");
-  setDatName(4, "eCMPRef");
+  // setDatName(2, "rp");
+  setDatName(2, "xCoM");
+  setDatName(3, "eCMPRef");
   makeDat();
 
   gpMaker.reset();
@@ -36,17 +36,25 @@ void RLS::Output::stabilityIndex4walking(GpMaker &gpMaker, TexMaker &texMaker)
   gpMaker.setXLabel("x [m]");
   gpMaker.setYLabel("y [m]");
   // gpMaker.setUnit("m");
-  gpMaker.redef("XLABEL_OFFSET_Y = -0.8"); // IROS
+  gpMaker.redef("XLABEL_OFFSET_Y = -0.8"); // IROS******************************
   // gpMaker.redef("YLABEL_OFFSET_X = -0.25"); // IROS
   // gpMaker.add("set xtics 0.2"); // long
   // gpMaker.add("set ytics 0.1");
   // gpMaker.add("set size ratio "+to_string(2./9.));
   // gpMaker.add("set xrange[-0.1:0.8]");
   // gpMaker.add("set yrange[-0.1:0.1]");
+  // gpMaker.add("set xtics 0.2"); // 4step
+  // gpMaker.add("set ytics 0.1");
+  // gpMaker.add("set size ratio "+to_string(0.2/0.5)); // IROS
+  // gpMaker.add("set xrange[-0.1:0.4]");
+  // gpMaker.add("set yrange[-0.1:0.1]");
+  // ***************************************************************************
+  gpMaker.redef("XLABEL_OFFSET_Y = -0.8");
+  // gpMaker.redef("YLABEL_OFFSET_X = -0.25");
   gpMaker.add("set xtics 0.2"); // 4step
   gpMaker.add("set ytics 0.1");
-  gpMaker.add("set size ratio "+to_string(0.2/0.5)); // IROS
-  gpMaker.add("set xrange[-0.1:0.4]");
+  gpMaker.add("set size ratio "+to_string(0.2/0.45));
+  gpMaker.add("set xrange[-0.1:0.35]");
   gpMaker.add("set yrange[-0.1:0.1]");
 
   double foot_size_x[2] = {-0.040, 0.058};

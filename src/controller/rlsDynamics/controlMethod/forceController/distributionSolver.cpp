@@ -49,5 +49,5 @@ void RLS::RlsDynamics::distributionSolver()
   // ************************************************************************
 
   QuadProgpp::solver(G, g, "e", CE, ce, cal_FcBarRef);
-  CFSQP::solver(G, g, "e", CE, ce, cal_FcBarRef);
+  // CFSQP::solver(G, g, "e", CE, ce, cal_FcBarRef);
 }

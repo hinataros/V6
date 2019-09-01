@@ -1,13 +1,14 @@
 /**
    @author Sho Miyahara 2018
 */
+#include <fstream>
 
 #include "config.hpp"
 #include "model.hpp"
 #include "walking.hpp"
 
 
-void RLS::Walking::createVRPTrajectory()
+void RLS::Walking::createVRPTrajTopt()
 {
   if(debug) DEBUG;
 
@@ -15,16 +16,39 @@ void RLS::Walking::createVRPTrajectory()
   MatrixXd tMat0, tMatf;
   MatrixXd Pv;
 
-  for(int i=0; i<ht_config.convergenceNum; i++){
-    dT(i) = ht_config.dtstep;
-    dtDS(i) = ht_config.dtDSstep;
-  }
+  // T optim ****************************************
+  dT = VectorXd::Zero(vwpNum*2);
 
-  for(int i=0; i<ht_config.convergenceNum; i++){
-    dtS(i) = dT(i) - dtDS(i);
-    dtD(i) = dtDS(i);
+  MatrixXd vrpTH = MatrixXd::Zero(3, vwpNum*2+1);
+  for(int i=0; i<vwpNum; i++){
+    vrpTH.col(i*2) = rvrpHd.col(i);
+    vrpTH.col(i*2+1) = rvrpTd.col(i);
   }
+  vrpTH.col(vwpNum*2) = rvrpTd.col(vwpNum);
 
+  MatrixXd cwpDes = MatrixXd::Zero(3, vwpNum);
+  for(int i=0; i<vwpNum; i++)
+    cwpDes.col(i) = (vwpOpt.col(i) + vwpOpt.col(i+1)) / 2.;
+
+  // so(dT);
+  // o(rvrpHd);
+  // o(rvrpTd);
+  // o(vrpTH);
+  // o(vwpOpt);
+  // o(cwpDes);
+  CFSQP::solver(vrpTH, cwpDes, ht_config.ipDim, wX, 0.2, dT);
+
+  for(int i=0; i<vwpNum; i++){
+    dtS(i) = dT(i*2);
+    dtD(i+1) = dT(i*2+1);
+  }
+  dtS(vwpNum) = dtD(vwpNum); // 同期ズレで飛ぶ
+
+  Topt = VectorXd::Zero(vwpNum*2 + 1);
+  Topt <<
+    0., // tstab
+    dT;
+  // ************************************************
 
   Cp = makeCMat(ht_config.ipDim*2, 1./wX);
   Cm = makeCMat(ht_config.ipDim*2, -1./wX);
@@ -47,7 +71,6 @@ void RLS::Walking::createVRPTrajectory()
   rXSS.col(0) = rCSS.col(0) = rvrpHd.col(0);
 
   // calculate rvrpTd(0) **********
-
   // make Pv
   MatrixXd pfD = findPolyParam(0., dtD(1), makePosBoundary(ht_config.ipDim, 0., 1.));
   MatrixXd pfS = findPolyParam(0., dtS(0), makePosBoundary(ht_config.ipDim, 0., 1.));
@@ -95,5 +118,39 @@ void RLS::Walking::createVRPTrajectory()
   // rCDS(0) is unused
   convT = (1./wX)*log((rCSS.col(vwpNum)(0)-rXSS.col(vwpNum)(0)) / (sign(rCSS.col(vwpNum)(0)-rXSS.col(vwpNum)(0))*1.e-4));
 
+  // output
+  ofstream chC("/usr/local/etc/rls/user/1000/rlsSimulator/sl/result/cmp/dat/ind/chC.dat");
+  ofstream chF("/usr/local/etc/rls/user/1000/rlsSimulator/sl/result/cmp/dat/ind/chF.dat");
+  ofstream chFS("/usr/local/etc/rls/user/1000/rlsSimulator/sl/result/cmp/dat/ind/chFS.dat");
+  ofstream chFD("/usr/local/etc/rls/user/1000/rlsSimulator/sl/result/cmp/dat/ind/chFD.dat");
+
+  for(int i=0; i<vwpNum; i++)
+    chC << cwpDes.col(i).head(2).transpose() << endl;
+  for(int i=0; i<ht_config.convergenceNum; i++){
+    if(i==0)
+      chF << rXSS.col(i).head(2).transpose() << endl;
+    if(i==vwpNum)
+      chF << rXDS.col(i).head(2).transpose() << endl;
+    else
+      chF << rXDS.col(i).head(2).transpose() << endl << rXSS.col(i).head(2).transpose() << endl;
+  }
+  for(int i=0; i<ht_config.convergenceNum; i++){
+    if(i!=0)
+      chFD << rXDS.col(i).head(2).transpose() << endl;
+    if(i!=vwpNum)
+      chFS << rXSS.col(i).head(2).transpose() << endl;
+  }
+
+  chC.close();
+  chF.close();
+  chFS.close();
+  chFD.close();
+
+  // o(rvrpHd);
+  // o(rvrpTd);
+  // o(rXSS);
+  // o(rXDS);
+  // o(rCSS);
+  // o(rCDS);
   // gc;
 }
