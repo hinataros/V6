@@ -25,6 +25,9 @@ void RLS::RlsDynamics::outputIndexConfig()
   outputList.lC = model->IC*model->wB + model->HC*model->dth;
 
   outputList.wC = model->wB + model->IC.inverse()*model->HC*model->dth;
+  outputList.wth = model->IC.inverse()*model->HC*model->dth;
+  if(model->dth.rows() == 20)
+    outputList.wthF = (model->IC.inverse()*model->HC).block(0,0, 3,12)*model->dth.segment(0,12);
 
   // cop
   outputList.rp = model->rp;

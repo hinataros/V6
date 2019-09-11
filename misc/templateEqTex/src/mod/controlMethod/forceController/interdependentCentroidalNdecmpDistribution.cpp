@@ -16,11 +16,11 @@ void RLS::RlsDynamics::interdependentCentroidalNdecmpDistribution()
   // (this->*internalForceController_ptr)(info);
 
   VectorXd cal_FckRef = constraintModel.getControlNodeVector(constraintModel.Bc.transpose()*fb.cal_Ffb,"c",namek);
-  MatrixXd bb_CcMk = constraintModel.getControlNodeMatrix(constraintModel.cal_PcM,false,true,"c",namek);
+  MatrixXd bb_CcMk = constraintModel.getControlNodeMatrix(constraintModel.mbb_CcM,false,true,"c",namek);
 
   VectorXd cal_FCRef = cal_dLCRef + model->cal_GC - bb_CcMk*cal_FckRef;
 
-  MatrixXd bb_CcMkBar = constraintModel.getControlNodeMatrix(constraintModel.cal_PcM,false,true,"c",2,namekBar[0].c_str(), namekBar[1].c_str());
+  MatrixXd bb_CcMkBar = constraintModel.getControlNodeMatrix(constraintModel.mbb_CcM,false,true,"c",2,namekBar[0].c_str(), namekBar[1].c_str());
 
   VectorXd cal_FckBarRef;
   if(info.constraint->c.controlNode[info.model.controlNodeID[namekBar[0]]]==6&&

@@ -15,10 +15,10 @@ void RLS::RlsDynamics::m_internalDistribution()
 
   VectorXd cal_FcTildeRef =
     constraintModel.Bc.transpose()*fb.cal_Ffb
-    - pInv(constraintModel.cal_PcM, Wecmpc)*(cal_dLCRef + model->cal_GC);
+    - pInv(constraintModel.mbb_CcM, Wecmpc)*(cal_dLCRef + model->cal_GC);
   Vector6d cal_FcTildeHRef = cal_FcTildeRef.tail(6);
 
-  MatrixXd NH = N(constraintModel.cal_PcM).block(12,0,6,info.constraint->c.all);
+  MatrixXd NH = N(constraintModel.mbb_CcM).block(12,0,6,info.constraint->c.all);
 
   cal_FcaBarRef = pInv(NH)*cal_FcTildeHRef;
 

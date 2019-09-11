@@ -36,7 +36,7 @@ void RLS::Output::stabilityIndex4walking(GpMaker &gpMaker, TexMaker &texMaker)
   gpMaker.setXLabel("x [m]");
   gpMaker.setYLabel("y [m]");
   // gpMaker.setUnit("m");
-  gpMaker.redef("XLABEL_OFFSET_Y = -0.8"); // IROS******************************
+  // gpMaker.redef("XLABEL_OFFSET_Y = -0.8"); // IROS******************************
   // gpMaker.redef("YLABEL_OFFSET_X = -0.25"); // IROS
   // gpMaker.add("set xtics 0.2"); // long
   // gpMaker.add("set ytics 0.1");

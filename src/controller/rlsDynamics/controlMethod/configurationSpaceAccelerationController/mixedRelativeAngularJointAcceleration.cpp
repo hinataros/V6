@@ -37,8 +37,8 @@ VectorXd RLS::RlsDynamics::mixedRelativeAngularJointAcceleration()
   MatrixXd PBar = MatrixXd::Zero(wBcD+info.constraint->m.all+info.constraint->c.all, 6);
   PBar <<
     MatrixXd::Zero(wBcD,3), BwB.transpose()*MatrixXd::Identity(3,3),
-    constraintModel.cal_PmM.transpose(),
-    constraintModel.cal_PcM.transpose();
+    constraintModel.mbb_CmM.transpose(),
+    constraintModel.mbb_CcM.transpose();
 
   MatrixXd dJMBar = MatrixXd::Zero(wBcD+info.constraint->m.all+info.constraint->c.all, info.model.dof.all);
   dJMBar <<

@@ -12,9 +12,9 @@ void RLS::ConstraintModel::rename()
 
   // mixed
   // ******************************
-  Pcf = cal_Pc.block(0,0,3,info.constraint.c.all);
-  Pmf = cal_Pm.block(0,0,3,info.constraint.m.all);
-  PcMm = cal_PcM.block(3,0,3,info.constraint.c.all);
+  Pcf = mbb_Cc.block(0,0,3,info.constraint.c.all);
+  Pmf = mbb_Cm.block(0,0,3,info.constraint.m.all);
+  PcMm = mbb_CcM.block(3,0,3,info.constraint.c.all);
   cal_JcM = cal_Jc - Pcf.transpose()*model->JB2C;
   cal_JmM = cal_Jm - Pmf.transpose()*model->JB2C;
 
@@ -28,31 +28,31 @@ void RLS::ConstraintModel::rename()
 
   if(info.constraint.c.all){
     Jc <<
-      cal_Pc.transpose(), cal_Jc;
+      mbb_Cc.transpose(), cal_Jc;
     dJc <<
       cal_dPc.transpose(), cal_dJc;
     JcM <<
-      cal_PcM.transpose(), cal_JcM;
+      mbb_CcM.transpose(), cal_JcM;
     dJcM <<
       cal_dPcM.transpose(), cal_dJcM;
   }
 
   if(info.constraint.m.all){
     Jm <<
-      cal_Pm.transpose(), cal_Jm;
+      mbb_Cm.transpose(), cal_Jm;
     dJm <<
       cal_dPm.transpose(), cal_dJm;
     JmM <<
-      cal_PmM.transpose(), cal_JmM;
+      mbb_CmM.transpose(), cal_JmM;
     dJmM <<
       cal_dPmM.transpose(), cal_dJmM;
   }
 
-  cal_JcHat = cal_Jc - cal_PcM.transpose()*model->Jth;
-  cal_JmHat = cal_Jm - cal_PmM.transpose()*model->Jth;
+  cal_JcHat = cal_Jc - mbb_CcM.transpose()*model->Jth;
+  cal_JmHat = cal_Jm - mbb_CmM.transpose()*model->Jth;
 
-  cal_dJcHat = cal_dJc - cal_dPcM.transpose()*model->Jth - cal_PcM.transpose()*model->dJth;
-  cal_dJmHat = cal_dJm - cal_dPmM.transpose()*model->Jth - cal_PmM.transpose()*model->dJth;
+  cal_dJcHat = cal_dJc - cal_dPcM.transpose()*model->Jth - mbb_CcM.transpose()*model->dJth;
+  cal_dJmHat = cal_dJm - cal_dPmM.transpose()*model->Jth - mbb_CmM.transpose()*model->dJth;
 
   // forward kinematics for kinematics simulation
   for(int i=0; i<6; i++)

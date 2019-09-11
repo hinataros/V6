@@ -17,10 +17,10 @@ void RLS::ConstraintModel::decompose()
   dBc = model->bb_dRk*Bc_k;
   dBm = model->bb_dRk*Bm_k;
 
-  cal_Pc = model->bb_TB2k.transpose()*Bc;
+  mbb_Cc = model->bb_TB2k.transpose()*Bc;
   cal_Jc = Bc.transpose()*model->cal_J;
 
-  cal_Pm = model->bb_TB2k.transpose()*Bm;
+  mbb_Cm = model->bb_TB2k.transpose()*Bm;
   cal_Jm = Bm.transpose()*model->cal_J;
 
   // diff
@@ -30,8 +30,8 @@ void RLS::ConstraintModel::decompose()
   cal_dPm = model->bb_dTB2k.transpose()*Bm + model->bb_TB2k.transpose()*dBm;
   cal_dJm = Bm.transpose()*model->cal_dJ + dBm.transpose()*model->cal_J;
 
-  cal_PcM = model->bb_TC2k.transpose()*Bc;
-  cal_PmM = model->bb_TC2k.transpose()*Bm;
+  mbb_CcM = model->bb_TC2k.transpose()*Bc;
+  mbb_CmM = model->bb_TC2k.transpose()*Bm;
 
   // diff
   cal_dPcM = model->bb_dTC2k.transpose()*Bc + model->bb_TC2k.transpose()*dBc;

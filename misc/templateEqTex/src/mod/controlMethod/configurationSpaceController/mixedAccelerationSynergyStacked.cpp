@@ -24,8 +24,8 @@ VectorXd RLS::RlsDynamics::mixedAccelerationSynergyStacked()
 
   MatrixXd PMBar = MatrixXd::Zero(info.constraint->m.all+info.constraint->c.all, 6);
   PMBar <<
-    constraintModel.cal_PmM.transpose(),
-    constraintModel.cal_PcM.transpose();
+    constraintModel.mbb_CmM.transpose(),
+    constraintModel.mbb_CcM.transpose();
 
   MatrixXd dJMBar = MatrixXd::Zero(info.constraint->m.all+info.constraint->c.all, info.model.dof.all);
   dJMBar <<

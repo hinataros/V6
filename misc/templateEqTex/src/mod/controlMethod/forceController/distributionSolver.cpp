@@ -22,7 +22,7 @@ void RLS::RlsDynamics::distributionSolver()
 
   // VectorXd g = -rpkDes.transpose()*Bp.transpose()*Wp*Bp*Pc;
 
-  // MatrixXd CE = cal_Pc;
+  // MatrixXd CE = mbb_Cc;
   // VectorXd ce = cal_dLBRef + model->cal_GB;
 
   // // ************************************************************************
@@ -36,7 +36,7 @@ void RLS::RlsDynamics::distributionSolver()
 
   VectorXd g = -rpkDes.transpose()*constraintModel.Bp.transpose()*Wp*constraintModel.Bp*constraintModel.Pc;
 
-  MatrixXd CE = constraintModel.cal_PcM;
+  MatrixXd CE = constraintModel.mbb_CcM;
   VectorXd ce = cal_dLCRef + model->cal_GC;
 
   // ************************************************************************

@@ -100,7 +100,7 @@ namespace RLS{
     Vector3d lTh;
     Vector3d p;
     Vector3d lC;
-    Vector3d wC; //amiyata
+    Vector3d wC, wth, wthF; //amiyata
     Vector3d dlCRBRef;
     Vector3d dlThRef;
 

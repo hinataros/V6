@@ -43,8 +43,8 @@ VectorXd RLS::RlsDynamics::rest_clCm()
   ddthRef = ddthcRef + ddthlCRef + ddthmRef + ddthnRef;
 
   // // constraint
-  // VectorXd cal_dVcthRef = -cal_PcM.transpose()*cal_dVMRef - cal_dPcM.transpose()*cal_VM;
-  // VectorXd cal_Vcth = -cal_PcM.transpose()*cal_VM;
+  // VectorXd cal_dVcthRef = -mbb_CcM.transpose()*cal_dVMRef - cal_dPcM.transpose()*cal_VM;
+  // VectorXd cal_Vcth = -mbb_CcM.transpose()*cal_VM;
 
   // VectorXd ddthcRef = pInv(cal_JcM)*(cal_dVcthRef) + dpInv(cal_JcM, cal_dJcM)*cal_Vcth;
 

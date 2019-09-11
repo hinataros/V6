@@ -18,6 +18,6 @@ void RLS::RlsDynamics::centroidalEcmpDistributionwXt()
   cal_FcaBarRef = VectorXd::Zero(info.constraint->c.all);
 
   cal_FcBarRef =
-    pInv(constraintModel.cal_PcM, Wecmpc)*(cal_dLCRef + model->cal_GC)
-    + N(constraintModel.cal_PcM)*cal_FcaBarRef;
+    pInv(constraintModel.mbb_CcM, Wecmpc)*(cal_dLCRef + model->cal_GC)
+    + N(constraintModel.mbb_CcM)*cal_FcaBarRef;
 }

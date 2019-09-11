@@ -35,7 +35,7 @@ void RLS::RlsDynamics::outputDesConfig()
   // outputList.rvrpBarDes = des.rXBarDes - des.drXBarDes/model->wX;
   outputList.rndvrpDes = des.rXDes - des.drXDes/model->wX;
   if(info.constraint->c.controlNode[info.model.controlNodeID["RARMEE"]]>0){
-    MatrixXd bb_CcMH = constraintModel.getControlNodeMatrix(constraintModel.cal_PcM,false,true,"c","RARMEE");
+    MatrixXd bb_CcMH = constraintModel.getControlNodeMatrix(constraintModel.mbb_CcM,false,true,"c","RARMEE");
     VectorXd cal_FHcBarRef = constraintModel.getControlNodeVector(constraintModel.Bc.transpose()*fb.cal_Ffb,"c","RARMEE");
 
     Vector3d ez(0.,0.,1.);

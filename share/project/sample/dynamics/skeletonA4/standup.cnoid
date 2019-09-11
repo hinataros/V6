@@ -21,6 +21,7 @@ items:
           class: BodyItem
           data:
             modelFile: "${PROGRAM_TOP}/etc/rls/user/1000/rlsSimulator/sl/share/model/skeleton/skeletonA4prim.body"
+            # modelFile: "${PROGRAM_TOP}/etc/rls/user/1000/rlsSimulator/sl/share/model/skeleton/HOAP2fromPrim.body"
             currentBaseLink: "ROOT"
             rootPosition: [ 0, 0, 0.21019 ]
             rootAttitude: [

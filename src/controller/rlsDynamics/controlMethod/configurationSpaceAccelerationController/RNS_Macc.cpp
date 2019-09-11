@@ -12,16 +12,16 @@ VectorXd RLS::RlsDynamics::RNS_Macc()
   if(debug) DEBUG;
 
   ///*
-  VectorXd cal_VcMTilde = - constraintModel.cal_PcM.transpose()*model->cal_VM;
-  VectorXd cal_dVcMTildeRef = - constraintModel.cal_PcM.transpose()*fb.cal_dVMfb - constraintModel.cal_dPcM.transpose()*model->cal_VM;
+  VectorXd cal_VcMTilde = - constraintModel.mbb_CcM.transpose()*model->cal_VM;
+  VectorXd cal_dVcMTildeRef = - constraintModel.mbb_CcM.transpose()*fb.cal_dVMfb - constraintModel.cal_dPcM.transpose()*model->cal_VM;
 
   VectorXd ddthcRef = pInv(constraintModel.cal_JcM)*cal_dVcMTildeRef + dpInv(constraintModel.cal_JcM, constraintModel.cal_dJcM)*cal_VcMTilde;
 
   // mobility
   MatrixXd cal_JmMBar = constraintModel.cal_JmM*N(constraintModel.cal_JcM);
   MatrixXd cal_dJmMBar = constraintModel.cal_dJmM*N(constraintModel.cal_JcM) + constraintModel.cal_JmM*dN(constraintModel.cal_JcM, constraintModel.cal_dJcM);
-  VectorXd cal_VmMTilde = constraintModel.Bm.transpose()*model->cal_V - constraintModel.cal_PmM.transpose()*model->cal_VM - constraintModel.cal_JmM*pInv(constraintModel.cal_JcM)*cal_VcMTilde;
-  VectorXd cal_dVmMTildeRef = constraintModel.Bm.transpose()*fb.cal_dVfb + constraintModel.dBm.transpose()*model->cal_V - constraintModel.cal_PmM.transpose()*fb.cal_dVMfb - constraintModel.cal_dPmM.transpose()*model->cal_VM - constraintModel.cal_JmM*(pInv(constraintModel.cal_JcM)*cal_dVcMTildeRef + dpInv(constraintModel.cal_JcM, constraintModel.cal_dJcM)*cal_VcMTilde) - constraintModel.cal_dJmM*pInv(constraintModel.cal_JcM)*cal_VcMTilde;
+  VectorXd cal_VmMTilde = constraintModel.Bm.transpose()*model->cal_V - constraintModel.mbb_CmM.transpose()*model->cal_VM - constraintModel.cal_JmM*pInv(constraintModel.cal_JcM)*cal_VcMTilde;
+  VectorXd cal_dVmMTildeRef = constraintModel.Bm.transpose()*fb.cal_dVfb + constraintModel.dBm.transpose()*model->cal_V - constraintModel.mbb_CmM.transpose()*fb.cal_dVMfb - constraintModel.cal_dPmM.transpose()*model->cal_VM - constraintModel.cal_JmM*(pInv(constraintModel.cal_JcM)*cal_dVcMTildeRef + dpInv(constraintModel.cal_JcM, constraintModel.cal_dJcM)*cal_VcMTilde) - constraintModel.cal_dJmM*pInv(constraintModel.cal_JcM)*cal_VcMTilde;
 
   VectorXd ddthmRef = pInv(cal_JmMBar)*cal_dVmMTildeRef + dpInv(cal_JmMBar, cal_dJmMBar)*cal_VmMTilde;
 

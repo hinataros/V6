@@ -23,11 +23,13 @@ void RLS::Output::stabilityIndex4walkingDes(GpMaker &gpMaker, TexMaker &texMaker
   setFileName("stabilityIndexDes");
 
   setDatNum(4);
-  setDatName(1, "gCoMDes");
+  // setDatName(1, "gCoMDes");
   // setDatName(2, "rndecmpDes");
-  setDatName(2, "rp");
-  setDatName(3, "xCoMDes");
-  setDatName(4, "eCMPDes");
+  // setDatName(2, "rp");
+  // setDatName(3, "xCoMDes");
+  setDatName(1, "eCMPDes");
+  setDatName(2, "eCMPDes");
+  setDatName(3, "eCMPDes");
   makeDat();
 
   gpMaker.reset();

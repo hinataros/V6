@@ -14,13 +14,13 @@ VectorXd RLS::RlsDynamics::AMC_Macc(Config &config, Info &info, Model &model)
   // ////// 拘束条件の微分から算出 //////
   
   // // constraint
-  // VectorXd cal_dVcMTildeRef = -cal_PcM.transpose()*cal_dVMRef;
+  // VectorXd cal_dVcMTildeRef = -mbb_CcM.transpose()*cal_dVMRef;
 
   // VectorXd ddthcRef = pInv(cal_JcM)*cal_dVcMTildeRef;
 
   // // mobility
   // MatrixXd cal_JmMBar = cal_JmM*N(cal_JcM);
-  // VectorXd cal_dVmMTildeRef = Bm.transpose()*cal_dVRef - cal_PmM.transpose()*cal_dVMRef - cal_JmM*pInv(cal_JcM)*cal_dVcMTildeRef;
+  // VectorXd cal_dVmMTildeRef = Bm.transpose()*cal_dVRef - mbb_CmM.transpose()*cal_dVMRef - cal_JmM*pInv(cal_JcM)*cal_dVcMTildeRef;
 
   // VectorXd ddthmRef = pInv(cal_JmMBar)*cal_dVmMTildeRef;
 
@@ -61,16 +61,16 @@ VectorXd RLS::RlsDynamics::AMC_Macc(Config &config, Info &info, Model &model)
   ////// 速度次元解の微分 //////
 
   // constraint
-  VectorXd cal_VcMTilde = - cal_PcM.transpose()*cal_VM;
-  VectorXd cal_dVcMTildeRef = - cal_PcM.transpose()*cal_dVMRef - cal_dPcM.transpose()*cal_VM;
+  VectorXd cal_VcMTilde = - mbb_CcM.transpose()*cal_VM;
+  VectorXd cal_dVcMTildeRef = - mbb_CcM.transpose()*cal_dVMRef - cal_dPcM.transpose()*cal_VM;
 
   VectorXd ddthcRef = pInv(cal_JcM)*cal_dVcMTildeRef + dpInv(cal_JcM, cal_dJcM)*cal_VcMTilde;
 
   // mobility
   MatrixXd cal_JmMBar = cal_JmM*N(cal_JcM);
   MatrixXd cal_dJmMBar = cal_dJmM*N(cal_JcM) + cal_JmM*dN(cal_JcM, cal_dJcM);
-  VectorXd cal_VmMTilde = Bm.transpose()*cal_V - cal_PmM.transpose()*cal_VM - cal_JmM*pInv(cal_JcM)*cal_VcMTilde;
-  VectorXd cal_dVmMTildeRef = Bm.transpose()*cal_dVRef + dBm.transpose()*cal_V - cal_PmM.transpose()*cal_dVMRef - cal_dPmM.transpose()*cal_VM - cal_JmM*(pInv(cal_JcM)*cal_dVcMTildeRef + dpInv(cal_JcM, cal_dJcM)*cal_VcMTilde) - cal_dJmM*pInv(cal_JcM)*cal_VcMTilde;
+  VectorXd cal_VmMTilde = Bm.transpose()*cal_V - mbb_CmM.transpose()*cal_VM - cal_JmM*pInv(cal_JcM)*cal_VcMTilde;
+  VectorXd cal_dVmMTildeRef = Bm.transpose()*cal_dVRef + dBm.transpose()*cal_V - mbb_CmM.transpose()*cal_dVMRef - cal_dPmM.transpose()*cal_VM - cal_JmM*(pInv(cal_JcM)*cal_dVcMTildeRef + dpInv(cal_JcM, cal_dJcM)*cal_VcMTilde) - cal_dJmM*pInv(cal_JcM)*cal_VcMTilde;
 
   VectorXd ddthmRef = pInv(cal_JmMBar)*cal_dVmMTildeRef + dpInv(cal_JmMBar, cal_dJmMBar)*cal_VmMTilde;
 

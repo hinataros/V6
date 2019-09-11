@@ -248,6 +248,10 @@ void RLS::Output::setDat(ofstream& stream, int id, string dataName, int i)
     stream << data.rlsDynamics[id].vec[i].lC.transpose();
   else if(dataName=="wC")
     stream << data.rlsDynamics[id].vec[i].wC.transpose();
+  else if(dataName=="wth")
+    stream << data.rlsDynamics[id].vec[i].wth.transpose();
+  else if(dataName=="wthF")
+    stream << data.rlsDynamics[id].vec[i].wthF.transpose();
   else if(dataName=="lThH")
     stream << data.rlsDynamics[id].vec[i].lThH.transpose();
   else if(dataName=="lThF")

@@ -11,8 +11,8 @@ void RLS::RlsDynamics::centroidalEcmpTSDistribution()
 {
   if(debug) DEBUG;
 
-  MatrixXd bb_CcMH = constraintModel.getControlNodeMatrix(constraintModel.cal_PcM,false,true,"c","RARMEE");
-  MatrixXd bb_CcMF = constraintModel.getControlNodeMatrix(constraintModel.cal_PcM,false,true,"c",2,"RLEGEE","LLEGEE");
+  MatrixXd bb_CcMH = constraintModel.getControlNodeMatrix(constraintModel.mbb_CcM,false,true,"c","RARMEE");
+  MatrixXd bb_CcMF = constraintModel.getControlNodeMatrix(constraintModel.mbb_CcM,false,true,"c",2,"RLEGEE","LLEGEE");
 
   Vector3d rvrpDes = des.rXDes - des.drXDes/model->wX;
   Vector3d rvrpRef = model->rX - fb.drXfb/model->wX;

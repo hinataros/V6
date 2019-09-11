@@ -42,7 +42,7 @@ void RLS::FeedbackController::baseOrientationSequence(Config &config,Info &info,
                 Vector3d::Zero().transpose(),-rpkDes.transpose()*Bp.transpose()*Wp*Bp*Pc).finished();
 
   MatrixXd CE = (MatrixXd(3,3+info.contact.c.all)<<
-                  IC, -cal_PcM.block(3,0,3,info.contact.c.all)).finished();
+                  IC, -mbb_CcM.block(3,0,3,info.contact.c.all)).finished();
   VectorXd ce = dIC*cal_VM.tail(3);
 
   VectorXd x = VectorXd::Zero(3+info.contact.c.all);

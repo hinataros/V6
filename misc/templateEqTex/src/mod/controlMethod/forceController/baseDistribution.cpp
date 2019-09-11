@@ -10,5 +10,5 @@ void RLS::RlsDynamics::baseDistribution()
 {
   if(debug) DEBUG;
 
-  cal_FcBarRef = pInv(constraintModel.cal_Pc)*(cal_dLBRef + model->cal_GB);
+  cal_FcBarRef = pInv(constraintModel.mbb_Cc)*(cal_dLBRef + model->cal_GB);
 }

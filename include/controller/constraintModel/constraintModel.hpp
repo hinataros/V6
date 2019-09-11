@@ -44,8 +44,8 @@ namespace RLS{
 
     MatrixXd Bc;
     MatrixXd Bm;
-    MatrixXd cal_Pc;
-    MatrixXd cal_Pm;
+    MatrixXd mbb_Cc;
+    MatrixXd mbb_Cm;
     MatrixXd cal_Jc;
     MatrixXd cal_Jm;
 
@@ -65,8 +65,8 @@ namespace RLS{
     MatrixXd Pcf;
     MatrixXd Pmf;
     MatrixXd PcMm;
-    MatrixXd cal_PcM;
-    MatrixXd cal_PmM;
+    MatrixXd mbb_CcM;
+    MatrixXd mbb_CmM;
     MatrixXd cal_JcM;
     MatrixXd cal_JmM;
 

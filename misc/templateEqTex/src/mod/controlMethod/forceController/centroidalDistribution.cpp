@@ -10,6 +10,6 @@ void RLS::RlsDynamics::centroidalDistribution()
 {
   if(debug) DEBUG;
 
-  cal_FcBarRef = pInv(constraintModel.cal_PcM)*(cal_dLCRef + model->cal_GC);
-  // cal_FcBarRef = constraintModel.cal_PcM.inverse()*(cal_dLCRef + model->cal_GC);
+  cal_FcBarRef = pInv(constraintModel.mbb_CcM)*(cal_dLCRef + model->cal_GC);
+  // cal_FcBarRef = constraintModel.mbb_CcM.inverse()*(cal_dLCRef + model->cal_GC);
 }

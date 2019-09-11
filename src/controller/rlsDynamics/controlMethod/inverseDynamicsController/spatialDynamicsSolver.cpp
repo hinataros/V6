@@ -68,7 +68,7 @@ VectorXd RLS::RlsDynamics::spatialDynamicsSolver()
   // int ceNum = 6;
   // MatrixXd CE = MatrixXd::Zero(ceNum,info.model.dof.all+info.constraint->c.all);
   // CE <<
-  //   model->cal_AB, -cal_Pc;
+  //   model->cal_AB, -mbb_Cc;
 
   // VectorXd ce = -(cal_CB + model->cal_GB);
 
@@ -76,7 +76,7 @@ VectorXd RLS::RlsDynamics::spatialDynamicsSolver()
   // int ceNum = 6;
   // MatrixXd CE = MatrixXd::Zero(ceNum,info.model.dof.all+info.constraint->c.all);
   // CE <<
-  //   model->cal_AM, -cal_PcM;
+  //   model->cal_AM, -mbb_CcM;
 
   // VectorXd ce = -(cal_CM + model->cal_GC);
 
@@ -84,7 +84,7 @@ VectorXd RLS::RlsDynamics::spatialDynamicsSolver()
   // int ceNum = 6 + info.constraint->c.all;
   // MatrixXd CE = MatrixXd::Zero(ceNum,info.model.dof.all+info.constraint->c.all);
   // CE <<
-  //   model->cal_AB, -cal_Pc,
+  //   model->cal_AB, -mbb_Cc,
   //   Jc, MatrixXd::Zero(info.constraint->c.all, info.constraint->c.all);
 
   // VectorXd ce = VectorXd::Zero(ceNum);
@@ -96,7 +96,7 @@ VectorXd RLS::RlsDynamics::spatialDynamicsSolver()
   // int ceNum = 6 + info.constraint->c.all;
   // MatrixXd CE = MatrixXd::Zero(ceNum,info.model.dof.all+info.constraint->c.all);
   // CE <<
-  //   model->cal_AM, -cal_PcM,
+  //   model->cal_AM, -mbb_CcM,
   //   JcM, MatrixXd::Zero(info.constraint->c.all, info.constraint->c.all);
 
   // VectorXd ce = VectorXd::Zero(ceNum);
@@ -108,7 +108,7 @@ VectorXd RLS::RlsDynamics::spatialDynamicsSolver()
   // int ceNum = 6 + info.constraint->c.all + info.constraint->m.all;
   // MatrixXd CE = MatrixXd::Zero(ceNum,info.model.dof.all+info.constraint->c.all);
   // CE <<
-  //   model->cal_AB, -cal_Pc,
+  //   model->cal_AB, -mbb_Cc,
   //   Jc, MatrixXd::Zero(info.constraint->c.all, info.constraint->c.all),
   //   Jm, MatrixXd::Zero(info.constraint->m.all, info.constraint->c.all);
 
@@ -126,7 +126,7 @@ VectorXd RLS::RlsDynamics::spatialDynamicsSolver()
   // int ceNum = 6 + 6*info.value.joint;
   // MatrixXd CE = MatrixXd::Zero(ceNum,info.model.dof.all+info.constraint->c.all);
   // CE <<
-  //   model->cal_AB, -cal_Pc,
+  //   model->cal_AB, -mbb_Cc,
   //   J, MatrixXd::Zero(6*info.value.joint, info.constraint->c.all);
 
   // VectorXd ce = VectorXd::Zero(ceNum);
@@ -140,7 +140,7 @@ VectorXd RLS::RlsDynamics::spatialDynamicsSolver()
   int ceNum = 6 + info.constraint->c.all + info.constraint->m.all;
   MatrixXd CE = MatrixXd::Zero(ceNum,info.model.dof.all+info.constraint->c.all);
   CE <<
-    model->cal_AM, -constraintModel.cal_PcM,
+    model->cal_AM, -constraintModel.mbb_CcM,
     constraintModel.JcM, MatrixXd::Zero(info.constraint->c.all, info.constraint->c.all),
     constraintModel.JmM, MatrixXd::Zero(info.constraint->m.all, info.constraint->c.all);
 
@@ -157,7 +157,7 @@ VectorXd RLS::RlsDynamics::spatialDynamicsSolver()
   // ddqBRef = x.head(info.model.dof.all);
   ddqMRef = x.head(info.model.dof.all);
   cal_FcBarRef = x.tail(info.constraint->c.all);
-  // cal_FcBarRef = pInv(cal_Pc)*(cal_dLBRef + model->cal_GB);
+  // cal_FcBarRef = pInv(mbb_Cc)*(cal_dLBRef + model->cal_GB);
 
   // torque control
   (this->*torqueController_ptr)();

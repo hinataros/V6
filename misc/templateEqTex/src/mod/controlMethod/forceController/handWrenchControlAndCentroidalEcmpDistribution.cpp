@@ -14,11 +14,11 @@ void RLS::RlsDynamics::handWrenchControlAndCentroidalEcmpDistribution()
   // (this->*internalForceController_ptr)(info);
 
   VectorXd cal_FHcBarRef = constraintModel.getControlNodeVector(constraintModel.Bc.transpose()*fb.cal_Ffb,"c","RARMEE");
-  MatrixXd bb_CcMH = constraintModel.getControlNodeMatrix(constraintModel.cal_PcM,false,true,"c","RARMEE");
+  MatrixXd bb_CcMH = constraintModel.getControlNodeMatrix(constraintModel.mbb_CcM,false,true,"c","RARMEE");
 
   VectorXd cal_FCextRef = cal_dLCRef + model->cal_GC - bb_CcMH*cal_FHcBarRef;
 
-  MatrixXd bb_CcMF = constraintModel.getControlNodeMatrix(constraintModel.cal_PcM,false,true,"c",2,"RLEGEE","LLEGEE");
+  MatrixXd bb_CcMF = constraintModel.getControlNodeMatrix(constraintModel.mbb_CcM,false,true,"c",2,"RLEGEE","LLEGEE");
 
   VectorXd cal_FFcBarRef;
   if(info.constraint->c.controlNode[info.model.controlNodeID["RLEGEE"]]==6&&

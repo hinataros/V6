@@ -51,8 +51,8 @@ void RLS::ConstraintModel::reconfigure()
   dBm = MatrixXd::Zero(6*info.model->controlNodeNum, info.constraint.m.all);
 
   // ******************************
-  cal_Pc = MatrixXd::Zero(6, info.constraint.c.all);
-  cal_Pm = MatrixXd::Zero(6, info.constraint.m.all);
+  mbb_Cc = MatrixXd::Zero(6, info.constraint.c.all);
+  mbb_Cm = MatrixXd::Zero(6, info.constraint.m.all);
 
   cal_Jc = MatrixXd::Zero(info.constraint.c.all, info.model->dof.joint);
   cal_Jm = MatrixXd::Zero(info.constraint.m.all, info.model->dof.joint);
@@ -74,8 +74,8 @@ void RLS::ConstraintModel::reconfigure()
   // ******************************
   Pcf = MatrixXd::Zero(3, info.constraint.c.all);
   PcMm = MatrixXd::Zero(3, info.constraint.c.all);
-  cal_PcM = MatrixXd::Zero(6, info.constraint.c.all);
-  cal_PmM = MatrixXd::Zero(6, info.constraint.m.all);
+  mbb_CcM = MatrixXd::Zero(6, info.constraint.c.all);
+  mbb_CmM = MatrixXd::Zero(6, info.constraint.m.all);
   cal_JcM = MatrixXd::Zero(info.constraint.c.all, info.model->dof.joint);
   cal_JmM = MatrixXd::Zero(info.constraint.m.all, info.model->dof.joint);
 

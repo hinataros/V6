@@ -70,7 +70,7 @@ VectorXd RLS::RlsDynamics::dlrSolver()
   // int ceNum = 6 + info.constraint->c.all + info.constraint->m.all;
 
   MatrixXd CE = MatrixXd::Zero(ceNum, n);
-  CE.block(0,0,6,n) << model->cal_AM, -constraintModel.cal_PcM;
+  CE.block(0,0,6,n) << model->cal_AM, -constraintModel.mbb_CcM;
   CE.block(6,0,info.constraint->c.all, info.model.dof.all) = constraintModel.JcM;
   // CE.block(6+info.constraint->c.all,0,info.constraint->m.all, info.model.dof.all) = JmM;
 
@@ -162,7 +162,7 @@ VectorXd RLS::RlsDynamics::dlrSolver()
   //               -rpkDes.transpose()*Bp.transpose()*Wp*Bp*Pc).finished();
   // int ceNum = 6 + info.constraint->c.all + info.constraint->m.all;
   // MatrixXd CE = (MatrixXd(ceNum, n) <<
-  //                model->cal_AM, -cal_PcM,
+  //                model->cal_AM, -mbb_CcM,
   //                JcM, MatrixXd::Zero(info.constraint->c.all, info.constraint->c.all),
   //                JmM, MatrixXd::Zero(info.constraint->m.all, info.constraint->c.all)).finished();
 

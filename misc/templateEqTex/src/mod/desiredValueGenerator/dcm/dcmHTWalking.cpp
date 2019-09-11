@@ -21,7 +21,7 @@ void RLS::DesiredValueGenerator::dcmHTWalking(const double &t)
     walking.ht(t);
   else{
     VectorXd cal_FHcBarRef = constraintModel->getControlNodeVector(constraintModel->Bc.transpose()*cal_FDes,"c","RARMEE");
-    MatrixXd bb_CcMH = constraintModel->getControlNodeMatrix(constraintModel->cal_PcM,false,true,"c","RARMEE");
+    MatrixXd bb_CcMH = constraintModel->getControlNodeMatrix(constraintModel->mbb_CcM,false,true,"c","RARMEE");
 
     Vector3d ez(0.,0.,1.);
     Matrix3d St = diag(3, 1.,1.,0.);

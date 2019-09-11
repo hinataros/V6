@@ -2,7 +2,8 @@
 
 result:
   composite data name: cmp
-  individual data name: ind
+  # individual data name: ind
+  individual data name: 4step
   # individual data name: do8mm
   # individual data name: do0mm
   # individual data name: toeoff
@@ -300,7 +301,6 @@ tex:
     -
       file name: sysMom
       caption: System linear and angular momentum.
-      control node: 0
       elements:
         -
           file name: sysLinMom
@@ -312,12 +312,12 @@ tex:
           file name: sysAngMom
           time-dependent dat:
             name: lCsys
-          y label: Sys. ang. mom. [Nms]
+          # y label: Sys. ang. mom. [Nms]
+          y label: SAM [Nms]
           dimention: 3
     -
       file name: CRBMom
       caption: CRB linear and angular momentum.
-      control node: 0
       elements:
         -
           file name: CRBLinMom
@@ -334,7 +334,6 @@ tex:
     -
       file name: CoupMom
       caption: Coupling linear and angular momentum.
-      control node: 0
       elements:
         -
           file name: coupLinMom
@@ -348,10 +347,10 @@ tex:
             name: lTh
           y label: CAM [Nms]
           dimention: 3
+          add: ["set yrange [-0.06:0.06]"]
     -
       file name: CoupAngMomLimb
       caption: Coupling angular momentum of limbs.
-      control node: 0
       elements:
         -
           file name: CoupAngMomFoot
@@ -359,6 +358,7 @@ tex:
             name: lThF
           y label: Foot CAM [Nms]
           dimention: 3
+          add: ["set yrange [-0.06:0.06]"]
         -
           file name: CoupAngMomHand
           time-dependent dat:
@@ -623,9 +623,37 @@ tex:
             name: vCDes
           y label: Des. CoM vel. [m/s]
           dimention: 3
+    -
+      file name: SAV
+      caption: System angular velocity.
+      elements:
+        -
+          file name: SAV
+          time-dependent dat:
+            name: wC
+          y label: Sys. ang. vel. [rad/s]
+          dimention: 3
+    -
+      file name: CAV
+      caption: Coupling angular velocity.
+      elements:
+        -
+          file name: CAV
+          time-dependent dat:
+            name: wth
+          y label: Coup. ang. vel. [rad/s]
+          dimention: 3
+        -
+          file name: footCAV
+          time-dependent dat:
+            name: wthF
+          y label: F coup. ang. vel. [rad/s]
+          dimention: 3
 
     -
       use function: stabilityIndex4walking
+    -
+      use function: stabilityIndex4walkingDes
 
 
 choreonoid:

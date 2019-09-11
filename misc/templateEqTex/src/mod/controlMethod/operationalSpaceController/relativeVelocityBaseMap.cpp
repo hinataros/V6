@@ -10,7 +10,7 @@ void RLS::RlsDynamics::relativeVelocityBaseMap()
 {
   if(debug) DEBUG;
 
-  cal_VcBBarRef = -constraintModel.cal_Pc.transpose()*fb.cal_VBfb;
+  cal_VcBBarRef = -constraintModel.mbb_Cc.transpose()*fb.cal_VBfb;
 
-  cal_VmBBarRef = constraintModel.Bm.transpose()*fb.cal_Vfb - constraintModel.cal_Pm.transpose()*fb.cal_VBfb;
+  cal_VmBBarRef = constraintModel.Bm.transpose()*fb.cal_Vfb - constraintModel.mbb_Cm.transpose()*fb.cal_VBfb;
 }

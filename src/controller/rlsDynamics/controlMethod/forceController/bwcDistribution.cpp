@@ -71,7 +71,7 @@ void RLS::RlsDynamics::bwcDistribution()
   // o(VCWC);
 
   MatrixXd VBWC = MatrixXd::Zero(6,nk*nc*np);
-  VBWC = constraintModel.cal_PcM*VCWC;
+  VBWC = constraintModel.mbb_CcM*VCWC;
 
   // o(VBWC);
   VectorXd lambda = pInv(VBWC)*(cal_dLCRef + model->cal_GC);
@@ -83,7 +83,7 @@ void RLS::RlsDynamics::bwcDistribution()
 
   // o(Winv);
 
-  VectorXd temp = Winv*constraintModel.cal_PcM.transpose()*((constraintModel.cal_PcM*Winv*constraintModel.cal_PcM.transpose()).inverse())*(cal_dLCRef + model->cal_GC);
+  VectorXd temp = Winv*constraintModel.mbb_CcM.transpose()*((constraintModel.mbb_CcM*Winv*constraintModel.mbb_CcM.transpose()).inverse())*(cal_dLCRef + model->cal_GC);
 
   // o(cal_FcBarRef);
 
@@ -91,8 +91,8 @@ void RLS::RlsDynamics::bwcDistribution()
   // MatrixXd Wecmpc = h_weight(recmp);
 
   // cal_FcBarRef =
-  //   pInv(constraintModel.cal_PcM, Wecmpc)*(cal_dLCRef + model->cal_GC)
-  //   + N(constraintModel.cal_PcM)*VCWC*lambda;
+  //   pInv(constraintModel.mbb_CcM, Wecmpc)*(cal_dLCRef + model->cal_GC)
+  //   + N(constraintModel.mbb_CcM)*VCWC*lambda;
 
   // o(cal_FcBarRef);
   // gc;
