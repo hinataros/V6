@@ -9,6 +9,7 @@
 void RLS::DesiredValueGenerator::controlNodeForceCP(const int &controlNode, const double &t)
 {
   if(debug) DEBUG;
+  // amiyata relative目標計算未完成
 
   double t0 = tw0[controlNodeForceNum[controlNode]];
   double tf = twf[controlNodeForceNum[controlNode]];

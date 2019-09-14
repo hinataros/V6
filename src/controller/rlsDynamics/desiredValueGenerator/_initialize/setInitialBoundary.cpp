@@ -13,6 +13,8 @@ void RLS::DesiredValueGenerator::setInitialBoundary()
   rB0 = model->rB0;
   qB0 = Quaternion4d::R2q(model->RB0);
 
+  RB0 = model->RB0; // amiyata
+
   for(int i=0; i<info->controlNodeNum; i++){
     r0[i] = model->r0[i];
     rfabs[i] = model->r0[i];

@@ -28,6 +28,7 @@ void RLS::Walking::readController()
 
   yamlInfo->checkValue<bool>(ToptimF, walkingKeyName, "time optimization");
 
+
   // ***************************************************** // amiyata vrp way point abolition
   string sequenceKeyName = "sequence"; // load from sequence
 
@@ -35,19 +36,12 @@ void RLS::Walking::readController()
   Vector3d rtemp, xitemp;
   string name[2] = {"RLEGEE", "LLEGEE"};
 
-  // o("test");
-  // rtemp = Vector3d::Zero();
-  // yamlInfo->checkValue<Vector3d>(rtemp, sequenceKeyName, 2, "rf", "LLEGEE");
-  // o(rtemp);
-
   // read vrp way point
   for(int i=0; i<yamlInfo->checkSize(sequenceKeyName); i++){
     vwpTemp = Vector6d::Zero();
-    // if(yamlInfo->checkValue<Vector3d>(rtemp, i, "rXf") || yamlInfo->checkValue<Vector3d>(rtemp, i, "rCf")){
     if(yamlInfo->checkValue<Vector3d>(rtemp, sequenceKeyName, i, "rXf")){
-      vwpTemp.head(3) = rtemp - rX0;
+      vwpTemp.head(3) = RBw0*rtemp + rX0; // relative
       vwpTemp(2) = 0.;
-      // o(rX0);
       vwp.push_back(vwpTemp);
       break;
     }
@@ -66,7 +60,7 @@ void RLS::Walking::readController()
         if(yamlInfo->angleUnit=="degree")
           xitemp *= DEG2RAD;
         vwpTemp <<
-          rtemp,
+          RBw0*rtemp, // relative
           xitemp;
         vwpTemp += rxw0.segment(j*6,6); // relative
         vwpTemp(2) = 0.; // これだけは補正
@@ -77,7 +71,7 @@ void RLS::Walking::readController()
         if(yamlInfo->angleUnit=="degree")
           xitemp *= DEG2RAD;
         vwpTemp <<
-          rtemp,
+          rtemp, // abs
           xitemp;
         vwpTemp(2) = 0.; // これだけは補正
         vwp.push_back(vwpTemp);

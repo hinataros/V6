@@ -45,7 +45,6 @@ void RLS::Walking::createVRPTrajectory()
   }
 
   rXSS.col(0) = rCSS.col(0) = rvrpHd.col(0);
-
   // calculate rvrpTd(0) **********
 
   // make Pv
@@ -93,7 +92,8 @@ void RLS::Walking::createVRPTrajectory()
     }
   }
   // rCDS(0) is unused
-  convT = (1./wX)*log((rCSS.col(vwpNum)(0)-rXSS.col(vwpNum)(0)) / (sign(rCSS.col(vwpNum)(0)-rXSS.col(vwpNum)(0))*1.e-4));
+  // o(rCSS);
+  // o(rCDS);
 
-  // gc;
+  convT = (1./wX)*log((rCSS.col(vwpNum)(0)-rXSS.col(vwpNum)(0)) / (sign(rCSS.col(vwpNum)(0)-rXSS.col(vwpNum)(0))*1.e-4));
 }

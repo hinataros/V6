@@ -4,10 +4,6 @@
 
 #include "quaternion.hpp"
 
-int sign(double x)
-{
-  return (x>=0) - (x<0);
-}
 
 RLS::Quaternion4d RLS::Quaternion4d::R2q(const Eigen::Matrix3d &R)
 {

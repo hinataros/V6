@@ -87,6 +87,7 @@ namespace RLS{
 
     Vector3d rB0;
     Quaternion4d qB0;
+    Matrix3d RB0; // amiyata for relative disired values
     Vector3d *r0;
     Quaternion4d *q0;
     Vector3d rC0;

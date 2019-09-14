@@ -9,6 +9,7 @@ set(srcs
   R2q.cpp
   dq2w.cpp
   ddq2dw.cpp
+  sign.cpp
   )
 
 macro(MAP_ADD_STR _list _str _output)

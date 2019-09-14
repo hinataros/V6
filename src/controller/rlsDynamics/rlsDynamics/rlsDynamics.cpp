@@ -28,7 +28,7 @@ VectorXd RLS::RlsDynamics::rlsDynamics(const double &t)
   ext->every(this, t);
 
   controlMethod();
-  // if(t>3.45){gc;}
+  if(t>12.49){gc;}
 
   outputConfig();
 

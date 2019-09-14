@@ -19,6 +19,7 @@ void RLS::DesiredValueGenerator::initialize(const WorldModel &worldModel, const 
   setMap();
 
   setInitialBoundary();
+  updatePres(); // amiyata fbas更新しとかないと飛ぶ
 
   // string walkingKeyName = "walking";
   // if(this->yamlInfo->doc.controllerKey[walkingKeyName])

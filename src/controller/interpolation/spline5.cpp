@@ -49,3 +49,17 @@ Vector3d RLS::Spline5::makeSpline5(double t, double tf, double xi0, double dxi0,
 
   return par;
 }
+
+
+Matrix3d RLS::Spline5::makeSpline5(double t, double tf, Vector3d xi0, Vector3d xif) // amiyata
+{
+  Matrix3d ret = Matrix3d::Zero();
+  // ret == [xi(t), dxi(t), ddxi(t)]
+
+  for(int i=0; i<3; i++){
+    par = makeSpline5(t, tf, xi0(i), 0., 0., xif(i), 0., 0.);
+    ret.row(i) = par.transpose();
+  }
+
+  return ret;
+}

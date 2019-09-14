@@ -20,8 +20,6 @@ bool RLS::RlsDynamics::stateTrigger(const double &t, struct State &state)
   string sequenceKey = "sequence";
   yamlInfo.key = "state";
 
-  // if(state.doc["test"])
-  //   cout << "triggering: " << state.doc["test"].as<string>() << endl;
 
   if(state.trigger != noKey) {
     if(state.ext)
@@ -31,12 +29,10 @@ bool RLS::RlsDynamics::stateTrigger(const double &t, struct State &state)
     }
 
     if(state.condition != tempCondition){
-      // o("kirikaeing");
-      // o(state.trigger);
-      // o(state.fork);
-      // o(tempCondition);
-      // if(state.doc["test"])
-      //   cout << "loading: " << state.doc["test"].as<string>() << endl;
+      if(state.doc["test"]){
+        cout << "loading: " << state.doc["test"].as<string>() << endl;
+        // gc;
+      }
       if(state.trigger == sequenceKey && tempCondition >= state.fork)
         tempCondition = state.fork-1; // 最後のsequenceを繰り返し
 
@@ -47,21 +43,16 @@ bool RLS::RlsDynamics::stateTrigger(const double &t, struct State &state)
         des.updatePres();
         if(state.st_ptr_in[tempCondition].trigger == sequenceKey){
           sequence[state.st_ptr_in[tempCondition].sequenceID].phase = -1;
-          // o("seq");
         }
-        // o("resetshitayo!");
-        // gc;
       }
 
       for(int i=0; i<state.fork; i++)
         state.st_ptr_in[i].condition = -1;
       if(state.st_ptr_in[tempCondition].fork){
-        // cout << "resetting: " << state.doc["test"].as<string>() << " triggering into >> " << tempCondition << endl;
         stateTrigger(t, state.st_ptr_in[tempCondition]);
       }
 
       if(state.trigger == sequenceKey){
-        // o("seq reset");
         sequence[state.sequenceID].tw0 = t;
         sequence[state.sequenceID].phase = tempCondition;
         des.update(t, state.sequenceID);
@@ -78,16 +69,13 @@ bool RLS::RlsDynamics::stateTrigger(const double &t, struct State &state)
         yamlInfo.sequence = -1;
       }
       ext->reset(this, t);
-      // o("readController");
 
       yamlInfo.reset(state.st_ptr_in[tempCondition].doc);
       allReadController();
-      // o("done!");
 
       reset_flag = true;
 
       state.condition = tempCondition;
-      // gc;
     }
     else {
       if(state.st_ptr_in[tempCondition].fork){
@@ -102,6 +90,5 @@ bool RLS::RlsDynamics::stateTrigger(const double &t, struct State &state)
     }
   }
 
-  // cout << "returnnig...: " << state.doc["test"].as<string>() << endl;;
   return reset_flag;
 }

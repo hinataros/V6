@@ -13,6 +13,7 @@ set(srcs
   createHTTrajectory.cpp
   setInitialDcmPosition.cpp
   setComPosition.cpp
+  setBaseRotation.cpp
   setEEPosition.cpp
   setNaturalFrequency.cpp
   setBoundary.cpp

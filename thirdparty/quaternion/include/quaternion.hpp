@@ -22,6 +22,8 @@ namespace RLS{
     Quaternion4d operator/(Quaternion4d);
     Quaternion4d operator/=(Quaternion4d);
 
+    int sign(double);
+
     static Quaternion4d Zero();
     static Quaternion4d Identity();
     static Quaternion4d xi2q(const Eigen::Vector3d&);

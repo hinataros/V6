@@ -3,9 +3,6 @@
 set(srcs
   dcmCP.cpp
   dcmCPabs.cpp
-  # dcmAnkleHip.cpp
-  # dcmSSWalking.cpp
-  # dcmDSWalking.cpp
   dcmHTWalking.cpp
   dcmvrpHTWalking.cpp
   )

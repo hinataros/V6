@@ -49,8 +49,8 @@ controller:
       RLEGEE: 5.e+1
       LLEGEE: 5.e+1
     Kdw:
-      RLEGEE: 5.e+1
-      LLEGEE: 5.e+1
+      RLEGEE: 7.e+1
+      LLEGEE: 7.e+1
 
     kDth: &kDthH 1.e+2
     kthHinit: &kthHinit 1.e+2
@@ -82,33 +82,75 @@ controller:
       RLEGEE: *height
       LLEGEE: *height
 
-    length: &steplength1 0.08
-    length: &steplength2 0.16
-    length: &steplength3 0.24
-    length: &steplength4 0.32
-    length: &steplength5 0.40
-    length: &steplength6 0.48
-    length: &steplength7 0.56
-
+    # swing leg:
+    #   rfabs: &swingLeg0
+    #     RLEGEE: [0., -0.039, 0.]
+    #   rfabs: &swingLeg1
+    #     LLEGEE: [0.058867,  0.033850, -0.002]
+    #   rfabs: &swingLeg2
+    #     RLEGEE: [0.089267, -0.054740, -0.002]
+    #   rfabs: &swingLeg3
+    #     LLEGEE: [0.169500, -0.006417, -0.002]
+    #   rfabs: &swingLeg4
+    #     RLEGEE: [0.167768, -0.100062, -0.002]
+    #   rfabs: &swingLeg5
+    #     LLEGEE: [0.259689, -0.082095, -0.002]
+    #   rfabs: &swingLeg6
+    #     RLEGEE: [0.226033, -0.169500, -0.002]
+    #   rfabs: &swingLeg7
+    #     LLEGEE: [0.318556, -0.184055, -0.002]
+    #   rfabs: &swingLeg8
+    #     RLEGEE: [0.257035, -0.254678, -0.002]
+    #   rfabs: &swingLeg9
+    #     LLEGEE: [0.339000, -0.3, -0.002]
+    #   rfabs: &swingLeg10
+    #     RLEGEE: [0.261000, -0.3, -0.002]
     swing leg:
       rf: &swingLeg0
         RLEGEE: [0., 0., 0.]
       rf: &swingLeg1
-        LLEGEE: [*steplength1, 0., 0.]
+        LLEGEE: [0.058867,  0.005150, -0.001]
       rf: &swingLeg2
-        RLEGEE: [*steplength2, 0., 0.]
+        RLEGEE: [0.089267, -0.015740, -0.001]
       rf: &swingLeg3
-        LLEGEE: [*steplength3, 0., 0.]
+        LLEGEE: [0.169500, -0.045417, -0.]
       rf: &swingLeg4
-        RLEGEE: [*steplength4, 0., 0.]
+        RLEGEE: [0.167768, -0.061062, -0.001]
       rf: &swingLeg5
-        LLEGEE: [*steplength5, 0., 0.]
+        LLEGEE: [0.259689, -0.121095, -0.001]
       rf: &swingLeg6
-        RLEGEE: [*steplength6, 0., 0.]
+        RLEGEE: [0.226033, -0.130500, -0.001]
       rf: &swingLeg7
-        LLEGEE: [*steplength7, 0., 0.]
+        LLEGEE: [0.318556, -0.223055, -0.001]
       rf: &swingLeg8
-        RLEGEE: [*steplength7, 0., 0.]
+        RLEGEE: [0.257035, -0.215678, -0.000]
+      rf: &swingLeg9
+        LLEGEE: [0.339000, -0.339000, -0.000]
+      rf: &swingLeg10
+        RLEGEE: [0.261000, -0.261000, -0.000]
+    posture leg:
+      xif: &postureLeg0
+        RLEGEE: [0., 0., 0.]
+      xif: &postureLeg1
+        LLEGEE: [-10., 0., 0.]
+      xif: &postureLeg2
+        RLEGEE: [-20., 0., 0.]
+      xif: &postureLeg3
+        LLEGEE: [-30., 0., 0.]
+      xif: &postureLeg4
+        RLEGEE: [-40., 0., 0.]
+      xif: &postureLeg5
+        LLEGEE: [-50., 0., 0.]
+      xif: &postureLeg6
+        RLEGEE: [-60., 0., 0.]
+      xif: &postureLeg7
+        LLEGEE: [-70., 0., 0.]
+      xif: &postureLeg8
+        RLEGEE: [-80., 0., 0.]
+      xif: &postureLeg9
+        LLEGEE: [-90., 0., 0.]
+      xif: &postureLeg10
+        RLEGEE: [-90., 0., 0.]
 
 
 
@@ -192,116 +234,147 @@ controller:
         -
           test: seq0-0
           twf: *tstab
+          xiBf: [0., 0., 0.]
         -
           test: seq0-1
           twf: *tswingleg
-          # tld: true
           rf: *swingLeg0 # for vrp way point calculation
+          xif: *postureLeg0
         -
           test: seq0-1.5
           twf: *tds
-          # tld: true
+
         # 1 step
         -
           test: seq0-2
           twf: *tswingleg
-          # tld: true
           Bc: *rs
           Bm: *ls
           rf: *swingLeg1
-            # LLEGEE: [*steplength1, 0., 0.]
+          xif: *postureLeg1
         -
           test: seq0-3
           twf: *tds
-          # tld: true
+          xiBf: [-10., 0., 0.]
+
         # 2 step
         -
           test: seq0-4
           twf: *tswingleg
-          # tld: true
           Bc: *ls
           Bm: *rs
           rf: *swingLeg2
+          xif: *postureLeg2
         -
           test: seq0-5
           twf: *tds
-          # tld: true
+          xiBf: [-20., 0., 0.]
+
         # 3 step
         -
           test: seq0-6
           twf: *tswingleg
-          # tld: true
           Bc: *rs
           Bm: *ls
           rf: *swingLeg3
+          xif: *postureLeg3
         -
           test: seq0-7
           twf: *tds
-          # tld: true
+          xiBf: [-30., 0., 0.]
+
         # 4 step
         -
           test: seq0-8
           twf: *tswingleg
-          # tld: true
           Bc: *ls
           Bm: *rs
-          # rXfabs: [*steplength3, 0., 0.] # for vwp calc
           rf: *swingLeg4
+          xif: *postureLeg4
         -
           test: seq0-9
           twf: *tds
-          # tld: true
+          xiBf: [-40., 0., 0.]
+
         # 5 step
         -
-          test: seq0-6
+          test: seq0-10
           twf: *tswingleg
-          # tld: true
           Bc: *rs
           Bm: *ls
           rf: *swingLeg5
+          xif: *postureLeg5
         -
-          test: seq0-7
+          test: seq0-11
           twf: *tds
-          # tld: true
-        # 4 step
+          xiBf: [-50., 0., 0.]
+
+        # 6 step
         -
-          test: seq0-8
+          test: seq0-12
           twf: *tswingleg
-          # tld: true
           Bc: *ls
           Bm: *rs
           rf: *swingLeg6
+          xif: *postureLeg6
         -
-          test: seq0-9
+          test: seq0-13
           twf: *tds
-          # tld: true
-        # 3 step
+          xiBf: [-60., 0., 0.]
+
+        # 7 step
         -
-          test: seq0-6
+          test: seq0-14
           twf: *tswingleg
-          # tld: true
           Bc: *rs
           Bm: *ls
           rf: *swingLeg7
+          xif: *postureLeg7
         -
-          test: seq0-7
+          test: seq0-15
           twf: *tds
-          # tld: true
-        # 4 step
+          xiBf: [-70., 0., 0.]
+
+        # 8 step
         -
-          test: seq0-8
+          test: seq0-16
           twf: *tswingleg
-          # tld: true
           Bc: *ls
           Bm: *rs
-          rXfabs: [*steplength7, 0., 0.] # for vwp calc
           rf: *swingLeg8
+          xif: *postureLeg8
         -
-          test: seq0-9
+          test: seq0-17
           twf: *tds
-          # tld: true
+          xiBf: [-80., 0., 0.]
+
+        # 9 step
         -
-          test: seq0-10
+          test: seq0-18
+          twf: *tswingleg
+          Bc: *rs
+          Bm: *ls
+          rf: *swingLeg9
+          xif: *postureLeg9
+        -
+          test: seq0-19
+          twf: *tds
+          xiBf: [-90., 0., 0.]
+
+        # 10 step
+        -
+          test: seq0-20
+          twf: *tswingleg
+          Bc: *ls
+          Bm: *rs
+          rXfabs: [0.3, -0.3, 0.] # for vwp calc
+          rf: *swingLeg10
+          xif: *postureLeg10
+        -
+          test: seq0-21
+          twf: *tds
+        -
+          test: seq0-22
           twf: 100.
           Bc: *ds
           Bm: *zs

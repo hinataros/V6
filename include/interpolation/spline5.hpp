@@ -13,5 +13,7 @@ namespace RLS{
   public:
     Vector3d makeSpline5(double, double, double, double);
     Vector3d makeSpline5(double, double, double, double, double, double, double, double);
+
+    Matrix3d makeSpline5(double, double, Vector3d, Vector3d);
   };
 }

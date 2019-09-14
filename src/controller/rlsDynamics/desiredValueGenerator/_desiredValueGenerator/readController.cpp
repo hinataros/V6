@@ -12,41 +12,21 @@ void RLS::DesiredValueGenerator::readController()
 
   string desiredValueGeneratorKeyName = "desired value generator";
 
-  // if(yamlInfo->checkValue<int>(baseTranslationNum, desiredValueGeneratorKeyName, "base translation", "num"))
-  //   baseTranslationSpec = true;
   yamlInfo->checkValue<string>(baseTranslationName, desiredValueGeneratorKeyName, "base translation", "name");
-
-  // if(yamlInfo->checkValue<int>(baseRotationNum, desiredValueGeneratorKeyName, "base rotation", "num"))
-  //   baseRotationSpec = true;
   yamlInfo->checkValue<string>(baseRotationName, desiredValueGeneratorKeyName, "base rotation", "name");
 
-  // if(yamlInfo->checkValue<int>(comNum, desiredValueGeneratorKeyName, "CoM", "num"))
-  //   comSpec = true;
   yamlInfo->checkValue<string>(comName, desiredValueGeneratorKeyName, "CoM", "name");
-
-  // if(yamlInfo->checkValue<int>(dcmNum, desiredValueGeneratorKeyName, "DCM", "num"))
-  //   dcmSpec = true;
   yamlInfo->checkValue<string>(dcmName, desiredValueGeneratorKeyName, "DCM", "name");
 
-  // if(yamlInfo->checkValue<int>(externalWrenchNum, desiredValueGeneratorKeyName, "external wrench", "num"))
-  //   externalWrenchSpec = true;
   yamlInfo->checkValue<string>(externalWrenchName, desiredValueGeneratorKeyName, "external wrench", "name");
 
   for(int i=0; i<info->controlNodeNum; i++){
     string name = info->controlNode[i].name;
 
-    // if(yamlInfo->checkValue<int>(controlNodeTranslationNum[i], desiredValueGeneratorKeyName, "control node translation", name, "num"))
-    //   controlNodeTranslationSpec[i] = true;
     yamlInfo->checkValue<string>(controlNodeTranslationName[i], desiredValueGeneratorKeyName, "control node translation", name, "name");
-    // if(yamlInfo->checkValue<int>(controlNodeRotationNum[i], desiredValueGeneratorKeyName, "control node rotation", name, "num"))
-    //   controlNodeRotationSpec[i] = true;
     yamlInfo->checkValue<string>(controlNodeRotationName[i], desiredValueGeneratorKeyName, "control node rotation", name, "name");
 
-    // if(yamlInfo->checkValue<int>(controlNodeForceNum[i], desiredValueGeneratorKeyName, "control node force", name, "num"))
-      // controlNodeForceSpec[i] = true;
     yamlInfo->checkValue<string>(controlNodeForceName[i], desiredValueGeneratorKeyName, "control node force", name, "name");
-    // if(yamlInfo->checkValue<int>(controlNodeMomentNum[i], desiredValueGeneratorKeyName, "control node moment", name, "num"))
-      // controlNodeMomentSpec[i] = true;
     yamlInfo->checkValue<string>(controlNodeMomentName[i], desiredValueGeneratorKeyName, "control node moment", name, "name");
   }
 
@@ -64,8 +44,7 @@ void RLS::DesiredValueGenerator::readController()
       if(yamlInfo->angleUnit=="degree")
         xiBf *= DEG2RAD;
       qBf = Quaternion4d::xi2q(xiBf);
-      if(!baseRotationSpec)
-        baseRotationNum = yamlInfo->sequence;
+      baseRotationNum = yamlInfo->sequence;
     }
 
     if(yamlInfo->checkValue<Vector3d>(rCf, "rCf"))
@@ -95,15 +74,13 @@ void RLS::DesiredValueGenerator::readController()
         if(yamlInfo->angleUnit=="degree")
           xif[i] *= DEG2RAD;
         qf[i] = Quaternion4d::xi2q(xif[i]);
-        if(!controlNodeRotationSpec)
-          controlNodeRotationNum[i] = yamlInfo->sequence;
+        controlNodeRotationNum[i] = yamlInfo->sequence;
       }
       else if(yamlInfo->checkValue<Vector3d>(xifabs[i], "xifabs", name)){
         if(yamlInfo->angleUnit=="degree")
           xifabs[i] *= DEG2RAD;
         qfabs[i] = Quaternion4d::xi2q(xifabs[i]);
-        if(!controlNodeRotationSpec)
-          controlNodeRotationNum[i] = yamlInfo->sequence;
+        controlNodeRotationNum[i] = yamlInfo->sequence;
       }
 
       if(yamlInfo->checkValue<Vector3d>(ff[i], "ff", name))

@@ -53,18 +53,30 @@ void RLS::Output::stabilityIndex4walking(GpMaker &gpMaker, TexMaker &texMaker)
   // gpMaker.redef("YLABEL_OFFSET_X = -0.25");
   gpMaker.add("set xtics 0.2"); // 4step
   gpMaker.add("set ytics 0.1");
-  gpMaker.add("set size ratio "+to_string(0.2/0.45));
+  gpMaker.add("set size ratio "+to_string(0.8/0.45));
   gpMaker.add("set xrange[-0.1:0.35]");
-  gpMaker.add("set yrange[-0.1:0.1]");
+  gpMaker.add("set yrange[-0.7:0.1]");
 
-  double foot_size_x[2] = {-0.040, 0.058};
-  double foot_size_y[2] = {0.0315, -0.0315};
+  Vector3d foot_size_x, foot_size_y;
+  foot_size_x <<
+    -0.040,
+    0.058,
+    0.;
+  foot_size_y <<
+    0.0315,
+    -0.0315,
+    0.;
 
   // draw foot print
-  for(int i=0; i<stepNum; i++){
-    if(nanCheck(extractor.footPrintList[i]))
-      gpMaker.add("set object "+to_string(i+1)+" rect from "+to_string(extractor.footPrintList[i](0)+foot_size_x[0])+", "+to_string(extractor.footPrintList[i](1)+foot_size_y[0])+" to "+to_string(extractor.footPrintList[i](0)+foot_size_x[1])+", "+to_string(extractor.footPrintList[i](1)+foot_size_y[1])+" fs empty border rgb 'black'");
-  }
+  // straight only
+  // for(int i=0; i<stepNum; i++){
+  //   if(nanCheck(extractor.footPrintList[i]))
+  //     gpMaker.add("set object "+to_string(i+1)+" rect from "+to_string(extractor.footPrintList[i](0)+foot_size_x(0))+", "+to_string(extractor.footPrintList[i](1)+foot_size_y(0))+" to "+to_string(extractor.footPrintList[i](0)+foot_size_x(1))+", "+to_string(extractor.footPrintList[i](1)+foot_size_y(1))+" fs empty border rgb 'black'");
+  // }
+  // for(int i=0; i<stepNum; i++){
+  //   if(nanCheck(extractor.footPrintList[i]))
+  //     gpMaker.add("set object "+to_string(i+1)+" rect from "+to_string(extractor.footPrintList[i](0)+foot_size_x(0))+", "+to_string(extractor.footPrintList[i](1)+foot_size_y(0))+" to "+to_string(extractor.footPrintList[i](0)+foot_size_x(1))+", "+to_string(extractor.footPrintList[i](1)+foot_size_y(1))+" fs empty border rgb 'black'");
+  // }
 
   gpMaker.setDimention(4);
   gpMaker.makeGp();

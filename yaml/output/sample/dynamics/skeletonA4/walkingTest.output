@@ -2,15 +2,15 @@
 
 result:
   composite data name: cmp
-  # individual data name: ind
-  individual data name: 4step
+  individual data name: ind
+  # individual data name: 4step
   # individual data name: do8mm
   # individual data name: do0mm
   # individual data name: toeoff
 
 gp:
   check: false
-  sampling time: 10
+  sampling time: 50
   start time offset: 1.
 
 tex:

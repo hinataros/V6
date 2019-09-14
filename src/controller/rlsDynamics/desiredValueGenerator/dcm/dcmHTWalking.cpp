@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "desiredValueGenerator.hpp"
 
-void RLS::DesiredValueGenerator::dcmHTWalking(const double &t)
+void RLS::DesiredValueGenerator::dcmHTWalking(const double &t) // abs default
 {
   if(debug) DEBUG;
 

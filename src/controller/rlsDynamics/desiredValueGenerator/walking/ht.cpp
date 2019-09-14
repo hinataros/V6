@@ -14,12 +14,18 @@ void RLS::Walking::ht(const double &t)
 
   double twalk = t - ht_config.tstab;
   if(round_cast(t, 3)<round_cast(ht_config.tstab, 3)){
-    for(int i=0; i<3; i++){
-      des = makeSpline5(t-tw0, twf, rXpreDes(i), rXf(i));
+    // for(int i=0; i<3; i++){
+    //   des = makeSpline5(t-tw0, twf, rXpreDes(i), rXf(i));
+    //
+    //   rXDes(i) = des(0) + rX0(i);
+    //   drXDes(i) = des(1);
+    // } // amiyata
 
-      rXDes(i) = des(0) + rX0(i);
-      drXDes(i) = des(1);
-    }
+    // Matrix3d desM = makeSpline5(t-tw0, twf, rXpreDes, rXf);
+    Matrix3d desM = makeSpline5(t-tw0, twf, rXpreDes, Vector3d::Zero());
+
+    rXDes = RBw0*desM.col(0) + rX0;
+    drXDes = RBw0*desM.col(1);
   }
   else if(round_cast(t, 3)<round_cast(tf, 3)){
     // DCM dynamics based exponential interpolation

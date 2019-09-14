@@ -37,6 +37,7 @@ VectorXd RLS::RlsDynamics::fullDynamicsController()
 
   // o(cal_dVmBarRef);
   // o(ddqMoptRef);
+  // o(cal_dLCRef);
   // o(cal_FcBarRef);
   // o(tau);
 

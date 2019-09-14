@@ -6,11 +6,9 @@
 #include "model.hpp"
 #include "walking.hpp"
 
-void RLS::Walking::initialize()
+void RLS::Walking::setBaseRotation(const Matrix3d &RB0)
 {
   if(debug) DEBUG;
 
-  resize();
-  readController();
-  reset();
+  RBw0 = RB0;
 }

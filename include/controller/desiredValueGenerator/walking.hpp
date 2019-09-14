@@ -29,6 +29,7 @@ namespace RLS{
     Vector3d rCw0;
 
     VectorXd rxw0; // amiyata for EE
+    Matrix3d RBw0; // amiyata for relative desired values
 
     Vector3d des;
 
@@ -150,6 +151,7 @@ namespace RLS{
 
     void setInitialDcmPosition(const Vector3d&);
     void setComPosition(const Vector3d&);
+    void setBaseRotation(const Matrix3d&);
     void setEEPosition(const int, Vector3d*, Matrix3d*);
     void setNaturalFrequency(const double&);
 

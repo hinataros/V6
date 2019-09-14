@@ -32,6 +32,7 @@ void RLS::DesiredValueGenerator::resetWalking(const double &t)
 
   walking.setInitialDcmPosition(model->rX0);
   walking.setComPosition(model->rC0); // amiyata
+  walking.setBaseRotation(model->RB0); // amiyata
   walking.setEEPosition(info->controlNodeNum, model->r0, model->R0); // amiyata
   walking.setNaturalFrequency(model->wX);
 

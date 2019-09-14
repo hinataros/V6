@@ -36,16 +36,15 @@ void RLS::Walking::htVRP(const double &t)
   double twS = twalk - tDS0;
 
   if(round_cast(t, 3)<round_cast(ht_config.tstab+tInitial, 3)){
-    for(int i=0; i<3; i++){
-      des = makeSpline5(t-tw0, twf, rXpreDes(i), rXf(i));
+    // Matrix3d desM = makeSpline5(t-tw0, twf, rXpreDes, rXf);
+    Matrix3d desM = makeSpline5(t-tw0, twf, rXpreDes, Vector3d::Zero());
 
-      rCDes(i) = des(0) + rCw0(i);
-      drCDes(i) = des(1);
-      ddrCDes(i) = des(2);
+    rCDes = RBw0*desM.col(0) + rCw0;
+    drCDes = RBw0*desM.col(1);
+    ddrCDes = RBw0*desM.col(2);
 
-      rXDes(i) = des(0) + rX0(i);
-      drXDes(i) = des(1);
-    }
+    rXDes = RBw0*desM.col(0) + rX0;
+    drXDes = RBw0*desM.col(1);
   }
   else if(round_cast(t, 3)>round_cast(tf, 3) && round_cast(t, 3)<round_cast(tf+convT, 3)){
     for(int i=0; i<3; i++){
@@ -103,7 +102,7 @@ void RLS::Walking::htVRP(const double &t)
     ddrCDes = wX*wX*(rCDes - rvrp);
 
     drXDes = wX*(rXDes - rvrp);
-    
+
   }
   else {
     rCDes = rXSS.col(vwpNum);
