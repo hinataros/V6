@@ -7,6 +7,16 @@
 
 namespace RLS{
   template<>
+  bool RLS::YamlInfo::checkValue(bool &value, const string name1, const string name2, const string name3)
+  {
+    if(localKey[key][name1][name2][name3])
+      value = localKey[key][name1][name2][name3].as<bool>();
+    else
+      return false;
+
+    return true;
+  }
+  template<>
   bool RLS::YamlInfo::checkValue(int &value, const string name1, const string name2, const string name3)
   {
     if(localKey[key][name1][name2][name3])

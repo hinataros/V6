@@ -112,20 +112,16 @@ controller:
 
 
 
-  test: HEAD
   state:
     -
-      test: state0
       trigger: check contact
       state:
         -
-          test: state0-0
           control method:
             inverse dynamics controller: default
           Bc: *zs
           Bm: *zs
         -
-          test: state0-1
           control method:
             inverse dynamics controller: fullDynamicsController
 
@@ -133,7 +129,6 @@ controller:
           Bm: *zs
 
         -
-          test: state0-2
           control method:
             inverse dynamics controller: fullDynamicsController
           Bc: &ls
@@ -143,25 +138,21 @@ controller:
             RLEGEE: [1, 1, 1, 1, 1, 1]
             LLEGEE: [0, 0, 0, 0, 0, 0]
         -
-          test: state0-3
           control method:
             inverse dynamics controller: fullDynamicsController
           Bc: *rs
           Bm: *ls
         -
-          test: state0-4
           control method:
             inverse dynamics controller: fullDynamicsController
           Bc: *ds
           Bm: *zs
         -
-          test: state0-5
           control method:
             inverse dynamics controller: fullDynamicsController
           Bc: *ls
           Bm: *rs
         -
-          test: state0-6
           control method:
             inverse dynamics controller: fullDynamicsController
           Bc: *rs
@@ -170,7 +161,6 @@ controller:
     -
       # reset: true
 
-      test: state1 & seq0
       walking:
         ipDim: 3
         # time optimization: true
@@ -190,20 +180,16 @@ controller:
 
       sequence:
         -
-          test: seq0-0
           twf: *tstab
         -
-          test: seq0-1
           twf: *tswingleg
           # tld: true
           rf: *swingLeg0 # for vrp way point calculation
         -
-          test: seq0-1.5
           twf: *tds
           # tld: true
         # 1 step
         -
-          test: seq0-2
           twf: *tswingleg
           # tld: true
           Bc: *rs
@@ -211,36 +197,30 @@ controller:
           rf: *swingLeg1
             # LLEGEE: [*steplength1, 0., 0.]
         -
-          test: seq0-3
           twf: *tds
           # tld: true
         # 2 step
         -
-          test: seq0-4
           twf: *tswingleg
           # tld: true
           Bc: *ls
           Bm: *rs
           rf: *swingLeg2
         -
-          test: seq0-5
           twf: *tds
           # tld: true
         # 3 step
         -
-          test: seq0-6
           twf: *tswingleg
           # tld: true
           Bc: *rs
           Bm: *ls
           rf: *swingLeg3
         -
-          test: seq0-7
           twf: *tds
           # tld: true
         # 4 step
         -
-          test: seq0-8
           twf: *tswingleg
           # tld: true
           Bc: *ls
@@ -248,48 +228,40 @@ controller:
           # rXfabs: [*steplength3, 0., 0.] # for vwp calc
           rf: *swingLeg4
         -
-          test: seq0-9
           twf: *tds
           # tld: true
         # 5 step
         -
-          test: seq0-6
           twf: *tswingleg
           # tld: true
           Bc: *rs
           Bm: *ls
           rf: *swingLeg5
         -
-          test: seq0-7
           twf: *tds
           # tld: true
         # 4 step
         -
-          test: seq0-8
           twf: *tswingleg
           # tld: true
           Bc: *ls
           Bm: *rs
           rf: *swingLeg6
         -
-          test: seq0-9
           twf: *tds
           # tld: true
         # 3 step
         -
-          test: seq0-6
           twf: *tswingleg
           # tld: true
           Bc: *rs
           Bm: *ls
           rf: *swingLeg7
         -
-          test: seq0-7
           twf: *tds
           # tld: true
         # 4 step
         -
-          test: seq0-8
           twf: *tswingleg
           # tld: true
           Bc: *ls
@@ -297,11 +269,9 @@ controller:
           rXfabs: [*steplength7, 0., 0.] # for vwp calc
           rf: *swingLeg8
         -
-          test: seq0-9
           twf: *tds
           # tld: true
         -
-          test: seq0-10
           twf: 100.
           Bc: *ds
           Bm: *zs

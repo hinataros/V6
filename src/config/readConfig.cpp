@@ -35,6 +35,9 @@ void RLS::Config::readConfig()
     if(option!="-d")
       if(doc[executionKeyName]["debug mode"])
         debug = doc[executionKeyName]["debug mode"].as<bool>();
+
+    if(doc[executionKeyName]["state monitoring"]) // amiyata
+      monitor = doc[executionKeyName]["state monitoring"].as<bool>();
   }
 
   // model config

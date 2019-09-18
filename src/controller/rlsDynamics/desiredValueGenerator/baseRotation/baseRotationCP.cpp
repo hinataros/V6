@@ -27,7 +27,12 @@ void RLS::DesiredValueGenerator::baseRotationCP(const double &t)
     ddqBDes.v(i) = des(2);
   }
 
-  qBDes *= qB0;
+  unitQuaternionFix(qBDes, dqBDes, ddqBDes); // amiyata
+
+  // amiyata
+  qBDes = qB0 * qBDes;
+  dqBDes = qB0 * dqBDes;
+  ddqBDes = qB0 * ddqBDes;
 
   RBDes = qBDes.rotationMatrix();
   wBDes = Quaternion4d::dq2w(qBDes, dqBDes);

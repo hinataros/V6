@@ -31,6 +31,11 @@ void RLS::DesiredValueGenerator::finalize()
   delete[] fpreDes;
   delete[] npreDes;
 
+  delete[] rfinCur;
+  delete[] qfinCur;
+  delete[] ffinCur;
+  delete[] nfinCur;
+
   delete[] rf;
   delete[] rfabs;
   delete[] xif;

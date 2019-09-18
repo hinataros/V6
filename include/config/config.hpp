@@ -17,6 +17,7 @@
 #include "define.hpp"
 
 extern bool debug;
+extern bool monitor; // amiyata
 
 using namespace std;
 

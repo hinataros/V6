@@ -36,7 +36,6 @@ void RLS::DesiredValueGenerator::setMap()
     controlNodeRotation_map[i]["default"] = &RLS::DesiredValueGenerator::controlNodeRotationDefault;
     controlNodeRotation_map[i]["CP"] = &RLS::DesiredValueGenerator::controlNodeRotationCP;
     controlNodeRotation_map[i]["CPabs"] = &RLS::DesiredValueGenerator::controlNodeRotationCPabs;
-    controlNodeRotation_map[i]["CPcur"] = &RLS::DesiredValueGenerator::controlNodeRotationCurCP;
   }
 
   // control node force

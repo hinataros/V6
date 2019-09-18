@@ -1,6 +1,4 @@
-/**
-   @author Sho Miyahara 2018
-*/
+// amiyata
 
 #include "config.hpp"
 #include "model.hpp"
@@ -27,14 +25,16 @@ void RLS::RlsDynamics::stateScanner(struct State &state)
 
   state.trigger = "none";
   state.condition = -1000;
+  state.stateID = -1;
   state.sequenceID = -1; // minus sequence doesnt exists
+  state.finishSeq = false;
   state.ext = false;
 
   if(state.doc[triggerKey]){
     state.trigger = state.doc[triggerKey].as<string>();
     if(!state.doc[stateKey]){
       cout << manip_error("state load error: trigger needs some state elements...") << endl;
-      gc;
+      exit(-1);
     }
   }
   else if(state.doc[extTriggerKey]){
@@ -42,14 +42,16 @@ void RLS::RlsDynamics::stateScanner(struct State &state)
     state.trigger = state.doc[extTriggerKey].as<string>();
     if(!state.doc[stateKey]){
       cout << manip_error("state load error: trigger needs some state elements...") << endl;
-      gc;
+      exit(-1);
     }
   }
 
   if(state.doc[stateKey]) {
     state.fork = state.doc[stateKey].size();
+    state.stateID = stNum;
+    stNum++;
     if(state.fork){
-      // fork = 1;
+      // fork >= 1;
       state.st_ptr_in = new struct State[state.fork];
       for(int i=0; i<state.fork; i++) {
         state.st_ptr_in[i].doc = state.doc[stateKey][i];
@@ -67,40 +69,51 @@ void RLS::RlsDynamics::stateScanner(struct State &state)
   }
   else if(state.doc[sequenceKey]){
     state.trigger = sequenceKey;
-    seqNum++;
+    state.stateID = stNum;
     state.sequenceID = seqNum;
+    // oss << "state: " << stNum << " & sequence: " << seqNum;
+    // state.stateState = oss.str();
+    stNum++;
+    seqNum++;
     state.fork = state.doc[sequenceKey].size();
     if(!state.fork){
-      cout << "state load error: no sequence elements!!" << endl;
-      gc;
+      cout << manip_error("state load error: no sequence elements!!") << endl;
+      exit(-1);
     }
     state.st_ptr_in = new struct State[state.fork];
     for(int i=0; i<state.fork; i++) {
       state.st_ptr_in[i].doc = state.doc[sequenceKey][i];
       stateScanner(state.st_ptr_in[i]);
     }
-    state.doc.remove(state.doc[sequenceKey]); //余計な(ry
+    state.doc.remove(state.doc[sequenceKey]); // 余計なデータは(ry
   }
   else {
     state.fork = 0;
-    state.doc.remove(state.doc);
+    state.doc.remove(state.doc); // 余(ry
   }
 }
 
 
-void RLS::RlsDynamics::statePrinter(struct State &state, int fork, int nest)
+void RLS::RlsDynamics::statePrinter(struct State &state,int fork, int nest)
 {
   int i;
+
   for(i=0; i<nest; i++)
     cout << "\t";
-  cout << "Here is state " << fork << endl;
+  if(state.stateID >= 0)
+    cout << "\033[3" << (state.stateID+1) << "m" << "Here is state " << state.stateID << "\033[m" << endl;
+  else
+    cout << "Here is element " << fork << endl;
   if(state.trigger != "none"){
     for(i=0; i<nest; i++)
       cout << "\t";
     cout << "trigger: ";
     if(state.trigger=="sequence" && state.doc["walking"])
       cout << "walking ";
-    cout << state.trigger << endl;
+    cout << state.trigger;
+    if(state.trigger=="sequence")
+      cout << " " << state.sequenceID;
+    cout << endl;
   }
   else if(state.fork){
     for(i=0; i<nest; i++)

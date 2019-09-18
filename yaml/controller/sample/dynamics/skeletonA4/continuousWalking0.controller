@@ -105,20 +105,16 @@ controller:
 
 
 
-  test: HEAD
   state:
     -
-      test: state0
       trigger: check contact
       state:
         -
-          test: state0-0
           control method:
             inverse dynamics controller: default
           Bc: *zs
           Bm: *zs
         -
-          test: state0-1
           control method:
             inverse dynamics controller: fullDynamicsController
 
@@ -126,7 +122,6 @@ controller:
           Bm: *zs
 
         -
-          test: state0-2
           control method:
             inverse dynamics controller: fullDynamicsController
           Bc: &ls
@@ -136,53 +131,43 @@ controller:
             RLEGEE: [1, 1, 1, 1, 1, 1]
             LLEGEE: [0, 0, 0, 0, 0, 0]
         -
-          test: state0-3
           control method:
             inverse dynamics controller: fullDynamicsController
           Bc: *rs
           Bm: *ls
         -
-          test: state0-4
           control method:
             inverse dynamics controller: fullDynamicsController
           Bc: *ds
           Bm: *zs
         -
-          test: state0-5
           control method:
             inverse dynamics controller: fullDynamicsController
           Bc: *ls
           Bm: *rs
         -
-          test: state0-6
           control method:
             inverse dynamics controller: fullDynamicsController
           Bc: *rs
           Bm: *ls
 
     -
-      test: state1
       trigger: continuous sequence
       state:
         -
-          test: state1-0 & seq0
 
           sequence:
             -
-              test: seq0-0
               twf: 0.2
               desired value generator:
                 DCM: {name: CPabs}
             -
-              test: seq0-1
               twf: 0.6
               rXfabs: [0., 0., 0.]
             -
-              test: seq0-2
               twf: 0.2
 
         -
-          test: state1 & seq1
           reset: true
           jump: 2
 
@@ -205,51 +190,41 @@ controller:
 
           sequence:
             -
-              test: seq1-0
               twf: *tstab
               desired value generator:
                 DCM: {name: VRPWalking}
             -
-              test: seq1-1
               twf: *tswingleg
               rf: *swingLeg0 # for vrp way point calculation
             -
-              test: seq1-1.5
               twf: *tds
             # 1 step
             -
-              test: seq1-2
               twf: *tswingleg
               Bc: *rs
               Bm: *ls
               rf: *swingLeg1
                 # LLEGEE: [*steplength1, 0., 0.]
             -
-              test: seq1-3
               twf: *tds
             # 2 step
             -
-              test: seq1-4
               twf: *tswingleg
               Bc: *ls
               Bm: *rs
               rf: *swingLeg2
             -
-              test: seq1-5
               twf: *tds
             # 3 step
             -
-              test: seq1-6
               twf: *tswingleg
               Bc: *rs
               Bm: *ls
               rf: *swingLeg3
             -
-              test: seq1-7
               twf: *tds
             # 4 step
             -
-              test: seq1-8
               twf: *tswingleg
               Bc: *ls
               Bm: *rs
@@ -257,21 +232,17 @@ controller:
               # rXfabs: [*steplength3, 0., 0.] # for vwp calc
               rf: *swingLeg4
             -
-              test: seq1-9
               twf: *tds
             -
-              test: seq1-10
               twf: 1.
               Bc: *ds
               Bm: *zs
         -
-          test: state1-2 & seq2
           reset: true
           jump: 1
 
           sequence:
             -
-              test: seq2-0
               twf: 0.5
               desired value generator:
                 DCM: {name: CP}
@@ -281,17 +252,14 @@ controller:
               rf:
                 RARMEE: [0.1, 0., 0.1]
             -
-              test: seq2-2
               twf: 0.5
               rf:
                 RARMEE: [0.1, 0.05, 0.1]
             -
-              test: seq2-3
               twf: 0.5
               rf:
                 RARMEE: [0., 0., 0.]
             -
-              test: seq2-4
               twf: 0.5
               Bm:
                 RARMEE: [0, 0, 0, 0 ,0 ,0]

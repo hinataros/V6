@@ -227,7 +227,7 @@ tex:
           file name: baseOrientErr
           time-dependent dat:
             name: eoB
-          y label: Base orient. err. [deg]
+          y label: Base orient err. [deg]
           unit: RAD2DEG
           dimention: 3
         -
@@ -268,8 +268,8 @@ tex:
           time-dependent dat:
             name: eo
           control node: 0
-          y label: EE orient. err. [rad]
-          unit: m
+          y label: EE orient err. [deg]
+          unit: RAD2DEG
           dimention: 3
         -
           file name: eeAngVelErr

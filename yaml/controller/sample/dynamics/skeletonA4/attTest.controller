@@ -1,0 +1,319 @@
+# @author Sho Miyahara 2018
+# @editor Akinori Miyata 2019
+
+angle unit: degree
+
+controller:
+  control model: skeletonA4
+  input: torque
+
+  default:
+    control method:
+      inverse dynamics controller: fullDynamicsController
+      operational space controller: decomposeEndEffectorAcceleration
+      motion controller: mixedGeneralizedMomentum
+      force controller: centroidalEcmpDistribution
+      momentum controller: centroidalVrpMomentum
+      torque controller: mixedOpt
+
+    desired value generator:
+      DCM: {name: CP}
+      # DCM: {name: VRPWalking}
+      base rotation: {name: CP}
+      control node translation:
+        RLEGEE: {name: swing, cur: true}
+        LLEGEE: {name: swing, cur: true}
+        RARMEE: {name: CP}
+        LARMEE: {name: CP}
+      control node rotation:
+        RLEGEE: {name: CP, cur: true}
+        LLEGEE: {name: CP, cur: true}
+
+    KX: 3.e+2
+    KpC: 3.e+2
+    KdC: 5.e+1
+    KpwB: 3.e+2
+    KdwB: 5.e+1
+
+    Kpv:
+      RLEGEE: 5.e+2
+      LLEGEE: 5.e+2
+      RARMEE: 5.e+2
+      LARMEE: 5.e+2
+    Kpw:
+      RLEGEE: 1.e+3
+      LLEGEE: 1.e+3
+    Kdv:
+      RLEGEE: 5.e+1
+      LLEGEE: 5.e+1
+      RARMEE: 5.e+1
+      LARMEE: 5.e+1
+    Kdw:
+      RLEGEE: 5.e+1
+      LLEGEE: 5.e+1
+
+    kDth: &kDthH 1.e+2
+    kthHinit: &kthHinit 1.e+2
+
+    KDth:
+      [0.,0.,0.,0.,0.,0., 0.,0.,0.,0.,0.,0.,
+      *kDthH, *kDthH, *kDthH, *kDthH,
+      *kDthH, *kDthH, *kDthH, *kDthH]
+    Kthinit:
+      [0.,0.,0.,0.,0.,0., 0.,0.,0.,0.,0.,0.,
+      *kthHinit, *kthHinit, *kthHinit, *kthHinit,
+      *kthHinit, *kthHinit, *kthHinit, *kthHinit]
+
+    Bc: &ds
+      RLEGEE: [1, 1, 1, 1, 1, 1]
+      LLEGEE: [1, 1, 1, 1, 1, 1]
+    Bm: &zs
+      RLEGEE: [0, 0, 0, 0, 0, 0]
+      LLEGEE: [0, 0, 0, 0, 0, 0]
+
+
+    # for walking
+    height: &height 0.02
+    rApex:
+      RLEGEE: *height
+      LLEGEE: *height
+
+    swing leg:
+      rf: &swingLeg0
+        RLEGEE: [0., 0., 0.]
+      rf: &swingLeg1
+        LLEGEE: [ 0.027577, -0.011423, 0.]
+      rf: &swingLeg2
+        RLEGEE: [-0.027577,  0.011423, 0.]
+      rf: &swingLeg3
+        LLEGEE: [ 0.039000, -0.039000, 0.]
+      rf: &swingLeg4
+        RLEGEE: [-0.039000,  0.039000, 0.]
+    attitude leg:
+      xif: &attLeg0
+        RLEGEE: [0., 0., 0.]
+      xif: &attLeg1
+        LLEGEE: [-45., 0., 0.]
+      xif: &attLeg2
+        RLEGEE: [-45., 0., 0.]
+      xif: &attLeg3
+        LLEGEE: [-90., 0., 0.]
+      xif: &attLeg4
+        RLEGEE: [-90., 0., 0.]
+
+  state:
+    -
+      trigger: check contact
+      state:
+        -
+          control method:
+            inverse dynamics controller: default
+          Bc: *zs
+          Bm: *zs
+        -
+          control method:
+            inverse dynamics controller: fullDynamicsController
+
+          Bc: *ds
+          Bm: *zs
+
+        -
+          control method:
+            inverse dynamics controller: fullDynamicsController
+          Bc: &ls
+            RLEGEE: [0, 0, 0, 0, 0, 0]
+            LLEGEE: [1, 1, 1, 1, 1, 1]
+          Bm: &rs
+            RLEGEE: [1, 1, 1, 1, 1, 1]
+            LLEGEE: [0, 0, 0, 0, 0, 0]
+        -
+          control method:
+            inverse dynamics controller: fullDynamicsController
+          Bc: *rs
+          Bm: *ls
+        -
+          control method:
+            inverse dynamics controller: fullDynamicsController
+          Bc: *ds
+          Bm: *zs
+        -
+          control method:
+            inverse dynamics controller: fullDynamicsController
+          Bc: *ls
+          Bm: *rs
+        -
+          control method:
+            inverse dynamics controller: fullDynamicsController
+          Bc: *rs
+          Bm: *ls
+
+    -
+      trigger: continuous sequence
+      state:
+        - #0
+          reset: true
+          jump: 1
+
+          sequence:
+            -
+              twf: 1.
+              desired value generator:
+                DCM: {name: CP}
+                control node translation:
+                  RLEGEE: {name: CP, cur: true}
+                  LLEGEE: {name: CP, cur: true}
+            -
+              twf: 1.
+              rXf: [0., 0.035, 0.]
+            # -
+            #   twf: 1.
+            -
+              twf: 1.
+              Bm:
+                RLEGEE: [1, 1, 1, 1, 1 ,1]
+              Bc:
+                RLEGEE: [0, 0, 0, 0, 0 ,0]
+              rf:
+                RLEGEE: [0., 0., 0.05]
+            -
+              twf: 1.
+              xif:
+                RLEGEE: [0., -45., 0.]
+            -
+              twf: 1.
+              xif:
+                RLEGEE: [0., 0., 45.]
+            -
+              twf: 1.
+              xif:
+                RLEGEE: [0., 0., 0.]
+            -
+              twf: 2.
+            -
+              twf: 1.
+              rf:
+                RLEGEE: [0., 0., 0.]
+            -
+              twf: 1.
+              Bm:
+                RLEGEE: [0, 0, 0, 0, 0 ,0]
+              Bc:
+                RLEGEE: [1, 1, 1, 1, 1 ,1]
+              rXf: [0., 0., 0.]
+            -
+              twf: 1.
+
+
+        - #1
+          reset: true
+          jump: 0
+
+          state:
+            -
+              walking:
+                ipDim: 3
+                # time optimization: true
+
+                dtstep: &tss 0.5
+                dtDSstep: &tds 0.2
+
+                twf: &tswingleg 0.3 # tss - tds
+
+                alphaDSstep: 0.5
+                alphaHTstep: 0.5
+                offset: 0.005 # first step: right -> +
+                toe: 0.
+                heel: 0.
+
+                tstab: &tstab 1.
+
+              sequence:
+                -
+                  twf: *tstab
+                  desired value generator:
+                    DCM: {name: VRPWalking}
+                    control node translation:
+                      RLEGEE: {name: swing, cur: true}
+                      LLEGEE: {name: swing, cur: true}
+                -
+                  twf: *tswingleg
+                  rf: *swingLeg0 # for vrp way point calculation
+                  xif: *attLeg0
+                -
+                  twf: *tds
+
+                # 1 step
+                -
+                  twf: *tswingleg
+                  Bc: *rs
+                  Bm: *ls
+                  rf: *swingLeg1
+                  xif: *attLeg1
+                -
+                  twf: *tds
+                # 2 step
+                -
+                  twf: *tswingleg
+                  Bc: *ls
+                  Bm: *rs
+                  rf: *swingLeg2
+                  xif: *attLeg2
+                -
+                  twf: *tds
+                # 3 step
+                -
+                  twf: *tswingleg
+                  Bc: *rs
+                  Bm: *ls
+                  rf: *swingLeg3
+                  xif: *attLeg3
+                -
+                  twf: *tds
+                # 4 step
+                -
+                  twf: *tswingleg
+                  Bc: *ls
+                  Bm: *rs
+                  rXfabs: [0., 0., 0.] # for vwp calc
+                  rf: *swingLeg4
+                  xif: *attLeg4
+                -
+                  twf: *tds
+                -
+                  twf: 1.
+                  Bc: *ds
+                  Bm: *zs
+                  control method:
+                    motion controller: mixedGeneralizedMomentum
+                    momentum controller: centroidalVrpMomentum
+
+            -
+              sequence:
+                -
+                  twf: *tstab
+                -
+                  twf: *tss
+                  xiBf: [0., 0., 0.]
+
+                # 1 step
+                -
+                  twf: *tss
+                  xiBf: [-22.5, 0., 0.]
+
+                # 2 step
+                -
+                  twf: *tss
+                  xiBf: [-45., 0., 0.]
+
+                # 3 step
+                -
+                  twf: *tss
+                  xiBf: [-67.5, 0., 0.]
+
+                # 4 step
+                -
+                  twf: *tss
+                  xiBf: [-90., 0., 0.]
+
+                -
+                  twf: 1.

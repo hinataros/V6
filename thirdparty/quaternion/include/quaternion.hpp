@@ -33,6 +33,7 @@ namespace RLS{
     static Eigen::Vector3d ddq2dw(const Quaternion4d&, const Quaternion4d&, const Quaternion4d&);
 
     Eigen::Matrix3d rotationMatrix();
+    Quaternion4d inverse();
   };
 }
 

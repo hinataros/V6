@@ -11,10 +11,14 @@ void RLS::ControllerTreeModel::contactCoordinate()
   if(debug) DEBUG;
 
   for(int i=0; i<info->controlNodeNum; i++){
+    // bb_Rk.block(6*i,6*i,3,3) =
+    //   bb_Rk.block(6*i+3,6*i+3,3,3) = Matrix3d::Identity();
     bb_Rk.block(6*i,6*i,3,3) =
-      bb_Rk.block(6*i+3,6*i+3,3,3) = Matrix3d::Identity();
+      bb_Rk.block(6*i+3,6*i+3,3,3) = model->all.Rk.block(6*i,6*i, 3,3);
 
+    // bb_dRk.block(6*i,6*i,3,3) =
+    //   bb_dRk.block(6*i+3,6*i+3,3,3) = Matrix3d::Zero();
     bb_dRk.block(6*i,6*i,3,3) =
-      bb_dRk.block(6*i+3,6*i+3,3,3) = Matrix3d::Zero();
+      bb_dRk.block(6*i+3,6*i+3,3,3) = model->all.dRk.block(6*i,6*i, 3,3);
   }
 }

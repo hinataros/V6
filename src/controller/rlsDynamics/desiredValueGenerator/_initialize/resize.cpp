@@ -65,11 +65,10 @@ void RLS::DesiredValueGenerator::resize()
   rXpreDesabs = Vector3d::Zero();
   cal_FextpreDes = Vector6d::Zero();
   // amiyata
-  rBfinCur = Vector3d::Zero();
-  qBfinCur = Quaternion4d::Zero();
-  rCfinCur = Vector3d::Zero();
-  rXfinCur = Vector3d::Zero();
-  rXfinCurabs = Vector3d::Zero();
+  rBfinCur = false;
+  qBfinCur = false;
+  rCfinCur = false;
+  rXfinCur = false;
   // cal_FextfinCur = Vector6d::Zero();
 
   rBf = Vector3d::Zero();
@@ -87,12 +86,10 @@ void RLS::DesiredValueGenerator::resize()
   fpreDes = new Vector3d[info->controlNodeNum];
   npreDes = new Vector3d[info->controlNodeNum];
   // amiyata
-  rfinCur = new Vector3d[info->controlNodeNum];
-  rfinCurabs = new Vector3d[info->controlNodeNum];
-  qfinCur = new Quaternion4d[info->controlNodeNum];
-  qfinCurabs = new Quaternion4d[info->controlNodeNum];
-  ffinCur = new Vector3d[info->controlNodeNum];
-  nfinCur = new Vector3d[info->controlNodeNum];
+  rfinCur = new bool[info->controlNodeNum];
+  qfinCur = new bool[info->controlNodeNum];
+  ffinCur = new bool[info->controlNodeNum];
+  nfinCur = new bool[info->controlNodeNum];
 
   rf = new Vector3d[info->controlNodeNum];
   rfabs = new Vector3d[info->controlNodeNum];
@@ -114,12 +111,10 @@ void RLS::DesiredValueGenerator::resize()
     fpreDes[i] = Vector3d::Zero();
     npreDes[i] = Vector3d::Zero();
     // amiyata
-    rfinCur[i] = Vector3d::Zero();
-    rfinCurabs[i] = Vector3d::Zero();
-    qfinCur[i] = Quaternion4d::Zero();
-    qfinCurabs[i] = Quaternion4d::Zero();
-    ffinCur[i] = Vector3d::Zero();
-    nfinCur[i] = Vector3d::Zero();
+    rfinCur[i] = false;
+    qfinCur[i] = false;
+    ffinCur[i] = false;
+    nfinCur[i] = false;
 
     rf[i] = Vector3d::Zero();
     rfabs[i] = Vector3d::Zero();

@@ -4,6 +4,10 @@
 
 #include "quaternion.hpp"
 
+#include <iostream>
+
+#define o(x) std::cout << #x << ":" << std::endl << x << std::endl
+
 RLS::Quaternion4d RLS::Quaternion4d::operator=(RLS::Quaternion4d q)
 {
   w = q.w;
@@ -33,7 +37,8 @@ RLS::Quaternion4d RLS::Quaternion4d::operator*(RLS::Quaternion4d q)
   Quaternion4d re = Zero();
 
   re.w = w*q.w - v.dot(q.v);
-  re.v = w*q.v + q.w*v - v.cross(q.v);
+  re.v = w*q.v + q.w*v + v.cross(q.v);
+  // re.v = w*q.v + q.w*v - v.cross(q.v);
 
   return re;
 }
@@ -47,14 +52,7 @@ RLS::Quaternion4d RLS::Quaternion4d::operator*=(RLS::Quaternion4d q)
 
 RLS::Quaternion4d RLS::Quaternion4d::operator/(RLS::Quaternion4d q)
 {
-  Quaternion4d re = Zero();
-
-  re.w = q.w;
-  re.v = -q.v; //共役
-
-  *this *= re;
-
-  return *this;
+  return *this * q.inverse();
 }
 
 RLS::Quaternion4d RLS::Quaternion4d::operator/=(RLS::Quaternion4d q)

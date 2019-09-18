@@ -9,6 +9,7 @@ set(srcs
   R2q.cpp
   dq2w.cpp
   ddq2dw.cpp
+  inverse.cpp
   sign.cpp
   )
 

@@ -14,9 +14,14 @@ void RLS::DesiredValueGenerator::readController()
 
   yamlInfo->checkValue<string>(baseTranslationName, desiredValueGeneratorKeyName, "base translation", "name");
   yamlInfo->checkValue<string>(baseRotationName, desiredValueGeneratorKeyName, "base rotation", "name");
+  yamlInfo->checkValue<bool>(rBfinCur, desiredValueGeneratorKeyName, "base translation", "cur");
+  yamlInfo->checkValue<bool>(qBfinCur, desiredValueGeneratorKeyName, "base rotation", "cur");
+
 
   yamlInfo->checkValue<string>(comName, desiredValueGeneratorKeyName, "CoM", "name");
   yamlInfo->checkValue<string>(dcmName, desiredValueGeneratorKeyName, "DCM", "name");
+  yamlInfo->checkValue<bool>(rCfinCur, desiredValueGeneratorKeyName, "CoM", "cur");
+  yamlInfo->checkValue<bool>(rXfinCur, desiredValueGeneratorKeyName, "DCM", "cur");
 
   yamlInfo->checkValue<string>(externalWrenchName, desiredValueGeneratorKeyName, "external wrench", "name");
 
@@ -25,9 +30,13 @@ void RLS::DesiredValueGenerator::readController()
 
     yamlInfo->checkValue<string>(controlNodeTranslationName[i], desiredValueGeneratorKeyName, "control node translation", name, "name");
     yamlInfo->checkValue<string>(controlNodeRotationName[i], desiredValueGeneratorKeyName, "control node rotation", name, "name");
+    yamlInfo->checkValue<bool>(rfinCur[i], desiredValueGeneratorKeyName, "control node translation", name, "cur");
+    yamlInfo->checkValue<bool>(qfinCur[i], desiredValueGeneratorKeyName, "control node rotation", name, "cur");
 
     yamlInfo->checkValue<string>(controlNodeForceName[i], desiredValueGeneratorKeyName, "control node force", name, "name");
     yamlInfo->checkValue<string>(controlNodeMomentName[i], desiredValueGeneratorKeyName, "control node moment", name, "name");
+    yamlInfo->checkValue<bool>(ffinCur[i], desiredValueGeneratorKeyName, "control node force", name, "cur");
+    yamlInfo->checkValue<bool>(nfinCur[i], desiredValueGeneratorKeyName, "control node moment", name, "cur");
   }
 
   if(yamlInfo->sequence >= 0) { // amiyata

@@ -15,7 +15,7 @@ void RLS::DesiredValueGenerator::dcmCPabs(const double &t)
 
   Vector3d des = Vector3d::Zero();
   for(int i=0; i<3; i++){
-    des = makeSpline5(t-t0, tf, rXfinCurabs(i), rXfabs(i));
+    des = makeSpline5(t-t0, tf, rXpreDesabs(i), rXfabs(i));
 
     rXDes(i) = des(0);
     drXDes(i) = des(1);

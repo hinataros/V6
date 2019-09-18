@@ -18,11 +18,14 @@ void RLS::RlsDynamics::initialize(const int &controllerID, const string &path_ya
   yamlInfo.initialize(path_yaml_controller, controllerID);
 
   topState.doc = yamlInfo.docDist();
-  seqNum = -1;
+  seqNum = 0;
+  stNum = 0;
   stateScanner(topState);
-  // statePrinter(topState); // amiyata
-  // gc;
-  yamlInfo.sequenceNum = seqNum+1;
+  if(monitor){
+    statePrinter(topState); // amiyata
+    // gc;
+  }
+  yamlInfo.sequenceNum = seqNum;
 
   readControllerHeader();
   setModelInfo(model.info);

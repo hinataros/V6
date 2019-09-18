@@ -41,8 +41,11 @@ namespace RLS{
       string trigger; // trigger config sellect
       YAML::Node doc; // load whole of phase yaml
       int condition; // current state num
+      int stateID; // state identifier
       int sequenceID; // sequence identifier for sequence trigger
+      bool finishSeq; // finishing flag for continuous sequence
       bool ext; // nursing for ext
+      // string stateState; // checking for state of state(lul)
     } topState;
 
     struct Sequence{
@@ -52,6 +55,7 @@ namespace RLS{
     } *sequence;
 
     int seqNum;
+    int stNum;
 
     void initializeExt();
     void setModelInfo(Info&);

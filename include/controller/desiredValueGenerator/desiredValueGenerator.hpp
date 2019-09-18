@@ -106,18 +106,26 @@ namespace RLS{
     Vector3d rXpreDes;
     Vector3d rXpreDesabs;
 
-    // amiyata 前回の最終値
-    Vector3d rBfinCur;
-    Quaternion4d qBfinCur;
-    Vector3d *rfinCur;
-    Vector3d *rfinCurabs;
-    Quaternion4d *qfinCur;
-    Quaternion4d *qfinCurabs;
-    Vector3d *ffinCur;
-    Vector3d *nfinCur;
-    Vector3d rCfinCur;
-    Vector3d rXfinCur;
-    Vector3d rXfinCurabs;
+    // amiyata 前回の最終値設定
+    // Vector3d rBfinCur;
+    // Quaternion4d qBfinCur;
+    // Vector3d *rfinCur;
+    // Vector3d *rfinCurabs;
+    // Quaternion4d *qfinCur;
+    // Quaternion4d *qfinCurabs;
+    // Vector3d *ffinCur;
+    // Vector3d *nfinCur;
+    // Vector3d rCfinCur;
+    // Vector3d rXfinCur;
+    // Vector3d rXfinCurabs;
+    bool rBfinCur;
+    bool qBfinCur;
+    bool *rfinCur;
+    bool *qfinCur;
+    bool *ffinCur;
+    bool *nfinCur;
+    bool rCfinCur;
+    bool rXfinCur;
 
     Vector3d rBf;
     Vector3d xiBf;
@@ -161,7 +169,6 @@ namespace RLS{
     void controlNodeRotationDefault(const int&, const double&);
     void controlNodeRotationCP(const int&, const double&);
     void controlNodeRotationCPabs(const int&, const double&);
-    void controlNodeRotationCurCP(const int&, const double&); // amiyata
 
     // control node force
     void controlNodeForceDefault(const int&, const double&);

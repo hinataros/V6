@@ -5,6 +5,7 @@
 #include "config.hpp"
 
 bool debug = false;
+bool monitor = false; // amiyata
 
 RLS::Config::Config()
 {

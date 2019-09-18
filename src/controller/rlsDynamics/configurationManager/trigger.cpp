@@ -20,8 +20,12 @@ bool RLS::RlsDynamics::stateTrigger(const double &t, struct State &state)
   string sequenceKey = "sequence";
   yamlInfo.key = "state";
 
+  // cout << "triggering: " << state.stateID << endl;
 
   if(state.trigger != noKey) {
+    if(state.condition >=0 && state.st_ptr_in[state.condition].fork) // trigger nest elements first
+      reset_flag = (stateTrigger(t, state.st_ptr_in[state.condition]) || reset_flag);
+
     if(state.ext)
       tempCondition = (ext->*ext_stateTrigger_map[state.trigger])(this, t);
     else{
@@ -29,15 +33,25 @@ bool RLS::RlsDynamics::stateTrigger(const double &t, struct State &state)
     }
 
     if(state.condition != tempCondition){
-      if(state.doc["test"]){
-        cout << "loading: " << state.doc["test"].as<string>() << endl;
+      if(monitor){ // state monitoring
+        cout << "\033[3" << (state.stateID+1) << "m " << "Switching to: " << tempCondition << "\t on: ";
+        cout << "state: " << state.stateID;
+        if(state.sequenceID >= 0){
+          cout << " & sequence: " << state.sequenceID;
+        }
+        cout << "\033[m" << endl;
         // gc;
       }
-      if(state.trigger == sequenceKey && tempCondition >= state.fork)
-        tempCondition = state.fork-1; // 最後のsequenceを繰り返し
+      if(tempCondition >= state.fork){
+        tempCondition = state.fork-1; // sequence系のエラー対策 最後のstateを繰り返し
+        state.finishSeq = true;
+      }
 
       // state reset
       if(state.doc[stateKey][tempCondition]["reset"]){ // 0位置の更新
+        if(monitor){ // state monitoring
+          cout << "\t\033[31m" << "coordinate resetted!" << "\033[m" << endl;
+        }
         controllerModel.originReset(rkk);
         des.setInitialBoundary();
         des.updatePres();
@@ -46,8 +60,10 @@ bool RLS::RlsDynamics::stateTrigger(const double &t, struct State &state)
         }
       }
 
-      for(int i=0; i<state.fork; i++)
+      for(int i=0; i<state.fork; i++){
         state.st_ptr_in[i].condition = -1;
+        state.st_ptr_in[i].finishSeq = false;
+      }
       if(state.st_ptr_in[tempCondition].fork){
         stateTrigger(t, state.st_ptr_in[tempCondition]);
       }
@@ -77,16 +93,11 @@ bool RLS::RlsDynamics::stateTrigger(const double &t, struct State &state)
 
       state.condition = tempCondition;
     }
-    else {
-      if(state.st_ptr_in[tempCondition].fork){
-        reset_flag = (stateTrigger(t, state.st_ptr_in[tempCondition]) || reset_flag);
-      }
-    }
   }
   else if(state.fork){
     for(int i=0; i<state.fork; i++){
-      bool rsftemp = stateTrigger(t, state.st_ptr_in[i]);
-      reset_flag = (reset_flag || rsftemp);
+      reset_flag = (stateTrigger(t, state.st_ptr_in[i]) || reset_flag);
+      state.finishSeq = (state.st_ptr_in[i].finishSeq || state.finishSeq);
     }
   }
 
