@@ -85,8 +85,8 @@ namespace RLS{
 
     Vector6d cal_Fextfb;
 
-    VectorXd th; //amiyata
-    VectorXd dth; //amiyata
+    VectorXd th; // amiyata
+    VectorXd dth; // amiyata
     VectorXd tau;
 
     Vector4d quatB;
@@ -100,7 +100,7 @@ namespace RLS{
     Vector3d lTh;
     Vector3d p;
     Vector3d lC;
-    Vector3d wC, wth, wthF; //amiyata
+    Vector3d wC, wth, wthF; // amiyata
     Vector3d dlCRBRef;
     Vector3d dlThRef;
 
@@ -115,7 +115,7 @@ namespace RLS{
 
     Vector3d rX;
 
-    Vector3d lThH; //amiyata
+    Vector3d lThH; // amiyata
     Vector3d lThF;
 
     // gif

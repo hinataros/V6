@@ -19,7 +19,7 @@ void RLS::DesiredValueGenerator::initializeWalking()
   // walking.setComPosition(model->rC0);
   // walking.setNaturalFrequency(model->wX);
   //
-  // walking.setWayPoint(); //amiyata
+  // walking.setWayPoint(); // amiyata
   // walking.createHTTrajectory();
   // walking.createVRPTrajectory(); // amiyata
 }
@@ -40,7 +40,7 @@ void RLS::DesiredValueGenerator::resetWalking(const double &t)
 
   walking.initialize();
 
-  walking.setWayPoint(); //amiyata
+  walking.setWayPoint(); // amiyata
   walking.createHTTrajectory();
   if(walking.ToptimF)
     walking.createVRPTrajTopt(); // amiyata

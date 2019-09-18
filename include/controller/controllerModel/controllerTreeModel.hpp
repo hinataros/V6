@@ -58,7 +58,7 @@ namespace RLS{
     Vector3d vB;
     Vector3d wB;
 
-    Vector3d wC; //amiyata
+    Vector3d wC; // amiyata
 
     Vector3d rC;
     Vector3d vC;
@@ -123,14 +123,14 @@ namespace RLS{
     MatrixXd cal_AM;
     MatrixXd MthC;
 
-    MatrixXd Jw; //amiyata
+    MatrixXd Jw; // amiyata
 
     // diff inertia
     MatrixXd cal_dAM;
     Matrix3d dIC;
     MatrixXd dHC;
 
-    MatrixXd dJw; //amiyata
+    MatrixXd dJw; // amiyata
 
     // nonlinear
     Vector3d cmm;
@@ -170,7 +170,7 @@ namespace RLS{
     void initialize(const WorldModel&, const TreeModelInfo&, TreeModel&);
     void finalize();
     void update();
-    void update(VectorXd&); //amiyata rkk
+    void update(VectorXd&); // amiyata rkk
     void setInitialValue(); // amiyata for sequence reset
 
   };

@@ -142,7 +142,7 @@ void RLS::DesiredValueGenerator::resize()
   controlNodeForceName = new string[info->controlNodeNum];
   controlNodeMomentName = new string[info->controlNodeNum];
 
-  //amiyata
+  // amiyata
   baseTranslationSpec = false;
   baseRotationSpec = false;
   comSpec = false;

@@ -216,8 +216,7 @@ namespace RLS{
     // void footPrint(GpMaker&, TexMaker&);
     // // ********************************************
 
-    map<string, void (RLS::Output::*)(GpMaker&, TexMaker&)>
-    map_use_function;
+    map<string, void (RLS::Output::*)(GpMaker&, TexMaker&)> map_use_function;
 
     // // gif
     // void indexPrint(const Config&, const TreeModel::Info&, GpMaker&, TexMaker&);
@@ -243,7 +242,6 @@ namespace RLS{
     TreeModelList *treeModelList_temp;
     RlsDynamicsList *rlsDynamicsList_temp;
     RlsDynamicsExtractor extractor; // amiyata
-    // vector<Vector3d> footPrintList_op; //amiyata
     ExtList extList_temp;
 
     void initialize(const string&, const string&, Info&, const int&, const WorldModel &worldModel);

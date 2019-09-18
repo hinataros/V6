@@ -50,14 +50,6 @@ void RLS::Output::stabilityIndex4walkingDes(GpMaker &gpMaker, TexMaker &texMaker
   gpMaker.add("set xrange[-0.1:0.4]");
   gpMaker.add("set yrange[-0.1:0.1]");
 
-  double foot_size_x[2] = {-0.040, 0.058};
-  double foot_size_y[2] = {0.0315, -0.0315};
-
-  // draw foot print
-  for(int i=0; i<stepNum; i++){
-    if(nanCheck(extractor.footPrintList[i]))
-      gpMaker.add("set object "+to_string(i+1)+" rect from "+to_string(extractor.footPrintList[i](0)+foot_size_x[0])+", "+to_string(extractor.footPrintList[i](1)+foot_size_y[0])+" to "+to_string(extractor.footPrintList[i](0)+foot_size_x[1])+", "+to_string(extractor.footPrintList[i](1)+foot_size_y[1])+" fs empty border rgb 'black'");
-  }
 
   gpMaker.setDimention(4);
   gpMaker.makeGp();

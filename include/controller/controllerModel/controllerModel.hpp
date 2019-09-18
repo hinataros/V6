@@ -19,7 +19,7 @@ namespace RLS{
     void finalize();
 
     void update();
-    void update(VectorXd&); //amiyata rkk
+    void update(VectorXd&); // amiyata rkk
 
     void originReset(VectorXd &offset); // amiyata
 

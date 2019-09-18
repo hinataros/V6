@@ -58,15 +58,15 @@ void RLS::RlsDynamics::setControllerMap()
   motionController_map["baseGeneralizedMomentum"] = &RLS::RlsDynamics::baseGeneralizedMomentum;
   motionController_map["mixedGeneralizedMomentum"] = &RLS::RlsDynamics::mixedGeneralizedMomentum;
   motionController_map["mBADM"] = &RLS::RlsDynamics::mixedBaseAngularDecomposedMomentum;
-  motionController_map["mBADistM"] = &RLS::RlsDynamics::mixedBaseAngularDistributedMomentum; //amiyata
-  motionController_map["mGDAM"] = &RLS::RlsDynamics::mixedGeneralizedDeltaAngularMomentum; //amiyata
-  motionController_map["mGDwA"] = &RLS::RlsDynamics::mixedGeneralizedDeltaOmegaAcceleration; //amiyata
+  motionController_map["mBADistM"] = &RLS::RlsDynamics::mixedBaseAngularDistributedMomentum; // amiyata
+  motionController_map["mGDAM"] = &RLS::RlsDynamics::mixedGeneralizedDeltaAngularMomentum; // amiyata
+  motionController_map["mGDwA"] = &RLS::RlsDynamics::mixedGeneralizedDeltaOmegaAcceleration; // amiyata
   motionController_map["accelerationSolver"] = &RLS::RlsDynamics::accelerationSolver;
   motionController_map["rcamd"] = &RLS::RlsDynamics::rcamd;
-  motionController_map["mRAA"] = &RLS::RlsDynamics::mixedRelativeAngularJointAcceleration; //amiyata
-  motionController_map["mASS"] = &RLS::RlsDynamics::mixedAccelerationSynergyStacked; //amiyata
-  motionController_map["RNS_Macc"] = &RLS::RlsDynamics::RNS_Macc; //amiyata
-  motionController_map["mixedGeneralizedMomentumStacked"] = &RLS::RlsDynamics::mixedGeneralizedMomentumStacked; //amiyata
+  motionController_map["mRAA"] = &RLS::RlsDynamics::mixedRelativeAngularJointAcceleration; // amiyata
+  motionController_map["mASS"] = &RLS::RlsDynamics::mixedAccelerationSynergyStacked; // amiyata
+  motionController_map["RNS_Macc"] = &RLS::RlsDynamics::RNS_Macc; // amiyata
+  motionController_map["mixedGeneralizedMomentumStacked"] = &RLS::RlsDynamics::mixedGeneralizedMomentumStacked; // amiyata
 
   // internal force controller
   // ****************************************************************

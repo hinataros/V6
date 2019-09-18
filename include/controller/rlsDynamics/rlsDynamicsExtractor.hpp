@@ -1,16 +1,22 @@
-/**
-   @author Sho Miyahara 2017
-*/
 
 #ifndef RLSDYNAMICS_EXTRACTOR_HPP_
 #define RLSDYNAMICS_EXTRACTOR_HPP_
 
+
 namespace RLS{
+  struct FootPrint{
+    Vector3d pos;
+    Matrix3d att;
+    short ee;
+  };
+
   class RlsDynamicsExtractor{
   public:
     bool readFlag;
 
-    vector<Vector3d> footPrintList;
+    vector<struct FootPrint> footPrintList;
+
+    vector<Vector2d> *soleConvex;
 
     // amiyata for eqtex
     struct Controllers{

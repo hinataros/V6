@@ -19,7 +19,7 @@
 #include "desiredValueGenerator.hpp"
 #include "feedbackController.hpp"
 #include "rlsDynamicsList.hpp"
-#include "rlsDynamicsExtractor.hpp" //amiyata
+#include "rlsDynamicsExtractor.hpp" // amiyata
 #include "_extList.hpp"
 
 namespace RLS{
@@ -156,14 +156,14 @@ namespace RLS{
     VectorXd mixedGeneralizedMomentum();
     VectorXd mixedGeneralizedMomentumStacked();
     VectorXd mixedBaseAngularDecomposedMomentum();
-    VectorXd mixedBaseAngularDistributedMomentum(); //amiyata
-    VectorXd mixedGeneralizedDeltaAngularMomentum(); //amiyata
-    VectorXd mixedGeneralizedDeltaOmegaAcceleration(); //amiyata
+    VectorXd mixedBaseAngularDistributedMomentum(); // amiyata
+    VectorXd mixedGeneralizedDeltaAngularMomentum(); // amiyata
+    VectorXd mixedGeneralizedDeltaOmegaAcceleration(); // amiyata
     VectorXd accelerationSolver();
     VectorXd rcamd();
-    VectorXd mixedRelativeAngularJointAcceleration(); //amiyata
-    VectorXd mixedAccelerationSynergyStacked(); //amiyata
-    VectorXd RNS_Macc(); //amiyata
+    VectorXd mixedRelativeAngularJointAcceleration(); // amiyata
+    VectorXd mixedAccelerationSynergyStacked(); // amiyata
+    VectorXd RNS_Macc(); // amiyata
 
     // velocity dumper
     VectorXd ddthD();
@@ -265,7 +265,7 @@ namespace RLS{
     // umekage convex solver
     MatrixXd compute_BWC_span(MatrixXd&);
 
-    bool *contactFlag; //amiyata footprintを足接触切替時に保存したいので保存
+    bool *contactFlag; // amiyata footprintを足接触切替時に保存したいので保存
 
     Vector2d distOffset; // amiyata 分配用 足首からのオフセット
 
@@ -354,8 +354,8 @@ namespace RLS{
     Matrix3d KDwC;
     MatrixXd KDth;
     MatrixXd Kthinit;
-    MatrixXd KDdthH; //amiyata
-    MatrixXd KDlCH; //amiyata
+    MatrixXd KDdthH; // amiyata
+    MatrixXd KDlCH; // amiyata
 
     // amiyata  contrrol basis matrix
     MatrixXi BwB_Diag;
@@ -426,7 +426,6 @@ namespace RLS{
     RlsDynamicsList outputList;
 
     RlsDynamicsExtractor extractor; // amiyata
-    // vector<Vector3d> footPrintList; //amiyata
 
     RlsDynamics(){}
     // RlsDynamics(const int controllerID, const string &path_yaml_controller, Info &info){

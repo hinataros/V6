@@ -16,7 +16,5 @@ void RLS::Output::initializeData()
   treeModelList_temp = new TreeModelList[info->treeModelNum];
   rlsDynamicsList_temp = new RlsDynamicsList[controllerNum];
 
-  // footPrintList_op.clear();
-  // footPrintList_op.shrink_to_fit();
   extractor.resize();
 }

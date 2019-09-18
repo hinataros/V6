@@ -34,6 +34,15 @@ void RLS::RlsDynamics::initialize(const int &controllerID, const string &path_ya
   this->worldModel = controllerModel.worldModel;
   this->model = &controllerModel.treeModel[this->info.controlModelID];
 
+  // amiyata 足の形保存 やり方もやる場所も微妙
+  extractor.soleConvex = new vector<Vector2d>[info.model.controlNodeNum];
+  for(int i=0; i<info.model.controlNodeNum; i++){
+    if(this->model->model->link[info.model.controlNode[i].num].eeSize.rows()){
+      for(int j=0; j<this->model->model->link[info.model.controlNode[i].num].eeSize.rows(); j++)
+        extractor.soleConvex[i].push_back(this->model->model->link[info.model.controlNode[i].num].eeSize.row(j));
+    }
+  }
+
   constraintModel.initialize(this->info.model, *this->model);
   setConstraintInfo(constraintModel.info.constraint);
 

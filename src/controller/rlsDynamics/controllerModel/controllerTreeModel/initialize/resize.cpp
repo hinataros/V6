@@ -35,7 +35,7 @@ void RLS::ControllerTreeModel::resize()
   vB = Vector3d::Zero();
   wB = Vector3d::Zero();
 
-  wC = Vector3d::Zero(); //amiyata
+  wC = Vector3d::Zero(); // amiyata
 
   rC = Vector3d::Zero();
   vC = Vector3d::Zero();
@@ -113,14 +113,14 @@ void RLS::ControllerTreeModel::resize()
   cal_AM = MatrixXd::Zero(6, info->dof.all);
   MthC = MatrixXd::Zero(info->dof.joint, info->dof.joint);
 
-  Jw = MatrixXd::Zero(3, info->dof.joint); //amiyata
+  Jw = MatrixXd::Zero(3, info->dof.joint); // amiyata
 
   // diff inertia
   cal_dAM = MatrixXd::Zero(6, info->dof.all);
   dIC = Matrix3d::Zero();
   dHC = MatrixXd::Zero(3, info->dof.joint);
 
-  dJw = MatrixXd::Zero(3, info->dof.joint); //amiyata
+  dJw = MatrixXd::Zero(3, info->dof.joint); // amiyata
 
   // nonlinear
   cmm = Vector3d::Zero();

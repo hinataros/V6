@@ -10,12 +10,16 @@ int RLS::RlsDynamics::checkContact(const double &t, const struct State &state)
 {
   if(debug) DEBUG;
 
-  // bool contactFlag[info.model.controlNodeNum]; //amiyata staticへ
+  // bool contactFlag[info.model.controlNodeNum]; // amiyata staticへ
 
   for(int i=0; i<info.model.controlNodeNum; i++){
     if(model->cal_F(6*i+2)!=0.) {
       if(contactFlag[i]==false && i < 2){
-        extractor.footPrintList.push_back(model->r[i]);
+        struct FootPrint tempFP = {model->r[i], model->R[i], (short)i};
+        // FootPrint.pos = model->r[i];
+        // FootPrint.att = model->R[i];
+        // FootPrint.ee = (short)i;
+        extractor.footPrintList.push_back(tempFP);
       }
       contactFlag[i] = true;
     } else

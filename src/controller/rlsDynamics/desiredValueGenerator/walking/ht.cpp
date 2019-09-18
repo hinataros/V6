@@ -96,7 +96,7 @@ void RLS::Walking::ht(const double &t)
         if(round_cast(twDS, 3) == round_cast(tphasef, 3)){
           support = 1;
           tDS0 = twalk;
-          // if(stepPhase<(dtHT.rows()-1))  //amiyata
+          // if(stepPhase<(dtHT.rows()-1))  // amiyata
           stepPhase++;
 
         }
