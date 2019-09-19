@@ -4,15 +4,6 @@
 #include "model.hpp"
 #include "rlsDynamics.hpp"
 
-// struct State{
-//   struct State *st_ptr_in; // recursive state
-//   int fork; // state nums
-//   // string mode; // state or sequence
-//   string trigger; // trigger config sellect
-//   YAML::Node doc; // load whole of phase yaml
-//   int condition; // current state num
-//   int sequenceID; // sequence identifier for sequence trigger
-// } topState;
 
 void RLS::RlsDynamics::stateScanner(struct State &state)
 {
@@ -21,7 +12,7 @@ void RLS::RlsDynamics::stateScanner(struct State &state)
   string stateKey = "state";
   string sequenceKey = "sequence";
   string triggerKey = "trigger";
-  string extTriggerKey = "trigger";
+  string extTriggerKey = "ext trigger";
 
   state.trigger = "none";
   state.condition = -1000;
@@ -32,14 +23,9 @@ void RLS::RlsDynamics::stateScanner(struct State &state)
 
   if(state.doc[triggerKey]){
     state.trigger = state.doc[triggerKey].as<string>();
-    if(!state.doc[stateKey]){
-      cout << manip_error("state load error: trigger needs some state elements...") << endl;
-      exit(-1);
-    }
-  }
-  else if(state.doc[extTriggerKey]){
-    state.ext = true;
-    state.trigger = state.doc[extTriggerKey].as<string>();
+    if(state.doc[extTriggerKey])
+      state.ext = state.doc[extTriggerKey].as<bool>();
+
     if(!state.doc[stateKey]){
       cout << manip_error("state load error: trigger needs some state elements...") << endl;
       exit(-1);

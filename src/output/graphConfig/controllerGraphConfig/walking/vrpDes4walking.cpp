@@ -29,7 +29,7 @@ void RLS::Output::vrpDes4walking(GpMaker &gpMaker, TexMaker &texMaker)
   setTimeDependentDatName(3, "rndvrpDesx");
   makeDat();
 
-  gpMaker.reset();
+  // gpMaker.reset(); // amiyata
   gpMaker.setName(file_name);
   gpMaker.setYLabel("Des. VRP x [mm]");
   gpMaker.setUnit("m");

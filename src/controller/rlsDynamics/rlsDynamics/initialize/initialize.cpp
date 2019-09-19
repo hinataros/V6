@@ -17,12 +17,14 @@ void RLS::RlsDynamics::initialize(const int &controllerID, const string &path_ya
 
   yamlInfo.initialize(path_yaml_controller, controllerID);
 
+  // amiyata  unlimited state works
   topState.doc = yamlInfo.docDist();
+  // controllerYamlModifier(topState.doc);
   seqNum = 0;
   stNum = 0;
   stateScanner(topState);
   if(monitor){
-    statePrinter(topState); // amiyata
+    statePrinter(topState);
     // gc;
   }
   yamlInfo.sequenceNum = seqNum;

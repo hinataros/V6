@@ -7,7 +7,6 @@ set(srcs
   stabilityIndex4walking.cpp
   stabilityIndex4walkingDes.cpp
   vrpDes4walking.cpp
-  # footPrint.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" walking_srcs)

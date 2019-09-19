@@ -281,10 +281,10 @@ string RLS::GpMaker::makeCode(int limb)
   string code =
     setting+"\n"+
     redef_str[limb-1]+"\n"+
+    add_str[limb-1]+"\n"+
     xylabel+"\n"+
     label+"\n"+
     out+"\n"+
-    add_str[limb-1]+"\n"+
     plot+"\n\n"+
     replot+"\n";
 

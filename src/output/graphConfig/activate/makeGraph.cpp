@@ -31,8 +31,33 @@ void RLS::Output::makeGraph()
   // ************************************************
 
   for(unsigned i=0; i<doc_layout.size(); i++){
-    if(doc_layout[i]["use function"])
+    if(doc_layout[i]["use function"]){
+      gpMaker.reset(); // amiyata add使用に伴いここで宣言
+
+      if(doc_layout[i]["add"]){ // functionでもaddは使いたい
+        if(doc_layout[i]["add"].size()){
+          for(unsigned k=0; k<doc_layout[i]["add"].size(); k++){
+            if(doc_layout[i]["add"][k]){
+              if(doc_layout[i]["add"][k].size()){
+                for(unsigned l=0; l<doc_layout[i]["add"][k].size(); l++)
+                  gpMaker.add(k+1, doc_layout[i]["add"][k][l].as<string>());
+              }
+              else{
+                gpMaker.add(doc_layout[i]["add"][k].as<string>());
+              }
+            }
+            else{
+              gpMaker.add(k+1, doc_layout[i]["add"][k].as<string>());
+            }
+          }
+        }
+        else{
+          gpMaker.add(doc_layout[i]["add"].as<string>());
+        }
+      }
+
       (this->*map_use_function[doc_layout[i]["use function"].as<string>()])(gpMaker, texMaker);
+    }
     else{
       texMaker.reset();
 
