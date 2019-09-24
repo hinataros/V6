@@ -10,7 +10,7 @@ result:
 
 gp:
   check: false
-  sampling time: 1
+  sampling time: 10
   start time offset: 1.
 
 tex:

@@ -16,21 +16,21 @@ controller:
       force controller: centroidalEcmpDistribution
       momentum controller: centroidalVrpMomentum
       torque controller: mixedOpt
-      # momentum controller: centroidalVrpMomentumDamping
+      momentum controller: centroidalVrpMomentumDamping
 
 
     desired value generator:
-      DCM: {name: VRPWalking}
+      DCM: {name: HTWalking}
       base rotation: {name: CP}
       control node translation:
-        RLEGEE: {name: swingabs, cur: true}
-        LLEGEE: {name: swingabs, cur: true}
+        RLEGEE: {name: swing}
+        LLEGEE: {name: swing}
       control node rotation:
         RLEGEE: {name: CP}
         LLEGEE: {name: CP}
 
-    # feedback controller:
-    #   CoM: dcmControl
+    feedback controller:
+      CoM: dcmControl
 
     KX: 3.e+2
     OB: &OBH 3.e+1
@@ -81,6 +81,13 @@ controller:
     Bm: &zs
       RLEGEE: [0, 0, 0, 0, 0, 0]
       LLEGEE: [0, 0, 0, 0, 0, 0]
+
+    # for walking
+    height: &height 0.02
+    rApex:
+      RLEGEE: *height
+      LLEGEE: *height
+
 
   state:
     -
@@ -146,11 +153,27 @@ controller:
       - [*steplength15, 0.039, 0.]
       - [*steplength15, 0., 0.]
 
-    dtstep: &tss 1.
+    dtstep: 1.
     dtDSstep: &tds 0.2
 
+    twf: &tinitial 0.6
     twf: &tswingleg 0.8
 
+    # dtstep: .6
+    # dtDSstep: &tds 0.2
+    #
+    # twf: &tinitial 0.4
+    # twf: &tswingleg 0.4
+    # dtstep: .5
+    # dtDSstep: &tds 0.1
+    #
+    # twf: &tinitial 0.3
+    # twf: &tswingleg 0.4
+    # dtstep: .4
+    # dtDSstep: &tds 0.1
+    #
+    # twf: &tinitial 0.25
+    # twf: &tswingleg 0.3
 
     alphaDSstep: 0.5
     alphaHTstep: 0.5
@@ -160,118 +183,119 @@ controller:
 
     tstab: &tstab 1.
 
-    swing leg:
-      rfabs: &swingLeg1
-        LLEGEE: [*steplength1, 0.039, -0.0002]
-      rfabs: &swingLeg2
-        RLEGEE: [*steplength2, -0.039, 0.02]
-      rfabs: &swingLeg3
-        LLEGEE: [*steplength3, 0.039, 0.04]
-      rfabs: &swingLeg4
-        RLEGEE: [*steplength4, -0.039, 0.06]
-      rfabs: &swingLeg5
-        LLEGEE: [*steplength5, 0.039, 0.08]
-      rfabs: &swingLeg6
-        RLEGEE: [*steplength6, -0.039, 0.1]
-      rfabs: &swingLeg7
-        LLEGEE: [*steplength7, 0.039, 0.12]
-      rfabs: &swingLeg8
-        RLEGEE: [*steplength8, -0.039, 0.12]
-      rfabs: &swingLeg9
-        LLEGEE: [*steplength9, 0.039, 0.0998]
-      rfabs: &swingLeg10
-        RLEGEE: [*steplength10, -0.039, 0.07995]
-      rfabs: &swingLeg11
-        LLEGEE: [*steplength11, 0.039, 0.0599]
-      rfabs: &swingLeg12
-        RLEGEE: [*steplength12, -0.039, 0.03995]
-      rfabs: &swingLeg13
-        LLEGEE: [*steplength13, 0.039, 0.0199]
-      rfabs: &swingLeg14
-        RLEGEE: [*steplength14, -0.039, -0.0002]
-      rfabs: &swingLeg15
-        LLEGEE: [*steplength15, 0.039, -0.0002]
-      rfabs: &swingLeg16
-        RLEGEE: [*steplength15, -0.039, -0.0002]
+  swing leg:
+    rfabs: &swingLeg1
+      LLEGEE: [*steplength1, 0.039, 0.02]
+    rfabs: &swingLeg2
+      RLEGEE: [*steplength2, -0.039, 0.03]
+    rfabs: &swingLeg3
+      LLEGEE: [*steplength3, 0.039, 0.05]
+    rfabs: &swingLeg4
+      RLEGEE: [*steplength4, -0.039, 0.078]
+    rfabs: &swingLeg5
+      LLEGEE: [*steplength5, 0.039, 0.09]
+    rfabs: &swingLeg6
+      RLEGEE: [*steplength6, -0.039, 0.125]
+    rfabs: &swingLeg7
+      LLEGEE: [*steplength7, 0.039, 0.13]
+    rfabs: &swingLeg8
+      RLEGEE: [*steplength8, -0.039, 0.135]
+    rfabs: &swingLeg9
+      LLEGEE: [*steplength9, 0.039, 0.147]
+    rfabs: &swingLeg10
+      RLEGEE: [*steplength10, -0.039, 0.14]
+    rfabs: &swingLeg11
+      LLEGEE: [*steplength11, 0.039, 0.11]
+    rfabs: &swingLeg12
+      RLEGEE: [*steplength12, -0.039, 0.09]
+    rfabs: &swingLeg13
+      LLEGEE: [*steplength13, 0.039, 0.09]
+    rfabs: &swingLeg14
+      RLEGEE: [*steplength14, -0.039, 0.05]
+    rfabs: &swingLeg15
+      LLEGEE: [*steplength15, 0.039, 0.03]
+    rfabs: &swingLeg16
+      RLEGEE: [*steplength15, -0.039, 0.02]
 
-      xif: &xiLeg1
-        LLEGEE: [0., 0., 0.]
-      xif: &xiLeg2
-        RLEGEE: [0., 0., 0.]
-      xif: &xiLeg3
-        LLEGEE: [0., 0., 0.]
-      xif: &xiLeg4
-        RLEGEE: [0., 0., -15.]
-      xif: &xiLeg5
-        LLEGEE: [0., 0., 0.]
-      xif: &xiLeg6
-        RLEGEE: [0., 0., 15.]
-      xif: &xiLeg7
-        LLEGEE: [0., -15., 0.]
-      xif: &xiLeg8
-        RLEGEE: [0., 0., 0.]
-      xif: &xiLeg9
-        LLEGEE: [0., 0., 0.]
-      xif: &xiLeg10
-        RLEGEE: [0., 15., 0.]
-      xif: &xiLeg11
-        LLEGEE: [0., -15., 0.]
-      xif: &xiLeg12
-        RLEGEE: [0., 0., 0.]
-      xif: &xiLeg13
-        LLEGEE: [0., 0., 0.]
-      xif: &xiLeg14
-        RLEGEE: [0., 0., 0.]
-      xif: &xiLeg15
-        LLEGEE: [0., 0., 0.]
-      xif: &xiLeg16
-        RLEGEE: [0., 0., 0.]
-
-      rApex: &rap1
-        LLEGEE: 0.02
-      rApex: &rap2
-        RLEGEE: 0.03
-      rApex: &rap3
-        LLEGEE: 0.05
-      rApex: &rap4
-        RLEGEE: 0.078
-      rApex: &rap5
-        LLEGEE: 0.09
-      rApex: &rap6
-        RLEGEE: 0.125
-      rApex: &rap7
-        LLEGEE: 0.13
-      rApex: &rap8
-        RLEGEE: 0.135
-      rApex: &rap9
-        LLEGEE: 0.147
-      rApex: &rap10
-        RLEGEE: 0.14
-      rApex: &rap11
-        LLEGEE: 0.11
-      rApex: &rap12
-        RLEGEE: 0.09
-      rApex: &rap13
-        LLEGEE: 0.09
-      rApex: &rap14
-        RLEGEE: 0.05
-      rApex: &rap15
-        LLEGEE: 0.03
-      rApex: &rap16
-        RLEGEE: 0.02
+    # ****************
+    rtd: &tdLeg1
+      LLEGEE: [0., 0., 0.]
+    rtd: &tdLeg2
+      RLEGEE: [0., 0., 0.02]
+    rtd: &tdLeg3
+      LLEGEE: [0., 0., 0.04]
+    rtd: &tdLeg4
+      RLEGEE: [0., 0., 0.06]
+    rtd: &tdLeg5
+      LLEGEE: [0., 0., 0.08]
+    rtd: &tdLeg6
+      RLEGEE: [0., 0., 0.1]
+    rtd: &tdLeg7
+      LLEGEE: [0., 0., 0.12]
+    rtd: &tdLeg8
+      RLEGEE: [0., 0., 0.12]
+    rtd: &tdLeg9
+      LLEGEE: [0., 0., 0.1]
+    rtd: &tdLeg10
+      RLEGEE: [0., 0., 0.07995]
+    rtd: &tdLeg11
+      LLEGEE: [0., 0., 0.06]
+    rtd: &tdLeg12
+      RLEGEE: [0., 0., 0.03995]
+    rtd: &tdLeg13
+      LLEGEE: [0., 0., 0.01998]
+    rtd: &tdLeg14
+      RLEGEE: [0., 0., 0.]
+    rtd: &tdLeg15
+      LLEGEE: [0., 0., 0.]
+    rtd: &tdLeg16
+      RLEGEE: [0., 0., 0.]
+    # ****************
+    xif: &xiLeg1
+      LLEGEE: [0., 0., 0.]
+    xif: &xiLeg2
+      RLEGEE: [0., 0., 0.]
+    xif: &xiLeg3
+      LLEGEE: [0., 0., 0.]
+    xif: &xiLeg4
+      RLEGEE: [0., 0., -15.]
+    xif: &xiLeg5
+      LLEGEE: [0., 0., 0.]
+    xif: &xiLeg6
+      RLEGEE: [0., 0., 15.]
+    xif: &xiLeg7
+      LLEGEE: [0., -15., 0.]
+    xif: &xiLeg8
+      RLEGEE: [0., 0., 0.]
+    xif: &xiLeg9
+      LLEGEE: [0., 0., 0.]
+    xif: &xiLeg10
+      RLEGEE: [0., 15., 0.]
+    xif: &xiLeg11
+      LLEGEE: [0., -15., 0.]
+    xif: &xiLeg12
+      RLEGEE: [0., 0., 0.]
+    xif: &xiLeg13
+      LLEGEE: [0., 0., 0.]
+    xif: &xiLeg14
+      RLEGEE: [0., 0., 0.]
+    xif: &xiLeg15
+      LLEGEE: [0., 0., 0.]
+    xif: &xiLeg16
+      RLEGEE: [0., 0., 0.]
 
   sequence:
     -
       twf: *tstab
     -
-      twf: *tss
+      twf: *tinitial
     # 1 step
     -
       twf: *tswingleg
       Bc: *rs
       Bm: *ls
-      rApex: *rap1
       rfabs: *swingLeg1
+      rtd: *tdLeg1
       xif: *xiLeg1
       KpwB: *OBL
       KdwB: *wBL
@@ -286,8 +310,8 @@ controller:
       twf: *tswingleg
       Bc: *ls
       Bm: *rs
-      rApex: *rap2
       rfabs: *swingLeg2
+      rtd: *tdLeg2
       xif: *xiLeg2
       KpwB: *OBL
       KdwB: *wBL
@@ -300,8 +324,8 @@ controller:
       twf: *tswingleg
       Bc: *rs
       Bm: *ls
-      rApex: *rap3
       rfabs: *swingLeg3
+      rtd: *tdLeg3
       xif: *xiLeg3
       KpwB: *OBL
       KdwB: *wBL
@@ -314,8 +338,8 @@ controller:
       twf: *tswingleg
       Bc: *ls
       Bm: *rs
-      rApex: *rap4
       rfabs: *swingLeg4
+      rtd: *tdLeg4
       xif: *xiLeg4
       KpwB: *OBL
       KdwB: *wBL
@@ -328,8 +352,8 @@ controller:
       twf: *tswingleg
       Bc: *rs
       Bm: *ls
-      rApex: *rap5
       rfabs: *swingLeg5
+      rtd: *tdLeg5
       xif: *xiLeg5
       KpwB: *OBL
       KdwB: *wBL
@@ -342,8 +366,8 @@ controller:
       twf: *tswingleg
       Bc: *ls
       Bm: *rs
-      rApex: *rap6
       rfabs: *swingLeg6
+      rtd: *tdLeg6
       xif: *xiLeg6
       KpwB: *OBL
       KdwB: *wBL
@@ -356,8 +380,8 @@ controller:
       twf: *tswingleg
       Bc: *rs
       Bm: *ls
-      rApex: *rap7
       rfabs: *swingLeg7
+      rtd: *tdLeg7
       xif: *xiLeg7
       KpwB: *OBL
       KdwB: *wBL
@@ -370,8 +394,8 @@ controller:
       twf: *tswingleg
       Bc: *ls
       Bm: *rs
-      rApex: *rap8
       rfabs: *swingLeg8
+      rtd: *tdLeg8
       xif: *xiLeg8
       KpwB: *OBL
       KdwB: *wBL
@@ -384,8 +408,8 @@ controller:
       twf: *tswingleg
       Bc: *rs
       Bm: *ls
-      rApex: *rap9
       rfabs: *swingLeg9
+      rtd: *tdLeg9
       xif: *xiLeg9
       KpwB: *OBL
       KdwB: *wBL
@@ -398,8 +422,8 @@ controller:
       twf: *tswingleg
       Bc: *ls
       Bm: *rs
-      rApex: *rap10
       rfabs: *swingLeg10
+      rtd: *tdLeg10
       xif: *xiLeg10
       KpwB: *OBL
       KdwB: *wBL
@@ -412,8 +436,8 @@ controller:
       twf: *tswingleg
       Bc: *rs
       Bm: *ls
-      rApex: *rap11
       rfabs: *swingLeg11
+      rtd: *tdLeg11
       xif: *xiLeg11
       KpwB: *OBL
       KdwB: *wBL
@@ -426,8 +450,8 @@ controller:
       twf: *tswingleg
       Bc: *ls
       Bm: *rs
-      rApex: *rap12
       rfabs: *swingLeg12
+      rtd: *tdLeg12
       xif: *xiLeg12
       KpwB: *OBL
       KdwB: *wBL
@@ -440,8 +464,8 @@ controller:
       twf: *tswingleg
       Bc: *rs
       Bm: *ls
-      rApex: *rap13
       rfabs: *swingLeg13
+      rtd: *tdLeg13
       xif: *xiLeg13
       KpwB: *OBL
       KdwB: *wBL
@@ -454,8 +478,8 @@ controller:
       twf: *tswingleg
       Bc: *ls
       Bm: *rs
-      rApex: *rap14
       rfabs: *swingLeg14
+      rtd: *tdLeg14
       xif: *xiLeg14
       KpwB: *OBL
       KdwB: *wBL
@@ -468,8 +492,8 @@ controller:
       twf: *tswingleg
       Bc: *rs
       Bm: *ls
-      rApex: *rap15
       rfabs: *swingLeg15
+      rtd: *tdLeg15
       xif: *xiLeg15
       KpwB: *OBL
       KdwB: *wBL
@@ -482,8 +506,8 @@ controller:
       twf: *tswingleg
       Bc: *ls
       Bm: *rs
-      rApex: *rap16
       rfabs: *swingLeg16
+      rtd: *tdLeg16
       xif: *xiLeg16
       KpwB: *OBL
       KdwB: *wBL
@@ -492,5 +516,13 @@ controller:
       KpwB: *OBH
       KdwB: *wBH
 
-    -
-      twf: 100.
+
+    # -
+    #   twf: 10.
+    #   control method:
+    #     motion controller: mixedGeneralizedMomentum
+    #     momentum controller: centroidalVrpMomentum
+    #
+    #   KpwB: *OBH
+    #   KdwB: *wBH
+    #   xiBf: [0., 0., 0.]

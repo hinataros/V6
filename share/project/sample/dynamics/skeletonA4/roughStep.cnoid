@@ -65,7 +65,7 @@ items:
               data:
                 isNoDelayMode: true
                 controllerOptions: ""
-                moduleName: "/home/amiyata/Documents/Simulators/smiyaharaOrigin/rlsSimulator/build/bin/rlsDynamicsRTC.so"
+                moduleName: "/usr/local/etc/rls/user/1000/rlsSimulator/sl/build/bin/rlsDynamicsRTC.so"
                 confFileName: "/usr/local/etc/rls/user/1000/rlsSimulator/sl/share/port/skeletonPort.conf"
                 configurationMode: "Use Configuration File"
                 AutoConnect: false
@@ -269,7 +269,7 @@ views:
 toolbars:
   "TimeBar":
     minTime: 0
-    maxTime: 5
+    maxTime: 20
     frameRate: 1000
     playbackFrameRate: 10
     idleLoopDrivenMode: false
