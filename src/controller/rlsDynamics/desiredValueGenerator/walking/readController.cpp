@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "walking.hpp"
 
-void RLS::Walking::readController()
+int RLS::Walking::readController()
 {
   if(debug) DEBUG;
 
@@ -29,55 +29,74 @@ void RLS::Walking::readController()
   yamlInfo->checkValue<bool>(ToptimF, walkingKeyName, "time optimization");
 
 
-  // ***************************************************** // amiyata vrp way point abolition
   string sequenceKeyName = "sequence"; // load from sequence
 
   Vector6d vwpTemp;
   Vector3d rtemp, xitemp;
   string name[2] = {"RLEGEE", "LLEGEE"};
 
-  // read vrp way point
-  for(int i=0; i<yamlInfo->checkSize(sequenceKeyName); i++){
+  vwpNum = yamlInfo->checkSize(walkingKeyName, "vrp waypoint");
+  if(vwpNum > 0){
     vwpTemp = Vector6d::Zero();
-    if(yamlInfo->checkValue<Vector3d>(rtemp, sequenceKeyName, i, "rXf")){
-      vwpTemp.head(3) = RBw0*rtemp + rX0; // relative
-      vwpTemp(2) = 0.;
-      vwp.push_back(vwpTemp);
-      break;
-    }
-    else if(yamlInfo->checkValue<Vector3d>(rtemp, sequenceKeyName, i, "rXfabs")){
+    for(int i=0; i<vwpNum; i++){
+      yamlInfo->checkValue<Vector3d>(rtemp, walkingKeyName, "vrp waypoint", i);
       vwpTemp.head(3) = rtemp;
-      vwpTemp(2) = 0.;
-      // o(rX0);
       vwp.push_back(vwpTemp);
-      break;
     }
 
-    for(int j=0; j<2; j++){ // RLEGEE or LLEGEE only
-      rtemp = xitemp = Vector3d::Zero();
-      if(yamlInfo->checkValue<Vector3d>(rtemp, sequenceKeyName, i, "rf", name[j])){
-        yamlInfo->checkValue<Vector3d>(xitemp, sequenceKeyName, i, "xif", name[j]);
-        if(yamlInfo->angleUnit=="degree")
-          xitemp *= DEG2RAD;
-        vwpTemp <<
-          RBw0*rtemp, // relative
-          xitemp;
-        vwpTemp += rxw0.segment(j*6,6); // relative
-        vwpTemp(2) = 0.; // これだけは補正
+    return 1;
+  }
+  else{
+    // read vrp way point
+    for(int i=0; i<yamlInfo->checkSize(sequenceKeyName); i++){
+      vwpTemp = Vector6d::Zero();
+      if(yamlInfo->checkValue<Vector3d>(rtemp, sequenceKeyName, i, "rXf")){
+        vwpTemp.head(3) = RBw0*rtemp + rX0; // relative
+        vwpTemp(2) = 0.;
         vwp.push_back(vwpTemp);
+        break;
       }
-      else if(yamlInfo->checkValue<Vector3d>(rtemp, sequenceKeyName, i, "rfabs", name[j])){
-        yamlInfo->checkValue<Vector3d>(xitemp, sequenceKeyName, i, "xifabs", name[j]);
-        if(yamlInfo->angleUnit=="degree")
-          xitemp *= DEG2RAD;
-        vwpTemp <<
-          rtemp, // abs
-          xitemp;
-        vwpTemp(2) = 0.; // これだけは補正
+      else if(yamlInfo->checkValue<Vector3d>(rtemp, sequenceKeyName, i, "rXfabs")){
+        vwpTemp.head(3) = rtemp;
+        vwpTemp(2) = 0.;
+        // o(rX0);
         vwp.push_back(vwpTemp);
+        break;
+      }
+
+      for(int j=0; j<2; j++){ // RLEGEE or LLEGEE only
+        rtemp = xitemp = Vector3d::Zero();
+        if(yamlInfo->checkValue<Vector3d>(rtemp, sequenceKeyName, i, "rf", name[j])){
+          yamlInfo->checkValue<Vector3d>(xitemp, sequenceKeyName, i, "xif", name[j]);
+          if(yamlInfo->angleUnit=="degree")
+            xitemp *= DEG2RAD;
+          vwpTemp <<
+            RBw0*rtemp, // relative
+            xitemp;
+          vwpTemp += rxw0.segment(j*6,6); // relative
+          vwpTemp(2) = 0.; // これだけは補正
+          vwp.push_back(vwpTemp);
+        }
+        else if(yamlInfo->checkValue<Vector3d>(rtemp, sequenceKeyName, i, "rfabs", name[j])){
+          yamlInfo->checkValue<Vector3d>(xitemp, sequenceKeyName, i, "xifabs", name[j]);
+          if(yamlInfo->angleUnit=="degree")
+            xitemp *= DEG2RAD;
+          vwpTemp <<
+            rtemp, // abs
+            xitemp;
+          vwpTemp(2) = 0.; // これだけは補正
+          vwp.push_back(vwpTemp);
+        }
       }
     }
+
+    vwpNum = vwp.size();
+
+    if(vwpNum > 0)
+      return 2;
+    else
+      return -1;
   }
 
-  vwpNum = vwp.size();
+  return 0;
 }

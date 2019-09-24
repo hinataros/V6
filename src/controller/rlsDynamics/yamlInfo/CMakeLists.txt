@@ -8,6 +8,7 @@ set(srcs
   initialize.cpp
   reset.cpp
   docDist.cpp
+  controllerYamlModifier.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" yamlInfo_srcs)

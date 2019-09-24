@@ -7,6 +7,7 @@ set(srcs
   stringIntString.cpp
   stringIntStringString.cpp
   stringString.cpp
+  stringStringInt.cpp
   stringStringString.cpp
   stringStringStringString.cpp
   )

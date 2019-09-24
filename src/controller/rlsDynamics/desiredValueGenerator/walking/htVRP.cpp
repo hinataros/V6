@@ -13,7 +13,6 @@ void RLS::Walking::htVRP(const double &t)
 
   if(rvrpHd.cols() == 0){
     cout << "Walking desired values not initialized..." << endl;
-    gc;
 
     rCDes = rCw0;
     drCDes = Vector3d::Zero();

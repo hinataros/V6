@@ -19,7 +19,6 @@ void RLS::RlsDynamics::initialize(const int &controllerID, const string &path_ya
 
   // amiyata  unlimited state works
   topState.doc = yamlInfo.docDist();
-  // controllerYamlModifier(topState.doc);
   seqNum = 0;
   stNum = 0;
   stateScanner(topState);

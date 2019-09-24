@@ -10,6 +10,19 @@ void RLS::Walking::ht(const double &t)
 {
   if(debug) DEBUG;
 
+  if(rvrpHd.cols() == 0){
+    cout << "Walking desired values not initialized..." << endl;
+
+    rCDes = rCw0;
+    drCDes = Vector3d::Zero();
+    ddrCDes = Vector3d::Zero();
+
+    rXDes = rX0;
+    drXDes = Vector3d::Zero();
+
+    return;
+  }
+
   double tf = ht_config.tstab + ht_config.dtstep*(1.-ht_config.alphaHTstep) + ht_config.dtstep*(ht_config.convergenceNum-1);
 
   double twalk = t - ht_config.tstab;

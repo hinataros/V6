@@ -14,6 +14,7 @@ VectorXd RLS::RlsDynamics::rlsDynamics(const double &t)
 
   // controllerModel.update();
   controllerModel.update(rkk); // amiyata rkk
+  preProcess(); // amiyata
 
   if(configurationManager(t)) {
     constraintModel.reconfigure();

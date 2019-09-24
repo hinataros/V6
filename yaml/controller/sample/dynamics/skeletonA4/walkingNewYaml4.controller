@@ -5,34 +5,36 @@ angle unit: degree
 controller:
   control model: skeletonA4
   input: torque
-  driven: mix
-  trigger: check contact
 
   default:
     control method:
       inverse dynamics controller: fullDynamicsController
       operational space controller: decomposeEndEffectorAcceleration
-      motion controller: mixedGeneralizedMomentum
-      # motion controller: mGDAM
+      # motion controller: mixedGeneralizedMomentum
+      motion controller: mGDAM
       force controller: centroidalEcmpDistribution
-      # force controller: centroidalEcmpDistributionwXt
-      # force controller: CRBWCbaseDistribution
-      # force controller: centroidalDcmDistribution
-      momentum controller: centroidalVrpMomentum
-      # momentum controller: centroidalVrpMomentumTV
+      # momentum controller: centroidalVrpMomentum
+      momentum controller: centroidalVrpMomentumDamping
+      # momentum controller: centroidalMomentum
       torque controller: mixedOpt
 
     desired value generator:
-      DCM: {name: HTWalking}
+      # DCM: {name: HTWalking}
+      CoM: {name: HTWalking}
       base rotation: {name: CP}
       control node translation:
-        RLEGEE: {name: swingabs, cur: true}
-        LLEGEE: {name: swingabs, cur: true}
+        RLEGEE: {name: swing}
+        LLEGEE: {name: swing}
+      control node rotation:
+        RLEGEE: {name: CP}
+        LLEGEE: {name: CP}
 
-    feedback controller:
-      CoM: dcmControl
+    # feedback controller:
+    #   CoM: dcmControl
 
     KX: 3.e+2
+    KpC: 3.e+2
+    KdC: 5.e+1
     KpwB: 3.e+2
     KdwB: 5.e+1
 
@@ -56,10 +58,6 @@ controller:
       [0.,0.,0.,0.,0.,0., 0.,0.,0.,0.,0.,0.,
       *kDthH, *kDthH, *kDthH, *kDthH,
       *kDthH, *kDthH, *kDthH, *kDthH]
-    # KDth:
-    #   [0.,0.,0.,0.,0.,0., 0.,0.,0.,0.,0.,0.,
-    #   *kDthH, *kDthH, *kDthH, *kDthH,
-    #   *kDthH, *kDthH, *kDthH, *kDthH]
     Kthinit:
       [0.,0.,0.,0.,0.,0., 0.,0.,0.,0.,0.,0.,
       *kthHinit, *kthHinit, *kthHinit, *kthHinit,
@@ -72,6 +70,8 @@ controller:
       RLEGEE: [0, 0, 0, 0, 0, 0]
       LLEGEE: [0, 0, 0, 0, 0, 0]
 
+    KDlC: 100
+
     BwB: [1, 1, 1]
     BLC: [1, 1, 1, 0, 0, 1]
 
@@ -81,9 +81,41 @@ controller:
       RLEGEE: *height
       LLEGEE: *height
 
-    # distribution offset: [0., 0.008]
+  walking:
+    ipDim: 3
+
+    dtstep: &tss 0.5
+    dtDSstep: &tds 0.2
+
+    twf: &tswingleg 0.3 # tss - tds
+
+    alphaDSstep: 0.5
+    alphaHTstep: 0.5
+    offset: 0.01 # first step: right -> +
+    toe: 0.025
+    heel: -0.015
+
+    tstab: &tstab 1.
+
+    length: &steplength1 0.08
+    length: &steplength2 0.16
+    length: &steplength3 0.24
+
+    swing leg:
+      rf: &swingLeg0
+        RLEGEE: [0., 0., 0.]
+      rf: &swingLeg1
+        LLEGEE: [*steplength1, 0., 0.]
+      rf: &swingLeg2
+        RLEGEE: [*steplength2, 0., 0.]
+      rf: &swingLeg3
+        LLEGEE: [*steplength3, 0., 0.]
+      rf: &swingLeg4
+        RLEGEE: [*steplength3, 0., 0.]
 
 
+
+  trigger: check contact
   state:
     -
       control method:
@@ -111,82 +143,39 @@ controller:
         inverse dynamics controller: fullDynamicsController
       Bc: *rs
       Bm: *ls
+    -
+      control method:
+        inverse dynamics controller: fullDynamicsController
+      Bc: *ds
+      Bm: *zs
+    -
+      control method:
+        inverse dynamics controller: fullDynamicsController
+      Bc: *ls
+      Bm: *rs
+    -
+      control method:
+        inverse dynamics controller: fullDynamicsController
+      Bc: *rs
+      Bm: *ls
 
-  walking:
-    # height: &height 0.02
-    # oscillation: 0.023
 
-    length: &steplength1 0.08
-    length: &steplength2 0.16
-    length: &steplength3 0.24
-    # length: &steplength1 0.1
-    # length: &steplength2 0.2
-    # length: &steplength3 0.3
-
-    vrp waypoint:
-      - [0., -0.039, 0.]
-      - [*steplength1, 0.039, 0.]
-      - [*steplength2, -0.039, 0.]
-      - [*steplength3, 0.039, 0.]
-      - [*steplength3, 0., 0.]
-
-    dtstep: .5
-    dtDSstep: &tds 0.2
-
-    twf: &tinitial 0.35
-    twf: &tswingleg 0.3
-
-    # dtstep: .7 # length=0.1
-    # dtDSstep: &tds 0.3
-    #
-    # twf: &tinitial 0.5
-    # twf: &tswingleg 0.4
-
-    # dtstep: 1.5
-    # dtDSstep: &tds 0.4
-    #
-    # twf: &tinitial 0.95
-    # twf: &tswingleg 1.1
-
-    alphaDSstep: 0.5
-    alphaHTstep: 0.5
-    offset: 0.01
-    # offset: 0.025
-    toe: 0.025
-    heel: -0.015
-    # toe: 0.
-    # heel: 0.
-
-    # alphaDSstep: 0.4
-    # alphaHTstep: 0.6
-    # offset: 0.015
-    # # offset: 0.025
-    # toe: 0.025
-    # heel: 0.
-
-    tstab: &tstab 1.
-
-  swing leg:
-    rfabs: &swingLeg1
-      LLEGEE: [*steplength1, 0.039, 0.]
-    rfabs: &swingLeg2
-      RLEGEE: [*steplength2, -0.039, 0.]
-    rfabs: &swingLeg3
-      LLEGEE: [*steplength3, 0.039, 0.]
-    rfabs: &swingLeg4
-      RLEGEE: [*steplength3, -0.039, 0.]
 
   sequence:
     -
       twf: *tstab
     -
-      twf: *tinitial
+      twf: *tswingleg
+      rf: *swingLeg0 # for vrp way point calculation
+    -
+      twf: *tds
     # 1 step
     -
       twf: *tswingleg
       Bc: *rs
       Bm: *ls
-      rfabs: *swingLeg1
+      rf: *swingLeg1
+        # LLEGEE: [*steplength1, 0., 0.]
     -
       twf: *tds
     # 2 step
@@ -194,7 +183,7 @@ controller:
       twf: *tswingleg
       Bc: *ls
       Bm: *rs
-      rfabs: *swingLeg2
+      rf: *swingLeg2
     -
       twf: *tds
     # 3 step
@@ -202,7 +191,7 @@ controller:
       twf: *tswingleg
       Bc: *rs
       Bm: *ls
-      rfabs: *swingLeg3
+      rf: *swingLeg3
     -
       twf: *tds
     # 4 step
@@ -210,8 +199,14 @@ controller:
       twf: *tswingleg
       Bc: *ls
       Bm: *rs
-      rfabs: *swingLeg4
+      rXfabs: [*steplength3, 0., 0.] # for vwp calc
+      rf: *swingLeg4
     -
       twf: *tds
+    -
+      twf: 100.
+      Bc: *ds
+      Bm: *zs
       control method:
         motion controller: mixedGeneralizedMomentum
+        momentum controller: centroidalVrpMomentum

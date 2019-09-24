@@ -1,0 +1,324 @@
+# @author Sho Miyahara 2018
+
+angle unit: degree
+
+controller:
+  control model: skeletonA4
+  input: torque
+
+  default:
+    control method:
+      inverse dynamics controller: fullDynamicsController
+      operational space controller: decomposeEndEffectorAcceleration
+      motion controller: mixedGeneralizedMomentum
+      # motion controller: mGDAM
+      force controller: centroidalEcmpDistribution
+      momentum controller: centroidalVrpMomentum
+      # momentum controller: centroidalVrpMomentumDamping
+      torque controller: mixedOpt
+
+    desired value generator:
+      # DCM: {name: HTWalking}
+      DCM: {name: VRPWalking}
+      base rotation: {name: CP}
+      control node translation:
+        RLEGEE: {name: swingabs, cur: true}
+        LLEGEE: {name: swingabs, cur: true}
+      control node rotation:
+        RLEGEE: {name: CPabs, cur: true}
+        LLEGEE: {name: CPabs, cur: true}
+
+    # feedback controller:
+    #   CoM: dcmControl
+
+    KX: 3.e+2
+    KpwB: 3.e+1
+    KdwB: 5.e+1
+
+    Kpv:
+      RLEGEE: 5.e+2
+      LLEGEE: 5.e+2
+    Kpw:
+      RLEGEE: 1.e+3
+      LLEGEE: 1.e+3
+    # Kpw:
+    #   RLEGEE: 5.e+2
+    #   LLEGEE: 5.e+2
+    Kdv:
+      RLEGEE: 5.e+1
+      LLEGEE: 5.e+1
+    Kdw:
+      RLEGEE: 5.e+1
+      LLEGEE: 5.e+1
+
+    kDth: &kDthH 1.e+2
+    kDth: &kDthF 5.e+1
+    kthHinit: &kthHinit 1.e+3
+
+
+    KDthRes: &dsKDth
+      [0.,0.,0.,0.,0.,0.,
+      0.,0.,0.,0.,0.,0.,
+      *kDthH, *kDthH, *kDthH, *kDthH,
+      *kDthH, *kDthH, *kDthH, *kDthH]
+    KDthRes: &rKDth
+      [*kDthF,*kDthF,*kDthF,*kDthF,*kDthF,*kDthF,
+      0.,0.,0.,0.,0.,0.,
+      *kDthH, *kDthH, *kDthH, *kDthH,
+      *kDthH, *kDthH, *kDthH, *kDthH]
+    KDthRes: &lKDth
+      [0.,0.,0.,0.,0.,0.,
+      *kDthF,*kDthF,*kDthF,*kDthF,*kDthF,*kDthF,
+      *kDthH, *kDthH, *kDthH, *kDthH,
+      *kDthH, *kDthH, *kDthH, *kDthH]
+
+    KDth: *dsKDth
+    # Kthinit: *dsKDth
+
+    # Kthinit:
+    #   [0.,0.,0.,0.,0.,0., 0.,0.,0.,0.,0.,0.,
+    #   *kthHinit, *kthHinit, *kthHinit, *kthHinit,
+    #   *kthHinit, *kthHinit, *kthHinit, *kthHinit]
+
+    Bc: &ds
+      RLEGEE: [1, 1, 1, 1, 1, 1]
+      LLEGEE: [1, 1, 1, 1, 1, 1]
+    Bm: &zs
+      RLEGEE: [0, 0, 0, 0, 0, 0]
+      LLEGEE: [0, 0, 0, 0, 0, 0]
+
+    BwB: [1, 1, 1]
+    BLC: [1, 1, 1, 0, 0, 1]
+
+    KDlC: 100
+
+    # for walking
+    height: &height 0.02
+    rApex:
+      RLEGEE: *height
+      LLEGEE: *height
+
+
+  state:
+    -
+      trigger: check contact
+      state:
+        -
+          control method:
+            inverse dynamics controller: default
+          Bc: *zs
+          Bm: *zs
+        -
+          control method:
+            inverse dynamics controller: fullDynamicsController
+
+          Bc: *ds
+          Bm: *zs
+
+        -
+          control method:
+            inverse dynamics controller: fullDynamicsController
+          Bc: &ls
+            RLEGEE: [0, 0, 0, 0, 0, 0]
+            LLEGEE: [1, 1, 1, 1, 1, 1]
+          Bm: &rs
+            RLEGEE: [1, 1, 1, 1, 1, 1]
+            LLEGEE: [0, 0, 0, 0, 0, 0]
+        -
+          control method:
+            inverse dynamics controller: fullDynamicsController
+          Bc: *rs
+          Bm: *ls
+
+    -
+      walking:
+        ## 0.105
+        length: &steplength1 0.1
+        length: &steplength2 0.2
+        length: &steplength3 0.3
+        length: &steplength4 0.4
+        length: &steplength5 0.5
+        length: &steplength6 0.6
+        length: &steplength7 0.7
+        ## 0.115
+        # length: &steplength1 0.115
+        # length: &steplength2 0.23
+        # length: &steplength3 0.345
+        # length: &steplength4 0.46
+        # length: &steplength5 0.575
+        # length: &steplength6 0.69
+        # length: &steplength7 0.805
+        ## 0.09
+        # length: &steplength1 0.09
+        # length: &steplength2 0.18
+        # length: &steplength3 0.27
+        # length: &steplength4 0.36
+        # length: &steplength5 0.45
+        # length: &steplength6 0.55
+        # length: &steplength7 0.62
+        ## 0.08
+        # length: &steplength1 0.08
+        # length: &steplength2 0.16
+        # length: &steplength3 0.24
+        # length: &steplength4 0.32
+        # length: &steplength5 0.40
+        # length: &steplength6 0.48
+        # length: &steplength7 0.56
+
+        # for heel strike ==============
+        tdAngle: &tdaN
+          RLEGEE: [0., 0., 0.]
+          LLEGEE: [0., 0., 0.]
+        tdAngle: &tdaR
+          RLEGEE: [0., -5., 0.]
+        tdAngle: &tdaL
+          LLEGEE: [0., -5., 0.]
+
+        # footPrint[i] = steplength[i-1] + 0.04 * cos(tda)
+        length: &footPrint1 0.099848
+        length: &footPrint2 0.199848
+        length: &footPrint3 0.299848
+        length: &footPrint4 0.399848
+        length: &footPrint5 0.499848
+        length: &footPrint6 0.599848
+        length: &footPrint7 0.699848
+
+        # Height: &tdh 0.003486
+        Height: &tdh 0.00348 # under
+        # ==============================
+
+
+        vrp waypoint:
+          - [0., -0.039, 0.]
+          - [*steplength1, 0.039, 0.]
+          - [*steplength2, -0.039, 0.]
+          - [*steplength3, 0.039, 0.]
+          - [*steplength4, -0.039, 0.]
+          - [*steplength5, 0.039, 0.]
+          - [*steplength6, -0.039, 0.]
+          - [*steplength7, 0.039, 0.]
+          - [*steplength7, 0., 0.]
+
+        tstab: &tstab 1.
+
+        dtstep: &tss 0.7
+        dtDSstep: &tds 0.25
+
+        twf: &tswingleg 0.45
+
+        # ths + tds + ttr = tds
+        twf: &ths 0.10 # heel strike touch down
+        twf: &ttr 0.02 # toe rotation start
+        twf: &tds 0.13 # touch down complete
+
+        alphaDSstep: 0.4
+        alphaHTstep: 0.6
+        offset: 0.01
+        toe: 0.04
+        heel: -0.02
+
+        extJac: &vecToe 0.04
+        extJac: &vecHeel -0.05
+
+        rkkZ: &rNN
+          RLEGEE: [0., 0., 0.]
+          LLEGEE: [0., 0., 0.]
+        rkkZ: &rRN
+          RLEGEE: [0., 0., 0.]
+        rkkZ: &rLN
+          LLEGEE: [0., 0., 0.]
+        rkkR: &rRT
+          RLEGEE: [*vecToe, 0., 0.]
+        rkkL: &rLT
+          LLEGEE: [*vecToe, 0., 0.]
+        rkkR: &rRH
+          RLEGEE: [*vecHeel, 0., 0.]
+        rkkL: &rLH
+          LLEGEE: [*vecHeel, 0., 0.]
+
+        Bc: &Lrc
+          LLEGEE: [1, 1, 1, 0, 0, 0]
+        Bc: &Rrc
+          RLEGEE: [1, 1, 1, 0, 0, 0]
+        Bc: &Lfc
+          LLEGEE: [1, 1, 1, 1, 1, 1]
+        Bc: &Rfc
+          RLEGEE: [1, 1, 1, 1, 1, 1]
+        Bc: &Lnc
+          LLEGEE: [0, 0, 0, 0, 0, 0]
+        Bc: &Rnc
+          RLEGEE: [0, 0, 0, 0, 0, 0]
+
+        swing leg:
+          rfabs: &swingLeg1
+            LLEGEE: [*footPrint1, 0.039, *tdh]
+          rfabs: &swingLeg2
+            RLEGEE: [*footPrint2, -0.039, *tdh]
+          rfabs: &swingLeg3
+            LLEGEE: [*footPrint3, 0.039, *tdh]
+          rfabs: &swingLeg4
+            RLEGEE: [*footPrint4, -0.039, *tdh]
+          rfabs: &swingLeg5
+            LLEGEE: [*footPrint5, 0.039, *tdh]
+          rfabs: &swingLeg6
+            RLEGEE: [*footPrint6, -0.039, *tdh]
+          rfabs: &swingLeg7
+            LLEGEE: [*footPrint7, 0.039, *tdh]
+          rfabs: &swingLeg8
+            RLEGEE: [*footPrint7, -0.039, *tdh]
+
+      sequence:
+        -
+          twf: *tstab
+        -
+          twf: *tss
+
+        # 1 step
+        -
+          twf: *tswingleg
+          Bc: *rs
+          Bm: *ls
+          KDth: *dsKDth
+          rkk: *rNN
+          rfabs: *swingLeg1
+          xifabs: *tdaL
+        -
+          twf: *ths
+          Bc: *Lfc
+          # Bc: *Lrc
+          Bm: *Lnc
+          KDth: *rKDth
+          rkk: *rLT
+        -
+          twf: 0.15
+        #   twf: *ttr
+        #   Bc: *Rrc
+        #   rkk: *rRT
+        # -
+        #   twf: *tds
+        #   Bc: *Lfc
+        #   rkk: *rLN
+        #   xifabs: *tdaN
+        # 2 step
+        -
+          twf: *tswingleg
+          Bc: *ls
+          Bm: *rs
+          KDth: *dsKDth
+          rkk: *rNN
+          rfabs: *swingLeg2
+          xifabs: *tdaR
+        -
+          twf: *ths
+          Bc: *Rfc
+          # Bc: *Rrc
+          Bm: *Rnc
+          KDth: *rKDth
+        -
+          twf: 0.15
+        #   twf: *ttr
+        #   Bc: *Lrc
+        #   rkk: *rLT
+        # -
+        #   twf: *tds
+        #   Bc: *Rfc

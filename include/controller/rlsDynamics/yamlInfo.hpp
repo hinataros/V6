@@ -42,6 +42,7 @@ namespace RLS{
     void reset(YAML::Node);
     void initialize(const string&, const int&);
 
+    void controllerYamlModifier(YAML::Node); // amiyata
     YAML::Node docDist(); // amiyata
 
     int checkUserSize(const string, const string);
@@ -62,6 +63,7 @@ namespace RLS{
     template <class T> bool checkValue(T &value, const int, const string);
     template <class T> bool checkValue(T &value, const int, const string, const string);
     template <class T> bool checkValue(T &value, const string, const int, const string);
+    template <class T> bool checkValue(T &value, const string, const string, const int);
     template <class T> bool checkValue(T &value, const string, const int, const string, const string);
   };
 }

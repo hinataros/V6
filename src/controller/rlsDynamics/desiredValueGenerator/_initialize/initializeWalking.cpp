@@ -39,11 +39,4 @@ void RLS::DesiredValueGenerator::resetWalking(const double &t)
   walking.setInitialTime(t); // amiyata
 
   walking.initialize();
-
-  walking.setWayPoint(); // amiyata
-  walking.createHTTrajectory();
-  if(walking.ToptimF)
-    walking.createVRPTrajTopt(); // amiyata
-  else
-    walking.createVRPTrajectory(); // amiyata
 }

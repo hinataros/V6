@@ -32,7 +32,7 @@ controller:
     KX: 3.e+2
     KpC: 3.e+2
     KdC: 5.e+1
-    KpwB: 3.e+2
+    KpwB: 5.e+2
     KdwB: 5.e+1
 
     Kpv:
@@ -82,24 +82,46 @@ controller:
       rf: &swingLeg0
         RLEGEE: [0., 0., 0.]
       rf: &swingLeg1
-        LLEGEE: [ 0.027577, -0.011423, 0.]
+        LLEGEE: [ 0.037671, -0.028906, -0.0002]
       rf: &swingLeg2
-        RLEGEE: [-0.027577,  0.011423, 0.]
+        RLEGEE: [-0.037671,  0.028906, -0.0002]
       rf: &swingLeg3
-        LLEGEE: [ 0.039000, -0.039000, 0.]
+        LLEGEE: [ 0.019500, -0.072775, -0.0002]
       rf: &swingLeg4
-        RLEGEE: [-0.039000,  0.039000, 0.]
+        RLEGEE: [-0.019500,  0.072775, -0.0002]
     attitude leg:
       xif: &attLeg0
         RLEGEE: [0., 0., 0.]
       xif: &attLeg1
-        LLEGEE: [-45., 0., 0.]
+        LLEGEE: [-75., 0., 0.]
       xif: &attLeg2
-        RLEGEE: [-45., 0., 0.]
+        RLEGEE: [-75., 0., 0.]
       xif: &attLeg3
-        LLEGEE: [-90., 0., 0.]
+        LLEGEE: [-150., 0., 0.]
       xif: &attLeg4
-        RLEGEE: [-90., 0., 0.]
+        RLEGEE: [-150., 0., 0.]
+    # swing leg:
+    #   rf: &swingLeg0
+    #     RLEGEE: [0., 0., 0.]
+    #   rf: &swingLeg1
+    #     LLEGEE: [ 0.027577, -0.011423, -0.0005]
+    #   rf: &swingLeg2
+    #     RLEGEE: [-0.027577,  0.011423, -0.0005]
+    #   rf: &swingLeg3
+    #     LLEGEE: [ 0.039000, -0.039000, -0.0005]
+    #   rf: &swingLeg4
+    #     RLEGEE: [-0.039000,  0.039000, -0.0005]
+    # attitude leg:
+    #   xif: &attLeg0
+    #     RLEGEE: [0., 0., 0.]
+    #   xif: &attLeg1
+    #     LLEGEE: [-45., 0., 0.]
+    #   xif: &attLeg2
+    #     RLEGEE: [-45., 0., 0.]
+    #   xif: &attLeg3
+    #     LLEGEE: [-90., 0., 0.]
+    #   xif: &attLeg4
+    #     RLEGEE: [-90., 0., 0.]
 
   state:
     -
@@ -157,51 +179,51 @@ controller:
           sequence:
             -
               twf: 1.
-              desired value generator:
-                DCM: {name: CP}
-                control node translation:
-                  RLEGEE: {name: CP, cur: true}
-                  LLEGEE: {name: CP, cur: true}
-            -
-              twf: 1.
-              rXf: [0., 0.035, 0.]
+            #   desired value generator:
+            #     DCM: {name: CP}
+            #     control node translation:
+            #       RLEGEE: {name: CP, cur: true}
+            #       LLEGEE: {name: CP, cur: true}
             # -
             #   twf: 1.
-            -
-              twf: 1.
-              Bm:
-                RLEGEE: [1, 1, 1, 1, 1 ,1]
-              Bc:
-                RLEGEE: [0, 0, 0, 0, 0 ,0]
-              rf:
-                RLEGEE: [0., 0., 0.05]
-            -
-              twf: 1.
-              xif:
-                RLEGEE: [0., -45., 0.]
-            -
-              twf: 1.
-              xif:
-                RLEGEE: [0., 0., 45.]
-            -
-              twf: 1.
-              xif:
-                RLEGEE: [0., 0., 0.]
-            -
-              twf: 2.
-            -
-              twf: 1.
-              rf:
-                RLEGEE: [0., 0., 0.]
-            -
-              twf: 1.
-              Bm:
-                RLEGEE: [0, 0, 0, 0, 0 ,0]
-              Bc:
-                RLEGEE: [1, 1, 1, 1, 1 ,1]
-              rXf: [0., 0., 0.]
-            -
-              twf: 1.
+            #   rXf: [0., 0.035, 0.]
+            # # -
+            # #   twf: 1.
+            # -
+            #   twf: 1.
+            #   Bm:
+            #     RLEGEE: [1, 1, 1, 1, 1 ,1]
+            #   Bc:
+            #     RLEGEE: [0, 0, 0, 0, 0 ,0]
+            #   rf:
+            #     RLEGEE: [0., 0., 0.05]
+            # -
+            #   twf: 1.
+            #   xif:
+            #     RLEGEE: [0., -45., 0.]
+            # -
+            #   twf: 1.
+            #   xif:
+            #     RLEGEE: [0., 0., 45.]
+            # -
+            #   twf: 1.
+            #   xif:
+            #     RLEGEE: [0., 0., 0.]
+            # -
+            #   twf: 2.
+            # -
+            #   twf: 1.
+            #   rf:
+            #     RLEGEE: [0., 0., 0.]
+            # -
+            #   twf: 1.
+            #   Bm:
+            #     RLEGEE: [0, 0, 0, 0, 0 ,0]
+            #   Bc:
+            #     RLEGEE: [1, 1, 1, 1, 1 ,1]
+            #   rXf: [0., 0., 0.]
+            # -
+            #   twf: 1.
 
 
         - #1
@@ -298,22 +320,22 @@ controller:
                 # 1 step
                 -
                   twf: *tss
-                  xiBf: [-22.5, 0., 0.]
+                  xiBf: [-37.5, 0., 0.]
 
                 # 2 step
                 -
                   twf: *tss
-                  xiBf: [-45., 0., 0.]
+                  xiBf: [-75., 0., 0.]
 
                 # 3 step
                 -
                   twf: *tss
-                  xiBf: [-67.5, 0., 0.]
+                  xiBf: [-112.5, 0., 0.]
 
                 # 4 step
                 -
                   twf: *tss
-                  xiBf: [-90., 0., 0.]
+                  xiBf: [-150., 0., 0.]
 
                 -
                   twf: 1.

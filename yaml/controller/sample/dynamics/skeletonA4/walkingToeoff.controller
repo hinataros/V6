@@ -5,8 +5,6 @@ angle unit: degree
 controller:
   control model: skeletonA4
   input: torque
-  driven: mix
-  trigger: check contact
 
   default:
     control method:
@@ -15,7 +13,6 @@ controller:
       motion controller: mixedGeneralizedMomentum
       # motion controller: mGDAM
       force controller: centroidalEcmpDistribution
-      # force controller: centroidalDcmDistribution
       momentum controller: centroidalVrpMomentum
       # momentum controller: centroidalVrpMomentumDamping
       torque controller: mixedOpt
@@ -24,11 +21,11 @@ controller:
       DCM: {name: HTWalking}
       base rotation: {name: CP}
       control node translation:
-        RLEGEE: {name: swing}
-        LLEGEE: {name: swing}
+        RLEGEE: {name: swingabs, cur: true}
+        LLEGEE: {name: swingabs, cur: true}
       control node rotation:
-        RLEGEE: {name: CPcur}
-        LLEGEE: {name: CPcur}
+        RLEGEE: {name: CP, cur: true}
+        LLEGEE: {name: CP, cur: true}
 
     feedback controller:
       CoM: dcmControl
@@ -107,383 +104,386 @@ controller:
 
     KDlC: 100
 
+    # for walking
+    height: &height 0.02
+    rApex:
+      RLEGEE: *height
+      LLEGEE: *height
+
+
   state:
     -
-      control method:
-        inverse dynamics controller: default
-      Bc: *zs
-      Bm: *zs
-    -
-      control method:
-        inverse dynamics controller: fullDynamicsController
+      trigger: check contact
+      state:
+        -
+          control method:
+            inverse dynamics controller: default
+          Bc: *zs
+          Bm: *zs
+        -
+          control method:
+            inverse dynamics controller: fullDynamicsController
 
-      Bc: *ds
-      Bm: *zs
+          Bc: *ds
+          Bm: *zs
 
-    -
-      control method:
-        inverse dynamics controller: fullDynamicsController
-      Bc: &ls
-        RLEGEE: [0, 0, 0, 0, 0, 0]
-        LLEGEE: [1, 1, 1, 1, 1, 1]
-      Bm: &rs
-        RLEGEE: [1, 1, 1, 1, 1, 1]
-        LLEGEE: [0, 0, 0, 0, 0, 0]
-    -
-      control method:
-        inverse dynamics controller: fullDynamicsController
-      Bc: *rs
-      Bm: *ls
-
-  walking:
-    height: &height 0.02
-
-    ## 0.105
-    # length: &steplength1 0.105
-    # length: &steplength2 0.21
-    # length: &steplength3 0.315
-    # length: &steplength4 0.42
-    # length: &steplength5 0.525
-    # length: &steplength6 0.63
-    # length: &steplength7 0.735
-    length: &steplength1 0.115
-    length: &steplength2 0.23
-    length: &steplength3 0.345
-    length: &steplength4 0.46
-    length: &steplength5 0.575
-    length: &steplength6 0.69
-    length: &steplength7 0.805
-    ## 0.09
-    # length: &steplength1 0.09
-    # length: &steplength2 0.18
-    # length: &steplength3 0.27
-    # length: &steplength4 0.36
-    # length: &steplength5 0.45
-    # length: &steplength6 0.55
-    # length: &steplength7 0.62
-    ## 0.08
-    # length: &steplength1 0.08
-    # length: &steplength2 0.16
-    # length: &steplength3 0.24
-    # length: &steplength4 0.32
-    # length: &steplength5 0.40
-    # length: &steplength6 0.48
-    # length: &steplength7 0.56
-
-    vrp waypoint:
-      - [0., -0.039, 0.]
-      - [*steplength1, 0.039, 0.]
-      - [*steplength2, -0.039, 0.]
-      - [*steplength3, 0.039, 0.]
-      # - [*steplength3, 0., 0.]
-      - [*steplength4, -0.039, 0.]
-      - [*steplength5, 0.039, 0.]
-      - [*steplength6, -0.039, 0.]
-      - [*steplength7, 0.039, 0.]
-      - [*steplength7, 0., 0.]
-
-# # success param =====
-    ## 0.08
-    # dtstep: .6
-    # dtDSstep: 0.25
-    #
-    # twf: &tinitial 0.425
-    # twf: &tswingleg 0.35
-    #
-    # twf: &tds 0.10
-    # twf: &tho 0.15
-    #
-    # alphaDSstep: 0.4
-    # alphaHTstep: 0.6
-    # offset: 0.015
-    # toe: 0.035
-    # heel: 0.0
-    # extJac: &vecToe 0.058
-
-    # ## 0.105 (arm swing)
-    # dtstep: .67
-    # dtDSstep: 0.25
-    #
-    # twf: &tinitial 0.42
-    # twf: &tswingleg 0.42
-    #
-    # twf: &tds 0.1
-    # twf: &tho 0.15
-    #
-    # alphaDSstep: 0.4
-    # alphaHTstep: 0.6
-    # offset: 0.015
-    # toe: 0.042
-    # heel: 0.0
-    #
-    # extJac: &vecToe 0.058
-# # ==================
-
-# # SmallFoot(x=70 y=45) suc param =====
-    # #strides = 0.1
-    # dtstep: 0.7
-    # dtDSstep: 0.25
-    #
-    # twf: &tinitial 0.475
-    # twf: &tswingleg 0.45
-    #
-    # twf: &tds 0.08
-    # twf: &tho 0.17
-    #
-    # alphaDSstep: 0.4
-    # alphaHTstep: 0.6
-    # offset: 0.01
-    # toe: 0.03
-    # heel: -0.0
-
-    # #strides = 0.105
-    # dtstep: 0.7
-    # dtDSstep: 0.25
-    #
-    # twf: &tinitial 0.45
-    # twf: &tswingleg 0.45
-    #
-    # twf: &tds 0.1
-    # twf: &tho 0.15
-    #
-    # alphaDSstep: 0.4
-    # alphaHTstep: 0.6
-    # offset: 0.01
-    # toe: 0.03
-    # heel: -0.0
-    #
-    # extJac: &vecToe 0.04
-
-    # #strides = 0.09
-    # dtstep: 0.65
-    # dtDSstep: 0.25
-    #
-    # twf: &tinitial 0.45
-    # twf: &tswingleg 0.4
-    #
-    # twf: &tds 0.1
-    # twf: &tho 0.15
-    #
-    # alphaDSstep: 0.4
-    # alphaHTstep: 0.6
-    # offset: 0.01
-    # toe: 0.025
-    # heel: -0.0
-    #
-    # extJac: &vecToe 0.04143
-
-    # #strides = 0.08
-    # dtstep: 0.6
-    # dtDSstep: 0.25
-    #
-    # twf: &tinitial 0.425
-    # twf: &tswingleg 0.35
-    #
-    # twf: &tds 0.1
-    # twf: &tho 0.15
-    #
-    # alphaDSstep: 0.4
-    # alphaHTstep: 0.6
-    # offset: 0.01
-    # toe: 0.029
-    # heel: -0.0
-    #
-    # extJac: &vecToe 0.04
-# # ==================
-# test param =====
-    dtstep: 0.5
-    dtDSstep: 0.1
-
-    twf: &tinitial 0.3
-    twf: &tswingleg 0.4
-
-    twf: &tds 0.02
-    twf: &tho 0.08
-
-    alphaDSstep: 0.4
-    alphaHTstep: 0.6
-    offset: 0.01
-    toe: 0.025
-    heel: -0.015
-
-    extJac: &vecToe 0.058
-# ==================
-
-    rkkZ: &rNN
-      RLEGEE: [0., 0., 0.]
-      LLEGEE: [0., 0., 0.]
-    rkkR: &rRR
-      RLEGEE: [*vecToe, 0., 0.]
-      LLEGEE: [0., 0., 0.]
-    rkkL: &rLL
-      RLEGEE: [0., 0., 0.]
-      LLEGEE: [*vecToe, 0., 0.]
-
-    tstab: &tstab 1.
-
-  swing leg:
-    rfabs: &swingLeg1
-      LLEGEE: [*steplength1, 0.039, *height]
-    rfabs: &swingLeg2
-      RLEGEE: [*steplength2, -0.039, *height]
-    rfabs: &swingLeg3
-      LLEGEE: [*steplength3, 0.039, *height]
-    rfabs: &swingLeg4
-    #   RLEGEE: [*steplength3, -0.039, *height]
-      RLEGEE: [*steplength4, -0.039, *height]
-    rfabs: &swingLeg5
-      LLEGEE: [*steplength5, 0.039, *height]
-    rfabs: &swingLeg6
-      RLEGEE: [*steplength6, -0.039, *height]
-    rfabs: &swingLeg7
-      LLEGEE: [*steplength7, 0.039, *height]
-    rfabs: &swingLeg8
-      RLEGEE: [*steplength7, -0.039, *height]
-
-  sequence:
-    -
-      twf: *tstab
-      control method: *wd
+        -
+          control method:
+            inverse dynamics controller: fullDynamicsController
+          Bc: &ls
+            RLEGEE: [0, 0, 0, 0, 0, 0]
+            LLEGEE: [1, 1, 1, 1, 1, 1]
+          Bm: &rs
+            RLEGEE: [1, 1, 1, 1, 1, 1]
+            LLEGEE: [0, 0, 0, 0, 0, 0]
+        -
+          control method:
+            inverse dynamics controller: fullDynamicsController
+          Bc: *rs
+          Bm: *ls
 
     -
-      twf: *tinitial
-    # 1 step
-    -
-      twf: *tswingleg
-      Bc: *rs
-      Bm: *ls
-      rfabs: *swingLeg1
-      rtd:
-        LLEGEE: [0., 0., -0.0005]
-      KDth: *dsKDth
-      rkk: *rNN
-    -
-      twf: *tds
-      control method: *wdi
-    -
-      twf: *tho
-      Bc: *rst
-      KDth: *rKDth
-      rkk: *rRR
-      control method: *wd
-    # 2 step
-    -
-      twf: *tswingleg
-      Bc: *ls
-      Bm: *rs
-      rfabs: *swingLeg2
-      rtd:
-        RLEGEE: [0., 0., -0.0005]
-      KDth: *dsKDth
-      rkk: *rNN
-    -
-      twf: *tds
-      control method: *wdi
-    -
-      twf: *tho
-      Bc: *lst
-      KDth: *lKDth
-      rkk: *rLL
-      control method: *wd
-    # 3 step
-    -
-      twf: *tswingleg
-      Bc: *rs
-      Bm: *ls
-      rfabs: *swingLeg3
-      KDth: *dsKDth
-      rkk: *rNN
-    -
-      twf: *tds
-      control method: *wdi
-    -
-      twf: *tho
-      Bc: *rst
-      KDth: *rKDth
-      rkk: *rRR
-      control method: *wd
-    # 4 step
-    -
-      twf: *tswingleg
-      Bc: *ls
-      Bm: *rs
-      rfabs: *swingLeg4
-      KDth: *dsKDth
-      rkk: *rNN
-    -
-      # twf: 0.2 # test
-      twf: *tds
-      control method: *wdi
-    -
-      twf: *tho
-      Bc: *lst
-      KDth: *lKDth
-      rkk: *rLL
-      control method: *wd
-    # 5 step
-    -
-      twf: *tswingleg
-      Bc: *rs
-      Bm: *ls
-      rfabs: *swingLeg5
-      KDth: *dsKDth
-      rkk: *rNN
-    -
-      twf: *tds
-      control method: *wdi
-    -
-      twf: *tho
-      Bc: *rst
-      KDth: *rKDth
-      rkk: *rRR
-      control method: *wd
-    # 6 step
-    -
-      twf: *tswingleg
-      Bc: *ls
-      Bm: *rs
-      rfabs: *swingLeg6
-      rtd:
-        RLEGEE: [0., 0., 0.0]
-      KDth: *dsKDth
-      rkk: *rNN
-    -
-      twf: *tds
-      control method: *wdi
-    -
-      twf: *tho
-      Bc: *lst
-      KDth: *lKDth
-      rkk: *rLL
-      control method: *wd
-    # 7 step
-    -
-      twf: *tswingleg
-      Bc: *rs
-      Bm: *ls
-      rfabs: *swingLeg7
-      rtd:
-        LLEGEE: [0., 0., -0.0]
-      KDth: *dsKDth
-      rkk: *rNN
-    -
-      twf: *tds
-      control method: *wdi
-    -
-      twf: *tho
-      Bc: *rst
-      KDth: *rKDth
-      rkk: *rRR
-      control method: *wd
-    # 8 step
-    -
-      twf: *tswingleg
-      Bc: *ls
-      Bm: *rs
-      rfabs: *swingLeg8
-      rtd:
-        RLEGEE: [0., 0., -0.0005]
-      KDth: *dsKDth
-      rkk: *rNN
-    -
-      twf: 0.25
+      walking:
+        ## 0.105
+        length: &steplength1 0.105
+        length: &steplength2 0.21
+        length: &steplength3 0.315
+        length: &steplength4 0.42
+        length: &steplength5 0.525
+        length: &steplength6 0.63
+        length: &steplength7 0.735
+        ## 0.115
+        # length: &steplength1 0.115
+        # length: &steplength2 0.23
+        # length: &steplength3 0.345
+        # length: &steplength4 0.46
+        # length: &steplength5 0.575
+        # length: &steplength6 0.69
+        # length: &steplength7 0.805
+        ## 0.09
+        # length: &steplength1 0.09
+        # length: &steplength2 0.18
+        # length: &steplength3 0.27
+        # length: &steplength4 0.36
+        # length: &steplength5 0.45
+        # length: &steplength6 0.55
+        # length: &steplength7 0.62
+        ## 0.08
+        # length: &steplength1 0.08
+        # length: &steplength2 0.16
+        # length: &steplength3 0.24
+        # length: &steplength4 0.32
+        # length: &steplength5 0.40
+        # length: &steplength6 0.48
+        # length: &steplength7 0.56
+
+        vrp waypoint:
+          - [0., -0.039, 0.]
+          - [*steplength1, 0.039, 0.]
+          - [*steplength2, -0.039, 0.]
+          - [*steplength3, 0.039, 0.]
+          # - [*steplength3, 0., 0.]
+          - [*steplength4, -0.039, 0.]
+          - [*steplength5, 0.039, 0.]
+          - [*steplength6, -0.039, 0.]
+          - [*steplength7, 0.039, 0.]
+          - [*steplength7, 0., 0.]
+
+        tstab: &tstab 1.
+
+
+    # # success param =====
+        ## 0.08
+        # dtstep: .6
+        # dtDSstep: 0.25
+        #
+        # twf: &tinitial 0.425
+        # twf: &tswingleg 0.35
+        #
+        # twf: &tds 0.10
+        # twf: &tho 0.15
+        #
+        # alphaDSstep: 0.4
+        # alphaHTstep: 0.6
+        # offset: 0.015
+        # toe: 0.035
+        # heel: 0.0
+        # extJac: &vecToe 0.058
+
+        # ## 0.105 (arm swing)
+        # dtstep: .67
+        # dtDSstep: 0.25
+        #
+        # twf: &tinitial 0.42
+        # twf: &tswingleg 0.42
+        #
+        # twf: &tds 0.1
+        # twf: &tho 0.15
+        #
+        # alphaDSstep: 0.4
+        # alphaHTstep: 0.6
+        # offset: 0.015
+        # toe: 0.042
+        # heel: 0.0
+        #
+        # extJac: &vecToe 0.058
+    # # ==================
+
+    # # SmallFoot(x=70 y=45) suc param =====
+        # #strides = 0.1
+        # dtstep: 0.7
+        # dtDSstep: 0.25
+        #
+        # twf: &tinitial 0.475
+        # twf: &tswingleg 0.45
+        #
+        # twf: &tds 0.08
+        # twf: &tho 0.17
+        #
+        # alphaDSstep: 0.4
+        # alphaHTstep: 0.6
+        # offset: 0.01
+        # toe: 0.03
+        # heel: -0.0
+
+        # #strides = 0.105
+        dtstep: 0.7
+        dtDSstep: 0.25
+
+        # twf: &tinitial 0.45
+        twf: &tswingleg 0.45
+
+        twf: &tds 0.1
+        twf: &tho 0.15
+
+        alphaDSstep: 0.4
+        alphaHTstep: 0.6
+        offset: 0.01
+        toe: 0.03
+        heel: -0.0
+
+        extJac: &vecToe 0.04
+
+        # #strides = 0.09
+        # dtstep: 0.65
+        # dtDSstep: 0.25
+        #
+        # twf: &tinitial 0.45
+        # twf: &tswingleg 0.4
+        #
+        # twf: &tds 0.1
+        # twf: &tho 0.15
+        #
+        # alphaDSstep: 0.4
+        # alphaHTstep: 0.6
+        # offset: 0.01
+        # toe: 0.025
+        # heel: -0.0
+        #
+        # extJac: &vecToe 0.04143
+
+        # #strides = 0.08
+        # dtstep: 0.6
+        # dtDSstep: 0.25
+        #
+        # twf: &tinitial 0.425
+        # twf: &tswingleg 0.35
+        #
+        # twf: &tds 0.1
+        # twf: &tho 0.15
+        #
+        # alphaDSstep: 0.4
+        # alphaHTstep: 0.6
+        # offset: 0.01
+        # toe: 0.029
+        # heel: -0.0
+        #
+        # extJac: &vecToe 0.04
+    # # ==================
+    # test param =====
+        # dtstep: 0.5
+        # dtDSstep: 0.1
+        #
+        # twf: &tinitial 0.3
+        # twf: &tswingleg 0.4
+        #
+        # twf: &tds 0.02
+        # twf: &tho 0.08
+        #
+        # alphaDSstep: 0.4
+        # alphaHTstep: 0.6
+        # offset: 0.01
+        # toe: 0.025
+        # heel: -0.015
+        #
+        # extJac: &vecToe 0.058
+    # ==================
+
+        rkkZ: &rNN
+          RLEGEE: [0., 0., 0.]
+          LLEGEE: [0., 0., 0.]
+        rkkR: &rRT
+          RLEGEE: [*vecToe, 0., 0.]
+          LLEGEE: [0., 0., 0.]
+        rkkL: &rLT
+          RLEGEE: [0., 0., 0.]
+          LLEGEE: [*vecToe, 0., 0.]
+
+
+        swing leg:
+          rfabs: &swingLeg1
+            LLEGEE: [*steplength1, 0.039, -0.0002]
+          rfabs: &swingLeg2
+            RLEGEE: [*steplength2, -0.039, -0.0002]
+          rfabs: &swingLeg3
+            LLEGEE: [*steplength3, 0.039, -0.0002]
+          rfabs: &swingLeg4
+          #   RLEGEE: [*steplength3, -0.039, -0.0002]
+            RLEGEE: [*steplength4, -0.039, -0.0002]
+          rfabs: &swingLeg5
+            LLEGEE: [*steplength5, 0.039, -0.0002]
+          rfabs: &swingLeg6
+            RLEGEE: [*steplength6, -0.039, -0.0002]
+          rfabs: &swingLeg7
+            LLEGEE: [*steplength7, 0.039, -0.0002]
+          rfabs: &swingLeg8
+            RLEGEE: [*steplength7, -0.039, -0.0002]
+
+      sequence:
+        -
+          twf: *tstab
+          control method: *wd
+        -
+          twf: *ss
+        # 1 step
+        -
+          twf: *tswingleg
+          Bc: *rs
+          Bm: *ls
+          rfabs: *swingLeg1
+          KDth: *dsKDth
+          rkk: *rNN
+        -
+          twf: *tds
+          control method: *wdi
+        -
+          twf: *tho
+          Bc: *rst
+          KDth: *rKDth
+          rkk: *rRT
+          control method: *wd
+        # 2 step
+        -
+          twf: *tswingleg
+          Bc: *ls
+          Bm: *rs
+          rfabs: *swingLeg2
+          KDth: *dsKDth
+          rkk: *rNN
+        -
+          twf: *tds
+          control method: *wdi
+        -
+          twf: *tho
+          Bc: *lst
+          KDth: *lKDth
+          rkk: *rLT
+          control method: *wd
+        # 3 step
+        -
+          twf: *tswingleg
+          Bc: *rs
+          Bm: *ls
+          rfabs: *swingLeg3
+          KDth: *dsKDth
+          rkk: *rNN
+        -
+          twf: *tds
+          control method: *wdi
+        -
+          twf: *tho
+          Bc: *rst
+          KDth: *rKDth
+          rkk: *rRT
+          control method: *wd
+        # 4 step
+        -
+          twf: *tswingleg
+          Bc: *ls
+          Bm: *rs
+          rfabs: *swingLeg4
+          KDth: *dsKDth
+          rkk: *rNN
+        -
+          # twf: 0.2 # test
+          twf: *tds
+          control method: *wdi
+        -
+          twf: *tho
+          Bc: *lst
+          KDth: *lKDth
+          rkk: *rLT
+          control method: *wd
+        # 5 step
+        -
+          twf: *tswingleg
+          Bc: *rs
+          Bm: *ls
+          rfabs: *swingLeg5
+          KDth: *dsKDth
+          rkk: *rNN
+        -
+          twf: *tds
+          control method: *wdi
+        -
+          twf: *tho
+          Bc: *rst
+          KDth: *rKDth
+          rkk: *rRT
+          control method: *wd
+        # 6 step
+        -
+          twf: *tswingleg
+          Bc: *ls
+          Bm: *rs
+          rfabs: *swingLeg6
+          KDth: *dsKDth
+          rkk: *rNN
+        -
+          twf: *tds
+          control method: *wdi
+        -
+          twf: *tho
+          Bc: *lst
+          KDth: *lKDth
+          rkk: *rLT
+          control method: *wd
+        # 7 step
+        -
+          twf: *tswingleg
+          Bc: *rs
+          Bm: *ls
+          rfabs: *swingLeg7
+          KDth: *dsKDth
+          rkk: *rNN
+        -
+          twf: *tds
+          control method: *wdi
+        -
+          twf: *tho
+          Bc: *rst
+          KDth: *rKDth
+          rkk: *rRT
+          control method: *wd
+        # 8 step
+        -
+          twf: *tswingleg
+          Bc: *ls
+          Bm: *rs
+          rfabs: *swingLeg8
+          KDth: *dsKDth
+          rkk: *rNN
+        -
+          twf: 0.25
+        -
+          twf: 10.

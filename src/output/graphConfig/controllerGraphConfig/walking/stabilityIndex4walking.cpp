@@ -23,12 +23,12 @@ void RLS::Output::stabilityIndex4walking(GpMaker &gpMaker, TexMaker &texMaker)
   reset();
   setFileName("stabilityIndex");
 
-  setDatNum(3);
+  setDatNum(4);
   setDatName(1, "gCoM");
   // setDatName(2, "rndecmpDes");
-  // setDatName(2, "rp");
-  setDatName(2, "xCoM");
-  setDatName(3, "eCMPRef");
+  setDatName(2, "rp");
+  setDatName(3, "xCoM");
+  setDatName(4, "eCMPRef");
   makeDat();
 
   // gpMaker.reset(); // amiyata makeGraphへ移行

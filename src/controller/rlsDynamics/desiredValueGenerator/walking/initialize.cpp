@@ -12,6 +12,18 @@ void RLS::Walking::initialize()
   if(debug) DEBUG;
 
   // resize();
-  readController(); // amiyata
+  int setVwp = readController(); // amiyata
   resetMat();
+
+  if(setVwp > 0){
+    setWayPoint(); // amiyata
+    createHTTrajectory();
+    if(ToptimF)
+      createVRPTrajTopt(); // amiyata
+    else
+      createVRPTrajectory(); // amiyata
+  }
+  else
+    cout << "No VRP way point..." << endl;
+
 }

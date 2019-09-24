@@ -10,7 +10,7 @@ result:
 
 gp:
   check: false
-  sampling time: 50
+  sampling time: 10
   start time offset: 1.
 
 tex:
@@ -653,17 +653,32 @@ tex:
     -
       use function: stabilityIndex4walking
       add: [
-        "XLABEL_OFFSET_Y = -0.3",
-        "YLABEL_OFFSET_X = -0.7",
+        # "XLABEL_OFFSET_Y = -0.3",
+        # "YLABEL_OFFSET_X = -0.7",
+        # "set xtics 0.2",
+        # "set ytics 0.2",
+        # "set xrange[-0.1:0.4]",
+        # "set yrange[-0.7:0.1]",
+        # "set size ratio 1.6" #y/x
+        "XLABEL_OFFSET_Y = -0.8",
+        "YLABEL_OFFSET_X = -0.25",
         "set xtics 0.2",
-        "set ytics 0.2",
-        "set xrange[-0.1:0.4]",
-        "set yrange[-0.7:0.1]",
-        "set size ratio 1.6" #y/x
+        "set ytics 0.1",
+        "set xrange[-0.1:0.8]",
+        "set yrange[-0.1:0.1]",
+        "set size ratio 0.222222" #y/x
       ]
     -
       use function: stabilityIndex4walkingDes
-
+      add: [
+        "XLABEL_OFFSET_Y = -0.8",
+        "YLABEL_OFFSET_X = -0.25",
+        "set xtics 0.2",
+        "set ytics 0.1",
+        "set xrange[-0.1:0.8]",
+        "set yrange[-0.1:0.1]",
+        "set size ratio 0.222222" #y/x
+      ]
 
 choreonoid:
   sampling time: 10

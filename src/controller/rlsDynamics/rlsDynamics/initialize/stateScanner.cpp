@@ -1,4 +1,5 @@
 // amiyata
+// 2019/09/19 removeに関して YAML::Nodeはポインタなのでどこかで消すと他も消えるので注意
 
 #include "config.hpp"
 #include "model.hpp"
@@ -43,7 +44,7 @@ void RLS::RlsDynamics::stateScanner(struct State &state)
         state.st_ptr_in[i].doc = state.doc[stateKey][i];
         stateScanner(state.st_ptr_in[i]);
       }
-      state.doc.remove(state.doc[stateKey]); //余計なデータは消そーネ
+      // state.doc.remove(stateKey); //余計なデータは消そーネ
     }
     else {
       state.st_ptr_in = new struct State[1];
@@ -71,11 +72,11 @@ void RLS::RlsDynamics::stateScanner(struct State &state)
       state.st_ptr_in[i].doc = state.doc[sequenceKey][i];
       stateScanner(state.st_ptr_in[i]);
     }
-    state.doc.remove(state.doc[sequenceKey]); // 余計なデータは(ry
+    // state.doc.remove(sequenceKey); // 余計なデータは(ry
   }
   else {
     state.fork = 0;
-    state.doc.remove(state.doc); // 余(ry
+    // state.doc.remove(); // 余(ry
   }
 }
 

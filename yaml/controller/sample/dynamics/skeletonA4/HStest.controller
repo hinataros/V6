@@ -1,0 +1,168 @@
+# @author Sho Miyahara 2018
+
+angle unit: degree
+
+controller:
+  control model: skeletonA4
+  input: torque
+
+  default:
+    control method:
+      inverse dynamics controller: fullDynamicsController
+      operational space controller: decomposeEndEffectorAcceleration
+      motion controller: mixedGeneralizedMomentum
+      # motion controller: mGDAM
+      force controller: centroidalEcmpDistribution
+      # momentum controller: centroidalVrpMomentum
+      momentum controller: centroidalMomentum
+      # momentum controller: centroidalVrpMomentumDamping
+      torque controller: mixedOpt
+
+    desired value generator:
+      # DCM: {name: HTWalking}
+      # DCM: {name: VRPWalking}
+      # DCM: {name: CP}
+      CoM: {name: CP}
+      base rotation: {name: CP}
+      control node translation:
+        RLEGEE: {name: swing, cur: true}
+        LLEGEE: {name: swing, cur: true}
+      control node rotation:
+        RLEGEE: {name: CPabs, cur: true}
+        LLEGEE: {name: CPabs, cur: true}
+
+    # feedback controller:
+    #   CoM: dcmControl
+
+    KX: 3.e+2
+    KpwB: 3.e+1
+    KdwB: 5.e+1
+
+    KpC: 3.e+2
+    KdC: 5.e+1
+
+    Kpv:
+      RLEGEE: 5.e+2
+      LLEGEE: 5.e+2
+    Kpw:
+      RLEGEE: 1.e+3
+      LLEGEE: 1.e+3
+    # Kpw:
+    #   RLEGEE: 5.e+2
+    #   LLEGEE: 5.e+2
+    Kdv:
+      RLEGEE: 5.e+1
+      LLEGEE: 5.e+1
+    Kdw:
+      RLEGEE: 5.e+1
+      LLEGEE: 5.e+1
+
+    kDth: &kDthH 1.e+2
+    kDth: &kDthF 5.e+1
+    kthHinit: &kthHinit 1.e+3
+
+
+    KDthRes: &dsKDth
+      [0.,0.,0.,0.,0.,0.,
+      0.,0.,0.,0.,0.,0.,
+      *kDthH, *kDthH, *kDthH, *kDthH,
+      *kDthH, *kDthH, *kDthH, *kDthH]
+    KDthRes: &rKDth
+      [*kDthF,*kDthF,*kDthF,*kDthF,*kDthF,*kDthF,
+      0.,0.,0.,0.,0.,0.,
+      *kDthH, *kDthH, *kDthH, *kDthH,
+      *kDthH, *kDthH, *kDthH, *kDthH]
+    KDthRes: &lKDth
+      [0.,0.,0.,0.,0.,0.,
+      *kDthF,*kDthF,*kDthF,*kDthF,*kDthF,*kDthF,
+      *kDthH, *kDthH, *kDthH, *kDthH,
+      *kDthH, *kDthH, *kDthH, *kDthH]
+
+    KDth: *dsKDth
+    # Kthinit: *dsKDth
+
+    # Kthinit:
+    #   [0.,0.,0.,0.,0.,0., 0.,0.,0.,0.,0.,0.,
+    #   *kthHinit, *kthHinit, *kthHinit, *kthHinit,
+    #   *kthHinit, *kthHinit, *kthHinit, *kthHinit]
+
+    Bc: &ds
+      RLEGEE: [1, 1, 1, 1, 1, 1]
+      LLEGEE: [1, 1, 1, 1, 1, 1]
+    Bm: &zs
+      RLEGEE: [0, 0, 0, 0, 0, 0]
+      LLEGEE: [0, 0, 0, 0, 0, 0]
+
+    BwB: [1, 1, 1]
+    BLC: [1, 1, 1, 0, 0, 1]
+
+    KDlC: 100
+
+    # for walking
+    height: &height 0.02
+    rApex:
+      RLEGEE: *height
+      LLEGEE: *height
+
+
+  state:
+    -
+      trigger: check contact
+      state:
+        -
+          control method:
+            inverse dynamics controller: default
+          Bc: *zs
+          Bm: *zs
+        -
+          control method:
+            inverse dynamics controller: fullDynamicsController
+
+          Bc: *ds
+          Bm: *zs
+
+        -
+          control method:
+            inverse dynamics controller: fullDynamicsController
+          Bc: &ls
+            RLEGEE: [0, 0, 0, 0, 0, 0]
+            LLEGEE: [1, 1, 1, 1, 1, 1]
+          Bm: &rs
+            RLEGEE: [1, 1, 1, 1, 1, 1]
+            LLEGEE: [0, 0, 0, 0, 0, 0]
+        -
+          control method:
+            inverse dynamics controller: fullDynamicsController
+          Bc: *rs
+          Bm: *ls
+
+    -
+      sequence:
+        -
+          twf: 1.
+        -
+          twf: 1.
+          rCf: [0.03, -0.025, 0.]
+
+        -
+          twf: 1.
+          Bc: *rs
+          Bm: *ls
+          rf:
+            LLEGEE: [0.098637, 0., 0.010353]
+          xifabs:
+            LLEGEE: [0., -15., 0.]
+          rkk:
+            LLEGEE: [-0.05, 0., 0.]
+
+        # -
+        #   twf: 0.1
+        #   Bc:
+        #     LLEGEE: [1, 1, 1, 0, 0, 0]
+        #   Bm:
+        #     LLEGEE: [0, 0, 0, 0, 0, 0]
+
+        -
+          twf: 100.
+          Bc:
+            LLEGEE: [1, 1, 1, 1, 1, 1]

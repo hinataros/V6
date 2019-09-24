@@ -127,8 +127,10 @@ namespace RLS{
     int support;
     double tphasef;
 
+    bool ToptimF; // amiyata for time optimization
+
     // void resize(); // amiya
-    void readController();
+    int readController();
     void resetMat(); // amiyata
 
   public:
@@ -142,7 +144,7 @@ namespace RLS{
     Vector3d drCDes;
     Vector3d ddrCDes;
 
-    bool oscF, ToptimF;
+    bool oscF;
 
     VectorXd Topt;
 

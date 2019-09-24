@@ -10,15 +10,6 @@ int RLS::RlsDynamics::checkFootContact(const double &t, const struct State &stat
 {
   if(debug) DEBUG;
 
-  bool contactFlag[info.model.controlNodeNum];
-
-  for(int i=0; i<info.model.controlNodeNum; i++){
-    if(model->cal_F(6*i+2)!=0.)
-      contactFlag[i] = true;
-    else
-      contactFlag[i] = false;
-  }
-
   if(contactFlag[0]==true&&contactFlag[1]==true)
     return 1;
 

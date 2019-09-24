@@ -70,7 +70,6 @@ namespace RLS{
     void initializeStateTrigger();
     void localInitialize();
 
-    void controllerYamlModifier(YAML::Node&); // amiyata
     void stateScanner(struct State&); // amiyata
     void statePrinter(struct State&, int fork=0, int nest=0); // amiyata
 
@@ -420,6 +419,8 @@ namespace RLS{
     // smiyahara: 名前は変えたい
     void initialize(const int&, const string&, Model&);
     void finalize();
+
+    void preProcess(); // amiyata
 
     VectorXd rlsDynamics(const double&);
 

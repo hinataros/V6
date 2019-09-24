@@ -18,6 +18,9 @@ bool RLS::RlsDynamics::stateTrigger(const double &t, struct State &state)
   string noKey = "none";
   string stateKey = "state";
   string sequenceKey = "sequence";
+  string walkingKey = "walking";
+  string resetKey = "reset";
+
   yamlInfo.key = "state";
 
   // cout << "triggering: " << state.stateID << endl;
@@ -48,23 +51,29 @@ bool RLS::RlsDynamics::stateTrigger(const double &t, struct State &state)
       }
 
       // state reset
-      if(state.doc[stateKey][tempCondition]["reset"]){ // 0位置の更新
+      if(state.doc[stateKey][tempCondition][resetKey]){ // 0位置の更新
         if(monitor){ // state monitoring
           cout << "\t\033[31m" << "coordinate resetted!" << "\033[m" << endl;
         }
         controllerModel.originReset(rkk);
         des.setInitialBoundary();
         des.updatePres();
-        if(state.st_ptr_in[tempCondition].trigger == sequenceKey){
-          sequence[state.st_ptr_in[tempCondition].sequenceID].phase = -1;
-        }
       }
+
+      if(state.st_ptr_in[tempCondition].trigger == sequenceKey)
+        sequence[state.st_ptr_in[tempCondition].sequenceID].phase = -1;
 
       for(int i=0; i<state.fork; i++){
         state.st_ptr_in[i].condition = -1;
         state.st_ptr_in[i].finishSeq = false;
       }
       if(state.st_ptr_in[tempCondition].fork){
+        for(int i=0; i<state.st_ptr_in[tempCondition].fork; i++){
+          state.st_ptr_in[tempCondition].st_ptr_in[i].condition = -1;
+          state.st_ptr_in[tempCondition].st_ptr_in[i].finishSeq = false;
+          if(state.st_ptr_in[tempCondition].st_ptr_in[i].trigger == sequenceKey)
+            sequence[state.st_ptr_in[tempCondition].st_ptr_in[i].sequenceID].phase = -1;
+        }
         stateTrigger(t, state.st_ptr_in[tempCondition]);
       }
 
@@ -75,7 +84,7 @@ bool RLS::RlsDynamics::stateTrigger(const double &t, struct State &state)
         yamlInfo.sequence = state.sequenceID;
         yamlInfo.sequenceState = tempCondition;
         // for walking
-        if(state.doc["walking"] && state.condition < 0){
+        if(state.doc[walkingKey] && state.condition < 0){
           yamlInfo.reset(state.doc);
           des.resetWalking(t);
         }

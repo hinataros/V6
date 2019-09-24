@@ -82,6 +82,12 @@ controller:
       RLEGEE: [0, 0, 0, 0, 0, 0]
       LLEGEE: [0, 0, 0, 0, 0, 0]
 
+    # for walking
+    height: &height 0.02
+    rApex:
+      RLEGEE: *height
+      LLEGEE: *height
+
 
   state:
     -
@@ -112,8 +118,6 @@ controller:
       Bm: *ls
 
   walking:
-    height: &height 0.02
-
     length: &steplength1 0.08
     length: &steplength2 0.16
     length: &steplength3 0.24
