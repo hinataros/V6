@@ -33,7 +33,7 @@
 
 #include "gtest/internal/gtest-port.h"
 
-#include <stdio.h>
+#include <cstdio>
 
 #if GTEST_OS_MAC
 # include <time.h>

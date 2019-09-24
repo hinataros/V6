@@ -44,7 +44,7 @@
 
 #include "gtest/gtest-printers.h"
 #include <ctype.h>
-#include <stdio.h>
+#include <cstdio>
 #include <cwchar>
 #include <ostream>  // NOLINT
 #include <string>

@@ -5,7 +5,7 @@
 #include <string>
 #include <iostream>
 #include <eigen3/Eigen/Dense>
-#include <math.h>
+#include <cmath>
 
 #define MM 1e-3
 

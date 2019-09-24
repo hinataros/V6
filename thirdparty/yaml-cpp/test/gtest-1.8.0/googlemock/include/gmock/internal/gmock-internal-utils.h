@@ -38,7 +38,7 @@
 #ifndef GMOCK_INCLUDE_GMOCK_INTERNAL_GMOCK_INTERNAL_UTILS_H_
 #define GMOCK_INCLUDE_GMOCK_INTERNAL_GMOCK_INTERNAL_UTILS_H_
 
-#include <stdio.h>
+#include <cstdio>
 #include <ostream>  // NOLINT
 #include <string>
 

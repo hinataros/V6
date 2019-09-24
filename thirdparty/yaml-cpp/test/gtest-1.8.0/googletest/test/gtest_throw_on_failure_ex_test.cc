@@ -33,8 +33,8 @@
 
 #include "gtest/gtest.h"
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 #include <string.h>
 #include <stdexcept>
 

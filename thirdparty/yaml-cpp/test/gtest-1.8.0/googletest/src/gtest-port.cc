@@ -32,8 +32,8 @@
 #include "gtest/internal/gtest-port.h"
 
 #include <limits.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 #include <string.h>
 #include <fstream>
 

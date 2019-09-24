@@ -36,10 +36,10 @@
 #include "gtest/gtest-spi.h"
 
 #include <ctype.h>
-#include <math.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cmath>
+#include <cstdarg>
+#include <cstdio>
+#include <cstdlib>
 #include <time.h>
 #include <wchar.h>
 #include <wctype.h>

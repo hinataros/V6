@@ -47,7 +47,7 @@
 #include "src/gtest-internal-inl.h"
 #undef GTEST_IMPLEMENTATION_
 
-#include <stdlib.h>
+#include <cstdlib>
 
 #if GTEST_IS_THREADSAFE
 using testing::ScopedFakeTestPartResultReporter;

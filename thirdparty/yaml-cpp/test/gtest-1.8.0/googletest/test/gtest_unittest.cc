@@ -57,7 +57,7 @@ TEST(CommandLineFlagsTest, CanBeAccessedInCodeOnceGTestHIsIncluded) {
 }
 
 #include <limits.h>  // For INT_MAX.
-#include <stdlib.h>
+#include <cstdlib>
 #include <string.h>
 #include <time.h>
 

@@ -4,8 +4,8 @@
 
 #define SHAREDMEMORYSIZE 1000000
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include <sys/ipc.h>
 #include <sys/shm.h>
 

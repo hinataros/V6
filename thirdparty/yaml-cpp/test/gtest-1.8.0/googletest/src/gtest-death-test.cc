@@ -49,7 +49,7 @@
 #  include <signal.h>
 # endif  // GTEST_OS_LINUX
 
-# include <stdarg.h>
+# include <cstdarg>
 
 # if GTEST_OS_WINDOWS
 #  include <windows.h>

@@ -43,7 +43,7 @@
 
 #if GTEST_OS_WINDOWS
 # include <windows.h>
-# include <stdlib.h>
+# include <cstdlib>
 #endif
 
 namespace {

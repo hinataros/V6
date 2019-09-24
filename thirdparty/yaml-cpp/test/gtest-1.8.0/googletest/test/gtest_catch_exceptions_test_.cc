@@ -34,8 +34,8 @@
 
 #include "gtest/gtest.h"
 
-#include <stdio.h>  // NOLINT
-#include <stdlib.h>  // For exit().
+#include <cstdio>  // NOLINT
+#include <cstdlib>  // For exit().
 
 #if GTEST_HAS_SEH
 # include <windows.h>

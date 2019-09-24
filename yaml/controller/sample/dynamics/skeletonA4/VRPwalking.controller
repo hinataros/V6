@@ -138,11 +138,11 @@ controller:
         # twf: &tinitial 0.35
         # twf: &tswingleg 0.3
 
-        dtstep: &tss 0.5
-        dtDSstep: &tds 0.2
+        dtstep: &tss 1.
+        dtDSstep: &tds 0.3
 
         # twf: &tinitial 0.5
-        twf: &tswingleg 0.3 # tss - tds
+        twf: &tswingleg 0.7 # tss - tds
 
 
         alphaDSstep: 0.5

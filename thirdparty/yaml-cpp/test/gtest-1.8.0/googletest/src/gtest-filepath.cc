@@ -33,7 +33,7 @@
 #include "gtest/internal/gtest-filepath.h"
 #include "gtest/internal/gtest-port.h"
 
-#include <stdlib.h>
+#include <cstdlib>
 
 #if GTEST_OS_WINDOWS_MOBILE
 # include <windows.h>

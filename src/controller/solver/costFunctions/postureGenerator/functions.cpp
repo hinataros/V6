@@ -4,7 +4,7 @@
 
 #include "postureGenerator.hpp"
 
-#include <math.h>
+#include <cmath>
 
 
 void RLS::postureGenerator::makeFuncCoef(double *p1, double *p2, double *ab)

@@ -31,7 +31,7 @@
 //
 // Author: wan@google.com (Zhanyong Wan)
 
-#include <stdio.h>
+#include <cstdio>
 
 #include "sample4.h"
 

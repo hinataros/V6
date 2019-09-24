@@ -258,8 +258,8 @@
 
 #include <ctype.h>   // for isspace, etc
 #include <stddef.h>  // for ptrdiff_t
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 #include <string.h>
 #ifndef _WIN32_WCE
 # include <sys/types.h>
@@ -430,7 +430,7 @@ struct _RTL_CRITICAL_SECTION;
 
 // On some platforms, <regex.h> needs someone to define size_t, and
 // won't compile otherwise.  We can #include it here as we already
-// included <stdlib.h>, which is guaranteed to define size_t through
+// included <cstdlib>, which is guaranteed to define size_t through
 // <stddef.h>.
 # include <regex.h>  // NOLINT
 

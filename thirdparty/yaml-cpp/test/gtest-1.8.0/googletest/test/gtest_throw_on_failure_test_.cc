@@ -37,8 +37,8 @@
 
 #include "gtest/gtest.h"
 
-#include <stdio.h>                      // for fflush, fprintf, NULL, etc.
-#include <stdlib.h>                     // for exit
+#include <cstdio>                      // for fflush, fprintf, NULL, etc.
+#include <cstdlib>                     // for exit
 #include <exception>                    // for set_terminate
 
 // This terminate handler aborts the program using exit() rather than abort().

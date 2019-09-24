@@ -6,9 +6,9 @@
 #ifndef _CFSQP_HPP_
 #define _CFSQP_HPP_
 
-#include <stdio.h>
-#include <math.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cmath>
+#include <cstdlib>
 
 #ifndef __STDC__
 #ifdef apollo

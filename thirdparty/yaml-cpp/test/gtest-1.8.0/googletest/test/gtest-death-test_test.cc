@@ -49,7 +49,7 @@ using testing::internal::AlwaysTrue;
 
 # include <limits.h>
 # include <signal.h>
-# include <stdio.h>
+# include <cstdio>
 
 # if GTEST_OS_LINUX
 #  include <sys/time.h>

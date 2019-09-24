@@ -32,7 +32,7 @@
 // an alternative console output and how to use the UnitTest reflection API
 // to enumerate test cases and tests and to inspect their results.
 
-#include <stdio.h>
+#include <cstdio>
 
 #include "gtest/gtest.h"
 

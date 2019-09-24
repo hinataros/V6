@@ -32,7 +32,7 @@
 // Tests that Google Test manipulates the premature-exit-detection
 // file correctly.
 
-#include <stdio.h>
+#include <cstdio>
 
 #include "gtest/gtest.h"
 

@@ -32,7 +32,7 @@
 
 #include "gtest/internal/gtest-linked_ptr.h"
 
-#include <stdlib.h>
+#include <cstdlib>
 #include "gtest/gtest.h"
 
 namespace {

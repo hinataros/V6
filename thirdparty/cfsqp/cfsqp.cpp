@@ -9,9 +9,9 @@ THE SOFTWARE SHOULD CONTACT THE AUTHORS.
 /*     CFSQP - Main Header                                     */
 /***************************************************************/
 
-#include <stdio.h>
-#include <math.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cmath>
+#include <cstdlib>
 
 #ifndef __STDC__
 #ifdef apollo

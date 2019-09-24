@@ -112,8 +112,11 @@ controller:
           control method:
             inverse dynamics controller: fullDynamicsController
 
-          Bc: *ds
+          # Bc: *ds
           Bm: *zs
+          Bc:
+            RLEGEE: [1, 1, 1, 1, 1, 1]
+            LLEGEE: [1, 1, 1, 0, 0, 0]
 
         -
           control method:
@@ -184,7 +187,7 @@ controller:
         length: &footPrint7 0.699848
 
         # Height: &tdh 0.003486
-        Height: &tdh 0.00348 # under
+        Height: &tdh 0.0034 # under
         # ==============================
 
 
@@ -201,24 +204,24 @@ controller:
 
         tstab: &tstab 1.
 
-        dtstep: &tss 0.7
-        dtDSstep: &tds 0.25
+        dtstep: &tss 1.
+        dtDSstep: &tds 0.3
 
-        twf: &tswingleg 0.45
+        twf: &tswingleg 0.6
 
         # ths + tds + ttr = tds
         twf: &ths 0.10 # heel strike touch down
-        twf: &ttr 0.02 # toe rotation start
-        twf: &tds 0.13 # touch down complete
+        twf: &ttr 0.05 # toe rotation start
+        twf: &tds 0.15 # touch down complete
 
         alphaDSstep: 0.4
         alphaHTstep: 0.6
         offset: 0.01
         toe: 0.04
-        heel: -0.02
+        heel: -0.03
 
         extJac: &vecToe 0.04
-        extJac: &vecHeel -0.05
+        extJac: &vecHeel -0.04
 
         rkkZ: &rNN
           RLEGEE: [0., 0., 0.]
@@ -284,18 +287,17 @@ controller:
           xifabs: *tdaL
         -
           twf: *ths
-          Bc: *Lfc
+          # Bc: *Lfc
           # Bc: *Lrc
-          Bm: *Lnc
+          # Bm: *Lnc
           KDth: *rKDth
           rkk: *rLT
         -
-          twf: 0.15
-        #   twf: *ttr
+          twf: *ttr
         #   Bc: *Rrc
         #   rkk: *rRT
-        # -
-        #   twf: *tds
+        -
+          twf: *tds
         #   Bc: *Lfc
         #   rkk: *rLN
         #   xifabs: *tdaN
@@ -315,10 +317,9 @@ controller:
           Bm: *Rnc
           KDth: *rKDth
         -
-          twf: 0.15
-        #   twf: *ttr
+          twf: *ttr
         #   Bc: *Lrc
         #   rkk: *rLT
-        # -
-        #   twf: *tds
+        -
+          twf: *tds
         #   Bc: *Rfc

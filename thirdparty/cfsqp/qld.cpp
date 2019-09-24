@@ -5,12 +5,12 @@
  */
 
 /* umd
-   Must include math.h before f2c.h - f2c does a #define abs.
+   Must include cmath before f2c.h - f2c does a #define abs.
    (Thanks go to Martin Wauchope for providing this correction)
    We manually included AT&T's f2c.h in this source file, i.e.
    it does not have to be present separately in order to compile.
 */
-#include <math.h>
+#include <cmath>
 
 /* CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
    !!!! NOTICE !!!!

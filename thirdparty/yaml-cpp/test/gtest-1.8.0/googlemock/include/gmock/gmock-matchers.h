@@ -38,7 +38,7 @@
 #ifndef GMOCK_INCLUDE_GMOCK_GMOCK_MATCHERS_H_
 #define GMOCK_INCLUDE_GMOCK_GMOCK_MATCHERS_H_
 
-#include <math.h>
+#include <cmath>
 #include <algorithm>
 #include <iterator>
 #include <limits>

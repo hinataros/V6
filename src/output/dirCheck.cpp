@@ -6,7 +6,7 @@
 #include "model.hpp"
 #include "output.hpp"
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <sys/stat.h>
 
 

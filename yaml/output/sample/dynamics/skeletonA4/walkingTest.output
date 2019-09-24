@@ -10,7 +10,7 @@ result:
 
 gp:
   check: false
-  sampling time: 10
+  sampling time: 1
   start time offset: 1.
 
 tex:
@@ -412,6 +412,7 @@ tex:
           dimention: 1
           add:
             - ["set yrange[-60:80]",
+            "set xrange[0:1.6]",
             "set object 1 rect from 0, -40 to 0.3, 58 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
             "set object 2 rect from 0.3, -40 to 0.7, 58 behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
             "set object 3 rect from 0.7, -40 to 0.8, 58 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
@@ -427,6 +428,7 @@ tex:
             "set object 17 rect from 4.2, -40 to 6.0, 58 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder"
             ]
             - ["set yrange[-60:80]",
+            "set xrange[0:1.6]",
             "set object 1 rect from 0, -40 to 0.3, 58 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
             "set object 3 rect from 0.7, -40 to 0.8, 58 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
             "set object 4 rect from 0.8, -40 to 1.2, 58 behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
@@ -458,6 +460,7 @@ tex:
           dimention: 1
           add:
             - ["set yrange[-40:40]",
+            "set xrange[0:1.6]",
             "set object 1 rect from 0, -31.5 to 0.3, 31.5 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
             "set object 2 rect from 0.3, -31.5 to 0.7, 31.5 behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
             "set object 3 rect from 0.7, -31.5 to 0.8, 31.5 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
@@ -473,6 +476,7 @@ tex:
             "set object 17 rect from 4.2, -31.5 to 6.0, 31.5 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder"
             ]
             - ["set yrange[-40:40]",
+            "set xrange[0:1.6]",
             "set object 1 rect from 0, -31.5 to 0.3, 31.5 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
             "set object 3 rect from 0.7, -31.5 to 0.8, 31.5 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder",
             "set object 4 rect from 0.8, -31.5 to 1.2, 31.5 behind lw 0 fc rgb 'magenta' fill solid 0.2 noborder",
@@ -660,13 +664,13 @@ tex:
         # "set xrange[-0.1:0.4]",
         # "set yrange[-0.7:0.1]",
         # "set size ratio 1.6" #y/x
-        "XLABEL_OFFSET_Y = -0.8",
-        "YLABEL_OFFSET_X = -0.25",
-        "set xtics 0.2",
+        "XLABEL_OFFSET_Y = -0.3",
+        "YLABEL_OFFSET_X = -0.5",
+        "set xtics 0.1",
         "set ytics 0.1",
-        "set xrange[-0.1:0.8]",
+        "set xrange[-0.1:0.2]",
         "set yrange[-0.1:0.1]",
-        "set size ratio 0.222222" #y/x
+        "set size ratio 0.666667" #y/x
       ]
     -
       use function: stabilityIndex4walkingDes

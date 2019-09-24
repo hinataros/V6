@@ -13,20 +13,17 @@ controller:
       motion controller: mixedGeneralizedMomentum
       # motion controller: mGDAM
       force controller: centroidalEcmpDistribution
-      # momentum controller: centroidalVrpMomentum
-      momentum controller: centroidalMomentum
+      momentum controller: centroidalVrpMomentum
       # momentum controller: centroidalVrpMomentumDamping
       torque controller: mixedOpt
 
     desired value generator:
       # DCM: {name: HTWalking}
-      # DCM: {name: VRPWalking}
-      # DCM: {name: CP}
-      CoM: {name: CP}
+      DCM: {name: VRPWalking}
       base rotation: {name: CP}
       control node translation:
-        RLEGEE: {name: swing, cur: true}
-        LLEGEE: {name: swing, cur: true}
+        RLEGEE: {name: swingabs, cur: true}
+        LLEGEE: {name: swingabs, cur: true}
       control node rotation:
         RLEGEE: {name: CPabs, cur: true}
         LLEGEE: {name: CPabs, cur: true}
@@ -37,9 +34,6 @@ controller:
     KX: 3.e+2
     KpwB: 3.e+1
     KdwB: 5.e+1
-
-    KpC: 3.e+2
-    KdC: 5.e+1
 
     Kpv:
       RLEGEE: 5.e+2
@@ -118,8 +112,11 @@ controller:
           control method:
             inverse dynamics controller: fullDynamicsController
 
-          Bc: *ds
+          # Bc: *ds
           Bm: *zs
+          Bc:
+            RLEGEE: [1, 1, 1, 1, 1, 1]
+            LLEGEE: [1, 1, 1, 0, 0, 0]
 
         -
           control method:
@@ -137,32 +134,156 @@ controller:
           Bm: *ls
 
     -
+      walking:
+        ## 0.105
+        length: &steplength1 0.1
+        length: &steplength2 0.05
+        ## 0.115
+        # length: &steplength1 0.115
+        # length: &steplength2 0.23
+        # length: &steplength3 0.345
+        # length: &steplength4 0.46
+        # length: &steplength5 0.575
+        # length: &steplength6 0.69
+        # length: &steplength7 0.805
+        ## 0.09
+        # length: &steplength1 0.09
+        # length: &steplength2 0.18
+        # length: &steplength3 0.27
+        # length: &steplength4 0.36
+        # length: &steplength5 0.45
+        # length: &steplength6 0.55
+        # length: &steplength7 0.62
+        ## 0.08
+        # length: &steplength1 0.08
+        # length: &steplength2 0.16
+        # length: &steplength3 0.24
+        # length: &steplength4 0.32
+        # length: &steplength5 0.40
+        # length: &steplength6 0.48
+        # length: &steplength7 0.56
+
+        # for heel strike ==============
+        tdAngle: &tdaN
+          RLEGEE: [0., 0., 0.]
+          LLEGEE: [0., 0., 0.]
+        tdAngle: &tdaR
+          RLEGEE: [0., -5., 0.]
+        tdAngle: &tdaL
+          LLEGEE: [0., -5., 0.]
+
+        # footPrint[i] = steplength[i-1] + 0.04 * cos(tda)
+        length: &footPrint1 0.099848
+
+        # Height: &tdh 0.003486
+        Height: &tdh 0.00345 # under
+        # ==============================
+
+
+        vrp waypoint:
+          - [0., -0.039, 0.]
+          - [*steplength1, 0.039, 0.]
+          - [*steplength2, 0., 0.]
+
+        tstab: &tstab 1.
+
+        dtstep: &tss 1.
+        dtDSstep: &tds 0.3
+
+        twf: &tswingleg 0.6
+
+        # ths + tds + ttr = tds
+        twf: &ths 0.10 # heel strike touch down
+        twf: &ttr 0.05 # toe rotation start
+        twf: &tds 0.15 # touch down complete
+
+        alphaDSstep: 0.4
+        alphaHTstep: 0.6
+        offset: 0.01
+        toe: 0.04
+        heel: -0.03
+
+        extJac: &vecToe 0.04
+        extJac: &vecHeel -0.04
+
+        rkkZ: &rNN
+          RLEGEE: [0., 0., 0.]
+          LLEGEE: [0., 0., 0.]
+        rkkZ: &rRN
+          RLEGEE: [0., 0., 0.]
+        rkkZ: &rLN
+          LLEGEE: [0., 0., 0.]
+        rkkR: &rRT
+          RLEGEE: [*vecToe, 0., 0.]
+        rkkL: &rLT
+          LLEGEE: [*vecToe, 0., 0.]
+        rkkR: &rRH
+          RLEGEE: [*vecHeel, 0., 0.]
+        rkkL: &rLH
+          LLEGEE: [*vecHeel, 0., 0.]
+
+        Bc: &Lrc
+          LLEGEE: [1, 1, 1, 0, 0, 0]
+        Bc: &Rrc
+          RLEGEE: [1, 1, 1, 0, 0, 0]
+        Bc: &Lfc
+          LLEGEE: [1, 1, 1, 1, 1, 1]
+        Bc: &Rfc
+          RLEGEE: [1, 1, 1, 1, 1, 1]
+        Bc: &Lnc
+          LLEGEE: [0, 0, 0, 0, 0, 0]
+        Bc: &Rnc
+          RLEGEE: [0, 0, 0, 0, 0, 0]
+
+        swing leg:
+          rfabs: &swingLeg1
+            # LLEGEE: [*footPrint1, 0.039, *tdh]
+            LLEGEE: [*footPrint1, 0.039, *tdh]
+          rfabs: &swingLeg2
+            RLEGEE: [*footPrint2, -0.039, *tdh]
+          rfabs: &swingLeg3
+            LLEGEE: [*footPrint3, 0.039, *tdh]
+          rfabs: &swingLeg4
+            RLEGEE: [*footPrint4, -0.039, *tdh]
+          rfabs: &swingLeg5
+            LLEGEE: [*footPrint5, 0.039, *tdh]
+          rfabs: &swingLeg6
+            RLEGEE: [*footPrint6, -0.039, *tdh]
+          rfabs: &swingLeg7
+            LLEGEE: [*footPrint7, 0.039, *tdh]
+          rfabs: &swingLeg8
+            RLEGEE: [*footPrint7, -0.039, *tdh]
+
       sequence:
         -
-          twf: 1.
+          twf: *tstab
         -
-          twf: 1.
-          rCf: [0.03, -0.025, 0.]
+          twf: *tss
 
+        # 1 step
         -
-          twf: 1.
+          twf: *tswingleg
           Bc: *rs
           Bm: *ls
-          rf:
-            LLEGEE: [0.098637, 0., 0.010353]
-          xifabs:
-            LLEGEE: [0., -15., 0.]
-          rkk:
-            LLEGEE: [-0.05, 0., 0.]
-
-        # -
-        #   twf: 0.1
-        #   Bc:
-        #     LLEGEE: [1, 1, 1, 0, 0, 0]
-        #   Bm:
-        #     LLEGEE: [0, 0, 0, 0, 0, 0]
-
+          KDth: *dsKDth
+          rkk: *rNN
+          rfabs: *swingLeg1
+          xifabs: *tdaL
         -
-          twf: 100.
-          Bc:
-            LLEGEE: [1, 1, 1, 1, 1, 1]
+          twf: *ths
+          # Bc: *Lfc
+          # Bc: *Lrc
+          # Bm: *Lnc
+          KDth: *rKDth
+          rkk: *rLT
+        -
+          twf: *ttr
+        #   Bc: *Rrc
+        #   rkk: *rRT
+        -
+          twf: *tds
+        #   Bc: *Lfc
+        #   rkk: *rLN
+        #   xifabs: *tdaN
+        # 2 step
+        -

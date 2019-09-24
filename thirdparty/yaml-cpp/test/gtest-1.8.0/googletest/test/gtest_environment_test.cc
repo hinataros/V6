@@ -31,8 +31,8 @@
 //
 // Tests using global test environments.
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 #include "gtest/gtest.h"
 
 #define GTEST_IMPLEMENTATION_ 1  // Required for the next #include.

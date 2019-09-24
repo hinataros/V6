@@ -28,6 +28,9 @@ VectorXd RLS::QuadProgpp::solver(MatrixXd& G, VectorXd& g0, string c, MatrixXd& 
   if(c=="i"){
     return solver(G, g0, Czero, czero, C, c0, x);
   }
+
+  cout << "string input error!" << endl;
+  return VectorXd::Zero(x.size());
 }
 
 VectorXd RLS::QuadProgpp::solver(MatrixXd& G, VectorXd& g0, MatrixXd& CE, VectorXd& ce0, MatrixXd& CI, VectorXd& ci0, VectorXd& x)
