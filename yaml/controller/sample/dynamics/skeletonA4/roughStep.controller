@@ -13,7 +13,8 @@ controller:
       inverse dynamics controller: fullDynamicsController
       operational space controller: decomposeEndEffectorAcceleration
       motion controller: mixedGeneralizedMomentum
-      force controller: centroidalEcmpDistribution
+      # force controller: centroidalEcmpDistribution
+      force controller: CRBWCbaseDistribution
       momentum controller: centroidalVrpMomentum
       torque controller: mixedOpt
       # momentum controller: centroidalVrpMomentumDamping
@@ -166,7 +167,7 @@ controller:
       rfabs: &swingLeg2
         RLEGEE: [*steplength2, -0.039, 0.02]
       rfabs: &swingLeg3
-        LLEGEE: [*steplength3, 0.039, 0.04]
+        LLEGEE: [*steplength3, 0.039, 0.0398]
       rfabs: &swingLeg4
         RLEGEE: [*steplength4, -0.039, 0.06]
       rfabs: &swingLeg5

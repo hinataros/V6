@@ -8,43 +8,73 @@ void RLS::RlsDynamics::CRBWCbaseDistribution()
 
   int contact_num = constraintModel.contactLimbs.sum();
 
-  Eigen::MatrixXd Tx = model->bb_TC2k.transpose();
+  // std::cout << "contact" << std::endl << constraintModel.contactLimbs << std::endl;
+
+  // Eigen::MatrixXd Tx = model->bb_TC2k.transpose();
+  Eigen::MatrixXd Tx = model->bb_TC2k.transpose() * model->bb_Rk;
   Eigen::VectorXd Fext = cal_dLCRef + model->cal_GC;
 
   Eigen::MatrixXd CGI = compute_BWC_span(Tx);
-// こっからわからん
-  vector<int> bad;
-  for (int i=0;i<contact_num * 16;i++) {
-    if (CGI.col(i).transpose()*(Fext) >= 0) {
-      bad.push_back(i);
+
+  // o(constraintModel.V_cwc);
+  // o(CGI);
+  vector<int> good;
+
+  VectorXd spans_vol = pInv(CGI) * Fext;
+
+  for (int i=0;i<spans_vol.rows();i++) {
+    if (spans_vol(i) > 0.0) {
+        good.push_back(i);
+    } else {
+      if (i < 16){
+        constraintModel.V_cwc.block(0,i,6,1) = Eigen::MatrixXd::Zero(6,1);
+      }
+      if(16 <= i && i < 32) {
+        constraintModel.V_cwc.block(6,i,6,1) = Eigen::MatrixXd::Zero(6,1);
+      }
+      if(32 <= i && i < 48) {
+        constraintModel.V_cwc.block(12,i,6,1) = Eigen::MatrixXd::Zero(6,1);
+      }
+      if(48 <= i && i < 64) {
+        constraintModel.V_cwc.block(18,i,6,1) = Eigen::MatrixXd::Zero(6,1);
+      }
     }
   }
 
-  MatrixXd thinQ = MatrixXd::Zero(contact_num * 6,bad.size());
-  for (int i=0;i<bad.size();i++) {
-    if (bad[i] < 16){
-      thinQ.block(0,i,6,1) = constraintModel.V_cwc.block(0,bad[i],6,1);
-    }
-    if(16 <= bad[i] && bad[i] < 32) {
-      thinQ.block(6,i,6,1) = constraintModel.V_cwc.block(6,bad[i],6,1);
-    }
-    if(32 <= bad[i] && bad[i] < 48) {
-      thinQ.block(12,i,6,1) = constraintModel.V_cwc.block(12,bad[i],6,1);
-    }
-    if(48 <= bad[i] && bad[i] < 64) {
-      thinQ.block(18,i,6,1) = constraintModel.V_cwc.block(18,bad[i],6,1);
-    }
-  }
+  // MatrixXd thinQ = MatrixXd::Zero(contact_num * 6,good.size());
+  // for (int i=0;i<good.size();i++) {
+  //   if (good[i] < 16){
+  //     thinQ.block(0,i,6,1) = CGI.block(0,good[i],6,1);
+  //   }
+  //   if(16 <= good[i] && good[i] < 32) {
+  //     thinQ.block(6,i,6,1) = CGI.block(6,good[i],6,1);
+  //   }
+  //   if(32 <= good[i] && good[i] < 48) {
+  //     thinQ.block(12,i,6,1) = CGI.block(12,good[i],6,1);
+  //   }
+  //   if(48 <= good[i] && good[i] < 64) {
+  //     thinQ.block(18,i,6,1) = CGI.block(18,good[i],6,1);
+  //   }
+  // }
+
 
   Eigen::MatrixXd AGI = Eigen::MatrixXd::Zero(6, contact_num * 6);
-  for (int i=0; i<contact_num; i++) {
-    AGI.block(0, 6*i,6 , 6) = (Tx).block(0, 6*i, 6, 6);
-  }
+  for (int i=0, rc=0; i<4; i++) {
+    if(constraintModel.contactLimbs(i)) {
+      AGI.block(0,6*rc, 6,6) = (Tx).block(0, 6*i, 6, 6);
+      rc++;
+    }
+ }
 
-  MatrixXd V_bwc = AGI * thinQ;
-  VectorXd spans_vol = VectorXd::Zero(bad.size()); //(cal_dLBRef + model->cal_GB);
+
+
+  MatrixXd V_bwc = AGI * constraintModel.V_cwc;
+  // MatrixXd V_bwc = AGI * thinQ;
+  // VectorXd spans_vol = VectorXd::Zero(good.size());
   spans_vol = pInv(V_bwc) * Fext;
 
-  cal_FcBarRef = thinQ * spans_vol;
+  cal_FcBarRef = constraintModel.V_cwc * spans_vol;
+  // cal_FcBarRef = thinQ * spans_vol;
+  // o(cal_FcBarRef);
 
 }

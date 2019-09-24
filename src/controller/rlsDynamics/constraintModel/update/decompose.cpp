@@ -36,4 +36,6 @@ void RLS::ConstraintModel::decompose()
   // diff
   cal_dPcM = model->bb_dTC2k.transpose()*Bc + model->bb_TC2k.transpose()*dBc;
   cal_dPmM = model->bb_dTC2k.transpose()*Bm + model->bb_TC2k.transpose()*dBm;
+
+  V_cwc = compute_CWC_span();
 }

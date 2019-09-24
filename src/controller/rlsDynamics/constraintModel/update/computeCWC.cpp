@@ -58,7 +58,7 @@ MatrixXd RLS::ConstraintModel::compute_CWC_span() {
   MatrixXd V = MatrixXd::Zero(6*(int)contactLimbs.sum(), 16*(int)contactLimbs.sum());
   // o(contactLimbs);
 
-  for (int i=0,rc=0; i<(int)contactLimbs.size(); i++) {
+  for (int i=0,rc=0; i<info.model->controlNodeNum; i++) {
     if(contactLimbs(i)) {
       V.block(6*rc,16*rc, 6,16) = compute_FC_span(info.model->controlNode[i].name);
       rc++;
