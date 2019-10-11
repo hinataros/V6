@@ -47,6 +47,7 @@ void RLS::RlsDynamics::resize()
   KDlC = Matrix3d::Zero();
   KDwC = Matrix3d::Zero();
   KDth = MatrixXd::Zero(info.model.dof.joint, info.model.dof.joint);
+  KPth = MatrixXd::Zero(info.model.dof.joint, info.model.dof.joint); // hinata
   KDdthH = MatrixXd::Zero(info.model.dof.joint, info.model.dof.joint);
   KDlCH = MatrixXd::Zero(3,3);
   Kthinit = MatrixXd::Zero(info.model.dof.joint, info.model.dof.joint);

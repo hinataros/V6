@@ -48,6 +48,12 @@ namespace RLS{
 
     VectorXd rpk0;
 
+    // joint limit
+    // ****************************** // 2019/10/3 hinata
+    VectorXd thMin;
+    VectorXd thMax;
+    VectorXd thMid;
+
     // state
     // ******************************
     VectorXd th;

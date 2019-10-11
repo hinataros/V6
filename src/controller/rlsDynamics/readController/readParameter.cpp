@@ -51,6 +51,7 @@ void RLS::RlsDynamics::readParameter()
   }
 
   yamlInfo.checkValue<MatrixXd>(KDth, "KDth");
+  yamlInfo.checkValue<MatrixXd>(KDth, "KPth");
   yamlInfo.checkValue<MatrixXd>(KDdthH, "KDdthH"); // amiyata
   yamlInfo.checkValue<MatrixXd>(KDlCH, "KDlCH"); // amiyata
   yamlInfo.checkValue<MatrixXd>(Kthinit, "Kthinit");

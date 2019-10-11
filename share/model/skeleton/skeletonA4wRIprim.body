@@ -24,34 +24,35 @@ links:
                 type: Shape
                 translation: [ 0, 0, 0.03 ]
                 geometry: { type: Capsule, radius: 0.0025, height: 0.078 }
-                appearance: &bodyColor
+                appearance: &rootColor
                   material:
                     diffuseColor: [ 0.7, 0.7, 0.7 ]
+                    # diffuseColor: [ 1.0, 0.5, 0.5 ]
                     # transparency: 0.5
               -
                 type: Shape
                 translation: [ 0, 0.039, 0.0225 ]
                 rotation: &X [ 1, 0, 0, 90 ]
                 geometry: { type: Capsule, radius: 0.0025, height: 0.015 }
-                appearance: *bodyColor
+                appearance: *rootColor
               -
                 type: Shape
                 translation: [ 0, -0.039, 0.0225 ]
                 rotation: *X
                 geometry: { type: Capsule, radius: 0.0025, height: 0.015 }
-                appearance: *bodyColor
+                appearance: *rootColor
               -
                 type: Shape
                 translation: [ 0.017, 0, 0.03 ]
                 rotation: &Z [ 0, 0, 1, 90 ]
                 geometry: { type: Capsule, radius: 0.0025, height: 0.034 }
-                appearance: *bodyColor
+                appearance: *rootColor
               -
                 type: Shape
                 translation: [ 0.034, 0, 0.03375 ]
                 rotation: *X
                 geometry: { type: Capsule, radius: 0.0025, height: 0.0075 }
-                appearance: *bodyColor
+                appearance: *rootColor
 
               # Head1
               # translation: [ -0.034, 0.0, 0.09 ]
@@ -60,7 +61,7 @@ links:
                 translation: [ 0, 0.0, 0.19125 ]
                 rotation: *X
                 geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
-                appearance: *bodyColor
+                appearance: *rootColor
 
               # Head2
               # translation: [ 0.008, 0.0, 0.081 ]
@@ -68,80 +69,80 @@ links:
                 type: Shape
                 translation: [ 0.0, 0.0, 0.227 ]
                 geometry: { type: Sphere, radius: 0.027 }
-                appearance: *bodyColor
+                appearance: *rootColor
 
               # waist1
               # translation: [ 0.034, 0, 0.055 ]
-              -
-                type: Shape
-                translation: [ 0.034, 0, 0.0375]
-                rotation: *X
-                geometry: &jointShape
-                  {type: Cylinder, radius: 0.005, height: 0.01}
-                appearance: &jointColor
-                  material: {diffuseColor: [ 0, 0, 0 ]}
+              # -
+              #   type: Shape
+              #   translation: [ 0.034, 0, 0.0375]
+              #   rotation: *X
+              #   geometry: &jointShape
+              #     {type: Cylinder, radius: 0.005, height: 0.01}
+              #   appearance: &jointColor
+              #     material: {diffuseColor: [ 0, 0, 0 ]}
               -
                 type: Shape
                 translation: [ 0.034, 0.0, 0.04125 ]
                 rotation: *X
                 geometry: { type: Capsule, radius: 0.0025, height: 0.0075 }
-                appearance: *bodyColor
+                appearance: *rootColor
               -
                 type: Shape
                 translation: [ 0.034, -0.00875, 0.045 ]
                 geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
-                appearance: *bodyColor
+                appearance: *rootColor
               -
                 type: Shape
                 translation: [ 0.034, -0.0175, 0.05 ]
                 rotation: *X
                 geometry: { type: Capsule, radius: 0.0025, height: 0.01 }
-                appearance: *bodyColor
+                appearance: *rootColor
               -
                 type: Shape
                 translation: [ 0.034, -0.00875, 0.055 ]
                 geometry: { type: Capsule, radius: 0.0025, height: 0.0175 }
-                appearance: *bodyColor
+                appearance: *rootColor
 
               # waist2
               # translation: [ 0.034, 0, 0.055 ]
-              -
-                type: Shape
-                translation: [ 0.034, 0, 0.055 ]
-                geometry: *jointShape
-                appearance: *jointColor
+              # -
+              #   type: Shape
+              #   translation: [ 0.034, 0, 0.055 ]
+              #   geometry: *jointShape
+              #   appearance: *jointColor
               -
                 type: Shape
                 translation: [ 0.02475, 0.0, 0.055 ]
                 rotation: *Z
                 geometry: { type: Capsule, radius: 0.0025, height: 0.0185 }
-                appearance: *bodyColor
+                appearance: *rootColor
               # torso
               # translation: [ 0.034, 0, 0.055 ]
-              -
-                type: Shape
-                rotation: *Z
-                translation: [ 0.0155, 0, 0.055 ]
-                geometry: *jointShape
-                appearance: *jointColor
+              # -
+              #   type: Shape
+              #   rotation: *Z
+              #   translation: [ 0.0155, 0, 0.055 ]
+              #   geometry: *jointShape
+              #   appearance: *jointColor
               -
                 type: Shape
                 translation: [ 0.00775, 0.0, 0.055 ]
                 rotation: *Z
                 geometry: { type: Capsule, radius: 0.0025, height: 0.0155 }
-                appearance: *bodyColor
+                appearance: *rootColor
               -
                 type: Shape
                 translation: [ 0.0, 0.0, 0.11875 ]
                 rotation: *X
                 geometry: { type: Capsule, radius: 0.0025, height: 0.1275 }
-                appearance: *bodyColor
+                appearance: *rootColor
               -
                 type: Shape
                 translation: [ 0.0, 0.0, 0.145 ]
                 rotation: [ 1, 0, 0, 0 ]
                 geometry: { type: Capsule, radius: 0.0025, height: 0.159 }
-                appearance: *bodyColor
+                appearance: *rootColor
 
           -
             type: Collision
@@ -172,14 +173,18 @@ links:
                 type: Shape
                 rotation: *X
                 translation: [ 0, 0, 0.015 ]
-                geometry: *jointShape
-                appearance: *jointColor
+                geometry: &jointShape
+                  {type: Cylinder, radius: 0.005, height: 0.01}
+                appearance: &jointColor
+                  material: {diffuseColor: [ 0, 0, 0 ]}
               -
                 type: Shape
                 translation: [ 0.01375, 0.0, 0.015 ]
                 rotation: *Z
                 geometry: { type: Capsule, radius: 0.0025, height: 0.0275 }
-                appearance: *bodyColor
+                appearance: &bodyColor
+                  material:
+                    diffuseColor: [ 0.7, 0.7, 0.7 ]
               -
                 type: Shape
                 translation: [ 0.0275, 0.0, 0.0075 ]
@@ -196,7 +201,7 @@ links:
     jointType: revolute
     jointAxis: X
     rotorInertia: 0.0240
-    jointRange: [ -30, 15 ]
+    jointRange: [ -30, 20 ]
     elements:
       -
         type: RigidBody
@@ -451,7 +456,7 @@ links:
     jointId: 6
     jointType: revolute
     jointAxis: Z
-    jointRange: [ -90, 30 ]
+    jointRange: [ -30, 90 ]
     rotorInertia: 0.0187
     translation: [ 0, 0.039, 0 ]
     elements:
@@ -496,7 +501,7 @@ links:
     rotation: [ 1, 0, 0, 0 ]
     jointType: revolute
     jointAxis: X
-    jointRange: [ -30, 15 ]
+    jointRange: [ -20, 30 ]
     rotorInertia: 0.0240
     elements:
       -
@@ -756,6 +761,7 @@ links:
     jointId: 12
     jointType: revolute
     jointAxis: Y
+    jointRange: [-90, 150]
     rotorInertia: 0.0187
     translation: [ 0.0, -0.0995, 0.145 ]
     elements:
@@ -801,6 +807,7 @@ links:
     parent: RARM1
     jointId: 13
     jointType: revolute
+    jointRange: [-95, 0]
     jointAxis: Z
     rotorInertia: 0.0187
     elements:
@@ -836,6 +843,7 @@ links:
     parent: RARM2
     jointId: 14
     jointType: revolute
+    jointRange: [-90, 90]
     jointAxis: X
     rotorInertia: 0.0187
     elements:
@@ -889,6 +897,7 @@ links:
     parent: RARM3
     jointId: 15
     jointType: revolute
+    jointRange: [-114, 0]
     jointAxis: Y
     rotorInertia: 0.0187
     translation: [ 0.101, 0, 0 ]
@@ -962,6 +971,7 @@ links:
     parent: ROOT
     jointId: 16
     jointType: revolute
+    jointRange: [-90, 150]
     jointAxis: Y
     rotorInertia: 0.0187
     translation: [ 0.0, 0.0995, 0.145 ]
@@ -1008,6 +1018,7 @@ links:
     parent: LARM1
     jointId: 17
     jointType: revolute
+    jointRange: [0, 95]
     jointAxis: Z
     rotorInertia: 0.0187
     elements:
@@ -1042,6 +1053,7 @@ links:
     parent: LARM2
     jointId: 18
     jointType: revolute
+    jointRange: [-90, 90]
     jointAxis: X
     rotorInertia: 0.0187
     elements:
@@ -1095,6 +1107,7 @@ links:
     parent: LARM3
     jointId: 19
     jointType: revolute
+    jointRange: [-115, 0]
     jointAxis: Y
     rotorInertia: 0.0187
     translation: [ 0.101, 0, 0 ]
@@ -1161,3 +1174,9 @@ links:
         id: 3
         elements:
           Transform: { translation: [ 0.10975, 0, 0 ]}
+
+footLinks:
+  - link: RLEGEE
+    soleCenter: [ 0.009, 0., 0. ]
+  - link: LLEGEE
+    soleCenter: [ 0.009, 0., 0. ]

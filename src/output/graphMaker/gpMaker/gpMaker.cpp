@@ -220,6 +220,7 @@ string RLS::GpMaker::makeCode(int limb)
 
   string legEE[2] = {"leg EE", "foot"};
   string armEE[2] = {"arm EE", "hand"};
+  string torsoEE[2] = {"orso EE", "orso"};
 
   int s = (int)xtemp.find(legEE[0]);
   if(s>0)
@@ -227,6 +228,9 @@ string RLS::GpMaker::makeCode(int limb)
   s = (int)xtemp.find(armEE[0]);
   if(s>0)
     xtemp.replace(s, armEE[0].size(), armEE[1]);
+  s = (int)xtemp.find(torsoEE[0]);
+  if(s>0)
+    xtemp.replace(s, torsoEE[0].size(), torsoEE[1]);
 
   s = (int)ytemp.find(legEE[0]);
   if(s>0)
@@ -234,6 +238,9 @@ string RLS::GpMaker::makeCode(int limb)
   s = (int)ytemp.find(armEE[0]);
   if(s>0)
     ytemp.replace(s, armEE[0].size(), armEE[1]);
+  s = (int)ytemp.find(torsoEE[0]);
+  if(s>0)
+    ytemp.replace(s, torsoEE[0].size(), torsoEE[1]);
   // **********************************************
   string xylabel;
   if(numLimb==1)

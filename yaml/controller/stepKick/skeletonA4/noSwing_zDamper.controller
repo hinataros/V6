@@ -1,0 +1,245 @@
+# @author Sho Miyahara 2018
+
+angle unit: degree
+
+controller:
+  control model: skeletonA4
+  input: torque
+  driven: mix
+  trigger: check contact
+
+  default:
+    control method:
+      inverse dynamics controller: fullDynamicsController
+      operational space controller: decomposeEndEffectorAcceleration
+      motion controller: mixedGeneralizedMomentum
+      force controller: centroidalEcmpDistribution
+      momentum controller: centroidalVrpMomentum
+      torque controller: mixedOpt
+
+    desired value generator:
+      DCM: {name: HTWalking}
+      base rotation: {name: CP}
+      control node translation:
+        RLEGEE: {name: swing}
+        LLEGEE: {name: swing}
+      control node rotation:
+        RLEGEE: {num: 0, name: CP}
+        LLEGEE: {num: 0, name: CP}
+        RARMEE: {num: 0, name: CP}
+        LARMEE: {num: 0, name: CP}
+
+    KX: 3.e+1
+    KpwB: 3.e+2
+    KdwB: 5.e+1
+
+    KDlC: 5.e+1
+
+    Kpv:
+      RLEGEE: 5.e+2
+      LLEGEE: 5.e+2
+    Kpw:
+      RLEGEE: 5.e+2
+      LLEGEE: 5.e+2
+    Kdv:
+      RLEGEE: 5.e+1
+      LLEGEE: 5.e+1
+    Kdw:
+      RLEGEE: 5.e+1
+      LLEGEE: 5.e+1
+
+    kDth: &kDthH 1.e+2
+    kthHinit: &kthHinit 1.e+2
+
+    KDth:
+      [0.,0.,0.,0.,0.,0., 0.,0.,0.,0.,0.,0.,
+      *kDthH, *kDthH, *kDthH, *kDthH,
+      *kDthH, *kDthH, *kDthH, *kDthH]
+    Kthinit:
+      [0.,0.,0.,0.,0.,0., 0.,0.,0.,0.,0.,0.,
+      *kthHinit, *kthHinit, *kthHinit, *kthHinit,
+      *kthHinit, *kthHinit, *kthHinit, *kthHinit]
+
+    KPth: 1.e+2
+
+    Bc: &ds
+      RLEGEE: [1, 1, 1, 1, 1, 1]
+      LLEGEE: [1, 1, 1, 1, 1, 1]
+    Bm: &zs
+      RLEGEE: [0, 0, 0, 0, 0, 0]
+      LLEGEE: [0, 0, 0, 0, 0, 0]
+
+  state:
+    -
+      control method:
+        inverse dynamics controller: default
+      Bc: *zs
+      Bm: *zs
+    -
+      control method:
+        inverse dynamics controller: fullDynamicsController
+
+      Bc: *ds
+      Bm: *zs
+
+    -
+      control method:
+        inverse dynamics controller: fullDynamicsController
+      Bc: &ls
+        RLEGEE: [0, 0, 0, 0, 0, 0]
+        LLEGEE: [1, 1, 1, 1, 1, 1]
+      Bm: &rs
+        RLEGEE: [1, 1, 1, 1, 1, 1]
+        LLEGEE: [0, 0, 0, 0, 0, 0]
+    -
+      control method:
+        inverse dynamics controller: fullDynamicsController
+      Bc: *rs
+      Bm: *ls
+
+  walking:
+    height: &height 0.02
+
+    length: &steplength1 0.08
+    length: &steplength2 0.16
+    length: &steplength3 0.24
+    length: &kicklength1 0.18
+    length: &kicklength2 0.37
+    length: &steplength4 0.32
+
+    vrp waypoint:
+      - [0., -0.039, 0.]
+      - [*steplength1, 0.039, 0.]
+      - [*steplength2, -0.039, 0.]
+      - [*steplength3, 0.039, 0.]
+      - [*steplength3, 0.039, 0.]
+      # - [*steplength3, 0., 0.]
+      - [*steplength4, -0.039, 0.]
+      - [*steplength4, 0., 0.]
+
+    dtstep: .4
+    dtDSstep: &tds 0.1
+
+    twf: &tinitial 0.25
+    twf: &tswingleg 0.3
+
+    alphaDSstep: 0.5
+    alphaHTstep: 0.5
+    offset: 0.01
+    toe: 0.025
+    heel: -0.015
+
+    tstab: &tstab 1.
+
+  swing leg:
+    rfabs: &swingLeg1
+      LLEGEE: [*steplength1, 0.039, *height]
+    rfabs: &swingLeg2
+      RLEGEE: [*steplength2, -0.039, *height]
+    rfabs: &swingLeg3
+      LLEGEE: [*steplength3, 0.039, *height]
+    # rfabs: &swingLeg4
+    #   RLEGEE: [*steplength3, -0.039, *height]
+    rfabs: &kicking0
+      RLEGEE: [*steplength2, -0.039, 0.01]
+    rfabs: &kicking1
+      RLEGEE: [*kicklength1, -0.059, 0.1]
+    rfabs: &kicking2
+      RLEGEE: [*kicklength2, -0.039, 0.085]
+    rfabs: &swingLeg4
+      RLEGEE: [*steplength4, -0.039, 0]
+    rfabs: &swingLeg5
+      LLEGEE: [*steplength4, 0.039, *height]
+
+  sequence:
+    -
+      twf: *tstab
+    -
+      twf: *tinitial
+      control method:
+        ext momentum controller: true
+        momentum controller: vrp_FrictionDistribution_zDamper
+        ext motion controller: true
+        motion controller: RAA_fullBase
+        torque controller: mixed
+    # 1 step
+    -
+      twf: *tswingleg
+      Bc: *rs
+      Bm: *ls
+      rfabs: *swingLeg1
+    -
+      twf: *tds
+    # 2 step
+    -
+      twf: *tswingleg
+      Bc: *ls
+      Bm: *rs
+      rfabs: *swingLeg2
+    -
+      twf: *tds
+    # 3 step
+    -
+      twf: *tswingleg
+      Bc: *rs
+      Bm: *ls
+      rfabs: *swingLeg3
+    -
+      twf: *tds
+    # 4 step
+    # -
+    #   twf: *tswingleg
+    #   Bc: *ls
+    #   Bm: *rs
+    #   rfabs: *swingLeg4
+    # -
+    #   twf: *tds
+
+    # kick
+    -
+      twf: 0.1
+      desired value generator:
+        control node translation:
+          RLEGEE: {num: 0, name: CPabs}
+      Bc: *ls
+      Bm: *rs
+      rfabs: *kicking0
+          
+    -
+      twf: 0.1
+      rfabs: *kicking1
+      xif:
+        RLEGEE: [0., 60, -15]
+
+    -
+      twf: 0.2
+      desired value generator:
+        control node translation:
+          RLEGEE: {num: 0, name: circleAbs}
+
+      rfabs: *kicking2
+      xif:
+        RLEGEE: [10., -45, -15]
+
+    # 4 step
+    -
+      twf: *tswingleg
+      # Bc: *ls
+      # Bm: *rs
+      rfabs: *swingLeg4
+      desired value generator:
+        control node translation:
+          RLEGEE: {num: 0, name: CPabs}
+      xif:
+        RLEGEE: [0., 0, 0]
+    -
+      twf: *tds
+    # 5 step
+    -
+      twf: *tswingleg
+      Bc: *rs
+      Bm: *ls
+      rfabs: *swingLeg5
+    -
+      twf: *tds
+

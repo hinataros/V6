@@ -1,0 +1,23 @@
+# @author Ryotaro Hinata 2019
+
+angle unit: degree
+
+controller:
+  control model: skeletonA4
+  input: torque
+  driven: flow
+
+  default:
+    control method:
+      inverse dynamics controller: highGainController
+
+    KpHG: 100
+    KdHG: 10
+
+
+  sequence:
+    -
+      -
+        twf: 5
+
+

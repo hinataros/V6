@@ -1,0 +1,28 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+name: Ball
+links:
+  -
+    name: ROOT
+    jointType: free
+    elements:
+      -
+        type: RigidBody
+        mass: 0.3
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        8.748e-5, 0, 0,
+        0, 8.748e-5, 0,
+        0, 0, 8.748e-5 ]
+        elements:
+          Shape: &BallBody
+            geometry:
+              type: Sphere
+              radius: 0.027
+            appearance:
+              material:
+                diffuseColor: [ 0.5, 0.2, 0 ]
+      -
+        type: Collision
+        elements:
+          Shape: *BallBody

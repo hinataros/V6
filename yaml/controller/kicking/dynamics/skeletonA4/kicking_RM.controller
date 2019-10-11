@@ -1,0 +1,72 @@
+# @author Sho Miyahara 2018
+
+angle unit: degree
+
+controller:
+  control model: skeletonA4
+  input: torque
+
+  default:
+    control method:
+      inverse dynamics controller: highGainController
+      operational space controller: relativeVelocityMixedMap
+      motion controller: mixedVelocitySynergy
+
+    desired value generator:
+      CoM: {name: CP}
+      base rotation: {name: CP}
+      control node translation:
+        RLEGEE: {name: CP}
+        LLEGEE: {name: CP}
+
+    Bc:
+      RLEGEE: [1, 1, 1, 1, 1, 1]
+      LLEGEE: [1, 1, 1, 1, 1, 1]
+      RARMEE: [0, 0, 0, 0, 0, 0]
+      LARMEE: [0, 0, 0, 0, 0, 0]
+    Bm:
+      RLEGEE: [0, 0, 0, 0, 0, 0]
+      LLEGEE: [0, 0, 0, 0, 0, 0]
+      RARMEE: [0, 0, 0, 0, 0, 0]
+      LARMEE: [0, 0, 0, 0, 0, 0]
+
+    KpC: 1.e+2
+    KpwB: 1.e+2
+    Kpv:
+      RLEGEE: 0.
+      LLEGEE: 0.
+
+    KpHG: 1.e+2
+    KdHG: 1.e+1
+
+  sequence:
+    -
+      twf: 1.
+    -
+      twf: 2.
+      rCf: [0., 0.039, 0.]
+    -
+      twf: 1.
+
+      Bc:
+        RLEGEE: [0, 0, 0, 0, 0, 0]
+        LLEGEE: [1, 1, 1, 1, 1, 1]
+        RARMEE: [0, 0, 0, 0, 0, 0]
+        LARMEE: [0, 0, 0, 0, 0, 0]
+      Bm:
+        RLEGEE: [1, 1, 1, 1, 1, 1]
+        LLEGEE: [0, 0, 0, 0, 0, 0]
+        RARMEE: [0, 0, 0, 0, 0, 0]
+        LARMEE: [0, 0, 0, 0, 0, 0]
+      
+      rf:
+        RLEGEE: [0., 0., 0.01]
+
+    -
+      twf: 2.
+      control method:
+        ext motion controller: true
+        motion controller: resolvedMomentumControl
+      
+      rf:
+        RLEGEE: [0.1, 0., 0.1]

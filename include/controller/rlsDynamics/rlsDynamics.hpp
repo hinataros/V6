@@ -97,13 +97,147 @@ namespace RLS{
     bool stateTrigger(const double&, struct State&); // amiyata
 
     bool configurationManager(const double&);
-    void reconfigure();
+    // void reconfigure();
 
     void allReadController();
     void readController();
 
     void readController(vector<string>&);
     void readParameter(); // amiyata
+
+
+    // output config
+    void outputDesConfig();
+    void outputErrConfig();
+    void outputRefConfig();
+    void outputIndexConfig();
+    // void outputIndexPrintConfig();
+    void outputExtConfig();
+
+    void outputConfig();
+
+    // umekage convex solver
+    MatrixXd compute_BWC_span(MatrixXd&);
+
+    bool *contactFlag; // amiyata footprintを足接触切替時に保存したいので保存
+
+    Vector2d distOffset; // amiyata 分配用 足首からのオフセット
+
+  public:
+    ControllerInfo info;
+
+    const WorldModel *worldModel;
+    const ControllerTreeModel *model;
+    ConstraintModel constraintModel;
+
+    void reconfigure(); // hinata
+
+
+    YamlInfo yamlInfo;
+
+    DesiredValueGenerator des;
+    FeedbackController fb;
+
+    // transform offset
+    VectorXd rkk;
+
+    // index
+    // ******************************
+    Matrix2d bb_Spx;
+    MatrixXd cal_Sp;
+    // ******************************
+
+    // high gain control
+    VectorXd thDes;
+
+    // operational space reference
+    // velocityController
+    // **********************
+    VectorXd cal_VcBarRef;
+    VectorXd cal_VmBarRef;
+
+    VectorXd cal_VcBBarRef;
+    VectorXd cal_VmBBarRef;
+    VectorXd cal_VcMBarRef;
+    VectorXd cal_VmMBarRef;
+
+    // **********************
+    VectorXd cal_dVcBarRef;
+    VectorXd cal_dVmBarRef;
+
+    VectorXd cal_dVcBBarRef;
+    VectorXd cal_dVmBBarRef;
+    VectorXd cal_dVcMBarRef;
+    VectorXd cal_dVmMBarRef;
+    VectorXd cal_dVcCBarRef;
+    VectorXd cal_dVmCBarRef;
+
+    // configuration space reference
+    // velocityController
+    // **********************
+    VectorXd dthRef;
+    VectorXd dqBRef;
+
+    VectorXd dqMRef;
+
+    // **********************
+    VectorXd ddthRef;
+
+    VectorXd ddqBRef;
+    VectorXd ddqBoptRef;
+
+    VectorXd ddqMRef;
+    VectorXd ddqMoptRef;
+
+    VectorXd ddqwoptRef;
+
+    // momentum
+    Vector3d dpRef;
+    Vector3d dlBRef;
+    Vector3d dlCRef;
+    Vector6d cal_dLBRef;
+    Vector6d cal_dLCRef;
+
+    // force
+    VectorXd cal_FcaBarRef;
+    VectorXd cal_FcBarRef;
+
+    VectorXd input;
+
+    // gain
+    Matrix2d Kpp;
+
+    Matrix3d KDlC;
+    Matrix3d KDwC;
+    MatrixXd KPth; // hinata
+    MatrixXd KDth;
+    MatrixXd Kthinit;
+    MatrixXd KDdthH; // amiyata
+    MatrixXd KDlCH; // amiyata
+
+    // amiyata  contrrol basis matrix
+    MatrixXi BwB_Diag;
+    MatrixXd BwB;
+    MatrixXi BwC_Diag;
+    MatrixXd BwC, BwCAut;
+    MatrixXi BLC_Diag;
+    MatrixXd BLC, BLCAut;
+    int pcD, lCcD, wBcD, wCcD;
+
+    // high gain control
+    MatrixXd KpHG;
+    MatrixXd KdHG;
+
+    // optimization weight
+    Matrix6d Wdh;
+    MatrixXd Wp;
+    MatrixXd WF;
+    MatrixXd WFmin;
+    MatrixXd Wm;
+    MatrixXd WJ;
+    MatrixXd Wth;
+
+    VectorXd tau;
 
     // control method
     // ******************************
@@ -251,135 +385,6 @@ namespace RLS{
 
     void (RLS::RlsDynamics::*externalWrenchController_ptr)()=0;
     map<string, void (RLS::RlsDynamics::*)()> externalWrenchController_map;
-
-    // output config
-    void outputDesConfig();
-    void outputErrConfig();
-    void outputRefConfig();
-    void outputIndexConfig();
-    // void outputIndexPrintConfig();
-    void outputExtConfig();
-
-    void outputConfig();
-
-    // umekage convex solver
-    MatrixXd compute_BWC_span(MatrixXd&);
-
-    bool *contactFlag; // amiyata footprintを足接触切替時に保存したいので保存
-
-    Vector2d distOffset; // amiyata 分配用 足首からのオフセット
-
-  public:
-    ControllerInfo info;
-
-    const WorldModel *worldModel;
-    const ControllerTreeModel *model;
-    ConstraintModel constraintModel;
-
-    YamlInfo yamlInfo;
-
-    DesiredValueGenerator des;
-    FeedbackController fb;
-
-    // transform offset
-    VectorXd rkk;
-
-    // index
-    // ******************************
-    Matrix2d bb_Spx;
-    MatrixXd cal_Sp;
-    // ******************************
-
-    // high gain control
-    VectorXd thDes;
-
-    // operational space reference
-    // velocityController
-    // **********************
-    VectorXd cal_VcBarRef;
-    VectorXd cal_VmBarRef;
-
-    VectorXd cal_VcBBarRef;
-    VectorXd cal_VmBBarRef;
-    VectorXd cal_VcMBarRef;
-    VectorXd cal_VmMBarRef;
-
-    // **********************
-    VectorXd cal_dVcBarRef;
-    VectorXd cal_dVmBarRef;
-
-    VectorXd cal_dVcBBarRef;
-    VectorXd cal_dVmBBarRef;
-    VectorXd cal_dVcMBarRef;
-    VectorXd cal_dVmMBarRef;
-    VectorXd cal_dVcCBarRef;
-    VectorXd cal_dVmCBarRef;
-
-    // configuration space reference
-    // velocityController
-    // **********************
-    VectorXd dthRef;
-    VectorXd dqBRef;
-
-    VectorXd dqMRef;
-
-    // **********************
-    VectorXd ddthRef;
-
-    VectorXd ddqBRef;
-    VectorXd ddqBoptRef;
-
-    VectorXd ddqMRef;
-    VectorXd ddqMoptRef;
-
-    VectorXd ddqwoptRef;
-
-    // momentum
-    Vector3d dpRef;
-    Vector3d dlBRef;
-    Vector3d dlCRef;
-    Vector6d cal_dLBRef;
-    Vector6d cal_dLCRef;
-
-    // force
-    VectorXd cal_FcaBarRef;
-    VectorXd cal_FcBarRef;
-
-    VectorXd input;
-
-    // gain
-    Matrix2d Kpp;
-
-    Matrix3d KDlC;
-    Matrix3d KDwC;
-    MatrixXd KDth;
-    MatrixXd Kthinit;
-    MatrixXd KDdthH; // amiyata
-    MatrixXd KDlCH; // amiyata
-
-    // amiyata  contrrol basis matrix
-    MatrixXi BwB_Diag;
-    MatrixXd BwB;
-    MatrixXi BwC_Diag;
-    MatrixXd BwC, BwCAut;
-    MatrixXi BLC_Diag;
-    MatrixXd BLC, BLCAut;
-    int pcD, lCcD, wBcD, wCcD;
-
-    // high gain control
-    MatrixXd KpHG;
-    MatrixXd KdHG;
-
-    // optimization weight
-    Matrix6d Wdh;
-    MatrixXd Wp;
-    MatrixXd WF;
-    MatrixXd WFmin;
-    MatrixXd Wm;
-    MatrixXd WJ;
-    MatrixXd Wth;
-
-    VectorXd tau;
 
     // others
     Vector2d F2rp(const Vector6d&);

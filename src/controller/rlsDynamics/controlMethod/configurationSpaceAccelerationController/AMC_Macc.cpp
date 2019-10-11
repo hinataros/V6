@@ -34,8 +34,8 @@ VectorXd RLS::RlsDynamics::AMC_Macc(Config &config, Info &info, Model &model)
   // VectorXd ddthwRef = NN*pInv(JwBar)*( (dwCRef - dwBRef) + cal_dVwTildeRef );
 
   // // nonlinear
-  // VectorXd hcM = cal_dPcM.transpose()*cal_VM + cal_dJcM*model.hoap2.all.dth;
-  // VectorXd hmM = -dBm.transpose()*cal_V + cal_dPmM.transpose()*cal_VM + cal_dJmM*model.hoap2.all.dth;
+  // VectorXd hcM = mbb_dCcM.transpose()*cal_VM + cal_dJcM*model.hoap2.all.dth;
+  // VectorXd hmM = -dBm.transpose()*cal_V + mbb_dCmM.transpose()*cal_VM + cal_dJmM*model.hoap2.all.dth;
   // VectorXd hw = dJw*model.hoap2.all.dth;
 
   // VectorXd h = pInv(cal_JcM)*hcM + pInv(cal_JmMBar)*(hmM - cal_JmM*pInv(cal_JcM)*hcM) + NN*pInv(JwBar)*(hw - Jw*pInv(cal_JcM)*hcM - Jw*pInv(cal_JmMBar)*(hmM - cal_JmM*pInv(cal_JcM)*hcM));
@@ -62,7 +62,7 @@ VectorXd RLS::RlsDynamics::AMC_Macc(Config &config, Info &info, Model &model)
 
   // constraint
   VectorXd cal_VcMTilde = - mbb_CcM.transpose()*cal_VM;
-  VectorXd cal_dVcMTildeRef = - mbb_CcM.transpose()*cal_dVMRef - cal_dPcM.transpose()*cal_VM;
+  VectorXd cal_dVcMTildeRef = - mbb_CcM.transpose()*cal_dVMRef - mbb_dCcM.transpose()*cal_VM;
 
   VectorXd ddthcRef = pInv(cal_JcM)*cal_dVcMTildeRef + dpInv(cal_JcM, cal_dJcM)*cal_VcMTilde;
 
@@ -70,7 +70,7 @@ VectorXd RLS::RlsDynamics::AMC_Macc(Config &config, Info &info, Model &model)
   MatrixXd cal_JmMBar = cal_JmM*N(cal_JcM);
   MatrixXd cal_dJmMBar = cal_dJmM*N(cal_JcM) + cal_JmM*dN(cal_JcM, cal_dJcM);
   VectorXd cal_VmMTilde = Bm.transpose()*cal_V - mbb_CmM.transpose()*cal_VM - cal_JmM*pInv(cal_JcM)*cal_VcMTilde;
-  VectorXd cal_dVmMTildeRef = Bm.transpose()*cal_dVRef + dBm.transpose()*cal_V - mbb_CmM.transpose()*cal_dVMRef - cal_dPmM.transpose()*cal_VM - cal_JmM*(pInv(cal_JcM)*cal_dVcMTildeRef + dpInv(cal_JcM, cal_dJcM)*cal_VcMTilde) - cal_dJmM*pInv(cal_JcM)*cal_VcMTilde;
+  VectorXd cal_dVmMTildeRef = Bm.transpose()*cal_dVRef + dBm.transpose()*cal_V - mbb_CmM.transpose()*cal_dVMRef - mbb_dCmM.transpose()*cal_VM - cal_JmM*(pInv(cal_JcM)*cal_dVcMTildeRef + dpInv(cal_JcM, cal_dJcM)*cal_VcMTilde) - cal_dJmM*pInv(cal_JcM)*cal_VcMTilde;
 
   VectorXd ddthmRef = pInv(cal_JmMBar)*cal_dVmMTildeRef + dpInv(cal_JmMBar, cal_dJmMBar)*cal_VmMTilde;
 

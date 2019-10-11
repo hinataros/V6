@@ -49,6 +49,22 @@ VectorXd RLS::TreeModel::readJointState(string state)
       }
     }
 
+  }else if(state=="maximum joint angle"){
+    for(int i=1, j=0; i<info->linkNum; i++){
+      if(link[i].active){
+        x(j) = link[i].thMax;
+        j++;
+      }
+    }
+    
+  }else if(state=="minimum joint angle"){
+    for(int i=1, j=0; i<info->linkNum; i++){
+      if(link[i].active){
+        x(j) = link[i].thMin;
+        j++;
+      }
+    }
+
   }else{
     cout << "no such state vector..." << endl;
   }

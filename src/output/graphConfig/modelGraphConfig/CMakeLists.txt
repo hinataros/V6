@@ -6,6 +6,9 @@ set(srcs
   baseTrans.cpp
   baseRot.cpp
   joint.cpp
+  joint_wTorso.cpp
+  joint_wTorso1.cpp
+  joint_wTorso3.cpp
   com.cpp
   mix.cpp
   eeTrans.cpp

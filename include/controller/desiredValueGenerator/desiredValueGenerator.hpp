@@ -193,6 +193,7 @@ namespace RLS{
     // external wrench
     void externalWrenchDefault(const double&);
     void externalWrenchCP(const double&);
+    void externalWrenchStep(const double&);
 
     // unit Spline
     void zeroToOneSpline(const int&, const double&);

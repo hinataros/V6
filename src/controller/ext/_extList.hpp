@@ -8,6 +8,33 @@
 namespace RLS{
   class ExtList{
   public:
+    VectorXd lC;
+    VectorXd lCRB;
+    VectorXd lCAM;
+    VectorXd dlC;
+    VectorXd dlCRB;
+    VectorXd dlCAM;
+
+    VectorXd wC;
+    VectorXd Dw;
+    VectorXd wB;
+
+    VectorXd DwLower;
+    VectorXd DwUpper;
+
+    VectorXd dwCRef;
+    VectorXd dDwRef;
+    VectorXd dwBRef;
+
+    VectorXd dlCRefRoot;
+    VectorXd dlCRefMotion;
+    VectorXd dlCRefError;
+    VectorXd dlCComponent;
+
+    VectorXd jointLimitGradient;
+
+    Vector3d WCRB;
+    Vector3d dWCRB;
   };
 }
 

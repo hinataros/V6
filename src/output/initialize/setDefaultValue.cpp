@@ -18,6 +18,9 @@ void RLS::Output::setDefaultValue()
   gp.st = 1.;
   gp.tstart = 0.;
 
+  gp.flagX2 = false;
+  gp.dashNum = 0;
+
   tex.flag = false;
   tex.title = "Simulation results";
 

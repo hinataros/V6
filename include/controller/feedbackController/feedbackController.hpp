@@ -26,22 +26,6 @@ namespace RLS{
     string dcmName;
     string externalWrenchName;
 
-    Matrix3d KpC;
-    Matrix3d KdC;
-
-    Matrix3d KpvB;
-    Matrix3d KdvB;
-
-    Matrix3d KpwB;
-    Matrix3d KdwB;
-
-    Matrix3d KX;
-
-    MatrixXd Kpv;
-    MatrixXd Kdv;
-
-    Matrix3d KDwC; // amiyata
-
     // base translation
     void baseTranslationPI();
 
@@ -96,6 +80,22 @@ namespace RLS{
     Vector3d orientationError(const Matrix3d&, const Matrix3d&);
 
   public:
+    Matrix3d KpC;
+    Matrix3d KdC;
+
+    Matrix3d KpvB;
+    Matrix3d KdvB;
+
+    Matrix3d KpwB;
+    Matrix3d KdwB;
+
+    Matrix3d KX;
+
+    MatrixXd Kpv;
+    MatrixXd Kdv;
+
+    Matrix3d KDwC; // amiyata
+
     Vector3d erC;
     Vector3d evC;
 

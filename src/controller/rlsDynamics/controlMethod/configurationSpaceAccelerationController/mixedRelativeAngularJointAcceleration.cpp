@@ -44,8 +44,8 @@ VectorXd RLS::RlsDynamics::mixedRelativeAngularJointAcceleration()
   dJMBar <<
     MatrixXd::Zero(wBcD,6), BwB.transpose()*dJw,
     // BLC.transpose() * model->cal_dAM,
-    constraintModel.cal_dPmM.transpose(), constraintModel.cal_dJmM,
-    constraintModel.cal_dPcM.transpose(), constraintModel.cal_dJcM;
+    constraintModel.mbb_dCmM.transpose(), constraintModel.cal_dJmM,
+    constraintModel.mbb_dCcM.transpose(), constraintModel.cal_dJcM;
 
   // ddqMoptRef = pInv(AMBar) * (Bin*VMBar - dJMBar * model->dqM) + N(AMBar) * ddqthinit();
   ddthRef = pInv(JMBar) * (VMBar - PBar * fb.cal_dVMfb - dJMBar * model->dqM) + N(JMBar) * ddthD();

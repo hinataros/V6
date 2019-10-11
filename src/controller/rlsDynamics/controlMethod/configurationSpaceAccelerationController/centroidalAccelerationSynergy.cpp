@@ -23,11 +23,11 @@ VectorXd RLS::RlsDynamics::centroidalAccelerationSynergy()
 
   // nonlinear
   VectorXd hcC =
-    constraintModel.cal_dPcM.transpose()*model->cal_VC
+    constraintModel.mbb_dCcM.transpose()*model->cal_VC
     + constraintModel.cal_dJcHat*model->dth;
   VectorXd hmC =
     -constraintModel.dBm.transpose()*model->cal_V
-    + constraintModel.cal_dPmM.transpose()*model->cal_VC
+    + constraintModel.mbb_dCmM.transpose()*model->cal_VC
     + constraintModel.cal_dJmHat*model->dth;
 
   VectorXd h =

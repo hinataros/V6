@@ -1,7 +1,7 @@
 # @author Sho Miyahara 2018
 
 # config: sample/dynamics/skeletonA4/test.config
-config: sample/dynamics/skeletonA4/walking.config
+# config: sample/dynamics/skeletonA4/walking.config
 # config: sample/highGain/skeletonA4/test.config
 # config: sample/kinematics/skeletonA4/test.config
 
@@ -9,3 +9,146 @@ config: sample/dynamics/skeletonA4/walking.config
 # config: sample/dynamics/skeletonA7/wallCleaning.config
 # config: sample/highGain/skeletonA7/test.config
 # config: sample/kinematics/skeletonA7/test.config
+
+
+# @author Ryotaro Hinata 2019
+
+# # # kicking (velocity)
+# config: kicking/highGain/skeletonA4/kicking_RM.config
+# config: kicking/highGain/skeletonA4/kicking_RAV.config
+
+# # # angular momentum distribution
+
+# config: angularMomentumDistribution/highGain/skeletonA4/velocity_kick.config
+
+# config: angularMomentumDistribution/dynamics/skeletonA4/acceleration_kick.config
+
+
+# # # velocity kick
+
+# config: velocityKick/skeletonA4/noDistribution.config
+# config: velocityKick/skeletonA4/fullBaseRotation.config
+# config: velocityKick/skeletonA4/partialBaseRotation.config
+# config: velocityKick/skeletonA4/noBaseRotation.config
+
+# # # velocity kick with 1 torso joint
+
+# config: velocityKick/skeletonA4W1/noDistribution.config
+# config: velocityKick/skeletonA4W1/fullBaseRotation.config
+# config: velocityKick/skeletonA4W1/partialBaseRotation.config
+# config: velocityKick/skeletonA4W1/noBaseRotation.config
+
+# # # velocity kick with 3 torso joints
+
+# config: velocityKick/skeletonA4W3/noDistribution.config
+# config: velocityKick/skeletonA4W3/fullBaseRotation.config
+# config: velocityKick/skeletonA4W3/partialBaseRotation.config
+# config: velocityKick/skeletonA4W3/noBaseRotation.config
+
+# # # acceleration kick
+
+# config: accelerationKick/skeletonA4/noDistribution.config
+# config: accelerationKick/skeletonA4/fullBaseRotation.config
+# config: accelerationKick/skeletonA4/partialBaseRotation.config
+# config: accelerationKick/skeletonA4/fullBaseRotation.config
+# config: accelerationKick/skeletonA4/noBaseRotation.config
+# config: accelerationKick/skeletonA4/frictionDistribution.config
+
+# # # acceleration kick with 1 torso joint
+
+# config: accelerationKick/skeletonA4W1/noDistribution.config
+# config: accelerationKick/skeletonA4W1/fullBaseRotation.config
+# config: accelerationKick/skeletonA4W1/partialBaseRotation.config
+# config: accelerationKick/skeletonA4W1/noBaseRotation.config
+# config: accelerationKick/skeletonA4W1/frictionDistribution.config
+
+# # # acceleration kick with 3 torso joints
+
+# config: accelerationKick/skeletonA4W3/noDistribution.config
+# config: accelerationKick/skeletonA4W3/fullBaseRotation.config
+# config: accelerationKick/skeletonA4W3/partialBaseRotation.config
+# config: accelerationKick/skeletonA4W3/noBaseRotation.config
+# config: accelerationKick/skeletonA4W3/frictionDistribution.config
+
+# # # acceleration kick with human body
+
+# config: accelerationKick/humanBody/frictionDistribution.config
+# config: accelerationKick/humanBody/standup.config
+
+# # # arm swing
+
+# config: armSwing/skeletonA4/frictionDistribution.config
+
+# # # arm swing with 1 torso joint
+
+# config: armSwing/skeletonA4W1/frictionDistribution.config
+
+# # # arm swing with 3 torso joints
+
+# config: armSwing/skeletonA4W3/frictionDistribution.config
+
+# # # arm swing with racket
+
+# config: armSwing/skeletonRacket/frictionDistribution.config
+
+
+
+# # # squat_SAM_C
+# config: squat_SAM_C/skeletonA4/fullBase.config
+# config: squat_SAM_C/skeletonA4/noDistribution.config
+
+# # # reactive motion (to be added)
+
+# # # kick_SAM_C
+# config: kick_SAM_C/skeletonA4/noSwing.config
+# config: kick_SAM_C/skeletonA4/armSwing.config
+
+# # # kick
+# config: kick/skeletonA4/noDistribution.config
+# config: kick/skeletonA4/noSwing.config
+# config: kick/skeletonA4/noSwing_zDamper.config
+# config: kick/skeletonA4/armSwing.config
+
+# # # walking_SAM_C
+# config: walking_SAM_C/skeletonA4/noSwing.config
+# config: walking_SAM_C/skeletonA4/armSwing.config
+
+# # # walking
+# config: walking/skeletonA4/noSwing.config
+# config: walking/skeletonA4/noSwing_zDamper.config
+# config: walking/skeletonA4/armSwing.config
+
+# # # step kick
+# config: stepKick/skeletonA4/noSwing.config
+# config: stepKick/skeletonA4/noSwing_zDamper.config
+# config: stepKick/skeletonA4/armSwing.config
+
+# # # for midterm
+# config: midterm/skeletonA4/crb.config
+# config: midterm/skeletonA4/cam.config
+
+
+
+# # # auto compliance
+config: autoCompliance/skeletonA4/main.config
+
+
+
+# # # CMBBE
+
+# config: CMBBE/skeletonA4/liftLeg.config
+# config: CMBBE/skeletonA4/squat.config
+# config: CMBBE/skeletonA4W3/liftLeg.config
+# config: CMBBE/skeletonA4W3/squat.config
+# config: CMBBE/humanBody/liftLeg.config
+# config: CMBBE/humanBody/squat.config
+
+
+
+
+######################################################
+
+
+# # # IRC for YK 2019/10/2
+
+# config: IRCforYK/skeletonA4/twist.config

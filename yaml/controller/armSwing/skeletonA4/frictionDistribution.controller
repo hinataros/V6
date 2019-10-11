@@ -1,0 +1,138 @@
+# @author Ryotaro Hinata 2019
+
+angle unit: degree
+
+controller:
+  control model: skeletonA4
+  input: torque
+  driven: mix
+  trigger: check foot contact
+
+  default:
+    control method:
+      inverse dynamics controller: fullDynamicsController
+
+      operational space controller: relativeAccelerationMixedMap
+      motion controller: mixedAccelerationSynergy
+
+      momentum controller: centroidalVrpMomentum
+      # ext momentum controller: true
+      # momentum controller: vrp_CRB
+      force controller: centroidalEcmpDistribution
+
+      torque controller: mixed
+
+      external wrench controller: transformExternalWrench
+
+    desired value generator:
+      DCM: {name: CP}
+      base rotation: {name: CP}
+      control node translation:
+        RLEGEE: {num: 0, name: CP}
+        LLEGEE: {num: 0, name: CP}
+        RARMEE: {num: 0, name: CP}
+        LARMEE: {num: 0, name: CP}
+      control node rotation:
+        RLEGEE: {num: 0, name: CP}
+        LLEGEE: {num: 0, name: CP}
+        RARMEE: {num: 0, name: CP}
+        LARMEE: {num: 0, name: CP}
+      external wrench: {name: step}
+
+    feedback controller:
+      CoM: dcmControl
+      
+    KX: 3.e+1
+    
+    # KpwB: 3.e+1
+    KdwB: 5.e+0
+
+    Kpv:
+      RARMEE: 3.e+1
+      LARMEE: 3.e+1
+    Kdv:
+      RARMEE: 5.e+0
+      LARMEE: 5.e+0
+
+    KDth: 5.e+1
+    # KPth: 3.e+2
+
+    KDlC: 1.e+2
+
+  state:
+    -
+      # init
+      # ********************************************
+    -
+      # double stance
+      # proactive
+      Bc:
+        RLEGEE: [1, 1, 1, 1, 1, 1]
+        LLEGEE: [1, 1, 1, 1, 1, 1]
+          
+      Bm:
+        RLEGEE: [0, 0, 0, 0, 0, 0]
+        LLEGEE: [0, 0, 0, 0, 0, 0]
+      # ********************************************
+    -
+      # left leg stand
+      # proactive
+      Bc:
+        RLEGEE: [0, 0, 0, 0, 0, 0]
+        LLEGEE: [1, 1, 1, 1, 1, 1]
+          
+      Bm:
+        RLEGEE: [1, 1, 1, 1, 1, 1]
+        LLEGEE: [0, 0, 0, 0, 0, 0]
+      # ********************************************
+    -
+      # right leg stand
+      # proactive
+      Bc:
+        RLEGEE: [1, 1, 1, 1, 1, 1]
+        LLEGEE: [0, 0, 0, 0, 0, 0]
+          
+      Bm:
+        RLEGEE: [0, 0, 0, 0, 0, 0]
+        LLEGEE: [1, 1, 1, 1, 1, 1]
+      # ********************************************
+
+
+
+  sequence:
+    -
+      -
+        twf: 1.0
+        Bm:
+          RARMEE: [1, 1, 1, 0, 0, 0]
+          LARMEE: [0, 0, 0, 0, 0, 0]
+      -
+        twf: 1.0
+        control method:
+          ext motion controller: true
+          motion controller: RAA_fullBase
+          ext momentum controller: true
+          momentum controller: vrp_FrictionDistribution
+          # momentum controller: vrp_MobilityCompensation
+          # momentum controller: vrp_Damper
+        
+      -
+        # twf: 0.7
+        twf: 0.4
+        desired value generator:
+          control node translation:
+            RARMEE: {num: 0, name: circle}
+          
+        rf:
+          RARMEE: [0., -0.2, 0.15]
+          # RARMEE: [0.15, 0., 0.15]
+        # xif:
+        #   RARMEE: [0., 10, 0]
+
+      -
+        twf: 0.7
+      # -
+      #   twf: 0.7
+      #   # twf: 0.4
+      #   rf:
+      #     RARMEE: [0., 0., 0.]

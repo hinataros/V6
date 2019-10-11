@@ -41,7 +41,20 @@ void RLS::Output::readOutput(const string &path_yaml_output)
       gp.st = doc[gpKeyName]["sampling time"].as<int>();
     if(doc[gpKeyName]["start time offset"])
       gp.tstart = doc[gpKeyName]["start time offset"].as<double>();
-  }
+    if(doc[gpKeyName]["dash line time"]){
+      gp.flagX2 = true;
+      int i=0;
+      while(1){
+        if(doc[gpKeyName]["dash line time"][i]){
+          gp.tdash.push_back(doc[gpKeyName]["dash line time"][i].as<double>());
+        }
+        else{
+          gp.dashNum = sizeof(gp.tdash)/sizeof(double);
+          break;
+        }
+        i++;
+      }
+    }  }
 
   if(doc[texKeyName]){
     tex.flag = true;

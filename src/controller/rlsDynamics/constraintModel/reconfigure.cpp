@@ -65,25 +65,25 @@ void RLS::ConstraintModel::reconfigure()
   dJm = MatrixXd::Zero(info.constraint.m.all, info.model->dof.all);
 
   // diff
-  cal_dPc = MatrixXd::Zero(6, info.constraint.c.all);
-  cal_dPm = MatrixXd::Zero(6, info.constraint.m.all);
+  mbb_dCc = MatrixXd::Zero(6, info.constraint.c.all);
+  mbb_dCm = MatrixXd::Zero(6, info.constraint.m.all);
 
   cal_dJc = MatrixXd::Zero(info.constraint.c.all, info.model->dof.joint);
   cal_dJm = MatrixXd::Zero(info.constraint.m.all, info.model->dof.joint);
 
   // ******************************
-  Pcf = MatrixXd::Zero(3, info.constraint.c.all);
-  PcMm = MatrixXd::Zero(3, info.constraint.c.all);
+  Ccf = MatrixXd::Zero(3, info.constraint.c.all);
+  CcMm = MatrixXd::Zero(3, info.constraint.c.all);
   mbb_CcM = MatrixXd::Zero(6, info.constraint.c.all);
   mbb_CmM = MatrixXd::Zero(6, info.constraint.m.all);
   cal_JcM = MatrixXd::Zero(info.constraint.c.all, info.model->dof.joint);
   cal_JmM = MatrixXd::Zero(info.constraint.m.all, info.model->dof.joint);
 
   // diff
-  dPcf = MatrixXd::Zero(3, info.constraint.c.all);
-  dPcMm = MatrixXd::Zero(3, info.constraint.c.all);
-  cal_dPcM = MatrixXd::Zero(6, info.constraint.c.all);
-  cal_dPmM = MatrixXd::Zero(6, info.constraint.m.all);
+  dCcf = MatrixXd::Zero(3, info.constraint.c.all);
+  dCcMm = MatrixXd::Zero(3, info.constraint.c.all);
+  mbb_dCcM = MatrixXd::Zero(6, info.constraint.c.all);
+  mbb_dCmM = MatrixXd::Zero(6, info.constraint.m.all);
   cal_dJcM = MatrixXd::Zero(info.constraint.c.all, info.model->dof.joint);
   cal_dJmM = MatrixXd::Zero(info.constraint.m.all, info.model->dof.joint);
 

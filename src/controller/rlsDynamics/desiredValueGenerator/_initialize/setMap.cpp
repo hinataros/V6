@@ -69,4 +69,5 @@ void RLS::DesiredValueGenerator::setMap()
   // external wrench
   externalWrench_map["default"] = &RLS::DesiredValueGenerator::externalWrenchDefault;
   externalWrench_map["CP"] = &RLS::DesiredValueGenerator::externalWrenchCP;
+  externalWrench_map["step"] = &RLS::DesiredValueGenerator::externalWrenchStep;
 }

@@ -86,6 +86,24 @@ void RLS::Output::makeTreeModelMotionYaml(const int id)
         quat.w() << ", " << quat.x() << ", " << quat.y() << ", " << quat.z() << "] ]" << endl;
     }
 
+    // ******** net CoP **********
+      motionYaml << "-" << endl
+      << " type: 'Vector3Seq'" << endl
+      << " content: 'ZMP'" << endl
+      << " frameRate: " << static_cast<int>(1/(worldModel->dt*cho.st)) << endl
+      << " frames:" << endl << endl;
+
+    for(int i=0; i<worldModel->n+1; i+=cho.st){
+      motionYaml << "  - [";
+
+      for (int j=0; j<2; j++)
+        motionYaml <<
+          setprecision(6) << scientific <<
+          data.rlsDynamics[id].vec[i].rp(j) << ", ";
+
+      motionYaml << " 0 ]" << endl;
+    }
+
     motionYaml.close();
   }
 }

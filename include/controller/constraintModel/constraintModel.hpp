@@ -57,14 +57,14 @@ namespace RLS{
     // diff
     MatrixXd dBc;
     MatrixXd dBm;
-    MatrixXd cal_dPc;
-    MatrixXd cal_dPm;
+    MatrixXd mbb_dCc;
+    MatrixXd mbb_dCm;
     MatrixXd cal_dJc;
     MatrixXd cal_dJm;
 
-    MatrixXd Pcf;
-    MatrixXd Pmf;
-    MatrixXd PcMm;
+    MatrixXd Ccf;
+    MatrixXd Cmf;
+    MatrixXd CcMm;
     MatrixXd mbb_CcM;
     MatrixXd mbb_CmM;
     MatrixXd cal_JcM;
@@ -76,11 +76,11 @@ namespace RLS{
     MatrixXd dJmM;
 
     // diff
-    MatrixXd dPcf;
-    MatrixXd dPmf;
-    MatrixXd dPcMm;
-    MatrixXd cal_dPcM;
-    MatrixXd cal_dPmM;
+    MatrixXd dCcf;
+    MatrixXd dCmf;
+    MatrixXd dCcMm;
+    MatrixXd mbb_dCcM;
+    MatrixXd mbb_dCmM;
     MatrixXd cal_dJcM;
     MatrixXd cal_dJmM;
 

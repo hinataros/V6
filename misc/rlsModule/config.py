@@ -11,4 +11,5 @@ PATH = "PATH=$PATH:$RLS_BIN"
 OUTPUT = "build"
 
 # run command of choreonoid
-run_cnoid = "choreonoid"
+# run_cnoid = "choreonoid"
+run_cnoid = "~/Simulator/choreonoid-1.7.0/build/bin/choreonoid"

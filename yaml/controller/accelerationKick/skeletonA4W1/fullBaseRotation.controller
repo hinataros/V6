@@ -1,0 +1,195 @@
+# @author Ryotaro Hinata 2019
+
+angle unit: degree
+
+controller:
+  control model: skeletonA4W1
+  input: torque
+  driven: mix
+  trigger: check foot contact
+
+  default:
+    control method:
+      inverse dynamics controller: fullDynamicsController
+
+      operational space controller: relativeAccelerationMixedMap
+      motion controller: mixedAccelerationSynergy
+
+      momentum controller: centroidalVrpMomentum
+      # ext momentum controller: true
+      # momentum controller: vrp_CRB
+      force controller: centroidalEcmpDistribution
+
+      torque controller: mixed
+
+      external wrench controller: transformExternalWrench
+
+    desired value generator:
+      DCM: {name: CP}
+      base rotation: {name: CP}
+      control node translation:
+        RLEGEE: {num: 0, name: CP}
+        LLEGEE: {num: 0, name: CP}
+        RARMEE: {num: 0, name: CP}
+        LARMEE: {num: 0, name: CP}
+      control node rotation:
+        RLEGEE: {num: 0, name: CP}
+        LLEGEE: {num: 0, name: CP}
+        RARMEE: {num: 0, name: CP}
+        LARMEE: {num: 0, name: CP}
+      external wrench: {name: step}
+
+    feedback controller:
+      CoM: dcmControl
+      
+    KX: 3.e+2
+
+    KpwB: 3.e+2
+    KdwB: 5.e+1
+
+    Kpv:
+      RARMEE: 3.e+2
+      LARMEE: 3.e+2
+    Kdv:
+      RARMEE: 5.e+1
+      LARMEE: 5.e+1
+
+    kdthLimb: &kdthLimb 5.e+1
+    kdthTorso: &kdthTorso 1.e+2
+    KDth:
+      [ *kdthLimb, *kdthLimb, *kdthLimb, *kdthLimb, *kdthLimb, *kdthLimb,
+      *kdthLimb, *kdthLimb, *kdthLimb, *kdthLimb, *kdthLimb, *kdthLimb,
+      *kdthTorso,
+      *kdthLimb, *kdthLimb, *kdthLimb, *kdthLimb,
+      *kdthLimb, *kdthLimb, *kdthLimb, *kdthLimb ]
+
+    # kpthLimb: &kpthLimb 3.e+2
+    # kpthTorso: &kpthTorso 6.e+2
+    # KPth:
+    #   [*kpthLimb, *kpthLimb, *kpthLimb, *kpthLimb, *kpthLimb, *kpthLimb,
+    #   *kpthLimb, *kpthLimb, *kpthLimb, *kpthLimb, *kpthLimb, *kpthLimb,
+    #   *kpthTorso,
+    #   *kpthLimb, *kpthLimb, *kpthLimb, *kpthLimb,
+    #   *kpthLimb, *kpthLimb, *kpthLimb, *kpthLimb]
+
+    KDlC: 1.e+2
+
+  state:
+    -
+      # init
+      # ********************************************
+    -
+      # double stance
+      # proactive
+      Bc:
+        RLEGEE: [1, 1, 1, 1, 1, 1]
+        LLEGEE: [1, 1, 1, 1, 1, 1]
+        RARMEE: [0, 0, 0, 0, 0, 0]
+        LARMEE: [0, 0, 0, 0, 0, 0]
+          
+      Bm:
+        RLEGEE: [0, 0, 0, 0, 0, 0]
+        LLEGEE: [0, 0, 0, 0, 0, 0]
+        RARMEE: [0, 0, 0, 0, 0, 0]
+        LARMEE: [0, 0, 0, 0, 0, 0]
+      # ********************************************
+    -
+      # left leg stand
+      # proactive
+      Bc:
+        RLEGEE: [0, 0, 0, 0, 0, 0]
+        LLEGEE: [1, 1, 1, 1, 1, 1]
+        RARMEE: [0, 0, 0, 0, 0, 0]
+        LARMEE: [0, 0, 0, 0, 0, 0]
+          
+      Bm:
+        RLEGEE: [1, 1, 1, 1, 1, 1]
+        LLEGEE: [0, 0, 0, 0, 0, 0]
+        RARMEE: [0, 0, 0, 0, 0, 0]
+        LARMEE: [0, 0, 0, 0, 0, 0]
+      # ********************************************
+    -
+      # right leg stand
+      # proactive
+      Bc:
+        RLEGEE: [1, 1, 1, 1, 1, 1]
+        LLEGEE: [0, 0, 0, 0, 0, 0]
+        RARMEE: [0, 0, 0, 0, 0, 0]
+        LARMEE: [0, 0, 0, 0, 0, 0]
+          
+      Bm:
+        RLEGEE: [0, 0, 0, 0, 0, 0]
+        LLEGEE: [1, 1, 1, 1, 1, 1]
+        RARMEE: [0, 0, 0, 0, 0, 0]
+        LARMEE: [0, 0, 0, 0, 0, 0]
+      # ********************************************
+
+
+
+  sequence:
+    -
+      -
+        twf: 1.0
+
+      -
+        twf: 2.0
+        control method:
+          ext motion controller: true
+          motion controller: RAA_fullBase
+          ext momentum controller: true
+          momentum controller: vrp_Damper
+
+      -
+        twf: 1
+        rXf: [0, 0.02, 0.]
+        
+      -
+        twf: 1.0
+        Bc:
+          RLEGEE: [0, 0, 0, 0, 0, 0]
+          LLEGEE: [1, 1, 1, 1, 1, 1]
+          RARMEE: [0, 0, 0, 0, 0, 0]
+          LARMEE: [0, 0, 0, 0, 0, 0]
+          
+        Bm:
+          RLEGEE: [1, 1, 1, 1, 1, 1]
+          LLEGEE: [0, 0, 0, 0, 0, 0]
+          RARMEE: [0, 0, 0, 0, 0, 0]
+          LARMEE: [0, 0, 0, 0, 0, 0]
+        rf:
+          RLEGEE: [0., 0., 0.01]
+
+        # KdwB: 5
+          
+      -
+        twf: 1.
+        # KpwB: 0
+        # KdwB: 5.
+        rf:
+          RLEGEE: [-0.1, 0., 0.1]
+        xif:
+          RLEGEE: [0., 60, -15]
+
+        Kpv:
+          RLEGEE: 3.e+2
+          LLEGEE: 3.e+2
+        Kdv:
+          RLEGEE: 5.e+1
+          LLEGEE: 5.e+1
+        Kpw:
+          RLEGEE: 3.e+2
+          LLEGEE: 3.e+2
+        Kdw:
+          RLEGEE: 5.e+1
+          LLEGEE: 5.e+1
+          
+      -
+        twf: 0.5
+        desired value generator:
+          control node translation:
+            RLEGEE: {num: 0, name: circle}
+
+        rf:
+          RLEGEE: [0.11, 0., 0.03]
+        xif:
+          RLEGEE: [0., -10, -20]

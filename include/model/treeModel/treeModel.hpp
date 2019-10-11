@@ -108,6 +108,9 @@ namespace RLS{
       double th;
       double dth;
 
+      double thMin;
+      double thMax; // 2019/10/3 hinata
+
       Vector3d d;
       Vector3d ri2C;
 

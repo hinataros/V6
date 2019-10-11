@@ -27,7 +27,6 @@ VectorXd RLS::RlsDynamics::fullDynamicsController()
     (this->*forceController_ptr)();
   else
     (ext->*ext_forceController_ptr)(this);
-  // o(cal_FcBarRef);
 
   // torque control
   if(!extTorqueController)

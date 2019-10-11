@@ -12,7 +12,7 @@ items:
       data: 
         collisionDetection: false
         collisionDetector: AISTCollisionDetector
-        materialTableFile: "${SHARE}/default/materials.yaml"
+        materialTableFile: ""
       children: 
         - 
           id: 2
@@ -20,7 +20,7 @@ items:
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "/usr/local/etc/rls/user/1000/rlsSimulator/sl/share/model/skeleton/skeletonA7prim.body"
+            modelFile: "../../../../model/skeleton/skeletonA7prim.body"
             currentBaseLink: "ROOT"
             rootPosition: [ 0, 0, 0.21019 ]
             rootAttitude: [ 
@@ -53,20 +53,20 @@ items:
               data: 
                 isNoDelayMode: true
                 controllerOptions: ""
-                moduleName: "/usr/local/etc/rls/user/1000/rlsSimulator/sl/build/bin/rlsDynamicsRTC.so"
-                confFileName: "/usr/local/etc/rls/user/1000/rlsSimulator/sl/share/port/skeletonPort.conf"
+                moduleName: ""
+                confFileName: ""
                 configurationMode: "Use Configuration File"
                 AutoConnect: false
                 InstanceName: "skeleton"
                 bodyPeriodicRate: 0
-                baseDirectory: ""
+                baseDirectory: "RTC directory"
         - 
           id: 4
           name: "floor"
           plugin: Body
           class: BodyItem
           data: 
-            modelFile: "/usr/local/etc/rls/user/1000/rlsSimulator/sl/share/model/object/floor.body"
+            modelFile: "../../../../model/object/floor.body"
             currentBaseLink: ""
             rootPosition: [ 0, 0, -0.025 ]
             rootAttitude: [ 
@@ -124,7 +124,7 @@ views:
     class: ItemTreeView
     mounted: true
     state: 
-      selected: [ 3 ]
+      selected: [ 1 ]
       checked: [ 1, 2, 5 ]
       expanded: [ 1, 2 ]
   - 
@@ -175,16 +175,16 @@ views:
           fieldOfView: 0.698132
           near: 0.01
           far: 100
-          eye: [ 1.45897472, 0.84817732, 0.686022827 ]
-          direction: [ -0.831160085, -0.487880371, -0.266731431 ]
-          up: [ -0.23003031, -0.135024859, 0.963770898 ]
+          eye: [ -0.0354947542, 1.80943447, 0.226650142 ]
+          direction: [ -1.2246468e-16, -1, -6.123234e-17 ]
+          up: [ -7.49879891e-33, -6.123234e-17, 1 ]
         - 
           camera: [ System, Orthographic ]
           isCurrent: true
-          orthoHeight: 0.719967
+          orthoHeight: 0.560711
           near: 0.01
           far: 100
-      backgroundColor: [ 0.0313725509, 0.666666687, 0 ]
+      backgroundColor: [ 0, 0.333333343, 0 ]
       gridColor: [ 0, 0, 0, 1 ]
       xzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
       yzgridColor: [ 0.899999976, 0.899999976, 0.899999976, 1 ]
@@ -329,7 +329,7 @@ viewAreas:
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 473, 472 ]
+          sizes: [ 462, 461 ]
           children: 
             - 
               type: pane
@@ -342,7 +342,7 @@ viewAreas:
         - 
           type: splitter
           orientation: vertical
-          sizes: [ 823, 122 ]
+          sizes: [ 804, 119 ]
           children: 
             - 
               type: pane

@@ -1,0 +1,227 @@
+# @author Ryotaro Hinata 2019
+# based on "WalkingNewYaml4" from Akinori Miyata
+
+
+angle unit: degree
+
+controller:
+  control model: skeletonA4
+  input: torque
+
+
+  default:
+    control method:
+      inverse dynamics controller: fullDynamicsController
+      operational space controller: decomposeEndEffectorAcceleration
+      motion controller: mixedGeneralizedMomentum
+      force controller: centroidalEcmpDistribution
+      momentum controller: centroidalVrpMomentum
+      torque controller: mixedOpt
+
+    desired value generator:
+      # DCM: {name: HTWalking}
+      DCM: {name: VRPWalking}
+      # CoM: {name: HTWalking}
+      base rotation: {name: CP}
+      control node translation:
+        RLEGEE: {name: swing}
+        LLEGEE: {name: swing}
+      control node rotation:
+        RLEGEE: {name: CP}
+        LLEGEE: {name: CP}
+
+    feedback controller:
+      CoM: dcmControl
+
+    KX: 3.e+1
+    # KpC: 3.e+2
+    # KdC: 5.e+1
+    KpwB: 3.e+2
+    KdwB: 5.e+1
+
+    Kpv:
+      RLEGEE: 5.e+2
+      LLEGEE: 5.e+2
+    Kpw:
+      RLEGEE: 5.e+2
+      LLEGEE: 5.e+2
+    Kdv:
+      RLEGEE: 5.e+1
+      LLEGEE: 5.e+1
+    Kdw:
+      RLEGEE: 5.e+1
+      LLEGEE: 5.e+1
+
+    kDth: &kDthH 1.e+2
+    kthHinit: &kthHinit 1.e+2
+
+    KDth:
+      [0.,0.,0.,0.,0.,0., 0.,0.,0.,0.,0.,0.,
+      *kDthH, *kDthH, *kDthH, *kDthH,
+      *kDthH, *kDthH, *kDthH, *kDthH]
+    Kthinit:
+      [0.,0.,0.,0.,0.,0., 0.,0.,0.,0.,0.,0.,
+      *kthHinit, *kthHinit, *kthHinit, *kthHinit,
+      *kthHinit, *kthHinit, *kthHinit, *kthHinit]
+
+    Bc: &ds
+      RLEGEE: [1, 1, 1, 1, 1, 1]
+      LLEGEE: [1, 1, 1, 1, 1, 1]
+    Bm: &zs
+      RLEGEE: [0, 0, 0, 0, 0, 0]
+      LLEGEE: [0, 0, 0, 0, 0, 0]
+
+    KDlC: 100
+
+    # for walking
+    height: &height 0.02
+    rApex:
+      RLEGEE: *height
+      LLEGEE: *height
+
+  state:
+    -
+      walking:
+        ipDim: 3
+        
+        dtstep: &tss 0.5
+        dtDSstep: &tds 0.2
+            
+        twf: &tswingleg 0.3 # tss - tds
+        
+        alphaDSstep: 0.5
+        alphaHTstep: 0.5
+        offset: 0.01 # first step: right -> +
+        toe: 0.025
+        heel: -0.015
+
+        tstab: &tstab 1.
+
+        length: &steplength1 0.08
+        length: &steplength2 0.16
+        length: &steplength3 0.24
+
+        swing leg:
+          rf: &swingLeg0
+            RLEGEE: [0., 0., 0.]
+          rf: &swingLeg1
+            LLEGEE: [*steplength1, 0., 0.]
+          rf: &swingLeg2
+            RLEGEE: [*steplength2, 0., 0.]
+          rf: &swingLeg3
+            LLEGEE: [*steplength3, 0., 0.]
+          rf: &swingLeg4
+            RLEGEE: [*steplength3, 0., 0.]
+
+
+
+      trigger: check contact
+      state:
+        -
+          control method:
+            inverse dynamics controller: default
+          Bc: *zs
+          Bm: *zs
+        -
+          control method:
+            inverse dynamics controller: fullDynamicsController
+
+          Bc: *ds
+          Bm: *zs
+
+        -
+          control method:
+            inverse dynamics controller: fullDynamicsController
+          Bc: &ls
+            RLEGEE: [0, 0, 0, 0, 0, 0]
+            LLEGEE: [1, 1, 1, 1, 1, 1]
+          Bm: &rs
+            RLEGEE: [1, 1, 1, 1, 1, 1]
+            LLEGEE: [0, 0, 0, 0, 0, 0]
+        -
+          control method:
+            inverse dynamics controller: fullDynamicsController
+          Bc: *rs
+          Bm: *ls
+        -
+          control method:
+            inverse dynamics controller: fullDynamicsController
+          Bc: *ds
+          Bm: *zs
+        -
+          control method:
+            inverse dynamics controller: fullDynamicsController
+          Bc: *ls
+          Bm: *rs
+        -
+          control method:
+            inverse dynamics controller: fullDynamicsController
+          Bc: *rs
+          Bm: *ls
+
+
+
+      sequence:
+        -
+          twf: *tstab
+        -
+          twf: *tswingleg
+
+          control method:
+            ext momentum controller: true
+            momentum controller: vrp_FrictionDistribution
+            ext motion controller: true
+            motion controller: RAA_fullBase
+            torque controller: mixed
+
+          rf: *swingLeg0 # for vrp way point calculation
+        -
+          twf: *tds
+          # 1 step
+        -
+          twf: *tswingleg
+          Bc: *rs
+          Bm: *ls
+          rf: *swingLeg1
+          # LLEGEE: [*steplength1, 0., 0.]
+        -
+          twf: *tds
+          # 2 step
+        -
+          twf: *tswingleg
+          Bc: *ls
+          Bm: *rs
+          rf: *swingLeg2
+        -
+          twf: *tds
+          # 3 step
+        -
+          twf: *tswingleg
+          Bc: *rs
+          Bm: *ls
+          rf: *swingLeg3
+        -
+          twf: *tds
+          # 4 step
+        -
+          twf: *tswingleg
+          Bc: *ls
+          Bm: *rs
+          rXfabs: [*steplength3, 0., 0.] # for vwp calc
+          rf: *swingLeg4
+        -
+          twf: *tds
+
+
+    -
+      # external force
+      twf: 5
+      desired value generator:
+        external wrench: {name: CP}
+    -
+      twf: 0.7
+      cal_Fextf: [10., 0., 0., 0., 0., 0.]
+
+    -
+      twf: 0.1
+     cal_Fextf: [0., 0., 0., 0., 0., 0.]

@@ -50,6 +50,16 @@ void RLS::TreeModel::readBody()
       link[i].jointAxis = doc["links"][i]["jointAxis"].as<string>();
     }catch(...){link[i].jointAxis="no axis";}
 
+    // joint limit (2019/10/3 hinata)
+    
+    try{
+      link[i].thMin = doc["links"][i]["jointRange"][0].as<double>()*DEG2RAD;
+    }catch(...){link[i].thMin=0.;}
+
+    try{
+      link[i].thMax = doc["links"][i]["jointRange"][1].as<double>()*DEG2RAD;
+    }catch(...){link[i].thMax=0.;}
+
     // joint distance
     try{
       for(int j=0; j<3; j++)

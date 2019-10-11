@@ -1,0 +1,109 @@
+# @author Sho Miyahara 2018
+
+angle unit: degree
+
+controller:
+  control model: skeletonA7
+  input: torque
+
+  default:
+    control method:
+      inverse dynamics controller: fullDynamicsController
+
+      operational space controller: decomposeEndEffectorAcceleration
+      motion controller: mixedGeneralizedMomentum
+
+      momentum controller: centroidalVrpMomentum
+      force controller: centroidalEcmpDistribution
+
+      torque controller: mixedOpt
+
+    desired value generator:
+      DCM: {name: CP}
+      base rotation: {num: 1, name: CP}
+
+      control node translation:
+        RARMEE: {name: CPabs}
+      control node rotation:
+        RARMEE: {name: CPabs}
+
+      control node force:
+        RARMEE: {name: CP}
+
+    Bc:
+      RLEGEE: [1, 1, 1, 1, 1, 1]
+      LLEGEE: [1, 1, 1, 1, 1, 1]
+
+    KX: 3.e+2
+
+    KpwB: 3.e+2
+    KdwB: 5.e+1
+
+    Kpv:
+      RARMEE: 3.e+2
+    Kpw:
+      RARMEE: 3.e+2
+
+    Kdv:
+      RARMEE: 1.e+1
+    Kdw:
+      RARMEE: 1.e+1
+
+
+    KDth: 1.e+2
+
+  state:
+
+  sequence:
+    -
+      -
+        twf: 1.
+      -
+        twf: 2.
+        Bm:
+          RARMEE: [1, 1, 1, 1, 1, 1]
+        rfabs:
+          RARMEE: [0.05, -0.1999, 0.4]
+        xifabs:
+          RARMEE: [-90., 0., -90.]
+      -
+        twf: 1.
+        control method:
+          # internal force controller: m_internalDistribution
+          force controller: handWrenchControlAndCentroidalEcmpDistribution
+        Bc:
+          RARMEE: [0, 1, 0, 1, 0, 1]
+        Bm:
+          RARMEE: [1, 0, 1, 0, 1, 0]
+        ff:
+          RARMEE: [0., 5., 0.]
+      -
+        twf: 1.
+        rfabs:
+          RARMEE: [0.05, -0.2, 0.45]
+      -
+        twf: 1.
+        rfabs:
+          RARMEE: [0.05, -0.2, 0.35]
+        ff:
+          RARMEE: [0., 1., 0.]
+      -
+        twf: 1.
+        rfabs:
+          RARMEE: [0.05, -0.2, 0.45]
+      -
+        twf: 1.
+        rfabs:
+          RARMEE: [0.05, -0.2, 0.35]
+        ff:
+          RARMEE: [0., 5., 0.]
+      -
+        twf: 1.
+        rfabs:
+          RARMEE: [0.05, -0.2, 0.4]
+    -
+      -
+        twf: 1.
+      -
+        twf: 1.
+        xiBf: [-30., 0., 0.]

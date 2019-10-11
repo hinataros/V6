@@ -180,6 +180,7 @@ void RLS::Output::makeGraph()
 
         texMaker.setName(file_name);
         texMaker.addMinipage();
+
       }
 
       texMaker.makeTex();

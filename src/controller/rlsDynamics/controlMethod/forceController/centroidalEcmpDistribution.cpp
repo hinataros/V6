@@ -21,4 +21,5 @@ void RLS::RlsDynamics::centroidalEcmpDistribution()
   cal_FcBarRef =
     pInv(constraintModel.mbb_CcM, Wecmpc)*(cal_dLCRef + model->cal_GC)
     + N(constraintModel.mbb_CcM)*cal_FcaBarRef;
+
 }

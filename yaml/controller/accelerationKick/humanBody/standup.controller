@@ -1,0 +1,131 @@
+# @author Sho Miyahara 2018
+
+angle unit: degree
+
+controller:
+  control model: humanBody
+  input: torque
+
+  default:
+    control method:
+      inverse dynamics controller: fullDynamicsController
+
+      operational space controller: decomposeEndEffectorAcceleration
+      motion controller: mixedGeneralizedMomentum
+
+      momentum controller: centroidalVrpMomentum
+      force controller: centroidalDcmDistribution
+      
+      #force controller: centroidalDistribution #hamano
+      # force controller: centroidalEcmpDistribution
+
+      torque controller: mixedmixedOpt
+
+    desired value generator:
+      DCM: {name: CP}
+      base rotation: {name: CP}
+      control node translation:
+        LLEGEE: {num: 0, name: CP}
+        # RARMEE: {num: 1, name: CP}
+        # LARMEE: {num: 2, name: CP}
+      control node rotation:
+        LLEGEE: {num: 0, name: CP}
+        # RARMEE: {num: 1, name: CP}
+        # LARMEE: {num: 2, name: CP}
+
+    feedback controller:
+      CoM: dcmControl
+      
+    Bc:
+      RLEGEE: [1, 1, 1, 1, 1, 1]
+      LLEGEE: [1, 1, 1, 1, 1, 1]
+
+    KX: 3.e+2
+
+    KpwB: 3.e+2
+    KdwB: 5.e+1
+
+    Kpv:
+      RARMEE: 3.e+2
+      LARMEE: 3.e+4
+    Kdv:
+      RARMEE: 5.e+1
+      LARMEE: 5.e+1
+      RLEGEE: 5.e+1
+      LLEGEE: 5.e+1
+      
+    Kpw:
+      RARMEE: 3.e+2
+      LARMEE: 3.e+2
+    Kdw:
+      RARMEE: 5.e+1
+      LARMEE: 5.e+1
+      RLEGEE: 5.e+1
+      LLEGEE: 5.e+1
+
+    KDth: 1.e+3
+
+    # KDlC: 5.e+1
+
+  state:
+    -
+
+  sequence:
+    # -
+    #   -
+    #     twf: 1.
+    #   -
+    #     twf: 3.
+    #     Bm:
+    #       RARMEE: [1, 1, 1, 1, 1, 1]
+    #     rf:
+    #       RARMEE: [0.1, 0., 0.1]
+    #   -
+    #     twf: 2.
+    #     rXf: [0.0, -0.08, 0.]
+    #   -
+    #     twf: 0.5
+      # -
+      #   twf: 3.
+      #   Bm:
+      #     LLEGEE: [1, 1, 1, 1, 1, 1]
+      #   rf:
+      #     LLEGEE: [0., 0., 0.1]
+
+
+    #   -
+    #     twf: 10.0
+    # -
+    #   -
+    #     twf: 1.
+    #   -
+    #     twf: 5.
+
+    #     Bm:
+    #       LARMEE: [1, 1, 1, 1, 1, 1]
+    #     rf:
+    #       LARMEE: [0.1, 0., 0.1]
+
+    -
+      -
+        twf: 1.
+      -
+        twf: 2.
+        rXf: [0.0, -0.07, 0.]
+        control method:
+          ext motion controller: true
+          motion controller: RAA_fullBase
+          ext momentum controller: true
+          momentum controller: vrp_MobilityCompensation
+
+          torque controller: mixed
+
+      -
+        twf: 2.
+
+        Bm:
+          LLEGEE: [1, 1, 1, 1, 1, 1]
+        Bc:
+          LLEGEE: [0, 0, 0, 0, 0, 0]
+        rf:
+          LLEGEE: [0.1, 0., 0.1]

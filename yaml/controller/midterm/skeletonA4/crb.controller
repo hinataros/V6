@@ -1,0 +1,32 @@
+# @author Ryotaro Hinata 2019
+
+angle unit: degree
+
+controller:
+  control model: skeletonA4
+  input: torque
+  driven: flow
+
+  default:
+    control method:
+      inverse dynamics controller: highGainController
+      external wrench controller: transformExternalWrench
+
+    desired value generator:
+      external wrench: {name: step}
+
+    KpHG: 100
+    KdHG: 10
+
+  sequence:
+    -
+      -
+        twf: 1
+
+        cal_Fextf: [0, 0, 0, 0, 0.1, 0]
+
+      -
+        twf: 1
+
+        cal_Fextf: [0, 0, 0, 0, 0, 0]
+        

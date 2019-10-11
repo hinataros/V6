@@ -26,4 +26,10 @@ void RLS::ControllerTreeModel::setInitialValue()
   cal_FB0 <<
     model->link[info->rootNode].f,
     model->link[info->rootNode].n;
+
+  // joint limit (2019/10/3 hinata)
+
+  thMax = model->readJointState("maximum joint angle");
+  thMin = model->readJointState("minimum joint angle");
+  thMid = 0.5 * (thMax + thMin);
 }

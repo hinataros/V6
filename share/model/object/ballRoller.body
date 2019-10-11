@@ -1,0 +1,50 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+name: BallRoller
+links:
+  -
+    name: ROOT
+    jointType: fixed
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          -
+            type: Visual
+            elements: &DeskShape
+              -
+                type: Shape
+                translation: [0.75, 0, 0]
+                geometry:
+                  type: Box
+                  size: [ 1.5, 0.05, 0.01 ]
+                appearance:
+                  material:
+                    diffuseColor: [ 0, 0, 1 ]
+              -
+                type: Shape
+                translation: [0.75, 0.03, 0.01]
+                geometry:
+                  type: Box
+                  size: [ 1.5, 0.01, 0.01 ]
+                appearance:
+                  material:
+                    diffuseColor: [ 0, 0, 1 ]
+              -
+                type: Shape
+                translation: [0.75, -0.03, 0.01]
+                geometry:
+                  type: Box
+                  size: [ 1.5, 0.01, 0.01 ]
+                appearance:
+                  material:
+                    diffuseColor: [ 0, 0, 1 ]
+      -
+        type: Collision
+        elements: *DeskShape

@@ -37,6 +37,17 @@ void RLS::GpMaker::setStartTime(double arg)
   tstart = arg;
 }
 
+// hinata
+void RLS::GpMaker::setDashTimes(vector<double> arg0, int arg1)
+{
+  flagX2 = true;
+
+  dashNum = arg1;
+
+  for(int i=0; i<dashNum; i++)
+    tdash.push_back(arg0[i]);
+}
+
 void RLS::GpMaker::makeLibrary()
 {
   makeMacro();
@@ -71,6 +82,28 @@ void RLS::GpMaker::makeMacro()
       rotation_macro << endl;
     macro.close();
   }
+}
+
+// hinata
+string RLS::GpMaker::makeDashTimes()
+{
+  int i;
+  string dashtime_set;
+
+  dashtime_set =
+    "set x2tics (";
+
+  for(i=0; i<dashNum-1; i++){
+    dashtime_set += "\"\""+ to_string(tdash[i]-tstart);
+    if(i<dashNum-2)
+      dashtime_set += ",";
+    else
+      dashtime_set += ")\n";
+  }
+
+  dashtime_set += "set x2range [*:*]";
+
+  return dashtime_set;
 }
 
 void RLS::GpMaker::makeConfig()
@@ -158,7 +191,14 @@ void RLS::GpMaker::makeSet()
 
   string autotics_set =
     "set xtics autofreq\n"
-    "set ytics autofreq\n";
+    "set ytics autofreq\n"
+    "set autoscale xfix\n";
+
+  string dashtime_set;
+  if(flagX2)
+    dashtime_set = makeDashTimes();
+  else
+    dashtime_set = "\n";
 
   string line_style_set =
     "set style line 1 lw LINE_WIDTH lc 1\n"
@@ -179,6 +219,14 @@ void RLS::GpMaker::makeSet()
     "if(BACKGROUND) set style line 2 lw LINE_WIDTH lc rgb 'greenyellow'\n"
     "if(BACKGROUND) set style line 3 lw LINE_WIDTH lc rgb 'cyan'\n";
 
+  string dashline_set;
+  if(flagX2){
+    dashline_set =
+      "set grid noxtics noytics x2tics lt 1 lw 2 lc rgb 'black' dt (10, 5)\n";
+  }
+  else
+    dashline_set = "\n";
+
   ofstream libSet((path_gp_ind+"library/set.gp").c_str());
   if(!libSet)
     cout << path_gp_ind+"library/set.gp" << ": " << endl
@@ -192,7 +240,8 @@ void RLS::GpMaker::makeSet()
       margin_set << endl <<
       autotics_set << endl <<
       line_style_set << endl <<
-      background_set << endl;
-    libSet.close();
+      background_set << endl <<
+      dashline_set << endl;
+  libSet.close();
   }
 }

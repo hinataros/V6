@@ -2,6 +2,7 @@
 
 set(srcs
   externalWrenchCP.cpp
+  externalWrenchStep.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" externalWrench_srcs)

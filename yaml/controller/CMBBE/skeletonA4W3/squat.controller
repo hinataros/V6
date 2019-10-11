@@ -1,0 +1,163 @@
+# @author Ryotaro Hinata 2019
+
+angle unit: degree
+
+controller:
+  control model: skeletonA4W3
+  input: torque
+  driven: mix
+  trigger: check foot contact
+
+  default:
+    control method:
+      inverse dynamics controller: fullDynamicsController
+
+      operational space controller: relativeAccelerationMixedMap
+      motion controller: mixedAccelerationSynergy
+
+      momentum controller: centroidalVrpMomentum
+      # ext momentum controller: true
+      # momentum controller: vrp_CRB
+      force controller: centroidalEcmpDistribution
+
+      torque controller: mixed
+
+      external wrench controller: transformExternalWrench
+
+    desired value generator:
+      # DCM: {name: CP}
+      CoM: {name: CP}
+      base translation: {name: CP}
+      base rotation: {name: CP}
+      control node translation:
+        RLEGEE: {num: 0, name: CP}
+        LLEGEE: {num: 0, name: CP}
+        RARMEE: {num: 0, name: CP}
+        LARMEE: {num: 0, name: CP}
+      control node rotation:
+        RLEGEE: {num: 0, name: CP}
+        LLEGEE: {num: 0, name: CP}
+        RARMEE: {num: 0, name: CP}
+        LARMEE: {num: 0, name: CP}
+        TORSO3: {num: 0, name: BaseTrack}
+      external wrench: {name: step}
+
+    feedback controller:
+      # CoM: dcmControl
+      
+    # KX: 1.e+2
+    KpC: 3.e+2
+    KdC: 5.e+1
+
+    KpvB: 0
+    KdvB: 5.e+1
+    
+    KpwB: 3.e+1
+    KdwB: 5.e+1
+
+    Kpw:
+      TORSO3: 3.e+2
+    Kdw:
+      TORSO3: 5.e+1
+      
+    KDth: 5.e+1
+    KPth: 0.e+2
+
+    KDlC: 1.e+2
+
+    Bm:
+      TORSO3: [0, 0, 0, 1, 1, 1]
+
+  state:
+    -
+      # init
+      # ********************************************
+    -
+      # double stance
+      # proactive
+      Bc:
+        RLEGEE: [1, 1, 1, 1, 1, 1]
+        LLEGEE: [1, 1, 1, 1, 1, 1]
+        RARMEE: [0, 0, 0, 0, 0, 0]
+        LARMEE: [0, 0, 0, 0, 0, 0]
+          
+      Bm:
+        RLEGEE: [0, 0, 0, 0, 0, 0]
+        LLEGEE: [0, 0, 0, 0, 0, 0]
+        RARMEE: [0, 0, 0, 0, 0, 0]
+        LARMEE: [0, 0, 0, 0, 0, 0]
+      # ********************************************
+    -
+      # left leg stand
+      # proactive
+      Bc:
+        RLEGEE: [0, 0, 0, 0, 0, 0]
+        LLEGEE: [1, 1, 1, 1, 1, 1]
+        RARMEE: [0, 0, 0, 0, 0, 0]
+        LARMEE: [0, 0, 0, 0, 0, 0]
+          
+      Bm:
+        RLEGEE: [1, 1, 1, 1, 1, 1]
+        LLEGEE: [0, 0, 0, 0, 0, 0]
+        RARMEE: [0, 0, 0, 0, 0, 0]
+        LARMEE: [0, 0, 0, 0, 0, 0]
+      # ********************************************
+    -
+      # right leg stand
+      # proactive
+      Bc:
+        RLEGEE: [1, 1, 1, 1, 1, 1]
+        LLEGEE: [0, 0, 0, 0, 0, 0]
+        RARMEE: [0, 0, 0, 0, 0, 0]
+        LARMEE: [0, 0, 0, 0, 0, 0]
+          
+      Bm:
+        RLEGEE: [0, 0, 0, 0, 0, 0]
+        LLEGEE: [1, 1, 1, 1, 1, 1]
+        RARMEE: [0, 0, 0, 0, 0, 0]
+        LARMEE: [0, 0, 0, 0, 0, 0]
+      # ********************************************
+
+
+
+  sequence:
+    -
+      -
+        twf: 1.5
+
+      -
+        twf: 0.5
+        control method:
+          ext motion controller: true
+          # motion controller: RAA_partialBase
+          motion controller: RAA_fullBase
+          ext momentum controller: true
+          momentum controller: vrp_Damper
+
+        # Bm:
+        #   TORSO3: [0, 0, 0, 0, 1, 0]
+      -
+        twf: 2
+        rCf: [0, 0., -0.07]
+
+      -
+        twf: 2
+        rCf: [0, 0., 0.]
+
+      -
+        twf: 2
+        rCf: [0, 0., -0.07]
+
+      -
+        twf: 2
+        rCf: [0, 0., 0.]
+
+      -
+        twf: 2
+        rCf: [0, 0., -0.07]
+
+      -
+        twf: 2
+        rCf: [0, 0., 0.]
+
+      

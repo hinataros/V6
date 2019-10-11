@@ -3,6 +3,7 @@
 add_subdirectory(activate)
 add_subdirectory(modelGraphConfig)
 add_subdirectory(controllerGraphConfig)
+add_subdirectory(extGraphConfig)
 
 # set(srcs
 #   )
@@ -12,6 +13,7 @@ set(graphConfig_srcs
   ${activate_srcs}
   ${modelGraphConfig_srcs}
   ${controllerGraphConfig_srcs}
+  ${extGraphConfig_srcs}
   ${graphConfig_srcs}
   PARENT_SCOPE
   )

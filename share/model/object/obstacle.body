@@ -1,0 +1,33 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+name: Box
+links:
+  -
+    name: ROOT
+    jointType: fixed
+    translation: [
+    -3.391231e-03,
+    -6.206371e-06,
+    2.411953e-01
+    ]
+    elements:
+      -
+        type: RigidBody
+        mass: 1.0
+        centerOfMass: [ 0, 0, 0 ]
+        inertia: [
+        1, 0, 0,
+        1, 0,
+        1 ]
+        elements:
+          Shape: &BoxShape
+            geometry:
+              type: Box
+              size: [ 0.01, 0.05, 0.015 ]
+            appearance:
+              material:
+                diffuseColor: [ 1, 0, 0 ]
+      -
+        type: Collision
+        elements:
+          Shape: *BoxShape

@@ -2,6 +2,7 @@
 
 set(srcs
   testForceController.cpp
+  copDistribution.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" forceController_srcs)

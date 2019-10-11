@@ -27,7 +27,7 @@ links:
                 appearance: &bodyColor
                   material:
                     diffuseColor: [ 0.7, 0.7, 0.7 ]
-                    # transparency: 0.5
+                    # transparency: 1.0
               -
                 type: Shape
                 translation: [ 0, 0.039, 0.0225 ]
@@ -72,14 +72,14 @@ links:
 
               # waist1
               # translation: [ 0.034, 0, 0.055 ]
-              -
-                type: Shape
-                translation: [ 0.034, 0, 0.0375]
-                rotation: *X
-                geometry: &jointShape
-                  {type: Cylinder, radius: 0.005, height: 0.01}
-                appearance: &jointColor
-                  material: {diffuseColor: [ 0, 0, 0 ]}
+              # -
+              #   type: Shape
+              #   translation: [ 0.034, 0, 0.0375]
+              #   rotation: *X
+              #   geometry: &jointShape
+              #     {type: Cylinder, radius: 0.005, height: 0.01}
+              #   appearance: &jointColor
+              #     material: {diffuseColor: [ 0, 0, 0 ]}
               -
                 type: Shape
                 translation: [ 0.034, 0.0, 0.04125 ]
@@ -105,11 +105,11 @@ links:
 
               # waist2
               # translation: [ 0.034, 0, 0.055 ]
-              -
-                type: Shape
-                translation: [ 0.034, 0, 0.055 ]
-                geometry: *jointShape
-                appearance: *jointColor
+              # -
+              #   type: Shape
+              #   translation: [ 0.034, 0, 0.055 ]
+              #   geometry: *jointShape
+              #   appearance: *jointColor
               -
                 type: Shape
                 translation: [ 0.02475, 0.0, 0.055 ]
@@ -118,12 +118,12 @@ links:
                 appearance: *bodyColor
               # torso
               # translation: [ 0.034, 0, 0.055 ]
-              -
-                type: Shape
-                rotation: *Z
-                translation: [ 0.0155, 0, 0.055 ]
-                geometry: *jointShape
-                appearance: *jointColor
+              # -
+              #   type: Shape
+              #   rotation: *Z
+              #   translation: [ 0.0155, 0, 0.055 ]
+              #   geometry: *jointShape
+              #   appearance: *jointColor
               -
                 type: Shape
                 translation: [ 0.00775, 0.0, 0.055 ]
@@ -171,8 +171,13 @@ links:
                 type: Shape
                 rotation: *X
                 translation: [ 0, 0, 0.015 ]
-                geometry: *jointShape
-                appearance: *jointColor
+                geometry: &jointShape
+                  {type: Cylinder, radius: 0.005, height: 0.01}
+                appearance: &jointColor
+                  material:
+                    diffuseColor: [ 0, 0, 0 ]
+                    # transparency: 1.0
+                  
               -
                 type: Shape
                 translation: [ 0.01375, 0.0, 0.015 ]
@@ -194,7 +199,7 @@ links:
     jointId: 1
     jointType: revolute
     jointAxis: X
-    jointRange: [ -30, 15 ]
+    jointRange: [ -30, 20 ]
     elements:
       -
         type: RigidBody
@@ -431,8 +436,9 @@ links:
             rotation: &Y [ 0, 1, 0, 90 ]
             translation: [ 0.009, 0.0, 0.005 ]
             geometry: { type: Box, size: [ 0.01, 0.063, 0.098 ] }
-            appearance: *bodyColor
-            material: Body
+            appearance:
+              material:
+                diffuseColor: [ 0.7, 0.7, 0.7 ]
       -
         type: Collision
         elements: *RLEGEE
@@ -446,7 +452,7 @@ links:
     jointId: 6
     jointType: revolute
     jointAxis: Z
-    jointRange: [ -90, 30 ]
+    jointRange: [ -30, 90 ]
     translation: [ 0, 0.039, 0 ]
     elements:
       -
@@ -490,7 +496,7 @@ links:
     rotation: [ 1, 0, 0, 0 ]
     jointType: revolute
     jointAxis: X
-    jointRange: [ -30, 15 ]
+    jointRange: [ -20, 30 ]
     elements:
       -
         type: RigidBody
@@ -731,8 +737,9 @@ links:
             translation: [ 0.009, 0, 0.005 ]
             rotation: *Y
             geometry: { type: Box, size: [ 0.01, 0.063, 0.098 ] }
-            appearance: *bodyColor
-            material: Body
+            appearance:
+              material:
+                diffuseColor: [ 0.7, 0.7, 0.7 ]
       -
         type: Collision
         elements: *RLEGEE
@@ -746,6 +753,7 @@ links:
     jointId: 12
     jointType: revolute
     jointAxis: Y
+    jointRange: [-90, 150]
     translation: [ 0.0, -0.0995, 0.145 ]
     elements:
       -
@@ -790,6 +798,7 @@ links:
     parent: RARM1
     jointId: 13
     jointType: revolute
+    jointRange: [-95, 0]
     jointAxis: Z
     elements:
       -
@@ -824,6 +833,7 @@ links:
     parent: RARM2
     jointId: 14
     jointType: revolute
+    jointRange: [-90, 90]
     jointAxis: X
     elements:
       -
@@ -876,6 +886,7 @@ links:
     parent: RARM3
     jointId: 15
     jointType: revolute
+    jointRange: [-114, 0]
     jointAxis: Y
     translation: [ 0.101, 0, 0 ]
     elements:
@@ -933,7 +944,9 @@ links:
             geometry: &handShape
               { type: Sphere, radius: 0.00625 }
             appearance: &handColor
-              material: {diffuseColor: [ 0, 0, 0 ]}
+              material:
+                diffuseColor: [ 0, 0, 0 ]
+                # transparency: 1.0
       -
         type: Collision
         elements: *RARMEE
@@ -948,6 +961,7 @@ links:
     parent: ROOT
     jointId: 16
     jointType: revolute
+    jointRange: [-90, 150]
     jointAxis: Y
     translation: [ 0.0, 0.0995, 0.145 ]
     elements:
@@ -993,6 +1007,7 @@ links:
     parent: LARM1
     jointId: 17
     jointType: revolute
+    jointRange: [0, 95]
     jointAxis: Z
     elements:
       -
@@ -1026,6 +1041,7 @@ links:
     parent: LARM2
     jointId: 18
     jointType: revolute
+    jointRange: [-90, 90]
     jointAxis: X
     elements:
       -
@@ -1078,6 +1094,7 @@ links:
     parent: LARM3
     jointId: 19
     jointType: revolute
+    jointRange: [-115, 0]
     jointAxis: Y
     translation: [ 0.101, 0, 0 ]
     elements:
@@ -1143,3 +1160,9 @@ links:
         id: 3
         elements:
           Transform: { translation: [ 0.10975, 0, 0 ]}
+
+footLinks:
+  - link: RLEGEE
+    soleCenter: [ 0.009, 0., 0. ]
+  - link: LLEGEE
+    soleCenter: [ 0.009, 0., 0. ]

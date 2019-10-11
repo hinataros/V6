@@ -20,9 +20,10 @@ namespace RLS{
     template<typename TYPE, std::size_t SIZE>
     std::size_t array_length(const TYPE (&)[SIZE]){return SIZE;}
 
-    string limbName[4] = {
+    string limbName[5] = {
       "R. leg",
       "L. leg",
+      "Torso",
       "R. arm",
       "L. arm"
     };
@@ -36,6 +37,11 @@ namespace RLS{
     double dt;
     int st;
     double tstart;
+
+    string makeDashTimes();
+    vector<double> tdash;
+    int dashNum;
+    bool flagX2;
 
     void makeMacro();
     void makeConfig();
@@ -68,6 +74,7 @@ namespace RLS{
     void setST(int);
     void setStartTime(double);
     void makeLibrary();
+    void setDashTimes(vector<double>, int);
 
     void reset();
     void setGpPath(string);

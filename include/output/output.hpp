@@ -32,6 +32,9 @@ namespace RLS{
       bool check;
       int st;
       double tstart;
+      bool flagX2;
+      int dashNum;
+      vector<double> tdash;
     } gp;
 
     struct Tex{
@@ -160,6 +163,10 @@ namespace RLS{
     // tree model output
     // ********************************************
     void joint(GpMaker&, TexMaker&);
+    void joint_wTorso(GpMaker&, TexMaker&);
+    void joint_wTorso1(GpMaker&, TexMaker&);
+    void joint_wTorso3(GpMaker&, TexMaker&);
+    void joint_human(GpMaker&, TexMaker&);
     void baseTrans(GpMaker&, TexMaker&);
     void baseRot(GpMaker&, TexMaker&);
     void eeTrans(GpMaker&, TexMaker&);
@@ -215,6 +222,12 @@ namespace RLS{
     void vrpDes4walking(GpMaker&, TexMaker&);
     // void footPrint(GpMaker&, TexMaker&);
     // // ********************************************
+
+    // ext
+    void jointLimitGradient(GpMaker&, TexMaker&);
+    void jointLimitGradient_wTorso(GpMaker&, TexMaker&);
+    void jointLimitGradient_wTorso1(GpMaker&, TexMaker&);
+    void jointLimitGradient_wTorso3(GpMaker&, TexMaker&);
 
     map<string, void (RLS::Output::*)(GpMaker&, TexMaker&)> map_use_function;
 

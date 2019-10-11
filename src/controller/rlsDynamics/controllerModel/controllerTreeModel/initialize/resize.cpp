@@ -64,6 +64,10 @@ void RLS::ControllerTreeModel::resize()
   dq = VectorXd::Zero(info->dof.all);
   dqM = VectorXd::Zero(info->dof.all);
 
+  thMin = VectorXd::Zero(info->dof.joint); // 2019/10/3 hinata
+  thMax = VectorXd::Zero(info->dof.joint);
+  thMid = VectorXd::Zero(info->dof.joint);
+
   M = 0.;
 
   bb_Rk = MatrixXd::Zero(6*info->controlNodeNum, 6*info->controlNodeNum);

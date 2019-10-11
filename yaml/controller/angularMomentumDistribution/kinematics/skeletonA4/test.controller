@@ -1,0 +1,51 @@
+# @author Sho Miyahara 2018
+
+angle unit: degree
+
+controller:
+  control model: skeletonA4
+  input: velocity
+
+  default:
+    control method:
+      operational space controller: relativeVelocityBaseMap
+      motion controller: baseVelocitySynergy
+
+    desired value generator:
+      base translation: {name: CP}
+      base rotation: {name: CP}
+      control node translation:
+        RARMEE: {name: CP}
+        LARMEE: {name: CP}
+
+    Bc:
+      RLEGEE: [1, 1, 1, 1, 1, 1]
+      LLEGEE: [1, 1, 1, 1, 1, 1]
+
+    Bm:
+      RARMEE: [1, 1, 1, 0, 0, 0]
+      LARMEE: [1, 1, 1, 0, 0, 0]
+
+    KpvB: 10.
+    KpwB: 10.
+
+    Kpv:
+      RARMEE: 10.
+      LARMEE: 10.
+
+  state:
+    -
+
+  sequence:
+    -
+      twf: 2.
+      rBf: [0., -0.01, -0.03]
+      xiBf: [0., 30., 0.]
+    -
+      twf: 1.
+      rf:
+        RARMEE: [0., 0., 0.1]
+        LARMEE: [0.1, 0., 0.1]
+    -
+      twf: 3.
+

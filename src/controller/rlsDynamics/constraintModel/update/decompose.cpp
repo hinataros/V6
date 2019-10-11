@@ -24,18 +24,18 @@ void RLS::ConstraintModel::decompose()
   cal_Jm = Bm.transpose()*model->cal_J;
 
   // diff
-  cal_dPc = model->bb_dTB2k.transpose()*Bc + model->bb_TB2k.transpose()*dBc;
+  mbb_dCc = model->bb_dTB2k.transpose()*Bc + model->bb_TB2k.transpose()*dBc;
   cal_dJc = Bc.transpose()*model->cal_dJ + dBc.transpose()*model->cal_J;
 
-  cal_dPm = model->bb_dTB2k.transpose()*Bm + model->bb_TB2k.transpose()*dBm;
+  mbb_dCm = model->bb_dTB2k.transpose()*Bm + model->bb_TB2k.transpose()*dBm;
   cal_dJm = Bm.transpose()*model->cal_dJ + dBm.transpose()*model->cal_J;
 
   mbb_CcM = model->bb_TC2k.transpose()*Bc;
   mbb_CmM = model->bb_TC2k.transpose()*Bm;
 
   // diff
-  cal_dPcM = model->bb_dTC2k.transpose()*Bc + model->bb_TC2k.transpose()*dBc;
-  cal_dPmM = model->bb_dTC2k.transpose()*Bm + model->bb_TC2k.transpose()*dBm;
+  mbb_dCcM = model->bb_dTC2k.transpose()*Bc + model->bb_TC2k.transpose()*dBc;
+  mbb_dCmM = model->bb_dTC2k.transpose()*Bm + model->bb_TC2k.transpose()*dBm;
 
   V_cwc = compute_CWC_span();
 }

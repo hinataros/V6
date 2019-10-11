@@ -1,0 +1,118 @@
+# @author Ryotaro Hinata 2019
+
+angle unit: degree
+
+controller:
+  control model: humanBody
+  input: torque
+  # driven: mix
+  driven: flow
+  trigger: check foot contact
+
+  default:
+    control method:
+      inverse dynamics controller: fullDynamicsController
+
+      operational space controller: decomposeEndEffectorAcceleration
+      motion controller: mixedGeneralizedMomentum
+
+      momentum controller: centroidalVrpMomentum
+      force controller: centroidalDcmDistribution
+      
+      #force controller: centroidalDistribution #hamano
+      # force controller: centroidalEcmpDistribution
+
+      torque controller: mixedmixedOpt
+
+    desired value generator:
+      # DCM: {name: CP}
+      DCM: {name: CP}
+      base translation: {name: CP}
+      base rotation: {name: CP}
+      control node translation:
+        RLEGEE: {num: 0, name: CP}
+        LLEGEE: {num: 0, name: CP}
+        RARMEE: {num: 0, name: CP}
+        LARMEE: {num: 0, name: CP}
+      control node rotation:
+        RLEGEE: {num: 0, name: CP}
+        LLEGEE: {num: 0, name: CP}
+        RARMEE: {num: 0, name: CP}
+        LARMEE: {num: 0, name: CP}
+        TORSO3: {num: 0, name: BaseTrack}
+      external wrench: {name: step}
+
+    feedback controller:
+      CoM: dcmControl
+      
+    KX: 3.e+2
+    # KpC: 3.e+2
+    # KdC: 5.e+1
+
+    KpwB: 3.e+2
+    KdwB: 5.e+1
+
+    # Kpw:
+    #   TORSO3: 3.e+2
+    # Kdw:
+    #   TORSO3: 5.e+1
+      
+    KDth: 3.e+2
+    KPth: 0.e+2
+
+    KDlC: 1.e+3
+
+    # Bm:
+    #   TORSO3: [0, 0, 0, 1, 1, 1]
+
+
+  sequence:
+    -
+      -
+        twf: 1.5
+        Bc:
+          RLEGEE: [1, 1, 1, 1, 1, 1]
+          LLEGEE: [1, 1, 1, 1, 1, 1]
+
+      -
+        twf: 0.5
+        control method:
+          ext motion controller: true
+          motion controller: RAA_fullBase
+          ext momentum controller: true
+          momentum controller: vrp_Damper
+
+          torque controller: mixed
+
+        KX: 2.5e+1
+        KdwB: 1.e+1
+        KDlC: 1.e+1
+        # Bm:
+        #   TORSO3: [0, 0, 0, 0, 1, 0]
+      -
+        twf: 2.0
+      -
+        twf: 1.5
+        rXf: [0, 0., -0.3]
+
+      -
+        twf: 1.5
+        rXf: [0, 0., 0.]
+
+      -
+        twf: 1.5
+        rXf: [0, 0., -0.3]
+
+      -
+        twf: 1.5
+        rXf: [0, 0., 0.]
+
+      -
+        twf: 1.5
+        rXf: [0, 0., -0.3]
+
+      -
+        twf: 1.5
+        rXf: [0, 0., 0.]
+
+      

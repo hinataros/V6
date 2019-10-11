@@ -1,0 +1,381 @@
+# @author Ryotaro Hinata 2019
+
+result:
+  composite data name: velocityKick_wTorso
+  individual data name: noBaseRotation
+  
+
+gp:
+  check: false
+  sampling time: 10
+  start time offset: 1.
+  dash line time: [2.0, 3.0]
+
+tex:
+  title: Simulation results
+  layout:
+    -
+      file name: mix
+      caption: Mixed quasi values.
+      elements:
+        -
+          file name: comPos
+          time-dependent dat:
+            name: tree model rC
+          y label: CoM pos. [mm]
+          unit: m
+          dimention: 3
+        -
+          file name: comVel
+          time-dependent dat:
+            name: tree model vC
+          y label: CoM vel. [m/s]
+          dimention: 3
+        -
+          file name: baseOrient
+          time-dependent dat:
+            name: tree model xiB
+          y label: Base orient. [deg]
+          unit: RAD2DEG
+          dimention: 3
+        -
+          file name: baseAngVel
+          time-dependent dat:
+            name: tree model wB
+          y label: Base ang. vel. [rad/s]
+          dimention: 3
+
+    -
+      file name: eeTrans
+      caption: End effector translation values.
+      control node: 0
+      elements:
+        -
+          file name: eePos
+          time-dependent dat:
+            name: tree model r
+          control node: 0
+          y label: EE pos. [mm]
+          unit: m
+          dimention: 3
+        -
+          file name: eeVel
+          time-dependent dat:
+            name: tree model r
+          control node: 0
+          y label: EE vel. [m/s]
+          dimention: 3
+
+    -
+      file name: eeWrench
+      caption: End effector wrench values.
+      control node: 0
+      elements:
+        -
+          file name: eeForce
+          time-dependent dat:
+            name: tree model f
+          control node: 0
+          y label: EE force [N]
+          dimention: 3
+        -
+          file name: eeMoment
+          time-dependent dat:
+            name: tree model n
+          control node: 0
+          y label: EE moment [Nm]
+          dimention: 3
+
+    -
+      file name: eeRot
+      caption: End effector rotation values.
+      control node: 0
+      elements:
+        -
+          file name: eeOrient
+          time-dependent dat:
+            name: tree model xi
+          control node: 0
+          y label: EE orient. [deg]
+          unit: RAD2DEG
+          dimention: 3
+        -
+          file name: eeAngVel
+          time-dependent dat:
+            name: tree model w
+          control node: 0
+          y label: EE ang. vel. [rad/s]
+          dimention: 3
+
+    -
+      file name: dcmDes
+      caption: Desired DCM values.
+      elements:
+        -
+          file name: dcmPosDes
+          time-dependent dat:
+            name: rXDes
+          y label: Des. DCM [mm]
+          unit: m
+          dimention: 3
+        -
+          file name: dcmVelDes
+          time-dependent dat:
+            name: drXDes
+          y label: Des. DCM vel. [m/s]
+          dimention: 3
+
+    -
+      file name: baseRotDes
+      caption: Desired base rotation values.
+      elements:
+        -
+          file name: baseOrientDes
+          time-dependent dat:
+            name: xiBDes
+          y label: Des. base orient. [deg]
+          unit: RAD2DEG
+          dimention: 3
+        -
+          file name: baseAngVelDes
+          time-dependent dat:
+            name: wBDes
+          y label: Des. base ang. vel. [rad/s]
+          dimention: 3
+        -
+          file name: baseAngAccDes
+          time-dependent dat:
+            name: dwBDes
+          y label: Des. base ang. acc. [rad/s^2]
+          dimention: 3
+
+    -
+      file name: eeTransDes
+      caption: Desired end effector translation values.
+      control node: 0
+      elements:
+        -
+          file name: eePosDes
+          time-dependent dat:
+            name: rDes
+          control node: 0
+          y label: EE des. pos. [mm]
+          unit: m
+          dimention: 3
+        -
+          file name: eeVelDes
+          time-dependent dat:
+            name: vDes
+          control node: 0
+          y label: EE des. vel. [m/s]
+          dimention: 3
+        -
+          file name: eeAccDes
+          time-dependent dat:
+            name: dvDes
+          control node: 0
+          y label: EE des. acc. [m/s^2]
+          dimention: 3
+
+    -
+      file name: eeRotDes
+      caption: Desired end effector rotation values.
+      control node: 0
+      elements:
+        -
+          file name: eeOrientDes
+          time-dependent dat:
+            name: xiDes
+          control node: 0
+          y label: EE des. orient. [deg]
+          unit: RAD2DEG
+          dimention: 3
+        -
+          file name: eeAngVelDes
+          time-dependent dat:
+            name: wDes
+          control node: 0
+          y label: EE des. ang. vel. [rad/s]
+          dimention: 3
+        -
+          file name: eeAngAccDes
+          time-dependent dat:
+            name: dwDes
+          control node: 0
+          y label: EE des. ang. acc. [rad/s^2]
+          dimention: 3
+
+    -
+      file name: dcmErr
+      caption: DCM error values.
+      elements:
+        -
+          file name: dcmErr
+          time-dependent dat:
+            name: eX
+          y label: DCM err. [mm]
+          unit: m
+          dimention: 3
+
+    -
+      file name: baseRotErr
+      caption: Base rotation error values.
+      elements:
+        -
+          file name: baseOrientErr
+          time-dependent dat:
+            name: eoB
+          y label: Base orient. err. [deg]
+          unit: RAD2DEG
+          dimention: 3
+        -
+          file name: baseAngVelErr
+          time-dependent dat:
+            name: ewB
+          y label: Base ang. vel. err. [rad/s]
+          dimention: 3
+
+    -
+      file name: eeTransErr
+      caption: End effector translation error values.
+      control node: 0
+      elements:
+        -
+          file name: eePosErr
+          time-dependent dat:
+            name: er
+          control node: 0
+          y label: EE pos. err. [mm]
+          unit: m
+          dimention: 3
+        -
+          file name: eeVelErr
+          time-dependent dat:
+            name: ev
+          control node: 0
+          y label: EE vel. err. [m/s]
+          dimention: 3
+
+    -
+      file name: eeRotErr
+      caption: End effector rotation error values.
+      control node: 0
+      elements:
+        -
+          file name: eeOrientErr
+          time-dependent dat:
+            name: eo
+          control node: 0
+          y label: EE orient. err. [rad]
+          unit: m
+          dimention: 3
+        -
+          file name: eeAngVelErr
+          time-dependent dat:
+            name: ew
+          control node: 0
+          y label: EE ang. vel. err. [rad/s]
+          dimention: 3
+
+    -
+      file name: eeWrenchErr
+      caption: End effector wrench error values.
+      control node: 0
+      elements:
+        -
+          file name: eeForceErr
+          time-dependent dat:
+            name: ef
+          control node: 0
+          y label: EE force err. [N]
+          dimention: 3
+        -
+          file name: eeMomentErr
+          time-dependent dat:
+            name: en
+          control node: 0
+          y label: EE moment err. [Nm]
+          dimention: 3
+
+    -
+      file name: localCoP
+      caption: Local CoP values.
+      control node: 0
+      activate:
+        - true
+        - true
+        - false
+        - false
+        - false
+      elements:
+        -
+          file name: localCoPx
+          time-dependent dat:
+            name: rpkx
+          control node: 0
+          activate:
+            - true
+            - true
+            - false
+            - false
+            - false
+          y label: EE CoP x [mm]
+          unit: m
+          dimention: 1
+          add:
+            - ["set yrange[-60:80]", "set object 1 rect from 0, -40 to 1e+3, 58 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder"]
+            - ["set yrange[-60:80]", "set object 1 rect from 0, -40 to 1e+3, 58 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder"]
+            - [""]
+            - [""]
+            - [""]
+        -
+          file name: localCoPy
+          time-dependent dat:
+            name: rpky
+          control node: 0
+          activate:
+            - true
+            - true
+            - false
+            - false
+            - false
+          y label: EE CoP y [mm]
+          unit: m
+          dimention: 1
+          add:
+            - ["set yrange[-40:40]", "set object 1 rect from 0, -31.5 to 1e+3, 31.5 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder"]
+            - ["set yrange[-40:40]", "set object 1 rect from 0, -31.5 to 1e+3, 31.5 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder"]
+            - [""]
+            - [""]
+            - [""]
+
+    -
+      file name: stabilityIndex
+      caption: net CoP, gCoM, xCoM and eCMP values.
+      elements:
+        -
+          file name: xStabilityIndex
+          time-dependent dat:
+            name: xStabilityIndex
+          y label: Stability index x [mm]
+          unit: m
+          dimention: 4
+          add: ["set yrange[-80:80]", "set object 1 rect from 0, -40 to 1e+3, 58 behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder"]
+        -
+          file name: yStabilityIndex
+          time-dependent dat:
+            name: yStabilityIndex
+          y label: Stability index y [mm]
+          unit: m
+          dimention: 4
+          add: ["set yrange[-80:80]", "set object 1 rect from 0, (39-31.5) to 1e+3, (39+31.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder", "set object 2 rect from 0, (-39+31.5) to 1e+3, (-39-31.5) behind lw 0 fc rgb 'cyan' fill solid 0.2 noborder"]
+    -
+      use function: joint with torso
+    -
+      use function: joint limit gradient with torso
+
+    -
+      use function: sysMom
+
+choreonoid:
+  sampling time: 10

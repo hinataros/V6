@@ -10,7 +10,11 @@
 
 int RLS::Output::setDat(ofstream& stream, string dataName, int i)
 {
-  if(debug) DEBUG;
+  if(dataName == "ext joint limit gradient"){
+    stream << data.ext[i].jointLimitGradient.transpose();
+    return 1;
+  }
 
-  return 1;
+  else
+    return -1; // error
 }

@@ -14,7 +14,7 @@ VectorXd RLS::RlsDynamics::rest_clCm()
 
   // constraint
   VectorXd hcth =
-    constraintModel.cal_dPcM.transpose()*model->cal_VM
+    constraintModel.mbb_dCcM.transpose()*model->cal_VM
     + constraintModel.cal_dJcM*model->dth;
   VectorXd ddthcRef = pInv(constraintModel.cal_JcM)*(cal_dVcMBarRef - hcth);
 
@@ -32,7 +32,7 @@ VectorXd RLS::RlsDynamics::rest_clCm()
 
   VectorXd hmth =
     -constraintModel.dBm.transpose()*model->cal_V
-    + constraintModel.cal_dPmM.transpose()*model->cal_VM
+    + constraintModel.mbb_dCmM.transpose()*model->cal_VM
     + constraintModel.cal_dJmM*model->dth;
 
   VectorXd ddthmRef = N(constraintModel.cal_JcM)*N(HCBar)*pInv(cal_JmMBar)*(cal_dVmTildeRef - hmth);
@@ -43,7 +43,7 @@ VectorXd RLS::RlsDynamics::rest_clCm()
   ddthRef = ddthcRef + ddthlCRef + ddthmRef + ddthnRef;
 
   // // constraint
-  // VectorXd cal_dVcthRef = -mbb_CcM.transpose()*cal_dVMRef - cal_dPcM.transpose()*cal_VM;
+  // VectorXd cal_dVcthRef = -mbb_CcM.transpose()*cal_dVMRef - mbb_dCcM.transpose()*cal_VM;
   // VectorXd cal_Vcth = -mbb_CcM.transpose()*cal_VM;
 
   // VectorXd ddthcRef = pInv(cal_JcM)*(cal_dVcthRef) + dpInv(cal_JcM, cal_dJcM)*cal_Vcth;

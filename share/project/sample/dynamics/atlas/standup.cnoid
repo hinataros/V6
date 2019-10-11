@@ -49,7 +49,7 @@ items:
           plugin: Body
           class: BodyItem
           data:
-            modelFile: "/usr/local/etc/rls/user/1000/rlsSimulator/sl/share/model/atlas_vigir/atlas_description/body/atlas_v3_simple_shapes.body"
+            modelFile: "/usr/local/etc/rls/user/1001/rlsSimulator/sl/share/model/atlas_vigir/atlas_description/body/atlas_v3_simple_shapes.body"
             currentBaseLink: "PELVIS"
             rootPosition: [ 0, 0, 0.812 ]
             rootAttitude: [
@@ -85,8 +85,8 @@ items:
               data:
                 isNoDelayMode: true
                 controllerOptions: ""
-                moduleName: "/usr/local/etc/rls/user/1000/rlsSimulator/sl/build/bin/rlsDynamicsRTC.so"
-                confFileName: "/usr/local/etc/rls/user/1000/rlsSimulator/sl/share/port/atlasPort.conf"
+                moduleName: "/usr/local/etc/rls/user/1001/rlsSimulator/sl/build/bin/rlsDynamicsRTC.so"
+                confFileName: "/usr/local/etc/rls/user/1001/rlsSimulator/sl/share/port/atlasPort.conf"
                 configurationMode: "Use Configuration File"
                 AutoConnect: false
                 InstanceName: "atlas_v3_simple_shapes"
@@ -98,7 +98,7 @@ items:
           plugin: Body
           class: BodyItem
           data:
-            modelFile: "/usr/local/etc/rls/user/1000/rlsSimulator/sl/share/model/object/floor.body"
+            modelFile: "/usr/local/etc/rls/user/1001/rlsSimulator/sl/share/model/object/floor.body"
             currentBaseLink: ""
             rootPosition: [ 0, 0, -0.025 ]
             rootAttitude: [

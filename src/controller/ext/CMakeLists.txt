@@ -2,15 +2,18 @@
 
 add_subdirectory(stateTrigger)
 add_subdirectory(controlMethod)
+add_subdirectory(other)
 
 set(srcs
   ext.cpp
+  output.cpp
   )
 
 MAP_ADD_STR(srcs "${CMAKE_CURRENT_SOURCE_DIR}/" ext_srcs)
 set(ext_srcs
   ${stateTrigger_srcs}
   ${controlMethod_srcs}
+  ${other_srcs}
   ${ext_srcs}
   PARENT_SCOPE
   )

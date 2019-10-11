@@ -326,6 +326,45 @@ void RLS::Output::setDat(ofstream& stream, int id, string dataName, int i)
   else if(dataName=="thArmVelL")
     stream << data.rlsDynamics[id].vec[i].dth.segment(12+4, 4).transpose();
 
+  else if(dataName=="ext_WCRB")
+    stream << data.ext[i].WCRB.transpose();
+  else if(dataName=="ext_dWCRB")
+    stream << data.ext[i].dWCRB.transpose();
+
+  else if(dataName=="ext_wC")
+    stream << data.ext[i].wC.transpose();
+  else if(dataName=="ext_Dw")
+    stream << data.ext[i].Dw.transpose();
+  else if(dataName=="ext_wB")
+    stream << data.ext[i].wB.transpose();
+
+  else if(dataName=="ext_DwLower")
+    stream << data.ext[i].DwLower.transpose();
+  else if(dataName=="ext_DwUpper")
+    stream << data.ext[i].DwUpper.transpose();
+
+  else if(dataName=="ext_dwCRef")
+    stream << data.ext[i].dwCRef.transpose();
+  else if(dataName=="ext_dDwRef")
+    stream << data.ext[i].dDwRef.transpose();
+  else if(dataName=="ext_dwBRef")
+    stream << data.ext[i].dwBRef.transpose();
+
+  else if(dataName=="ext_dlCRefRoot")
+    stream << data.ext[i].dlCRefRoot.transpose();
+  else if(dataName=="ext_dlCRefMotion")
+    stream << data.ext[i].dlCRefMotion.transpose();
+  else if(dataName=="ext_dlCRefError")
+    stream << data.ext[i].dlCRefError.transpose();
+  else if(dataName=="ext_dlCComponent")
+    stream << data.ext[i].dlCComponent.transpose();
+
+  else if(dataName=="ext_dlC")
+    stream << data.ext[i].dlC.transpose();
+  else if(dataName=="ext_dlCRB")
+    stream << data.ext[i].dlCRB.transpose();
+  else if(dataName=="ext_dlCAM")
+    stream << data.ext[i].dlCAM.transpose();
   // // foot print
   // else if(dataName=="foot print")
   //   stream << data.rlsDynamics[id].vec[i].rXDes.head(2).transpose();

@@ -1,0 +1,232 @@
+/**
+   @author Ryotaro Hinata 2019
+*/
+
+#include "_ext.hpp"
+
+void RLS::Ext::rootLinkManipulability(RlsDynamics *io, Vector6d cal_dVMfull)
+{
+  if(debug) DEBUG;
+
+  VectorXd pMinus = VectorXd::Zero(io->info.model.dof.joint);
+  VectorXd pPlus = VectorXd::Zero(io->info.model.dof.joint);
+  
+  for(int i=0; i<io->info.model.dof.joint; i++){
+    if(abs(io->model->th(i)-io->model->thMin(i)) > abs(io->model->thMax(i)-io->model->th(i))){
+      pMinus(i) = 1;
+      pPlus(i) = 1/sqrt(1 + abs(h2(i)));
+    }
+    else{
+      pMinus(i) = 1/sqrt(1 + abs(h2(i)));
+      pPlus(i) = 1;
+    }
+    
+  }
+
+  VectorXd pGamma = Vector6d::Zero();
+  for(int i=0; i<6; i++)
+    pGamma(i) = signbit(- cal_dVMfull(i));
+  VectorXd nGamma = Vector6d::Zero();
+  for(int i=0; i<6; i++)
+    nGamma(i) = - signbit(- cal_dVMfull(i));
+
+  int i,j;
+
+  ///////////////////////////////////// CRB weight //////////////////////////////////
+  
+  if(io->constraintModel.info.constraint.c.all == 0){
+    w_CRB = Vector6d::Zero();
+  }
+
+  else{
+    if(io->constraintModel.info.constraint.c.all == 6){
+      
+      MatrixXd JcM;
+      MatrixXd pL = MatrixXd::Zero(6,6);
+      MatrixXd nL = MatrixXd::Zero(6,6);
+      MatrixXd ptildeJcM = MatrixXd::Zero(6,6);
+      MatrixXd ntildeJcM = MatrixXd::Zero(6,6);
+
+      Vector6d pw_CRB;
+      Vector6d nw_CRB;
+      
+      if(io->constraintModel.info.constraint.c.controlNode[0] == 6)
+        JcM = io->constraintModel.cal_JcM.block(0,0,6,6);
+      if(io->constraintModel.info.constraint.c.controlNode[1] == 6)
+        JcM = io->constraintModel.cal_JcM.block(0,6,6,6);
+      
+      for(i=0; i<6; i++){
+        for(j=0; j<6; j++){
+          if(signbit(JcM(i,j))*pGamma(i) < 0)
+            pL(i,j) = pMinus(j);
+          else
+            pL(i,j) = pPlus(j);
+          
+          if(signbit(JcM(i,j))*nGamma(i) < 0)
+            nL(i,j) = pMinus(j);
+          else
+            nL(i,j) = pPlus(j);
+
+          ptildeJcM(i,j) = pL(i,j)*JcM(i,j);
+          ntildeJcM(i,j) = nL(i,j)*JcM(i,j);
+        }
+      }
+
+      JacobiSVD<MatrixXd> psvd(ptildeJcM, ComputeFullU | ComputeFullV);
+      JacobiSVD<MatrixXd> nsvd(ntildeJcM, ComputeFullU | ComputeFullV);
+
+      MatrixXd pS = psvd.singularValues().asDiagonal();
+      MatrixXd pU = psvd.matrixU();
+      MatrixXd nS = nsvd.singularValues().asDiagonal();
+      MatrixXd nU = nsvd.matrixU();
+
+      double pnorm = (pS*pU*cal_dVMfull).norm();
+      double nnorm = (nS*nU*cal_dVMfull).norm();
+
+      for(i=0; i<6; i++){
+        pw_CRB(i) = abs(cal_dVMfull(i))/pnorm;
+        nw_CRB(i) = abs(cal_dVMfull(i))/nnorm;
+
+        w_CRB(i) = pw_CRB(i)/(pw_CRB(i)+nw_CRB(i));
+      }
+      
+      // for(i=0; i<6; i++)
+      //   WCRB(i) = 1/(S*U.col(i)).norm();
+
+    }
+      
+    if(io->constraintModel.info.constraint.c.all == 12){
+      MatrixXd JcMRL = io->constraintModel.cal_JcM.block(0,0,6,6);
+      MatrixXd pL_RL = MatrixXd::Zero(6,6);
+      MatrixXd ptildeJcMRL = MatrixXd::Zero(6,6);
+      MatrixXd nL_RL = MatrixXd::Zero(6,6);
+      MatrixXd ntildeJcMRL = MatrixXd::Zero(6,6);
+
+      for(i=0; i<6; i++){
+        for(j=0; j<6; j++){
+          if(signbit(JcMRL(i,j))*pGamma(i) < 0)
+            pL_RL(i,j) = pMinus(j);
+          else
+            pL_RL(i,j) = pPlus(j);
+
+          if(signbit(JcMRL(i,j))*nGamma(i) < 0)
+            nL_RL(i,j) = pMinus(j);
+          else
+            nL_RL(i,j) = pPlus(j);
+          
+          ptildeJcMRL(i,j) = pL_RL(i,j)*JcMRL(i,j);
+          ntildeJcMRL(i,j) = nL_RL(i,j)*JcMRL(i,j);
+        }
+      }
+
+      JacobiSVD<MatrixXd> psvdRL(ptildeJcMRL, ComputeFullU | ComputeFullV);
+      JacobiSVD<MatrixXd> nsvdRL(ntildeJcMRL, ComputeFullU | ComputeFullV);
+
+      MatrixXd pS_RL = psvdRL.singularValues().asDiagonal();
+      MatrixXd pU_RL = psvdRL.matrixU();
+      MatrixXd nS_RL = nsvdRL.singularValues().asDiagonal();
+      MatrixXd nU_RL = nsvdRL.matrixU();
+
+      Vector6d pw_RL;
+      Vector6d nw_RL;
+
+      Vector6d w_RL;
+
+      double pnorm_RL = (pS_RL*pU_RL*cal_dVMfull).norm();
+      double nnorm_RL = (nS_RL*nU_RL*cal_dVMfull).norm();
+
+      for(i=0; i<6; i++){
+        pw_RL(i) = abs(cal_dVMfull(i))/pnorm_RL;
+        nw_RL(i) = abs(cal_dVMfull(i))/nnorm_RL;
+
+        w_RL(i) = pw_RL(i)/(pw_RL(i)+nw_RL(i));
+      }
+
+      // for(i=0; i<6; i++)
+      //   W_RL(i) = 1/(S_RL*U_RL.col(i)).norm();
+
+      MatrixXd JcMLL = io->constraintModel.cal_JcM.block(0,0,6,6);
+      MatrixXd pL_LL = MatrixXd::Zero(6,6);
+      MatrixXd ptildeJcMLL = MatrixXd::Zero(6,6);
+      MatrixXd nL_LL = MatrixXd::Zero(6,6);
+      MatrixXd ntildeJcMLL = MatrixXd::Zero(6,6);
+
+      for(i=0; i<6; i++){
+        for(j=0; j<6; j++){
+          if(signbit(JcMLL(i,j))*pGamma(i) < 0)
+            pL_LL(i,j) = pMinus(j);
+          else
+            pL_LL(i,j) = pPlus(j);
+
+          if(signbit(JcMLL(i,j))*nGamma(i) < 0)
+            nL_LL(i,j) = pMinus(j);
+          else
+            nL_LL(i,j) = pPlus(j);
+          
+          ptildeJcMLL(i,j) = pL_LL(i,j)*JcMLL(i,j);
+          ntildeJcMLL(i,j) = nL_LL(i,j)*JcMLL(i,j);
+        }
+      }
+
+      JacobiSVD<MatrixXd> psvdLL(ptildeJcMLL, ComputeFullU | ComputeFullV);
+      JacobiSVD<MatrixXd> nsvdLL(ntildeJcMLL, ComputeFullU | ComputeFullV);
+
+      MatrixXd pS_LL = psvdLL.singularValues().asDiagonal();
+      MatrixXd pU_LL = psvdLL.matrixU();
+      MatrixXd nS_LL = nsvdLL.singularValues().asDiagonal();
+      MatrixXd nU_LL = nsvdLL.matrixU();
+
+      Vector6d pw_LL;
+      Vector6d nw_LL;
+
+      Vector6d w_LL;
+
+      double pnorm_LL = (pS_LL*pU_LL*cal_dVMfull).norm();
+      double nnorm_LL = (nS_LL*nU_LL*cal_dVMfull).norm();
+
+      for(i=0; i<6; i++){
+        pw_LL(i) = abs(cal_dVMfull(i))/pnorm_LL;
+        nw_LL(i) = abs(cal_dVMfull(i))/nnorm_LL;
+
+        w_LL(i) = pw_LL(i)/(pw_LL(i)+nw_LL(i));
+      }
+
+      // for(i=0; i<6; i++)
+      //   W_LL(i) = 1/(S_LL*U_LL.col(i)).norm();
+
+      for(i=0; i<6; i++){
+        if(w_RL(i) <= w_LL(i))
+          w_CRB(i) = w_RL(i);
+        else
+          w_CRB(i) = w_LL(i);
+      }
+    }
+  }
+
+
+  ///////////////////////////////////// CAM weight //////////////////////////////////
+  
+  // w_Sum = w_CRB + w_CAM;
+
+  // for(i=0; i<6; i++)
+  //   W(i,i) = w_CRB(i)/w_Sum(i);
+
+  // for(i=0; i<6; i++){
+  //   double wacc;
+  //   wacc = 4*w_CRB(i) -1;
+  //   if(wacc>=1)
+  //     wacc = 1;
+  //   if(wacc<=-1)
+  //     wacc = -1;
+  //   W(i,i) = wacc;
+  // }
+
+  for(i=0; i<6; i++){
+    W(i,i) = w_CRB(i)*2;
+    if(W(i,i) > 1)
+      W(i,i) = 1;
+  }
+  
+
+  
+}
