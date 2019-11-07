@@ -213,7 +213,7 @@ controller:
       # external force
       sequence:
         -
-          twf: 2.1
+          twf: 2.05
           desired value generator:
             external wrench: {name: step}
         -

@@ -42,7 +42,11 @@ void RLS::Ext::angularAccelerationDistribution(RlsDynamics *io, bool partialBase
   cal_dVMRefBar = (E6 - cal_JthM*pInv(INV)*MAP).inverse() * (cal_dVCRef - cal_JthM*(pInv(INV)*(ACC-NL) + N(INV)*jointLimitStop(io, "acc")) - cal_dJthM*io->model->dth);
 
 
-  if(partialBase==true){
+  // if(partialBase==true){
+  //   rootLinkManipulability(io, cal_dVMRefBar, "acc");
+  //   io->fb.cal_dVMfb.head(5) = (W*cal_dVMRefBar).head(5) + (dW*io->model->cal_VM).head(5);
+  // }
+   if(partialBase==true){
     io->fb.cal_dVMfb.head(5) = cal_dVMRefBar.head(5); // for only arm-swing walking
   }
   else{

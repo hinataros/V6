@@ -116,7 +116,7 @@
 # # # walking
 # config: walking/skeletonA4/noSwing.config
 # config: walking/skeletonA4/noSwing_zDamper.config
-# config: walking/skeletonA4/armSwing.config
+config: walking/skeletonA4/armSwing.config
 
 # # # step kick
 # config: stepKick/skeletonA4/noSwing.config
@@ -130,7 +130,7 @@
 
 
 # # # auto compliance
-config: autoCompliance/skeletonA4/main.config
+# config: autoCompliance/skeletonA4/main.config
 
 
 

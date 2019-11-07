@@ -93,9 +93,9 @@ string RLS::GpMaker::makeDashTimes()
   dashtime_set =
     "set x2tics (";
 
-  for(i=0; i<dashNum-1; i++){
+  for(i=0; i<dashNum; i++){
     dashtime_set += "\"\""+ to_string(tdash[i]-tstart);
-    if(i<dashNum-2)
+    if(i<dashNum-1)
       dashtime_set += ",";
     else
       dashtime_set += ")\n";
