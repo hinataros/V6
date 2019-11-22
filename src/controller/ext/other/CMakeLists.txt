@@ -13,6 +13,7 @@ set(srcs
   dampingDistribution.cpp
   baseOfSupport.cpp
   constraintCheck.cpp
+  nearPoint.cpp
   systemAngularMomentumLimitation.cpp
   )
 

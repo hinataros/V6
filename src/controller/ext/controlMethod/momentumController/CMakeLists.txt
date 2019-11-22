@@ -12,12 +12,14 @@ set(srcs
   vrp_MobilityCompensation.cpp
   vrp_FrictionDistribution.cpp
   vrp_FrictionDistribution_zDamper.cpp
+  vrp_FrictionDistribution_zRNS.cpp
   CRB_AM.cpp
   SAM_Damper.cpp
   SAM_RNS.cpp
   SAM_MobilityCompensation.cpp
   SAM_FrictionDistribution.cpp
   SAM_FrictionDistribution_zDamper.cpp
+  SAM_FrictionDistribution_zRNS.cpp
   testMomentumController.cpp
   )
 

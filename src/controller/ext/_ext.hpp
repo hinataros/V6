@@ -65,12 +65,14 @@ namespace RLS{
     void vrp_MobilityCompensation(RlsDynamics*);
     void vrp_FrictionDistribution(RlsDynamics*);
     void vrp_FrictionDistribution_zDamper(RlsDynamics*);
+    void vrp_FrictionDistribution_zRNS(RlsDynamics*);
     void CRB_AM(RlsDynamics*);
     void SAM_Damper(RlsDynamics*);
     void SAM_RNS(RlsDynamics*);
     void SAM_MobilityCompensation(RlsDynamics*);
     void SAM_FrictionDistribution(RlsDynamics*);
     void SAM_FrictionDistribution_zDamper(RlsDynamics*);
+    void SAM_FrictionDistribution_zRNS(RlsDynamics*);
 
     // force controller
     void testForceController(RlsDynamics*);
@@ -143,7 +145,7 @@ namespace RLS{
     // ******************************
     void baseOfSupport(RlsDynamics*);
     bool floating;
-    polygon Foot[2], BoS;
+    polygon Foot[2], BoS, BoSPre;
     
 
     // other function
@@ -159,6 +161,7 @@ namespace RLS{
     void rootLinkManipulability(RlsDynamics*, Vector6d, string);
     void systemAngularMomentumLimitation(RlsDynamics*);
     void constraintCheck(RlsDynamics*);
+    Vector2d nearPoint(Vector2d, polygon);
     
     void initialize(RlsDynamics*);
     void reset(RlsDynamics*, const double&);

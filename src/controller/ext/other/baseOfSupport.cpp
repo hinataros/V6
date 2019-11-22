@@ -37,16 +37,8 @@ void RLS::Ext::baseOfSupport(RlsDynamics *io)
   if(io->constraintModel.info.constraint.c.all != 0){
     floating = false;
 
-    if(io->constraintModel.info.constraint.c.controlNode[0] == 6){
-      BoS = Foot[0];
-    }
-
-    if(io->constraintModel.info.constraint.c.controlNode[1] == 6){
-      BoS = Foot[1];
-    }
-
     if(io->constraintModel.info.constraint.c.all == 12){
-      polygon all;
+      polygon all, temp;
 
       bg::exterior_ring(all) = boost::assign::list_of<point>
         (pointF[0][0](0), pointF[0][0](1))
@@ -60,9 +52,18 @@ void RLS::Ext::baseOfSupport(RlsDynamics *io)
         (pointF[0][0](0), pointF[0][0](1))
         ;
 
-      bg::convex_hull(all, BoS);
+      bg::convex_hull(all, temp);
+
+      BoS = temp;
 
     }
+    else if(io->constraintModel.info.constraint.c.controlNode[0] == 6){
+      BoS = Foot[0];
+    }
+    else if(io->constraintModel.info.constraint.c.controlNode[1] == 6){
+      BoS = Foot[1];
+    }
+
     
   }
   else{

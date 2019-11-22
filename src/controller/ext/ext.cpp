@@ -22,6 +22,7 @@ void RLS::Ext::initialize(RlsDynamics *io)
   io->ext_momentumController_map["vrp_MobilityCompensation"] = &RLS::Ext::vrp_MobilityCompensation;
   io->ext_momentumController_map["vrp_FrictionDistribution"] = &RLS::Ext::vrp_FrictionDistribution;
   io->ext_momentumController_map["vrp_FrictionDistribution_zDamper"] = &RLS::Ext::vrp_FrictionDistribution_zDamper;
+  io->ext_momentumController_map["vrp_FrictionDistribution_zRNS"] = &RLS::Ext::vrp_FrictionDistribution_zRNS;
 
   // ext motion
   // ****************************************************************
@@ -173,7 +174,7 @@ void RLS::Ext::every(RlsDynamics *io, const double &t)
       dthMin(i) = -5.4;
   }
 
-  constraintCheck(io);
+  // constraintCheck(io);
   baseOfSupport(io);
 
   // rootLinkManipulability(io);

@@ -21,16 +21,12 @@ void RLS::Ext::systemAngularMomentumLimitation(RlsDynamics *io)
 
   // // ///////////////////////////////////////////////////
 
-  Vector2d rcopRef = rcmpRef + DeltaCMP;
+  Vector2d rpRef = rcmpRef + DeltaCMP;
 
 
-  point CMPRef(rcmpRef(0), rcmpRef(1));
-  point CoPRef(rcopRef(0), rcopRef(1));
-  point CoPCur(io->model->rp(0), io->model->rp(1));
+  point CoPRef(rpRef(0), rpRef(1));
 
-  bool CMPIn = bg::intersects(CMPRef, BoS);
   bool CoPIn = bg::intersects(CoPRef, BoS);
-  bool EMSTOP = bg::disjoint(CoPCur, BoS);
 
   int pNum = bg::num_points(BoS);
 
@@ -38,79 +34,26 @@ void RLS::Ext::systemAngularMomentumLimitation(RlsDynamics *io)
 
   if(!CoPIn){
     Vector2d rpLimit;
-    double d;
 
-    Vector2d PointA, PointB;
-
-    int nearCount = 0;
-    int nearID;
-    Vector2d nearPoint[2];
-
-    d = bg::distance(CoPRef, BoS);
-      
-    for(int k=0; k<pNum-1; k++){
-
-      PointA <<
-        bg::get<0>(BoS.outer()[k]),
-        bg::get<1>(BoS.outer()[k]);
-
-      PointB <<
-        bg::get<0>(BoS.outer()[k+1]),
-        bg::get<1>(BoS.outer()[k+1]);
-
-      bg::model::linestring<point> sideEdge = boost::assign::list_of<point>(PointA(0), PointA(1))(PointB(0), PointB(1));
-
-      if(abs(d - bg::distance(CoPRef, sideEdge)) <= 1.0e-4){
-        nearID = k;
-        nearCount++;
+    if(pNum == 0)
+      BoS = BoSPre;
+    
+    if((io->constraintModel.info.constraint.c.all == 12 && ((io->model->cal_V.segment(3,3)).norm() >= 1.0 || (io->model->cal_V.segment(9,3)).norm() >= 1.0) ) ||
+       (io->constraintModel.info.constraint.c.all == 6 && io->constraintModel.info.constraint.c.controlNode[0] == 6 && (io->model->cal_V.segment(3,3)).norm() >= 1.0) ||
+       (io->constraintModel.info.constraint.c.all == 6 && io->constraintModel.info.constraint.c.controlNode[1] == 6 && (io->model->cal_V.segment(9,3)).norm() >= 1.0)
+       )
+      {
+        rpLimit <<
+          bg::get<0>(bg::return_centroid<point>(BoS)),
+          bg::get<1>(bg::return_centroid<point>(BoS));
       }
-    }
-    if(nearCount == 1){
-      nearPoint[0] <<
-        bg::get<0>(BoS.outer()[nearID]),
-        bg::get<1>(BoS.outer()[nearID]);
-
-      nearPoint[1] <<
-        bg::get<0>(BoS.outer()[nearID+1]),
-        bg::get<1>(BoS.outer()[nearID+1]);
-
-      Vector2d nearVec = nearPoint[1] - nearPoint[0];
-      double s = sqrt( (pow((nearPoint[0] - rcopRef).norm(), 2) - pow(d, 2)) / pow(nearVec.norm(), 2) );
-
-      rpLimit = nearPoint[0] + s*nearVec;
-    }
-      
-    else if(nearCount == 2){
-      if(nearID == pNum-2){
-        point end(bg::get<0>(BoS.outer()[0]), bg::get<1>(BoS.outer()[0]));
-        if(abs(d - bg::distance(CoPRef, end)) <= 1.0e-4){
-          nearID = 0;
-        }
-      }
-
-      rpLimit <<
-        bg::get<0>(BoS.outer()[nearID]),
-        bg::get<1>(BoS.outer()[nearID]);
-
-    }
-
     else{
-      cout << "error" << endl;
+      rpLimit = nearPoint(rpRef, BoS);
     }
-
-    if(EMSTOP){
-      // rpLimit <<
-      //   bg::get<0>(bg::return_centroid<point>(BoS)),
-      //   bg::get<1>(bg::return_centroid<point>(BoS));
-      // rpLimit = rpLimit + (rpLimit - io->model->rp);
-    }
+    
+    BoSPre = BoS;
 
     io->dlCRef.head(2) = - io->model->M * g * S2X * (rcmpRef - rpLimit);
 
   }
-
-  bg::clear(BoS);
-  bg::clear(Foot[0]);
-  bg::clear(Foot[1]);
-
 }
